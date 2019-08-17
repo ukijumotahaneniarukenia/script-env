@@ -72,12 +72,12 @@ docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
 
 ## dockerコンテナに潜る
 
+rootユーザーで入る。
 ```
 [oracle@centos Rstudio]$ docker ps -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                    NAMES
 6b00b3a71130        centos_rstudio2     "/sbin/init"        14 minutes ago      Up 14 minutes       0.0.0.0:8787->8787/tcp   rstudio
-[oracle@centos Rstudio]$ docker exec --user rstudio -it rstudio bash
-[rstudio@6b00b3a71130 /]$   
+[oracle@centos Rstudio]$ docker exec -it rstudio bash
 ```
 
 ## バージョン情報

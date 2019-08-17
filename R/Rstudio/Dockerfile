@@ -91,4 +91,7 @@ echo alias pip="/usr/local/bin/pip" >> ~/.bashrc
 #Rstudioサービスの提供ポートを外部アクセスようにオープンしておく
 EXPOSE 8787
 
+#コンテナログイン時のwdを設定
+WORKDIR /home/rstudio
+
 CMD ["/sbin/init"]
