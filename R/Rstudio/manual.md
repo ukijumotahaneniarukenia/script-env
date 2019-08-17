@@ -1,5 +1,7 @@
 # 事後準備
 
+[最新版Rstudio](https://www.rstudio.com/products/rstudio/download/preview/)
+
 やっぱRstudioインストールしにくいから、一度removeして再インストールした。
 ```
 [rstudio@6b00b3a71130 ~]$ sudo yum remove -y R
@@ -7,7 +9,7 @@
 [rstudio@6b00b3a71130 ~]$ sudo yum install -y R
 [rstudio@6b00b3a71130 /]$ cd ~
 [rstudio@6b00b3a71130 ~]$ ls
-[rstudio@6b00b3a71130 ~]$ sudo yum install -y --nogpgcheck https://download2.rstudio.org/rstudio-server-rhel-1.0.44-x86_64.rpm
+[rstudio@6b00b3a71130 ~]$ sudo yum install -y --nogpgcheck https://s3.amazonaws.com/rstudio-ide-build/server/centos6/x86_64/rstudio-server-rhel-1.2.1568-x86_64.rpm
 [rstudio@6b00b3a71130 ~]$ sudo systemctl status rstudio-server
 ● rstudio-server.service - RStudio Server
    Loaded: loaded (/etc/systemd/system/rstudio-server.service; enabled; vendor preset: disabled)
@@ -22,6 +24,17 @@
  8月 17 02:46:33 6b00b3a71130 systemd[1]: Started RStudio Server.
 ```
 
+# ブラウザから起動確認
+
+```
+http://192.168.1.109:8787/
+```
+
+![](./1.png)
+![](./2.png)
+![](./3.png)
+![](./4.png)
+
 # 環境構築
 
 ## DockerfileよりRstudioイメージ作成
@@ -30,17 +43,10 @@
 time docker build -t centos_rstudio2 . | tee log
 ```
 
-結果
 ```
-Successfully built 541f59054560
-Successfully tagged centos_rstudio2:latest
-
-real	15m13.861s
-user	0m0.313s
-sys	0m0.366s
-[oracle@centos Rscript]$ docker images | grep -B 1 centos_rstudio2
+[oracle@centos Rstudio]$ docker images
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-centos_rstudio2     latest              541f59054560        8 minutes ago       5.14GB
+centos_rstudio2     latest              8dba8b78305e        26 minutes ago      5.81GB
 ```
 
 ## dockerコンテナ作成
