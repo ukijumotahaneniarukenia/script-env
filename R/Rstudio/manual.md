@@ -4,24 +4,36 @@
 
 やっぱRstudioインストールしにくいから、一度removeして再インストールした。
 ```
-[rstudio@6b00b3a71130 ~]$ sudo yum remove -y R
-[rstudio@6b00b3a71130 ~]$ sudo yum remove -y rstudio-server-1.0.44-1.x86_64
-[rstudio@6b00b3a71130 ~]$ sudo yum install -y R
-[rstudio@6b00b3a71130 /]$ cd ~
-[rstudio@6b00b3a71130 ~]$ ls
-[rstudio@6b00b3a71130 ~]$ sudo yum install -y --nogpgcheck https://s3.amazonaws.com/rstudio-ide-build/server/centos6/x86_64/rstudio-server-rhel-1.2.1568-x86_64.rpm
-[rstudio@6b00b3a71130 ~]$ sudo systemctl status rstudio-server
+[oracle@centos shiny]$ docker exec -it rstudio bash
+[root@1be20fb70f07 rstudio]# systemctl status rstudio-server                                                                                                                                                      
+● rstudio-server.service - SYSV: RStudio server provides a web interface to R
+   Loaded: loaded (/etc/rc.d/init.d/rstudio-server; bad; vendor preset: disabled)
+   Active: failed (Result: exit-code) since 土 2019-08-17 14:32:21 JST; 28s ago
+     Docs: man:systemd-sysv-generator(8)
+  Process: 109 ExecStart=/etc/rc.d/init.d/rstudio-server start (code=exited, status=1/FAILURE)
+
+ 8月 17 14:32:21 1be20fb70f07 systemd[1]: Starting SYSV: RStudio server provides a web interface to R...
+ 8月 17 14:32:21 1be20fb70f07 rstudio-server[109]: /etc/rc.d/init.d/rstudio-server: line 8: /etc/rc.d/init.d/functions: No such file or directory
+ 8月 17 14:32:21 1be20fb70f07 systemd[1]: rstudio-server.service: control process exited, code=exited status=1
+ 8月 17 14:32:21 1be20fb70f07 systemd[1]: Failed to start SYSV: RStudio server provides a web interface to R.
+ 8月 17 14:32:21 1be20fb70f07 systemd[1]: Unit rstudio-server.service entered failed state.
+ 8月 17 14:32:21 1be20fb70f07 systemd[1]: rstudio-server.service failed.
+[root@1be20fb70f07 rstudio]# sudo yum remove -y R
+[root@1be20fb70f07 rstudio]# sudo yum remove -y rstudio-server-1.0.44-1.x86_64
+[root@1be20fb70f07 rstudio]# sudo yum install -y R
+[root@1be20fb70f07 rstudio]# sudo yum install -y --nogpgcheck https://s3.amazonaws.com/rstudio-ide-build/server/centos6/x86_64/rstudio-server-rhel-1.2.1568-x86_64.rpm
+[root@1be20fb70f07 rstudio]# systemctl status rstudio-server                                                                                                          
 ● rstudio-server.service - RStudio Server
    Loaded: loaded (/etc/systemd/system/rstudio-server.service; enabled; vendor preset: disabled)
-   Active: active (running) since 土 2019-08-17 02:46:33 JST; 37s ago
-  Process: 1003 ExecStart=/usr/lib/rstudio-server/bin/rserver (code=exited, status=0/SUCCESS)
- Main PID: 1004 (rserver)
-   CGroup: /docker/6b00b3a71130236428090d4e57678a62b2f6733eb9f37830872ab6c9158cdafe/system.slice/rstudio-server.service
-           └─1004 /usr/lib/rstudio-server/bin/rserver
-           ‣ 1004 /usr/lib/rstudio-server/bin/rserver
+   Active: active (running) since 土 2019-08-17 14:35:38 JST; 31s ago
+  Process: 753 ExecStart=/usr/lib/rstudio-server/bin/rserver (code=exited, status=0/SUCCESS)
+ Main PID: 754 (rserver)
+   CGroup: /docker/1be20fb70f0714745135cb58020728be51ed462703ff1ad3ec936c239e74653e/system.slice/rstudio-server.service
+           └─754 /usr/lib/rstudio-server/bin/rserver
+           ‣ 754 /usr/lib/rstudio-server/bin/rserver
 
- 8月 17 02:46:33 6b00b3a71130 systemd[1]: Starting RStudio Server...
- 8月 17 02:46:33 6b00b3a71130 systemd[1]: Started RStudio Server.
+ 8月 17 14:35:38 1be20fb70f07 systemd[1]: Starting RStudio Server...
+ 8月 17 14:35:38 1be20fb70f07 systemd[1]: Started RStudio Server.
 ```
 
 # ブラウザから起動確認
@@ -34,6 +46,14 @@ http://192.168.1.109:8787/
 ![](./2.png)
 ![](./3.png)
 ![](./4.png)
+
+# Rstudioの背景色とか
+
+![](./5.png)
+![](./6.png)
+![](./7.png)
+![](./8.png)
+![](./9.png)
 
 # 環境構築
 
