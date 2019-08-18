@@ -10,6 +10,9 @@ RUN echo 'root_pwd' | passwd --stdin root
 RUN echo '%docker ALL=(ALL)       ALL' >> /etc/sudoers
 RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
+RUN sync && sync && sync
+#Failed to get D-Bus connection: Operation not permittedならない→最後rootユーザーに戻すと回避できる
+
 #実行ユーザをrstudioに変更
 USER rstudio
 
@@ -22,7 +25,6 @@ RUN sudo yum install -y --nogpgcheck https://s3.amazonaws.com/rstudio-ide-build/
 
 #諸々インストール
 #ネットワーク系は必須
-
 RUN echo pandoc nkf iputils net-tools iproute vim tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc | tr ' ' '\n' | xargs -I@ sudo yum install -y @
 
 #自身のvim環境をクローン
@@ -127,6 +129,9 @@ echo alias pip="/usr/local/bin/pip" >> ~/.bashrc
 EXPOSE 8787
 
 #コンテナログイン時のwdを設定
-WORKDIR /home/rstudio
+#WORKDIR ~
+
+#最後はrootに戻す
+USER root
 
 CMD ["/sbin/init"]

@@ -1,0 +1,112 @@
+Sending build context to Docker daemon  1.426MB
+Step 1/36 : FROM centos:latest
+ ---> 9f38484d220f
+Step 2/36 : RUN yum install -y sudo
+ ---> Using cache
+ ---> 18554a8e6519
+Step 3/36 : RUN groupadd -g 1001 serena
+ ---> Using cache
+ ---> a4b209cd2d81
+Step 4/36 : RUN useradd -m -g serena -u 1001 rstudio
+ ---> Using cache
+ ---> a25f16bfdfea
+Step 5/36 : RUN echo 'rstudio_pwd' | passwd --stdin rstudio
+ ---> Using cache
+ ---> 06c2cf876a47
+Step 6/36 : RUN echo 'root_pwd' | passwd --stdin root
+ ---> Using cache
+ ---> c3d2c975f5e6
+Step 7/36 : RUN echo '%docker ALL=(ALL)       ALL' >> /etc/sudoers
+ ---> Using cache
+ ---> 6d69901f4ed8
+Step 8/36 : RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Using cache
+ ---> e9ded548f815
+Step 9/36 : RUN sync && sync && sync
+ ---> Using cache
+ ---> f184a059664d
+Step 10/36 : USER rstudio
+ ---> Using cache
+ ---> a0ff7b1babb6
+Step 11/36 : RUN sudo yum install -y epel-release
+ ---> Using cache
+ ---> 22477ef73a8a
+Step 12/36 : RUN sudo yum install -y R
+ ---> Using cache
+ ---> ea05e6008364
+Step 13/36 : RUN sudo yum install -y --nogpgcheck https://s3.amazonaws.com/rstudio-ide-build/server/centos6/x86_64/rstudio-server-rhel-1.2.1568-x86_64.rpm
+ ---> Using cache
+ ---> a6e927e74332
+Step 14/36 : RUN echo pandoc nkf iputils net-tools iproute vim tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc | tr ' ' '\n' | xargs -I@ sudo yum install -y @
+ ---> Using cache
+ ---> 75282b4fd5b4
+Step 15/36 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> Using cache
+ ---> 24c4fd4a8e70
+Step 16/36 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv .vimrc .. && rm -rf ~/tmp
+ ---> Using cache
+ ---> c933041ec960
+Step 17/36 : RUN echo gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel | tr ' ' '\n' | xargs -I@ sudo yum install -y @ && git clone https://github.com/vim/vim.git ~/vim && cd ~/vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && sudo make -j12 distclean && sudo make -j12 && sudo make -j12 install && mkdir -p ~/.vim/bundle && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
+ ---> Using cache
+ ---> 8ec735580439
+Step 18/36 : USER root
+ ---> Using cache
+ ---> 40a0794815e2
+Step 19/36 : RUN git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && cd Open-usp-Tukubai && make -j12 install
+ ---> Using cache
+ ---> 50a1f5c9c791
+Step 20/36 : RUN curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && tar -zxvf gawk-5.0.0.tar.gz && cd gawk-5.0.0 && ./configure && make -j12 && make -j12 install
+ ---> Using cache
+ ---> 13cccab9b597
+Step 21/36 : RUN curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && tar -zxvf bash-5.0.tar.gz && cd bash-5.0 && ./configure && make -j12 && make -j12 install
+ ---> Using cache
+ ---> e253cf19ff8c
+Step 22/36 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> Using cache
+ ---> 59c7db13c6c5
+Step 23/36 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv .vimrc .. && rm -rf ~/tmp
+ ---> Using cache
+ ---> 2a114b111c11
+Step 24/36 : RUN echo gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel | tr ' ' '\n' | xargs -I@ yum install -y @ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi && mkdir -p ~/.vim/bundle && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
+ ---> Using cache
+ ---> ea172bc83797
+Step 25/36 : RUN yum install -y python36 python36-devel python36-libs && python3 -m ensurepip && pip3 install --upgrade pip
+ ---> Using cache
+ ---> d832dc25247d
+Step 26/36 : RUN yum -y reinstall glibc-common
+ ---> Using cache
+ ---> 40d52810ae05
+Step 27/36 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
+ ---> Using cache
+ ---> 3518c73fea5d
+Step 28/36 : ENV LANG=ja_JP.UTF-8
+ ---> Using cache
+ ---> 48b54c066136
+Step 29/36 : RUN rm -f /etc/localtime
+ ---> Using cache
+ ---> d87bbd463102
+Step 30/36 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+ ---> Using cache
+ ---> 92b523cc27d1
+Step 31/36 : RUN echo alias python="/usr/bin/python3.6" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip" >> ~/.bashrc
+ ---> Using cache
+ ---> 246be774a2ec
+Step 32/36 : USER rstudio
+ ---> Using cache
+ ---> cc90fa56fb78
+Step 33/36 : RUN echo alias python="/usr/bin/python3.6" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip" >> ~/.bashrc
+ ---> Using cache
+ ---> 21239d967847
+Step 34/36 : EXPOSE 8787
+ ---> Using cache
+ ---> 630d39e93526
+Step 35/36 : USER root
+ ---> Running in 5fc327dfc17e
+Removing intermediate container 5fc327dfc17e
+ ---> cd02fea3f01e
+Step 36/36 : CMD ["/sbin/init"]
+ ---> Running in 4f61f3b5f94d
+Removing intermediate container 4f61f3b5f94d
+ ---> d9db0bebbf3a
+Successfully built d9db0bebbf3a
+Successfully tagged centos_rstudio:latest
