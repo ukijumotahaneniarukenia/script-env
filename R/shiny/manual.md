@@ -30,20 +30,15 @@ docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
 # dockerコンテナ潜入
 rootユーザーないし、shinyユーザー。
 ```
-[oracle@centos shiny]$ docker ps -a
-CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                    NAMES
-2dd6f7f0b03e        centos_shiny        "/sbin/init"        7 minutes ago       Up 7 minutes        0.0.0.0:3838->3838/tcp   shiny
 [oracle@centos shiny]$ docker exec --user root -it shiny bash
-[root@2dd6f7f0b03e shiny-server]# su shiny
-sh-4.2$ whoami
-shiny
-sh-4.2$ exit
-[root@2dd6f7f0b03e shiny-server]# exit
+[root@d2c30f3298cd /srv/shiny-server]$su shiny
+[shiny@d2c30f3298cd /srv/shiny-server]$exit
+[root@d2c30f3298cd /srv/shiny-server]$exit
 [oracle@centos shiny]$ docker exec --user shiny -it shiny bash
-[shiny@2dd6f7f0b03e shiny-server]$ su root
+[shiny@d2c30f3298cd /srv/shiny-server]$su root
 Password: 
-[root@2dd6f7f0b03e shiny-server]# exit
-[shiny@2dd6f7f0b03e shiny-server]$ exit
+[root@d2c30f3298cd /srv/shiny-server]$exit
+[shiny@d2c30f3298cd /srv/shiny-server]$exit
 ```
 
 # shiny-server起動確認
@@ -59,6 +54,14 @@ Password:
 
  8月 17 11:23:33 e5f42d887d44 systemd[1]: Started ShinyServer.
 ```
+
+# ブラウザから起動確認
+
+```
+http://192.168.1.109:3838/
+```
+
+![](./1.png)
 
 # バージョン情報
 ```

@@ -1,69 +1,68 @@
-Sending build context to Docker daemon  216.6kB
-Step 1/34 : FROM centos:latest
+Sending build context to Docker daemon  226.8kB
+Step 1/35 : FROM centos:latest
  ---> 9f38484d220f
-Step 2/34 : RUN yum install -y epel-release
+Step 2/35 : RUN yum install -y epel-release
  ---> Using cache
  ---> a04c3c766881
-Step 3/34 : RUN yum install -y R
+Step 3/35 : RUN yum install -y R
  ---> Using cache
  ---> 0d5cf1570ca6
-Step 4/34 : RUN R -e 'install.packages("rmarkdown",repos="http://cran.ism.ac.jp/" ,dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))' && R -e 'install.packages("shiny",repos="http://cran.ism.ac.jp/" ,dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))'
+Step 4/35 : RUN R -e 'install.packages("rmarkdown",repos="http://cran.ism.ac.jp/" ,dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))' && R -e 'install.packages("shiny",repos="http://cran.ism.ac.jp/" ,dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))'
  ---> Using cache
  ---> 250e4e0bc9dc
-Step 5/34 : RUN yum install -y libcurl-devel openssl-devel libxml2-devel && curl -LO https://download3.rstudio.org/centos6.3/x86_64/shiny-server-1.5.9.923-x86_64.rpm && yum install -y --nogpgcheck shiny-server-1.5.9.923-x86_64.rpm
+Step 5/35 : RUN yum install -y libcurl-devel openssl-devel libxml2-devel && curl -LO https://download3.rstudio.org/centos6.3/x86_64/shiny-server-1.5.9.923-x86_64.rpm && yum install -y --nogpgcheck shiny-server-1.5.9.923-x86_64.rpm
  ---> Using cache
  ---> 191575539b36
-Step 6/34 : RUN yum install -y sudo
+Step 6/35 : RUN yum install -y sudo
  ---> Using cache
  ---> 5eb9e7fe1df6
-Step 7/34 : RUN echo 'shiny_pwd' | passwd --stdin shiny
+Step 7/35 : RUN chsh -s /bin/bash shiny
  ---> Using cache
- ---> 48bb94e6b974
-Step 8/34 : RUN echo 'root_pwd' | passwd --stdin root
+ ---> d2efd3f3446f
+Step 8/35 : RUN echo 'shiny_pwd' | passwd --stdin shiny
  ---> Using cache
- ---> 511326b92ca8
-Step 9/34 : RUN echo 'shiny ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> 0cfb5787cce6
+Step 9/35 : RUN echo 'root_pwd' | passwd --stdin root
  ---> Using cache
- ---> 2d82969995f7
-Step 10/34 : USER shiny
+ ---> 9b813dff724d
+Step 10/35 : RUN echo 'shiny ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
  ---> Using cache
- ---> 82847c7f4f33
-Step 11/34 : RUN echo pandoc nkf iputils net-tools iproute vim tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc | tr ' ' '\n' | xargs -I@ sudo yum install -y @
+ ---> 9e8f97bc8798
+Step 11/35 : USER shiny
  ---> Using cache
- ---> 7206d3067755
-Step 12/34 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> 239b39e05756
+Step 12/35 : RUN echo pandoc nkf iputils net-tools iproute vim tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc | tr ' ' '\n' | xargs -I@ sudo yum install -y @
  ---> Using cache
- ---> d727c620ef6b
-Step 13/34 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv .vimrc .. && rm -rf ~/tmp
+ ---> 2cc8d9f23882
+Step 13/35 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
  ---> Using cache
- ---> 0fafd1a3e4e2
-Step 14/34 : RUN echo gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel | tr ' ' '\n' | xargs -I@ sudo yum install -y @ && git clone https://github.com/vim/vim.git ~/vim && cd ~/vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && sudo make -j12 distclean && sudo make -j12 && sudo make -j12 install && sudo ln -fsr /usr/local/bin/vim /usr/bin/vim && sudo ln -fsr /usr/local/bin/vim /usr/bin/vi && mkdir -p ~/.vim/bundle && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
+ ---> a39d632322c1
+Step 14/35 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
  ---> Using cache
- ---> 54f1d8bccef7
-Step 15/34 : USER root
+ ---> 0d7c54de2333
+Step 15/35 : RUN echo gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel | tr ' ' '\n' | xargs -I@ sudo yum install -y @ && git clone https://github.com/vim/vim.git ~/vim && cd ~/vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && sudo make -j12 distclean && sudo make -j12 && sudo make -j12 install && mkdir -p ~/.vim/bundle && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
  ---> Using cache
- ---> 25566e80ac45
-Step 16/34 : RUN git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && cd Open-usp-Tukubai && make -j12 install
+ ---> eb8213a07e06
+Step 16/35 : USER root
  ---> Using cache
- ---> f5d01cba9810
-Step 17/34 : RUN curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && tar -zxvf gawk-5.0.0.tar.gz && cd gawk-5.0.0 && ./configure && make -j12 && make -j12 install
+ ---> 0d60b3210189
+Step 17/35 : RUN git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && cd Open-usp-Tukubai && make -j12 install
  ---> Using cache
- ---> bf6cc2d64584
-Step 18/34 : RUN curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && tar -zxvf bash-5.0.tar.gz && cd bash-5.0 && ./configure && make -j12 && make -j12 install
+ ---> 253b816bad9e
+Step 18/35 : RUN curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && tar -zxvf gawk-5.0.0.tar.gz && cd gawk-5.0.0 && ./configure && make -j12 && make -j12 install
  ---> Using cache
- ---> b108c7318540
-Step 19/34 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
- ---> Running in 93f026567870
-Cloning into '/root/.vim'...
-Removing intermediate container 93f026567870
- ---> f8a115442ca8
-Step 20/34 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv .vimrc .. && rm -rf ~/tmp
- ---> Running in ca81014dc9d9
-Cloning into '/root/tmp'...
-Removing intermediate container ca81014dc9d9
- ---> f0808baac8bd
-Step 21/34 : RUN echo gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel | tr ' ' '\n' | xargs -I@ yum install -y @ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi && mkdir -p ~/.vim/bundle && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
- ---> Running in 6f34d9f335a6
+ ---> bf8c1b9126ff
+Step 19/35 : RUN curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && tar -zxvf bash-5.0.tar.gz && cd bash-5.0 && ./configure && make -j12 && make -j12 install
+ ---> Using cache
+ ---> fe4040c5dc7a
+Step 20/35 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> Using cache
+ ---> b1e1b5cfc59d
+Step 21/35 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> Using cache
+ ---> 36f18374eb2e
+Step 22/35 : RUN echo gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel | tr ' ' '\n' | xargs -I@ yum install -y @ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make distclean && make && make install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi && mkdir -p ~/.vim/bundle && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
+ ---> Running in 50e5f280155d
 Loaded plugins: fastestmirror, ovl
 Loading mirror speeds from cached hostfile
  * base: ftp-srv2.kddilabs.jp
@@ -526,10 +525,6 @@ If there are problems, cd to the src directory and run make there
 cd src && make distclean
 make[1]: Entering directory `/vim/src'
 cd testdir; make -f Makefile clean
-rm -f auto/config.status auto/config.cache config.log auto/config.log
-rm -f auto/config.h auto/link.log auto/link.sed auto/config.mk
-touch auto/config.h
-cp config.mk.dist auto/config.mk
 make[2]: Entering directory `/vim/src/testdir'
 rm -rf *.out *.failed *.res *.rej *.orig XfakeHOME Xdir1 Xfind
 rm -f opt_test.vim test.log test_result.log messages
@@ -559,6 +554,10 @@ rm -f *.ck
 rm -f core core.* *.old.po *.mo *.pot sjiscorr
 rm -f LINGUAS vim.desktop gvim.desktop tmp_*desktop
 make[2]: Leaving directory `/vim/src/po'
+rm -f auto/config.status auto/config.cache config.log auto/config.log
+rm -f auto/config.h auto/link.log auto/link.sed auto/config.mk
+touch auto/config.h
+cp config.mk.dist auto/config.mk
 rm -f tags
 make[1]: Leaving directory `/vim/src'
 make[1]: Entering directory `/vim/runtime/indent'
@@ -569,10 +568,10 @@ If there are problems, cd to the src directory and run make there
 cd src && make first
 make[1]: Entering directory `/vim/src'
 rm -f auto/config.status auto/config.cache config.log auto/config.log
-cd testdir; make -f Makefile clean
 rm -f auto/config.h auto/link.log auto/link.sed auto/config.mk
 touch auto/config.h
 cp config.mk.dist auto/config.mk
+cd testdir; make -f Makefile clean
 make[2]: Entering directory `/vim/src/testdir'
 rm -rf *.out *.failed *.res *.rej *.orig XfakeHOME Xdir1 Xfind
 rm -f opt_test.vim test.log test_result.log messages
@@ -1055,131 +1054,8 @@ make[2]: Leaving directory `/vim/src'
 make -f Makefile all
 make[2]: Entering directory `/vim/src'
 /bin/sh install-sh -c -d objects
-CC="gcc -std=gnu99 -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm       " srcdir=. sh ./osdef.sh
-creating auto/pathdef.c
-if test -z "/usr/bin/glib-compile-resources"; then touch auto/gui_gtk_gresources.h; else \
-	/usr/bin/glib-compile-resources --target=auto/gui_gtk_gresources.h --sourcedir=../pixmaps --generate --c-name=gui_gtk --manual-register gui_gtk_res.xml; \
-fi
-/usr/bin/glib-compile-resources --target=auto/gui_gtk_gresources.c --sourcedir=../pixmaps --generate --c-name=gui_gtk --manual-register gui_gtk_res.xml
-cd xxd; CC="gcc -std=gnu99" CFLAGS=" -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1" LDFLAGS="-L/usr/local/lib -Wl,--as-needed" \
-	make -f Makefile
-make[3]: Entering directory `/vim/src/xxd'
-gcc -std=gnu99  -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1 -L/usr/local/lib -Wl,--as-needed -DUNIX -o xxd xxd.c
-make[3]: Entering directory `/vim/src/po'
-OLD_PO_FILE_INPUT=yes msgfmt -v -o af.mo af.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o ca.mo ca.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o cs.mo cs.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o da.mo da.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o de.mo de.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o en_GB.mo en_GB.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o eo.mo eo.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o es.mo es.po
 touch objects/.dirstamp
-OLD_PO_FILE_INPUT=yes msgfmt -v -o fi.mo fi.po
-[91m182 translated messages.
-[0m[91m1272 translated messages.
-[0m[91m1412 translated messages.
-[0m[91m1930 translated messages.
-[0mgcc -std=gnu99 -c -I.  -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/gui_gtk_gresources.o auto/gui_gtk_gresources.c
-OLD_PO_FILE_INPUT=yes msgfmt -v -o fr.mo fr.po
-gcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/encoding.o libvterm/src/encoding.c
-gcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/keyboard.o libvterm/src/keyboard.c
-[91m1702 translated messages.
-[0m[91m2010 translated messages.
-[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o ga.mo ga.po
-[91m1963 translated messages.
-[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o it.mo it.po
-[91m2037 translated messages.
-[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o ja.mo ja.po
-gcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/mouse.o libvterm/src/mouse.c
-[91m1940 translated messages.
-[0m[91m2004 translated messages.
-[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o ko.UTF-8.mo ko.UTF-8.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o ko.mo ko.po
-[91m1930 translated messages.
-[0m[91m2003 translated messages.
-[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o lv.mo lv.po
-gcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/parser.o libvterm/src/parser.c
-[91m1869 translated messages.
-[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o nb.mo nb.po
-[91m2014 translated messages.
-[0m[91m1869 translated messages.
-[0mgcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/pen.o libvterm/src/pen.c
-gcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/termscreen.o libvterm/src/termscreen.c
-[91m78 translated messages.
-[0mgcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/state.o libvterm/src/state.c
-[91m1657 translated messages.
-[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o nl.mo nl.po
-gcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/unicode.o libvterm/src/unicode.c
-[91m1202 translated messages[0m[91m.
-[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o no.mo no.po
-[91m1657 translated messages.
-[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o pl.mo pl.po
-gcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/vterm.o libvterm/src/vterm.c
-OLD_PO_FILE_INPUT=yes msgfmt -v -o pt_BR.mo pt_BR.po
-[91m1860 translated messages.
-[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o ru.mo ru.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o sk.mo sk.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o sr.mo sr.po
-[91m1617 translated messages.
-[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o sv.mo sv.po
-[91m1955 translated messages.
-[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o uk.mo uk.po
-[91m1936 translated messages.
-[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o vi.mo vi.po
-[91m1686 translated messages.
-[0m[91m1411 translated messages.
-[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o zh_CN.UTF-8.mo zh_CN.UTF-8.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o zh_CN.mo zh_CN.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o zh_TW.UTF-8.mo zh_TW.UTF-8.po
-[91m1963 translated messages.
-[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o zh_TW.mo zh_TW.po
-[91m1623 translated messages, 3 fuzzy translations.
-[0m[91m1961 translated messages.
-[0m[91m1622 translated messages, 3 fuzzy translations.
-[0m[91m1411 translated messages.
-[0mrm -f cs.cp1250.po
-[91m1411 translated messages.
-[0miconv -f utf-8 -t euc-jp ja.po | \
-	sed -e 's/charset=[uU][tT][fF]-8/charset=euc-jp/' -e 's/# Original translations/# Generated from ja.po, DO NOT EDIT/' > ja.euc-jp.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o ja.sjis.mo ja.sjis.po
-rm -f pl.UTF-8.po
-iconv -f iso-8859-2 -t cp1250 cs.po | \
-	sed -e 's/charset=ISO-8859-2/charset=cp1250/' -e 's/# Original translations/# Generated from cs.po, DO NOT EDIT/' > cs.cp1250.po
-[91m2014 translated messages.
-[0mrm -f pl.cp1250.po
-rm -f ru.cp1251.po
-iconv -f iso-8859-2 -t utf-8 pl.po | \
-	sed -e 's/charset=ISO-8859-2/charset=UTF-8/' -e 's/# Original translations/# Generated from pl.po, DO NOT EDIT/' > pl.UTF-8.po
-iconv -f iso-8859-2 -t cp1250 pl.po | \
-	sed -e 's/charset=ISO-8859-2/charset=cp1250/' -e 's/# Original translations/# Generated from pl.po, DO NOT EDIT/' > pl.cp1250.po
-iconv -f utf-8 -t cp1251 ru.po | \
-	sed -e 's/charset=[uU][tT][fF]-8/charset=cp1251/' -e 's/# Original translations/# Generated from ru.po, DO NOT EDIT/' > ru.cp1251.po
-rm -f sk.cp1250.po
-rm -f uk.cp1251.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o zh_CN.cp936.mo zh_CN.cp936.po
-iconv -f iso-8859-2 -t cp1250 sk.po | \
-	sed -e 's/charset=ISO-8859-2/charset=cp1250/' -e 's/# Original translations/# Generated from sk.po, DO NOT EDIT/' > sk.cp1250.po
-iconv -f utf-8 -t cp1251 uk.po | \
-	sed -e 's/charset=[uU][tT][fF]-8/charset=cp1251/' -e 's/# Original translations/# Generated from uk.po, DO NOT EDIT/' > uk.cp1251.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o cs.cp1250.mo cs.cp1250.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o ja.euc-jp.mo ja.euc-jp.po
-[91m1623 translated messages, 3 fuzzy translations.
-[0m[91m1272 translated messages.
-[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o pl.UTF-8.mo pl.UTF-8.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o pl.cp1250.mo pl.cp1250.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o ru.cp1251.mo ru.cp1251.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o sk.cp1250.mo sk.cp1250.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o uk.cp1251.mo uk.cp1251.po
-[91m1860 translated messages.
-[0m[91m1617 translated messages.
-[0m[91m1860 translated messages.
-[0m[91m2014 translated messages.
-[0m[91m1955 translated messages.
-[0mmsgfmt --desktop -d . --template vim.desktop.in -o tmp_vim.desktop
-[91m1963 translated messages.
-[0mmsgfmt --desktop -d . --template gvim.desktop.in -o tmp_gvim.desktop
-make[3]: Leaving directory `/vim/src/xxd'
+CC="gcc -std=gnu99 -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm       " srcdir=. sh ./osdef.sh
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/arabic.o arabic.c
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/arglist.o arglist.c
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/autocmd.o autocmd.c
@@ -1191,20 +1067,8 @@ gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/in
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/cmdhist.o cmdhist.c
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/crypt.o crypt.c
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/crypt_zip.o crypt_zip.c
-rm -f LINGUAS
-if command -v desktop-file-validate; then desktop-file-validate tmp_vim.desktop; fi
-rm -f LINGUAS
-/usr/bin/desktop-file-validate
-mv tmp_vim.desktop vim.desktop
-if command -v desktop-file-validate; then desktop-file-validate tmp_gvim.desktop; fi
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/debugger.o debugger.c
-/usr/bin/desktop-file-validate
-mv tmp_gvim.desktop gvim.desktop
-make[3]: Leaving directory `/vim/src/po'
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/dict.o dict.c
-make[3]: Entering directory `/vim/src/po'
-make[3]: Nothing to be done for `converted'.
-make[3]: Leaving directory `/vim/src/po'
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/diff.o diff.c
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/digraph.o digraph.c
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/edit.o edit.c
@@ -1230,15 +1094,6 @@ gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/in
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/map.o map.c
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/mark.o mark.c
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/memline.o memline.c
-gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/menu.o menu.c
-gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/misc1.o misc1.c
-gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/misc2.o misc2.c
-gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/move.o move.c
-gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/mbyte.o mbyte.c
-gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/normal.o normal.c
-gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/ops.o ops.c
-gcc -std=gnu99 -c -I.       -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/option.o option.c
-gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/os_unix.o os_unix.c
 [91mmemline.c: In function 'adjust_text_props_for_delete':
 [0m[91mmemline.c:3501:12: warning: 'textlen' may be used uninitialized in this function [-Wmaybe-uninitialized]
      size_t textlen;
@@ -1249,7 +1104,17 @@ gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/in
 [0m[91mmemline.c:3539:6: warning: 'this_props_len' may be used uninitialized in this function [-Wmaybe-uninitialized]
       for (done_this = 0; done_this < this_props_len; done_this += sizeof(textprop_T))
       ^
-[0mgcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/pathdef.o auto/pathdef.c
+[0mgcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/menu.o menu.c
+gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/misc1.o misc1.c
+gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/misc2.o misc2.c
+gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/move.o move.c
+gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/mbyte.o mbyte.c
+gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/normal.o normal.c
+gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/ops.o ops.c
+gcc -std=gnu99 -c -I.       -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/option.o option.c
+gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/os_unix.o os_unix.c
+creating auto/pathdef.c
+gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/pathdef.o auto/pathdef.c
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/popupmnu.o popupmnu.c
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/popupwin.o popupwin.c
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/profiler.o profiler.c
@@ -1278,9 +1143,23 @@ gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/in
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/window.o window.c
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/gui.o gui.c
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/gui_gtk.o gui_gtk.c
+if test -z "/usr/bin/glib-compile-resources"; then touch auto/gui_gtk_gresources.h; else \
+	/usr/bin/glib-compile-resources --target=auto/gui_gtk_gresources.h --sourcedir=../pixmaps --generate --c-name=gui_gtk --manual-register gui_gtk_res.xml; \
+fi
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/gui_gtk_x11.o gui_gtk_x11.c
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/gui_gtk_f.o gui_gtk_f.c
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/gui_beval.o gui_beval.c
+/usr/bin/glib-compile-resources --target=auto/gui_gtk_gresources.c --sourcedir=../pixmaps --generate --c-name=gui_gtk --manual-register gui_gtk_res.xml
+gcc -std=gnu99 -c -I.  -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/gui_gtk_gresources.o auto/gui_gtk_gresources.c
+gcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/encoding.o libvterm/src/encoding.c
+gcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/keyboard.o libvterm/src/keyboard.c
+gcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/mouse.o libvterm/src/mouse.c
+gcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/parser.o libvterm/src/parser.c
+gcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/pen.o libvterm/src/pen.c
+gcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/termscreen.o libvterm/src/termscreen.c
+gcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/state.o libvterm/src/state.c
+gcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/unicode.o libvterm/src/unicode.c
+gcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/vterm.o libvterm/src/vterm.c
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/netbeans.o netbeans.c
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/channel.o channel.c
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/xdiffi.o xdiff/xdiffi.c
@@ -1298,6 +1177,120 @@ gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/in
 link.sh: $LINK_AS_NEEDED set to 'yes': invoking linker directly.
   gcc -std=gnu99   -L/usr/local/lib -Wl,--as-needed 	-o vim objects/arabic.o objects/arglist.o objects/autocmd.o objects/beval.o objects/buffer.o objects/change.o objects/blob.o objects/blowfish.o objects/cmdhist.o objects/crypt.o objects/crypt_zip.o objects/debugger.o objects/dict.o objects/diff.o objects/digraph.o objects/edit.o objects/eval.o objects/evalfunc.o objects/ex_cmds.o objects/ex_cmds2.o objects/ex_docmd.o objects/ex_eval.o objects/ex_getln.o objects/fileio.o objects/findfile.o objects/fold.o objects/getchar.o objects/hardcopy.o objects/hashtab.o objects/highlight.o  objects/if_cscope.o objects/if_xcmdsrv.o objects/indent.o objects/insexpand.o objects/list.o objects/map.o objects/mark.o objects/memline.o objects/menu.o objects/misc1.o objects/misc2.o objects/move.o objects/mbyte.o objects/normal.o objects/ops.o objects/option.o objects/os_unix.o objects/pathdef.o objects/popupmnu.o objects/popupwin.o objects/profiler.o objects/pty.o objects/quickfix.o objects/regexp.o objects/screen.o objects/search.o objects/session.o objects/sha256.o objects/sign.o objects/sound.o objects/spell.o objects/spellfile.o objects/syntax.o objects/tag.o objects/term.o objects/terminal.o objects/testing.o objects/textprop.o objects/ui.o objects/undo.o objects/usercmd.o objects/userfunc.o objects/version.o objects/viminfo.o objects/window.o objects/gui.o objects/gui_gtk.o objects/gui_gtk_x11.o objects/gui_gtk_f.o objects/gui_beval.o objects/gui_gtk_gresources.o objects/encoding.o objects/keyboard.o objects/mouse.o objects/parser.o objects/pen.o objects/termscreen.o objects/state.o objects/unicode.o objects/vterm.o         objects/netbeans.o objects/channel.o objects/xdiffi.o objects/xemit.o objects/xprepare.o objects/xutils.o objects/xhistogram.o objects/xpatience.o  objects/charset.o objects/json.o objects/main.o objects/memfile.o objects/message.o   -lgtk-x11-2.0 -lgdk-x11-2.0 -latk-1.0 -lgio-2.0 -lpangoft2-1.0 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lcairo -lpango-1.0 -lfontconfig -lgobject-2.0 -lglib-2.0 -lfreetype   -lSM -lICE -lXt -lX11 -lSM -lICE  -lm -ltinfo -lnsl  -lselinux -ldl           
 link.sh: Linked fine
+cd xxd; CC="gcc -std=gnu99" CFLAGS=" -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1" LDFLAGS="-L/usr/local/lib -Wl,--as-needed" \
+	make -f Makefile
+make[3]: Entering directory `/vim/src/xxd'
+gcc -std=gnu99  -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1 -L/usr/local/lib -Wl,--as-needed -DUNIX -o xxd xxd.c
+make[3]: Leaving directory `/vim/src/xxd'
+make[3]: Entering directory `/vim/src/po'
+OLD_PO_FILE_INPUT=yes msgfmt -v -o af.mo af.po
+[91m1412 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o ca.mo ca.po
+[91m1930 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o cs.mo cs.po
+[91m1272 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o da.mo da.po
+[91m1963 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o de.mo de.po
+[91m2010 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o en_GB.mo en_GB.po
+[91m182 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o eo.mo eo.po
+[91m2037 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o es.mo es.po
+[91m1702 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o fi.mo fi.po
+[91m1940 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o fr.mo fr.po
+[91m2003 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o ga.mo ga.po
+[91m1930 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o it.mo it.po
+[91m2004 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o ja.mo ja.po
+[91m2014 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o ko.UTF-8.mo ko.UTF-8.po
+[91m1869 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o ko.mo ko.po
+[91m1869 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o lv.mo lv.po
+[91m78 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o nb.mo nb.po
+[91m1657 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o nl.mo nl.po
+[91m1202 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o no.mo no.po
+[91m1657 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o pl.mo pl.po
+[91m1860 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o pt_BR.mo pt_BR.po
+[91m1936 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o ru.mo ru.po
+[91m1955 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o sk.mo sk.po
+[91m1617 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o sr.mo sr.po
+[91m1961 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o sv.mo sv.po
+[91m1686 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o uk.mo uk.po
+[91m1963 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o vi.mo vi.po
+[91m1411 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o zh_CN.UTF-8.mo zh_CN.UTF-8.po
+[91m1623 translated messages, 3 fuzzy translations.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o zh_CN.mo zh_CN.po
+[91m1622 translated messages, 3 fuzzy translations.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o zh_TW.UTF-8.mo zh_TW.UTF-8.po
+[91m1411 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o zh_TW.mo zh_TW.po
+[91m1411 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o cs.cp1250.mo cs.cp1250.po
+[91m1272 translated messages.
+[0miconv -f utf-8 -t euc-jp ja.po | \
+	sed -e 's/charset=[uU][tT][fF]-8/charset=euc-jp/' -e 's/# Original translations/# Generated from ja.po, DO NOT EDIT/' > ja.euc-jp.po
+OLD_PO_FILE_INPUT=yes msgfmt -v -o ja.euc-jp.mo ja.euc-jp.po
+[91m2014 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o ja.sjis.mo ja.sjis.po
+[91m2014 translated messages.
+[0mrm -f pl.UTF-8.po
+iconv -f iso-8859-2 -t utf-8 pl.po | \
+	sed -e 's/charset=ISO-8859-2/charset=UTF-8/' -e 's/# Original translations/# Generated from pl.po, DO NOT EDIT/' > pl.UTF-8.po
+OLD_PO_FILE_INPUT=yes msgfmt -v -o pl.UTF-8.mo pl.UTF-8.po
+[91m1860 translated messages.
+[0mrm -f pl.cp1250.po
+iconv -f iso-8859-2 -t cp1250 pl.po | \
+	sed -e 's/charset=ISO-8859-2/charset=cp1250/' -e 's/# Original translations/# Generated from pl.po, DO NOT EDIT/' > pl.cp1250.po
+OLD_PO_FILE_INPUT=yes msgfmt -v -o pl.cp1250.mo pl.cp1250.po
+[91m1860 translated messages.
+[0mrm -f ru.cp1251.po
+iconv -f utf-8 -t cp1251 ru.po | \
+	sed -e 's/charset=[uU][tT][fF]-8/charset=cp1251/' -e 's/# Original translations/# Generated from ru.po, DO NOT EDIT/' > ru.cp1251.po
+OLD_PO_FILE_INPUT=yes msgfmt -v -o ru.cp1251.mo ru.cp1251.po
+[91m1955 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o sk.cp1250.mo sk.cp1250.po
+[91m1617 translated messages.
+[0mrm -f uk.cp1251.po
+iconv -f utf-8 -t cp1251 uk.po | \
+	sed -e 's/charset=[uU][tT][fF]-8/charset=cp1251/' -e 's/# Original translations/# Generated from uk.po, DO NOT EDIT/' > uk.cp1251.po
+OLD_PO_FILE_INPUT=yes msgfmt -v -o uk.cp1251.mo uk.cp1251.po
+[91m1963 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o zh_CN.cp936.mo zh_CN.cp936.po
+[91m1623 translated messages, 3 fuzzy translations.
+[0mmsgfmt --desktop -d . --template gvim.desktop.in -o tmp_gvim.desktop
+rm -f LINGUAS
+if command -v desktop-file-validate; then desktop-file-validate tmp_gvim.desktop; fi
+/usr/bin/desktop-file-validate
+mv tmp_gvim.desktop gvim.desktop
+msgfmt --desktop -d . --template vim.desktop.in -o tmp_vim.desktop
+rm -f LINGUAS
+if command -v desktop-file-validate; then desktop-file-validate tmp_vim.desktop; fi
+/usr/bin/desktop-file-validate
+mv tmp_vim.desktop vim.desktop
+make[3]: Leaving directory `/vim/src/po'
+make[3]: Entering directory `/vim/src/po'
+make[3]: Nothing to be done for `converted'.
+make[3]: Leaving directory `/vim/src/po'
 make[2]: Leaving directory `/vim/src'
 make[1]: Leaving directory `/vim/src'
 Starting make in the src directory.
@@ -1308,140 +1301,21 @@ if test -f /usr/local/bin/vim; then \
   mv -f /usr/local/bin/vim /usr/local/bin/vim.rm; \
   rm -f /usr/local/bin/vim.rm; \
 fi
-cp vimtutor /usr/local/bin/vimtutor
-/bin/sh ./installman.sh install /usr/local/share/man/man1 "" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-cp -r ../runtime/macros/* /usr/local/share/vim/vim81/macros
-cp -r ../runtime/pack/* /usr/local/share/vim/vim81/pack
-cp ../runtime/tutor/README* ../runtime/tutor/tutor* /usr/local/share/vim/vim81/tutor
-if test -f ../runtime/spell/en.latin1.spl; then \
-  cp ../runtime/spell/*.spl ../runtime/spell/*.sug ../runtime/spell/*.vim /usr/local/share/vim/vim81/spell; \
-  chmod 644 /usr/local/share/vim/vim81/spell/*.spl /usr/local/share/vim/vim81/spell/*.sug /usr/local/share/vim/vim81/spell/*.vim; \
-fi
-chmod 755 /usr/local/bin/vimtutor
-/bin/sh ./installml.sh install "yes" \
-	/usr/local/share/man/man1 vim vimdiff evim ex view rvim rview gvim gview rgvim rgview gvimdiff eview
-/bin/sh ./installman.sh xxd /usr/local/share/man/da/man1 "-da" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-if test -n ""; then \
-	/bin/sh install-sh -c -d /usr/local/share/icons/hicolor/48x48/apps /usr/local/share/icons/locolor/32x32/apps \
-	/usr/local/share/icons/locolor/16x16/apps /usr/local/share/applications; \
-fi
-cp gvimtutor /usr/local/bin/gvimtutor
-installing /usr/local/share/man/man1/vim.1
-if test -d /usr/local/share/icons/hicolor/48x48/apps -a -w /usr/local/share/icons/hicolor/48x48/apps \
-	-a ! -f /usr/local/share/icons/hicolor/48x48/apps/gvim.png; then \
-   cp ../runtime/vim48x48.png /usr/local/share/icons/hicolor/48x48/apps/gvim.png; \
-   if test -z "" -a -x "/usr/bin/gtk-update-icon-cache" \
-	   -a -w /usr/local/share/icons/hicolor \
-	   -a -f /usr/local/share/icons/hicolor/index.theme; then \
-	/usr/bin/gtk-update-icon-cache -q /usr/local/share/icons/hicolor; \
-   fi \
-fi
-creating link /usr/local/share/man/man1/ex.1
-if test -d /usr/local/share/icons/locolor/32x32/apps -a -w /usr/local/share/icons/locolor/32x32/apps \
-	-a ! -f /usr/local/share/icons/locolor/32x32/apps/gvim.png; then \
-   cp ../runtime/vim32x32.png /usr/local/share/icons/locolor/32x32/apps/gvim.png; \
-fi
-/bin/sh ./installman.sh xxd /usr/local/share/man/da.ISO8859-1/man1 "-da" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-if test -d /usr/local/share/icons/locolor/16x16/apps -a -w /usr/local/share/icons/locolor/16x16/apps \
-	-a ! -f /usr/local/share/icons/locolor/16x16/apps/gvim.png; then \
-   cp ../runtime/vim16x16.png /usr/local/share/icons/locolor/16x16/apps/gvim.png; \
-fi
-make[2]: Entering directory `/vim/src/po'
-make[2]: Nothing to be done for `first'.
-make[2]: Leaving directory `/vim/src/po'
-if test -d /usr/local/share/applications -a -w /usr/local/share/applications; then \
-   if test -f po/vim.desktop -a -f po/gvim.desktop; then \
-	cp po/vim.desktop po/gvim.desktop \
-		/usr/local/share/applications; \
-   else \
-	cp ../runtime/vim.desktop \
-		../runtime/gvim.desktop \
-		/usr/local/share/applications; \
-   fi; \
-   if test -z "" -a -x "/usr/bin/update-desktop-database"; then \
-      /usr/bin/update-desktop-database -q /usr/local/share/applications; \
-   fi \
-fi
-/bin/sh ./installman.sh xxd /usr/local/share/man/da.UTF-8/man1 "-da.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-chmod 755 /usr/local/bin/gvimtutor
-creating link /usr/local/share/man/man1/view.1
-creating link /usr/local/share/man/man1/rvim.1
-make[2]: Entering directory `/vim/src/po'
-make[2]: Nothing to be done for `converted'.
-make[2]: Leaving directory `/vim/src/po'
-creating link /usr/local/share/man/man1/rview.1
 cp vim /usr/local/bin
-/bin/sh ./installman.sh xxd /usr/local/share/man/de/man1 "-de" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-creating link /usr/local/share/man/man1/gvim.1
-creating link /usr/local/share/man/man1/gview.1
-creating link /usr/local/share/man/man1/rgvim.1
-creating link /usr/local/share/man/man1/rgview.1
-chmod 755 `find /usr/local/share/vim/vim81/pack -type d -print`
-installing /usr/local/share/man/man1/vimtutor.1
 strip /usr/local/bin/vim
-/bin/sh ./installman.sh install /usr/local/share/man/da/man1 "-da" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-creating link /usr/local/share/man/man1/gvimdiff.1
-creating link /usr/local/share/man/man1/eview.1
-/bin/sh ./installman.sh xxd /usr/local/share/man/de.ISO8859-1/man1 "-de" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+chmod 755 /usr/local/bin/vim
+cp vimtutor /usr/local/bin/vimtutor
+chmod 755 /usr/local/bin/vimtutor
+/bin/sh ./installman.sh install /usr/local/share/man/man1 "" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/man1/vim.1
+installing /usr/local/share/man/man1/vimtutor.1
 installing /usr/local/share/man/man1/vimdiff.1
-chmod 755 `find /usr/local/share/vim/vim81/macros -type d -print`
-installing /usr/local/share/man/da/man1/vim.1
-/bin/sh ./installman.sh xxd /usr/local/share/man/de.UTF-8/man1 "-de.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 installing /usr/local/share/man/man1/evim.1
-rm -f /usr/local/share/vim/vim81/tutor/*.info
-/bin/sh ./installman.sh xxd /usr/local/share/man/fr/man1 "-fr" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 cd ../runtime/doc; if test -z "" -a -f tags; then \
 	mv -f tags tags.dist; fi
-chmod 644 /usr/local/share/vim/vim81/tutor/*
-chmod 644 `find /usr/local/share/vim/vim81/pack -type f -print`
-chmod 644 `find /usr/local/share/vim/vim81/macros -type f -print`
-installing /usr/local/share/man/da/man1/vimtutor.1
-chmod 755 /usr/local/bin/vim
 generating help tags
-installing /usr/local/share/man/da/man1/vimdiff.1
-installing /usr/local/share/man/fr/man1/xxd.1
-chmod 755 /usr/local/share/vim/vim81/macros/less.sh
-cvs=`find /usr/local/share/vim/vim81/macros \( -name CVS -o -name AAPDIR -o -name "*.info" \) -print`; \
-      if test -n "$cvs"; then \
-	 rm -rf $cvs; \
-      fi
-/bin/sh ./installman.sh install /usr/local/share/man/da.ISO8859-1/man1 "-da" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-/bin/sh ./installman.sh xxd /usr/local/share/man/fr.ISO8859-1/man1 "-fr" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 make[2]: Entering directory `/vim/runtime/doc'
 /usr/local/bin/vim -u NONE -esX -c "helptags ++t ." -c quit
-installing /usr/local/share/man/da.ISO8859-1/man1/vim.1
-installing /usr/local/share/man/fr.ISO8859-1/man1/xxd.1
-/bin/sh ./installman.sh xxd /usr/local/share/man/fr.UTF-8/man1 "-fr.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-installing /usr/local/share/man/da.ISO8859-1/man1/vimtutor.1
-installing /usr/local/share/man/fr.UTF-8/man1/xxd.1
-installing /usr/local/share/man/da.ISO8859-1/man1/vimdiff.1
-/bin/sh ./installman.sh xxd /usr/local/share/man/it/man1 "-it" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-/bin/sh ./installman.sh install /usr/local/share/man/da.UTF-8/man1 "-da.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-installing /usr/local/share/man/it/man1/xxd.1
-installing /usr/local/share/man/da.UTF-8/man1/vim.1
-/bin/sh ./installman.sh xxd /usr/local/share/man/it.ISO8859-1/man1 "-it" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-installing /usr/local/share/man/da.UTF-8/man1/vimtutor.1
-installing /usr/local/share/man/it.ISO8859-1/man1/xxd.1
-installing /usr/local/share/man/da.UTF-8/man1/vimdiff.1
-/bin/sh ./installman.sh xxd /usr/local/share/man/it.UTF-8/man1 "-it.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-/bin/sh ./installman.sh install /usr/local/share/man/de/man1 "-de" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-installing /usr/local/share/man/it.UTF-8/man1/xxd.1
-installing /usr/local/share/man/de/man1/vim.1
-/bin/sh ./installman.sh xxd /usr/local/share/man/ja/man1 "-ja.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-/bin/sh ./installman.sh install /usr/local/share/man/de.ISO8859-1/man1 "-de" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-installing /usr/local/share/man/ja/man1/xxd.1
-installing /usr/local/share/man/de.ISO8859-1/man1/vim.1
-/bin/sh ./installman.sh xxd /usr/local/share/man/pl/man1 "-pl" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-installing /usr/local/share/man/pl/man1/xxd.1
-/bin/sh ./installman.sh install /usr/local/share/man/de.UTF-8/man1 "-de.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-/bin/sh ./installman.sh xxd /usr/local/share/man/pl.ISO8859-2/man1 "-pl" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-installing /usr/local/share/man/de.UTF-8/man1/vim.1
-installing /usr/local/share/man/pl.ISO8859-2/man1/xxd.1
-/bin/sh ./installman.sh install /usr/local/share/man/fr/man1 "-fr" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-/bin/sh ./installman.sh xxd /usr/local/share/man/pl.UTF-8/man1 "-pl.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-installing /usr/local/share/man/fr/man1/vim.1
-installing /usr/local/share/man/pl.UTF-8/man1/xxd.1
-/bin/sh ./installman.sh xxd /usr/local/share/man/ru.KOI8-R/man1 "-ru" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 make[2]: Leaving directory `/vim/runtime/doc'
 cd ../runtime/doc; \
 	files=`ls *.txt tags`; \
@@ -1449,107 +1323,205 @@ cd ../runtime/doc; \
 	cp $files  /usr/local/share/vim/vim81/doc; \
 	cd /usr/local/share/vim/vim81/doc; \
 	chmod 644 $files
-installing /usr/local/share/man/fr/man1/vimtutor.1
-installing /usr/local/share/man/ru.KOI8-R/man1/xxd.1
-installing /usr/local/share/man/fr/man1/vimdiff.1
-/bin/sh ./installman.sh xxd /usr/local/share/man/ru.UTF-8/man1 "-ru.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-installing /usr/local/share/man/fr/man1/evim.1
-installing /usr/local/share/man/ru.UTF-8/man1/xxd.1
-/bin/sh ./installman.sh install /usr/local/share/man/fr.ISO8859-1/man1 "-fr" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-if test -f /usr/local/bin/xxd; then \
-  mv -f /usr/local/bin/xxd /usr/local/bin/xxd.rm; \
-  rm -f /usr/local/bin/xxd.rm; \
-fi
-installing /usr/local/share/man/fr.ISO8859-1/man1/vim.1
-cp xxd/xxd /usr/local/bin
-strip /usr/local/bin/xxd
-installing /usr/local/share/man/fr.ISO8859-1/man1/vimtutor.1
-chmod 755 /usr/local/bin/xxd
-/bin/sh ./installman.sh xxd /usr/local/share/man/man1 "" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-installing /usr/local/share/man/fr.ISO8859-1/man1/vimdiff.1
-installing /usr/local/share/man/man1/xxd.1
-installing /usr/local/share/man/fr.ISO8859-1/man1/evim.1
-cp -r ../runtime/tools/* /usr/local/share/vim/vim81/tools
-/bin/sh ./installman.sh install /usr/local/share/man/fr.UTF-8/man1 "-fr.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-installing /usr/local/share/man/fr.UTF-8/man1/vim.1
-cvs=`find /usr/local/share/vim/vim81/tools \( -name CVS -o -name AAPDIR \) -print`; \
-      if test -n "$cvs"; then \
-	 rm -rf $cvs; \
-      fi
 cp  ../runtime/doc/*.pl /usr/local/share/vim/vim81/doc
-installing /usr/local/share/man/fr.UTF-8/man1/vimtutor.1
-chmod 644 /usr/local/share/vim/vim81/tools/*
 chmod 755 /usr/local/share/vim/vim81/doc/*.pl
-perlpath=`./which.sh perl` && sed -e "s+/usr/bin/perl+$perlpath+" ../runtime/tools/efm_perl.pl >/usr/local/share/vim/vim81/tools/efm_perl.pl
-installing /usr/local/share/man/fr.UTF-8/man1/vimdiff.1
 cd ../runtime/doc; if test -f tags.dist; then mv -f tags.dist tags; fi
-installing /usr/local/share/man/fr.UTF-8/man1/evim.1
 cp ../runtime/menu.vim /usr/local/share/vim/vim81/menu.vim
-/bin/sh ./installman.sh install /usr/local/share/man/it/man1 "-it" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-awkpath=`./which.sh nawk` && sed -e "s+/usr/bin/nawk+$awkpath+" ../runtime/tools/mve.awk >/usr/local/share/vim/vim81/tools/mve.awk; if test -z "$awkpath"; then \
-	awkpath=`./which.sh gawk` && sed -e "s+/usr/bin/nawk+$awkpath+" ../runtime/tools/mve.awk >/usr/local/share/vim/vim81/tools/mve.awk; if test -z "$awkpath"; then \
-	awkpath=`./which.sh awk` && sed -e "s+/usr/bin/nawk+$awkpath+" ../runtime/tools/mve.awk >/usr/local/share/vim/vim81/tools/mve.awk; fi; fi
 chmod 644 /usr/local/share/vim/vim81/menu.vim
 cp ../runtime/synmenu.vim /usr/local/share/vim/vim81/synmenu.vim
 chmod 644 /usr/local/share/vim/vim81/synmenu.vim
-installing /usr/local/share/man/it/man1/vim.1
 cp ../runtime/delmenu.vim /usr/local/share/vim/vim81/delmenu.vim
 chmod 644 /usr/local/share/vim/vim81/delmenu.vim
 cp ../runtime/defaults.vim /usr/local/share/vim/vim81/defaults.vim
-installing /usr/local/share/man/it/man1/vimtutor.1
 chmod 644 /usr/local/share/vim/vim81/defaults.vim
 cp ../runtime/evim.vim /usr/local/share/vim/vim81/evim.vim
-chmod 755 `grep -l "^#!" /usr/local/share/vim/vim81/tools/*`
 chmod 644 /usr/local/share/vim/vim81/evim.vim
-installing /usr/local/share/man/it/man1/vimdiff.1
 cp ../runtime/mswin.vim /usr/local/share/vim/vim81/mswin.vim
 chmod 644 /usr/local/share/vim/vim81/mswin.vim
-installing /usr/local/share/man/it/man1/evim.1
 cp ../runtime/rgb.txt /usr/local/share/vim/vim81/rgb.txt
 chmod 644 /usr/local/share/vim/vim81/rgb.txt
 cp ../runtime/bugreport.vim /usr/local/share/vim/vim81/bugreport.vim
-/bin/sh ./installman.sh install /usr/local/share/man/it.ISO8859-1/man1 "-it" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 chmod 644 /usr/local/share/vim/vim81/bugreport.vim
 cp ../runtime/vimrc_example.vim /usr/local/share/vim/vim81
 chmod 644 /usr/local/share/vim/vim81/vimrc_example.vim
-installing /usr/local/share/man/it.ISO8859-1/man1/vim.1
 cp ../runtime/gvimrc_example.vim /usr/local/share/vim/vim81
 chmod 644 /usr/local/share/vim/vim81/gvimrc_example.vim
 cp ../runtime/filetype.vim /usr/local/share/vim/vim81/filetype.vim
 chmod 644 /usr/local/share/vim/vim81/filetype.vim
 cp ../runtime/ftoff.vim /usr/local/share/vim/vim81/ftoff.vim
-installing /usr/local/share/man/it.ISO8859-1/man1/vimtutor.1
 chmod 644 /usr/local/share/vim/vim81/ftoff.vim
 cp ../runtime/scripts.vim /usr/local/share/vim/vim81/scripts.vim
-installing /usr/local/share/man/it.ISO8859-1/man1/vimdiff.1
 chmod 644 /usr/local/share/vim/vim81/scripts.vim
 cp ../runtime/ftplugin.vim /usr/local/share/vim/vim81/ftplugin.vim
 chmod 644 /usr/local/share/vim/vim81/ftplugin.vim
-installing /usr/local/share/man/it.ISO8859-1/man1/evim.1
 cp ../runtime/ftplugof.vim /usr/local/share/vim/vim81/ftplugof.vim
 chmod 644 /usr/local/share/vim/vim81/ftplugof.vim
 cp ../runtime/indent.vim /usr/local/share/vim/vim81/indent.vim
-/bin/sh ./installman.sh install /usr/local/share/man/it.UTF-8/man1 "-it.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 chmod 644 /usr/local/share/vim/vim81/indent.vim
 cp ../runtime/indoff.vim /usr/local/share/vim/vim81/indoff.vim
 chmod 644 /usr/local/share/vim/vim81/indoff.vim
-installing /usr/local/share/man/it.UTF-8/man1/vim.1
 cp ../runtime/optwin.vim /usr/local/share/vim/vim81/optwin.vim
 chmod 644 /usr/local/share/vim/vim81/optwin.vim
 cd ../runtime/print; cp *.ps /usr/local/share/vim/vim81/print
+cd /usr/local/share/vim/vim81/print; chmod 644 *.ps
+cd ../runtime/colors; cp -r *.vim tools README.txt /usr/local/share/vim/vim81/colors
+cd /usr/local/share/vim/vim81/colors; chmod 755 tools
+cd /usr/local/share/vim/vim81/colors; chmod 644 *.vim README.txt tools/*.vim
+cd ../runtime/syntax; cp *.vim README.txt /usr/local/share/vim/vim81/syntax
+cd /usr/local/share/vim/vim81/syntax; chmod 644 *.vim README.txt
+cd ../runtime/indent; cp *.vim README.txt /usr/local/share/vim/vim81/indent
+cd /usr/local/share/vim/vim81/indent; chmod 644 *.vim README.txt
+cd ../runtime/autoload; cp *.vim README.txt /usr/local/share/vim/vim81/autoload
+cd /usr/local/share/vim/vim81/autoload; chmod 644 *.vim README.txt
+cd ../runtime/autoload/dist; cp *.vim /usr/local/share/vim/vim81/autoload/dist
+cd /usr/local/share/vim/vim81/autoload/dist; chmod 644 *.vim
+cd ../runtime/autoload/xml; cp *.vim /usr/local/share/vim/vim81/autoload/xml
+cd /usr/local/share/vim/vim81/autoload/xml; chmod 644 *.vim
+cd ../runtime/plugin; cp *.vim README.txt /usr/local/share/vim/vim81/plugin
+cd /usr/local/share/vim/vim81/plugin; chmod 644 *.vim README.txt
+cd ../runtime/ftplugin; cp *.vim README.txt logtalk.dict /usr/local/share/vim/vim81/ftplugin
+cd /usr/local/share/vim/vim81/ftplugin; chmod 644 *.vim README.txt
+cd ../runtime/compiler; cp *.vim README.txt /usr/local/share/vim/vim81/compiler
+cd /usr/local/share/vim/vim81/compiler; chmod 644 *.vim README.txt
+cp -r ../runtime/macros/* /usr/local/share/vim/vim81/macros
+chmod 755 `find /usr/local/share/vim/vim81/macros -type d -print`
+chmod 644 `find /usr/local/share/vim/vim81/macros -type f -print`
+chmod 755 /usr/local/share/vim/vim81/macros/less.sh
+cvs=`find /usr/local/share/vim/vim81/macros \( -name CVS -o -name AAPDIR -o -name "*.info" \) -print`; \
+      if test -n "$cvs"; then \
+	 rm -rf $cvs; \
+      fi
+cp -r ../runtime/pack/* /usr/local/share/vim/vim81/pack
+chmod 755 `find /usr/local/share/vim/vim81/pack -type d -print`
+chmod 644 `find /usr/local/share/vim/vim81/pack -type f -print`
+cp ../runtime/tutor/README* ../runtime/tutor/tutor* /usr/local/share/vim/vim81/tutor
+rm -f /usr/local/share/vim/vim81/tutor/*.info
+chmod 644 /usr/local/share/vim/vim81/tutor/*
+if test -f ../runtime/spell/en.latin1.spl; then \
+  cp ../runtime/spell/*.spl ../runtime/spell/*.sug ../runtime/spell/*.vim /usr/local/share/vim/vim81/spell; \
+  chmod 644 /usr/local/share/vim/vim81/spell/*.spl /usr/local/share/vim/vim81/spell/*.sug /usr/local/share/vim/vim81/spell/*.vim; \
+fi
+/bin/sh ./installml.sh install "yes" \
+	/usr/local/share/man/man1 vim vimdiff evim ex view rvim rview gvim gview rgvim rgview gvimdiff eview
+creating link /usr/local/share/man/man1/ex.1
+creating link /usr/local/share/man/man1/view.1
+creating link /usr/local/share/man/man1/rvim.1
+creating link /usr/local/share/man/man1/rview.1
+creating link /usr/local/share/man/man1/gvim.1
+creating link /usr/local/share/man/man1/gview.1
+creating link /usr/local/share/man/man1/rgvim.1
+creating link /usr/local/share/man/man1/rgview.1
+creating link /usr/local/share/man/man1/gvimdiff.1
+creating link /usr/local/share/man/man1/eview.1
+/bin/sh ./installman.sh xxd /usr/local/share/man/da/man1 "-da" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+/bin/sh ./installman.sh xxd /usr/local/share/man/da.ISO8859-1/man1 "-da" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+/bin/sh ./installman.sh xxd /usr/local/share/man/da.UTF-8/man1 "-da.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+/bin/sh ./installman.sh xxd /usr/local/share/man/de/man1 "-de" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+/bin/sh ./installman.sh xxd /usr/local/share/man/de.ISO8859-1/man1 "-de" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+/bin/sh ./installman.sh xxd /usr/local/share/man/de.UTF-8/man1 "-de.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+/bin/sh ./installman.sh xxd /usr/local/share/man/fr/man1 "-fr" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/fr/man1/xxd.1
+/bin/sh ./installman.sh xxd /usr/local/share/man/fr.ISO8859-1/man1 "-fr" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/fr.ISO8859-1/man1/xxd.1
+/bin/sh ./installman.sh xxd /usr/local/share/man/fr.UTF-8/man1 "-fr.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/fr.UTF-8/man1/xxd.1
+/bin/sh ./installman.sh xxd /usr/local/share/man/it/man1 "-it" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/it/man1/xxd.1
+/bin/sh ./installman.sh xxd /usr/local/share/man/it.ISO8859-1/man1 "-it" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/it.ISO8859-1/man1/xxd.1
+/bin/sh ./installman.sh xxd /usr/local/share/man/it.UTF-8/man1 "-it.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/it.UTF-8/man1/xxd.1
+/bin/sh ./installman.sh xxd /usr/local/share/man/ja/man1 "-ja.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/ja/man1/xxd.1
+/bin/sh ./installman.sh xxd /usr/local/share/man/pl/man1 "-pl" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/pl/man1/xxd.1
+/bin/sh ./installman.sh xxd /usr/local/share/man/pl.ISO8859-2/man1 "-pl" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/pl.ISO8859-2/man1/xxd.1
+/bin/sh ./installman.sh xxd /usr/local/share/man/pl.UTF-8/man1 "-pl.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/pl.UTF-8/man1/xxd.1
+/bin/sh ./installman.sh xxd /usr/local/share/man/ru.KOI8-R/man1 "-ru" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/ru.KOI8-R/man1/xxd.1
+/bin/sh ./installman.sh xxd /usr/local/share/man/ru.UTF-8/man1 "-ru.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/ru.UTF-8/man1/xxd.1
+if test -f /usr/local/bin/xxd; then \
+  mv -f /usr/local/bin/xxd /usr/local/bin/xxd.rm; \
+  rm -f /usr/local/bin/xxd.rm; \
+fi
+cp xxd/xxd /usr/local/bin
+strip /usr/local/bin/xxd
+chmod 755 /usr/local/bin/xxd
+/bin/sh ./installman.sh xxd /usr/local/share/man/man1 "" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/man1/xxd.1
+cp -r ../runtime/tools/* /usr/local/share/vim/vim81/tools
+cvs=`find /usr/local/share/vim/vim81/tools \( -name CVS -o -name AAPDIR \) -print`; \
+      if test -n "$cvs"; then \
+	 rm -rf $cvs; \
+      fi
+chmod 644 /usr/local/share/vim/vim81/tools/*
+perlpath=`./which.sh perl` && sed -e "s+/usr/bin/perl+$perlpath+" ../runtime/tools/efm_perl.pl >/usr/local/share/vim/vim81/tools/efm_perl.pl
+awkpath=`./which.sh nawk` && sed -e "s+/usr/bin/nawk+$awkpath+" ../runtime/tools/mve.awk >/usr/local/share/vim/vim81/tools/mve.awk; if test -z "$awkpath"; then \
+	awkpath=`./which.sh gawk` && sed -e "s+/usr/bin/nawk+$awkpath+" ../runtime/tools/mve.awk >/usr/local/share/vim/vim81/tools/mve.awk; if test -z "$awkpath"; then \
+	awkpath=`./which.sh awk` && sed -e "s+/usr/bin/nawk+$awkpath+" ../runtime/tools/mve.awk >/usr/local/share/vim/vim81/tools/mve.awk; fi; fi
+chmod 755 `grep -l "^#!" /usr/local/share/vim/vim81/tools/*`
+make[2]: Entering directory `/vim/src/po'
+make[2]: Nothing to be done for `first'.
+make[2]: Leaving directory `/vim/src/po'
+make[2]: Entering directory `/vim/src/po'
+make[2]: Nothing to be done for `converted'.
+make[2]: Leaving directory `/vim/src/po'
+/bin/sh ./installman.sh install /usr/local/share/man/da/man1 "-da" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/da/man1/vim.1
+installing /usr/local/share/man/da/man1/vimtutor.1
+installing /usr/local/share/man/da/man1/vimdiff.1
+/bin/sh ./installman.sh install /usr/local/share/man/da.ISO8859-1/man1 "-da" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/da.ISO8859-1/man1/vim.1
+installing /usr/local/share/man/da.ISO8859-1/man1/vimtutor.1
+installing /usr/local/share/man/da.ISO8859-1/man1/vimdiff.1
+/bin/sh ./installman.sh install /usr/local/share/man/da.UTF-8/man1 "-da.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/da.UTF-8/man1/vim.1
+installing /usr/local/share/man/da.UTF-8/man1/vimtutor.1
+installing /usr/local/share/man/da.UTF-8/man1/vimdiff.1
+/bin/sh ./installman.sh install /usr/local/share/man/de/man1 "-de" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/de/man1/vim.1
+/bin/sh ./installman.sh install /usr/local/share/man/de.ISO8859-1/man1 "-de" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/de.ISO8859-1/man1/vim.1
+/bin/sh ./installman.sh install /usr/local/share/man/de.UTF-8/man1 "-de.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/de.UTF-8/man1/vim.1
+/bin/sh ./installman.sh install /usr/local/share/man/fr/man1 "-fr" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/fr/man1/vim.1
+installing /usr/local/share/man/fr/man1/vimtutor.1
+installing /usr/local/share/man/fr/man1/vimdiff.1
+installing /usr/local/share/man/fr/man1/evim.1
+/bin/sh ./installman.sh install /usr/local/share/man/fr.ISO8859-1/man1 "-fr" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/fr.ISO8859-1/man1/vim.1
+installing /usr/local/share/man/fr.ISO8859-1/man1/vimtutor.1
+installing /usr/local/share/man/fr.ISO8859-1/man1/vimdiff.1
+installing /usr/local/share/man/fr.ISO8859-1/man1/evim.1
+/bin/sh ./installman.sh install /usr/local/share/man/fr.UTF-8/man1 "-fr.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/fr.UTF-8/man1/vim.1
+installing /usr/local/share/man/fr.UTF-8/man1/vimtutor.1
+installing /usr/local/share/man/fr.UTF-8/man1/vimdiff.1
+installing /usr/local/share/man/fr.UTF-8/man1/evim.1
+/bin/sh ./installman.sh install /usr/local/share/man/it/man1 "-it" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/it/man1/vim.1
+installing /usr/local/share/man/it/man1/vimtutor.1
+installing /usr/local/share/man/it/man1/vimdiff.1
+installing /usr/local/share/man/it/man1/evim.1
+/bin/sh ./installman.sh install /usr/local/share/man/it.ISO8859-1/man1 "-it" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/it.ISO8859-1/man1/vim.1
+installing /usr/local/share/man/it.ISO8859-1/man1/vimtutor.1
+installing /usr/local/share/man/it.ISO8859-1/man1/vimdiff.1
+installing /usr/local/share/man/it.ISO8859-1/man1/evim.1
+/bin/sh ./installman.sh install /usr/local/share/man/it.UTF-8/man1 "-it.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/it.UTF-8/man1/vim.1
 installing /usr/local/share/man/it.UTF-8/man1/vimtutor.1
 installing /usr/local/share/man/it.UTF-8/man1/vimdiff.1
 installing /usr/local/share/man/it.UTF-8/man1/evim.1
 /bin/sh ./installman.sh install /usr/local/share/man/ja/man1 "-ja.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-cd /usr/local/share/vim/vim81/print; chmod 644 *.ps
-cd ../runtime/colors; cp -r *.vim tools README.txt /usr/local/share/vim/vim81/colors
 installing /usr/local/share/man/ja/man1/vim.1
 installing /usr/local/share/man/ja/man1/vimtutor.1
-cd /usr/local/share/vim/vim81/colors; chmod 755 tools
 installing /usr/local/share/man/ja/man1/vimdiff.1
-cd /usr/local/share/vim/vim81/colors; chmod 644 *.vim README.txt tools/*.vim
 installing /usr/local/share/man/ja/man1/evim.1
-cd ../runtime/syntax; cp *.vim README.txt /usr/local/share/vim/vim81/syntax
 /bin/sh ./installman.sh install /usr/local/share/man/pl/man1 "-pl" /usr/local/share/vim /usr/local/share/vim/vim81 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 installing /usr/local/share/man/pl/man1/vim.1
 installing /usr/local/share/man/pl/man1/vimtutor.1
@@ -1579,14 +1551,12 @@ installing /usr/local/share/man/ru.UTF-8/man1/evim.1
 	/usr/local/share/man/da/man1 vim vimdiff evim ex view rvim rview gvim gview rgvim rgview gvimdiff eview
 /bin/sh ./installml.sh install "yes" \
 	/usr/local/share/man/da.ISO8859-1/man1 vim vimdiff evim ex view rvim rview gvim gview rgvim rgview gvimdiff eview
-cd /usr/local/share/vim/vim81/syntax; chmod 644 *.vim README.txt
 /bin/sh ./installml.sh install "yes" \
 	/usr/local/share/man/da.UTF-8/man1 vim vimdiff evim ex view rvim rview gvim gview rgvim rgview gvimdiff eview
 /bin/sh ./installml.sh install "yes" \
 	/usr/local/share/man/de/man1 vim vimdiff evim ex view rvim rview gvim gview rgvim rgview gvimdiff eview
 /bin/sh ./installml.sh install "yes" \
 	/usr/local/share/man/de.ISO8859-1/man1 vim vimdiff evim ex view rvim rview gvim gview rgvim rgview gvimdiff eview
-cd ../runtime/indent; cp *.vim README.txt /usr/local/share/vim/vim81/indent
 /bin/sh ./installml.sh install "yes" \
 	/usr/local/share/man/de.UTF-8/man1 vim vimdiff evim ex view rvim rview gvim gview rgvim rgview gvimdiff eview
 /bin/sh ./installml.sh install "yes" \
@@ -1599,36 +1569,26 @@ cd ../runtime/indent; cp *.vim README.txt /usr/local/share/vim/vim81/indent
 	/usr/local/share/man/it/man1 vim vimdiff evim ex view rvim rview gvim gview rgvim rgview gvimdiff eview
 /bin/sh ./installml.sh install "yes" \
 	/usr/local/share/man/it.ISO8859-1/man1 vim vimdiff evim ex view rvim rview gvim gview rgvim rgview gvimdiff eview
-cd /usr/local/share/vim/vim81/indent; chmod 644 *.vim README.txt
 /bin/sh ./installml.sh install "yes" \
 	/usr/local/share/man/it.UTF-8/man1 vim vimdiff evim ex view rvim rview gvim gview rgvim rgview gvimdiff eview
-cd ../runtime/autoload; cp *.vim README.txt /usr/local/share/vim/vim81/autoload
 /bin/sh ./installml.sh install "yes" \
 	/usr/local/share/man/ja/man1 vim vimdiff evim ex view rvim rview gvim gview rgvim rgview gvimdiff eview
 /bin/sh ./installml.sh install "yes" \
 	/usr/local/share/man/pl/man1 vim vimdiff evim ex view rvim rview gvim gview rgvim rgview gvimdiff eview
 /bin/sh ./installml.sh install "yes" \
 	/usr/local/share/man/pl.ISO8859-2/man1 vim vimdiff evim ex view rvim rview gvim gview rgvim rgview gvimdiff eview
-cd /usr/local/share/vim/vim81/autoload; chmod 644 *.vim README.txt
 /bin/sh ./installml.sh install "yes" \
 	/usr/local/share/man/pl.UTF-8/man1 vim vimdiff evim ex view rvim rview gvim gview rgvim rgview gvimdiff eview
-cd ../runtime/autoload/dist; cp *.vim /usr/local/share/vim/vim81/autoload/dist
-cd /usr/local/share/vim/vim81/autoload/dist; chmod 644 *.vim
 /bin/sh ./installml.sh install "yes" \
 	/usr/local/share/man/ru.KOI8-R/man1 vim vimdiff evim ex view rvim rview gvim gview rgvim rgview gvimdiff eview
-cd ../runtime/autoload/xml; cp *.vim /usr/local/share/vim/vim81/autoload/xml
 /bin/sh ./installml.sh install "yes" \
 	/usr/local/share/man/ru.UTF-8/man1 vim vimdiff evim ex view rvim rview gvim gview rgvim rgview gvimdiff eview
 if test -n "yes" -a -f po/Makefile; then \
    cd po; make prefix=/usr/local LOCALEDIR=/usr/local/share/vim/vim81/lang \
    INSTALL_DATA=cp FILEMOD=644 install; \
 fi
-cd /usr/local/share/vim/vim81/autoload/xml; chmod 644 *.vim
-cd ../runtime/plugin; cp *.vim README.txt /usr/local/share/vim/vim81/plugin
 make[2]: Entering directory `/vim/src/po'
-cd /usr/local/share/vim/vim81/plugin; chmod 644 *.vim README.txt
 make[3]: Entering directory `/vim/src/po'
-cd ../runtime/ftplugin; cp *.vim README.txt logtalk.dict /usr/local/share/vim/vim81/ftplugin
 make[3]: Leaving directory `/vim/src/po'
 for lang in af ca cs cs.cp1250 da de en_GB eo es fi fr ga it ja ja.euc-jp ja.sjis ko ko.UTF-8 lv nb nl no pl pl.UTF-8 pl.cp1250 pt_BR ru ru.cp1251 sk sk.cp1250 sr sv uk uk.cp1251 vi zh_CN zh_CN.UTF-8 zh_CN.cp936 zh_TW zh_TW.UTF-8 ; do \
   dir=/usr/local/share/vim/vim81/lang/$lang/; \
@@ -1644,9 +1604,6 @@ for lang in af ca cs cs.cp1250 da de en_GB eo es fi fr ga it ja ja.euc-jp ja.sji
     chmod 644 $dir/vim.mo; \
   fi; \
 done
-cd /usr/local/share/vim/vim81/ftplugin; chmod 644 *.vim README.txt
-cd ../runtime/compiler; cp *.vim README.txt /usr/local/share/vim/vim81/compiler
-cd /usr/local/share/vim/vim81/compiler; chmod 644 *.vim README.txt
 make[2]: Leaving directory `/vim/src/po'
 if test -d ../runtime/lang; then \
    cp ../runtime/lang/README.txt ../runtime/lang/*.vim /usr/local/share/vim/vim81/lang; \
@@ -1656,10 +1613,46 @@ if test -d ../runtime/keymap; then \
    cp ../runtime/keymap/README.txt ../runtime/keymap/*.vim /usr/local/share/vim/vim81/keymap; \
    chmod 644 /usr/local/share/vim/vim81/keymap/README.txt /usr/local/share/vim/vim81/keymap/*.vim; \
 fi
+if test -n ""; then \
+	/bin/sh install-sh -c -d /usr/local/share/icons/hicolor/48x48/apps /usr/local/share/icons/locolor/32x32/apps \
+	/usr/local/share/icons/locolor/16x16/apps /usr/local/share/applications; \
+fi
+if test -d /usr/local/share/icons/hicolor/48x48/apps -a -w /usr/local/share/icons/hicolor/48x48/apps \
+	-a ! -f /usr/local/share/icons/hicolor/48x48/apps/gvim.png; then \
+   cp ../runtime/vim48x48.png /usr/local/share/icons/hicolor/48x48/apps/gvim.png; \
+   if test -z "" -a -x "/usr/bin/gtk-update-icon-cache" \
+	   -a -w /usr/local/share/icons/hicolor \
+	   -a -f /usr/local/share/icons/hicolor/index.theme; then \
+	/usr/bin/gtk-update-icon-cache -q /usr/local/share/icons/hicolor; \
+   fi \
+fi
+if test -d /usr/local/share/icons/locolor/32x32/apps -a -w /usr/local/share/icons/locolor/32x32/apps \
+	-a ! -f /usr/local/share/icons/locolor/32x32/apps/gvim.png; then \
+   cp ../runtime/vim32x32.png /usr/local/share/icons/locolor/32x32/apps/gvim.png; \
+fi
+if test -d /usr/local/share/icons/locolor/16x16/apps -a -w /usr/local/share/icons/locolor/16x16/apps \
+	-a ! -f /usr/local/share/icons/locolor/16x16/apps/gvim.png; then \
+   cp ../runtime/vim16x16.png /usr/local/share/icons/locolor/16x16/apps/gvim.png; \
+fi
+if test -d /usr/local/share/applications -a -w /usr/local/share/applications; then \
+   if test -f po/vim.desktop -a -f po/gvim.desktop; then \
+	cp po/vim.desktop po/gvim.desktop \
+		/usr/local/share/applications; \
+   else \
+	cp ../runtime/vim.desktop \
+		../runtime/gvim.desktop \
+		/usr/local/share/applications; \
+   fi; \
+   if test -z "" -a -x "/usr/bin/update-desktop-database"; then \
+      /usr/bin/update-desktop-database -q /usr/local/share/applications; \
+   fi \
+fi
+cp gvimtutor /usr/local/bin/gvimtutor
+chmod 755 /usr/local/bin/gvimtutor
 make[1]: Leaving directory `/vim/src'
-[91m  % Total    % Received % Xferd  Average Speed   Tim[0m[91me    Time     Time  Curr[0m[91ment
-  [0m[91m   [0m[91m   [0m[91m  [0m[91m         [0m[91m              D[0m[91mload  U[0m[91mpload   Total [0m[91m  Spent    L[0m[91meft  Sp[0m[91meed
-[0m[91m  0 [0m[91m    0[0m[91m    0  [0m[91m   0    [0m[91m0  [0m[91m   0  [0m[91m   [0m[91m 0      0[0m[91m --:--[0m[91m:--[0m[91m --:-[0m[91m-:-[0m[91m- --:--:-[0m[91m-    [0m[91m 0[0m[91m  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0[0m[91m100  2233  100  2233    0     0  14243      0 --:--:-- --:--:-- --:--:-- 14222
+[91m  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0[0m[91m100  2233  100  2233    0     0   5839      0 --:--:-- --:--:-- [0m[91m--:--:--  5845
 [0mInstall to "/root/.vim/bundle/repos/github.com/Shougo/dein.vim"...
 
 git is /usr/bin/git
@@ -1710,10 +1703,10 @@ syntax enable
 
 Done.
 Complete setup dein!
-Removing intermediate container 6f34d9f335a6
- ---> 60e64dfd5f63
-Step 22/34 : RUN yum install -y python36 python36-devel python36-libs && python3 -m ensurepip && pip3 install --upgrade pip
- ---> Running in 6b963a9b8b4a
+Removing intermediate container 50e5f280155d
+ ---> ba826fb6c718
+Step 23/35 : RUN yum install -y python36 python36-devel python36-libs && python3 -m ensurepip && pip3 install --upgrade pip
+ ---> Running in f59f4b0790d3
 Loaded plugins: fastestmirror, ovl
 Loading mirror speeds from cached hostfile
  * base: ftp-srv2.kddilabs.jp
@@ -1757,7 +1750,7 @@ Total download size: 9.5 M
 Installed size: 39 M
 Downloading packages:
 --------------------------------------------------------------------------------
-Total                                              2.1 MB/s | 9.5 MB  00:04     
+Total                                              2.0 MB/s | 9.5 MB  00:04     
 Running transaction check
 Running transaction test
 Transaction test succeeded
@@ -1784,7 +1777,7 @@ Dependency Installed:
   python3-rpm-macros.noarch 0:3-25.el7  
 
 Complete!
-Looking in links: /tmp/tmp5jvn2qcr
+Looking in links: /tmp/tmp4x2cyxkm
 Collecting setuptools
 Collecting pip
 Installing collected packages: setuptools, pip
@@ -1796,10 +1789,10 @@ Installing collected packages: pip
     Uninstalling pip-18.1:
       Successfully uninstalled pip-18.1
 Successfully installed pip-19.2.2
-Removing intermediate container 6b963a9b8b4a
- ---> 6bef93f108e5
-Step 23/34 : RUN yum -y reinstall glibc-common
- ---> Running in f29baea105e6
+Removing intermediate container f59f4b0790d3
+ ---> 27609c2bc2ca
+Step 24/35 : RUN yum -y reinstall glibc-common
+ ---> Running in f3741a349cdc
 Loaded plugins: fastestmirror, ovl
 Loading mirror speeds from cached hostfile
  * base: ftp-srv2.kddilabs.jp
@@ -1837,10 +1830,10 @@ Installed:
   glibc-common.x86_64 0:2.17-260.el7_6.6                                        
 
 Complete!
-Removing intermediate container f29baea105e6
- ---> 52970acdbb09
-Step 24/34 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
- ---> Running in 6cb72a1b7593
+Removing intermediate container f3741a349cdc
+ ---> e3fb311d1f26
+Step 25/35 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
+ ---> Running in f8db6bf303da
 [91m/usr/share/i18n/locales/ja_JP:11: non-symbolic character value should not be used
 /usr/share/i18n/locales/ja_JP:12: non-symbolic character value should not be used
 /usr/share/i18n/locales/ja_JP:15: non-symbolic character value should not be used
@@ -1884,7 +1877,7 @@ Step 24/34 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
 /usr/share/i18n/locales/translit_neutral:14: non-symbolic character value should not be used
 /usr/share/i18n/locales/translit_neutral:15: non-symbolic character value should not be used
 /usr/share/i18n/locales/translit_neutral:16: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/translit_neutral:17: non-symbolic character value should not be used
+/usr/share/i18n/locales/translit_neutral:17: non-symbolic character value should not be used
 [0m[91mLC_ADDRESS: field `country_name' not defined
 LC_ADDRESS: field `country_post' not defined
 LC_ADDRESS: field `country_car' not defined
@@ -1916,54 +1909,54 @@ LC_IDENTIFICATION: no identification for category `LC_MEASUREMENT'
 [0m[91mLC_CTYPE: table for class "jkata": 664 bytes
 [0m[91mLC_CTYPE: table for class "jkanji": 3224 bytes
 [0m[91mLC_CTYPE: table for class "jdigit": 600 bytes
-LC_CTYPE: table for map "toupper": 16924 bytes
+[0m[91mLC_CTYPE: table for map "toupper": 16924 bytes
 LC_CTYPE: table for map "tolower": 15388 bytes
 [0m[91mLC_CTYPE: table for map "totitle": 16924 bytes
 LC_CTYPE: table for map "tojhira": 2584 bytes
-LC_CTYPE: table for map "tojkata": 3096 bytes
+[0m[91mLC_CTYPE: table for map "tojkata": 3096 bytes
 [0m[91mLC_CTYPE: table for width: 26712 bytes
 [0m
-Removing intermediate container 6cb72a1b7593
- ---> bd054692afda
-Step 25/34 : ENV LANG=ja_JP.UTF-8
- ---> Running in 0dbf5736fb1f
-Removing intermediate container 0dbf5736fb1f
- ---> 9997686a5294
-Step 26/34 : RUN rm -f /etc/localtime
- ---> Running in 91be46e37979
-Removing intermediate container 91be46e37979
- ---> 0e2ed097ccf0
-Step 27/34 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
- ---> Running in 878f2d27ea20
-Removing intermediate container 878f2d27ea20
- ---> c2e5647cd61d
-Step 28/34 : RUN echo alias python="/usr/bin/python3.6" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip" >> ~/.bashrc
- ---> Running in c4ae5a2a86f4
-Removing intermediate container c4ae5a2a86f4
- ---> ee24bb7dc4cc
-Step 29/34 : USER shiny
- ---> Running in 8d044c2f7c52
-Removing intermediate container 8d044c2f7c52
- ---> 95bdba6371ef
-Step 30/34 : RUN echo alias python="/usr/bin/python3.6" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip" >> ~/.bashrc
- ---> Running in ad4fdf0119b5
-Removing intermediate container ad4fdf0119b5
- ---> 69a40b7deef1
-Step 31/34 : EXPOSE 3838
- ---> Running in b4bd377585c2
-Removing intermediate container b4bd377585c2
- ---> 34a57e8c383d
-Step 32/34 : WORKDIR /srv/shiny-server
- ---> Running in 7494a62519f4
-Removing intermediate container 7494a62519f4
- ---> 5da566e1bf9d
-Step 33/34 : USER root
- ---> Running in 835fba33d6fd
-Removing intermediate container 835fba33d6fd
- ---> 35f4caf2f5a5
-Step 34/34 : CMD ["/sbin/init"]
- ---> Running in 0f0c45e501fd
-Removing intermediate container 0f0c45e501fd
- ---> cac78a083cce
-Successfully built cac78a083cce
+Removing intermediate container f8db6bf303da
+ ---> 2234487c3750
+Step 26/35 : ENV LANG=ja_JP.UTF-8
+ ---> Running in a778cee3335f
+Removing intermediate container a778cee3335f
+ ---> 83c3c264b2a8
+Step 27/35 : RUN rm -f /etc/localtime
+ ---> Running in fa9accb663bd
+Removing intermediate container fa9accb663bd
+ ---> 0cae3146550d
+Step 28/35 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+ ---> Running in 820fb61d8a9b
+Removing intermediate container 820fb61d8a9b
+ ---> 292ae6cdc2b7
+Step 29/35 : RUN echo alias python="/usr/bin/python3.6" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip" >> ~/.bashrc
+ ---> Running in 3b68696a67fc
+Removing intermediate container 3b68696a67fc
+ ---> 0dde38bfafc8
+Step 30/35 : USER shiny
+ ---> Running in 791e11f0488c
+Removing intermediate container 791e11f0488c
+ ---> 45393d4804e4
+Step 31/35 : RUN echo alias python="/usr/bin/python3.6" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip" >> ~/.bashrc
+ ---> Running in c15377c21db8
+Removing intermediate container c15377c21db8
+ ---> b6d6c8eec1d9
+Step 32/35 : EXPOSE 3838
+ ---> Running in 72f6032fc271
+Removing intermediate container 72f6032fc271
+ ---> f72ed20dd8f1
+Step 33/35 : WORKDIR /srv/shiny-server
+ ---> Running in aec030f98a9d
+Removing intermediate container aec030f98a9d
+ ---> 5123fe18a9ac
+Step 34/35 : USER root
+ ---> Running in 8d5abf62970c
+Removing intermediate container 8d5abf62970c
+ ---> 333b6a504324
+Step 35/35 : CMD ["/sbin/init"]
+ ---> Running in 72d1ded730f5
+Removing intermediate container 72d1ded730f5
+ ---> 5e1e4c325f84
+Successfully built 5e1e4c325f84
 Successfully tagged centos_shiny:latest

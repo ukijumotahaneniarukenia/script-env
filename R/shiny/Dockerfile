@@ -15,6 +15,7 @@ yum install -y --nogpgcheck shiny-server-1.5.9.923-x86_64.rpm
 
 #shinyユーザーはshiny-serverのインストールで追加される
 RUN yum install -y sudo
+RUN chsh -s /bin/bash shiny
 RUN echo 'shiny_pwd' | passwd --stdin shiny
 RUN echo 'root_pwd' | passwd --stdin root
 RUN echo 'shiny ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
@@ -33,7 +34,7 @@ RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
 RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
 cd ~/tmp && \
 #移動したいdotfileをchoiceしてHOMEディレクトリへ
-mv .vimrc .. && \
+mv rc/.[^.]* ~ && \
 #用が済んだらリム
 rm -rf ~/tmp
 
@@ -46,8 +47,8 @@ sudo make -j12 distclean && \
 sudo make -j12 && \
 sudo make -j12 install && \
 #rootユーザーで張ってるからよろし
-sudo ln -fsr /usr/local/bin/vim /usr/bin/vim && \
-sudo ln -fsr /usr/local/bin/vim /usr/bin/vi && \
+#sudo ln -fsr /usr/local/bin/vim /usr/bin/vim && \
+#sudo ln -fsr /usr/local/bin/vim /usr/bin/vi && \
 mkdir -p ~/.vim/bundle && \
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
 sh installer.sh ~/.vim/bundle
@@ -84,7 +85,7 @@ RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
 RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
 cd ~/tmp && \
 #移動したいdotfileをchoiceしてHOMEディレクトリへ
-mv .vimrc .. && \
+mv rc/.[^.]* ~ && \
 #用が済んだらリム
 rm -rf ~/tmp
 
@@ -93,10 +94,9 @@ RUN echo gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel | tr ' ' '\
 git clone https://github.com/vim/vim.git && \
 cd vim && \
 ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && \
-make -j12 distclean && \
-make -j12 && \
-#ここでこける
-make -j12 install && \
+make distclean && \
+make && \
+make install && \
 ln -fsr /usr/local/bin/vim /usr/bin/vim && \
 ln -fsr /usr/local/bin/vim /usr/bin/vi && \
 mkdir -p ~/.vim/bundle && \
