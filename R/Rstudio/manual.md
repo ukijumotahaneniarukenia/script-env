@@ -68,7 +68,7 @@ docker run --privileged -v /etc/localtime:/etc/localtime -p 8787:8787 --name rst
 docker ps -qa | xargs -I@ bash -c 'docker stop @ && docker rm @'
 ```
 
-## ockerイメージ削除
+## dockerイメージ削除
 
 やり直すときはクリーンする。
 ```
