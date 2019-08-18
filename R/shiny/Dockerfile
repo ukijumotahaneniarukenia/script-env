@@ -3,10 +3,14 @@ FROM centos:latest
 #epelレポからRインストール
 RUN yum install -y epel-release
 RUN yum install -y R
-RUN yum install -y libcurl-devel openssl-devel libxml2-devel
+
+#shinyアプリに必要なRパッケージのインストール
+RUN R -e 'install.packages("rmarkdown",repos="http://cran.ism.ac.jp/" ,dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))' && \
+R -e 'install.packages("shiny",repos="http://cran.ism.ac.jp/" ,dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))'
 
 #shiny-serverインストール
-RUN curl -LO https://download3.rstudio.org/centos6.3/x86_64/shiny-server-1.5.9.923-x86_64.rpm && \
+RUN yum install -y libcurl-devel openssl-devel libxml2-devel && \
+curl -LO https://download3.rstudio.org/centos6.3/x86_64/shiny-server-1.5.9.923-x86_64.rpm && \
 yum install -y --nogpgcheck shiny-server-1.5.9.923-x86_64.rpm
 
 #shinyユーザーはshiny-serverのインストールで追加される
@@ -15,55 +19,43 @@ RUN echo 'shiny_pwd' | passwd --stdin shiny
 RUN echo 'root_pwd' | passwd --stdin root
 RUN echo 'shiny ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
-# shinyアプリに必要なパッケージインストール
-# https://www.marketechlabo.com/r-best-packages/
-
-RUN echo {shiny,rmarkdown,devtools,dplyr,tidyr,tidyverse,Unicode,stringr,ggplot2,readxl,magrittr,doParallel,purrr,reshape2} | tr ' ' '\n' | xargs -I@ R -e ""'install.packages("@",repos="http://cran.ism.ac.jp/" ,dependencies = TRUE, Ncpus = getOption("Ncpus", 6L))'
-#RUN R -e 'install.packages("shiny",repos="http://cran.ism.ac.jp/" ,dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))'
-#RUN R -e 'install.packages("rmarkdown",repos="http://cran.ism.ac.jp/" , dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))'
-#RUN R -e 'install.packages("devtools", repos="http://cran.ism.ac.jp/", dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))'
-#RUN R -e 'install.packages("dplyr",repos="http://cran.ism.ac.jp/" ,dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))'
-#RUN R -e 'install.packages("tidyr",repos="http://cran.ism.ac.jp/" ,dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))'
-#RUN R -e 'install.packages("tidyverse",repos="http://cran.ism.ac.jp/" ,dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))'
-#RUN R -e 'install.packages("Unicode",repos="http://cran.ism.ac.jp/" ,dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))'
-#RUN R -e 'install.packages("stringr",repos="http://cran.ism.ac.jp/" ,dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))'
-#RUN R -e 'install.packages("ggplot2",repos="http://cran.ism.ac.jp/" ,dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))'
-#RUN R -e 'install.packages("readxl",repos="http://cran.ism.ac.jp/" ,dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))'
-#RUN R -e 'install.packages("magrittr",repos="http://cran.ism.ac.jp/" ,dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))'
-#RUN R -e 'install.packages("doParallel",repos="http://cran.ism.ac.jp/" ,dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))'
-#RUN R -e 'install.packages("purrr",repos="http://cran.ism.ac.jp/" ,dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))'
-#RUN R -e 'install.packages("reshape2",repos="http://cran.ism.ac.jp/" ,dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))'
-#RUN R -e 'devtools::install_github("hadley/emo")'
-#RUN R -e 'devtools::install_github("KosukeHamazaki/RconVerteR")'
-#RUN R -e 'devtools::install_github("rstudio/renv")'
-
 ##実行ユーザをshinyに変更
 USER shiny
 
 #諸々インストール
 #ネットワーク系は必須
-RUN sudo yum install -y pandoc
-RUN sudo yum install -y nkf
-RUN sudo yum install -y iputils
-RUN sudo yum install -y net-tools
-RUN sudo yum install -y iproute
-RUN sudo yum install -y vim
-RUN sudo yum install -y tree
-RUN sudo yum install -y lsof
-RUN sudo yum install -y traceroute
-RUN sudo yum install -y psmisc
-RUN sudo yum install -y bind-utils
-RUN sudo yum install -y git
-RUN sudo yum install -y make
-RUN sudo yum install -y expect
-RUN sudo yum install -y openssh-server
-RUN sudo yum install -y openssh-clients
-RUN sudo yum install -y gcc
+RUN echo pandoc nkf iputils net-tools iproute vim tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc | tr ' ' '\n' | xargs -I@ sudo yum install -y @
+
+#自身のvim環境をクローン
+RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+
+#自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
+RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
+cd ~/tmp && \
+#移動したいdotfileをchoiceしてHOMEディレクトリへ
+mv .vimrc .. && \
+#用が済んだらリム
+rm -rf ~/tmp
+
+#vimも最新
+RUN echo gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel | tr ' ' '\n' | xargs -I@ sudo yum install -y @ && \
+git clone https://github.com/vim/vim.git ~/vim && \
+cd ~/vim && \
+./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && \
+sudo make -j12 distclean && \
+sudo make -j12 && \
+sudo make -j12 install && \
+#rootユーザーで張ってるからよろし
+sudo ln -fsr /usr/local/bin/vim /usr/bin/vim && \
+sudo ln -fsr /usr/local/bin/vim /usr/bin/vi && \
+mkdir -p ~/.vim/bundle && \
+curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
+sh installer.sh ~/.vim/bundle
 
 #実行ユーザをrootに変更
 USER root
 
-#Tukubaiコマンドは便利
+##Tukubaiコマンドは便利
 RUN git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && \
 cd Open-usp-Tukubai && \
 make -j12 install
@@ -84,13 +76,32 @@ cd bash-5.0 && \
 make -j12 && \
 make -j12 install
 
+
+#自身のvim環境をクローン
+RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+
+#自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
+RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
+cd ~/tmp && \
+#移動したいdotfileをchoiceしてHOMEディレクトリへ
+mv .vimrc .. && \
+#用が済んだらリム
+rm -rf ~/tmp
+
 #vimも最新
-RUN git clone https://github.com/vim/vim.git && \
-yum install -y ncurses-devel && \
+RUN echo gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel | tr ' ' '\n' | xargs -I@ yum install -y @ && \
+git clone https://github.com/vim/vim.git && \
 cd vim && \
+./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && \
 make -j12 distclean && \
 make -j12 && \
-make -j12 install
+#ここでこける
+make -j12 install && \
+ln -fsr /usr/local/bin/vim /usr/bin/vim && \
+ln -fsr /usr/local/bin/vim /usr/bin/vi && \
+mkdir -p ~/.vim/bundle && \
+curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
+sh installer.sh ~/.vim/bundle
 
 #pythonもそこそこ最新
 RUN yum install -y python36 python36-devel python36-libs && \
@@ -108,10 +119,20 @@ RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 RUN echo alias python="/usr/bin/python3.6" >> ~/.bashrc && \
 echo alias pip="/usr/local/bin/pip" >> ~/.bashrc
 
+#実行ユーザをshinyに変更
+USER shiny
+
+#alias設定
+RUN echo alias python="/usr/bin/python3.6" >> ~/.bashrc && \
+echo alias pip="/usr/local/bin/pip" >> ~/.bashrc
+
 #shinyサービスの提供ポートを外部アクセスようにオープンしておく
 EXPOSE 3838
 
 # コンテナログイン時のwdを設定
 WORKDIR /srv/shiny-server
+
+#最後はrootに戻す
+USER root
 
 CMD ["/sbin/init"]
