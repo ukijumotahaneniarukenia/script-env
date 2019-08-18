@@ -34,7 +34,7 @@ RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
 RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
 cd ~/tmp && \
 #移動したいdotfileをchoiceしてHOMEディレクトリへ
-mv .vimrc .. && \
+mv rc/.[^.]* ~ && \
 #用が済んだらリム
 rm -rf ~/tmp
 
@@ -47,8 +47,8 @@ sudo make -j12 distclean && \
 sudo make -j12 && \
 sudo make -j12 install && \
 #rootユーザーで張ってるからよろし
-#ln -fsr /usr/local/bin/vim /usr/bin/vim && \
-#ln -fsr /usr/local/bin/vim /usr/bin/vi && \
+#sudo ln -fsr /usr/local/bin/vim /usr/bin/vim && \
+#sudo ln -fsr /usr/local/bin/vim /usr/bin/vi && \
 mkdir -p ~/.vim/bundle && \
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
 sh installer.sh ~/.vim/bundle
@@ -84,7 +84,7 @@ RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
 RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
 cd ~/tmp && \
 #移動したいdotfileをchoiceしてHOMEディレクトリへ
-mv .vimrc .. && \
+mv rc/.[^.]* ~ && \
 #用が済んだらリム
 rm -rf ~/tmp
 
