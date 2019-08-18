@@ -2,38 +2,22 @@
 
 [最新版Rstudio](https://www.rstudio.com/products/rstudio/download/preview/)
 
-やっぱRstudioインストールしにくいから、一度removeして再インストールした。
+やっぱRstudioインストールしにくいから、一度removeして再インストールした。わからない全然わからない。この手順なくしたい。。
 ```
-[oracle@centos shiny]$ docker exec -it rstudio bash
-[root@1be20fb70f07 rstudio]# systemctl status rstudio-server                                                                                                                                                      
-● rstudio-server.service - SYSV: RStudio server provides a web interface to R
-   Loaded: loaded (/etc/rc.d/init.d/rstudio-server; bad; vendor preset: disabled)
-   Active: failed (Result: exit-code) since 土 2019-08-17 14:32:21 JST; 28s ago
-     Docs: man:systemd-sysv-generator(8)
-  Process: 109 ExecStart=/etc/rc.d/init.d/rstudio-server start (code=exited, status=1/FAILURE)
-
- 8月 17 14:32:21 1be20fb70f07 systemd[1]: Starting SYSV: RStudio server provides a web interface to R...
- 8月 17 14:32:21 1be20fb70f07 rstudio-server[109]: /etc/rc.d/init.d/rstudio-server: line 8: /etc/rc.d/init.d/functions: No such file or directory
- 8月 17 14:32:21 1be20fb70f07 systemd[1]: rstudio-server.service: control process exited, code=exited status=1
- 8月 17 14:32:21 1be20fb70f07 systemd[1]: Failed to start SYSV: RStudio server provides a web interface to R.
- 8月 17 14:32:21 1be20fb70f07 systemd[1]: Unit rstudio-server.service entered failed state.
- 8月 17 14:32:21 1be20fb70f07 systemd[1]: rstudio-server.service failed.
-[root@1be20fb70f07 rstudio]# sudo yum remove -y R
-[root@1be20fb70f07 rstudio]# sudo yum remove -y rstudio-server-1.0.44-1.x86_64
-[root@1be20fb70f07 rstudio]# sudo yum install -y R
-[root@1be20fb70f07 rstudio]# sudo yum install -y --nogpgcheck https://s3.amazonaws.com/rstudio-ide-build/server/centos6/x86_64/rstudio-server-rhel-1.2.1568-x86_64.rpm
-[root@1be20fb70f07 rstudio]# systemctl status rstudio-server                                                                                                          
+[root@905d56a22317 rstudio]# yum remove -y rstudio-server
+[root@905d56a22317 rstudio]# yum install -y --nogpgcheck https://s3.amazonaws.com/rstudio-ide-build/server/centos6/x86_64/rstudio-server-rhel-1.2.1568-x86_64.rpm
+[root@905d56a22317 rstudio]# systemctl status rstudio-server                                                                                                     
 ● rstudio-server.service - RStudio Server
    Loaded: loaded (/etc/systemd/system/rstudio-server.service; enabled; vendor preset: disabled)
-   Active: active (running) since 土 2019-08-17 14:35:38 JST; 31s ago
-  Process: 753 ExecStart=/usr/lib/rstudio-server/bin/rserver (code=exited, status=0/SUCCESS)
- Main PID: 754 (rserver)
-   CGroup: /docker/1be20fb70f0714745135cb58020728be51ed462703ff1ad3ec936c239e74653e/system.slice/rstudio-server.service
-           └─754 /usr/lib/rstudio-server/bin/rserver
-           ‣ 754 /usr/lib/rstudio-server/bin/rserver
+   Active: active (running) since 日 2019-08-18 07:51:24 JST; 1min 46s ago
+  Process: 780 ExecStart=/usr/lib/rstudio-server/bin/rserver (code=exited, status=0/SUCCESS)
+ Main PID: 781 (rserver)
+   CGroup: /docker/905d56a22317df6d1052041244b6ccb5fcea0bfe494ad24c510ed53d4f4e4f8b/system.slice/rstudio-server.service
+           └─781 /usr/lib/rstudio-server/bin/rserver
+           ‣ 781 /usr/lib/rstudio-server/bin/rserver
 
- 8月 17 14:35:38 1be20fb70f07 systemd[1]: Starting RStudio Server...
- 8月 17 14:35:38 1be20fb70f07 systemd[1]: Started RStudio Server.
+ 8月 18 07:51:24 905d56a22317 systemd[1]: Starting RStudio Server...
+ 8月 18 07:51:24 905d56a22317 systemd[1]: Started RStudio Server.
 ```
 
 # ブラウザから起動確認
@@ -42,38 +26,39 @@
 http://192.168.1.109:8787/
 ```
 
-![](./1.png)
-![](./2.png)
-![](./3.png)
-![](./4.png)
+![](./pic/1.png)
+![](./pic/2.png)
+![](./pic/3.png)
+![](./pic/4.png)
 
-# Rstudioの背景色とか
+# Rstudio背景色とか
 
-![](./5.png)
-![](./6.png)
-![](./7.png)
-![](./8.png)
-![](./9.png)
+![](./pic/5.png)
+![](./pic/6.png)
+![](./pic/7.png)
+![](./pic/8.png)
+![](./pic/9.png)
 
 # 環境構築
 
 ## DockerfileよりRstudioイメージ作成
 
 ```
-time docker build -t centos_rstudio2 . | tee log
+time docker build -t centos_rstudio . | tee log
 ```
 
 ```
-[oracle@centos Rstudio]$ docker images
+[oracle@centos Rstudio]$ cat <(docker images | head -n1) <(docker images | awk '$1=="centos_rstudio"{print $0}')
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-centos_rstudio2     latest              8dba8b78305e        26 minutes ago      5.81GB
+centos_rstudio      latest              0e0b37a6f5d0        13 minutes ago      3.62GB
 ```
 
 ## dockerコンテナ作成
 
 87ポートは予約済みなので、8787で外部アクセスできるようにした。
+マウントするディレクトリは日ごとの作業ディレクトリにする。[blogレポに詳細を記載。](https://github.com/ukijumotahaneniarukenia/blog/blob/master/manual.md)
 ```
-docker run --privileged -v /etc/localtime:/etc/localtime -p 8787:8787 --name rstudio -itd centos_rstudio2 /sbin/init
+docker run --privileged -v /etc/localtime:/etc/localtime -p 8787:8787 --name rstudio -itd centos_rstudio /sbin/init
 ```
 
 ## dockerコンテナ削除
@@ -83,27 +68,35 @@ docker run --privileged -v /etc/localtime:/etc/localtime -p 8787:8787 --name rst
 docker ps -qa | xargs -I@ bash -c 'docker stop @ && docker rm @'
 ```
 
-## 不要なdockerイメージ削除
+## ockerイメージ削除
 
 やり直すときはクリーンする。
 ```
 docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
 ```
 
-## dockerコンテナに潜る
+## dockerコンテナ潜入
 
-rootユーザーで入る。
+rootユーザーないし、rstudioユーザー。
 ```
 [oracle@centos Rstudio]$ docker ps -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                    NAMES
-6b00b3a71130        centos_rstudio2     "/sbin/init"        14 minutes ago      Up 14 minutes       0.0.0.0:8787->8787/tcp   rstudio
-[oracle@centos Rstudio]$ docker exec -it rstudio bash
+4a14c56f6317        centos_rstudio      "/sbin/init"        16 minutes ago      Up 16 minutes       0.0.0.0:8787->8787/tcp   rstudio
+[oracle@centos Rstudio]$ docker exec --user root -it rstudio bash
+[root@4a14c56f6317 rstudio]# su rstudio
+[rstudio@4a14c56f6317 ~]$ exit
+[root@4a14c56f6317 rstudio]# exit
+[oracle@centos Rstudio]$ docker exec --user rstudio -it rstudio bash
+[rstudio@4a14c56f6317 ~]$ su root
+Password: 
+[root@4a14c56f6317 rstudio]# exit
+[rstudio@4a14c56f6317 ~]$ exit
 ```
 
 ## バージョン情報
 
 ```
-[root@6b00b3a71130 /]# awk --version    
+[rstudio@ff3b1f98de1b ~]$ awk --version
 GNU Awk 5.0.0, API: 2.0
 Copyright (C) 1989, 1991-2019 Free Software Foundation.
 
@@ -119,49 +112,32 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program. If not, see http://www.gnu.org/licenses/.
-[root@6b00b3a71130 /]# bash --version   
+[rstudio@ff3b1f98de1b ~]$ bash --version
 GNU bash, バージョン 5.0.0(1)-release (x86_64-pc-linux-gnu)
 Copyright (C) 2019 Free Software Foundation, Inc.
 ライセンス GPLv3+: GNU GPL バージョン 3 またはそれ以降 <http://gnu.org/licenses/gpl.html>
 
 This is free software; you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
-[root@6b00b3a71130 /]# python --version
-Python 2.7.5
-[root@6b00b3a71130 /]# self            
-Usage     : self f1 f2 ... file
-          : self -d f1 f2 ... string
-Version   : Sat Mar 29 20:29:04 JST 2014
-          : Open usp Tukubai (LINUX+FREEBSD/PYTHON2.4+, 3.1, 3.2/UTF-8)
-[root@6b00b3a71130 /]# R --version                                                                                                                                                                                
-R version 3.6.0 (2019-04-26) -- "Planting of a Tree"
-Copyright (C) 2019 The R Foundation for Statistical Computing
-Platform: x86_64-redhat-linux-gnu (64-bit)
-
-R is free software and comes with ABSOLUTELY NO WARRANTY.
-You are welcome to redistribute it under the terms of the
-GNU General Public License versions 2 or 3.
-For more information about these matters see
-https://www.gnu.org/licenses/.
-[rstudio@779bd94c825c /]$ vim --version 
-VIM - Vi IMproved 8.1 (2018 May 18, compiled Aug 16 2019 18:22:34)
-適用済パッチ: 1-1856
-Compiled by root@ce903189d2af
-Huge 版 without GUI.  機能の一覧 有効(+)/無効(-)
+[rstudio@ff3b1f98de1b ~]$ vim --version
+VIM - Vi IMproved 8.1 (2018 May 18, compiled Aug 18 2019 00:38:14)
+適用済パッチ: 1-1879
+Compiled by root@b34c60851309
+Huge 版 with GTK2 GUI.  機能の一覧 有効(+)/無効(-)
 +acl               -farsi             -mouse_sysmouse    -tag_any_white
 +arabic            +file_in_path      +mouse_urxvt       -tcl
 +autocmd           +find_in_path      +mouse_xterm       +termguicolors
 +autochdir         +float             +multi_byte        +terminal
 -autoservername    +folding           +multi_lang        +terminfo
--balloon_eval      -footer            -mzscheme          +termresponse
++balloon_eval      -footer            -mzscheme          +termresponse
 +balloon_eval_term +fork()            +netbeans_intg     +textobjects
--browse            +gettext           +num64             +textprop
++browse            +gettext           +num64             +textprop
 ++builtin_terms    -hangul_input      +packages          +timers
 +byte_offset       +iconv             +path_extra        +title
-+channel           +insert_expand     -perl              -toolbar
++channel           +insert_expand     -perl              +toolbar
 +cindent           +job               +persistent_undo   +user_commands
--clientserver      +jumplist          +postscript        +vartabs
--clipboard         +keymap            +printer           +vertsplit
++clientserver      +jumplist          +postscript        +vartabs
++clipboard         +keymap            +printer           +vertsplit
 +cmdline_compl     +lambda            +profile           +virtualedit
 +cmdline_hist      +langmap           -python            +visual
 +cmdline_info      +libcall           -python3           +visualextra
@@ -171,12 +147,12 @@ Huge 版 without GUI.  機能の一覧 有効(+)/無効(-)
 +cscope            +localmap          -ruby              +wildmenu
 +cursorbind        -lua               +scrollbind        +windows
 +cursorshape       +menu              +signs             +writebackup
-+dialog_con        +mksession         +smartindent       -X11
++dialog_con_gui    +mksession         +smartindent       +X11
 +diff              +modify_fname      -sound             -xfontset
-+digraphs          +mouse             +spell             -xim
--dnd               -mouseshape        +startuptime       -xpm
--ebcdic            +mouse_dec         +statusline        -xsmp
-+emacs_tags        -mouse_gpm         -sun_workshop      -xterm_clipboard
++digraphs          +mouse             +spell             +xim
++dnd               +mouseshape        +startuptime       -xpm
+-ebcdic            +mouse_dec         +statusline        +xsmp_interact
++emacs_tags        -mouse_gpm         -sun_workshop      +xterm_clipboard
 +eval              -mouse_jsbterm     +syntax            -xterm_save
 +ex_extra          +mouse_netterm     +tag_binary        
 +extra_search      +mouse_sgr         -tag_old_static    
@@ -184,12 +160,65 @@ Huge 版 without GUI.  機能の一覧 有効(+)/無効(-)
       ユーザー vimrc: "$HOME/.vimrc"
    第2ユーザー vimrc: "~/.vim/vimrc"
        ユーザー exrc: "$HOME/.exrc"
+     システム gvimrc: "$VIM/gvimrc"
+     ユーザー gvimrc: "$HOME/.gvimrc"
+  第2ユーザー gvimrc: "~/.vim/gvimrc"
   デフォルトファイル: "$VIMRUNTIME/defaults.vim"
+    システムメニュー: "$VIMRUNTIME/menu.vim"
        省略時の $VIM: "/usr/local/share/vim"
-コンパイル: gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1       
-リンク: gcc -std=gnu99   -L/usr/local/lib -Wl,--as-needed -o vim        -lm -ltinfo -lnsl  -ldl           
-[rstudio@779bd94c825c /]$ python --version
+コンパイル: gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1       
+リンク: gcc -std=gnu99   -L/usr/local/lib -Wl,--as-needed -o vim   -lgtk-x11-2.0 -lgdk-x11-2.0 -latk-1.0 -lgio-2.0 -lpangoft2-1.0 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lcairo -lpango-1.0 -lfontconfig -lgobject-2.0 -lglib-2.0 -lfreetype   -lSM -lICE -lXt -lX11 -lSM -lICE  -lm -ltinfo -lnsl  -ldl           
+[rstudio@ff3b1f98de1b ~]$ vi --version
+VIM - Vi IMproved 8.1 (2018 May 18, compiled Aug 18 2019 00:38:14)
+適用済パッチ: 1-1879
+Compiled by root@b34c60851309
+Huge 版 with GTK2 GUI.  機能の一覧 有効(+)/無効(-)
++acl               -farsi             -mouse_sysmouse    -tag_any_white
++arabic            +file_in_path      +mouse_urxvt       -tcl
++autocmd           +find_in_path      +mouse_xterm       +termguicolors
++autochdir         +float             +multi_byte        +terminal
+-autoservername    +folding           +multi_lang        +terminfo
++balloon_eval      -footer            -mzscheme          +termresponse
++balloon_eval_term +fork()            +netbeans_intg     +textobjects
++browse            +gettext           +num64             +textprop
+++builtin_terms    -hangul_input      +packages          +timers
++byte_offset       +iconv             +path_extra        +title
++channel           +insert_expand     -perl              +toolbar
++cindent           +job               +persistent_undo   +user_commands
++clientserver      +jumplist          +postscript        +vartabs
++clipboard         +keymap            +printer           +vertsplit
++cmdline_compl     +lambda            +profile           +virtualedit
++cmdline_hist      +langmap           -python            +visual
++cmdline_info      +libcall           -python3           +visualextra
++comments          +linebreak         +quickfix          +viminfo
++conceal           +lispindent        +reltime           +vreplace
++cryptv            +listcmds          +rightleft         +wildignore
++cscope            +localmap          -ruby              +wildmenu
++cursorbind        -lua               +scrollbind        +windows
++cursorshape       +menu              +signs             +writebackup
++dialog_con_gui    +mksession         +smartindent       +X11
++diff              +modify_fname      -sound             -xfontset
++digraphs          +mouse             +spell             +xim
++dnd               +mouseshape        +startuptime       -xpm
+-ebcdic            +mouse_dec         +statusline        +xsmp_interact
++emacs_tags        -mouse_gpm         -sun_workshop      +xterm_clipboard
++eval              -mouse_jsbterm     +syntax            -xterm_save
++ex_extra          +mouse_netterm     +tag_binary        
++extra_search      +mouse_sgr         -tag_old_static    
+      システム vimrc: "$VIM/vimrc"
+      ユーザー vimrc: "$HOME/.vimrc"
+   第2ユーザー vimrc: "~/.vim/vimrc"
+       ユーザー exrc: "$HOME/.exrc"
+     システム gvimrc: "$VIM/gvimrc"
+     ユーザー gvimrc: "$HOME/.gvimrc"
+  第2ユーザー gvimrc: "~/.vim/gvimrc"
+  デフォルトファイル: "$VIMRUNTIME/defaults.vim"
+    システムメニュー: "$VIMRUNTIME/menu.vim"
+       省略時の $VIM: "/usr/local/share/vim"
+コンパイル: gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1       
+リンク: gcc -std=gnu99   -L/usr/local/lib -Wl,--as-needed -o vim   -lgtk-x11-2.0 -lgdk-x11-2.0 -latk-1.0 -lgio-2.0 -lpangoft2-1.0 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lcairo -lpango-1.0 -lfontconfig -lgobject-2.0 -lglib-2.0 -lfreetype   -lSM -lICE -lXt -lX11 -lSM -lICE  -lm -ltinfo -lnsl  -ldl           
+[rstudio@ff3b1f98de1b ~]$ python --version
 Python 3.6.8
-[rstudio@779bd94c825c /]$ pip --version
+[rstudio@ff3b1f98de1b ~]$ pip --version
 pip 19.2.2 from /usr/local/lib/python3.6/site-packages/pip (python 3.6)
 ```

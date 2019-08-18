@@ -18,59 +18,87 @@ RUN sudo yum install -y epel-release
 RUN sudo yum install -y R
 
 #Rstudioインストール
-RUN sudo yum install -y --nogpgcheck https://download2.rstudio.org/rstudio-server-rhel-1.0.44-x86_64.rpm
+RUN sudo yum install -y --nogpgcheck https://s3.amazonaws.com/rstudio-ide-build/server/centos6/x86_64/rstudio-server-rhel-1.2.1568-x86_64.rpm
 
 #諸々インストール
 #ネットワーク系は必須
-RUN sudo yum install -y pandoc
-RUN sudo yum install -y nkf
-RUN sudo yum install -y iputils
-RUN sudo yum install -y net-tools
-RUN sudo yum install -y iproute
-RUN sudo yum install -y vim
-RUN sudo yum install -y tree
-RUN sudo yum install -y lsof
-RUN sudo yum install -y traceroute
-RUN sudo yum install -y psmisc
-RUN sudo yum install -y bind-utils
-RUN sudo yum install -y git
-RUN sudo yum install -y make
-RUN sudo yum install -y expect
-RUN sudo yum install -y openssh-server
-RUN sudo yum install -y openssh-clients
-RUN sudo yum install -y gcc
+
+RUN echo pandoc nkf iputils net-tools iproute vim tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc | tr ' ' '\n' | xargs -I@ sudo yum install -y @
+
+#自身のvim環境をクローン
+RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+
+#自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
+RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
+cd ~/tmp && \
+#移動したいdotfileをchoiceしてHOMEディレクトリへ
+mv .vimrc .. && \
+#用が済んだらリム
+rm -rf ~/tmp
+
+#vimも最新
+RUN echo gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel | tr ' ' '\n' | xargs -I@ sudo yum install -y @ && \
+git clone https://github.com/vim/vim.git ~/vim && \
+cd ~/vim && \
+./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && \
+sudo make -j12 distclean && \
+sudo make -j12 && \
+sudo make -j12 install && \
+#rootユーザーで張ってるからよろし
+#ln -fsr /usr/local/bin/vim /usr/bin/vim && \
+#ln -fsr /usr/local/bin/vim /usr/bin/vi && \
+mkdir -p ~/.vim/bundle && \
+curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
+sh installer.sh ~/.vim/bundle
 
 #実行ユーザをrootに変更
 USER root
 
-#Tukubaiコマンドは便利
+##Tukubaiコマンドは便利
 RUN git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && \
 cd Open-usp-Tukubai && \
-make install
+make -j12 install
 
 #awkコマンドは最新の奴 include使える
 RUN curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && \
 tar -zxvf gawk-5.0.0.tar.gz && \
 cd gawk-5.0.0 && \
 ./configure && \
-make && \
-make install
+make -j12 && \
+make -j12 install
 
 #bashも最新
 RUN curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && \
 tar -zxvf bash-5.0.tar.gz && \
 cd bash-5.0 && \
 ./configure && \
-make && \
-make install
+make -j12 && \
+make -j12 install
+
+#自身のvim環境をクローン
+RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+
+#自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
+RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
+cd ~/tmp && \
+#移動したいdotfileをchoiceしてHOMEディレクトリへ
+mv .vimrc .. && \
+#用が済んだらリム
+rm -rf ~/tmp
 
 #vimも最新
-RUN git clone https://github.com/vim/vim.git && \
-yum install -y ncurses-devel && \
+RUN echo gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel | tr ' ' '\n' | xargs -I@ yum install -y @ && \
+git clone https://github.com/vim/vim.git && \
 cd vim && \
-make distclean && \
-make && \
-make install
+./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && \
+make -j12 distclean && \
+make -j12 && \
+make -j12 install && \
+ln -fsr /usr/local/bin/vim /usr/bin/vim && \
+ln -fsr /usr/local/bin/vim /usr/bin/vi && \
+mkdir -p ~/.vim/bundle && \
+curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
+sh installer.sh ~/.vim/bundle
 
 #pythonもそこそこ最新
 RUN yum install -y python36 python36-devel python36-libs && \
@@ -83,6 +111,13 @@ RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
 ENV LANG=ja_JP.UTF-8
 RUN rm -f /etc/localtime
 RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+
+#alias設定
+RUN echo alias python="/usr/bin/python3.6" >> ~/.bashrc && \
+echo alias pip="/usr/local/bin/pip" >> ~/.bashrc
+
+#実行ユーザをrstudioに変更
+USER rstudio
 
 #alias設定
 RUN echo alias python="/usr/bin/python3.6" >> ~/.bashrc && \
