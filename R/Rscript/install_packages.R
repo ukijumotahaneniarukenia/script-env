@@ -1,14 +1,5 @@
-#[rstudio@21fce7924f0a 3.6]$ pwd
-#/home/rstudio/R/x86_64-redhat-linux-gnu-library/3.6
-#[rstudio@21fce7924f0a 3.6]$ ls | xargs -I@ echo 'install.packages("@",repos="http://cran.ism.ac.jp/", dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))'
-
-#事前インストール
-#[rstudio@21fce7924f0a ~]$ sudo yum install -y libcurl-devel
-#[rstudio@21fce7924f0a ~]$ sudo yum install -y openssl-devel
-#[rstudio@21fce7924f0a ~]$ sudo yum install -y libxml2-devel
-#[rstudio@21fce7924f0a ~]$ sudo yum install -y mysql-devel
-#[rstudio@21fce7924f0a ~]$ sudo yum install -y udunits2-devel
-
+system("./pre_install_packages.sh")
+install.packages("tictoc",repos="http://cran.ism.ac.jp/", dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))
 install.packages("BH",repos="http://cran.ism.ac.jp/", dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))
 install.packages("BiocManager",repos="http://cran.ism.ac.jp/", dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))
 install.packages("DBI",repos="http://cran.ism.ac.jp/", dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))
@@ -17,6 +8,7 @@ install.packages("Hmisc",repos="http://cran.ism.ac.jp/", dependencies = TRUE, Nc
 install.packages("Lahman",repos="http://cran.ism.ac.jp/", dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))
 install.packages("MatrixModels",repos="http://cran.ism.ac.jp/", dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))
 install.packages("ModelMetrics",repos="http://cran.ism.ac.jp/", dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))
+install.packages("RMySQL",repos="http://cran.ism.ac.jp/", dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))
 install.packages("R6",repos="http://cran.ism.ac.jp/", dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))
 install.packages("RColorBrewer",repos="http://cran.ism.ac.jp/", dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))
 install.packages("RSQLite",repos="http://cran.ism.ac.jp/", dependencies = TRUE, Ncpus = getOption("Ncpus", 12L))
