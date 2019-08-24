@@ -2,11 +2,12 @@
 
 [最新版Rstudio](https://www.rstudio.com/products/rstudio/download/preview/)
 
+yum installで固まったら、/sbin/initが動いていない気がするので、PC再起動してやり直す。
 やっぱRstudioインストールしにくいから、一度removeして再インストールした。わからない全然わからない。この手順なくしたい。。
 ```
 [root@905d56a22317 rstudio]# yum remove -y rstudio-server
 [root@905d56a22317 rstudio]# yum install -y --nogpgcheck https://s3.amazonaws.com/rstudio-ide-build/server/centos6/x86_64/rstudio-server-rhel-1.2.1568-x86_64.rpm
-[root@905d56a22317 rstudio]# systemctl status rstudio-server                                                                                                     
+[root@905d56a22317 rstudio]# systemctl status rstudio-server
 ● rstudio-server.service - RStudio Server
    Loaded: loaded (/etc/systemd/system/rstudio-server.service; enabled; vendor preset: disabled)
    Active: active (running) since 日 2019-08-18 07:51:24 JST; 1min 46s ago
