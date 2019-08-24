@@ -12,7 +12,20 @@
 [rstudio@centos ~]$ su root
 パスワード:
 [root@centos rstudio]# reboot
-[rstudio@centos ~]sudo systemctl status rstudio-server.service
+[rstudio@centos ~]$ sudo systemctl status rstudio-server.service
+[sudo] rstudio のパスワード:
+● rstudio-server.service - RStudio Server
+   Loaded: loaded (/etc/systemd/system/rstudio-server.service; enabled; vendor preset: disabled)
+   Active: active (running) since 土 2019-08-24 20:31:27 JST; 1min 0s ago
+  Process: 1179 ExecStart=/usr/lib/rstudio-server/bin/rserver (code=exited, status=0/SUCCESS)
+ Main PID: 1192 (rserver)
+    Tasks: 3
+   Memory: 23.2M
+   CGroup: /system.slice/rstudio-server.service
+           └─1192 /usr/lib/rstudio-server/bin/rserver
+
+ 8月 24 20:31:27 centos systemd[1]: Starting RStudio Server...
+ 8月 24 20:31:27 centos systemd[1]: Started RStudio Server.
 ```
 
 # dockerホストでの起動確認
