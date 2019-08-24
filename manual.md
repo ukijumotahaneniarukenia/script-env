@@ -6,11 +6,17 @@ git clone https://github.com/user_name/XXX.git
 ```
 
 ## gitサービスを利用するユーザーの事前設定
-git config --listで設定がファイルに書き込まれていることを確認する。
+
+user_nameとuser_emailがなかったら、git configコマンドで設定。あれば不要。
 ```
 git config --list
 git config --global user.name "user_name"
 git config --global user.email "user_email"
+```
+
+設定がファイルに書き込まれていることを確認する。ユーザー毎に管理している。
+```
+vi ~/.gitconfig
 ```
 
 ## git管理下のフォルダ内で成果物コミット
