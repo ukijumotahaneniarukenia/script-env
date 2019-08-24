@@ -1,3 +1,26 @@
+# dockerホストにもインストール
+
+自動起動設定しておいた
+```
+[root@centos oracle]# userdel rstudio
+[root@centos oracle]# useradd rstudio
+[root@centos oracle]# usermod -aG docker rstudio
+[root@centos oracle]# echo 'rstudio_pwd' | passwd --stdin rstudio
+[rstudio@centos ~]$LANG=C xdg-user-dirs-gtk-update
+[rstudio@centos ~]sudo yum install -y --nogpgcheck https://s3.amazonaws.com/rstudio-ide-build/server/centos6/x86_64/rstudio-server-rhel-1.2.1568-x86_64.rpm
+[rstudio@centos ~]sudo systemctl enable rstudio-server.service
+[rstudio@centos ~]$ su root
+パスワード:
+[root@centos rstudio]# reboot
+[rstudio@centos ~]sudo systemctl status rstudio-server.service
+```
+
+# dockerホストでの起動確認
+
+```
+http://localhost:8787/
+```
+
 # 事後準備
 
 [最新版Rstudio](https://www.rstudio.com/products/rstudio/download/preview/)
