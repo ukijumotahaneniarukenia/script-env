@@ -6,7 +6,7 @@ RUN groupadd -g 1001 serena
 RUN useradd -m -g serena -u 1001 python
 RUN echo 'python_pwd' | passwd --stdin python
 RUN echo 'root_pwd' | passwd --stdin root
-RUN echo '%docker ALL=(ALL)       ALL' >> /etc/sudoers
+RUN echo 'serena ALL=(ALL)       ALL' >> /etc/sudoers
 RUN echo 'python ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 #各種コマンドインストール
