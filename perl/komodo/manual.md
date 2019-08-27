@@ -1,3 +1,14 @@
+## dockerホストマシンにkomodoユーザー作成
+
+```
+[root@centos komodo]# useradd komodo
+[root@centos komodo]# usermod -aG docker komodo
+[root@centos komodo]# echo 'komodo_pwd' | passwd --stdin komodo
+ユーザー komodo のパスワードを変更。
+passwd: すべての認証トークンが正しく更新できました。
+```
+
+
 <!--https://www.activestate.com/products/komodo-ide/downloads/edit/-->
 
 <!--https://www.activestate.com/blog/building-komodo-docker/-->
