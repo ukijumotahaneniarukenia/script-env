@@ -1,25 +1,38 @@
-FROM centos:latest
+FROM ubuntu:latest
+
+#各種コマンドインストール
+RUN apt-get update
+RUN apt-get install -y sudo
+#RUN apt-get install -y epel-release#入らない
+RUN apt-get install -y nkf
+RUN apt-get install -y git
+RUN apt-get install -y tree
+#RUN apt-get install -y iputils#入らない
+RUN apt-get install -y traceroute
+RUN apt-get install -y net-tools
+RUN apt-get install -y lsof
+RUN apt-get install -y make
+RUN apt-get install -y gcc
+RUN apt-get install -y man
+RUN apt-get install -y openssl
+RUN apt-get install -y curl
 
 #ユーザー作成
 RUN groupadd -g 1001 serena
 RUN useradd -m -g serena -u 1001 perl
-RUN echo 'perl_pwd' | passwd --stdin perl
-RUN echo 'root_pwd' | passwd --stdin root
+RUN echo perl:perl_pwd | chpasswd
+RUN echo root:root_pwd | chpasswd
 RUN echo '%serena ALL=(ALL)       ALL' >> /etc/sudoers
 RUN echo 'perl ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
-#各種コマンドインストール
-RUN yum install -y sudo epel-release R zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man
-
 #perl パッケージ管理cpanmないしcpanインストール
-RUN yum install -y which perl-App-cpanminus wxGTK-devel perl-ExtUtils-Embed perl-File-HomeDir perl-Term-ReadLine-Gnu wxGTK3 cpan
-#RUN cpanm Fatal Module::Pluggable Alien::wxWidgets Debug::Client DBD::SQLite::db ORLite ORLite::Migrate
+RUN apt-get install -y build-essential cpanminus libssl-dev 
 
 #Tukubaiコマンドは便利
 RUN cd ~ && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && \
 cd Open-usp-Tukubai && \
 make -j12 install
-
+#
 #awkコマンドは最新の奴 include使える
 RUN cd ~ && curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && \
 tar -zxvf gawk-5.0.0.tar.gz && \
@@ -28,7 +41,7 @@ cd gawk-5.0.0 && \
 make -j12 && \
 make -j12 install
 
-#bashも最新
+##bashも最新
 RUN cd ~ && curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && \
 tar -zxvf bash-5.0.tar.gz && \
 cd bash-5.0 && \
@@ -37,7 +50,8 @@ make -j12 && \
 make -j12 install
 
 #vimも最新
-RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && \
+#RUN apt-get install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && \
+RUN apt-get install -y libxmu-dev libgtk2.0-dev libxpm-dev libncursesw5-dev && \
 cd ~ && git clone https://github.com/vim/vim.git && \
 cd vim && \
 ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && \
@@ -64,17 +78,13 @@ cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/instal
 sh installer.sh ~/.vim/bundle
 
 #emojiのinstall
-RUN yum install -y unzip && mkdir ~/.fonts && cd ~/.fonts && \
+RUN apt-get install -y unzip && mkdir ~/.fonts && cd ~/.fonts && \
 curl -LO https://noto-website-2.storage.googleapis.com/pkgs/Noto-unhinted.zip && \
 unzip Noto-unhinted.zip && rm Noto-unhinted.zip
 
-#python install
-RUN cd ~ && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && \
-tar -zxvf Python-3.7.4.tgz && \
-cd Python-3.7.4 && \
-./configure && \
-make -j12 && \
-make -j12 install
+#python pip install
+RUN apt-get install -y python3.7 python3.7-dev
+RUN curl -kL https://bootstrap.pypa.io/get-pip.py | python3.7
 
 #perl install
 RUN cd ~ && curl -LO https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz && \
@@ -85,7 +95,7 @@ make -j12 && \
 make -j12 install
 
 #parallelコマンド install
-RUN cd ~ && yum install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && \
+RUN cd ~ && apt-get install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && \
 tar jxf parallel-latest.tar.bz2 && \
 cd parallel-20190822 && \
 ./configure && \
@@ -93,10 +103,10 @@ make -j12 && \
 make -j12 install
 
 #alias設定
-RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
-echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
-echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
-echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc
+RUN echo alias python=/usr/bin/python3.7 >> ~/.bashrc && \
+echo alias pip=/usr/local/bin/pip3.7 >> ~/.bashrc && \
+echo alias perl=/usr/local/bin/perl5.30.0 >> ~/.bashrc && \
+echo alias parallel=/usr/local/bin/parallel >> ~/.bashrc 
 
 #実行ユーザをperlに変更
 USER perl
@@ -118,29 +128,26 @@ cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/instal
 sh installer.sh ~/.vim/bundle
 
 #emojiのinstall
-RUN sudo yum install -y unzip && mkdir ~/.fonts && cd ~/.fonts && \
+RUN sudo apt-get install -y unzip && mkdir ~/.fonts && cd ~/.fonts && \
 curl -LO https://noto-website-2.storage.googleapis.com/pkgs/Noto-unhinted.zip && \
 unzip Noto-unhinted.zip && rm Noto-unhinted.zip
 
 #alias設定
-RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
-echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
-echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
-echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
-echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
-echo "alias vi=\"sudo vim\"" >> ~/.bashrc
+RUN echo alias python=/usr/bin/python3.7 >> ~/.bashrc && \
+echo alias pip=/usr/local/bin/pip3.7 >> ~/.bashrc && \
+echo alias perl=/usr/local/bin/perl5.30.0 >> ~/.bashrc && \
+echo alias parallel=/usr/local/bin/parallel >> ~/.bashrc && \
+echo alias vim=sudo vim >> ~/.bashrc && \
+echo alias vi=sudo vim >> ~/.bashrc
 
 #最後はrootに戻す
 USER root 
 
 #日本語環境と時刻合わせ
-RUN yum -y reinstall glibc-common
-RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
+RUN apt-get install -y language-pack-ja-base language-pack-ja
+RUN locale-gen ja_JP.UTF-8
 ENV LANG=ja_JP.UTF-8
 RUN rm -f /etc/localtime
 RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
-#Rstudioサービスの提供ポートを外部アクセスようにオープンしておく
-EXPOSE 8787
-
-CMD ["/sbin/init"]
+#CMD ["/sbin/init"]
