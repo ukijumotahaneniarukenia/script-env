@@ -11,6 +11,7 @@ docker ps -qa | xargs -I@ bash -c 'docker stop @ && docker rm @'
 # dockerイメージ削除
 ```
 docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
+docker images | awk '$1 ~ "centos_"{print $3}' | xargs -I@ bash -c 'docker rmi @
 ```
 
 # dockerコンテナ起動
