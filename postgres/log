@@ -1,0 +1,344 @@
+Sending build context to Docker daemon  10.75kB
+Step 1/48 : FROM centos:latest
+ ---> 9f38484d220f
+Step 2/48 : RUN groupadd -g 1001 serena
+ ---> Using cache
+ ---> df6410821a19
+Step 3/48 : RUN useradd -m -g serena -u 1001 rstudio
+ ---> Using cache
+ ---> 78efba1dd527
+Step 4/48 : RUN adduser postgres
+ ---> Using cache
+ ---> ccde72610b22
+Step 5/48 : RUN chsh -s /bin/bash rstudio
+ ---> Using cache
+ ---> fa0b27588dc3
+Step 6/48 : RUN echo 'root_pwd' | passwd --stdin root
+ ---> Using cache
+ ---> 90d31d4c76b4
+Step 7/48 : RUN echo 'rstudio_pwd' | passwd --stdin rstudio
+ ---> Using cache
+ ---> a8720af34e74
+Step 8/48 : RUN echo 'postgres_pwd' | passwd --stdin postgres
+ ---> Using cache
+ ---> f7afdd0c57b8
+Step 9/48 : RUN echo 'serena ALL=(ALL)       ALL' >> /etc/sudoers
+ ---> Using cache
+ ---> d808dff5f4fe
+Step 10/48 : RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Using cache
+ ---> 70111988b4c2
+Step 11/48 : RUN echo 'postgres ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Using cache
+ ---> e0bcbcf09387
+Step 12/48 : RUN yum install -y sudo epel-release R zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man
+ ---> Using cache
+ ---> c04ca78bd782
+Step 13/48 : RUN cd ~ && curl -LO https://ftp.postgresql.org/pub/source/v11.5/postgresql-11.5.tar.gz && tar -zxvf postgresql-11.5.tar.gz && cd postgresql-11.5 && ./configure --without-readline --without-zlib && make -j12 && make -j12 install
+ ---> Using cache
+ ---> 6606d8c1b6c7
+Step 14/48 : RUN mkdir /usr/local/pgsql/data && chown postgres /usr/local/pgsql/data
+ ---> Using cache
+ ---> 5afe9d8b5aec
+Step 15/48 : RUN yum install -y which perl-App-cpanminus wxGTK-devel perl-ExtUtils-Embed perl-File-HomeDir perl-Term-ReadLine-Gnu wxGTK3 cpan
+ ---> Using cache
+ ---> 63c22a80d395
+Step 16/48 : RUN cd ~ && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && cd Open-usp-Tukubai && make -j12 install
+ ---> Using cache
+ ---> 92d289ebdb1c
+Step 17/48 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && tar -zxvf gawk-5.0.0.tar.gz && cd gawk-5.0.0 && ./configure && make -j12 && make -j12 install
+ ---> Using cache
+ ---> ec153abab777
+Step 18/48 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && tar -zxvf bash-5.0.tar.gz && cd bash-5.0 && ./configure && make -j12 && make -j12 install
+ ---> Using cache
+ ---> 5f882876405f
+Step 19/48 : RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd ~ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
+ ---> Using cache
+ ---> d2198e024968
+Step 20/48 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> Using cache
+ ---> eb279d036aaa
+Step 21/48 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> Using cache
+ ---> 0417dafcd715
+Step 22/48 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
+ ---> Using cache
+ ---> 25da7a6c846c
+Step 23/48 : RUN cd ~ && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && tar -zxvf Python-3.7.4.tgz && cd Python-3.7.4 && ./configure && make -j12 && make -j12 install
+ ---> Using cache
+ ---> e597bad6fa1e
+Step 24/48 : RUN cd ~ && curl -LO https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz && tar -xzf perl-5.30.0.tar.gz && cd perl-5.30.0 && ./Configure -des -Dprefix=/usr/local/ && make -j12 && make -j12 install
+ ---> Using cache
+ ---> a2486ec164f5
+Step 25/48 : RUN cd ~ && yum install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && tar jxf parallel-latest.tar.bz2 && cd parallel-20190822 && ./configure && make -j12 && make -j12 install
+ ---> Using cache
+ ---> e5005d690488
+Step 26/48 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo export PATH=$PATH:/usr/local/pgsql/bin/ >> ~/.bashrc
+ ---> Using cache
+ ---> ed0c5442cfa5
+Step 27/48 : USER rstudio
+ ---> Using cache
+ ---> 922799a22942
+Step 28/48 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> Using cache
+ ---> a958bb5ce6d2
+Step 29/48 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> Using cache
+ ---> ec2b7ad4662f
+Step 30/48 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
+ ---> Using cache
+ ---> f2095743917f
+Step 31/48 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc && echo export PATH=$PATH:/usr/local/pgsql/bin/ >> ~/.bashrc
+ ---> Using cache
+ ---> 2ec7d4ed46a3
+Step 32/48 : USER postgres
+ ---> Using cache
+ ---> b45e8d3d2f57
+Step 33/48 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> Using cache
+ ---> 41faf135ed34
+Step 34/48 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> Using cache
+ ---> fd312fbf33b1
+Step 35/48 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
+ ---> Using cache
+ ---> 9be7c7812b0c
+Step 36/48 : RUN cd ~ && curl -LO http://www.postgresqltutorial.com/wp-content/uploads/2019/05/dvdrental.zip
+ ---> Using cache
+ ---> 3bc9d1db9053
+Step 37/48 : RUN cd ~ && sudo yum install -y unzip && unzip dvdrental.zip
+ ---> Running in b62fc2f05a40
+Loaded plugins: fastestmirror, ovl
+Loading mirror speeds from cached hostfile
+ * base: mirrors.cat.net
+ * epel: nrt.edge.kernel.org
+ * extras: mirrors.cat.net
+ * updates: mirrors.cat.net
+Resolving Dependencies
+--> Running transaction check
+---> Package unzip.x86_64 0:6.0-19.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package          Arch              Version               Repository       Size
+================================================================================
+Installing:
+ unzip            x86_64            6.0-19.el7            base            170 k
+
+Transaction Summary
+================================================================================
+Install  1 Package
+
+Total download size: 170 k
+Installed size: 365 k
+Downloading packages:
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : unzip-6.0-19.el7.x86_64                                      1/1 
+  Verifying  : unzip-6.0-19.el7.x86_64                                      1/1 
+
+Installed:
+  unzip.x86_64 0:6.0-19.el7                                                     
+
+Complete!
+Archive:  dvdrental.zip
+  inflating: dvdrental.tar           
+Removing intermediate container b62fc2f05a40
+ ---> 051608bd605b
+Step 38/48 : RUN /usr/local/pgsql/bin/initdb -D /usr/local/pgsql/data
+ ---> Running in 37c76309596e
+The files belonging to this database system will be owned by user "postgres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default database encoding has accordingly been set to "SQL_ASCII".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+fixing permissions on existing directory /usr/local/pgsql/data ... ok
+creating subdirectories ... ok
+selecting default max_connections ... 100
+selecting default shared_buffers ... 128MB
+selecting default timezone ... UTC
+selecting dynamic shared memory implementation ... posix
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    /usr/local/pgsql/bin/pg_ctl -D /usr/local/pgsql/data -l logfile start
+
+[91m
+WARNING: enabling "trust" authentication for local connections
+You can change this by editing pg_hba.conf or using the option -A, or
+--auth-local and --auth-host, the next time you run initdb.
+[0mRemoving intermediate container 37c76309596e
+ ---> b505f74465fe
+Step 39/48 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc && echo export PATH=$PATH:/usr/local/pgsql/bin/ >> ~/.bashrc
+ ---> Running in a9405a60fd7c
+Removing intermediate container a9405a60fd7c
+ ---> 302b25cd1b75
+Step 40/48 : USER root
+ ---> Running in 88fd0ebf369b
+Removing intermediate container 88fd0ebf369b
+ ---> b264969aaa75
+Step 41/48 : RUN yum -y reinstall glibc-common
+ ---> Running in f550897c131d
+Loaded plugins: fastestmirror, ovl
+Loading mirror speeds from cached hostfile
+ * base: mirrors.cat.net
+ * epel: nrt.edge.kernel.org
+ * extras: mirrors.cat.net
+ * updates: mirrors.cat.net
+Resolving Dependencies
+--> Running transaction check
+---> Package glibc-common.x86_64 0:2.17-260.el7_6.6 will be reinstalled
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package             Arch          Version                 Repository      Size
+================================================================================
+Reinstalling:
+ glibc-common        x86_64        2.17-260.el7_6.6        updates         12 M
+
+Transaction Summary
+================================================================================
+Reinstall  1 Package
+
+Total download size: 12 M
+Installed size: 115 M
+Downloading packages:
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : glibc-common-2.17-260.el7_6.6.x86_64                         1/1 
+  Verifying  : glibc-common-2.17-260.el7_6.6.x86_64                         1/1 
+
+Installed:
+  glibc-common.x86_64 0:2.17-260.el7_6.6                                        
+
+Complete!
+Removing intermediate container f550897c131d
+ ---> 3c30bd66ef09
+Step 42/48 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
+ ---> Running in 13e2a8b2f1be
+[91m/usr/share/i18n/locales/ja_JP:11: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:12: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:15: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:18: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:19: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:20: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:21: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:23: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:24: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:25: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:26: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:27: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:28: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:29: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:30: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:31: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:32: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:33: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:42: non-symbolic character value should not be used
+[0m[91m/usr/share/i18n/locales/i18n:1425: non-symbolic character value should not be used
+[0m[91m/usr/share/i18n/locales/i18n:1674: non-symbolic character value should not be used
+[0m[91m/usr/share/i18n/locales/i18n:1719: non-symbolic character value should not be used
+[0m[91m/usr/share/i18n/locales/i18n:1756: non-symbolic character value should not be used
+[0m[91m/usr/share/i18n/locales/ja_JP:1675: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:1676: non-symbolic character value should not be used
+[0m[91m/usr/share/i18n/locales/ja_JP:14945: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:14946: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:14947: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:14948: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:14949: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:14950: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:14951: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:14952: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:14953: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:14954: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:14955: non-symbolic character value should not be used
+[0m[91m/usr/share/i18n/locales/translit_neutral:10: non-symbolic character value should not be used
+/usr/share/i18n/locales/translit_neutral:11: non-symbolic character value should not be used
+/usr/share/i18n/locales/translit_neutral:12: non-symbolic character value should not be used
+/usr/share/i18n/locales/translit_neutral:13: non-symbolic character value should not be used
+/usr/share/i18n/locales/translit_neutral:14: non-symbolic character value should not be used
+/usr/share/i18n/locales/translit_neutral:15: non-symbolic character value should not be used[0m[91m
+/usr/share/i18n/locales/translit_neutral:16: non-symbolic character value should not be used
+/usr/share/i18n/locales/translit_neutral:17: non-symbolic character value should not be used
+[0m[91mLC_ADDRESS: field `country_name' not defined
+LC_ADDRESS: field `country_post' not defined
+LC_ADDRESS: field `country_car' not defined
+LC_ADDRESS: field `country_isbn' not defined
+LC_ADDRESS: field `lang_name' not defined
+LC_ADDRESS: field `lang_term' not defined
+LC_ADDRESS: field `lang_ab' not defined
+LC_TELEPHONE: field `int_select' not defined
+LC_IDENTIFICATION: field `audience' not defined
+LC_IDENTIFICATION: field `application' not defined
+LC_IDENTIFICATION: field `abbreviation' not defined
+LC_IDENTIFICATION: no identification for category `LC_MEASUREMENT'
+[0m[91mLC_CTYPE: table for class "upper": 1756 bytes
+[0m[91mLC_CTYPE: table for class "lower": 1756 bytes
+[0m[91mLC_CTYPE: table for class "alpha": 4320 bytes
+[0m[91mLC_CTYPE: table for class "digit": 600 bytes
+[0m[91mLC_CTYPE: table for class "xdigit": 600 bytes
+[0m[91mLC_CTYPE: table for class "space": 856 bytes
+[0m[91mLC_CTYPE: table for class "print": 5976 bytes
+[0m[91mLC_CTYPE: table for class "graph": 5976 bytes
+[0m[91mLC_CTYPE: table for class "blank": 856 bytes
+[0m[91mLC_CTYPE: table for class "cntrl": 664 bytes
+[0m[91mLC_CTYPE: table for class "punct": 4824 bytes
+[0m[91mLC_CTYPE: table for class "alnum": 4320 bytes
+[0m[91mLC_CTYPE: table for class "combining": 3152 bytes
+[0m[91mLC_CTYPE: table for class "combining_level3": 2832 bytes
+[0m[91mLC_CTYPE: table for class "jspace": 600 bytes
+[0m[91mLC_CTYPE: table for class "jhira": 600 bytes
+[0m[91mLC_CTYPE: table for class "jkata": 664 bytes
+[0m[91mLC_CTYPE: table for class "jkanji": 3224 bytes
+[0m[91mLC_CTYPE: table for class "jdigit": 600 bytes
+LC_CTYPE: table for map "toupper": 16924 bytes
+LC_CTYPE: table for map "tolower": 15388 bytes
+[0m[91mLC_CTYPE: table for map "totitle": 16924 bytes
+LC_CTYPE: table for map "tojhira": 2584 bytes
+LC_CTYPE: table for map "tojkata": 3096 bytes
+[0m[91mLC_CTYPE: table for width: 26712 bytes
+[0m
+Removing intermediate container 13e2a8b2f1be
+ ---> e49cfcce12f8
+Step 43/48 : ENV LANG=ja_JP.UTF-8
+ ---> Running in ba5ed6fa1ef8
+Removing intermediate container ba5ed6fa1ef8
+ ---> a6db8993c851
+Step 44/48 : RUN rm -f /etc/localtime
+ ---> Running in cec95eb8bc5b
+Removing intermediate container cec95eb8bc5b
+ ---> 681c3a96b131
+Step 45/48 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+ ---> Running in 73db71948bac
+Removing intermediate container 73db71948bac
+ ---> f59de52dc06d
+Step 46/48 : EXPOSE 8787
+ ---> Running in 52cbb7d09347
+Removing intermediate container 52cbb7d09347
+ ---> e220617cbb2f
+Step 47/48 : EXPOSE 5432
+ ---> Running in 20605a225343
+Removing intermediate container 20605a225343
+ ---> a3478af9456f
+Step 48/48 : CMD ["/sbin/init"]
+ ---> Running in 9ab343262ee2
+Removing intermediate container 9ab343262ee2
+ ---> 2ed49be8c6b8
+Successfully built 2ed49be8c6b8
+Successfully tagged centos_postgresql:latest
