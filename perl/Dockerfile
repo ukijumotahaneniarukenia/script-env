@@ -2,18 +2,18 @@ FROM centos:latest
 
 #ユーザー作成
 RUN groupadd -g 1001 serena
-RUN useradd -m -g serena -u 1001 perl
-RUN echo 'perl_pwd' | passwd --stdin perl
+RUN useradd -m -g serena -u 1001 rstudio
+RUN chsh -s /bin/bash rstudio
 RUN echo 'root_pwd' | passwd --stdin root
-RUN echo '%serena ALL=(ALL)       ALL' >> /etc/sudoers
-RUN echo 'perl ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+RUN echo 'rstudio_pwd' | passwd --stdin rstudio
+RUN echo 'serena ALL=(ALL)       ALL' >> /etc/sudoers
+RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 #各種コマンドインストール
 RUN yum install -y sudo epel-release R zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man
 
 #perl パッケージ管理cpanmないしcpanインストール
 RUN yum install -y which perl-App-cpanminus wxGTK-devel perl-ExtUtils-Embed perl-File-HomeDir perl-Term-ReadLine-Gnu wxGTK3 cpan
-#RUN cpanm Fatal Module::Pluggable Alien::wxWidgets Debug::Client DBD::SQLite::db ORLite ORLite::Migrate
 
 #Tukubaiコマンドは便利
 RUN cd ~ && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && \
@@ -63,11 +63,6 @@ RUN mkdir -p ~/.vim/bundle && \
 cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
 sh installer.sh ~/.vim/bundle
 
-#emojiのinstall
-RUN yum install -y unzip && mkdir ~/.fonts && cd ~/.fonts && \
-curl -LO https://noto-website-2.storage.googleapis.com/pkgs/Noto-unhinted.zip && \
-unzip Noto-unhinted.zip && rm Noto-unhinted.zip
-
 #python install
 RUN cd ~ && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && \
 tar -zxvf Python-3.7.4.tgz && \
@@ -98,8 +93,8 @@ echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
 echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
 echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc
 
-#実行ユーザをperlに変更
-USER perl
+#実行ユーザをrstudioに変更
+USER rstudio
 
 #自身のvim環境をクローン
 RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
@@ -116,11 +111,6 @@ rm -rf ~/tmp
 RUN mkdir -p ~/.vim/bundle && \
 cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
 sh installer.sh ~/.vim/bundle
-
-#emojiのinstall
-RUN sudo yum install -y unzip && mkdir ~/.fonts && cd ~/.fonts && \
-curl -LO https://noto-website-2.storage.googleapis.com/pkgs/Noto-unhinted.zip && \
-unzip Noto-unhinted.zip && rm Noto-unhinted.zip
 
 #alias設定
 RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
@@ -139,8 +129,5 @@ RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
 ENV LANG=ja_JP.UTF-8
 RUN rm -f /etc/localtime
 RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
-
-#Rstudioサービスの提供ポートを外部アクセスようにオープンしておく
-EXPOSE 8787
 
 CMD ["/sbin/init"]
