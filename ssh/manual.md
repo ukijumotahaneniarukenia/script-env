@@ -1,20 +1,38 @@
 
-
-## SSH接続用コンテナ作成
-
-dockerホスト側からdockerコンテナ側にssh接続する検証コンテナ作成の手順。
-
-### dockerコンテナ作成
+# Dockerfileよりイメージ作成
 ```
-[rstudio@centos ~/unko]$docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
-[rstudio@centos ~/unko]$docker ps -qa | xargs -I@ bash -c 'docker stop @ && docker rm @'
-[rstudio@centos ~/unko]$docker images
-REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-centos_ssh          latest              7f841053d300        35 minutes ago      403MB
-[rstudio@centos ~/unko]$docker run --privileged -v $(pwd):/root -v /etc/localtime:/etc/localtime -p 10022:22 --name ssh -itd centos_ssh /sbin/init
-[rstudio@centos ~/unko]$docker exec --user root -it ssh bash
-bash-4.2$ 
+time docker build -t centos_ssh . | tee log
 ```
+
+# dockerコンテナ作成
+```
+docker run --privileged -v $(pwd):/root -v /etc/localtime:/etc/localtime -p 10022:22 --name ssh -itd centos_ssh /sbin/init
+```
+
+# dockerコンテナ削除
+```
+docker ps -qa | xargs -I@ bash -c 'docker stop @ && docker rm @'
+```
+
+# dockerイメージ削除
+```
+docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
+```
+
+# dockerコンテナ潜入
+```
+docker exec --user root -it httpd /bin/bash
+docker exec --user apache -it httpd /bin/bash
+```
+
+# サービス起動確認
+```
+systemctl status httpd
+systemctl start httpd
+```
+
+## dockerホスト側からdockerコンテナ側にssh接続する検証コンテナ作成の手順
+
 ### dockerホストで公開鍵と秘密鍵作成
 ```
 [rstudio@centos ~]$ssh-keygen -t rsa
@@ -40,8 +58,9 @@ The key's randomart image is:
 |         +*O*=++ |
 +----[SHA256]-----+
 ```
+
 ### dockerホスト側で作成した公開鍵をsshサーバーの~/.sshに配備
-配備先はdocker起動時に指定したホスト側のマウントディれくトリに配備でよい。
+配備先はdocker起動時に指定したホスト側のマウントディれくトリに配備
 ```
 [rstudio@centos ~/.ssh]$ll
 合計 8
@@ -51,6 +70,7 @@ The key's randomart image is:
 [rstudio@centos ~/unko]$ls
 Dockerfile  id_rsa.pub  log
 ```
+
 ### dockerコンテナ側でdockerホストで作成した公開鍵がマウントされてきているか確認
 ```
 [rstudio@centos ~/unko]$docker exec --user root -it ssh bash
@@ -67,6 +87,7 @@ drwxr-xr-x. 1 root root  4096 Aug 25 18:52 ..
 -rw-r--r--. 1 1001 1003   396 Aug 25 19:00 id_rsa.pub
 -rw-rw-r--. 1 1001 1003 35575 Aug 25 17:58 log
 ```
+
 ### dockerコンテナ側でsshdサービスが起動しているか確認
 ```
 bash-4.2# systemctl status sshd
@@ -85,6 +106,7 @@ Aug 25 18:51:59 f8456ba46f92 sshd[2282]: Server listening on 0.0.0.0 port 22.
 Aug 25 18:51:59 f8456ba46f92 sshd[2282]: Server listening on :: port 22.
 Aug 25 18:51:59 f8456ba46f92 systemd[1]: Started OpenSSH server daemon.
 ```
+
 ### dockerコンテナのip確認
 172.17.0.2のようだ。
 ```
@@ -98,6 +120,7 @@ bash-4.2# ip a show
     inet 172.17.0.2/16 brd 172.17.255.255 scope global eth0
        valid_lft forever preferred_lft forever
 ```
+
 ### dockerホスト側からdockerコンテナ側にssh接続
 ```
 [rstudio@centos ~/unko]$ssh root@172.17.0.2
