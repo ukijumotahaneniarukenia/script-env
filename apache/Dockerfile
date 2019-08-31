@@ -13,7 +13,9 @@ RUN echo 'root_pwd' | passwd --stdin root
 RUN echo 'apache ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 #各種コマンドインストール
-RUN yum install -y sudo epel-release R zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man
+RUN yum install -y epel-release
+RUN yum install -y R
+RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man
 
 #Tukubaiコマンドは便利
 RUN cd ~ && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && \

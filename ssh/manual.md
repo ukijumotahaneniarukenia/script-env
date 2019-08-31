@@ -6,7 +6,7 @@ time docker build -t centos_ssh . | tee log
 
 # dockerコンテナ作成
 ```
-docker run --privileged -v $(pwd):/root -v /etc/localtime:/etc/localtime -p 10022:22 --name ssh -itd centos_ssh /sbin/init
+docker run --privileged -v $(pwd):/root -v /etc/localtime:/etc/localtime -p 28787:8787 -p 10022:22 --name ssh -itd centos_ssh /sbin/init
 ```
 
 # dockerコンテナ削除
@@ -21,14 +21,14 @@ docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
 
 # dockerコンテナ潜入
 ```
-docker exec --user root -it httpd /bin/bash
-docker exec --user apache -it httpd /bin/bash
+docker exec --user root -it ssh /bin/bash
+docker exec --user rstudio -it ssh /bin/bash
 ```
 
 # サービス起動確認
 ```
-systemctl status httpd
-systemctl start httpd
+systemctl status sshd
+systemctl start sshd
 ```
 
 ## dockerホスト側からdockerコンテナ側にssh接続する検証コンテナ作成の手順

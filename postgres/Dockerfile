@@ -13,7 +13,9 @@ RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN echo 'postgres ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 #各種コマンドインストール
-RUN yum install -y sudo epel-release R zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man
+RUN yum install -y epel-release 
+RUN yum install -y R
+RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man
 
 #postgres install
 RUN cd ~ && curl -LO https://ftp.postgresql.org/pub/source/v11.5/postgresql-11.5.tar.gz && \

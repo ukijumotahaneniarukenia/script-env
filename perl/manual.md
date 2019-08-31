@@ -15,7 +15,7 @@ docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
 
 # dockerコンテナ起動
 ```
-docker run --privileged -v /etc/localtime:/etc/localtime  --name perl -itd centos_perl /sbin/init
+docker run --privileged -v /etc/localtime:/etc/localtime -p 18787:8787 --name perl -itd centos_perl /sbin/init
 ```
 
 # dockerコンテナ潜入
