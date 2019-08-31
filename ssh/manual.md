@@ -6,7 +6,7 @@ time docker build -t centos_ssh . | tee log
 
 # dockerコンテナ作成
 ```
-docker run --privileged -v $(pwd):/root -v /etc/localtime:/etc/localtime -p 28787:8787 -p 10022:22 --name ssh -itd centos_ssh /sbin/init
+docker run --privileged -v $(pwd):/root -v /etc/localtime:/etc/localtime -p 78787:8787 -p 70022:22 --name ssh -itd centos_ssh /sbin/init
 ```
 
 # dockerコンテナ削除
@@ -17,6 +17,11 @@ docker ps -qa | xargs -I@ bash -c 'docker stop @ && docker rm @'
 # dockerイメージ削除
 ```
 docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
+```
+
+# ブラウザから起動確認
+```
+http://192.168.1.109:78787/
 ```
 
 # dockerコンテナ潜入

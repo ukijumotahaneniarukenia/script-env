@@ -131,6 +131,9 @@ ENV LANG=ja_JP.UTF-8
 RUN rm -f /etc/localtime
 RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
+#sshdサービス外部公開ポート
+EXPOSE 22
+
 #rstudioサービス外部公開ポート
 EXPOSE 8787
 

@@ -56,7 +56,7 @@ yum installで固まったら、/sbin/initが動いていない気がするの�
 
 # ブラウザから起動確認
 ```
-http://192.168.1.109:8787/
+http://192.168.1.109:18787/
 ```
 
 # Dockerfileよりイメージ作成
@@ -76,7 +76,7 @@ docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
 
 # dockerコンテナ作成
 ```
-docker run --privileged -v /etc/localtime:/etc/localtime -p 8787:8787 --name rstudio -itd centos_rstudio /sbin/init
+docker run --privileged -v /etc/localtime:/etc/localtime -p 18787:8787 -p 10022:22 --name rstudio -itd centos_rstudio /sbin/init
 ```
 
 # dockerコンテナ潜入

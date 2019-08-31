@@ -15,7 +15,12 @@ docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
 
 # dockerコンテナ起動
 ```
-docker run --privileged -v /etc/localtime:/etc/localtime -p 18787:8787 --name perl -itd centos_perl /sbin/init
+docker run --privileged -v /etc/localtime:/etc/localtime -p 40022:22 -p 48787:8787 --name perl -itd centos_perl /sbin/init
+```
+
+# ブラウザから起動確認
+```
+http://192.168.1.109:48787/
 ```
 
 # dockerコンテナ潜入

@@ -1,4 +1,6 @@
-# Dockerfileよりshinyイメージ作成
+# shinyはrstudioと共存しない方が確かよかった。
+
+# Dockerfileよりイメージ作成
 ```
 time docker build -t centos_shiny . | tee log
 ```
@@ -12,7 +14,7 @@ centos_shiny        latest              cac78a083cce        5 minutes ago       
 
 # dockerコンテナ作成
 ```
-docker run --privileged -v /etc/localtime:/etc/localtime -p 3838:3838 --name shiny -itd centos_shiny /sbin/init
+docker run --privileged -v /etc/localtime:/etc/localtime -p 60022:22 -p 3838:3838 --name shiny -itd centos_shiny /sbin/init
 ```
 
 # dockerコンテナ削除

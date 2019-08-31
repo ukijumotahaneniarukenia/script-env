@@ -143,4 +143,7 @@ RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 #shinyサービス外部公開ポート
 EXPOSE 3838
 
+#sshdサービス外部公開ポート
+EXPOSE 22
+
 CMD ["/sbin/init"]

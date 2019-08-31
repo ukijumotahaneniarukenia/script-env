@@ -16,13 +16,18 @@ docker images | awk '$1 ~ "centos_"{print $3}' | xargs -I@ bash -c 'docker rmi @
 
 # dockerコンテナ起動
 ```
-docker run --privileged -v /etc/localtime:/etc/localtime -p 3306:3306 --name mysql -itd centos_mysql /sbin/init
+docker run --privileged -v /etc/localtime:/etc/localtime -p 38787:8787 -p 30022:22 -p 3306:3306 --name mysql -itd centos_mysql /sbin/init
 ```
 
 # dockerコンテナ潜入
 ```
 docker exec --user mysql -it mysql /bin/bash
 docker exec --user root -it mysql /bin/bash
+```
+
+# ブラウザから起動確認
+```
+http://192.168.1.109:38787/
 ```
 
 # サービス起動確認

@@ -95,8 +95,8 @@ echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
 echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
 echo export PATH=$PATH:/usr/local/pgsql/bin/ >> ~/.bashrc
 
-#実行ユーザをsshに変更
-USER ssh
+#実行ユーザをrstudioに変更
+USER rstudio
 
 #自身のvim環境をクローン
 RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim

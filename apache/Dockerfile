@@ -8,9 +8,14 @@ RUN yum install -y httpd
 RUN install -o apache -g apache -m 755 -d /home/apache
 RUN usermod -d /home/apache apache
 RUN chsh -s /bin/bash apache
-RUN echo 'apache_pwd' | passwd --stdin apache
+RUN groupadd -g 1001 rstudio
+RUN useradd -m -g rstudio -u 1001 rstudio
+RUN chsh -s /bin/bash rstudio
 RUN echo 'root_pwd' | passwd --stdin root
+RUN echo 'apache_pwd' | passwd --stdin apache
+RUN echo 'rstudio_pwd' | passwd --stdin rstudio
 RUN echo 'apache ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 #各種コマンドインストール
 RUN yum install -y epel-release
@@ -122,6 +127,33 @@ echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
 echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
 echo "alias vi=\"sudo vim\"" >> ~/.bashrc 
 
+#実行ユーザをrstudioに変更
+USER rstudio
+
+#自身のvim環境をクローン
+RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+
+#自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
+RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
+cd ~/tmp && \
+#移動したいdotfileをchoiceしてHOMEディレクトリへ
+mv rc/.[^.]* ~ && \
+#用が済んだらリム
+rm -rf ~/tmp
+
+#vim plugin manager
+RUN mkdir -p ~/.vim/bundle && \
+cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
+sh installer.sh ~/.vim/bundle
+
+#alias設定
+RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
+echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
+echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
+echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
+echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
+echo "alias vi=\"sudo vim\"" >> ~/.bashrc 
+
 #最後はrootに戻す
 USER root 
 
@@ -135,7 +167,13 @@ RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 # コンテナログイン時のwdを設定
 WORKDIR /var/www
 
-#httpdサービスの提供ポートを外部アクセスようにオープンしておく
+#rstudioサービス外部公開ポート
+EXPOSE 8787
+
+#httpdサービス外部公開ポート
 EXPOSE 80
+
+#sshdサービス外部公開ポート
+EXPOSE 22
 
 CMD ["/sbin/init"]

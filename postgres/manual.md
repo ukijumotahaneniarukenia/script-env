@@ -16,7 +16,12 @@ docker images | awk '$1 ~ "centos_"{print $3}' | xargs -I@ bash -c 'docker rmi @
 
 # dockerコンテナ起動
 ```
-docker run --privileged -v /etc/localtime:/etc/localtime  --name postgres -p 18787:8787 -p 5432:5432 -itd centos_postgres /sbin/init
+docker run --privileged -v /etc/localtime:/etc/localtime  --name postgres -p 50022:22 -p 58787:8787 -p 5432:5432 -itd centos_postgres /sbin/init
+```
+
+# ブラウザから起動確認
+```
+http://192.168.1.109:58787/
 ```
 
 # dockerコンテナ潜入

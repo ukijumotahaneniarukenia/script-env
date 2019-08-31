@@ -149,4 +149,7 @@ EXPOSE 8787
 #mysqlサービス外部公開ポート
 EXPOSE 3306
 
+#sshdサービス外部公開ポート
+EXPOSE 22
+
 CMD ["/sbin/init"]
