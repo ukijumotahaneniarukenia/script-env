@@ -1,111 +1,102 @@
-Sending build context to Docker daemon   16.9kB
-Step 1/36 : FROM centos:latest
+Sending build context to Docker daemon   25.6kB
+Step 1/33 : FROM centos:latest
  ---> 9f38484d220f
-Step 2/36 : RUN groupadd -g 1001 serena
+Step 2/33 : RUN groupadd -g 1001 serena
  ---> Using cache
  ---> df6410821a19
-Step 3/36 : RUN useradd -m -g serena -u 1001 rstudio
+Step 3/33 : RUN useradd -m -g serena -u 1001 rstudio
  ---> Using cache
  ---> 78efba1dd527
-Step 4/36 : RUN chsh -s /bin/bash rstudio
+Step 4/33 : RUN chsh -s /bin/bash rstudio
  ---> Using cache
  ---> d139cd1d1ffc
-Step 5/36 : RUN echo 'root_pwd' | passwd --stdin root
+Step 5/33 : RUN echo 'root_pwd' | passwd --stdin root
  ---> Using cache
  ---> d6829022aa9c
-Step 6/36 : RUN echo 'rstudio_pwd' | passwd --stdin rstudio
+Step 6/33 : RUN echo 'rstudio_pwd' | passwd --stdin rstudio
  ---> Using cache
  ---> 710a231c57d3
-Step 7/36 : RUN echo 'serena ALL=(ALL)       ALL' >> /etc/sudoers
+Step 7/33 : RUN echo 'serena ALL=(ALL)       ALL' >> /etc/sudoers
  ---> Using cache
  ---> 74d58e1db96d
-Step 8/36 : RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+Step 8/33 : RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
  ---> Using cache
  ---> decacb2c7b38
-Step 9/36 : RUN yum install -y sudo epel-release R zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man
+Step 9/33 : RUN yum install -y sudo epel-release R zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man
  ---> Using cache
  ---> 7042699bf536
-Step 10/36 : RUN yum install -y which perl-App-cpanminus wxGTK-devel perl-ExtUtils-Embed perl-File-HomeDir perl-Term-ReadLine-Gnu wxGTK3 cpan
+Step 10/33 : RUN yum install -y which perl-App-cpanminus wxGTK-devel perl-ExtUtils-Embed perl-File-HomeDir perl-Term-ReadLine-Gnu wxGTK3 cpan
  ---> Using cache
  ---> 379b179cbe7f
-Step 11/36 : RUN cd ~ && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && cd Open-usp-Tukubai && make -j12 install
+Step 11/33 : RUN cd ~ && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && cd Open-usp-Tukubai && make -j12 install
  ---> Using cache
  ---> 134c8855d38c
-Step 12/36 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && tar -zxvf gawk-5.0.0.tar.gz && cd gawk-5.0.0 && ./configure && make -j12 && make -j12 install
+Step 12/33 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && tar -zxvf gawk-5.0.0.tar.gz && cd gawk-5.0.0 && ./configure && make -j12 && make -j12 install
  ---> Using cache
  ---> 92a46ffb6925
-Step 13/36 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && tar -zxvf bash-5.0.tar.gz && cd bash-5.0 && ./configure && make -j12 && make -j12 install
+Step 13/33 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && tar -zxvf bash-5.0.tar.gz && cd bash-5.0 && ./configure && make -j12 && make -j12 install
  ---> Using cache
  ---> afbdc3ef82e6
-Step 14/36 : RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd ~ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
+Step 14/33 : RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd ~ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
  ---> Using cache
  ---> c78e3cf86cc9
-Step 15/36 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+Step 15/33 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
  ---> Using cache
  ---> 030e32b7a870
-Step 16/36 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+Step 16/33 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
  ---> Using cache
  ---> 044f71455d56
-Step 17/36 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
+Step 17/33 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
  ---> Using cache
  ---> bef5da5296a7
-Step 18/36 : RUN yum install -y unzip && mkdir ~/.fonts && cd ~/.fonts && curl -LO https://noto-website-2.storage.googleapis.com/pkgs/Noto-unhinted.zip && unzip Noto-unhinted.zip && rm Noto-unhinted.zip
+Step 18/33 : RUN cd ~ && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && tar -zxvf Python-3.7.4.tgz && cd Python-3.7.4 && ./configure && make -j12 && make -j12 install
  ---> Using cache
- ---> 3fa0e568aa8b
-Step 19/36 : RUN cd ~ && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && tar -zxvf Python-3.7.4.tgz && cd Python-3.7.4 && ./configure && make -j12 && make -j12 install
+ ---> b866d05d9f7b
+Step 19/33 : RUN cd ~ && curl -LO https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz && tar -xzf perl-5.30.0.tar.gz && cd perl-5.30.0 && ./Configure -des -Dprefix=/usr/local/ && make -j12 && make -j12 install
  ---> Using cache
- ---> 3a41a4e77aea
-Step 20/36 : RUN cd ~ && curl -LO https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz && tar -xzf perl-5.30.0.tar.gz && cd perl-5.30.0 && ./Configure -des -Dprefix=/usr/local/ && make -j12 && make -j12 install
+ ---> 4a6978552a15
+Step 20/33 : RUN cd ~ && yum install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && tar jxf parallel-latest.tar.bz2 && cd parallel-20190822 && ./configure && make -j12 && make -j12 install
  ---> Using cache
- ---> 43df0f5ee3ea
-Step 21/36 : RUN cd ~ && yum install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && tar jxf parallel-latest.tar.bz2 && cd parallel-20190822 && ./configure && make -j12 && make -j12 install
+ ---> 63a4a9663b32
+Step 21/33 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc
  ---> Using cache
- ---> 4336a4f23747
-Step 22/36 : RUN yum install -y libcurl-devel openssl-devel libxml2-devel && curl -LO https://download3.rstudio.org/centos6.3/x86_64/shiny-server-1.5.9.923-x86_64.rpm && yum install -y --nogpgcheck shiny-server-1.5.9.923-x86_64.rpm
+ ---> 07c5a079c669
+Step 22/33 : USER rstudio
  ---> Using cache
- ---> 85aae08e19af
-Step 23/36 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc
+ ---> 3fd2ce006c4d
+Step 23/33 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
  ---> Using cache
- ---> 61816e056646
-Step 24/36 : USER rstudio
+ ---> 4203ee8363fa
+Step 24/33 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
  ---> Using cache
- ---> 3ead8e5d2a58
-Step 25/36 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> 691bd2a13493
+Step 25/33 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
  ---> Using cache
- ---> 3cac0cfdf39c
-Step 26/36 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> 6895d1c479a9
+Step 26/33 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc
  ---> Using cache
- ---> 7f769fb87acb
-Step 27/36 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
+ ---> f5ce04e856ef
+Step 27/33 : USER root
  ---> Using cache
- ---> bded27e2458d
-Step 28/36 : RUN sudo yum install -y unzip && mkdir ~/.fonts && cd ~/.fonts && curl -LO https://noto-website-2.storage.googleapis.com/pkgs/Noto-unhinted.zip && unzip Noto-unhinted.zip && rm Noto-unhinted.zip
+ ---> 13bf97a2a01d
+Step 28/33 : RUN yum -y reinstall glibc-common
  ---> Using cache
- ---> e3db472f0dca
-Step 29/36 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc
+ ---> f6d450bf7994
+Step 29/33 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
  ---> Using cache
- ---> f0d1dafd7f71
-Step 30/36 : USER root
+ ---> ee15bf61e109
+Step 30/33 : ENV LANG=ja_JP.UTF-8
  ---> Using cache
- ---> e618f803d080
-Step 31/36 : RUN yum -y reinstall glibc-common
+ ---> 0c7fdf839657
+Step 31/33 : RUN rm -f /etc/localtime
  ---> Using cache
- ---> 34d8a938bb36
-Step 32/36 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
+ ---> 931da0b5ba0d
+Step 32/33 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
  ---> Using cache
- ---> beafb69a487f
-Step 33/36 : ENV LANG=ja_JP.UTF-8
- ---> Using cache
- ---> dbc20ede1ecf
-Step 34/36 : RUN rm -f /etc/localtime
- ---> Using cache
- ---> 1545871b0b2a
-Step 35/36 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
- ---> Using cache
- ---> 8217faa5dc8f
-Step 36/36 : CMD ["/sbin/init"]
- ---> Running in d8ba847eb1f9
-Removing intermediate container d8ba847eb1f9
- ---> de5c13d53019
-Successfully built de5c13d53019
-Successfully tagged centos_devel:latest
+ ---> 1b4eb5c3ae9b
+Step 33/33 : CMD ["/sbin/init"]
+ ---> Running in 0e420173aff3
+Removing intermediate container 0e420173aff3
+ ---> 61ef4d8b99de
+Successfully built 61ef4d8b99de
+Successfully tagged centos_perl:latest

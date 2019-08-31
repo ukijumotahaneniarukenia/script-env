@@ -1,13 +1,12 @@
 FROM centos:latest
 
 #ユーザー作成
-RUN groupadd -g 1001 serena
-RUN useradd -m -g serena -u 1001 ssh
-RUN chsh -s /bin/bash ssh
+RUN groupadd -g 1001 rstudio
+RUN useradd -m -g rstudio -u 1001 rstudio
+RUN chsh -s /bin/bash rstudio
 RUN echo 'root_pwd' | passwd --stdin root
-RUN echo 'ssh_pwd' | passwd --stdin ssh
-RUN echo 'serena ALL=(ALL)       ALL' >> /etc/sudoers
-RUN echo 'ssh ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+RUN echo 'rstudio_pwd' | passwd --stdin rstudio
+RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 #各種コマンドインストール
 RUN yum install -y sudo epel-release R zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man
@@ -91,11 +90,10 @@ make -j12 install
 RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
 echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
 echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
-echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
-echo export PATH=$PATH:/usr/local/pgsql/bin/ >> ~/.bashrc
+echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc
 
-#実行ユーザをsshに変更
-USER ssh
+#実行ユーザをrstudioに変更
+USER rstudio
 
 #自身のvim環境をクローン
 RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
@@ -131,7 +129,7 @@ ENV LANG=ja_JP.UTF-8
 RUN rm -f /etc/localtime
 RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
-#sshdサービス外部公開ポート
-EXPOSE 22
+#rstudioサービス外部公開ポート
+EXPOSE 8787
 
 CMD ["/sbin/init"]
