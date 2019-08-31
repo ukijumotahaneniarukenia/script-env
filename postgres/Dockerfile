@@ -21,7 +21,7 @@ RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurse
 RUN cd ~ && curl -LO https://ftp.postgresql.org/pub/source/v11.5/postgresql-11.5.tar.gz && \
 tar -zxvf postgresql-11.5.tar.gz && \
 cd postgresql-11.5 && \
-./configure --without-readline --without-zlib && \
+./configure --without-zlib && \
 make -j12 && \
 make -j12 install
 

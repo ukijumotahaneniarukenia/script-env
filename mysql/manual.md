@@ -1,3 +1,13 @@
+# サンプルデータベースのインストール
+https://dev.mysql.com/doc/index-other.html
+```
+curl -LO https://github.com/datacharmer/test_db/archive/master.zip
+curl -LO https://downloads.mysql.com/docs/world.sql.zip
+curl -LO https://downloads.mysql.com/docs/world_x-db.zip
+curl -LO https://downloads.mysql.com/docs/sakila-db.zip
+curl -LO https://downloads.mysql.com/docs/menagerie-db.zip
+```
+
 # Dockerfileよりイメージ作成
 ```
 time docker build -t centos_mysql . | tee log
@@ -21,7 +31,7 @@ docker run --privileged -v /etc/localtime:/etc/localtime -p 38787:8787 -p 30022:
 
 # dockerコンテナ潜入
 ```
-docker exec --user mysql -it mysql /bin/bash
+docker exec --user rstudio -it mysql /bin/bash
 docker exec --user root -it mysql /bin/bash
 ```
 

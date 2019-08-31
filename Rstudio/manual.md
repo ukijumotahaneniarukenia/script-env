@@ -81,6 +81,6 @@ docker run --privileged -v /etc/localtime:/etc/localtime -p 18787:8787 -p 10022:
 
 # dockerコンテナ潜入
 ```
-[oracle@centos Rstudio]$ docker exec --user root -it rstudio bash
-[oracle@centos Rstudio]$ docker exec --user rstudio -it rstudio bash
+[oracle@centos Rstudio]$ docker exec --user root -it rstudio /bin/bash
+[oracle@centos Rstudio]$ docker exec --user rstudio -it rstudio /bin/bash
 ```
