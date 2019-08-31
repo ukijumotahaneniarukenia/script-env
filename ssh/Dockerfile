@@ -1,12 +1,11 @@
 FROM centos:latest
 
 #ユーザー作成
-RUN groupadd -g 1001 serena
-RUN useradd -m -g serena -u 1001 ssh
+RUN groupadd -g 1001 ssh
+RUN useradd -m -g ssh -u 1001 ssh
 RUN chsh -s /bin/bash ssh
 RUN echo 'root_pwd' | passwd --stdin root
 RUN echo 'ssh_pwd' | passwd --stdin ssh
-RUN echo 'serena ALL=(ALL)       ALL' >> /etc/sudoers
 RUN echo 'ssh ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 #各種コマンドインストール
