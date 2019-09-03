@@ -110,7 +110,7 @@ psql -U postgres -d dvdrentals
 
 # ブラウザでの表示確認
 
-[!setup.pyで入力したものと同じ文言を入力](./0.png)
-[!](./1.png)
-[!](./2.png)
-[!](./3.png)
+![setup.pyで入力したものと同じ文言を入力](./0.png)
+![](./1.png)
+![](./2.png)
+![](./3.png)
