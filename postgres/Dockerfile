@@ -17,16 +17,23 @@ RUN yum install -y epel-release
 RUN yum install -y R
 RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man
 
-#postgres install
-RUN cd ~ && curl -LO https://ftp.postgresql.org/pub/source/v11.5/postgresql-11.5.tar.gz && \
-tar -zxvf postgresql-11.5.tar.gz && \
-cd postgresql-11.5 && \
-./configure --without-zlib && \
-make -j12 && \
-make -j12 install
+#レポジトリ登録
+RUN yum -y install https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
 
-# postgres データ永続領域作成
-RUN mkdir /usr/local/pgsql/data && chown postgres /usr/local/pgsql/data
+#epelレポ登録
+RUN yum -y install epel-release
+
+#登録したレポジトリからインストール
+RUN yum -y install pgadmin4
+
+#サーバモード指定
+RUN echo "SERVER_MODE = True" >> /usr/lib/python2.7/site-packages/pgadmin4-web/config_local.py
+#外部からのアクセスを可能にする
+RUN echo "DEFAULT_SERVER = '0.0.0.0'" >> /usr/lib/python2.7/site-packages/pgadmin4-web/config_local.py
+RUN echo "LOG_FILE = '/var/log/pgadmin4/pgadmin4.log'" >> /usr/lib/python2.7/site-packages/pgadmin4-web/config_local.py
+
+#postgres install
+RUN yum -y install postgresql11-server
 
 #perl パッケージ管理cpanmないしcpanインストール
 RUN yum install -y which perl-App-cpanminus wxGTK-devel perl-ExtUtils-Embed perl-File-HomeDir perl-Term-ReadLine-Gnu wxGTK3 cpan
@@ -108,7 +115,8 @@ RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
 echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
 echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
 echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
-echo export PATH=$PATH:/usr/local/pgsql/bin/ >> ~/.bashrc
+echo export PATH=$PATH:/usr/pgsql-11/bin >> ~/.bashrc && \
+echo export PGSETUP_INITDB_OPTIONS="-E UTF8 --locale=C" 
 
 #実行ユーザをrstudioに変更
 USER rstudio
@@ -136,7 +144,8 @@ echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
 echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
 echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
 echo "alias vi=\"sudo vim\"" >> ~/.bashrc && \
-echo export PATH=$PATH:/usr/local/pgsql/bin/ >> ~/.bashrc
+echo export PATH=$PATH:/usr/pgsql-11/bin >> ~/.bashrc && \
+echo export PGSETUP_INITDB_OPTIONS="-E UTF8 --locale=C" 
 
 #実行ユーザをpostgresに変更
 USER postgres
@@ -161,9 +170,6 @@ sh installer.sh ~/.vim/bundle
 RUN cd ~ && curl -LO http://www.postgresqltutorial.com/wp-content/uploads/2019/05/dvdrental.zip
 RUN cd ~ && sudo yum install -y unzip && unzip dvdrental.zip
 
-#データの永続領域の初期化メモリの確保とかデータファイルのサイズ確保とかいろいろやる
-RUN /usr/local/pgsql/bin/initdb -D /usr/local/pgsql/data
-
 #alias設定
 RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
 echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
@@ -171,7 +177,8 @@ echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
 echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
 echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
 echo "alias vi=\"sudo vim\"" >> ~/.bashrc && \
-echo export PATH=$PATH:/usr/local/pgsql/bin/ >> ~/.bashrc
+echo export PATH=$PATH:/usr/pgsql-11/bin >> ~/.bashrc && \
+echo export PGSETUP_INITDB_OPTIONS="-E UTF8 --locale=C" 
 
 #最後はrootに戻す
 USER root 
@@ -191,5 +198,8 @@ EXPOSE 8787
 
 #postgresサービス外部公開ポート
 EXPOSE 5432
+
+#pgAdminサービス外部公開ポート
+EXPOSE 5050
 
 CMD ["/sbin/init"]
