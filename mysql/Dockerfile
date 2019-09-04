@@ -3,15 +3,43 @@ FROM centos:latest
 #ユーザー作成
 RUN groupadd -g 1001 rstudio
 RUN useradd -m -g rstudio -u 1001 rstudio
+RUN groupadd -g 1002 mysql
+RUN useradd -m -g mysql -u 1002 mysql
+RUN groupadd -g 1003 apache
+RUN useradd -m -g rstudio -u 1003 apache
 RUN chsh -s /bin/bash rstudio
+RUN chsh -s /bin/bash mysql
+RUN chsh -s /bin/bash apache
 RUN echo 'root_pwd' | passwd --stdin root
 RUN echo 'rstudio_pwd' | passwd --stdin rstudio
 RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+RUN echo 'mysql_pwd' | passwd --stdin mysql
+RUN echo 'mysql ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+RUN echo 'apache_pwd' | passwd --stdin apache
+RUN echo 'apache ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 #各種コマンドインストール
 RUN yum install -y epel-release
 RUN yum install -y R
-RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man
+RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man httpd
+
+#phpインストール
+RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+RUN yum install -y --disablerepo=* --enablerepo=epel,remi,remi-safe,remi-php73 php php-mysqlnd
+
+#phpadminインストール
+RUN cd /usr/share && curl -LO https://files.phpmyadmin.net/phpMyAdmin/4.9.0.1/phpMyAdmin-4.9.0.1-all-languages.tar.gz && \
+tar -zxvf phpMyAdmin-4.9.0.1-all-languages.tar.gz && \
+mv phpMyAdmin-4.9.0.1-all-languages phpmyadmin && \
+chown -R apache:apache /usr/share/phpmyadmin && \
+chmod -R 755 /usr/share/phpmyadmin && \
+mkdir -p /etc/httpd/conf.d
+
+#phpadmin設定ファイル
+RUN echo "<Directory \"/usr/share/phpmyadmin\">" >> /etc/httpd/conf.d/phpmyadmin.conf
+RUN echo "  Require all granted" >> /etc/httpd/conf.d/phpmyadmin.conf
+RUN echo "  AllowOverride all" >> /etc/httpd/conf.d/phpmyadmin.conf
+RUN echo "</Directory>" >> /etc/httpd/conf.d/phpmyadmin.conf
 
 #mysqlインストール
 RUN yum install -y https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
@@ -61,10 +89,10 @@ ln -fsr /usr/local/bin/vim /usr/bin/vim && \
 ln -fsr /usr/local/bin/vim /usr/bin/vi
 
 #自身のvim環境をクローン
-RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
 
 #自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
-RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
+RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
 cd ~/tmp && \
 #移動したいdotfileをchoiceしてHOMEディレクトリへ
 mv rc/.[^.]* ~ && \
@@ -106,14 +134,68 @@ echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
 echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
 echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc
 
+#実行ユーザをmysqlに変更
+USER mysql
+
+#自身のvim環境をクローン
+RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+
+#自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
+RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
+cd ~/tmp && \
+#移動したいdotfileをchoiceしてHOMEディレクトリへ
+mv rc/.[^.]* ~ && \
+#用が済んだらリム
+rm -rf ~/tmp
+
+#vim plugin manager
+RUN mkdir -p ~/.vim/bundle && \
+cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
+sh installer.sh ~/.vim/bundle
+
+#alias設定
+RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
+echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
+echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
+echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
+echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
+echo "alias vi=\"sudo vim\"" >> ~/.bashrc
+
 #実行ユーザをrstudioに変更
 USER rstudio
 
 #自身のvim環境をクローン
-RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
 
 #自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
-RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
+RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
+cd ~/tmp && \
+#移動したいdotfileをchoiceしてHOMEディレクトリへ
+mv rc/.[^.]* ~ && \
+#用が済んだらリム
+rm -rf ~/tmp
+
+#vim plugin manager
+RUN mkdir -p ~/.vim/bundle && \
+cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
+sh installer.sh ~/.vim/bundle
+
+#alias設定
+RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
+echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
+echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
+echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
+echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
+echo "alias vi=\"sudo vim\"" >> ~/.bashrc
+
+#実行ユーザをapacheに変更
+USER apache
+
+#自身のvim環境をクローン
+RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+
+#自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
+RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
 cd ~/tmp && \
 #移動したいdotfileをchoiceしてHOMEディレクトリへ
 mv rc/.[^.]* ~ && \
@@ -151,5 +233,8 @@ EXPOSE 3306
 
 #sshdサービス外部公開ポート
 EXPOSE 22
+
+#httpdサービス外部公開ポート
+EXPOSE 80
 
 CMD ["/sbin/init"]

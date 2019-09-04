@@ -1,7 +1,6 @@
 # サンプルデータベースのインストール
 https://dev.mysql.com/doc/index-other.html
-```
-curl -LO https://github.com/datacharmer/test_db/archive/master.zip
+``` curl -LO https://github.com/datacharmer/test_db/archive/master.zip
 curl -LO https://downloads.mysql.com/docs/world.sql.zip
 curl -LO https://downloads.mysql.com/docs/world_x-db.zip
 curl -LO https://downloads.mysql.com/docs/sakila-db.zip
@@ -26,7 +25,7 @@ docker images | awk '$1 ~ "centos_"{print $3}' | xargs -I@ bash -c 'docker rmi @
 
 # dockerコンテナ起動
 ```
-docker run --privileged -v /etc/localtime:/etc/localtime -p 38787:8787 -p 30022:22 -p 3306:3306 --name mysql -itd centos_mysql /sbin/init
+docker run --privileged -v /etc/localtime:/etc/localtime -p 38787:8787 -p 30022:22 -p 3306:3306 -p 8080:80 --name mysql -itd centos_mysql /sbin/init
 ```
 
 # dockerコンテナ潜入
@@ -162,10 +161,175 @@ mysql> select 'unko';
 mysql> ^DBye
 ```
 
+#phpadminに設定
+```
+rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+yum install -y --disablerepo=* --enablerepo=epel,remi,remi-safe,remi-php73 php php-mysqlnd
+[root@0e9f3516362c ~]$tar -zxvf phpMyAdmin-4.9.0.1-all-languages.tar.gz
+[root@594a3267ed92 /]$mkdir -p /etc/httpd/conf.d
+[root@594a3267ed92 /]$vi /etc/httpd/conf.d/phpmyadmin.conf
+<Directory "/usr/share/phpmyadmin">
+  Require all granted
+  AllowOverride all
+</Directory>
+
+[root@2a94148d63d4 /]$systemctl status httpd
+● httpd.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd.service; disabled; vendor preset: disabled)
+   Active: inactive (dead)
+     Docs: man:httpd(8)
+           man:apachectl(8)
+[root@2a94148d63d4 /]$systemctl start httpd
+[root@2a94148d63d4 /]$systemctl status httpd
+● httpd.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd.service; disabled; vendor preset: disabled)
+   Active: active (running) since 水 2019-09-04 23:59:28 JST; 2s ago
+     Docs: man:httpd(8)
+           man:apachectl(8)
+ Main PID: 967 (httpd)
+   Status: "Processing requests..."
+   CGroup: /docker/2a94148d63d40c1615ea3ccff1aa79b9b574830afc915e5c70134ee6227987b5/system.slice/httpd.service
+           ├─967 /usr/sbin/httpd -DFOREGROUND
+           ├─968 /usr/sbin/httpd -DFOREGROUND
+           ├─969 /usr/sbin/httpd -DFOREGROUND
+           ├─970 /usr/sbin/httpd -DFOREGROUND
+           ├─971 /usr/sbin/httpd -DFOREGROUND
+           └─972 /usr/sbin/httpd -DFOREGROUND
+           ‣ 967 /usr/sbin/httpd -DFOREGROUND
+
+ 9月 04 23:59:28 2a94148d63d4 systemd[1]: Starting The Apache HTTP Server...
+ 9月 04 23:59:28 2a94148d63d4 httpd[967]: AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 172.17.0.2. Set the 'ServerName' direct...this message
+ 9月 04 23:59:28 2a94148d63d4 systemd[1]: Started The Apache HTTP Server.
+Hint: Some lines were ellipsized, use -l to show in full.
+
+
+
+
+
+
+
+CREATE USER 'mysql_test'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Mysql-3306';
+CREATE USER 'mysql_test'@'%' IDENTIFIED WITH mysql_native_password BY 'Mysql-3306';
+GRANT ALL PRIVILEGES ON mysql.* TO 'mysql_test'@'localhost' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON mysql.* TO 'mysql_test'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES ;
+
+
+mysql> CREATE USER 'mysql_test'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Mysql-3306';
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE USER 'mysql_test'@'%' IDENTIFIED WITH mysql_native_password BY 'Mysql-3306';
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> GRANT ALL PRIVILEGES ON mysql.* TO 'mysql_test'@'localhost' WITH GRANT OPTION;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> GRANT ALL PRIVILEGES ON mysql.* TO 'mysql_test'@'%' WITH GRANT OPTION;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> FLUSH PRIVILEGES ;
+Query OK, 0 rows affected (0.02 sec)
+
+http://192.168.1.109:8080/phpMyAdmin/
+
+
+[root@2a94148d63d4 /]$mysql -u mysql_test -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 20
+Server version: 8.0.17 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql>
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
++--------------------+
+2 rows in set (0.00 sec)
+
+mysql> use mysql -A;
+Database changed
+mysql> show tables;
++---------------------------+
+| Tables_in_mysql           |
++---------------------------+
+| columns_priv              |
+| component                 |
+| db                        |
+| default_roles             |
+| engine_cost               |
+| func                      |
+| general_log               |
+| global_grants             |
+| gtid_executed             |
+| help_category             |
+| help_keyword              |
+| help_relation             |
+| help_topic                |
+| innodb_index_stats        |
+| innodb_table_stats        |
+| password_history          |
+| plugin                    |
+| procs_priv                |
+| proxies_priv              |
+| role_edges                |
+| server_cost               |
+| servers                   |
+| slave_master_info         |
+| slave_relay_log_info      |
+| slave_worker_info         |
+| slow_log                  |
+| tables_priv               |
+| time_zone                 |
+| time_zone_leap_second     |
+| time_zone_name            |
+| time_zone_transition      |
+| time_zone_transition_type |
+| user                      |
++---------------------------+
+33 rows in set (0.00 sec)
+
+mysql> select Host,user from user limit 5;
++-----------+------------------+
+| Host      | user             |
++-----------+------------------+
+| %         | mysql_test       |
+| localhost | mysql.infoschema |
+| localhost | mysql.session    |
+| localhost | mysql.sys        |
+| localhost | mysql_test       |
++-----------+------------------+
+5 rows in set (0.00 sec)
+
+```
+
+#ブラウザより確認
+```
+http://192.168.1.109:8080/phpMyAdmin/
+```
+
+![](./1.png)
+![](./2.png)
+![](./3.png)
+
+
 # 参考文献
 ```
 https://blog.apar.jp/linux/9868/
 https://dev.mysql.com/doc/refman/5.6/ja/tutorial.html
 https://dev.mysql.com/downloads/mysql/
 https://enomotodev.hatenablog.com/entry/2016/09/01/225200
+https://tecadmin.net/setup-phpmyadmin-on-linux-using-source/
+http://nanisore-nikki.hatenablog.com/entry/2015/03/03/152305
 ```
