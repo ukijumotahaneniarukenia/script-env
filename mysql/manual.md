@@ -1,6 +1,7 @@
 # サンプルデータベースのインストール
 https://dev.mysql.com/doc/index-other.html
-``` curl -LO https://github.com/datacharmer/test_db/archive/master.zip
+```
+curl -LO https://github.com/datacharmer/test_db/archive/master.zip
 curl -LO https://downloads.mysql.com/docs/world.sql.zip
 curl -LO https://downloads.mysql.com/docs/world_x-db.zip
 curl -LO https://downloads.mysql.com/docs/sakila-db.zip
@@ -20,7 +21,6 @@ docker ps -qa | xargs -I@ bash -c 'docker stop @ && docker rm @'
 # dockerイメージ削除
 ```
 docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
-docker images | awk '$1 ~ "centos_"{print $3}' | xargs -I@ bash -c 'docker rmi @
 ```
 
 # dockerコンテナ起動
@@ -35,6 +35,7 @@ docker exec --user root -it mysql /bin/bash
 ```
 
 # ブラウザから起動確認
+rstudioの場合
 ```
 http://192.168.1.109:38787/
 ```
@@ -58,22 +59,9 @@ Aug 31 15:38:20 7b5265657b8b systemd[1]: Starting MySQL Server...
 Aug 31 15:38:27 7b5265657b8b systemd[1]: Started MySQL Server.
 ```
 
-# log
-rootユーザーのパスワードと公開ポート控える
-```
-[root@7b5265657b8b /]# cat /var/log/mysqld.log
-2019-08-31T06:38:20.796080Z 0 [System] [MY-013169] [Server] /usr/sbin/mysqld (mysqld 8.0.17) initializing of server in progress as process 2157
-2019-08-31T06:38:24.125593Z 5 [Note] [MY-010454] [Server] A temporary password is generated for root@localhost: RgQgkah==4q3
-2019-08-31T06:38:25.793495Z 0 [System] [MY-013170] [Server] /usr/sbin/mysqld (mysqld 8.0.17) initializing of server has completed
-2019-08-31T06:38:27.459227Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.17) starting as process 2664
-2019-08-31T06:38:27.825832Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
-2019-08-31T06:38:27.842623Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.17'  socket: '/var/lib/mysql/mysql.sock'  port: 3306  MySQL Community Server - GPL.
-2019-08-31T06:38:27.954730Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Socket: '/var/run/mysqld/mysqlx.sock' bind-address: '::' port: 33060
-```
-
 # 権限整備
 
-Old_pass:logにはかれているやつ
+Old_pass:logにはかれているやつ</br >
 New_pass:Mysql-3306
 ```
 [root@ab839250d53a /]# grep password /var/log/mysqld.log
