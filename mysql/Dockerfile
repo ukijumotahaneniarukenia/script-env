@@ -225,6 +225,30 @@ ENV LANG=ja_JP.UTF-8
 RUN rm -f /etc/localtime
 RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
+#mysqlセキュリティ設定自動化
+RUN echo "OLD_PWD=\$(grep password /var/log/mysqld.log | cut -d\" \" -f 13)" >> ~/a.sh
+RUN echo "NEW_PWD=Mysql-3306" >> ~/a.sh
+RUN echo "expect -c \"spawn mysql_secure_installation --use-default" >> ~/a.sh
+RUN echo "expect \\\"user root:\\\"" >> ~/a.sh
+RUN echo "send \\\"\${OLD_PWD}\n\\\"" >> ~/a.sh
+RUN echo "expect \\\"New password:\\\"" >> ~/a.sh
+RUN echo "send \\\"\${NEW_PWD}\n\\\"" >> ~/a.sh
+RUN echo "expect \\\"Re-enter new password:\\\"" >> ~/a.sh
+RUN echo "send \\\"\${NEW_PWD}\n\\\"" >> ~/a.sh
+RUN echo "expect \\\"$\\\"" >> ~/a.sh
+RUN echo "exit 0 \"" >> ~/a.sh
+RUN echo "mysql -u root -pMysql-3306 -e \"show databases;\"" >> ~/a.sh
+RUN echo "mysql -u root -pMysql-3306 -e \"CREATE USER \"mysql_test\"@\"localhost\" IDENTIFIED WITH mysql_native_password BY \\\"Mysql-3306\\\";\"" >> ~/a.sh
+RUN echo "mysql -u root -pMysql-3306 -e \"GRANT ALL PRIVILEGES ON mysql.* TO \"mysql_test\"@\"localhost\" WITH GRANT OPTION;\"" >> ~/a.sh
+RUN chmod +x ~/a.sh
+
+#サンプルデータベース展開
+RUN cd ~ && curl -LO https://github.com/datacharmer/test_db/archive/master.zip
+RUN cd ~ && curl -LO https://downloads.mysql.com/docs/world.sql.zip
+RUN cd ~ && curl -LO https://downloads.mysql.com/docs/world_x-db.zip
+RUN cd ~ && curl -LO https://downloads.mysql.com/docs/sakila-db.zip
+RUN cd ~ && curl -LO https://downloads.mysql.com/docs/menagerie-db.zip
+
 #rstudioサービス外部公開ポート
 EXPOSE 8787
 
