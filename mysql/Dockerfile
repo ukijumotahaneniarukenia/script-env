@@ -35,15 +35,9 @@ chown -R apache:apache /usr/share/phpmyadmin && \
 chmod -R 755 /usr/share/phpmyadmin && \
 mkdir -p /etc/httpd/conf.d
 
-#phpadmin設定ファイル
-RUN echo "<Directory \"/usr/share/phpmyadmin\">" >> /etc/httpd/conf.d/phpmyadmin.conf
-RUN echo "  Require all granted" >> /etc/httpd/conf.d/phpmyadmin.conf
-RUN echo "  AllowOverride all" >> /etc/httpd/conf.d/phpmyadmin.conf
-RUN echo "</Directory>" >> /etc/httpd/conf.d/phpmyadmin.conf
-
 #mysqlインストール
 RUN yum install -y https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
-RUN yum install -y mysql-community-server
+RUN yum install -y --nogpgcheck mysql-community-server
 # ログのタイムゾーンの設定（初期値：UTC）
 RUN echo log_timestamps=SYSTEM >> /etc/my.cnf
 # クライアントの文字セットの設定を無視する
@@ -241,6 +235,16 @@ RUN echo "mysql -u root -pMysql-3306 -e \"show databases;\"" >> ~/a.sh
 RUN echo "mysql -u root -pMysql-3306 -e \"CREATE USER \"mysql_test\"@\"localhost\" IDENTIFIED WITH mysql_native_password BY \\\"Mysql-3306\\\";\"" >> ~/a.sh
 RUN echo "mysql -u root -pMysql-3306 -e \"GRANT ALL PRIVILEGES ON mysql.* TO \"mysql_test\"@\"localhost\" WITH GRANT OPTION;\"" >> ~/a.sh
 RUN chmod +x ~/a.sh
+
+#phpadmin設定ファイル
+RUN echo "<Directory \"/usr/share/phpmyadmin\">" >> /etc/httpd/conf.d/phpmyadmin.conf
+RUN echo "  Require all granted" >> /etc/httpd/conf.d/phpmyadmin.conf
+RUN echo "  AllowOverride all" >> /etc/httpd/conf.d/phpmyadmin.conf
+RUN echo "</Directory>" >> /etc/httpd/conf.d/phpmyadmin.conf
+RUN echo "Alias /phpmyadmin /usr/share/phpmyadmin" >> /etc/httpd/conf.d/phpmyadmin.conf
+
+#apache設定ファイル
+RUN echo "Include /etc/httpd/conf.d/phpmyadmin.conf" >> /etc/httpd/conf/httpd.conf
 
 #サンプルデータベース展開
 RUN cd ~ && curl -LO https://github.com/datacharmer/test_db/archive/master.zip

@@ -36,33 +36,34 @@ docker exec --user root -it mysql /bin/bash
 
 # サービス起動確認
 ```
-[root@4000ae99ae5c ~]$systemctl status httpd
+[root@2315a8c47b0e ~]$systemctl status httpd
 ● httpd.service - The Apache HTTP Server
    Loaded: loaded (/usr/lib/systemd/system/httpd.service; disabled; vendor preset: disabled)
    Active: inactive (dead)
      Docs: man:httpd(8)
            man:apachectl(8)
-[root@4000ae99ae5c ~]$systemctl start httpd
-[root@4000ae99ae5c ~]$systemctl status httpd
+[root@2315a8c47b0e ~]$systemctl start httpd
+[root@2315a8c47b0e ~]$systemctl status httpd
 ● httpd.service - The Apache HTTP Server
    Loaded: loaded (/usr/lib/systemd/system/httpd.service; disabled; vendor preset: disabled)
-   Active: active (running) since 金 2019-09-06 00:39:06 JST; 1s ago
+   Active: active (running) since 金 2019-09-06 21:40:56 JST; 3s ago
      Docs: man:httpd(8)
            man:apachectl(8)
- Main PID: 778 (httpd)
+ Main PID: 779 (httpd)
    Status: "Processing requests..."
-   CGroup: /docker/4000ae99ae5c9e7e6602bec890f9b804aa5869c1a283a897b2376f54a3f77fee/system.slice/httpd.service
-           ├─778 /usr/sbin/httpd -DFOREGROUND
+   CGroup: /docker/2315a8c47b0e767bef651a2e220b6f5b465135d16405e70584061de84d843c92/system.slice/httpd.service
            ├─779 /usr/sbin/httpd -DFOREGROUND
            ├─780 /usr/sbin/httpd -DFOREGROUND
            ├─781 /usr/sbin/httpd -DFOREGROUND
            ├─782 /usr/sbin/httpd -DFOREGROUND
-           └─783 /usr/sbin/httpd -DFOREGROUND
-           ‣ 778 /usr/sbin/httpd -DFOREGROUND
+           ├─783 /usr/sbin/httpd -DFOREGROUND
+           └─784 /usr/sbin/httpd -DFOREGROUND
+           ‣ 779 /usr/sbin/httpd -DFOREGROUND
 
- 9月 06 00:39:06 4000ae99ae5c systemd[1]: Starting The Apache HTTP Server...
- 9月 06 00:39:06 4000ae99ae5c httpd[778]: AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 172.17.0.2. Set the 'ServerName' direct...this message
- 9月 06 00:39:06 4000ae99ae5c systemd[1]: Started The Apache HTTP Server.
+ 9月 06 21:40:56 2315a8c47b0e systemd[1]: Starting The Apache HTTP Server...
+ 9月 06 21:40:56 2315a8c47b0e httpd[779]: [Fri Sep 06 21:40:56.261585 2019] [alias:warn] [pid 779] AH00671: The Alias directive in /etc/httpd/conf.d/phpmyadmin.conf at line 5...rlier Alias.
+ 9月 06 21:40:56 2315a8c47b0e httpd[779]: AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 172.17.0.2. Set the 'ServerName' direct...this message
+ 9月 06 21:40:56 2315a8c47b0e systemd[1]: Started The Apache HTTP Server.
 Hint: Some lines were ellipsized, use -l to show in full.
 [root@4000ae99ae5c ~]$systemctl status mysqld
 ● mysqld.service - MySQL Server
