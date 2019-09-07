@@ -10,7 +10,7 @@ time docker build -t centos_elastic . | tee log
 
 # dockerコンテナ起動
 ```
-docker run --privileged -itd --name elastic -p 5601:5601 -p 9200:9200 centos_elastic /sbin/init
+docker run --privileged -itd --name elastic -p 58787:8787 -p 5601:5601 -p 9200:9200 centos_elastic /sbin/init
 ```
 
 # dockerコンテナ潜入
@@ -106,7 +106,7 @@ Sep 07 06:33:00 d2e4edee78e4 kibana[2792]: {"type":"log","@timestamp":"2019-09-0
 
 # ブラウザよりkibanaサービス起動確認
 ```
-http:192.168.1.109:5601
+http://192.168.1.109:5601
 ```
 
 ![](./1.png)
