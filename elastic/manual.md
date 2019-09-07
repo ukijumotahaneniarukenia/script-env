@@ -20,6 +20,20 @@ docker exec -it elastic /bin/bash
 
 # ポート単位で起動確認
 ```
+[root@bc2b78e24624 /]# lsof -i:5601,9200 -P
+COMMAND  PID          USER   FD   TYPE  DEVICE SIZE/OFF NODE NAME
+node    2607        kibana   18u  IPv4 1316966      0t0  TCP bc2b78e24624:5601 (LISTEN)
+node    2607        kibana   19u  IPv4 1306953      0t0  TCP localhost:36334->localhost:9200 (ESTABLISHED)
+node    2607        kibana   20u  IPv4 1306954      0t0  TCP localhost:36336->localhost:9200 (ESTABLISHED)
+node    2607        kibana   21u  IPv4 1306038      0t0  TCP localhost:36338->localhost:9200 (ESTABLISHED)
+node    2607        kibana   22u  IPv4 1306039      0t0  TCP localhost:36340->localhost:9200 (ESTABLISHED)
+node    2607        kibana   23u  IPv4 1306059      0t0  TCP localhost:36342->localhost:9200 (ESTABLISHED)
+java    2672 elasticsearch  335u  IPv4 1318189      0t0  TCP localhost:9200 (LISTEN)
+java    2672 elasticsearch  336u  IPv4 1319839      0t0  TCP localhost:9200->localhost:36336 (ESTABLISHED)
+java    2672 elasticsearch  337u  IPv4 1319838      0t0  TCP localhost:9200->localhost:36334 (ESTABLISHED)
+java    2672 elasticsearch  338u  IPv4 1319842      0t0  TCP localhost:9200->localhost:36338 (ESTABLISHED)
+java    2672 elasticsearch  340u  IPv4 1306957      0t0  TCP localhost:9200->localhost:36340 (ESTABLISHED)
+java    2672 elasticsearch  343u  IPv4 1306961      0t0  TCP localhost:9200->localhost:36342 (ESTABLISHED)
 ```
 
 # elasticサービス起動
@@ -89,3 +103,12 @@ Sep 07 06:33:00 d2e4edee78e4 kibana[2792]: {"type":"log","@timestamp":"2019-09-0
 Sep 07 06:33:00 d2e4edee78e4 kibana[2792]: {"type":"log","@timestamp":"2019-09-07T06:33:00Z","tags":["info","plugins","translations"],"pid":2792,"message":"Setting up plugin"}
 Sep 07 06:33:00 d2e4edee78e4 kibana[2792]: {"type":"log","@timestamp":"2019-09-07T06:33:00Z","tags":["info","plugins-system"],"pid":2792,"message":"Starting [1] plugins: [translations]"}
 ```
+
+# ブラウザよりkibanaサービス起動確認
+```
+http:192.168.1.109:5601
+```
+
+![](./1.png)
+![](./2.png)
+

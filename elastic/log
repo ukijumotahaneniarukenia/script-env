@@ -1,4 +1,4 @@
-Sending build context to Docker daemon  11.26kB
+Sending build context to Docker daemon  9.216kB
 Step 1/27 : FROM centos:latest
  ---> 9f38484d220f
 Step 2/27 : RUN groupadd -g 1001 rstudio
@@ -67,21 +67,21 @@ Step 22/27 : RUN yum install -y net-tools iproute lsof
 Step 23/27 : RUN sed -i 's;#server.port: 5601;server.port: 5601;' /etc/kibana/kibana.yml
  ---> Using cache
  ---> 713c72ecb258
-Step 24/27 : RUN IP=$(ifconfig eth0 | grep inet | sed -E 's;\s{1,}; ;' | cut -d" " -f 3) && sed -i "s;#server.host: \"localhost\";server.host: \"$IP\";" /etc/kibana/kibana.yml
- ---> Running in 86e094a0144d
-Removing intermediate container 86e094a0144d
- ---> eddc7a87ba18
+Step 24/27 : RUN ( IP=$(ifconfig eth0 | grep inet | sed -E 's;\s{1,}; ;' | cut -d" " -f 3) && sed -i "s;#server.host: \"localhost\";server.host: \"$IP\";" /etc/kibana/kibana.yml )
+ ---> Running in babcc5648adb
+Removing intermediate container babcc5648adb
+ ---> 8fa879d8bc39
 Step 25/27 : EXPOSE 9200
- ---> Running in 8bddc750e885
-Removing intermediate container 8bddc750e885
- ---> 4d6511867c82
+ ---> Running in 3056c7eb7cf5
+Removing intermediate container 3056c7eb7cf5
+ ---> 18a3a36fd2df
 Step 26/27 : EXPOSE 5601
- ---> Running in 56962c3acff2
-Removing intermediate container 56962c3acff2
- ---> 7215c8bc61c2
+ ---> Running in 544c7ec1112e
+Removing intermediate container 544c7ec1112e
+ ---> 3ef8f27d00d6
 Step 27/27 : CMD ["/sbin/init"]
- ---> Running in cdf403a81595
-Removing intermediate container cdf403a81595
- ---> 57115308d812
-Successfully built 57115308d812
+ ---> Running in 46bce080db19
+Removing intermediate container 46bce080db19
+ ---> 539b6cf447cc
+Successfully built 539b6cf447cc
 Successfully tagged centos_elastic:latest
