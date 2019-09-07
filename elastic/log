@@ -1,0 +1,87 @@
+Sending build context to Docker daemon  11.26kB
+Step 1/27 : FROM centos:latest
+ ---> 9f38484d220f
+Step 2/27 : RUN groupadd -g 1001 rstudio
+ ---> Using cache
+ ---> 963d719c7b0a
+Step 3/27 : RUN useradd -m -g rstudio -u 1001 rstudio
+ ---> Using cache
+ ---> c453704ae02b
+Step 4/27 : RUN groupadd -g 1002 elasticsearch
+ ---> Using cache
+ ---> a95b439287d2
+Step 5/27 : RUN useradd -m -g elasticsearch -u 1002 elasticsearch
+ ---> Using cache
+ ---> 7a497fb811b5
+Step 6/27 : RUN groupadd -g 1003 kibana
+ ---> Using cache
+ ---> 2c88ea71073e
+Step 7/27 : RUN useradd -m -g kibana -u 1003 kibana
+ ---> Using cache
+ ---> 3b87e046165f
+Step 8/27 : RUN chsh -s /bin/bash rstudio
+ ---> Using cache
+ ---> 6b45695b70a4
+Step 9/27 : RUN chsh -s /bin/bash elasticsearch
+ ---> Using cache
+ ---> 4afa1d136d32
+Step 10/27 : RUN chsh -s /bin/bash kibana
+ ---> Using cache
+ ---> 4d1949b7eae3
+Step 11/27 : RUN echo 'root_pwd' | passwd --stdin root
+ ---> Using cache
+ ---> 57babdbf15b1
+Step 12/27 : RUN echo 'rstudio_pwd' | passwd --stdin rstudio
+ ---> Using cache
+ ---> ba487e822fdd
+Step 13/27 : RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Using cache
+ ---> bde93123ba89
+Step 14/27 : RUN echo 'elasticsearch_pwd' | passwd --stdin elasticsearch
+ ---> Using cache
+ ---> ec9948c7c6e7
+Step 15/27 : RUN echo 'elasticsearch ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Using cache
+ ---> 67748c4f63ae
+Step 16/27 : RUN echo 'kibana_pwd' | passwd --stdin kibana
+ ---> Using cache
+ ---> 7d4d88df15a2
+Step 17/27 : RUN echo 'kibana ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Using cache
+ ---> 8489178e2bb6
+Step 18/27 : RUN yum install -y java-11-openjdk-devel-11.0.4.11-0.el7_6.i686
+ ---> Using cache
+ ---> 91f7eba04371
+Step 19/27 : RUN { echo "[elasticsearch-7.x]";       echo "name=Elasticsearch repository for 7.x packages";       echo "baseurl=https://artifacts.elastic.co/packages/7.x/yum";       echo "gpgcheck=1";       echo "gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch";       echo "enabled=1";       echo "autorefresh=1";       echo "type=rpm-md";     } >> /etc/yum.repos.d/elasticsearch.repo
+ ---> Using cache
+ ---> 8286715f3061
+Step 20/27 : RUN yum install -y elasticsearch
+ ---> Using cache
+ ---> 868ef6bb83ee
+Step 21/27 : RUN yum install -y kibana
+ ---> Using cache
+ ---> 74179adc6639
+Step 22/27 : RUN yum install -y net-tools iproute lsof
+ ---> Using cache
+ ---> 877f3ec054a1
+Step 23/27 : RUN sed -i 's;#server.port: 5601;server.port: 5601;' /etc/kibana/kibana.yml
+ ---> Using cache
+ ---> 713c72ecb258
+Step 24/27 : RUN IP=$(ifconfig eth0 | grep inet | sed -E 's;\s{1,}; ;' | cut -d" " -f 3) && sed -i "s;#server.host: \"localhost\";server.host: \"$IP\";" /etc/kibana/kibana.yml
+ ---> Running in 86e094a0144d
+Removing intermediate container 86e094a0144d
+ ---> eddc7a87ba18
+Step 25/27 : EXPOSE 9200
+ ---> Running in 8bddc750e885
+Removing intermediate container 8bddc750e885
+ ---> 4d6511867c82
+Step 26/27 : EXPOSE 5601
+ ---> Running in 56962c3acff2
+Removing intermediate container 56962c3acff2
+ ---> 7215c8bc61c2
+Step 27/27 : CMD ["/sbin/init"]
+ ---> Running in cdf403a81595
+Removing intermediate container cdf403a81595
+ ---> 57115308d812
+Successfully built 57115308d812
+Successfully tagged centos_elastic:latest
