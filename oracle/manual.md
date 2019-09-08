@@ -1,3 +1,8 @@
+# 参考文献
+```
+https://github.com/oraclebase/dockerfiles/tree/master/database/ol7_19
+```
+
 # Dockerfileよりイメージ作成
 ```
 time docker build -t centos_oracle . | tee log
