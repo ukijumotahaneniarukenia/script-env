@@ -1,0 +1,9 @@
+Sending build context to Docker daemon  3.584kB
+Step 1/2 : FROM centos:latest
+ ---> 9f38484d220f
+Step 2/2 : CMD ["/sbin/init"]
+ ---> Running in 6af6d3f28cd4
+Removing intermediate container 6af6d3f28cd4
+ ---> 1c54efb65025
+Successfully built 1c54efb65025
+Successfully tagged centos_fluentd:latest
