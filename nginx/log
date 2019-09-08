@@ -1,0 +1,114 @@
+Sending build context to Docker daemon  4.608kB
+Step 1/6 : FROM centos:latest
+ ---> 9f38484d220f
+Step 2/6 : RUN yum install -y yum-utils
+ ---> Using cache
+ ---> 9c28903cd845
+Step 3/6 : RUN { echo "[nginx]";      echo "name=nginx repo";      echo "baseurl=https://nginx.org/packages/centos/7/x86_64/";      echo "gpgcheck=0";      echo "enabled=1";    } >> /etc/yum.repos.d/nginx.repo
+ ---> Using cache
+ ---> 1882b1d703ab
+Step 4/6 : RUN yum install -y nginx
+ ---> Running in 942b915b84ed
+Loaded plugins: fastestmirror, ovl
+Loading mirror speeds from cached hostfile
+ * base: ftp.tsukuba.wide.ad.jp
+ * extras: ftp.tsukuba.wide.ad.jp
+ * updates: ftp.tsukuba.wide.ad.jp
+Resolving Dependencies
+--> Running transaction check
+---> Package nginx.x86_64 1:1.16.1-1.el7.ngx will be installed
+--> Processing Dependency: openssl >= 1.0.2 for package: 1:nginx-1.16.1-1.el7.ngx.x86_64
+--> Running transaction check
+---> Package openssl.x86_64 1:1.0.2k-16.el7_6.1 will be installed
+--> Processing Dependency: openssl-libs(x86-64) = 1:1.0.2k-16.el7_6.1 for package: 1:openssl-1.0.2k-16.el7_6.1.x86_64
+--> Processing Dependency: make for package: 1:openssl-1.0.2k-16.el7_6.1.x86_64
+--> Running transaction check
+---> Package make.x86_64 1:3.82-23.el7 will be installed
+---> Package openssl-libs.x86_64 1:1.0.2k-16.el7 will be updated
+---> Package openssl-libs.x86_64 1:1.0.2k-16.el7_6.1 will be an update
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package            Arch         Version                    Repository     Size
+================================================================================
+Installing:
+ nginx              x86_64       1:1.16.1-1.el7.ngx         nginx         766 k
+Installing for dependencies:
+ make               x86_64       1:3.82-23.el7              base          420 k
+ openssl            x86_64       1:1.0.2k-16.el7_6.1        updates       493 k
+Updating for dependencies:
+ openssl-libs       x86_64       1:1.0.2k-16.el7_6.1        updates       1.2 M
+
+Transaction Summary
+================================================================================
+Install  1 Package  (+2 Dependent packages)
+Upgrade             ( 1 Dependent package)
+
+Total download size: 2.8 M
+Downloading packages:
+Delta RPMs disabled because /usr/bin/applydeltarpm not installed.
+[91mwarning: /var/cache/yum/x86_64/7/updates/packages/openssl-1.0.2k-16.el7_6.1.x86_64.rpm: Header V3 RSA/SHA256 Signature, key ID f4a80eb5: NOKEY
+[0mPublic key for openssl-1.0.2k-16.el7_6.1.x86_64.rpm is not installed
+Public key for make-3.82-23.el7.x86_64.rpm is not installed
+--------------------------------------------------------------------------------
+Total                                              315 kB/s | 2.8 MB  00:09     
+Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+[91mImporting GPG key 0xF4A80EB5:
+ Userid     : "CentOS-7 Key (CentOS 7 Official Signing Key) <security@centos.org>"
+ Fingerprint: 6341 ab27 53d7 8a78 a7c2 7bb1 24c6 a8a7 f4a8 0eb5
+ Package    : centos-release-7-6.1810.2.el7.centos.x86_64 (@CentOS)
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+[0mRunning transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Updating   : 1:openssl-libs-1.0.2k-16.el7_6.1.x86_64                      1/5 
+  Installing : 1:make-3.82-23.el7.x86_64                                    2/5 
+  Installing : 1:openssl-1.0.2k-16.el7_6.1.x86_64                           3/5 
+  Installing : 1:nginx-1.16.1-1.el7.ngx.x86_64                              4/5 
+----------------------------------------------------------------------
+
+Thanks for using nginx!
+
+Please find the official documentation for nginx here:
+* http://nginx.org/en/docs/
+
+Please subscribe to nginx-announce mailing list to get
+the most important news about nginx:
+* http://nginx.org/en/support.html
+
+Commercial subscriptions for nginx are available on:
+* http://nginx.com/products/
+
+----------------------------------------------------------------------
+  Cleanup    : 1:openssl-libs-1.0.2k-16.el7.x86_64                          5/5 
+  Verifying  : 1:make-3.82-23.el7.x86_64                                    1/5 
+  Verifying  : 1:openssl-1.0.2k-16.el7_6.1.x86_64                           2/5 
+  Verifying  : 1:openssl-libs-1.0.2k-16.el7_6.1.x86_64                      3/5 
+  Verifying  : 1:nginx-1.16.1-1.el7.ngx.x86_64                              4/5 
+  Verifying  : 1:openssl-libs-1.0.2k-16.el7.x86_64                          5/5 
+
+Installed:
+  nginx.x86_64 1:1.16.1-1.el7.ngx                                               
+
+Dependency Installed:
+  make.x86_64 1:3.82-23.el7          openssl.x86_64 1:1.0.2k-16.el7_6.1         
+
+Dependency Updated:
+  openssl-libs.x86_64 1:1.0.2k-16.el7_6.1                                       
+
+Complete!
+Removing intermediate container 942b915b84ed
+ ---> 71287979fc54
+Step 5/6 : EXPOSE 8080
+ ---> Running in 2f25713a6fcb
+Removing intermediate container 2f25713a6fcb
+ ---> b0f05e8e263c
+Step 6/6 : CMD ["/sbin/init"]
+ ---> Running in f725bd476e18
+Removing intermediate container f725bd476e18
+ ---> c9eb99b48cb0
+Successfully built c9eb99b48cb0
+Successfully tagged centos_nginx:latest
