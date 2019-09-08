@@ -1,9 +1,20 @@
-Sending build context to Docker daemon  3.584kB
-Step 1/2 : FROM centos:latest
+Sending build context to Docker daemon   5.12kB
+Step 1/6 : FROM centos:latest
  ---> 9f38484d220f
-Step 2/2 : CMD ["/sbin/init"]
- ---> Running in 6af6d3f28cd4
-Removing intermediate container 6af6d3f28cd4
- ---> 1c54efb65025
-Successfully built 1c54efb65025
+Step 2/6 : RUN { echo "[nginx]";      echo "name=nginx repo";      echo "baseurl=https://nginx.org/packages/centos/7/x86_64/";      echo "gpgcheck=0";      echo "enabled=1";    } >> /etc/yum.repos.d/nginx.repo
+ ---> Using cache
+ ---> a4ba82a24fa6
+Step 3/6 : RUN yum install -y nginx
+ ---> Using cache
+ ---> 596a7fcf67a1
+Step 4/6 : RUN { echo "[treasuredata]";      echo "name=TreasureData";      echo "baseurl=http://packages.treasuredata.com/3/redhat/7/x86_64";      echo "gpgcheck=1";      echo "gpgkey=https://packages.treasuredata.com/GPG-KEY-td-agent";    } >> /etc/yum.repos.d/td.repo
+ ---> Using cache
+ ---> eff131155e78
+Step 5/6 : RUN yum install -y td-agent
+ ---> Using cache
+ ---> 1c3f806e57d0
+Step 6/6 : CMD ["/sbin/init"]
+ ---> Using cache
+ ---> dc9d6b6140d0
+Successfully built dc9d6b6140d0
 Successfully tagged centos_fluentd:latest
