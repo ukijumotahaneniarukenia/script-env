@@ -1,5 +1,6 @@
 # 参考文献
 ```
+https://www.sql-dbtips.com/architecture/orapwd/
 https://oracle-base.com/articles/19c/oracle-db-19c-rpm-installation-on-oracle-linux-7
 https://github.com/oraclebase/dockerfiles/tree/master/database/ol7_19
 https://qiita.com/s-sasaki/items/cb768bd00d3588f494d4#%E6%9C%AA%E8%A7%A3%E6%B1%BA
@@ -199,4 +200,34 @@ Usage 2: orapwd describe file=<fname>
 
 
   There must be no spaces around the equal-to (=) character.
+```
+
+```
+[oracle@a0b2f32dfc3a ~]$ll
+total 4
+-rw-r--r--. 1 oracle oinstall 2233  9月  9 20:09 installer.sh
+[oracle@a0b2f32dfc3a ~]$orapwd file=oracle_sys_pwd force=y password=ukijumotahaneniarukenia#1
+[oracle@a0b2f32dfc3a ~]$ll
+total 12
+-rw-r--r--. 1 oracle oinstall 2233  9月  9 20:09 installer.sh
+-rw-r-----. 1 oracle oinstall 6144  9月  9 21:12 oracle_sys_pwd
+[oracle@a0b2f32dfc3a ~]$sqlplus sys/ukijumotahaneniarukenia#1 as sysdba
+
+SQL*Plus: Release 19.0.0.0.0 - Production on Mon Sep 9 21:14:21 2019
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+
+SQL> select banner_full from v$version;
+
+BANNER_FULL
+--------------------------------------------------------------------------------
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+
 ```
