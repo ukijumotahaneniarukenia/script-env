@@ -44,11 +44,80 @@ docker exec --user root -it oracle /bin/bash
 [oracle@ee5b841469f7 /]$ touch /u01/app/oracle/product/19.0.0/dbhome_1/dbs/ora_control2
 ```
 
-rpmあるぽい
+# 起動と停止
 ```
-方針転換
-https://docs.oracle.com/en/database/oracle/oracle-database/19/ladbi/running-rpm-packages-to-install-oracle-database.html#GUID-BB7C11E3-D385-4A2F-9EAF-75F4F0AACF02
+[oracle@a0b2f32dfc3a /]$sqlplus / as sysdba
 
-https://docs.oracle.com/en/database/oracle/oracle-database/19/ladbi/running-rpm-packages-to-install-oracle-database.html#GUID-BB7C11E3-D385-4A2F-9EAF-75F4F0AACF02
+SQL*Plus: Release 19.0.0.0.0 - Production on Mon Sep 9 20:35:55 2019
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+
+SQL> select banner_full from v$version;
+
+BANNER_FULL
+--------------------------------------------------------------------------------
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+
+
+SQL> shutdown
+Database closed.
+Database dismounted.
+ORACLE instance shut down.
+SQL> startup
+ORACLE instance started.
+
+Total System Global Area 1.0033E+10 bytes
+Fixed Size		   12685360 bytes
+Variable Size		 1677721600 bytes
+Database Buffers	 8321499136 bytes
+Redo Buffers		   20865024 bytes
+Database mounted.
+Database opened.
+```
+
+# oracleユーザーで接続
+パスワード変更する
+```
+[oracle@a0b2f32dfc3a /]$sqlplus / as sysdba
+
+SQL*Plus: Release 19.0.0.0.0 - Production on Mon Sep 9 20:16:57 2019
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+Connected to an idle instance.
+
+SQL> startup
+ORACLE instance started.
+
+Total System Global Area 1.0033E+10 bytes
+Fixed Size		   12685360 bytes
+Variable Size		 1677721600 bytes
+Database Buffers	 8321499136 bytes
+Redo Buffers		   20865024 bytes
+Database mounted.
+Database opened.
+SQL> 
+SQL> select banner_full from v$version;
+
+BANNER_FULL
+--------------------------------------------------------------------------------
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+
+
+SQL> show pdbs;
+
+    CON_ID CON_NAME			  OPEN MODE  RESTRICTED
+---------- ------------------------------ ---------- ----------
+	 2 PDB$SEED			  READ ONLY  NO
+	 3 ORCLPDB1			  MOUNTED
 
 ```
