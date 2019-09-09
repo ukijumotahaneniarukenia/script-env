@@ -109,6 +109,15 @@ cd parallel-20190822 && \
 make -j12 && \
 make -j12 install
 
+#alias設定
+RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
+echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
+echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
+echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
+echo "export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1" >> ~/.bashrc && \
+echo "export ORACLE_SID=ORCLCDB"  >> ~/.bashrc && \
+echo "export PATH=$PATH:$ORACLE_HOME/bin" >> ~/.bashrc
+
 #実行ユーザをrstudioに変更
 USER rstudio
 
@@ -134,7 +143,10 @@ echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
 echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
 echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
 echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
-echo "alias vi=\"sudo vim\"" >> ~/.bashrc
+echo "alias vi=\"sudo vim\"" >> ~/.bashrc && \
+echo "export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1" >> ~/.bashrc && \
+echo "export ORACLE_SID=ORCLCDB"  >> ~/.bashrc && \
+echo "export PATH=$PATH:$ORACLE_HOME/bin" >> ~/.bashrc
 
 #実行ユーザをoracleに変更
 USER oracle
@@ -161,7 +173,10 @@ echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
 echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
 echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
 echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
-echo "alias vi=\"sudo vim\"" >> ~/.bashrc
+echo "alias vi=\"sudo vim\"" >> ~/.bashrc && \
+echo "export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1" >> ~/.bashrc && \
+echo "export ORACLE_SID=ORCLCDB"  >> ~/.bashrc && \
+echo "export PATH=$PATH:$ORACLE_HOME/bin" >> ~/.bashrc
 
 #最後はrootに戻す
 USER root 
