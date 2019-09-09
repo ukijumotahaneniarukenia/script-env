@@ -76,7 +76,7 @@ RUN dbca -silent -createDatabase                                                
     -automaticMemoryManagement false                                           \
     -totalMemory 1536                                                          \
     -storageType FS                                                            \
-    -datafileDestination "/u01/oradata/"                                       \
+    -datafileDestination "/u01/app/oraInventory"                                        \
     -redoLogFileSize 50                                                        \
     -emConfiguration NONE                                                      \
     -ignorePreReqs

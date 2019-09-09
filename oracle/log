@@ -1,166 +1,73 @@
-Sending build context to Docker daemon  7.168kB
-Step 1/12 : FROM centos:latest
- ---> 9f38484d220f
-Step 2/12 : RUN groupadd -g 54321 oinstall;  groupadd -g 54322 dba;  groupadd -g 54323 oper;  groupadd -g 54324 backupdba;  groupadd -g 54325 dgdba;  groupadd -g 54326 kmdba;  groupadd -g 54327 racdba;  useradd -u 1200 -g oinstall -G dba,oper,backupdba,dgdba,kmdba,racdba -d /home/oracle oracle;
+Sending build context to Docker daemon   3.06GB
+Step 1/20 : FROM centos:latest
+ ---> 67fa590cfc1c
+Step 2/20 : RUN groupadd -g 54321 oinstall &&  groupadd -g 54322 dba &&  groupadd -g 54323 oper &&  groupadd -g 54324 backupdba &&  groupadd -g 54325 dgdba &&  groupadd -g 54326 kmdba &&  groupadd -g 54327 racdba &&  useradd -u 1200 -g oinstall -G dba,oper,backupdba,dgdba,kmdba,racdba -d /home/oracle oracle &&  mkdir -p /u01/app/oracle/product/19.0.0/dbhome_1 &&  mkdir -p /u01/app/oraInventory
  ---> Using cache
- ---> 6bd6c8676bf8
-Step 3/12 : RUN mkdir -p /u01/app/oracle/product/19.0.0/dbhome_1  mkdir -p /u01/app/oraInventory
+ ---> 1ad9ba667ec5
+Step 3/20 : ENV ORACLE_BASE=/u01/app/oracle     ORACLE_HOME=/u01/app/oracle/product/19.0.0/dbhome_1     ORA_INVENTORY=/u01/app/oraInventory     PATH=/u01/app/oracle/product/19.0.0/dbhome_1/bin:${PATH}     LD_LIBRARY_PATH=/u01/app/oracle/product/19.0.0/dbhome_1/lib     SOFTWARE="LINUX.X64_193000_db_home.zip"     PASSWORD="ORACLE_PWD"     ORACLE_SID="ORCL"     PDB_NAME="PDB1"
  ---> Using cache
- ---> 15473c6029d8
-Step 4/12 : ENV ORACLE_BASE=/u01/app/oracle     ORACLE_HOME=/u01/app/oracle/product/19.0.0/dbhome_1     ORA_INVENTORY=/u01/app/oraInventory     PATH=/u01/app/oracle/product/19.0.0/dbhome_1/bin:${PATH}
- ---> Running in 2a03b305e532
-Removing intermediate container 2a03b305e532
- ---> 050528c7ff5f
-Step 5/12 : RUN echo $ORACLE_BASE && echo $ORACLE_HOME && echo $ORA_INVENTORY && echo $PATH
- ---> Running in 339542c2b8d6
-/u01/app/oracle
-/u01/app/oracle/product/19.0.0/dbhome_1
-/u01/app/oraInventory
-/u01/app/oracle/product/19.0.0/dbhome_1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-Removing intermediate container 339542c2b8d6
- ---> 12e554b42914
-Step 6/12 : USER root
- ---> Running in d7dfd7f0f71d
-Removing intermediate container d7dfd7f0f71d
- ---> d01e7f477484
-Step 7/12 : RUN yum -y reinstall glibc-common
- ---> Running in ffa54d1869b7
-Loaded plugins: fastestmirror, ovl
-Determining fastest mirrors
- * base: ftp.iij.ad.jp
- * extras: ftp.iij.ad.jp
- * updates: ftp.iij.ad.jp
-Resolving Dependencies
---> Running transaction check
----> Package glibc-common.x86_64 0:2.17-260.el7_6.3 will be reinstalled
---> Finished Dependency Resolution
+ ---> fb9c05c56cbe
+Step 4/20 : RUN yum install -y unzip make gcc libaio
+ ---> Using cache
+ ---> 84c0054025e2
+Step 5/20 : COPY ${SOFTWARE} /${SOFTWARE}
+ ---> Using cache
+ ---> a100d02da86b
+Step 6/20 : RUN unzip -d ${ORACLE_HOME} /${SOFTWARE} &&  chown -R oracle:oinstall /u01/app/oracle &&  chown -R oracle:oinstall /u01/app/oraInventory &&  chmod -R g+w /u01
+ ---> Using cache
+ ---> 85d44eb93deb
+Step 7/20 : USER oracle
+ ---> Using cache
+ ---> 0e51f0eed7d0
+Step 8/20 : RUN ${ORACLE_HOME}/runInstaller -ignorePrereq                                      -waitforcompletion -silent                                                     -responseFile ${ORACLE_HOME}/install/response/db_install.rsp                   oracle.install.option=INSTALL_DB_SWONLY                                        ORACLE_HOSTNAME=$(hostname)                                                    UNIX_GROUP_NAME=dba                                                            INVENTORY_LOCATION=${ORA_INVENTORY}                                            ORACLE_HOME=${ORACLE_HOME}                                                     ORACLE_BASE=${ORACLE_BASE}                                                     oracle.install.db.InstallEdition=EE                                            oracle.install.db.OSDBA_GROUP=dba                                              oracle.install.db.OSBACKUPDBA_GROUP=dba                                        oracle.install.db.OSDGDBA_GROUP=dba                                            oracle.install.db.OSKMDBA_GROUP=dba                                            oracle.install.db.OSRACDBA_GROUP=dba                                           SECURITY_UPDATES_VIA_MYORACLESUPPORT=false                                     DECLINE_SECURITY_UPDATES=true; exit 0
+ ---> Using cache
+ ---> 6c8bd05a16bd
+Step 9/20 : USER root
+ ---> Using cache
+ ---> e8e0e5835989
+Step 10/20 : RUN sh ${ORA_INVENTORY}/orainstRoot.sh                                      &&     sh ${ORACLE_HOME}/root.sh
+ ---> Using cache
+ ---> 183d440f45de
+Step 11/20 : USER oracle
+ ---> Using cache
+ ---> 33708357da92
+Step 12/20 : RUN dbca -silent -createDatabase                                                     -templateName General_Purpose.dbc                                              -gdbname ${ORACLE_SID} -sid ${ORACLE_SID} -responseFile NO_VALUE               -characterSet AL32UTF8                                                         -sysPassword ${PASSWORD}                                                   -systemPassword ${PASSWORD}                                                -createAsContainerDatabase true                                                -numberOfPDBs 1                                                                -pdbName ${PDB_NAME}                                                           -pdbAdminPassword ${PASSWORD}                                              -databaseType MULTIPURPOSE                                                     -automaticMemoryManagement false                                               -totalMemory 1536                                                              -storageType FS                                                                -datafileDestination "/u01/app/oraInventory"                                            -redoLogFileSize 50                                                            -emConfiguration NONE                                                          -ignorePreReqs
+ ---> Running in bde26f733a79
+[WARNING] [DBT-06208] The 'SYS' password entered does not conform to the Oracle recommended standards.
+   CAUSE: 
+a. Oracle recommends that the password entered should be at least 8 characters in length, contain at least 1 uppercase character, 1 lower case character and 1 digit [0-9].
+b.The password entered is a keyword that Oracle does not recommend to be used as password
+   ACTION: Specify a strong password. If required refer Oracle documentation for guidelines.
+[WARNING] [DBT-06208] The 'SYSTEM' password entered does not conform to the Oracle recommended standards.
+   CAUSE: 
+a. Oracle recommends that the password entered should be at least 8 characters in length, contain at least 1 uppercase character, 1 lower case character and 1 digit [0-9].
+b.The password entered is a keyword that Oracle does not recommend to be used as password
+   ACTION: Specify a strong password. If required refer Oracle documentation for guidelines.
+[WARNING] [DBT-06208] The 'PDBADMIN' password entered does not conform to the Oracle recommended standards.
+   CAUSE: 
+a. Oracle recommends that the password entered should be at least 8 characters in length, contain at least 1 uppercase character, 1 lower case character and 1 digit [0-9].
+b.The password entered is a keyword that Oracle does not recommend to be used as password
+   ACTION: Specify a strong password. If required refer Oracle documentation for guidelines.
+Prepare for db operation
+8% complete
+Copying database files
+31% complete
+Creating and starting Oracle instance
+[WARNING] ORA-00600: internal error code, arguments: [ksb_shut_detached_process3], [SMCO], [30], [300], [], [], [], [], [], [], [], []
 
-Dependencies Resolved
+32% complete
+33% complete
+[WARNING] ORA-01081: cannot start already-running ORACLE - shut it down first
 
-================================================================================
- Package             Arch          Version                 Repository      Size
-================================================================================
-Reinstalling:
- glibc-common        x86_64        2.17-260.el7_6.3        updates         12 M
+[FATAL] ORA-01503: CREATE CONTROLFILE failed
+ORA-01100: database already mounted
 
-Transaction Summary
-================================================================================
-Reinstall  1 Package
+46% complete
+100% complete
+[FATAL] ORA-01503: CREATE CONTROLFILE failed
+ORA-01100: database already mounted
 
-Total download size: 12 M
-Installed size: 115 M
-Downloading packages:
-[91mwarning: /var/cache/yum/x86_64/7/updates/packages/glibc-common-2.17-260.el7_6.3.x86_64.rpm: Header V3 RSA/SHA256 Signature, key ID f4a80eb5: NOKEY
-[0mPublic key for glibc-common-2.17-260.el7_6.3.x86_64.rpm is not installed
-Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
-[91mImporting GPG key 0xF4A80EB5:
- Userid     : "CentOS-7 Key (CentOS 7 Official Signing Key) <security@centos.org>"
- Fingerprint: 6341 ab27 53d7 8a78 a7c2 7bb1 24c6 a8a7 f4a8 0eb5
- Package    : centos-release-7-6.1810.2.el7.centos.x86_64 (@CentOS)
- From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
-[0mRunning transaction check
-Running transaction test
-Transaction test succeeded
-Running transaction
-  Installing : glibc-common-2.17-260.el7_6.3.x86_64                         1/1 
-  Verifying  : glibc-common-2.17-260.el7_6.3.x86_64                         1/1 
-
-Installed:
-  glibc-common.x86_64 0:2.17-260.el7_6.3                                        
-
-Complete!
-Removing intermediate container ffa54d1869b7
- ---> 139689bd5e41
-Step 8/12 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
- ---> Running in 0647a8eaa681
-[91m/usr/share/i18n/locales/ja_JP:11: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:12: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:15: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:18: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:19: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:20: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:21: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:23: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:24: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:25: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:26: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:27: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:28: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:29: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:30: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:31: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:32: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:33: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:42: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/i18n:1425: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/i18n:1674: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/i18n:1719: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/i18n:1756: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/ja_JP:1675: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:1676: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/translit_neutral:10: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:11: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:12: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:13: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:14: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:15: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:16: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:17: non-symbolic character value should not be used
-[0m[91mLC_ADDRESS: field `country_name' not defined
-LC_ADDRESS: field `country_post' not defined
-LC_ADDRESS: field `country_car' not defined
-LC_ADDRESS: field `country_isbn' not defined
-LC_ADDRESS: field `lang_name' not defined
-LC_ADDRESS: field `lang_term' not defined
-LC_ADDRESS: field `lang_ab' not defined
-LC_TELEPHONE: field `int_select' not defined
-LC_IDENTIFICATION: field `audience' not defined
-LC_IDENTIFICATION: field `application' not defined
-LC_IDENTIFICATION: field `abbreviation' not defined
-LC_IDENTIFICATION: no identification for category `LC_MEASUREMENT'
-[0m[91mLC_CTYPE: table for class "upper": 1756 bytes
-[0m[91mLC_CTYPE: table for class "lower": 1756 bytes
-[0m[91mLC_CTYPE: table for class "alpha": 4320 bytes
-[0m[91mLC_CTYPE: table for class "digit": 600 bytes
-[0m[91mLC_CTYPE: table for class "xdigit": 600 bytes
-[0m[91mLC_CTYPE: table for class "space": 856 bytes
-[0m[91mLC_CTYPE: table for class "print": 5976 bytes
-[0m[91mLC_CTYPE: table for class "graph": 5976 bytes
-[0m[91mLC_CTYPE: table for class "blank": 856 bytes
-[0m[91mLC_CTYPE: table for class "cntrl": 664 bytes
-[0m[91mLC_CTYPE: table for class "punct": 4824 bytes
-[0m[91mLC_CTYPE: table for class "alnum": 4320 bytes
-[0m[91mLC_CTYPE: table for class "combining": 3152 bytes
-[0m[91mLC_CTYPE: table for class "combining_level3": 2832 bytes
-[0m[91mLC_CTYPE: table for class "jspace": 600 bytes
-[0m[91mLC_CTYPE: table for class "jhira": 600 bytes
-[0m[91mLC_CTYPE: table for class "jkata": 664 bytes
-[0m[91mLC_CTYPE: table for class "jkanji": 3224 bytes
-[0m[91mLC_CTYPE: table for class "jdigit": 600 bytes
-[0m[91mLC_CTYPE: table for map "toupper": 16924 bytes
-[0m[91mLC_CTYPE: table for map "tolower": 15388 bytes
-[0m[91mLC_CTYPE: table for map "totitle": 16924 bytes
-[0m[91mLC_CTYPE: table for map "tojhira": 2584 bytes
-[0m[91mLC_CTYPE: table for map "tojkata": 3096 bytes
-[0m[91mLC_CTYPE: table for width: 26712 bytes
-[0m
-Removing intermediate container 0647a8eaa681
- ---> 72406d07a7f5
-Step 9/12 : ENV LANG=ja_JP.UTF-8
- ---> Running in e93999b7bdc3
-Removing intermediate container e93999b7bdc3
- ---> 893fc5362537
-Step 10/12 : RUN rm -f /etc/localtime
- ---> Running in 680e242c8932
-Removing intermediate container 680e242c8932
- ---> 991ea595d3a0
-Step 11/12 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
- ---> Running in 06d8af117ac7
-Removing intermediate container 06d8af117ac7
- ---> af4af6cf5fb2
-Step 12/12 : CMD ["/sbin/init"]
- ---> Running in eb7e9e5823ff
-Removing intermediate container eb7e9e5823ff
- ---> 14f3a5bbdf2a
-Successfully built 14f3a5bbdf2a
-Successfully tagged centos_oracle:latest
+31% complete
+8% complete
+0% complete
+Look at the log file "/u01/app/oracle/cfgtoollogs/dbca/ORCL/ORCL.log" for further details.
