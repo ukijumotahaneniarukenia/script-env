@@ -203,6 +203,23 @@ Usage 2: orapwd describe file=<fname>
 ```
 
 ```
+SQL> select username from dba_users where username like 'SYS%';
+
+USERNAME
+--------------------------------------------------------------------------------
+SYS
+SYSTEM
+SYSBACKUP
+SYSRAC
+SYSKM
+SYS$UMF
+SYSDG
+
+7 rows selected.
+
+```
+
+```
 [oracle@a0b2f32dfc3a ~]$ll
 total 4
 -rw-r--r--. 1 oracle oinstall 2233  9月  9 20:09 installer.sh
@@ -229,5 +246,128 @@ BANNER_FULL
 --------------------------------------------------------------------------------
 Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
 Version 19.3.0.0.0
+
+[oracle@a0b2f32dfc3a ~]$sqlplus system/ukijumotahaneniarukenia#1 as sysdba
+
+SQL*Plus: Release 19.0.0.0.0 - Production on Mon Sep 9 21:17:21 2019
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+
+SQL> select banner_full from v$version;
+
+BANNER_FULL
+--------------------------------------------------------------------------------
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+
+
+SQL> 
+[oracle@a0b2f32dfc3a ~]$sqlplus sysbackup/ukijumotahaneniarukenia#1 as sysdba
+
+SQL*Plus: Release 19.0.0.0.0 - Production on Mon Sep 9 21:19:49 2019
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+
+SQL> select banner_full from v$version;
+
+BANNER_FULL
+--------------------------------------------------------------------------------
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+
+
+SQL> 
+[oracle@a0b2f32dfc3a ~]$sqlplus sysrac/ukijumotahaneniarukenia#1 as sysdba
+
+SQL*Plus: Release 19.0.0.0.0 - Production on Mon Sep 9 21:20:41 2019
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+
+SQL> select banner_full from v$version;                   
+
+BANNER_FULL
+--------------------------------------------------------------------------------
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+
+
+[oracle@a0b2f32dfc3a ~]$sqlplus syskm/ukijumotahaneniarukenia#1 as sysdba
+
+SQL*Plus: Release 19.0.0.0.0 - Production on Mon Sep 9 21:21:22 2019
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+
+SQL> select banner_full from v$version; 
+
+BANNER_FULL
+--------------------------------------------------------------------------------
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+
+[oracle@a0b2f32dfc3a ~]$sqlplus sys$umf/ukijumotahaneniarukenia#1 as sysdba
+
+SQL*Plus: Release 19.0.0.0.0 - Production on Mon Sep 9 21:22:03 2019
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+
+SQL> select banner_full from v$version;
+
+BANNER_FULL
+--------------------------------------------------------------------------------
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+
+
+[oracle@a0b2f32dfc3a ~]$sqlplus sysdg/ukijumotahaneniarukenia#1 as sysdba
+
+SQL*Plus: Release 19.0.0.0.0 - Production on Mon Sep 9 21:22:40 2019
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+
+SQL> select banner_full from v$version;
+
+BANNER_FULL
+--------------------------------------------------------------------------------
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+
+
+
 
 ```
