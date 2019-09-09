@@ -452,3 +452,8 @@ Checker run found 2 new persistent data failures
 Using default pga_aggregate_limit of 2048 MB
 
 ```
+
+```
+[oracle@ee5b841469f7 /]$ touch /u01/app/oracle/product/19.0.0/dbhome_1/dbs/ora_control1
+[oracle@ee5b841469f7 /]$ touch /u01/app/oracle/product/19.0.0/dbhome_1/dbs/ora_control2
+```
