@@ -1,128 +1,167 @@
 FROM centos:latest
 
-RUN groupadd -g 54321 oinstall && \
- groupadd -g 54322 dba && \
- groupadd -g 54323 oper && \
- groupadd -g 54324 backupdba && \
- groupadd -g 54325 dgdba && \
- groupadd -g 54326 kmdba && \
- groupadd -g 54327 racdba && \
- useradd -u 1200 -g oinstall -G dba,oper,backupdba,dgdba,kmdba,racdba -d /home/oracle oracle && \
- mkdir -p /u01/app/oracle/product/19.0.0/dbhome_1 && \
- mkdir -p /u01/app/oraInventory
+#pre installはユーザー作成とかフォルダとかパッケージとかをまとめていんすこしている
+#main installでpreinstall実施チェックしているから、とりま実行しておくのがよい
+RUN curl -o oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm https://yum.oracle.com/repo/OracleLinux/OL7/latest/x86_64/getPackage/oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm
+RUN yum -y localinstall oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm && rm oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm
 
-ENV ORACLE_BASE=/u01/app/oracle \
-    ORACLE_HOME=/u01/app/oracle/product/19.0.0/dbhome_1 \
-    ORA_INVENTORY=/u01/app/oraInventory \
-    PATH=/u01/app/oracle/product/19.0.0/dbhome_1/bin:${PATH} \
-    LD_LIBRARY_PATH=/u01/app/oracle/product/19.0.0/dbhome_1/lib \
-    SOFTWARE="LINUX.X64_193000_db_home.zip" \
-    PASSWORD="ORACLE_PWD" \
-    ORACLE_SID="ORCL" \
-    PDB_NAME="PDB1"
+ENV ORACLE_DOCKER_INSTALL=true \
+    ORACLE_HOME=/opt/oracle/product/19c/dbhome_1 \
+    ORACLE_SID=ORCLCDB \
+    PATH=$PATH:$ORACLE_HOME/bin
 
-RUN yum install -y unzip make gcc libaio
+#事前にダウンロードしておき、dockerコンテナにコピー。
+COPY oracle-database-ee-19c-1.0-1.x86_64.rpm /oracle-database-ee-19c-1.0-1.x86_64.rpm
 
-COPY ${SOFTWARE} /${SOFTWARE}
+RUN yum -y localinstall oracle-database-ee-19c-1.0-1.x86_64.rpm
 
-RUN unzip -d ${ORACLE_HOME} /${SOFTWARE} && \
- chown -R oracle:oinstall /u01/app/oracle && \
- chown -R oracle:oinstall /u01/app/oraInventory && \
- chmod -R g+w /u01
+#データベース作成10分ぐらいかかる。
+RUN /etc/init.d/oracledb_ORCLCDB-19c configure
 
-# runInstallerはoracleユーザーで実行
+#ユーザー作成
+RUN groupadd -g 1001 rstudio
+RUN useradd -m -g rstudio -u 1001 rstudio
+RUN chsh -s /bin/bash rstudio
+RUN chsh -s /bin/bash oracle
+RUN echo 'root_pwd' | passwd --stdin root
+RUN echo 'rstudio_pwd' | passwd --stdin rstudio
+RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+RUN echo 'oracle_pwd' | passwd --stdin oracle
+RUN echo 'oracle ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+#各種コマンドインストール
+RUN yum install -y epel-release 
+RUN yum install -y R
+RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man
+
+#perl パッケージ管理cpanmないしcpanインストール
+RUN yum install -y which perl-App-cpanminus wxGTK-devel perl-ExtUtils-Embed perl-File-HomeDir perl-Term-ReadLine-Gnu wxGTK3 cpan
+
+#Tukubaiコマンドは便利
+RUN cd ~ && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && \
+cd Open-usp-Tukubai && \
+make -j12 install
+
+#awkコマンドは最新の奴 include使える
+RUN cd ~ && curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && \
+tar -zxvf gawk-5.0.0.tar.gz && \
+cd gawk-5.0.0 && \
+./configure && \
+make -j12 && \
+make -j12 install
+
+#bashも最新
+RUN cd ~ && curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && \
+tar -zxvf bash-5.0.tar.gz && \
+cd bash-5.0 && \
+./configure && \
+make -j12 && \
+make -j12 install
+
+#vimも最新
+RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && \
+cd ~ && git clone https://github.com/vim/vim.git && \
+cd vim && \
+./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && \
+make -j12 distclean && \
+make -j12 && \
+make -j12 install && \
+ln -fsr /usr/local/bin/vim /usr/bin/vim && \
+ln -fsr /usr/local/bin/vim /usr/bin/vi
+
+#自身のvim環境をクローン
+RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+
+#自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
+RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
+cd ~/tmp && \
+#移動したいdotfileをchoiceしてHOMEディレクトリへ
+mv rc/.[^.]* ~ && \
+#用が済んだらリム
+rm -rf ~/tmp
+
+#vim plugin manager
+RUN mkdir -p ~/.vim/bundle && \
+cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
+sh installer.sh ~/.vim/bundle
+
+#python install
+RUN cd ~ && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && \
+tar -zxvf Python-3.7.4.tgz && \
+cd Python-3.7.4 && \
+./configure && \
+make -j12 && \
+make -j12 install
+
+#perl install
+RUN cd ~ && curl -LO https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz && \
+tar -xzf perl-5.30.0.tar.gz && \
+cd perl-5.30.0 && \
+./Configure -des -Dprefix=/usr/local/ && \
+make -j12 && \
+make -j12 install
+
+#parallelコマンド install
+RUN cd ~ && yum install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && \
+tar jxf parallel-latest.tar.bz2 && \
+cd parallel-20190822 && \
+./configure && \
+make -j12 && \
+make -j12 install
+
+#実行ユーザをrstudioに変更
+USER rstudio
+
+#自身のvim環境をクローン
+RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+
+#自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
+RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
+cd ~/tmp && \
+#移動したいdotfileをchoiceしてHOMEディレクトリへ
+mv rc/.[^.]* ~ && \
+#用が済んだらリム
+rm -rf ~/tmp
+
+#vim plugin manager
+RUN mkdir -p ~/.vim/bundle && \
+cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
+sh installer.sh ~/.vim/bundle
+
+#alias設定
+RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
+echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
+echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
+echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
+echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
+echo "alias vi=\"sudo vim\"" >> ~/.bashrc
+
+#実行ユーザをoracleに変更
 USER oracle
-# レスポンスファイルはダミーで指定
-RUN ${ORACLE_HOME}/runInstaller -ignorePrereq                                  \
-    -waitforcompletion -silent                                                 \
-    -responseFile ${ORACLE_HOME}/install/response/db_install.rsp               \
-    oracle.install.option=INSTALL_DB_SWONLY                                    \
-    ORACLE_HOSTNAME=$(hostname)                                                \
-    UNIX_GROUP_NAME=dba                                                        \
-    INVENTORY_LOCATION=${ORA_INVENTORY}                                        \
-    ORACLE_HOME=${ORACLE_HOME}                                                 \
-    ORACLE_BASE=${ORACLE_BASE}                                                 \
-    oracle.install.db.InstallEdition=EE                                        \
-    oracle.install.db.OSDBA_GROUP=dba                                          \
-    oracle.install.db.OSBACKUPDBA_GROUP=dba                                    \
-    oracle.install.db.OSDGDBA_GROUP=dba                                        \
-    oracle.install.db.OSKMDBA_GROUP=dba                                        \
-    oracle.install.db.OSRACDBA_GROUP=dba                                       \
-    SECURITY_UPDATES_VIA_MYORACLESUPPORT=false                                 \
-    DECLINE_SECURITY_UPDATES=true; exit 0
 
-# ログよりrootで実行
-#As a root user, execute the following script(s):
-#	1. /u01/app/oraInventory/orainstRoot.sh
-#	2. /u01/app/oracle/product/19.0.0/dbhome_1/root.sh
+#自身のvim環境をクローン
+RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
 
-USER root
-RUN sh ${ORA_INVENTORY}/orainstRoot.sh                                      && \
-    sh ${ORACLE_HOME}/root.sh
+#自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
+RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
+cd ~/tmp && \
+#移動したいdotfileをchoiceしてHOMEディレクトリへ
+mv rc/.[^.]* ~ && \
+#用が済んだらリム
+rm -rf ~/tmp
 
-# runInstaller実行後、データファイルマウントしているぽいので、
-# 一度落す。ログより予測。ORA-01100: database already mounted
+#vim plugin manager
+RUN mkdir -p ~/.vim/bundle && \
+cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
+sh installer.sh ~/.vim/bundle
 
-RUN echo "shutdown" | sqlplus / as sysdba
-
-# dbcaはoracleユーザーで実行
-#USER oracle
-#RUN dbca -silent -createDatabase                                                 \
-#    -templateName General_Purpose.dbc                                          \
-#    -gdbname ${ORACLE_SID} -sid ${ORACLE_SID} -responseFile NO_VALUE           \
-#    -characterSet AL32UTF8                                                     \
-#    -sysPassword ${PASSWORD}                                               \
-#    -systemPassword ${PASSWORD}                                            \
-#    -createAsContainerDatabase true                                            \
-#    -numberOfPDBs 1                                                            \
-#    -pdbName ${PDB_NAME}                                                       \
-#    -pdbAdminPassword ${PASSWORD}                                          \
-#    -databaseType MULTIPURPOSE                                                 \
-#    -automaticMemoryManagement false                                           \
-#    -totalMemory 1536                                                          \
-#    -storageType FS                                                            \
-#    -datafileDestination "/u01/app/oraInventory"                                        \
-#    -redoLogFileSize 50                                                        \
-#    -emConfiguration NONE                                                      \
-#    -ignorePreReqs
-
-
-#以下の外部公開ポート用のリスナー関連ファイルはoracleユーザーで作成
-#USER oracle
-#RUN { echo "LISTENER = ";\
-#      echo "(DESCRIPTION_LIST = ";\
-#      echo "  (DESCRIPTION = ";\
-#      echo "    (ADDRESS = (PROTOCOL = IPC)(KEY = EXTPROC1)) ";\
-#      echo "    (ADDRESS = (PROTOCOL = TCP)(HOST = 0.0.0.0)(PORT = 1521)) ";\
-#      echo "  ) ";\
-#      echo ") ";\
-#      echo "USE_SID_AS_SERVICE_listener=on";\
-#      echo "INBOUND_CONNECT_TIMEOUT_LISTENER=400";\
-#    } >> ${ORACLE_HOME}/network/admin/listener.ora
-#
-#RUN { echo "LISTENER = (ADDRESS = (PROTOCOL = TCP)(HOST = 0.0.0.0)(PORT = 1521))";\
-#      echo "${ORACLE_SID}= ";\
-#      echo "(DESCRIPTION = ";\
-#      echo "  (ADDRESS = (PROTOCOL = TCP)(HOST = 0.0.0.0)(PORT = 1521))";\
-#      echo "  (CONNECT_DATA =";\
-#      echo "    (SERVER = DEDICATED)";\
-#      echo "    (SERVICE_NAME = ${ORACLE_SID})";\
-#      echo "  )";\
-#      echo ")";\
-#      echo "${PDB_NAME}= ";\
-#      echo "(DESCRIPTION = ";\
-#      echo "  (ADDRESS = (PROTOCOL = TCP)(HOST = 0.0.0.0)(PORT = 1521))";\
-#      echo "  (CONNECT_DATA =";\
-#      echo "    (SERVER = DEDICATED)";\
-#      echo "    (SERVICE_NAME = ${PDB_NAME})";\
-#      echo "  )";\
-#      echo ")";\
-#    } >> ${ORACLE_HOME}/network/admin/tnsnames.ora
-#
-#RUN echo "SQLNET.INBOUND_CONNECT_TIMEOUT=400" >> ${ORACLE_HOME}/network/admin/sqlnet.ora
-#
-##リスナー起動
-#RUN lsnrctl start
+#alias設定
+RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
+echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
+echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
+echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
+echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
+echo "alias vi=\"sudo vim\"" >> ~/.bashrc
 
 #最後はrootに戻す
 USER root 
@@ -134,6 +173,16 @@ ENV LANG=ja_JP.UTF-8
 RUN rm -f /etc/localtime
 RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
-USER oracle
+#sqlクライアントサービス外部公開ポート
+EXPOSE 1521
+
+#sqlemサービス外部公開ポート
+EXPOSE 5500
+
+#sshdサービス外部公開ポート
+EXPOSE 22
+
+#rstudioサービス外部公開ポート
+EXPOSE 8787
 
 CMD ["/sbin/init"]
