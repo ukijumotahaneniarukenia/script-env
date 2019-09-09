@@ -121,3 +121,82 @@ SQL> show pdbs;
 	 3 ORCLPDB1			  MOUNTED
 
 ```
+
+# sysパスワードを変更する
+sysユーザーはalter文ではだめ。
+```
+[oracle@a0b2f32dfc3a /]$sudo find / -name "*orapwd*" | grep ora
+/opt/oracle/product/19c/dbhome_1/bin/orapwd
+[oracle@a0b2f32dfc3a /]$/opt/oracle/product/19c/dbhome_1/bin/orapwd --help
+Usage 1: orapwd file=<fname> force={y|n} asm={y|n}
+          dbuniquename=<dbname> format={12|12.2}
+          delete={y|n} input_file=<input-fname>
+          'sys={y | password | external(<sys-external-name>)
+                | global(<sys-directory-DN>)}'
+          'sysbackup={y | password | external(<sysbackup-external-name>)
+                      | global(<sysbackup-directory-DN>)}'
+          'sysdg={y | password | external(<sysdg-external-name>)
+                  | global(<sysdg-directory-DN>)}'
+          'syskm={y | password | external(<syskm-external-name>)
+                  | global(<syskm-directory-DN>)}'
+
+Usage 2: orapwd describe file=<fname>
+
+  where
+    file   - name of password file (required),
+    password
+           - password for SYS will be prompted
+             if not specified at command line.
+             Ignored, if input_file is specified,
+    force  - whether to overwrite existing file (optional),
+    asm    - indicates that the password to be stored in
+             Automatic Storage Management (ASM) disk group
+             is an ASM password. (optional),
+    dbuniquename
+           - unique database name used to identify database
+             password files residing in ASM diskgroup only.
+             Ignored when asm option is specified (optional),
+    format - use format=12 for new 12c features like SYSBACKUP, SYSDG
+             and SYSKM support, longer identifiers, SHA2 Verifiers etc.
+             use format=12.2 for 12.2 features like enforcing user 
+             profile (password limits and password complexity) and 
+             account status for administrative users.
+             If not specified, format=12.2 is default (optional),
+    delete - drops a password file. Must specify 'asm',
+             'dbuniquename' or 'file'. If 'file' is specified,
+             the file must be located on an ASM diskgroup (optional),
+    input_file
+           - name of input password file, from where old user
+             entries will be migrated (optional),
+    sys    - specifies if SYS user is password, externally or 
+             globally authenticated.
+             For external SYS, also specifies external name.
+             For global SYS, also specifies directory DN.
+             SYS={y | password} specifies if SYS user password needs
+             to be changed when used with input_file,
+    sysbackup
+           - creates SYSBACKUP entry (optional).
+             Specifies if SYSBACKUP user is password, externally or
+             globally authenticated.
+             For external SYSBACKUP, also specifies external name.
+             For global SYSBACKUP, also specifies directory DN.
+             Ignored, if input_file is specified,
+    sysdg  - creates SYSDG entry (optional).
+             Specifies if SYSDG user is password, externally or
+             globally authenticated.
+             For external SYSDG, also specifies external name.
+             For global SYSDG, also specifies directory DN.
+             Ignored, if input_file is specified,
+    syskm  - creates SYSKM entry (optional).
+             Specifies if SYSKM user is password, externally or
+             globally authenticated.
+             For external SYSKM, also specifies external name.
+             For global SYSKM, also specifies directory DN.
+            Ignored, if input_file is specified,
+    describe
+           - describes the properties of specified password file
+             (required).
+
+
+  There must be no spaces around the equal-to (=) character.
+```
