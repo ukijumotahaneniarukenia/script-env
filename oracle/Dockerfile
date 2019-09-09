@@ -60,29 +60,34 @@ USER root
 RUN sh ${ORA_INVENTORY}/orainstRoot.sh                                      && \
     sh ${ORACLE_HOME}/root.sh
 
+# runInstaller実行後、データファイルマウントしているぽいので、
+# 一度落す。ログより予測。ORA-01100: database already mounted
+
+RUN echo "shutdown" | sqlplus / as sysdba
+
 # dbcaはoracleユーザーで実行
-USER oracle
-RUN dbca -silent -createDatabase                                                 \
-    -templateName General_Purpose.dbc                                          \
-    -gdbname ${ORACLE_SID} -sid ${ORACLE_SID} -responseFile NO_VALUE           \
-    -characterSet AL32UTF8                                                     \
-    -sysPassword ${PASSWORD}                                               \
-    -systemPassword ${PASSWORD}                                            \
-    -createAsContainerDatabase true                                            \
-    -numberOfPDBs 1                                                            \
-    -pdbName ${PDB_NAME}                                                       \
-    -pdbAdminPassword ${PASSWORD}                                          \
-    -databaseType MULTIPURPOSE                                                 \
-    -automaticMemoryManagement false                                           \
-    -totalMemory 1536                                                          \
-    -storageType FS                                                            \
-    -datafileDestination "/u01/app/oraInventory"                                        \
-    -redoLogFileSize 50                                                        \
-    -emConfiguration NONE                                                      \
-    -ignorePreReqs
+#USER oracle
+#RUN dbca -silent -createDatabase                                                 \
+#    -templateName General_Purpose.dbc                                          \
+#    -gdbname ${ORACLE_SID} -sid ${ORACLE_SID} -responseFile NO_VALUE           \
+#    -characterSet AL32UTF8                                                     \
+#    -sysPassword ${PASSWORD}                                               \
+#    -systemPassword ${PASSWORD}                                            \
+#    -createAsContainerDatabase true                                            \
+#    -numberOfPDBs 1                                                            \
+#    -pdbName ${PDB_NAME}                                                       \
+#    -pdbAdminPassword ${PASSWORD}                                          \
+#    -databaseType MULTIPURPOSE                                                 \
+#    -automaticMemoryManagement false                                           \
+#    -totalMemory 1536                                                          \
+#    -storageType FS                                                            \
+#    -datafileDestination "/u01/app/oraInventory"                                        \
+#    -redoLogFileSize 50                                                        \
+#    -emConfiguration NONE                                                      \
+#    -ignorePreReqs
 
 
-#以下のリスナー関連ファイルはoracleユーザーで作成
+#以下の外部公開ポート用のリスナー関連ファイルはoracleユーザーで作成
 #USER oracle
 #RUN { echo "LISTENER = ";\
 #      echo "(DESCRIPTION_LIST = ";\
