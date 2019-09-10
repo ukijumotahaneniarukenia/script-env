@@ -16,9 +16,6 @@ COPY oracle-database-ee-19c-1.0-1.x86_64.rpm /oracle-database-ee-19c-1.0-1.x86_6
 
 RUN yum -y localinstall oracle-database-ee-19c-1.0-1.x86_64.rpm
 
-#データベース作成10分ぐらいかかる。
-RUN /etc/init.d/oracledb_ORCLCDB-19c configure
-
 #ユーザー作成
 RUN groupadd -g 1001 rstudio
 RUN useradd -m -g rstudio -u 1001 rstudio
@@ -33,7 +30,7 @@ RUN echo 'oracle ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 #各種コマンドインストール
 RUN yum install -y epel-release 
 RUN yum install -y R
-RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man
+RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man rlwrap
 
 #perl パッケージ管理cpanmないしcpanインストール
 RUN yum install -y which perl-App-cpanminus wxGTK-devel perl-ExtUtils-Embed perl-File-HomeDir perl-Term-ReadLine-Gnu wxGTK3 cpan
@@ -179,70 +176,12 @@ echo "export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1" >> ~/.bashrc && \
 echo "export ORACLE_SID=ORCLCDB"  >> ~/.bashrc && \
 echo "export PATH=$PATH:$ORACLE_HOME/bin:$HOME/sqlcl/bin" >> ~/.bashrc
 
-#sys系ユーザーのパスワード変更
-#カレントディレクトリにファイルできる
-RUN cd ~ && /opt/oracle/product/19c/dbhome_1/bin/orapwd file=oracle_sys_pwd force=y password=ukijumotahaneniarukenia#1
-
 #sqlplusの進化版SQLclインストール
 #jdk必要。java製なので。
 RUN java -version
 #事前にダウンロードしておき、dockerコンテナにコピー。
 COPY sqlcl-19.2.1.206.1649.zip /home/oracle/sqlcl-19.2.1.206.1649.zip
 RUN cd ~ && unzip sqlcl-19.2.1.206.1649.zip
-
-#外部公開用にリスナーファイル、接続情報ファイルを修正する
-RUN >${ORACLE_HOME}/network/admin/listener.ora
-RUN { echo "LISTENER = ";\
-      echo "(DESCRIPTION_LIST = ";\
-      echo "  (DESCRIPTION = ";\
-      echo "    (ADDRESS = (PROTOCOL = IPC)(KEY = EXTPROC1)) ";\
-      echo "    (ADDRESS = (PROTOCOL = TCP)(HOST = 0.0.0.0)(PORT = 1521)) ";\
-      echo "  ) ";\
-      echo ") ";\
-      echo "USE_SID_AS_SERVICE_listener=on";\
-      echo "INBOUND_CONNECT_TIMEOUT_LISTENER=400";\
-    } >> ${ORACLE_HOME}/network/admin/listener.ora
-
-RUN >${ORACLE_HOME}/network/admin/tnsnames.ora
-RUN { echo "LISTENER = (ADDRESS = (PROTOCOL = TCP)(HOST = 0.0.0.0)(PORT = 1521))";\
-      echo "${ORACLE_SID}= ";\
-      echo "(DESCRIPTION = ";\
-      echo "  (ADDRESS = (PROTOCOL = TCP)(HOST = 0.0.0.0)(PORT = 1521))";\
-      echo "  (CONNECT_DATA =";\
-      echo "    (SERVER = DEDICATED)";\
-      echo "    (SERVICE_NAME = ${ORACLE_SID})";\
-      echo "  )";\
-      echo ")";\
-      echo "${PDB_NAME}= ";\
-      echo "(DESCRIPTION = ";\
-      echo "  (ADDRESS = (PROTOCOL = TCP)(HOST = 0.0.0.0)(PORT = 1521))";\
-      echo "  (CONNECT_DATA =";\
-      echo "    (SERVER = DEDICATED)";\
-      echo "    (SERVICE_NAME = ${PDB_NAME})";\
-      echo "  )";\
-      echo ")";\
-    } >> ${ORACLE_HOME}/network/admin/tnsnames.ora
-
-#データベース始動
-RUN { echo "startup"; \
-      echo "alter pluggable database all open;"; \
-      echo "show pdbs;"; \
-    } >> ~/init_env.sql
-
-#ユーザ登録
-RUN { echo "CREATE USER aine IDENTIFIED BY \"ORACLE_PWD\" DEFAULT TABLESPACE USERS TEMPORARY TABLESPACE temp;"; \
-      echo "CREATE USER kuraine IDENTIFIED BY \"ORACLE_PWD\" DEFAULT TABLESPACE USERS TEMPORARY TABLESPACE temp;"; \
-      echo "CREATE USER nahato IDENTIFIED BY \"ORACLE_PWD\" DEFAULT TABLESPACE USERS TEMPORARY TABLESPACE temp;"; \
-      echo "CREATE USER mujiku IDENTIFIED BY \"ORACLE_PWD\" DEFAULT TABLESPACE USERS TEMPORARY TABLESPACE temp;"; \
-      echo "GRANT dba TO aine;"; \
-      echo "GRANT dba TO kuraine;"; \
-      echo "GRANT dba TO nahato;"; \
-      echo "GRANT dba TO mujiku;"; \
-      echo "GRANT UNLIMITED TABLESPACE TO aine;"; \
-      echo "GRANT UNLIMITED TABLESPACE TO kuraine;"; \
-      echo "GRANT UNLIMITED TABLESPACE TO nahato;"; \
-      echo "GRANT UNLIMITED TABLESPACE TO mujiku;"; \
-    } >> ~/create_user.sql
 
 #最後はrootに戻す
 USER root 
