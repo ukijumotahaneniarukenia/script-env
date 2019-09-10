@@ -30,7 +30,7 @@ docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
 
 # dockerコンテナ起動
 ```
-docker run --privileged -v /etc/localtime:/etc/localtime -p 28787:8787 -p 1521:1521 -p 5500:5500 -itd --name oracle --shm-size=8g centos_oracle /sbin/init
+docker run --privileged -v /etc/localtime:/etc/localtime -p 28787:8787 -p 21521:1521 -p 25500:5500 -itd --name oracle --shm-size=8g centos_oracle /sbin/init
 ```
 
 # dockerコンテナ潜入
