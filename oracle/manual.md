@@ -1,3 +1,5 @@
+パスワードはコンテナベースないしプラガブルデータベース単位で設定する必要がある
+
 # 参考文献
 ```
 https://www.sql-dbtips.com/architecture/orapwd/
