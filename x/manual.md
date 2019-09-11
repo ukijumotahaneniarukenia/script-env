@@ -1,5 +1,6 @@
 # 参考文献
 https://www.itmedia.co.jp/enterprise/articles/1604/27/news001.html
+https://satoru739.hatenadiary.com/entry/20111007/1318086532
 
 xtermの色指定
 https://heruwakame.hatenablog.com/entry/2017/10/21/232112
@@ -10,6 +11,9 @@ http://www.rcc.ritsumei.ac.jp/?p=6403
 
 Xの日本語入力対応
 https://qiita.com/ai56go/items/63abe54f2504ecc940cd
+https://tkng.org/unixuser/200405/part1.html
+https://tkng.org/unixuser/200405/part2.html
+https://tkng.org/unixuser/200405/part3.html
 
 # dockerコンテナ削除
 ```

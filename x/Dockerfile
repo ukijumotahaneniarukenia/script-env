@@ -7,6 +7,8 @@ RUN yum install -y java firefox
 
 #Xwindowシステムパッケージいんすこ
 RUN yum -y groupinstall "X Window System"
+RUN yum install -y PackageKit-gtk3-module
+
 #日本語フォントいんすこ
 RUN yum install -y vlgothic-*
 RUN yum install -y fcitx ibus
