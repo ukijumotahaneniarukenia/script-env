@@ -5,6 +5,12 @@ RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps
 
 RUN yum install -y java firefox
 
+#Xwindowシステムパッケージいんすこ
+RUN yum -y groupinstall "X Window System"
+#日本語フォントいんすこ
+RUN yum install -y vlgothic-*
+RUN yum install -y fcitx ibus
+
 #guiアプリインストール
 #事前にダウンロードしておき、dockerコンテナにコピー。
 COPY sqldeveloper-19.2.0.206.2117.noarch.rpm /root/sqldeveloper-19.2.0.206.2117.noarch.rpm

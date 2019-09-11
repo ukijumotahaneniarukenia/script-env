@@ -5,6 +5,12 @@ xtermの色指定
 https://heruwakame.hatenablog.com/entry/2017/10/21/232112
 http://xjman.dsl.gr.jp/man/man1/xterm.1x.html
 
+Xの日本語対応化
+http://www.rcc.ritsumei.ac.jp/?p=6403
+
+Xの日本語入力対応
+https://qiita.com/ai56go/items/63abe54f2504ecc940cd
+
 # dockerコンテナ削除
 ```
 docker ps -qa | xargs -I@ bash -c 'docker stop @ && docker rm @'
@@ -18,7 +24,7 @@ time docker build -t centos_x . | tee log
 # dockerコンテナ作成
 DISPLAYはDISPLAY=IP or ホスト名:ディスプレイ番号.ウィンドウ番号
 ```
-docker run --privileged --shm-size=8gb --name xxx -itd -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id centos_x /sbin/init
+docker run --privileged --shm-size=8gb --name xxx -itd -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 28787:8787 -p 21521:1521 -p 25500:5500 centos_x /sbin/init
 ```
 
 # dockerコンテナ潜入
@@ -163,16 +169,18 @@ warning: %post(sqldeveloper-19.2.0-206.2117.noarch) scriptlet failed, exit statu
 
 # gui起動
 ```
-[root@f2a69477f618 ~]# /opt/sqldeveloper/sqldeveloper.sh
+[rstudio@centos ~/unko/script_scratch/x]$docker exec -it xxx /bin/bash
+[root@fe2b74d64062 /]$/opt/sqldeveloper/sqldeveloper.sh -conf /opt/sqldeveloper/sqldeveloper/bin/sqldeveloper.conf
 
  Oracle SQL Developer
  Copyright (c) 2005, 2018, Oracle and/or its affiliates. All rights reserved.
 
-Type the full pathname of a JDK installation (or Ctrl-C to quit), the path will be stored in /root/.sqldeveloper/19.2.0/product.conf
-/usr/java/jdk1.8.0_221-amd64
-/opt/sqldeveloper/sqldeveloper/bin/../../ide/bin/launcher.sh: line 1610: file: command not found
-Gtk-Message: 14:34:18.588: Failed to load module "pk-gtk-module"
-Gtk-Message: 14:34:18.588: Failed to load module "canberra-gtk-module"
+Gtk-Message: 00:53:54.552: Failed to load module "pk-gtk-module"
+UsersCache.fillIn() time = 6  ret==null?: false
 ```
 
 ![](./1.png)
+![](./2.png)
+![](./3.png)
+![](./4.png)
+
