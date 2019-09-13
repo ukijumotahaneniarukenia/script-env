@@ -1,0 +1,299 @@
+Sending build context to Docker daemon  359.8MB
+Step 1/55 : FROM centos:latest
+ ---> 67fa590cfc1c
+Step 2/55 : RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps
+ ---> Using cache
+ ---> 60fb85fcb65d
+Step 3/55 : RUN yum install -y java firefox
+ ---> Using cache
+ ---> d8279738dbb6
+Step 4/55 : RUN yum groups mark convert
+ ---> Using cache
+ ---> d4b76280d7a0
+Step 5/55 : RUN yum groupinstall -y base "X Window System" --setopt=group_package_types=mandatory,default,optional
+ ---> Using cache
+ ---> 91bf736c5a7f
+Step 6/55 : RUN yum install -y PackageKit-gtk3-module
+ ---> Using cache
+ ---> be8afe4789ef
+Step 7/55 : RUN yum install -y vlgothic-*
+ ---> Using cache
+ ---> c291e002482d
+Step 8/55 : RUN yum install -y fcitx ibus
+ ---> Using cache
+ ---> 00ec13168494
+Step 9/55 : RUN groupadd -g 1001 python
+ ---> Using cache
+ ---> 22a6a01a897d
+Step 10/55 : RUN useradd -m -g python -u 1001 python
+ ---> Using cache
+ ---> e2df50a5c6ca
+Step 11/55 : RUN groupadd -g 1002 rstudio
+ ---> Using cache
+ ---> 3b4287a9c453
+Step 12/55 : RUN useradd -m -g rstudio -u 1002 rstudio
+ ---> Using cache
+ ---> 140c68cd5f02
+Step 13/55 : RUN chsh -s /bin/bash python
+ ---> Using cache
+ ---> c690d9fb1663
+Step 14/55 : RUN echo 'root_pwd' | passwd --stdin root
+ ---> Using cache
+ ---> 42b25fa441ed
+Step 15/55 : RUN echo 'rstudio_pwd' | passwd --stdin rstudio
+ ---> Using cache
+ ---> 3852fb86bacc
+Step 16/55 : RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Using cache
+ ---> 67b760091171
+Step 17/55 : RUN echo 'python_pwd' | passwd --stdin python
+ ---> Using cache
+ ---> 9bbfd8302b24
+Step 18/55 : RUN echo 'python ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Using cache
+ ---> d97e817168f3
+Step 19/55 : RUN yum install -y epel-release
+ ---> Using cache
+ ---> b5bd4fb15ed8
+Step 20/55 : RUN yum install -y R
+ ---> Using cache
+ ---> a9b33dca9449
+Step 21/55 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man rlwrap
+ ---> Using cache
+ ---> 5516480bd605
+Step 22/55 : RUN yum install -y which perl-App-cpanminus wxGTK-devel perl-ExtUtils-Embed perl-File-HomeDir perl-Term-ReadLine-Gnu wxGTK3 cpan
+ ---> Using cache
+ ---> aa6d57121e6c
+Step 23/55 : RUN cd ~ && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && cd Open-usp-Tukubai && make -j12 install
+ ---> Using cache
+ ---> 03e7b1e5bc72
+Step 24/55 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && tar -zxvf gawk-5.0.0.tar.gz && cd gawk-5.0.0 && ./configure && make -j12 && make -j12 install
+ ---> Using cache
+ ---> d77e1a966c6e
+Step 25/55 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && tar -zxvf bash-5.0.tar.gz && cd bash-5.0 && ./configure && make -j12 && make -j12 install
+ ---> Using cache
+ ---> 35451b587f1d
+Step 26/55 : RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd ~ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
+ ---> Using cache
+ ---> 4e13d40065c8
+Step 27/55 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> Using cache
+ ---> 01f433e65aac
+Step 28/55 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> Using cache
+ ---> 068066a37dfd
+Step 29/55 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
+ ---> Using cache
+ ---> 2e166e604e6b
+Step 30/55 : RUN cd ~ && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && tar -zxvf Python-3.7.4.tgz && cd Python-3.7.4 && ./configure && make -j12 && make -j12 install
+ ---> Using cache
+ ---> dbeb9c99aff2
+Step 31/55 : RUN cd ~ && curl -LO https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz && tar -xzf perl-5.30.0.tar.gz && cd perl-5.30.0 && ./Configure -des -Dprefix=/usr/local/ && make -j12 && make -j12 install
+ ---> Using cache
+ ---> 8bc7d7d905d6
+Step 32/55 : RUN cd ~ && yum install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && tar jxf parallel-latest.tar.bz2 && cd parallel-20190822 && ./configure && make -j12 && make -j12 install
+ ---> Using cache
+ ---> 1485db71ed46
+Step 33/55 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias pycharm=\"/home/python/pycharm-community-2019.2.2/bin/pycharm.sh >log 2>&1 &\"" >> ~/.bashrc
+ ---> Using cache
+ ---> dfeac5295818
+Step 34/55 : USER python
+ ---> Using cache
+ ---> be1d4f654c93
+Step 35/55 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> Using cache
+ ---> 489087488fa8
+Step 36/55 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> Using cache
+ ---> 9a04d46b7aae
+Step 37/55 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
+ ---> Using cache
+ ---> 8672e8579996
+Step 38/55 : COPY pycharm-community-2019.2.2.tar.gz /home/python/pycharm-community-2019.2.2.tar.gz
+ ---> Using cache
+ ---> 5b2b9cf6e023
+Step 39/55 : RUN cd ~ && tar -xzf pycharm-community-2019.2.2.tar.gz
+ ---> Using cache
+ ---> 36864e72ed59
+Step 40/55 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc && echo "alias pycharm=\"/home/python/pycharm-community-2019.2.2/bin/pycharm.sh >log 2>&1 &\"" >> ~/.bashrc
+ ---> Using cache
+ ---> c0e46762b72a
+Step 41/55 : USER rstudio
+ ---> Using cache
+ ---> a9672e513383
+Step 42/55 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> Using cache
+ ---> e7876502eccf
+Step 43/55 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> Using cache
+ ---> fc6314c43ef2
+Step 44/55 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
+ ---> Using cache
+ ---> 9871bbe6dcff
+Step 45/55 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc && echo "alias pycharm=\"/home/python/pycharm-community-2019.2.2/bin/pycharm.sh >log 2>&1 &\"" >> ~/.bashrc
+ ---> Running in 2d5f22a57096
+Removing intermediate container 2d5f22a57096
+ ---> 4fe0a2c363d1
+Step 46/55 : USER root
+ ---> Running in 1d6347ac6134
+Removing intermediate container 1d6347ac6134
+ ---> ce8aeb5263cc
+Step 47/55 : RUN yum -y reinstall glibc-common
+ ---> Running in c150c0c7a346
+Loaded plugins: aliases, changelog, fastestmirror, kabi, langpacks, ovl,
+              : tmprepo, verify, versionlock
+Loading support for Red Hat kernel ABI
+Loading mirror speeds from cached hostfile
+ * base: ftp.iij.ad.jp
+ * epel: nrt.edge.kernel.org
+ * extras: ftp.iij.ad.jp
+ * updates: ftp.iij.ad.jp
+Resolving Dependencies
+--> Running transaction check
+---> Package glibc-common.x86_64 0:2.17-260.el7_6.6 will be reinstalled
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package             Arch          Version                 Repository      Size
+================================================================================
+Reinstalling:
+ glibc-common        x86_64        2.17-260.el7_6.6        updates         12 M
+
+Transaction Summary
+================================================================================
+Reinstall  1 Package
+
+Total download size: 12 M
+Installed size: 115 M
+Downloading packages:
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : glibc-common-2.17-260.el7_6.6.x86_64                         1/1 
+  Verifying  : glibc-common-2.17-260.el7_6.6.x86_64                         1/1 
+
+Installed:
+  glibc-common.x86_64 0:2.17-260.el7_6.6                                        
+
+Complete!
+Removing intermediate container c150c0c7a346
+ ---> cbaee992bb35
+Step 48/55 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
+ ---> Running in 3cec6409518b
+[91m/usr/share/i18n/locales/ja_JP:11: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:12: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:15: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:18: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:19: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:20: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:21: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:23: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:24: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:25: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:26: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:27: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:28: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:29: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:30: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:31: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:32: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:33: non-symbolic character value should not be used
+[0m[91m/usr/share/i18n/locales/ja_JP:42: non-symbolic character value should not be used
+[0m[91m/usr/share/i18n/locales/i18n:1425: non-symbolic character value should not be used
+[0m[91m/usr/share/i18n/locales/i18n:1674: non-symbolic character value should not be used
+[0m[91m/usr/share/i18n/locales/i18n:1719: non-symbolic character value should not be used
+[0m[91m/usr/share/i18n/locales/i18n:1756: non-symbolic character value should not be used
+[0m[91m/usr/share/i18n/locales/ja_JP:1675: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:1676: non-symbolic character value should not be used
+[0m[91m/usr/share/i18n/locales/ja_JP:14945: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:14946: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:14947: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:14948: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:14949: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:14950: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:14951: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:14952: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:14953: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:14954: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:14955: non-symbolic character value should not be used
+[0m[91m/usr/share/i18n/locales/translit_neutral:10: non-symbolic character value should not be used
+/usr/share/i18n/locales/translit_neutral:11: non-symbolic character value should not be used
+/usr/share/i18n/locales/translit_neutral:12: non-symbolic character value should not be used
+/usr/share/i18n/locales/translit_neutral:13: non-symbolic character value should not be used
+/usr/share/i18n/locales/translit_neutral:14: non-symbolic character value should not be used
+/usr/share/i18n/locales/translit_neutral:15: non-symbolic character value should not be used
+/usr/share/i18n/locales/translit_neutral:16: non-symbolic character value should not be used
+/usr/share/i18n/locales/translit_neutral:17: non-symbolic character value should not be used
+[0m[91mLC_ADDRESS: field `country_name' not defined
+LC_ADDRESS: field `country_post' not defined
+LC_ADDRESS: field `country_car' not defined
+LC_ADDRESS: field `country_isbn' not defined
+LC_ADDRESS: field `lang_name' not defined
+LC_ADDRESS: field `lang_term' not defined
+LC_ADDRESS: field `lang_ab' not defined
+LC_TELEPHONE: field `int_select' not defined
+LC_IDENTIFICATION: field `audience' not defined
+LC_IDENTIFICATION: field `application' not defined
+LC_IDENTIFICATION: field `abbreviation' not defined
+LC_IDENTIFICATION: no identification for category `LC_MEASUREMENT'
+[0m[91mLC_CTYPE: table for class "upper": 1756 bytes
+[0m[91mLC_CTYPE: table for class "lower": 1756 bytes
+[0m[91mLC_CTYPE: table for class "alpha": 4320 bytes
+[0m[91mLC_CTYPE: table for class "digit": 600 bytes
+[0m[91mLC_CTYPE: table for class "xdigit": 600 bytes
+[0m[91mLC_CTYPE: table for class "space": 856 bytes
+[0m[91mLC_CTYPE: table for class "print": 5976 bytes
+[0m[91mLC_CTYPE: table for class "graph": 5976 bytes
+[0m[91mLC_CTYPE: table for class "blank": 856 bytes
+[0m[91mLC_CTYPE: table for class "cntrl": 664 bytes
+[0m[91mLC_CTYPE: table for class "punct": 4824 bytes
+[0m[91mLC_CTYPE: table for class "alnum": 4320 bytes
+[0m[91mLC_CTYPE: table for class "combining": 3152 bytes
+[0m[91mLC_CTYPE: table for class "combining_level3": 2832 bytes
+[0m[91mLC_CTYPE: table for class "jspace": 600 bytes
+[0m[91mLC_CTYPE: table for class "jhira": 600 bytes
+[0m[91mLC_CTYPE: table for class "jkata": 664 bytes
+[0m[91mLC_CTYPE: table for class "jkanji": 3224 bytes
+[0m[91mLC_CTYPE: table for class "jdigit": 600 bytes
+LC_CTYPE: table for map "toupper": 16924 bytes
+LC_CTYPE: table for map "tolower": 15388 bytes
+[0m[91mLC_CTYPE: table for map "totitle": 16924 bytes
+LC_CTYPE: table for map "tojhira": 2584 bytes
+LC_CTYPE: table for map "tojkata": 3096 bytes
+[0m[91mLC_CTYPE: table for width: 26712 bytes
+[0m
+Removing intermediate container 3cec6409518b
+ ---> 19fccb9a0310
+Step 49/55 : ENV LANG=ja_JP.UTF-8
+ ---> Running in 1b39d3ebd8a7
+Removing intermediate container 1b39d3ebd8a7
+ ---> 1b9357418929
+Step 50/55 : RUN rm -f /etc/localtime
+ ---> Running in 5dad6e5284e3
+Removing intermediate container 5dad6e5284e3
+ ---> d42f866cd642
+Step 51/55 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+ ---> Running in 842d3ad15112
+Removing intermediate container 842d3ad15112
+ ---> fc776982bbe3
+Step 52/55 : EXPOSE 8787
+ ---> Running in 773c9446fc7f
+Removing intermediate container 773c9446fc7f
+ ---> c18794318f77
+Step 53/55 : EXPOSE 22
+ ---> Running in f2f83bd73477
+Removing intermediate container f2f83bd73477
+ ---> 4a4de2f29be2
+Step 54/55 : ENV DISPLAY=:0.0
+ ---> Running in 9bb87fd29759
+Removing intermediate container 9bb87fd29759
+ ---> 8729909fc92d
+Step 55/55 : CMD ["/sbin/init"]
+ ---> Running in 3c8fd15c1402
+Removing intermediate container 3c8fd15c1402
+ ---> f9be7f947879
+Successfully built f9be7f947879
+Successfully tagged centos_python:latest
