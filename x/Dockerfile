@@ -6,7 +6,8 @@ RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps
 RUN yum install -y java firefox
 
 #Xwindowシステムパッケージいんすこ
-RUN yum -y groupinstall "X Window System"
+RUN yum groups mark convert
+RUN yum groupinstall -y base "X Window System" --setopt=group_package_types=mandatory,default,optional
 RUN yum install -y PackageKit-gtk3-module
 
 #日本語フォントいんすこ
