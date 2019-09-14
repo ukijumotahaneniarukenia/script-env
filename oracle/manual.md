@@ -383,84 +383,303 @@ sys	0m0.008s
 ```
 
 # sqlplusから接続
+これでもいいし
+```
+sqlplus sys/ORACLE_PWD@ORCLCDB as sysdba
+sqlplus sys/ORACLE_PWD@ORCLPDB01 as sysdba
+sqlplus sys/ORACLE_PWD@ORCLPDB02 as sysdba
+sqlplus user01/ORACLE_PWD@ORCLPDB01
+sqlplus user02/ORACLE_PWD@ORCLPDB01
+sqlplus user01/ORACLE_PWD@ORCLPDB02
+sqlplus user02/ORACLE_PWD@ORCLPDB02
+sqlplus user03/ORACLE_PWD@ORCLPDB02
+```
+これでもいい
 ```
 sqlplus sys/ORACLE_PWD@localhost:1521/ORCLCDB as sysdba
 sqlplus sys/ORACLE_PWD@localhost:1521/ORCLPDB01 as sysdba
 sqlplus sys/ORACLE_PWD@localhost:1521/ORCLPDB02 as sysdba
-sqlplus pdb01/oracle_pwd@localhost:1521/ORCLPDB01
-sqlplus pdb02/oracle_pwd@localhost:1521/ORCLPDB02
+sqlplus user01/ORACLE_PWD@localhost:1521/ORCLPDB01
+sqlplus user02/ORACLE_PWD@localhost:1521/ORCLPDB01
+sqlplus user01/ORACLE_PWD@localhost:1521/ORCLPDB02
+sqlplus user02/ORACLE_PWD@localhost:1521/ORCLPDB02
+sqlplus user03/ORACLE_PWD@localhost:1521/ORCLPDB02
 ```
-
-# sqldeveloperから接続
-![](./1.png)
-![](./2.png)
-![](./3.png)
-![](./4.png)
-![](./5.png)
-![](./6.png)
-
-# sqlclでも接続確認
-?クエリパラメータはなぜか標準出力に吐かれない。
-標準入力で与える場合は標準出力に吐かれる。
-SYSユーザーの「as sysdba付与して接続」がアンドキュメント。たぶん。
+実行例
 ```
-[root@be807f28f5bd /]$sql --version
-GNU sql 20190822
-Copyright (C) 2009,2010,2011,2012,2013,2014,2015,2016,2017
-Ole Tange and Free Software Foundation, Inc.
-License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
-This is free software: you are free to change and redistribute it.
-GNU sql comes with no warranty.
+[oracle@30bf33351a1f ~]$sqlplus sys/ORACLE_PWD@localhost:1521/ORCLCDB as sysdba
 
-Web site: http://www.gnu.org/software/sql
-
-When using GNU sql for a publication please cite:
-
-O. Tange (2011): GNU SQL - A Command Line Tool for Accessing Different
-Databases Using DBURLs, ;login: The USENIX Magazine, April 2011:29-32.
-```
-## SYSユーザー以外でPDB接続
-```
-[oracle@be807f28f5bd ~]$man sql | grep oracle
-        sql:oracle://scott:tiger@ora.example.com/xe
-       Currently supported vendors: MySQL (mysql), MySQL with SSL (mysqls, mysqlssl), Oracle (oracle, ora), PostgreSQL (postgresql, pg, pgsql, postgres), PostgreSQL with SSL
-       sql sql:oracle://scott:tiger@ora.example.com/xe
-[oracle@be807f28f5bd ~]$man sql | grep ?
-       dburl    A DBURL has the following syntax: [sql:]vendor:// [[user][:password]@][host][:port]/[database][?sqlquery]
-       A DBURL has the following syntax: [sql:]vendor:// [[user][:password]@][host][:port]/[database][?sqlquery]
-        sql:sqlite2:////tmp/db.sqlite?SELECT * FROM foo;
-        sqlite3:///../db.sqlite3?SELECT%20*%20FROM%20foo;
-        :query  sqlite:////tmp/db.sqlite?SELECT * FROM foo;
-[oracle@be807f28f5bd ~]$sql sql:oracle://pdb12:oracle_pwd@localhost/ORCLPDB12
-
-SQL*Plus: Release 19.0.0.0.0 - Production on Wed Sep 11 02:20:39 2019
+SQL*Plus: Release 19.0.0.0.0 - Production on 土 9月 14 21:47:03 2019
 Version 19.3.0.0.0
 
 Copyright (c) 1982, 2019, Oracle.  All rights reserved.
 
-??????????: ?  9?   11 2019 02:19:36 +09:00
 
 
 Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
 Version 19.3.0.0.0
-?????????
-SQL> select banner_full from v$version;
+に接続されました。
+SYS@localhost:1521/ORCLCDB> show con_name
 
-BANNER_FULL
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+CON_NAME
+------------------------------
+CDB$ROOT
+SYS@localhost:1521/ORCLCDB> show pdbs
+
+       CON_ID CON_NAME                       OPEN MODE  RESTRICTED
+------------- ------------------------------ ---------- ----------
+            2 PDB$SEED                       READ ONLY  NO
+            3 ORCLPDB01                      READ WRITE NO
+            4 ORCLPDB02                      READ WRITE NO
+SYS@localhost:1521/ORCLCDB> Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0との接続が切断されました。
+[oracle@30bf33351a1f ~]$sqlplus sys/ORACLE_PWD@localhost:1521/ORCLPDB01 as sysdba
+
+SQL*Plus: Release 19.0.0.0.0 - Production on 土 9月 14 21:47:23 2019
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+
+
 Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+に接続されました。
+SYS@localhost:1521/ORCLPDB01> show con_name
 
-SQL> Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
-Version 19.3.0.0.0?????????????
-[oracle@be807f28f5bd ~]$sql sql:oracle://pdb01:oracle_pwd@localhost/ORCLPDB01?select banner_full from v$version;
+CON_NAME
+------------------------------
+ORCLPDB01
+SYS@localhost:1521/ORCLPDB01> Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0との接続が切断されました。
+[oracle@30bf33351a1f ~]$sqlplus sys/ORACLE_PWD@localhost:1521/ORCLPDB02 as sysdba
 
-[oracle@be807f28f5bd /]$echo "select banner_full from v\$version;" | sql sql:oracle://pdb01:oracle_pwd@localhost/ORCLPDB01
+SQL*Plus: Release 19.0.0.0.0 - Production on 土 9月 14 21:47:44 2019
+Version 19.3.0.0.0
 
-BANNER_FULL
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+
+
 Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+に接続されました。
+SYS@localhost:1521/ORCLPDB02> show con_name
+
+CON_NAME
+------------------------------
+ORCLPDB02
+SYS@localhost:1521/ORCLPDB02> Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0との接続が切断されました。
+[oracle@30bf33351a1f ~]$sqlplus user01/ORACLE_PWD@localhost:1521/ORCLPDB01
+
+SQL*Plus: Release 19.0.0.0.0 - Production on 土 9月 14 21:50:09 2019
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
 
 
+
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+に接続されました。
+USER01@localhost:1521/ORCLPDB01> show con_name
+
+CON_NAME
+------------------------------
+ORCLPDB01
+USER01@localhost:1521/ORCLPDB01> Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0との接続が切断されました。
+[oracle@30bf33351a1f ~]$sqlplus user02/ORACLE_PWD@localhost:1521/ORCLPDB01
+
+SQL*Plus: Release 19.0.0.0.0 - Production on 土 9月 14 21:50:34 2019
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+
+
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+に接続されました。
+USER02@localhost:1521/ORCLPDB01> show con_name
+
+CON_NAME
+------------------------------
+ORCLPDB01
+USER02@localhost:1521/ORCLPDB01> Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0との接続が切断されました。
+[oracle@30bf33351a1f ~]$sqlplus user01/ORACLE_PWD@localhost:1521/ORCLPDB02
+
+SQL*Plus: Release 19.0.0.0.0 - Production on 土 9月 14 21:50:45 2019
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+
+
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+に接続されました。
+USER01@localhost:1521/ORCLPDB02> show con_name
+
+CON_NAME
+------------------------------
+ORCLPDB02
+USER01@localhost:1521/ORCLPDB02> Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0との接続が切断されました。
+[oracle@30bf33351a1f ~]$sqlplus user02/ORACLE_PWD@localhost:1521/ORCLPDB02
+
+SQL*Plus: Release 19.0.0.0.0 - Production on 土 9月 14 21:51:24 2019
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+
+
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+に接続されました。
+USER02@localhost:1521/ORCLPDB02> show con_name
+
+CON_NAME
+------------------------------
+ORCLPDB02
+USER02@localhost:1521/ORCLPDB02> Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0との接続が切断されました。
+[oracle@30bf33351a1f ~]$sqlplus user03/ORACLE_PWD@localhost:1521/ORCLPDB02
+
+SQL*Plus: Release 19.0.0.0.0 - Production on 土 9月 14 21:51:34 2019
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+
+
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+に接続されました。
+USER03@localhost:1521/ORCLPDB02> show con_name
+
+CON_NAME
+------------------------------
+ORCLPDB02
+USER03@localhost:1521/ORCLPDB02> Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0との接続が切断されました。
+```
+
+# sqldeveloperから接続
+```
+[oracle@30bf33351a1f ~]$sqldev
+[1] 4432
+```
+![](./1.png)
+![](./2.png)
+
+# sqlclから接続
+SYSユーザーの「as sysdba付与して接続」がアンドキュメント。たぶん。
+```
+[oracle@30bf33351a1f ~]$sql sql:oracle://user01:ORACLE_PWD@localhost:1521/ORCLPDB01
+
+SQL*Plus: Release 19.0.0.0.0 - Production on 土 9月 14 22:02:35 2019
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+最終正常ログイン時間: 土 9月  14 2019 21:56:56 +09:00
+
+
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+に接続されました。
+USER01@ORCLPDB01> show con_name
+
+CON_NAME
+------------------------------
+ORCLPDB01
+USER01@ORCLPDB01> Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0との接続が切断されました。
+[oracle@30bf33351a1f ~]$sql sql:oracle://user02:ORACLE_PWD@localhost:1521/ORCLPDB01
+
+SQL*Plus: Release 19.0.0.0.0 - Production on 土 9月 14 22:03:08 2019
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+最終正常ログイン時間: 土 9月  14 2019 21:57:15 +09:00
+
+
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+に接続されました。
+USER02@ORCLPDB01> show con_name
+
+CON_NAME
+------------------------------
+ORCLPDB01
+USER02@ORCLPDB01> Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0との接続が切断されました。
+[oracle@30bf33351a1f ~]$sql sql:oracle://user01:ORACLE_PWD@localhost:1521/ORCLPDB02
+
+SQL*Plus: Release 19.0.0.0.0 - Production on 土 9月 14 22:03:21 2019
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+最終正常ログイン時間: 土 9月  14 2019 21:59:42 +09:00
+
+
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+に接続されました。
+USER01@ORCLPDB02> show con_name
+
+CON_NAME
+------------------------------
+ORCLPDB02
+USER01@ORCLPDB02> Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0との接続が切断されました。
+[oracle@30bf33351a1f ~]$sql sql:oracle://user02:ORACLE_PWD@localhost:1521/ORCLPDB02
+
+SQL*Plus: Release 19.0.0.0.0 - Production on 土 9月 14 22:03:30 2019
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+最終正常ログイン時間: 土 9月  14 2019 21:57:44 +09:00
+
+
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+に接続されました。
+USER02@ORCLPDB02> show con_name
+
+CON_NAME
+------------------------------
+ORCLPDB02
+USER02@ORCLPDB02> Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0との接続が切断されました。
+[oracle@30bf33351a1f ~]$sql sql:oracle://user03:ORACLE_PWD@localhost:1521/ORCLPDB02
+
+SQL*Plus: Release 19.0.0.0.0 - Production on 土 9月 14 22:03:38 2019
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+最終正常ログイン時間: 土 9月  14 2019 21:57:52 +09:00
+
+
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+に接続されました。
+USER03@ORCLPDB02> show con_name
+
+CON_NAME
+------------------------------
+ORCLPDB02
+USER03@ORCLPDB02> Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0との接続が切断されました。
+[oracle@30bf33351a1f ~]$
 ```
 
 # Rライブラリ
