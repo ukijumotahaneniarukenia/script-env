@@ -130,7 +130,7 @@ rm -rf ~/tmp
 #vim plugin manager
 RUN mkdir -p ~/.vim/bundle && \
 cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
-sh installer.sh ~/.vim/bundle
+sh installer.sh ~/.vim/bundle && rm -rf installer.sh
 
 #guiアプリインストール
 #事前にダウンロードしておき、dockerコンテナにコピー。
@@ -144,7 +144,7 @@ echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
 echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
 echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
 echo "alias vi=\"sudo vim\"" >> ~/.bashrc && \
-echo "alias pycharm=\"sudo /home/python/pycharm-community-2019.2.2/bin/pycharm.sh >log 2>&1 &\"" >> ~/.bashrc
+echo "alias pycharm=\"/home/python/pycharm-community-2019.2.2/bin/pycharm.sh >log 2>&1 &\"" >> ~/.bashrc
 
 #実行ユーザをrstudioに変更
 USER rstudio
@@ -172,7 +172,7 @@ echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
 echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
 echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
 echo "alias vi=\"sudo vim\"" >> ~/.bashrc && \
-echo "alias pycharm=\"sudo /home/python/pycharm-community-2019.2.2/bin/pycharm.sh >log 2>&1 &\"" >> ~/.bashrc
+echo "alias pycharm=\"/home/python/pycharm-community-2019.2.2/bin/pycharm.sh >log 2>&1 &\"" >> ~/.bashrc
 
 #最後はrootに戻す
 USER root 
