@@ -1,4 +1,5 @@
 FROM centos:latest
+
 #各種X関連コマンドインストール
 RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps
 
@@ -27,7 +28,6 @@ RUN yum -y localinstall oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm && r
 ENV ORACLE_DOCKER_INSTALL=true \
     ORACLE_HOME=/opt/oracle/product/19c/dbhome_1 \
     ORACLE_SID=ORCLCDB \
-    #PDB_NAME=ORCLPDB1 \
     PATH=$PATH:$ORACLE_HOME/bin
 
 #事前にダウンロードしておき、dockerコンテナにコピー。
@@ -100,7 +100,7 @@ rm -rf ~/tmp
 #vim plugin manager
 RUN mkdir -p ~/.vim/bundle && \
 cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
-sh installer.sh ~/.vim/bundle
+sh installer.sh ~/.vim/bundle && rm -rf installer.sh
 
 #python install
 RUN cd ~ && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && \
@@ -152,7 +152,7 @@ rm -rf ~/tmp
 #vim plugin manager
 RUN mkdir -p ~/.vim/bundle && \
 cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
-sh installer.sh ~/.vim/bundle
+sh installer.sh ~/.vim/bundle && rm -rf installer.sh
 
 #alias設定
 RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
@@ -182,7 +182,7 @@ rm -rf ~/tmp
 #vim plugin manager
 RUN mkdir -p ~/.vim/bundle && \
 cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
-sh installer.sh ~/.vim/bundle
+sh installer.sh ~/.vim/bundle && rm -rf installer.sh
 
 #alias設定
 RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
@@ -194,7 +194,8 @@ echo "alias vi=\"sudo vim\"" >> ~/.bashrc && \
 echo "export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1" >> ~/.bashrc && \
 echo "export ORACLE_SID=ORCLCDB"  >> ~/.bashrc && \
 echo "export PATH=$PATH:$ORACLE_HOME/bin:$HOME/sqlcl/bin" >> ~/.bashrc && \
-echo "alias sqlplus=\"rlwrap -pRed sqlplus\"" >> ~/.bashrc
+echo "alias sqlplus=\"rlwrap -pRed sqlplus\"" >> ~/.bashrc && \
+echo "alias sqldev=echo /usr/java/jdk1.8.0_221-amd64 | sudo /opt/sqldeveloper/sqldeveloper.sh -conf /opt/sqldeveloper/sqldeveloper/bin/sqldeveloper.conf >~/launch_sqldeveloper.log 2>&1 &" >> ~/.bashrc
 
 #sqlplusの進化版SQLclインストール
 #jdk必要。java製なので。
@@ -224,7 +225,6 @@ RUN sed -i '34i export PASSWORD=ORACLE_PWD' /etc/init.d/oracledb_ORCLCDB-19c && 
  sed -i '165s;^;#;' /etc/init.d/oracledb_ORCLCDB-19c && \
  sed -i '166i $SU -s /bin/bash  $ORACLE_OWNER -c "$DBCA -silent -createDatabase -gdbName $ORACLE_SID -templateName $TEMPLATE_NAME -characterSet $CHARSET -createAsContainerDatabase $CREATE_AS_CDB -createListener $LISTENER_NAME:$LISTENER_PORT -datafileDestination $ORACLE_DATA_LOCATION -sid $ORACLE_SID -sysPassword $PASSWORD -systemPassword $PASSWORD -emConfiguration DBEXPRESS -emExpressPort $EM_EXPRESS_PORT"' /etc/init.d/oracledb_ORCLCDB-19c
 
- #sed -i '166i $SU -s /bin/bash  $ORACLE_OWNER -c "$DBCA -silent -createDatabase -gdbName $ORACLE_SID -templateName $TEMPLATE_NAME -characterSet $CHARSET -createAsContainerDatabase $CREATE_AS_CDB -numberOfPDBs $NUMBER_OF_PDBS -pdbName $PDB_NAME -pdbAdminPassword $PASSWORD -createListener $LISTENER_NAME:$LISTENER_PORT -datafileDestination $ORACLE_DATA_LOCATION -sid $ORACLE_SID -sysPassword $PASSWORD -systemPassword $PASSWORD -emConfiguration DBEXPRESS -emExpressPort $EM_EXPRESS_PORT"' /etc/init.d/oracledb_ORCLCDB-19c
 #sqlクライアントサービス外部公開ポート
 EXPOSE 1521
 
@@ -243,7 +243,5 @@ ENV DISPLAY=:0.0
 COPY glogin.sql /opt/oracle/product/19c/dbhome_1/sqlplus/admin/glogin.sql
 COPY init_db.sh /home/oracle/init_db.sh
 COPY launch_and_open_db.sql /home/oracle/launch_and_open_db.sql
-COPY regist_listener.sh /home/oracle/regist_listener.sh
-COPY stop_and_start_listener.sh /home/oracle/stop_and_start_listener.sh
-COPY launch_sqldeveloper.sh /home/oracle/launch_sqldeveloper.sh
-COPY stop_and_remove_db.sql /home/oracle/stop_and_remove_db.sql
+
+RUN cd ~ && chown oracle:oinstall * && chmod +x *.sql *.sh
