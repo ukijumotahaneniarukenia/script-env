@@ -12,3 +12,4 @@ begin
     end loop;
 end;
 /
+quit;

@@ -7,7 +7,7 @@ create(){
   [ -z "${PDB_CNT}" ] && echo PDB数を入力してください。 && exit 1
   time sqlplus sys/ORACLE_PWD@ORCLCDB as sysdba @launch_and_open_db.sql ${PDB_CNT}
   #リスナー登録
-  echo "ORCLPDB@ = (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = be807f28f5bd)(PORT = 1521)) (CONNECT_DATA = (SERVER = DEDICATED) (SERVICE_NAME = ORCLPDB@)))" | parallel echo :::: - <(seq ${PDB_CNT}) | awk '{$NF="";RN=sprintf("%02d",NR);print "echo \x22"$0"\x22 | sed -E \x27s;@;"RN";g\x27"}' | bash >> /opt/oracle/product/19c/dbhome_1/network/admin/tnsnames.ora
+  seq ${PDB_CNT} | xargs -n1 echo "ORCLPDB@ = (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = be807f28f5bd)(PORT = 1521)) (CONNECT_DATA = (SERVER = DEDICATED) (SERVICE_NAME = ORCLPDB@)))" | awk '{$NF="";RN=sprintf("%02d",NR);print "echo \x22"$0"\x22 | sed -E \x27s;@;"RN";g\x27"}' | bash >> /opt/oracle/product/19c/dbhome_1/network/admin/tnsnames.ora
   sleep 60
   #リスナー停止
   lsnrctl stop
@@ -20,7 +20,7 @@ create(){
 }
 
 configure(){
-  time /etc/init.d/oracledb_ORCLCDB-19c configure
+  time sudo /etc/init.d/oracledb_ORCLCDB-19c configure
 }
 
 case "${CMD}" in

@@ -194,8 +194,9 @@ echo "alias vi=\"sudo vim\"" >> ~/.bashrc && \
 echo "export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1" >> ~/.bashrc && \
 echo "export ORACLE_SID=ORCLCDB"  >> ~/.bashrc && \
 echo "export PATH=$PATH:$ORACLE_HOME/bin:$HOME/sqlcl/bin" >> ~/.bashrc && \
+echo "export NLS_LANG=Japanese_Japan.AL32UTF8" >> ~/.bashrc && \
 echo "alias sqlplus=\"rlwrap -pRed sqlplus\"" >> ~/.bashrc && \
-echo "alias sqldev=echo /usr/java/jdk1.8.0_221-amd64 | sudo /opt/sqldeveloper/sqldeveloper.sh -conf /opt/sqldeveloper/sqldeveloper/bin/sqldeveloper.conf >~/launch_sqldeveloper.log 2>&1 &" >> ~/.bashrc
+echo "alias sqldev=\"echo /usr/java/jdk1.8.0_221-amd64 | sudo /opt/sqldeveloper/sqldeveloper.sh -conf /opt/sqldeveloper/sqldeveloper/bin/sqldeveloper.conf >~/launch_sqldeveloper.log 2>&1 &\"" >> ~/.bashrc
 
 #sqlplusの進化版SQLclインストール
 #jdk必要。java製なので。
@@ -244,4 +245,4 @@ COPY glogin.sql /opt/oracle/product/19c/dbhome_1/sqlplus/admin/glogin.sql
 COPY init_db.sh /home/oracle/init_db.sh
 COPY launch_and_open_db.sql /home/oracle/launch_and_open_db.sql
 
-RUN cd ~ && chown oracle:oinstall * && chmod +x *.sql *.sh
+RUN chown oracle:oinstall /home/oracle/* && chmod +x /home/oracle/*
