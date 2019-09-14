@@ -25,13 +25,361 @@ docker exec --user root -it oracle /bin/bash
 
 # CDB作成
 ```
-[oracle@b3eda71dd3ec ~]$./init_db.sh configure
+[oracle@30bf33351a1f ~]$./init_db.sh create_cdb
+Configuring Oracle Database ORCLCDB.
+[WARNING] [DBT-06208] 入力された'SYS(S)'パスワードが推奨される標準に準拠していません。
+   原因: 
+a. 入力するパスワードは、長さを8文字以上にし、大文字、小文字および数字(0から9)をそれぞれ最低1文字含めることをお薦めします。
+b. 入力したパスワードは、Oracleがパスワードとしての使用を推奨していないキーワードです
+   アクション: 強力なパスワードを指定してください。必要に応じて、Oracleドキュメントのガイドラインを参照してください。
+[WARNING] [DBT-06208] 入力された'SYSTEM(Y)'パスワードが推奨される標準に準拠していません。
+   原因: 
+a. 入力するパスワードは、長さを8文字以上にし、大文字、小文字および数字(0から9)をそれぞれ最低1文字含めることをお薦めします。
+b. 入力したパスワードは、Oracleがパスワードとしての使用を推奨していないキーワードです
+   アクション: 強力なパスワードを指定してください。必要に応じて、Oracleドキュメントのガイドラインを参照してください。
+DB操作の準備
+10%完了
+データベース・ファイルのコピー中
+40%完了
+Oracleインスタンスの作成および起動中
+42%完了
+46%完了
+52%完了
+56%完了
+60%完了
+データベース作成の完了
+66%完了
+70%完了
+構成後アクションの実行
+100%完了
+データベースの作成が完了しました。詳細は、次の場所にあるログ・ファイルを参照してください:
+/opt/oracle/cfgtoollogs/dbca/ORCLCDB。
+データベース情報:
+グローバル・データベース名:ORCLCDB
+システム識別子(SID):ORCLCDB
+詳細はログ・ファイル"/opt/oracle/cfgtoollogs/dbca/ORCLCDB/ORCLCDB.log"を参照してください。
+
+Database configuration completed successfully. The passwords were auto generated, you must change them by connecting to the database using 'sqlplus / as sysdba' as the oracle user.
+
+real	13m59.968s
+user	0m17.635s
+sys	0m2.314s
+[oracle@30bf33351a1f ~]$tree /opt/oracle/oradata/ORCLCDB/
+/opt/oracle/oradata/ORCLCDB/
+|-- control01.ctl
+|-- control02.ctl
+|-- pdbseed
+|   |-- sysaux01.dbf
+|   |-- system01.dbf
+|   |-- temp012019-09-14_20-47-33-328-PM.dbf
+|   `-- undotbs01.dbf
+|-- redo01.log
+|-- redo02.log
+|-- redo03.log
+|-- sysaux01.dbf
+|-- system01.dbf
+|-- temp01.dbf
+|-- undotbs01.dbf
+`-- users01.dbf
+
+1 directory, 14 files
 ```
 
 # PDB作成
 作成するPDB数を指定
 ```
-[oracle@b3eda71dd3ec ~]$./init_db.sh create 2
+[oracle@30bf33351a1f ~]$./init_db.sh create_pdb 2
+pdbを2個作成します。
+
+SQL*Plus: Release 19.0.0.0.0 - Production on 土 9月 14 21:31:25 2019
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+
+
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+に接続されました。
+旧   2:     for i in 1..'&1' loop
+新   2:     for i in 1..'2' loop
+create pluggable database orclpdb01 admin user user01 identified by oracle_pwd roles = (dba) file_name_convert = ('/opt/oracle/oradata/ORCLCDB/pdbseed','/opt/oracle/oradata/ORCLCDB/pdb01')
+alter pluggable database orclpdb01 open read write
+create pluggable database orclpdb02 admin user user01 identified by oracle_pwd roles = (dba) file_name_convert = ('/opt/oracle/oradata/ORCLCDB/pdbseed','/opt/oracle/oradata/ORCLCDB/pdb02')
+alter pluggable database orclpdb02 open read write
+
+PL/SQLプロシージャが正常に完了しました。
+
+経過: 00:00:05.32
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0との接続が切断されました。
+リスナー登録処理を開始します。
+リスナー再起動中
+
+LSNRCTL for Linux: Version 19.0.0.0.0 - Production on 14-9月 -2019 21:31:31
+
+Copyright (c) 1991, 2019, Oracle.  All rights reserved.
+
+(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=30bf33351a1f)(PORT=1521)))に接続中
+コマンドは正常に終了しました。
+
+LSNRCTL for Linux: Version 19.0.0.0.0 - Production on 14-9月 -2019 21:31:31
+
+Copyright (c) 1991, 2019, Oracle.  All rights reserved.
+
+/opt/oracle/product/19c/dbhome_1/bin/tnslsnrを起動しています。お待ちください...
+
+TNSLSNR for Linux: Version 19.0.0.0.0 - Production
+システム・パラメータ・ファイルは/opt/oracle/product/19c/dbhome_1/network/admin/listener.oraです。
+ログ・メッセージを/opt/oracle/diag/tnslsnr/30bf33351a1f/listener/alert/log.xmlに書き込みました。
+リスニングしています: (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=30bf33351a1f)(PORT=1521)))
+リスニングしています: (DESCRIPTION=(ADDRESS=(PROTOCOL=ipc)(KEY=EXTPROC1521)))
+
+(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=30bf33351a1f)(PORT=1521)))に接続中
+リスナーのステータス
+------------------------
+別名                      LISTENER
+バージョン                TNSLSNR for Linux: Version 19.0.0.0.0 - Production
+開始日                    14-9月 -2019 21:31:31
+稼働時間                  0 日 0 時間 0 分 0 秒
+トレース・レベル          off
+セキュリティ              ON: Local OS Authentication
+SNMP                      OFF
+パラメータ・ファイル      /opt/oracle/product/19c/dbhome_1/network/admin/listener.ora
+ログ・ファイル            /opt/oracle/diag/tnslsnr/30bf33351a1f/listener/alert/log.xml
+リスニング・エンドポイントのサマリー...
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=30bf33351a1f)(PORT=1521)))
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=ipc)(KEY=EXTPROC1521)))
+リスナーはサービスをサポートしていません。
+コマンドは正常に終了しました。
+リスナー反映中
+
+LSNRCTL for Linux: Version 19.0.0.0.0 - Production on 14-9月 -2019 21:33:01
+
+Copyright (c) 1991, 2019, Oracle.  All rights reserved.
+
+(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=30bf33351a1f)(PORT=1521)))に接続中
+リスナーのステータス
+------------------------
+別名                      LISTENER
+バージョン                TNSLSNR for Linux: Version 19.0.0.0.0 - Production
+開始日                    14-9月 -2019 21:31:31
+稼働時間                  0 日 0 時間 1 分 30 秒
+トレース・レベル          off
+セキュリティ              ON: Local OS Authentication
+SNMP                      OFF
+パラメータ・ファイル      /opt/oracle/product/19c/dbhome_1/network/admin/listener.ora
+ログ・ファイル            /opt/oracle/diag/tnslsnr/30bf33351a1f/listener/alert/log.xml
+リスニング・エンドポイントのサマリー...
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=30bf33351a1f)(PORT=1521)))
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=ipc)(KEY=EXTPROC1521)))
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcps)(HOST=30bf33351a1f)(PORT=5500))(Security=(my_wallet_directory=/opt/oracle/admin/ORCLCDB/xdb_wallet))(Presentation=HTTP)(Session=RAW))
+サービスのサマリー...
+サービス"92838c975cb20efde053020011ace1aa"には、1件のインスタンスがあります。
+  インスタンス"ORCLCDB"、状態READYには、このサービスに対する1件のハンドラがあります...
+サービス"92838c975cb50efde053020011ace1aa"には、1件のインスタンスがあります。
+  インスタンス"ORCLCDB"、状態READYには、このサービスに対する1件のハンドラがあります...
+サービス"ORCLCDB"には、1件のインスタンスがあります。
+  インスタンス"ORCLCDB"、状態READYには、このサービスに対する1件のハンドラがあります...
+サービス"ORCLCDBXDB"には、1件のインスタンスがあります。
+  インスタンス"ORCLCDB"、状態READYには、このサービスに対する1件のハンドラがあります...
+サービス"orclpdb01"には、1件のインスタンスがあります。
+  インスタンス"ORCLCDB"、状態READYには、このサービスに対する1件のハンドラがあります...
+サービス"orclpdb02"には、1件のインスタンスがあります。
+  インスタンス"ORCLCDB"、状態READYには、このサービスに対する1件のハンドラがあります...
+コマンドは正常に終了しました。
+リスナー登録処理が完了しました。
+
+real	1m36.092s
+user	0m0.025s
+sys	0m0.031s
+[oracle@30bf33351a1f ~]$tree /opt/oracle/oradata/ORCLCDB/
+/opt/oracle/oradata/ORCLCDB/
+|-- control01.ctl
+|-- control02.ctl
+|-- pdb01
+|   |-- sysaux01.dbf
+|   |-- system01.dbf
+|   |-- temp012019-09-14_20-47-33-328-PM.dbf
+|   `-- undotbs01.dbf
+|-- pdb02
+|   |-- sysaux01.dbf
+|   |-- system01.dbf
+|   |-- temp012019-09-14_20-47-33-328-PM.dbf
+|   `-- undotbs01.dbf
+|-- pdbseed
+|   |-- sysaux01.dbf
+|   |-- system01.dbf
+|   |-- temp012019-09-14_20-47-33-328-PM.dbf
+|   `-- undotbs01.dbf
+|-- redo01.log
+|-- redo02.log
+|-- redo03.log
+|-- sysaux01.dbf
+|-- system01.dbf
+|-- temp01.dbf
+|-- undotbs01.dbf
+`-- users01.dbf
+
+3 directories, 22 files
+```
+
+# ユーザー作成
+対象のPDBと作成するユーザ数を指定
+```
+[oracle@30bf33351a1f ~]$./init_db.sh create_usr 1 2
+ユーザー登録処理を開始します。
+
+SQL*Plus: Release 19.0.0.0.0 - Production on 土 9月 14 21:37:15 2019
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+
+
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+に接続されました。
+旧   2:     for i in 1..'&2' loop
+新   2:     for i in 1..'2' loop
+旧  14:             dbms_output.put_line('create tablespace tabsp'||lpad(i,2,0)|| ' datafile '|| '''' ||'/opt/oracle/oradata/ORCLCDB/pdb'||lpad(&1,2,0)||'/user'||lpad(i,2,0)||'.dbf' || '''' || ' size 100m autoextend on next 500k maxsize unlimited');
+新  14:             dbms_output.put_line('create tablespace tabsp'||lpad(i,2,0)|| ' datafile '|| '''' ||'/opt/oracle/oradata/ORCLCDB/pdb'||lpad(1,2,0)||'/user'||lpad(i,2,0)||'.dbf' || '''' || ' size 100m autoextend on next 500k maxsize unlimited');
+旧  15:             execute immediate 'create tablespace tabsp'||lpad(i,2,0)|| ' datafile '|| '''' ||'/opt/oracle/oradata/ORCLCDB/pdb'||lpad(&1,2,0)||'/user'||lpad(i,2,0)||'.dbf' || '''' || ' size 100m autoextend on next 500k maxsize unlimited';
+新  15:             execute immediate 'create tablespace tabsp'||lpad(i,2,0)|| ' datafile '|| '''' ||'/opt/oracle/oradata/ORCLCDB/pdb'||lpad(1,2,0)||'/user'||lpad(i,2,0)||'.dbf' || '''' || ' size 100m autoextend on next 500k maxsize unlimited';
+drop user user01
+drop tablespace tabsp01 including contents and datafiles cascade constraints
+create tablespace tabsp01 datafile '/opt/oracle/oradata/ORCLCDB/pdb01/user01.dbf' size 100m autoextend on next 500k maxsize unlimited
+create user user01 identified by "ORACLE_PWD" default tablespace tabsp01 temporary tablespace temp
+grant dba to user01
+grant unlimited tablespace to user01
+drop user user02
+drop tablespace tabsp02 including contents and datafiles cascade constraints
+create tablespace tabsp02 datafile '/opt/oracle/oradata/ORCLCDB/pdb01/user02.dbf' size 100m autoextend on next 500k maxsize unlimited
+create user user02 identified by "ORACLE_PWD" default tablespace tabsp02 temporary tablespace temp
+grant dba to user02
+grant unlimited tablespace to user02
+
+PL/SQLプロシージャが正常に完了しました。
+
+経過: 00:00:01.95
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0との接続が切断されました。
+
+real	0m2.034s
+user	0m0.010s
+sys	0m0.012s
+[oracle@30bf33351a1f ~]$tree /opt/oracle/oradata/ORCLCDB/
+/opt/oracle/oradata/ORCLCDB/
+|-- control01.ctl
+|-- control02.ctl
+|-- pdb01
+|   |-- sysaux01.dbf
+|   |-- system01.dbf
+|   |-- temp012019-09-14_20-47-33-328-PM.dbf
+|   |-- undotbs01.dbf
+|   |-- user01.dbf
+|   `-- user02.dbf
+|-- pdb02
+|   |-- sysaux01.dbf
+|   |-- system01.dbf
+|   |-- temp012019-09-14_20-47-33-328-PM.dbf
+|   `-- undotbs01.dbf
+|-- pdbseed
+|   |-- sysaux01.dbf
+|   |-- system01.dbf
+|   |-- temp012019-09-14_20-47-33-328-PM.dbf
+|   `-- undotbs01.dbf
+|-- redo01.log
+|-- redo02.log
+|-- redo03.log
+|-- sysaux01.dbf
+|-- system01.dbf
+|-- temp01.dbf
+|-- undotbs01.dbf
+`-- users01.dbf
+
+3 directories, 24 files
+[oracle@30bf33351a1f ~]$./init_db.sh create_usr 2 3
+ユーザー登録処理を開始します。
+
+SQL*Plus: Release 19.0.0.0.0 - Production on 土 9月 14 21:38:55 2019
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+
+
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+に接続されました。
+旧   2:     for i in 1..'&2' loop
+新   2:     for i in 1..'3' loop
+旧  14:             dbms_output.put_line('create tablespace tabsp'||lpad(i,2,0)|| ' datafile '|| '''' ||'/opt/oracle/oradata/ORCLCDB/pdb'||lpad(&1,2,0)||'/user'||lpad(i,2,0)||'.dbf' || '''' || ' size 100m autoextend on next 500k maxsize unlimited');
+新  14:             dbms_output.put_line('create tablespace tabsp'||lpad(i,2,0)|| ' datafile '|| '''' ||'/opt/oracle/oradata/ORCLCDB/pdb'||lpad(2,2,0)||'/user'||lpad(i,2,0)||'.dbf' || '''' || ' size 100m autoextend on next 500k maxsize unlimited');
+旧  15:             execute immediate 'create tablespace tabsp'||lpad(i,2,0)|| ' datafile '|| '''' ||'/opt/oracle/oradata/ORCLCDB/pdb'||lpad(&1,2,0)||'/user'||lpad(i,2,0)||'.dbf' || '''' || ' size 100m autoextend on next 500k maxsize unlimited';
+新  15:             execute immediate 'create tablespace tabsp'||lpad(i,2,0)|| ' datafile '|| '''' ||'/opt/oracle/oradata/ORCLCDB/pdb'||lpad(2,2,0)||'/user'||lpad(i,2,0)||'.dbf' || '''' || ' size 100m autoextend on next 500k maxsize unlimited';
+drop user user01
+drop tablespace tabsp01 including contents and datafiles cascade constraints
+create tablespace tabsp01 datafile '/opt/oracle/oradata/ORCLCDB/pdb02/user01.dbf' size 100m autoextend on next 500k maxsize unlimited
+create user user01 identified by "ORACLE_PWD" default tablespace tabsp01 temporary tablespace temp
+grant dba to user01
+grant unlimited tablespace to user01
+drop user user02
+drop tablespace tabsp02 including contents and datafiles cascade constraints
+create tablespace tabsp02 datafile '/opt/oracle/oradata/ORCLCDB/pdb02/user02.dbf' size 100m autoextend on next 500k maxsize unlimited
+create user user02 identified by "ORACLE_PWD" default tablespace tabsp02 temporary tablespace temp
+grant dba to user02
+grant unlimited tablespace to user02
+drop user user03
+drop tablespace tabsp03 including contents and datafiles cascade constraints
+create tablespace tabsp03 datafile '/opt/oracle/oradata/ORCLCDB/pdb02/user03.dbf' size 100m autoextend on next 500k maxsize unlimited
+create user user03 identified by "ORACLE_PWD" default tablespace tabsp03 temporary tablespace temp
+grant dba to user03
+grant unlimited tablespace to user03
+
+PL/SQLプロシージャが正常に完了しました。
+
+経過: 00:00:02.72
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0との接続が切断されました。
+
+real	0m3.032s
+user	0m0.011s
+sys	0m0.008s
+[oracle@30bf33351a1f ~]$tree /opt/oracle/oradata/ORCLCDB/
+/opt/oracle/oradata/ORCLCDB/
+|-- control01.ctl
+|-- control02.ctl
+|-- pdb01
+|   |-- sysaux01.dbf
+|   |-- system01.dbf
+|   |-- temp012019-09-14_20-47-33-328-PM.dbf
+|   |-- undotbs01.dbf
+|   |-- user01.dbf
+|   `-- user02.dbf
+|-- pdb02
+|   |-- sysaux01.dbf
+|   |-- system01.dbf
+|   |-- temp012019-09-14_20-47-33-328-PM.dbf
+|   |-- undotbs01.dbf
+|   |-- user01.dbf
+|   |-- user02.dbf
+|   `-- user03.dbf
+|-- pdbseed
+|   |-- sysaux01.dbf
+|   |-- system01.dbf
+|   |-- temp012019-09-14_20-47-33-328-PM.dbf
+|   `-- undotbs01.dbf
+|-- redo01.log
+|-- redo02.log
+|-- redo03.log
+|-- sysaux01.dbf
+|-- system01.dbf
+|-- temp01.dbf
+|-- undotbs01.dbf
+`-- users01.dbf
+
+3 directories, 27 files
 ```
 
 # sqlplusから接続
