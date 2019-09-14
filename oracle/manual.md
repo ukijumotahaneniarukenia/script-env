@@ -13,7 +13,7 @@ time docker build -t centos_oracle . | tee log
 docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
 ```
 
-# dockerコンテナ起動
+# dockerコンテナ作成
 ```
 docker run --privileged --shm-size=8gb --name oracle -itd -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 28787:8787 -p 21521:1521 -p 25500:5500 centos_oracle /sbin/init
 ```
