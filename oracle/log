@@ -1,379 +1,219 @@
-Sending build context to Docker daemon   2.72GB
-Step 1/62 : FROM centos:latest
+Sending build context to Docker daemon   3.32GB
+Step 1/71 : FROM centos:latest
  ---> 67fa590cfc1c
-Step 2/62 : RUN curl -o oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm https://yum.oracle.com/repo/OracleLinux/OL7/latest/x86_64/getPackage/oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm
+Step 2/71 : RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps
  ---> Using cache
- ---> 5198f2453365
-Step 3/62 : RUN yum -y localinstall oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm && rm oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm
+ ---> 60fb85fcb65d
+Step 3/71 : RUN yum install -y java firefox
  ---> Using cache
- ---> 4bcf9cfc0939
-Step 4/62 : ENV ORACLE_DOCKER_INSTALL=true     ORACLE_HOME=/opt/oracle/product/19c/dbhome_1     ORACLE_SID=ORCLCDB     PDB_NAME=ORCLPDB1     PATH=$PATH:$ORACLE_HOME/bin
+ ---> d8279738dbb6
+Step 4/71 : RUN yum groups mark convert
  ---> Using cache
- ---> f51cd05e5781
-Step 5/62 : COPY oracle-database-ee-19c-1.0-1.x86_64.rpm /oracle-database-ee-19c-1.0-1.x86_64.rpm
+ ---> d4b76280d7a0
+Step 5/71 : RUN yum groupinstall -y base "X Window System" --setopt=group_package_types=mandatory,default,optional
  ---> Using cache
- ---> 69e31e3f3b30
-Step 6/62 : RUN yum -y localinstall oracle-database-ee-19c-1.0-1.x86_64.rpm
+ ---> 91bf736c5a7f
+Step 6/71 : RUN yum install -y vlgothic-*
  ---> Using cache
- ---> dc4ea6333219
-Step 7/62 : RUN /etc/init.d/oracledb_ORCLCDB-19c configure
+ ---> 54208c206e79
+Step 7/71 : RUN yum install -y fcitx ibus
  ---> Using cache
- ---> 5cc9bccbcb5a
-Step 8/62 : RUN groupadd -g 1001 rstudio
+ ---> 26caf8a74166
+Step 8/71 : COPY sqldeveloper-19.2.0.206.2117.noarch.rpm /root/sqldeveloper-19.2.0.206.2117.noarch.rpm
  ---> Using cache
- ---> 168eeb948071
-Step 9/62 : RUN useradd -m -g rstudio -u 1001 rstudio
+ ---> a29d96ca2fca
+Step 9/71 : COPY jdk-8u221-linux-x64.rpm /root/jdk-8u221-linux-x64.rpm
  ---> Using cache
- ---> cbea4359360a
-Step 10/62 : RUN chsh -s /bin/bash rstudio
+ ---> 438b4a0d5e8a
+Step 10/71 : RUN cd ~ && rpm -ivh jdk-8u221-linux-x64.rpm
  ---> Using cache
- ---> c7a3419f9811
-Step 11/62 : RUN chsh -s /bin/bash oracle
+ ---> f6d1830387f0
+Step 11/71 : RUN cd ~ && rpm -ivh sqldeveloper-19.2.0.206.2117.noarch.rpm
  ---> Using cache
- ---> 7f242f84fa1d
-Step 12/62 : RUN echo 'root_pwd' | passwd --stdin root
+ ---> 0cf531192d01
+Step 12/71 : RUN curl -o oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm https://yum.oracle.com/repo/OracleLinux/OL7/latest/x86_64/getPackage/oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm
  ---> Using cache
- ---> 1634564d0d7d
-Step 13/62 : RUN echo 'rstudio_pwd' | passwd --stdin rstudio
+ ---> c0be3816150c
+Step 13/71 : RUN yum -y localinstall oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm && rm oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm
  ---> Using cache
- ---> 11c17ae0db1e
-Step 14/62 : RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> 49698b740049
+Step 14/71 : ENV ORACLE_DOCKER_INSTALL=true     ORACLE_HOME=/opt/oracle/product/19c/dbhome_1     ORACLE_SID=ORCLCDB     PDB_NAME=ORCLPDB1     PATH=$PATH:$ORACLE_HOME/bin
  ---> Using cache
- ---> 397946c691a5
-Step 15/62 : RUN echo 'oracle_pwd' | passwd --stdin oracle
+ ---> b8e06c2432fe
+Step 15/71 : COPY oracle-database-ee-19c-1.0-1.x86_64.rpm /root/oracle-database-ee-19c-1.0-1.x86_64.rpm
  ---> Using cache
- ---> 31373a0f9956
-Step 16/62 : RUN echo 'oracle ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> 676621040e6d
+Step 16/71 : RUN yum -y localinstall /root/oracle-database-ee-19c-1.0-1.x86_64.rpm
  ---> Using cache
- ---> c40da1937275
-Step 17/62 : RUN yum install -y epel-release
+ ---> 3132cb755bfa
+Step 17/71 : RUN groupadd -g 1001 rstudio
  ---> Using cache
- ---> 0a9315f68df8
-Step 18/62 : RUN yum install -y R
+ ---> bdd9099aceb1
+Step 18/71 : RUN useradd -m -g rstudio -u 1001 rstudio
  ---> Using cache
- ---> 55d107ce6563
-Step 19/62 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man
+ ---> 1297a597c1d7
+Step 19/71 : RUN chsh -s /bin/bash rstudio
  ---> Using cache
- ---> 7d0d5be32018
-Step 20/62 : RUN yum install -y which perl-App-cpanminus wxGTK-devel perl-ExtUtils-Embed perl-File-HomeDir perl-Term-ReadLine-Gnu wxGTK3 cpan
+ ---> 0f9ce81793ca
+Step 20/71 : RUN chsh -s /bin/bash oracle
  ---> Using cache
- ---> 5b85d354a8b1
-Step 21/62 : RUN cd ~ && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && cd Open-usp-Tukubai && make -j12 install
+ ---> 6695274a0b18
+Step 21/71 : RUN echo 'root_pwd' | passwd --stdin root
  ---> Using cache
- ---> 97808d9163c5
-Step 22/62 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && tar -zxvf gawk-5.0.0.tar.gz && cd gawk-5.0.0 && ./configure && make -j12 && make -j12 install
+ ---> 35f210eeacee
+Step 22/71 : RUN echo 'rstudio_pwd' | passwd --stdin rstudio
  ---> Using cache
- ---> 3b304eb4fc92
-Step 23/62 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && tar -zxvf bash-5.0.tar.gz && cd bash-5.0 && ./configure && make -j12 && make -j12 install
+ ---> 1af4a8901758
+Step 23/71 : RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
  ---> Using cache
- ---> f633222b5477
-Step 24/62 : RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd ~ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
+ ---> 8aac4518344c
+Step 24/71 : RUN echo 'oracle_pwd' | passwd --stdin oracle
  ---> Using cache
- ---> 40c60a49a5b5
-Step 25/62 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> a5796c5e61a0
+Step 25/71 : RUN echo 'oracle ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
  ---> Using cache
- ---> 15d77ee5d271
-Step 26/62 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> 8404bd3bcdb6
+Step 26/71 : RUN yum install -y epel-release
  ---> Using cache
- ---> 83a4f332f721
-Step 27/62 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
+ ---> 82b74315273e
+Step 27/71 : RUN yum install -y R
  ---> Using cache
- ---> 2e19866709c4
-Step 28/62 : RUN cd ~ && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && tar -zxvf Python-3.7.4.tgz && cd Python-3.7.4 && ./configure && make -j12 && make -j12 install
+ ---> cf0bfb2b9f39
+Step 28/71 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man rlwrap
  ---> Using cache
- ---> 3f07be549dfd
-Step 29/62 : RUN cd ~ && curl -LO https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz && tar -xzf perl-5.30.0.tar.gz && cd perl-5.30.0 && ./Configure -des -Dprefix=/usr/local/ && make -j12 && make -j12 install
+ ---> e29c5aa5af87
+Step 29/71 : RUN yum install -y which perl-App-cpanminus wxGTK-devel perl-ExtUtils-Embed perl-File-HomeDir perl-Term-ReadLine-Gnu wxGTK3 cpan
  ---> Using cache
- ---> 4ba8e14c020d
-Step 30/62 : RUN cd ~ && yum install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && tar jxf parallel-latest.tar.bz2 && cd parallel-20190822 && ./configure && make -j12 && make -j12 install
+ ---> faa6b4b22d38
+Step 30/71 : RUN cd ~ && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && cd Open-usp-Tukubai && make -j12 install
  ---> Using cache
- ---> 215be8773e99
-Step 31/62 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1" >> ~/.bashrc && echo "export ORACLE_SID=ORCLCDB"  >> ~/.bashrc && echo "export PATH=$PATH:$ORACLE_HOME/bin" >> ~/.bashrc
+ ---> f9fa4164e30d
+Step 31/71 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && tar -zxvf gawk-5.0.0.tar.gz && cd gawk-5.0.0 && ./configure && make -j12 && make -j12 install
  ---> Using cache
- ---> 9728b541e3d9
-Step 32/62 : USER rstudio
+ ---> f5243fcbb537
+Step 32/71 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && tar -zxvf bash-5.0.tar.gz && cd bash-5.0 && ./configure && make -j12 && make -j12 install
  ---> Using cache
- ---> 7caec65c83ca
-Step 33/62 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> 4244aaa2d604
+Step 33/71 : RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd ~ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
  ---> Using cache
- ---> f7d95a3cb4c2
-Step 34/62 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> d31cfb03b45f
+Step 34/71 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
  ---> Using cache
- ---> d257084b5a07
-Step 35/62 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
+ ---> 784979ad1c8b
+Step 35/71 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
  ---> Using cache
- ---> 5cfeea066d6c
-Step 36/62 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc && echo "export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1" >> ~/.bashrc && echo "export ORACLE_SID=ORCLCDB"  >> ~/.bashrc && echo "export PATH=$PATH:$ORACLE_HOME/bin" >> ~/.bashrc
+ ---> fd3a22d4b13e
+Step 36/71 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
  ---> Using cache
- ---> 13a1967e4d3c
-Step 37/62 : USER oracle
+ ---> ef32fe285f6f
+Step 37/71 : RUN cd ~ && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && tar -zxvf Python-3.7.4.tgz && cd Python-3.7.4 && ./configure && make -j12 && make -j12 install
  ---> Using cache
- ---> 30a624a2f4a5
-Step 38/62 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> d4ef8e420f18
+Step 38/71 : RUN cd ~ && curl -LO https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz && tar -xzf perl-5.30.0.tar.gz && cd perl-5.30.0 && ./Configure -des -Dprefix=/usr/local/ && make -j12 && make -j12 install
  ---> Using cache
- ---> a6ece81d7596
-Step 39/62 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> 8efe7f889cb3
+Step 39/71 : RUN cd ~ && yum install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && tar jxf parallel-latest.tar.bz2 && cd parallel-20190822 && ./configure && make -j12 && make -j12 install
  ---> Using cache
- ---> 060ba1a3a605
-Step 40/62 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
+ ---> 3b73b3d19334
+Step 40/71 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1" >> ~/.bashrc && echo "export ORACLE_SID=ORCLCDB"  >> ~/.bashrc && echo "export PATH=$PATH:$ORACLE_HOME/bin" >> ~/.bashrc
  ---> Using cache
- ---> 048eafb65d7c
-Step 41/62 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc && echo "export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1" >> ~/.bashrc && echo "export ORACLE_SID=ORCLCDB"  >> ~/.bashrc && echo "export PATH=$PATH:$ORACLE_HOME/bin:$HOME/sqlcl/bin" >> ~/.bashrc
- ---> Running in f1c481cbc6bf
-Removing intermediate container f1c481cbc6bf
- ---> 2dc03e00b960
-Step 42/62 : RUN cd ~ && /opt/oracle/product/19c/dbhome_1/bin/orapwd file=oracle_sys_pwd force=y password=ukijumotahaneniarukenia#1
- ---> Running in 6d5429f46ca7
-Removing intermediate container 6d5429f46ca7
- ---> cdb6b7144575
-Step 43/62 : RUN java -version
- ---> Running in 1d69d5adb050
-[91mopenjdk version "1.8.0_222"
-OpenJDK Runtime Environment (build 1.8.0_222-b10)
-[0m[91mOpenJDK 64-Bit Server VM (build 25.222-b10, mixed mode)
-[0mRemoving intermediate container 1d69d5adb050
- ---> 2e87591e824b
-Step 44/62 : COPY sqlcl-19.2.1.206.1649.zip /home/oracle/sqlcl-19.2.1.206.1649.zip
- ---> 105fd389695b
-Step 45/62 : RUN cd ~ && unzip sqlcl-19.2.1.206.1649.zip
- ---> Running in 68d967b511d6
-Archive:  sqlcl-19.2.1.206.1649.zip
-   creating: sqlcl/
-   creating: sqlcl/bin/
-   creating: sqlcl/lib/
-   creating: sqlcl/lib/ext/
-  inflating: sqlcl/bin/sql           
-  inflating: sqlcl/lib/ojdbc8.jar    
-  inflating: sqlcl/bin/sql.exe       
-  inflating: sqlcl/lib/orai18n.jar   
-  inflating: sqlcl/lib/low-level-api.jar  
-  inflating: sqlcl/lib/slf4j-jdk14.jar  
-  inflating: sqlcl/lib/jansi.jar     
-  inflating: sqlcl/lib/osdt_core.jar  
-  inflating: sqlcl/lib/dbtools-sqlcl.jar  
-  inflating: sqlcl/bin/README.md     
-  inflating: sqlcl/lib/orai18n-utility.jar  
-  inflating: sqlcl/lib/jackson-core.jar  
-  inflating: sqlcl/lib/jaxb-api.jar  
-  inflating: sqlcl/lib/dbtools-http.jar  
-  inflating: sqlcl/lib/httpmime.jar  
-  inflating: sqlcl/lib/httpclient.jar  
-  inflating: sqlcl/lib/jzlib.jar     
-  inflating: sqlcl/lib/sshd-core.jar  
-  inflating: sqlcl/lib/oraclepki.jar  
-  inflating: sqlcl/lib/pom.xml       
-  inflating: sqlcl/lib/xmlparserv2-sans-jaxp-services.jar  
-  inflating: sqlcl/lib/commons-codec.jar  
-  inflating: sqlcl/lib/commons-logging.jar  
-  inflating: sqlcl/lib/sshd-sftp.jar  
-  inflating: sqlcl/lib/jdbcrest.jar  
-  inflating: sqlcl/lib/ext/oracle-liquibase.jar  
-  inflating: sqlcl/lib/xdb6.jar      
-  inflating: sqlcl/lib/antlr-runtime.jar  
-  inflating: sqlcl/lib/jackson-databind.jar  
-  inflating: sqlcl/lib/orajsoda.jar  
-  inflating: sqlcl/lib/ext/liquibase-core.jar  
-  inflating: sqlcl/lib/sshd-scp.jar  
-  inflating: sqlcl/lib/slf4j-api.jar  
-  inflating: sqlcl/lib/jline.jar     
-  inflating: sqlcl/lib/sshd-contrib.jar  
-  inflating: sqlcl/lib/javax.json.jar  
-  inflating: sqlcl/lib/stringtemplate.jar  
-  inflating: sqlcl/lib/jackson-annotations.jar  
-  inflating: sqlcl/lib/httpcore.jar  
-  inflating: sqlcl/lib/dbtools-net.jar  
-  inflating: sqlcl/lib/sshd-common.jar  
-  inflating: sqlcl/lib/osdt_cert.jar  
-  inflating: sqlcl/lib/orai18n-mapping.jar  
-  inflating: sqlcl/lib/dbtools-common.jar  
-Removing intermediate container 68d967b511d6
- ---> 177e0930a799
-Step 46/62 : RUN >${ORACLE_HOME}/network/admin/listener.ora
- ---> Running in ccede2dce9c9
-Removing intermediate container ccede2dce9c9
- ---> ac49bfb725e5
-Step 47/62 : RUN { echo "LISTENER = ";      echo "(DESCRIPTION_LIST = ";      echo "  (DESCRIPTION = ";      echo "    (ADDRESS = (PROTOCOL = IPC)(KEY = EXTPROC1)) ";      echo "    (ADDRESS = (PROTOCOL = TCP)(HOST = 0.0.0.0)(PORT = 1521)) ";      echo "  ) ";      echo ") ";      echo "USE_SID_AS_SERVICE_listener=on";      echo "INBOUND_CONNECT_TIMEOUT_LISTENER=400";    } >> ${ORACLE_HOME}/network/admin/listener.ora
- ---> Running in 875644cf48d6
-Removing intermediate container 875644cf48d6
- ---> f7caec0ef309
-Step 48/62 : RUN >${ORACLE_HOME}/network/admin/tnsnames.ora
- ---> Running in 3c61d7674480
-Removing intermediate container 3c61d7674480
- ---> 809843e08c28
-Step 49/62 : RUN { echo "LISTENER = (ADDRESS = (PROTOCOL = TCP)(HOST = 0.0.0.0)(PORT = 1521))";      echo "${ORACLE_SID}= ";      echo "(DESCRIPTION = ";      echo "  (ADDRESS = (PROTOCOL = TCP)(HOST = 0.0.0.0)(PORT = 1521))";      echo "  (CONNECT_DATA =";      echo "    (SERVER = DEDICATED)";      echo "    (SERVICE_NAME = ${ORACLE_SID})";      echo "  )";      echo ")";      echo "${PDB_NAME}= ";      echo "(DESCRIPTION = ";      echo "  (ADDRESS = (PROTOCOL = TCP)(HOST = 0.0.0.0)(PORT = 1521))";      echo "  (CONNECT_DATA =";      echo "    (SERVER = DEDICATED)";      echo "    (SERVICE_NAME = ${PDB_NAME})";      echo "  )";      echo ")";    } >> ${ORACLE_HOME}/network/admin/tnsnames.ora
- ---> Running in e30891f31899
-Removing intermediate container e30891f31899
- ---> fcab0d6f6b6e
-Step 50/62 : RUN { echo "startup";       echo "alter pluggable database all open;";       echo "show pdbs;";     } >> ~/init_env.sql
- ---> Running in 35e8df6a820d
-Removing intermediate container 35e8df6a820d
- ---> 793c27ccd0d0
-Step 51/62 : RUN { echo "CREATE USER aine IDENTIFIED BY \"ORACLE_PWD\" DEFAULT TABLESPACE USERS TEMPORARY TABLESPACE temp;";       echo "CREATE USER kuraine IDENTIFIED BY \"ORACLE_PWD\" DEFAULT TABLESPACE USERS TEMPORARY TABLESPACE temp;";       echo "CREATE USER nahato IDENTIFIED BY \"ORACLE_PWD\" DEFAULT TABLESPACE USERS TEMPORARY TABLESPACE temp;";       echo "CREATE USER mujiku IDENTIFIED BY \"ORACLE_PWD\" DEFAULT TABLESPACE USERS TEMPORARY TABLESPACE temp;";       echo "GRANT dba TO aine;";       echo "GRANT dba TO kuraine;";       echo "GRANT dba TO nahato;";       echo "GRANT dba TO mujiku;";       echo "GRANT UNLIMITED TABLESPACE TO aine;";       echo "GRANT UNLIMITED TABLESPACE TO kuraine;";       echo "GRANT UNLIMITED TABLESPACE TO nahato;";       echo "GRANT UNLIMITED TABLESPACE TO mujiku;";     } >> ~/create_user.sql
- ---> Running in 019dbdf91004
-Removing intermediate container 019dbdf91004
- ---> f3244f4c4d91
-Step 52/62 : USER root
- ---> Running in f76afde263b1
-Removing intermediate container f76afde263b1
- ---> 1d30423c1fc0
-Step 53/62 : RUN yum -y reinstall glibc-common
- ---> Running in 234f4fcf483d
-Loaded plugins: fastestmirror, ovl
-Loading mirror speeds from cached hostfile
- * base: ftp-srv2.kddilabs.jp
- * epel: nrt.edge.kernel.org
- * extras: ftp-srv2.kddilabs.jp
- * updates: ftp-srv2.kddilabs.jp
-Resolving Dependencies
---> Running transaction check
----> Package glibc-common.x86_64 0:2.17-260.el7_6.6 will be reinstalled
---> Finished Dependency Resolution
-
-Dependencies Resolved
-
-================================================================================
- Package             Arch          Version                 Repository      Size
-================================================================================
-Reinstalling:
- glibc-common        x86_64        2.17-260.el7_6.6        updates         12 M
-
-Transaction Summary
-================================================================================
-Reinstall  1 Package
-
-Total download size: 12 M
-Installed size: 115 M
-Downloading packages:
-Running transaction check
-Running transaction test
-Transaction test succeeded
-Running transaction
-  Installing : glibc-common-2.17-260.el7_6.6.x86_64                         1/1 
-  Verifying  : glibc-common-2.17-260.el7_6.6.x86_64                         1/1 
-
-Installed:
-  glibc-common.x86_64 0:2.17-260.el7_6.6                                        
-
-Complete!
-Removing intermediate container 234f4fcf483d
- ---> 2f37f40f3582
-Step 54/62 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
- ---> Running in 022cca49cc6e
-[91m/usr/share/i18n/locales/ja_JP:11: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:12: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:15: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:18: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:19: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:20: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:21: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:23: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:24: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:25: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:26: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:27: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:28: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:29: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:30: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:31: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:32: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:33: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:42: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/i18n:1425: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/i18n:1674: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/i18n:1719: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/i18n:1756: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/ja_JP:1675: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:1676: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/ja_JP:14945: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:14946: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:14947: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:14948: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:14949: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:14950: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:14951: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:14952: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:14953: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:14954: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:14955: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/translit_neutral:10: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:11: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:12: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:13: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:14: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:15: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:16: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:17: non-symbolic character value should not be used
-[0m[91mLC_ADDRESS: field `country_name' not defined
-LC_ADDRESS: field `country_post' not defined
-LC_ADDRESS: field `country_car' not defined
-LC_ADDRESS: field `country_isbn' not defined
-LC_ADDRESS: field `lang_name' not defined
-LC_ADDRESS: field `lang_term' not defined
-LC_ADDRESS: field `lang_ab' not defined
-LC_TELEPHONE: field `int_select' not defined
-LC_IDENTIFICATION: field `audience' not defined
-LC_IDENTIFICATION: field `application' not defined
-LC_IDENTIFICATION: field `abbreviation' not defined
-LC_IDENTIFICATION: no identification for category `LC_MEASUREMENT'
-[0m[91mLC_CTYPE: table for class "upper": 1756 bytes
-[0m[91mLC_CTYPE: table for class "lower": 1756 bytes
-[0m[91mLC_CTYPE: table for class "alpha": 4320 bytes
-[0m[91mLC_CTYPE: table for class "digit": 600 bytes
-[0m[91mLC_CTYPE: table for class "xdigit": 600 bytes
-[0m[91mLC_CTYPE: table for class "space": 856 bytes
-[0m[91mLC_CTYPE: table for class "print": 5976 bytes
-[0m[91mLC_CTYPE: table for class "graph": 5976 bytes
-[0m[91mLC_CTYPE: table for class "blank": 856 bytes
-[0m[91mLC_CTYPE: table for class "cntrl": 664 bytes
-[0m[91mLC_CTYPE: table for class "punct": 4824 bytes
-[0m[91mLC_CTYPE: table for class "alnum": 4320 bytes
-[0m[91mLC_CTYPE: table for class "combining": 3152 bytes
-[0m[91mLC_CTYPE: table for class "combining_level3": 2832 bytes
-[0m[91mLC_CTYPE: table for class "jspace": 600 bytes
-[0m[91mLC_CTYPE: table for class "jhira": 600 bytes
-[0m[91mLC_CTYPE: table for class "jkata": 664 bytes
-[0m[91mLC_CTYPE: table for class "jkanji": 3224 bytes
-[0m[91mLC_CTYPE: table for class "jdigit": 600 bytes
-[0m[91mLC_CTYPE: table for map "toupper": 16924 bytes
-[0m[91mLC_CTYPE: table for map "tolower": 15388 bytes
-[0m[91mLC_CTYPE: table for map "totitle": 16924 bytes
-LC_CTYPE: table for map "tojhira": 2584 bytes
-LC_CTYPE: table for map "tojkata": 3096 bytes
-[0m[91mLC_CTYPE: table for width: 26712 bytes
-[0m
-Removing intermediate container 022cca49cc6e
- ---> 36afd363a117
-Step 55/62 : ENV LANG=ja_JP.UTF-8
- ---> Running in 203715c36778
-Removing intermediate container 203715c36778
- ---> b7b3d75b2cc5
-Step 56/62 : RUN rm -f /etc/localtime
- ---> Running in 136b09613606
-Removing intermediate container 136b09613606
- ---> 4dd44a8417d1
-Step 57/62 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
- ---> Running in c81db8d70194
-Removing intermediate container c81db8d70194
- ---> 1deea22b8b66
-Step 58/62 : EXPOSE 1521
- ---> Running in 6de2d87f419c
-Removing intermediate container 6de2d87f419c
- ---> f74d9f98ba7f
-Step 59/62 : EXPOSE 5500
- ---> Running in 7c98c59eebf8
-Removing intermediate container 7c98c59eebf8
- ---> 73375a8b2f75
-Step 60/62 : EXPOSE 22
- ---> Running in 73158462864d
-Removing intermediate container 73158462864d
- ---> ada1b6303926
-Step 61/62 : EXPOSE 8787
- ---> Running in e4a8bd60091f
-Removing intermediate container e4a8bd60091f
- ---> 190805cee539
-Step 62/62 : CMD ["/sbin/init"]
- ---> Running in f43c829f6b52
-Removing intermediate container f43c829f6b52
- ---> 46d0e1f12283
-Successfully built 46d0e1f12283
+ ---> fb73e7555cdd
+Step 41/71 : USER rstudio
+ ---> Using cache
+ ---> 5e757b102d6a
+Step 42/71 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> Using cache
+ ---> 3b7a9f117187
+Step 43/71 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> Using cache
+ ---> 7fa3d3643369
+Step 44/71 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
+ ---> Using cache
+ ---> 8d7e0a843fd0
+Step 45/71 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc && echo "export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1" >> ~/.bashrc && echo "export ORACLE_SID=ORCLCDB"  >> ~/.bashrc && echo "export PATH=$PATH:$ORACLE_HOME/bin" >> ~/.bashrc
+ ---> Using cache
+ ---> 3b72389a0884
+Step 46/71 : USER oracle
+ ---> Using cache
+ ---> 9be714ba4d12
+Step 47/71 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> Using cache
+ ---> f7c9c32a0560
+Step 48/71 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> Using cache
+ ---> 0c7f0d33c147
+Step 49/71 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
+ ---> Using cache
+ ---> 8a3ac81e4f87
+Step 50/71 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc && echo "export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1" >> ~/.bashrc && echo "export ORACLE_SID=ORCLCDB"  >> ~/.bashrc && echo "export PATH=$PATH:$ORACLE_HOME/bin:$HOME/sqlcl/bin" >> ~/.bashrc
+ ---> Using cache
+ ---> 2c398c940cef
+Step 51/71 : RUN java -version
+ ---> Using cache
+ ---> 6c8c55149427
+Step 52/71 : COPY sqlcl-19.2.1.206.1649.zip /home/oracle/sqlcl-19.2.1.206.1649.zip
+ ---> Using cache
+ ---> 422d713637c2
+Step 53/71 : RUN cd ~ && unzip sqlcl-19.2.1.206.1649.zip
+ ---> Using cache
+ ---> 90bc40393fa3
+Step 54/71 : USER root
+ ---> Using cache
+ ---> dba79f877eaf
+Step 55/71 : RUN yum -y reinstall glibc-common
+ ---> Using cache
+ ---> 0c183011fc73
+Step 56/71 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
+ ---> Using cache
+ ---> 65b3ba9f7725
+Step 57/71 : ENV LANG=ja_JP.UTF-8
+ ---> Using cache
+ ---> 2ebe3e7799f0
+Step 58/71 : RUN rm -f /etc/localtime
+ ---> Using cache
+ ---> fff578661aa9
+Step 59/71 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+ ---> Using cache
+ ---> fb9e40c7e953
+Step 60/71 : RUN yum install -y vlgothic-*
+ ---> Using cache
+ ---> 5a98710ba8dd
+Step 61/71 : RUN yum install -y PackageKit-gtk3-module
+ ---> Using cache
+ ---> 9b87039db4ba
+Step 62/71 : RUN sed -i '34i export PASSWORD=ORACLE_PWD' /etc/init.d/oracledb_ORCLCDB-19c &&  sed -i '165s;^;#;' /etc/init.d/oracledb_ORCLCDB-19c &&  sed -i '166i $SU -s /bin/bash  $ORACLE_OWNER -c "$DBCA -silent -createDatabase -gdbName $ORACLE_SID -templateName $TEMPLATE_NAME -characterSet $CHARSET -createAsContainerDatabase $CREATE_AS_CDB -numberOfPDBs $NUMBER_OF_PDBS -pdbName $PDB_NAME -pdbAdminPassword $PASSWORD -createListener $LISTENER_NAME:$LISTENER_PORT -datafileDestination $ORACLE_DATA_LOCATION -sid $ORACLE_SID -sysPassword $PASSWORD -systemPassword $PASSWORD -emConfiguration DBEXPRESS -emExpressPort $EM_EXPRESS_PORT"' /etc/init.d/oracledb_ORCLCDB-19c
+ ---> Using cache
+ ---> 2998a883708e
+Step 63/71 : EXPOSE 1521
+ ---> Using cache
+ ---> 6ff26b18eb73
+Step 64/71 : EXPOSE 5500
+ ---> Using cache
+ ---> 259672852507
+Step 65/71 : EXPOSE 22
+ ---> Using cache
+ ---> 1bc9731d60a4
+Step 66/71 : EXPOSE 8787
+ ---> Using cache
+ ---> c1d032a26509
+Step 67/71 : ENV DISPLAY=:0.0
+ ---> Using cache
+ ---> 429293441166
+Step 68/71 : RUN {       echo "#!/bin/bash";       echo "#jdkのパスを標準入力から与えて起動 標準出力とエラー出力をlogに吐くようにして、バッググラウンド起動";       echo "cd ~ && echo /usr/java/jdk1.8.0_221-amd64 | /opt/sqldeveloper/sqldeveloper.sh -conf /opt/sqldeveloper/sqldeveloper/bin/sqldeveloper.conf >launch_sqldeveloper.log 2>&1 &";     } >> ~/launch_sqldeveloper.sh
+ ---> Running in c92e23679d5d
+Removing intermediate container c92e23679d5d
+ ---> cb8cbfbfc83b
+Step 69/71 : RUN chmod +x ~/launch_sqldeveloper.sh
+ ---> Running in 88130a9b1f96
+Removing intermediate container 88130a9b1f96
+ ---> 5a8223613284
+Step 70/71 : RUN {       echo "#!/bin/bash";       echo "cd ~ && time /etc/init.d/oracledb_ORCLCDB-19c configure | tee launch_oracle_database.log";     } >> ~/launch_oracle_database.sh
+ ---> Running in c2905b20dde6
+Removing intermediate container c2905b20dde6
+ ---> a27447245b00
+Step 71/71 : RUN chmod +x ~/launch_oracle_database.sh
+ ---> Running in 5356b18ee965
+Removing intermediate container 5356b18ee965
+ ---> 1a86995d298e
+Successfully built 1a86995d298e
 Successfully tagged centos_oracle:latest

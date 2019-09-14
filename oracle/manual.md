@@ -3,7 +3,7 @@
 docker ps -qa | xargs -I@ bash -c 'docker stop @ && docker rm @'
 ```
 
-# Dockerfileよりイメージ作成
+# dockerイメージ作成
 ```
 time docker build -t centos_oracle . | tee log
 ```
@@ -15,28 +15,15 @@ docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
 
 # dockerコンテナ起動
 ```
-docker run --privileged -v /etc/localtime:/etc/localtime -p 28787:8787 -p 21521:1521 -p 25500:5500 -itd --name oracle --shm-size=8g centos_oracle /sbin/init
+docker run --privileged --shm-size=8gb --name oracle -itd -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 28787:8787 -p 21521:1521 -p 25500:5500 centos_oracle /sbin/init
 ```
 
 # dockerコンテナ潜入
-
 ```
 docker exec --user root -it oracle /bin/bash
 ```
 
 # コンテナ起動後データベース作成
-実行スクリプトのうち下記を修正してから、実行
-## 追加
-export PASSWORD=ORACLE_PWD
-
-## 変更前
-```
-$SU -s /bin/bash  $ORACLE_OWNER -c "$DBCA -silent -createDatabase -gdbName $ORACLE_SID -templateName $TEMPLATE_NAME -characterSet $CHARSET -createAsContainerDatabase $CREATE_AS_CDB -numberOfPDBs $NUMBER_OF_PDBS -pdbName $PDB_NAME -createListener $LISTENER_NAME:$LISTENER_PORT -datafileDestination $ORACLE_DATA_LOCATION -sid $ORACLE_SID -autoGeneratePasswords -emConfiguration DBEXPRESS -emExpressPort $EM_EXPRESS_PORT"
-```
-## 変更後
-```
-$SU -s /bin/bash  $ORACLE_OWNER -c "$DBCA -silent -createDatabase -gdbName $ORACLE_SID -templateName $TEMPLATE_NAME -characterSet $CHARSET -createAsContainerDatabase $CREATE_AS_CDB -numberOfPDBs $NUMBER_OF_PDBS -pdbName $PDB_NAME -pdbAdminPassword $PASSWORD -createListener $LISTENER_NAME:$LISTENER_PORT -datafileDestination $ORACLE_DATA_LOCATION -sid $ORACLE_SID -sysPassword $PASSWORD -systemPassword $PASSWORD -emConfiguration DBEXPRESS -emExpressPort $EM_EXPRESS_PORT"
-```
 14分ぐらい
 ```
 [root@be807f28f5bd /]$time /etc/init.d/oracledb_ORCLCDB-19c configure | tee log

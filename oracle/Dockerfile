@@ -1,4 +1,23 @@
 FROM centos:latest
+#各種X関連コマンドインストール
+RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps
+
+RUN yum install -y java firefox
+
+#Xwindowシステムパッケージいんすこ
+RUN yum groups mark convert
+RUN yum groupinstall -y base "X Window System" --setopt=group_package_types=mandatory,default,optional
+
+#日本語フォントいんすこ
+RUN yum install -y vlgothic-*
+RUN yum install -y fcitx ibus
+
+#guiアプリインストール
+#事前にダウンロードしておき、dockerコンテナにコピー。
+COPY sqldeveloper-19.2.0.206.2117.noarch.rpm /root/sqldeveloper-19.2.0.206.2117.noarch.rpm
+COPY jdk-8u221-linux-x64.rpm /root/jdk-8u221-linux-x64.rpm
+RUN cd ~ && rpm -ivh jdk-8u221-linux-x64.rpm
+RUN cd ~ && rpm -ivh sqldeveloper-19.2.0.206.2117.noarch.rpm
 
 #pre installはユーザー作成とかフォルダとかパッケージとかをまとめていんすこしている
 #main installでpreinstall実施チェックしているから、とりま実行しておくのがよい
@@ -8,13 +27,13 @@ RUN yum -y localinstall oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm && r
 ENV ORACLE_DOCKER_INSTALL=true \
     ORACLE_HOME=/opt/oracle/product/19c/dbhome_1 \
     ORACLE_SID=ORCLCDB \
-    PDB_NAME=ORCLPDB1 \
+    #PDB_NAME=ORCLPDB1 \
     PATH=$PATH:$ORACLE_HOME/bin
 
 #事前にダウンロードしておき、dockerコンテナにコピー。
-COPY oracle-database-ee-19c-1.0-1.x86_64.rpm /oracle-database-ee-19c-1.0-1.x86_64.rpm
+COPY oracle-database-ee-19c-1.0-1.x86_64.rpm /root/oracle-database-ee-19c-1.0-1.x86_64.rpm
 
-RUN yum -y localinstall oracle-database-ee-19c-1.0-1.x86_64.rpm
+RUN yum -y localinstall /root/oracle-database-ee-19c-1.0-1.x86_64.rpm
 
 #ユーザー作成
 RUN groupadd -g 1001 rstudio
@@ -174,7 +193,8 @@ echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
 echo "alias vi=\"sudo vim\"" >> ~/.bashrc && \
 echo "export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1" >> ~/.bashrc && \
 echo "export ORACLE_SID=ORCLCDB"  >> ~/.bashrc && \
-echo "export PATH=$PATH:$ORACLE_HOME/bin:$HOME/sqlcl/bin" >> ~/.bashrc
+echo "export PATH=$PATH:$ORACLE_HOME/bin:$HOME/sqlcl/bin" >> ~/.bashrc && \
+echo "alias sqlplus=\"rlwrap -pRed sqlplus\"" >> ~/.bashrc
 
 #sqlplusの進化版SQLclインストール
 #jdk必要。java製なので。
@@ -193,6 +213,18 @@ ENV LANG=ja_JP.UTF-8
 RUN rm -f /etc/localtime
 RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
+#日本語フォントいんすこ
+RUN yum install -y vlgothic-*
+#以下の対応のためインストール
+#Gtk-Message: 23:27:11.098: Failed to load module "pk-gtk-module"
+RUN yum install -y PackageKit-gtk3-module
+
+#oracleインスタンス起動スクリプト修正
+RUN sed -i '34i export PASSWORD=ORACLE_PWD' /etc/init.d/oracledb_ORCLCDB-19c && \
+ sed -i '165s;^;#;' /etc/init.d/oracledb_ORCLCDB-19c && \
+ sed -i '166i $SU -s /bin/bash  $ORACLE_OWNER -c "$DBCA -silent -createDatabase -gdbName $ORACLE_SID -templateName $TEMPLATE_NAME -characterSet $CHARSET -createAsContainerDatabase $CREATE_AS_CDB -createListener $LISTENER_NAME:$LISTENER_PORT -datafileDestination $ORACLE_DATA_LOCATION -sid $ORACLE_SID -sysPassword $PASSWORD -systemPassword $PASSWORD -emConfiguration DBEXPRESS -emExpressPort $EM_EXPRESS_PORT"' /etc/init.d/oracledb_ORCLCDB-19c
+
+ #sed -i '166i $SU -s /bin/bash  $ORACLE_OWNER -c "$DBCA -silent -createDatabase -gdbName $ORACLE_SID -templateName $TEMPLATE_NAME -characterSet $CHARSET -createAsContainerDatabase $CREATE_AS_CDB -numberOfPDBs $NUMBER_OF_PDBS -pdbName $PDB_NAME -pdbAdminPassword $PASSWORD -createListener $LISTENER_NAME:$LISTENER_PORT -datafileDestination $ORACLE_DATA_LOCATION -sid $ORACLE_SID -sysPassword $PASSWORD -systemPassword $PASSWORD -emConfiguration DBEXPRESS -emExpressPort $EM_EXPRESS_PORT"' /etc/init.d/oracledb_ORCLCDB-19c
 #sqlクライアントサービス外部公開ポート
 EXPOSE 1521
 
@@ -205,4 +237,13 @@ EXPOSE 22
 #rstudioサービス外部公開ポート
 EXPOSE 8787
 
-CMD ["/sbin/init"]
+#XクライアントがXサーバーにGUI転送出来るように、転送先のIPを指定する
+ENV DISPLAY=:0.0
+
+COPY glogin.sql /opt/oracle/product/19c/dbhome_1/sqlplus/admin/glogin.sql
+COPY init_db.sh /home/oracle/init_db.sh
+COPY launch_and_open_db.sql /home/oracle/launch_and_open_db.sql
+COPY regist_listener.sh /home/oracle/regist_listener.sh
+COPY stop_and_start_listener.sh /home/oracle/stop_and_start_listener.sh
+COPY launch_sqldeveloper.sh /home/oracle/launch_sqldeveloper.sh
+COPY stop_and_remove_db.sql /home/oracle/stop_and_remove_db.sql
