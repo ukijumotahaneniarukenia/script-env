@@ -244,5 +244,10 @@ ENV DISPLAY=:0.0
 COPY glogin.sql /opt/oracle/product/19c/dbhome_1/sqlplus/admin/glogin.sql
 COPY init_db.sh /home/oracle/init_db.sh
 COPY launch_and_open_db.sql /home/oracle/launch_and_open_db.sql
+COPY create_user.sql /home/oracle/create_user.sql
 
 RUN chown oracle:oinstall /home/oracle/* && chmod +x /home/oracle/*
+
+USER oracle
+
+WORKDIR /home/oracle

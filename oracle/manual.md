@@ -140,16 +140,6 @@ drwxr-xr-x.  2 oracle oinstall 4096  9月  9 22:11 server
 ./library/OREpredict/doc/man/ja
 ```
 
-# 初期環境準備
-
-```
-DROP USER pdb01;
-CREATE TABLESPACE USERS DATAFILE '/opt/oracle/oradata/ORCLCDB/pdb01/users01.dbf' SIZE 100M AUTOEXTEND ON NEXT 500K MAXSIZE UNLIMITED;
-CREATE USER pdb01 IDENTIFIED BY "ORACLE_PWD" DEFAULT TABLESPACE USERS TEMPORARY TABLESPACE temp;
-GRANT dba TO pdb01;
-GRANT UNLIMITED TABLESPACE TO pdb01;
-```
-
 # 参考文献
 ```
 https://www.sql-dbtips.com/architecture/orapwd/
