@@ -135,7 +135,7 @@ sh installer.sh ~/.vim/bundle
 #guiアプリインストール
 #事前にダウンロードしておき、dockerコンテナにコピー。
 COPY pycharm-community-2019.2.2.tar.gz /home/python/pycharm-community-2019.2.2.tar.gz
-RUN cd ~ && tar -xzf pycharm-community-2019.2.2.tar.gz
+RUN cd ~ && tar -xzf pycharm-community-2019.2.2.tar.gz && chown -R python:python pycharm-community-2019.2.2
 
 #alias設定
 RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
@@ -144,7 +144,7 @@ echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
 echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
 echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
 echo "alias vi=\"sudo vim\"" >> ~/.bashrc && \
-echo "alias pycharm=\"/home/python/pycharm-community-2019.2.2/bin/pycharm.sh >log 2>&1 &\"" >> ~/.bashrc
+echo "alias pycharm=\"sudo /home/python/pycharm-community-2019.2.2/bin/pycharm.sh >log 2>&1 &\"" >> ~/.bashrc
 
 #実行ユーザをrstudioに変更
 USER rstudio
@@ -172,7 +172,7 @@ echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
 echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
 echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
 echo "alias vi=\"sudo vim\"" >> ~/.bashrc && \
-echo "alias pycharm=\"/home/python/pycharm-community-2019.2.2/bin/pycharm.sh >log 2>&1 &\"" >> ~/.bashrc
+echo "alias pycharm=\"sudo /home/python/pycharm-community-2019.2.2/bin/pycharm.sh >log 2>&1 &\"" >> ~/.bashrc
 
 #最後はrootに戻す
 USER root 
@@ -192,5 +192,9 @@ EXPOSE 22
 
 #XクライアントがXサーバーにGUI転送出来るように、転送先のIPを指定する
 ENV DISPLAY=:0.0
+
+USER python
+
+WORKDIR /home/python
 
 CMD ["/sbin/init"]

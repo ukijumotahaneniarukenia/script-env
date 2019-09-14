@@ -1,145 +1,206 @@
 Sending build context to Docker daemon  359.8MB
-Step 1/55 : FROM centos:latest
+Step 1/57 : FROM centos:latest
  ---> 67fa590cfc1c
-Step 2/55 : RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps
+Step 2/57 : RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps
  ---> Using cache
  ---> 60fb85fcb65d
-Step 3/55 : RUN yum install -y java firefox
+Step 3/57 : RUN yum install -y java firefox
  ---> Using cache
  ---> d8279738dbb6
-Step 4/55 : RUN yum groups mark convert
+Step 4/57 : RUN yum groups mark convert
  ---> Using cache
  ---> d4b76280d7a0
-Step 5/55 : RUN yum groupinstall -y base "X Window System" --setopt=group_package_types=mandatory,default,optional
+Step 5/57 : RUN yum groupinstall -y base "X Window System" --setopt=group_package_types=mandatory,default,optional
  ---> Using cache
  ---> 91bf736c5a7f
-Step 6/55 : RUN yum install -y PackageKit-gtk3-module
+Step 6/57 : RUN yum install -y PackageKit-gtk3-module
  ---> Using cache
  ---> be8afe4789ef
-Step 7/55 : RUN yum install -y vlgothic-*
+Step 7/57 : RUN yum install -y vlgothic-*
  ---> Using cache
  ---> c291e002482d
-Step 8/55 : RUN yum install -y fcitx ibus
+Step 8/57 : RUN yum install -y fcitx ibus
  ---> Using cache
  ---> 00ec13168494
-Step 9/55 : RUN groupadd -g 1001 python
+Step 9/57 : RUN groupadd -g 1001 python
  ---> Using cache
  ---> 22a6a01a897d
-Step 10/55 : RUN useradd -m -g python -u 1001 python
+Step 10/57 : RUN useradd -m -g python -u 1001 python
  ---> Using cache
  ---> e2df50a5c6ca
-Step 11/55 : RUN groupadd -g 1002 rstudio
+Step 11/57 : RUN groupadd -g 1002 rstudio
  ---> Using cache
  ---> 3b4287a9c453
-Step 12/55 : RUN useradd -m -g rstudio -u 1002 rstudio
+Step 12/57 : RUN useradd -m -g rstudio -u 1002 rstudio
  ---> Using cache
  ---> 140c68cd5f02
-Step 13/55 : RUN chsh -s /bin/bash python
+Step 13/57 : RUN chsh -s /bin/bash python
  ---> Using cache
  ---> c690d9fb1663
-Step 14/55 : RUN echo 'root_pwd' | passwd --stdin root
+Step 14/57 : RUN echo 'root_pwd' | passwd --stdin root
  ---> Using cache
  ---> 42b25fa441ed
-Step 15/55 : RUN echo 'rstudio_pwd' | passwd --stdin rstudio
+Step 15/57 : RUN echo 'rstudio_pwd' | passwd --stdin rstudio
  ---> Using cache
  ---> 3852fb86bacc
-Step 16/55 : RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+Step 16/57 : RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
  ---> Using cache
  ---> 67b760091171
-Step 17/55 : RUN echo 'python_pwd' | passwd --stdin python
+Step 17/57 : RUN echo 'python_pwd' | passwd --stdin python
  ---> Using cache
  ---> 9bbfd8302b24
-Step 18/55 : RUN echo 'python ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+Step 18/57 : RUN echo 'python ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
  ---> Using cache
  ---> d97e817168f3
-Step 19/55 : RUN yum install -y epel-release
+Step 19/57 : RUN yum install -y epel-release
  ---> Using cache
  ---> b5bd4fb15ed8
-Step 20/55 : RUN yum install -y R
+Step 20/57 : RUN yum install -y R
  ---> Using cache
  ---> a9b33dca9449
-Step 21/55 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man rlwrap
+Step 21/57 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man rlwrap
  ---> Using cache
  ---> 5516480bd605
-Step 22/55 : RUN yum install -y which perl-App-cpanminus wxGTK-devel perl-ExtUtils-Embed perl-File-HomeDir perl-Term-ReadLine-Gnu wxGTK3 cpan
+Step 22/57 : RUN yum install -y which perl-App-cpanminus wxGTK-devel perl-ExtUtils-Embed perl-File-HomeDir perl-Term-ReadLine-Gnu wxGTK3 cpan
  ---> Using cache
  ---> aa6d57121e6c
-Step 23/55 : RUN cd ~ && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && cd Open-usp-Tukubai && make -j12 install
+Step 23/57 : RUN cd ~ && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && cd Open-usp-Tukubai && make -j12 install
  ---> Using cache
  ---> 03e7b1e5bc72
-Step 24/55 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && tar -zxvf gawk-5.0.0.tar.gz && cd gawk-5.0.0 && ./configure && make -j12 && make -j12 install
+Step 24/57 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && tar -zxvf gawk-5.0.0.tar.gz && cd gawk-5.0.0 && ./configure && make -j12 && make -j12 install
  ---> Using cache
  ---> d77e1a966c6e
-Step 25/55 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && tar -zxvf bash-5.0.tar.gz && cd bash-5.0 && ./configure && make -j12 && make -j12 install
+Step 25/57 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && tar -zxvf bash-5.0.tar.gz && cd bash-5.0 && ./configure && make -j12 && make -j12 install
  ---> Using cache
  ---> 35451b587f1d
-Step 26/55 : RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd ~ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
+Step 26/57 : RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd ~ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
  ---> Using cache
  ---> 4e13d40065c8
-Step 27/55 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+Step 27/57 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
  ---> Using cache
  ---> 01f433e65aac
-Step 28/55 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+Step 28/57 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
  ---> Using cache
  ---> 068066a37dfd
-Step 29/55 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
+Step 29/57 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
  ---> Using cache
  ---> 2e166e604e6b
-Step 30/55 : RUN cd ~ && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && tar -zxvf Python-3.7.4.tgz && cd Python-3.7.4 && ./configure && make -j12 && make -j12 install
+Step 30/57 : RUN cd ~ && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && tar -zxvf Python-3.7.4.tgz && cd Python-3.7.4 && ./configure && make -j12 && make -j12 install
  ---> Using cache
  ---> dbeb9c99aff2
-Step 31/55 : RUN cd ~ && curl -LO https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz && tar -xzf perl-5.30.0.tar.gz && cd perl-5.30.0 && ./Configure -des -Dprefix=/usr/local/ && make -j12 && make -j12 install
+Step 31/57 : RUN cd ~ && curl -LO https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz && tar -xzf perl-5.30.0.tar.gz && cd perl-5.30.0 && ./Configure -des -Dprefix=/usr/local/ && make -j12 && make -j12 install
  ---> Using cache
  ---> 8bc7d7d905d6
-Step 32/55 : RUN cd ~ && yum install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && tar jxf parallel-latest.tar.bz2 && cd parallel-20190822 && ./configure && make -j12 && make -j12 install
+Step 32/57 : RUN cd ~ && yum install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && tar jxf parallel-latest.tar.bz2 && cd parallel-20190822 && ./configure && make -j12 && make -j12 install
  ---> Using cache
  ---> 1485db71ed46
-Step 33/55 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias pycharm=\"/home/python/pycharm-community-2019.2.2/bin/pycharm.sh >log 2>&1 &\"" >> ~/.bashrc
+Step 33/57 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias pycharm=\"/home/python/pycharm-community-2019.2.2/bin/pycharm.sh >log 2>&1 &\"" >> ~/.bashrc
  ---> Using cache
  ---> dfeac5295818
-Step 34/55 : USER python
+Step 34/57 : USER python
  ---> Using cache
  ---> be1d4f654c93
-Step 35/55 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+Step 35/57 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
  ---> Using cache
  ---> 489087488fa8
-Step 36/55 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+Step 36/57 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
  ---> Using cache
  ---> 9a04d46b7aae
-Step 37/55 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
+Step 37/57 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
  ---> Using cache
  ---> 8672e8579996
-Step 38/55 : COPY pycharm-community-2019.2.2.tar.gz /home/python/pycharm-community-2019.2.2.tar.gz
+Step 38/57 : COPY pycharm-community-2019.2.2.tar.gz /home/python/pycharm-community-2019.2.2.tar.gz
  ---> Using cache
  ---> 5b2b9cf6e023
-Step 39/55 : RUN cd ~ && tar -xzf pycharm-community-2019.2.2.tar.gz
- ---> Using cache
- ---> 36864e72ed59
-Step 40/55 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc && echo "alias pycharm=\"/home/python/pycharm-community-2019.2.2/bin/pycharm.sh >log 2>&1 &\"" >> ~/.bashrc
- ---> Using cache
- ---> c0e46762b72a
-Step 41/55 : USER rstudio
- ---> Using cache
- ---> a9672e513383
-Step 42/55 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
- ---> Using cache
- ---> e7876502eccf
-Step 43/55 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
- ---> Using cache
- ---> fc6314c43ef2
-Step 44/55 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
- ---> Using cache
- ---> 9871bbe6dcff
-Step 45/55 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc && echo "alias pycharm=\"/home/python/pycharm-community-2019.2.2/bin/pycharm.sh >log 2>&1 &\"" >> ~/.bashrc
- ---> Running in 2d5f22a57096
-Removing intermediate container 2d5f22a57096
- ---> 4fe0a2c363d1
-Step 46/55 : USER root
- ---> Running in 1d6347ac6134
-Removing intermediate container 1d6347ac6134
- ---> ce8aeb5263cc
-Step 47/55 : RUN yum -y reinstall glibc-common
- ---> Running in c150c0c7a346
+Step 39/57 : RUN cd ~ && tar -xzf pycharm-community-2019.2.2.tar.gz && chown -R python:python pycharm-community-2019.2.2
+ ---> Running in 4ce2558d7c2b
+Removing intermediate container 4ce2558d7c2b
+ ---> 307cfe883867
+Step 40/57 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc && echo "alias pycharm=\"sudo /home/python/pycharm-community-2019.2.2/bin/pycharm.sh >log 2>&1 &\"" >> ~/.bashrc
+ ---> Running in 8e3870d71af9
+Removing intermediate container 8e3870d71af9
+ ---> 6b17fed1303f
+Step 41/57 : USER rstudio
+ ---> Running in a35789a0fba9
+Removing intermediate container a35789a0fba9
+ ---> b0d8361fca56
+Step 42/57 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> Running in ab6ec3b3d514
+Cloning into '/home/rstudio/.vim'...
+Removing intermediate container ab6ec3b3d514
+ ---> 73bfba468905
+Step 43/57 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> Running in f6629fc1be27
+Cloning into '/home/rstudio/tmp'...
+Removing intermediate container f6629fc1be27
+ ---> 1c706ce505c2
+Step 44/57 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
+ ---> Running in 2580662847e3
+[91m  % Total    % Received % Xferd  Average Speed   [0m[91mTime    Time     Time  Curr[0m[91ment
+                [0m[91m                [0m[91m Dlo[0m[91mad  Uplo[0m[91mad   Tota[0m[91ml   [0m[91mSpen[0m[91mt   [0m[91m L[0m[91meft [0m[91m Spe[0m[91med[0m[91m
+[0m[91m [0m[91m 0   [0m[91m  0 [0m[91m  [0m[91m 0  [0m[91m   0[0m[91m    [0m[91m0 [0m[91m  [0m[91m  0[0m[91m    [0m[91m  0 [0m[91m    [0m[91m 0[0m[91m --:[0m[91m--[0m[91m:--[0m[91m --[0m[91m:--:[0m[91m-- -[0m[91m-:[0m[91m--:--[0m[91m    [0m[91m 0[0m[91m 85  2233   85  1902    0     0 [0m[91m  4294      0[0m[91m --:--:-- --:--[0m[91m:-- --:--:-- [0m[91m 4293[0m[91m100  2233  100  2[0m[91m233    0 [0m[91m  [0m[91m  0[0m[91m   [0m[91m503[0m[91m5  [0m[91m   [0m[91m 0 --[0m[91m:--:-- [0m[91m--:--:[0m[91m-- --:--:--  502[0m[91m9
+[0mInstall to "/home/rstudio/.vim/bundle/repos/github.com/Shougo/dein.vim"...
+
+git is /usr/bin/git
+
+Begin fetching dein...
+Cloning into '/home/rstudio/.vim/bundle/repos/github.com/Shougo/dein.vim'...
+Done.
+
+Please add the following settings for dein to the top of your vimrc (Vim) or init.vim (NeoVim) file:
+
+
+"dein Scripts-----------------------------
+if &compatible
+  set nocompatible               " Be iMproved
+endif
+
+" Required:
+set runtimepath+=/home/rstudio/.vim/bundle/repos/github.com/Shougo/dein.vim
+
+" Required:
+if dein#load_state('/home/rstudio/.vim/bundle')
+  call dein#begin('/home/rstudio/.vim/bundle')
+
+  " Let dein manage dein
+  " Required:
+  call dein#add('/home/rstudio/.vim/bundle/repos/github.com/Shougo/dein.vim')
+
+  " Add or remove your plugins here like this:
+  "call dein#add('Shougo/neosnippet.vim')
+  "call dein#add('Shougo/neosnippet-snippets')
+
+  " Required:
+  call dein#end()
+  call dein#save_state()
+endif
+
+" Required:
+filetype plugin indent on
+syntax enable
+
+" If you want to install not installed plugins on startup.
+"if dein#check_install()
+"  call dein#install()
+"endif
+
+"End dein Scripts-------------------------
+
+
+Done.
+Complete setup dein!
+Removing intermediate container 2580662847e3
+ ---> 947cfa262b48
+Step 45/57 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc && echo "alias pycharm=\"sudo /home/python/pycharm-community-2019.2.2/bin/pycharm.sh >log 2>&1 &\"" >> ~/.bashrc
+ ---> Running in 960ef44d530c
+Removing intermediate container 960ef44d530c
+ ---> ab1b8c07d8d8
+Step 46/57 : USER root
+ ---> Running in 56ea844f24e7
+Removing intermediate container 56ea844f24e7
+ ---> 2c4c319592a2
+Step 47/57 : RUN yum -y reinstall glibc-common
+ ---> Running in a859739ea703
 Loaded plugins: aliases, changelog, fastestmirror, kabi, langpacks, ovl,
               : tmprepo, verify, versionlock
 Loading support for Red Hat kernel ABI
@@ -179,10 +240,10 @@ Installed:
   glibc-common.x86_64 0:2.17-260.el7_6.6                                        
 
 Complete!
-Removing intermediate container c150c0c7a346
- ---> cbaee992bb35
-Step 48/55 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
- ---> Running in 3cec6409518b
+Removing intermediate container a859739ea703
+ ---> fc9fb4940e37
+Step 48/57 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
+ ---> Running in 0131ba98a368
 [91m/usr/share/i18n/locales/ja_JP:11: non-symbolic character value should not be used
 /usr/share/i18n/locales/ja_JP:12: non-symbolic character value should not be used
 /usr/share/i18n/locales/ja_JP:15: non-symbolic character value should not be used
@@ -201,7 +262,7 @@ Step 48/55 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
 /usr/share/i18n/locales/ja_JP:31: non-symbolic character value should not be used
 /usr/share/i18n/locales/ja_JP:32: non-symbolic character value should not be used
 /usr/share/i18n/locales/ja_JP:33: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/ja_JP:42: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:42: non-symbolic character value should not be used
 [0m[91m/usr/share/i18n/locales/i18n:1425: non-symbolic character value should not be used
 [0m[91m/usr/share/i18n/locales/i18n:1674: non-symbolic character value should not be used
 [0m[91m/usr/share/i18n/locales/i18n:1719: non-symbolic character value should not be used
@@ -226,7 +287,7 @@ Step 48/55 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
 /usr/share/i18n/locales/translit_neutral:14: non-symbolic character value should not be used
 /usr/share/i18n/locales/translit_neutral:15: non-symbolic character value should not be used
 /usr/share/i18n/locales/translit_neutral:16: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:17: non-symbolic character value should not be used
+[0m[91m/usr/share/i18n/locales/translit_neutral:17: non-symbolic character value should not be used
 [0m[91mLC_ADDRESS: field `country_name' not defined
 LC_ADDRESS: field `country_post' not defined
 LC_ADDRESS: field `country_car' not defined
@@ -259,41 +320,49 @@ LC_IDENTIFICATION: no identification for category `LC_MEASUREMENT'
 [0m[91mLC_CTYPE: table for class "jkanji": 3224 bytes
 [0m[91mLC_CTYPE: table for class "jdigit": 600 bytes
 LC_CTYPE: table for map "toupper": 16924 bytes
-LC_CTYPE: table for map "tolower": 15388 bytes
-[0m[91mLC_CTYPE: table for map "totitle": 16924 bytes
+[0m[91mLC_CTYPE: table for map "tolower": 15388 bytes
+LC_CTYPE: table for map "totitle": 16924 bytes
 LC_CTYPE: table for map "tojhira": 2584 bytes
 LC_CTYPE: table for map "tojkata": 3096 bytes
 [0m[91mLC_CTYPE: table for width: 26712 bytes
 [0m
-Removing intermediate container 3cec6409518b
- ---> 19fccb9a0310
-Step 49/55 : ENV LANG=ja_JP.UTF-8
- ---> Running in 1b39d3ebd8a7
-Removing intermediate container 1b39d3ebd8a7
- ---> 1b9357418929
-Step 50/55 : RUN rm -f /etc/localtime
- ---> Running in 5dad6e5284e3
-Removing intermediate container 5dad6e5284e3
- ---> d42f866cd642
-Step 51/55 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
- ---> Running in 842d3ad15112
-Removing intermediate container 842d3ad15112
- ---> fc776982bbe3
-Step 52/55 : EXPOSE 8787
- ---> Running in 773c9446fc7f
-Removing intermediate container 773c9446fc7f
- ---> c18794318f77
-Step 53/55 : EXPOSE 22
- ---> Running in f2f83bd73477
-Removing intermediate container f2f83bd73477
- ---> 4a4de2f29be2
-Step 54/55 : ENV DISPLAY=:0.0
- ---> Running in 9bb87fd29759
-Removing intermediate container 9bb87fd29759
- ---> 8729909fc92d
-Step 55/55 : CMD ["/sbin/init"]
- ---> Running in 3c8fd15c1402
-Removing intermediate container 3c8fd15c1402
- ---> f9be7f947879
-Successfully built f9be7f947879
+Removing intermediate container 0131ba98a368
+ ---> b385bf3ad041
+Step 49/57 : ENV LANG=ja_JP.UTF-8
+ ---> Running in 90371e1a3391
+Removing intermediate container 90371e1a3391
+ ---> 7f018561eaab
+Step 50/57 : RUN rm -f /etc/localtime
+ ---> Running in 173fd24e8edc
+Removing intermediate container 173fd24e8edc
+ ---> b81a4fd7d8c5
+Step 51/57 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+ ---> Running in 6bddc3bfbe53
+Removing intermediate container 6bddc3bfbe53
+ ---> 1ca1e3d83f6e
+Step 52/57 : EXPOSE 8787
+ ---> Running in de3d8069616a
+Removing intermediate container de3d8069616a
+ ---> f08347862ee8
+Step 53/57 : EXPOSE 22
+ ---> Running in 5e59afd9b255
+Removing intermediate container 5e59afd9b255
+ ---> fe1151244399
+Step 54/57 : ENV DISPLAY=:0.0
+ ---> Running in 3c44ba09945c
+Removing intermediate container 3c44ba09945c
+ ---> 7e6fe64ef1da
+Step 55/57 : USER python
+ ---> Running in b6ef3b65beb8
+Removing intermediate container b6ef3b65beb8
+ ---> a9a82e0bc5e9
+Step 56/57 : WORKDIR /home/python
+ ---> Running in 1c15e428b26f
+Removing intermediate container 1c15e428b26f
+ ---> 07cb566663d2
+Step 57/57 : CMD ["/sbin/init"]
+ ---> Running in 04c7d968d6c0
+Removing intermediate container 04c7d968d6c0
+ ---> 8304a51a5354
+Successfully built 8304a51a5354
 Successfully tagged centos_python:latest
