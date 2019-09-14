@@ -8,7 +8,6 @@ RUN yum install -y java firefox
 #Xwindowシステムパッケージいんすこ
 RUN yum groups mark convert
 RUN yum groupinstall -y base "X Window System" --setopt=group_package_types=mandatory,default,optional
-RUN yum install -y PackageKit-gtk3-module
 
 #日本語フォントいんすこ
 RUN yum install -y vlgothic-*
@@ -18,6 +17,8 @@ RUN yum install -y fcitx ibus
 #事前にダウンロードしておき、dockerコンテナにコピー。
 COPY sqldeveloper-19.2.0.206.2117.noarch.rpm /root/sqldeveloper-19.2.0.206.2117.noarch.rpm
 COPY jdk-8u221-linux-x64.rpm /root/jdk-8u221-linux-x64.rpm
+RUN cd ~ && rpm -ivh jdk-8u221-linux-x64.rpm
+RUN cd ~ && rpm -ivh sqldeveloper-19.2.0.206.2117.noarch.rpm
 
 #pre installはユーザー作成とかフォルダとかパッケージとかをまとめていんすこしている
 #main installでpreinstall実施チェックしているから、とりま実行しておくのがよい
@@ -211,6 +212,20 @@ RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
 ENV LANG=ja_JP.UTF-8
 RUN rm -f /etc/localtime
 RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+
+#日本語フォントいんすこ
+RUN yum install -y vlgothic-*
+#以下の対応のためインストール
+#Gtk-Message: 23:27:11.098: Failed to load module "pk-gtk-module"
+RUN yum install -y PackageKit-gtk3-module
+
+#oracleインスタンス起動スクリプト修正
+RUN sed -i '34i export PASSWORD=ORACLE_PWD' /etc/init.d/oracledb_ORCLCDB-19c && \
+ sed -i '165s;^;#;' /etc/init.d/oracledb_ORCLCDB-19c && \
+ sed -i '166i $SU -s /bin/bash  $ORACLE_OWNER -c "$DBCA -silent -createDatabase -gdbName $ORACLE_SID -templateName $TEMPLATE_NAME -characterSet $CHARSET -createAsContainerDatabase $CREATE_AS_CDB -numberOfPDBs $NUMBER_OF_PDBS -pdbName $PDB_NAME -pdbAdminPassword $PASSWORD -createListener $LISTENER_NAME:$LISTENER_PORT -datafileDestination $ORACLE_DATA_LOCATION -sid $ORACLE_SID -sysPassword $PASSWORD -systemPassword $PASSWORD -emConfiguration DBEXPRESS -emExpressPort $EM_EXPRESS_PORT"' /etc/init.d/oracledb_ORCLCDB-19c
+
+#oracleデータベース作成＆起動
+#RUN cd ~ && time /etc/init.d/oracledb_ORCLCDB-19c configure | tee log
 
 #sqlクライアントサービス外部公開ポート
 EXPOSE 1521
