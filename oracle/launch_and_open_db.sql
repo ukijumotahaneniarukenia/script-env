@@ -1,7 +1,7 @@
 set serveroutput on
 set timing on
 begin
-    for i in 1..2 loop
+    for i in 1..'&1' loop
         begin
             dbms_output.put_line('create pluggable database orclpdb'||lpad(i,2,0)||' file_name_convert = ('||''''||'/opt/oracle/oradata/ORCLCDB/pdbseed'||''''||','||''''||'/opt/oracle/oradata/ORCLCDB/pdb'||lpad(i,2,0)||''''||')'); 
             execute immediate 'create pluggable database orclpdb'||lpad(i,2,0)||' file_name_convert = ('||''''||'/opt/oracle/oradata/ORCLCDB/pdbseed'||''''||','||''''||'/opt/oracle/oradata/ORCLCDB/pdb'||lpad(i,2,0)||''''||')';
