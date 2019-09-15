@@ -4,9 +4,14 @@ FROM centos:latest
 RUN groupadd -g 1001 rstudio
 RUN useradd -m -g rstudio -u 1001 rstudio
 RUN chsh -s /bin/bash rstudio
+RUN groupadd -g 1002 perl
+RUN useradd -m -g perl -u 1002 perl
+RUN chsh -s /bin/bash perl
 RUN echo 'root_pwd' | passwd --stdin root
 RUN echo 'rstudio_pwd' | passwd --stdin rstudio
 RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+RUN echo 'perl_pwd' | passwd --stdin perl
+RUN echo 'perl ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 #各種コマンドインストール
 RUN yum install -y epel-release
@@ -62,7 +67,7 @@ rm -rf ~/tmp
 #vim plugin manager
 RUN mkdir -p ~/.vim/bundle && \
 cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
-sh installer.sh ~/.vim/bundle
+sh installer.sh ~/.vim/bundle && rm -rf installer.sh
 
 #python install
 RUN cd ~ && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && \
@@ -111,7 +116,7 @@ rm -rf ~/tmp
 #vim plugin manager
 RUN mkdir -p ~/.vim/bundle && \
 cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
-sh installer.sh ~/.vim/bundle
+sh installer.sh ~/.vim/bundle && rm -rf installer.sh
 
 #alias設定
 RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
@@ -121,8 +126,60 @@ echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
 echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
 echo "alias vi=\"sudo vim\"" >> ~/.bashrc
 
+#実行ユーザをperlに変更
+USER perl
+
+#自身のvim環境をクローン
+RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+
+#自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
+RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
+cd ~/tmp && \
+#移動したいdotfileをchoiceしてHOMEディレクトリへ
+mv rc/.[^.]* ~ && \
+#用が済んだらリム
+rm -rf ~/tmp
+
+#vim plugin manager
+RUN mkdir -p ~/.vim/bundle && \
+cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
+sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+
+#alias設定
+RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
+echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
+echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
+echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
+echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
+echo "alias vi=\"sudo vim\"" >> ~/.bashrc && \
+echo "alias idea=\"/home/perl/idea-IC-192.6603.28/bin/idea.sh >~/launch_idea.log 2>&1 &\"" >> ~/.bashrc
+
+#guiアプリインストール
+#事前にダウンロードしておき、dockerコンテナにコピー。
+COPY ideaIC-2019.2.2.tar.gz /home/perl/ideaIC-2019.2.2.tar.gz
+RUN cd ~ && tar -xzf ideaIC-2019.2.2.tar.gz && sudo chown -R perl:perl idea-IC-192.6603.28
+
+#プラグインマウント
+COPY perl5.plugin-2019.2.2.zip /home/perl/perl5.plugin-2019.2.2.zip
+RUN cd ~ && unzip perl5.plugin-2019.2.2.zip && sudo chown -R perl:perl perl5.plugin
+
 #最後はrootに戻す
 USER root 
+
+#各種X関連コマンドインストール
+RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps
+
+RUN yum install -y java firefox
+
+#Xwindowシステムパッケージいんすこ
+RUN yum -y groupinstall "X Window System"
+#以下の対応のためインストール
+#Gtk-Message: 23:27:11.098: Failed to load module "pk-gtk-module"
+RUN yum install -y PackageKit-gtk3-module
+
+#日本語フォントいんすこ
+RUN yum install -y vlgothic-*
+RUN yum install -y fcitx ibus
 
 #日本語環境と時刻合わせ
 RUN yum -y reinstall glibc-common
@@ -136,5 +193,12 @@ EXPOSE 22
 
 #rstudioサービス外部公開ポート
 EXPOSE 8787
+
+#XクライアントがXサーバーにGUI転送出来るように、転送先のIPを指定する
+ENV DISPLAY=:0.0
+
+USER perl
+
+WORKDIR /home/perl
 
 CMD ["/sbin/init"]
