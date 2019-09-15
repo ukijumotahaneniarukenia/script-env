@@ -159,6 +159,10 @@ COPY Komodo-IDE-11.1.1-91089-linux-x86_64.tar.gz /home/php/Komodo-IDE-11.1.1-910
 RUN cd ~ && tar -xzf Komodo-IDE-11.1.1-91089-linux-x86_64.tar.gz
 RUN sudo ln -fsr "/home/php/Komodo-IDE-11/bin/komodo" /usr/local/bin/komodo
 
+#phpいんすこ
+RUN sudo yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm && \
+ sudo yum -y install --enablerepo=remi,remi-php73 php php-devel php-mbstring php-pdo php-gd php-xml php-mcrypt
+
 USER root
 
 #各種X関連コマンドインストール
