@@ -151,7 +151,7 @@ echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
 echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
 echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
 echo "alias vi=\"sudo vim\"" >> ~/.bashrc && \
-echo "alias komodo=\"komodo > ~launch_komodo.log 2>&1 &\"" >> ~/.bashrc && \
+echo "alias komodo=\"komodo > ~/launch_komodo.log 2>&1 &\"" >> ~/.bashrc && \
 echo "export PATH=\"/home/php/Komodo-IDE-11/bin:$PATH\"" >> ~/.bashrc
 
 #komodoエディタいんすこ
