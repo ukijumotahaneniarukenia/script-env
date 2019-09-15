@@ -154,14 +154,14 @@ echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
 echo "alias vi=\"sudo vim\"" >> ~/.bashrc && \
 echo "alias idea=\"/home/perl/idea-IC-192.6603.28/bin/idea.sh >~/launch_idea.log 2>&1 &\"" >> ~/.bashrc
 
-#guiアプリインストール
-#事前にダウンロードしておき、dockerコンテナにコピー。
-COPY ideaIC-2019.2.2.tar.gz /home/perl/ideaIC-2019.2.2.tar.gz
-RUN cd ~ && tar -xzf ideaIC-2019.2.2.tar.gz && sudo chown -R perl:perl idea-IC-192.6603.28
-
 #プラグインマウント
 COPY perl5.plugin-2019.2.2.zip /home/perl/perl5.plugin-2019.2.2.zip
 RUN cd ~ && unzip perl5.plugin-2019.2.2.zip && sudo chown -R perl:perl perl5.plugin
+
+#guiアプリインストール
+#事前にダウンロードしておき、dockerコンテナにコピー。
+COPY ideaIC-2019.2.2.tar.gz /home/perl/ideaIC-2019.2.2.tar.gz
+RUN cd ~ && tar -xzf ideaIC-2019.2.2.tar.gz && chown -R perl:perl idea-IC-192.6603.28
 
 #最後はrootに戻す
 USER root 

@@ -107,19 +107,13 @@ Step 36/59 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubuserco
  ---> Using cache
  ---> 3310e3af3a23
 Step 37/59 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc && echo "alias idea=\"/home/perl/idea-IC-192.6603.28/bin/idea.sh >~/launch_idea.log 2>&1 &\"" >> ~/.bashrc
- ---> Using cache
- ---> a6eaeee2783c
-Step 38/59 : COPY ideaIC-2019.2.2.tar.gz /home/perl/ideaIC-2019.2.2.tar.gz
- ---> Using cache
- ---> 18f9a948a02b
-Step 39/59 : RUN cd ~ && tar -xzf ideaIC-2019.2.2.tar.gz && sudo chown -R perl:perl idea-IC-192.6603.28
- ---> Using cache
- ---> e2a8de581fc1
-Step 40/59 : COPY perl5.plugin-2019.2.2.zip /home/perl/perl5.plugin-2019.2.2.zip
- ---> Using cache
- ---> 89441b24c5e9
-Step 41/59 : RUN cd ~ && unzip perl5.plugin-2019.2.2.zip && sudo chown -R perl:perl perl5.plugin
- ---> Running in eb71026b3d34
+ ---> Running in 28addbed0696
+Removing intermediate container 28addbed0696
+ ---> f2a4c3f2b3d6
+Step 38/59 : COPY perl5.plugin-2019.2.2.zip /home/perl/perl5.plugin-2019.2.2.zip
+ ---> 75af4f1e61e0
+Step 39/59 : RUN cd ~ && unzip perl5.plugin-2019.2.2.zip && sudo chown -R perl:perl perl5.plugin
+ ---> Running in e0989452f196
 Archive:  perl5.plugin-2019.2.2.zip
    creating: perl5.plugin/
    creating: perl5.plugin/lib/
@@ -137,18 +131,24 @@ Archive:  perl5.plugin-2019.2.2.zip
   inflating: perl5.plugin/perl/xs_parser_simple.pl  
   inflating: perl5.plugin/lib/searchableOptions-2019.2.2.jar  
   inflating: perl5.plugin/lib/searchableOptions-192.5587.17-EAP-SNAPSHOT.jar  
-Removing intermediate container eb71026b3d34
- ---> 07b0462fec81
+Removing intermediate container e0989452f196
+ ---> a0be5046ba5e
+Step 40/59 : COPY ideaIC-2019.2.2.tar.gz /home/perl/ideaIC-2019.2.2.tar.gz
+ ---> 074bc13e934a
+Step 41/59 : RUN cd ~ && tar -xzf ideaIC-2019.2.2.tar.gz && chown -R perl:perl idea-IC-192.6603.28
+ ---> Running in 20a35f5b773a
+Removing intermediate container 20a35f5b773a
+ ---> dc8b55a9aaed
 Step 42/59 : USER root
- ---> Running in 89f3f9756e90
-Removing intermediate container 89f3f9756e90
- ---> 908474c932b9
+ ---> Running in d653b9902905
+Removing intermediate container d653b9902905
+ ---> 46262af9b282
 Step 43/59 : RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps
- ---> Running in 799bc0fd1193
+ ---> Running in 34c1aff21485
 Loaded plugins: fastestmirror, ovl
 Loading mirror speeds from cached hostfile
  * base: ty1.mirror.newmediaexpress.com
- * epel: ftp.riken.jp
+ * epel: nrt.edge.kernel.org
  * extras: ty1.mirror.newmediaexpress.com
  * updates: ty1.mirror.newmediaexpress.com
 Resolving Dependencies
@@ -184,7 +184,7 @@ Total download size: 1.0 M
 Installed size: 2.6 M
 Downloading packages:
 --------------------------------------------------------------------------------
-Total                                              4.8 MB/s | 1.0 MB  00:00     
+Total                                              2.2 MB/s | 1.0 MB  00:00     
 Running transaction check
 Running transaction test
 Transaction test succeeded
@@ -208,10 +208,10 @@ Dependency Installed:
   libXxf86misc.x86_64 0:1.0.3-7.1.el7      libxkbfile.x86_64 0:1.0.9-3.el7     
 
 Complete!
-Removing intermediate container 799bc0fd1193
- ---> 1e4acaf6a5af
+Removing intermediate container 34c1aff21485
+ ---> 10da34a1da14
 Step 44/59 : RUN yum install -y java firefox
- ---> Running in 16f6360e8e3e
+ ---> Running in 82bbb962c44e
 Loaded plugins: fastestmirror, ovl
 Loading mirror speeds from cached hostfile
  * base: ty1.mirror.newmediaexpress.com
@@ -258,7 +258,7 @@ Total download size: 91 M
 Installed size: 209 M
 Downloading packages:
 --------------------------------------------------------------------------------
-Total                                               16 MB/s |  91 MB  00:05     
+Total                                              8.1 MB/s |  91 MB  00:11     
 Running transaction check
 Running transaction test
 Transaction test succeeded
@@ -287,10 +287,10 @@ Dependency Installed:
   xcb-util.x86_64 0:0.4.0-2.el7                                                 
 
 Complete!
-Removing intermediate container 16f6360e8e3e
- ---> 6d8476b83f5b
+Removing intermediate container 82bbb962c44e
+ ---> 82438ca4fd43
 Step 45/59 : RUN yum -y groupinstall "X Window System"
- ---> Running in eaa1de2718fb
+ ---> Running in f3b8b8768415
 Loaded plugins: fastestmirror, ovl
 [91mThere is no installed groups file.
 Maybe run: yum groups mark convert (see man yum)
@@ -1059,7 +1059,7 @@ Installed size: 676 M
 Downloading packages:
 Delta RPMs disabled because /usr/bin/applydeltarpm not installed.
 --------------------------------------------------------------------------------
-Total                                               19 MB/s | 250 MB  00:13     
+Total                                               13 MB/s | 250 MB  00:19     
 Running transaction check
 Running transaction test
 Transaction test succeeded
@@ -1755,10 +1755,10 @@ Dependency Installed:
   zenity.x86_64 0:3.28.1-1.el7                                                  
 
 Complete!
-Removing intermediate container eaa1de2718fb
- ---> 17d17162478b
+Removing intermediate container f3b8b8768415
+ ---> 60f2162ea5b8
 Step 46/59 : RUN yum install -y PackageKit-gtk3-module
- ---> Running in d3c77622f09b
+ ---> Running in 3bf9e278adee
 Loaded plugins: fastestmirror, ovl
 Loading mirror speeds from cached hostfile
  * base: ty1.mirror.newmediaexpress.com
@@ -1792,7 +1792,7 @@ Total download size: 140 k
 Installed size: 502 k
 Downloading packages:
 --------------------------------------------------------------------------------
-Total                                              1.6 MB/s | 140 kB  00:00     
+Total                                              1.2 MB/s | 140 kB  00:00     
 Running transaction check
 Running transaction test
 Transaction test succeeded
@@ -1809,10 +1809,10 @@ Dependency Installed:
   PackageKit-glib.x86_64 0:1.1.10-1.el7.centos                                  
 
 Complete!
-Removing intermediate container d3c77622f09b
- ---> 530b6aebeab6
+Removing intermediate container 3bf9e278adee
+ ---> 5f1b009a9bed
 Step 47/59 : RUN yum install -y vlgothic-*
- ---> Running in dff32d82e476
+ ---> Running in e44b0cd49126
 Loaded plugins: fastestmirror, ovl
 Loading mirror speeds from cached hostfile
  * base: ty1.mirror.newmediaexpress.com
@@ -1842,7 +1842,7 @@ Total download size: 4.4 M
 Installed size: 7.9 M
 Downloading packages:
 --------------------------------------------------------------------------------
-Total                                              7.8 MB/s | 4.4 MB  00:00     
+Total                                              2.1 MB/s | 4.4 MB  00:02     
 Running transaction check
 Running transaction test
 Transaction test succeeded
@@ -1857,10 +1857,10 @@ Installed:
   vlgothic-p-fonts.noarch 0:20130607-2.el7                                      
 
 Complete!
-Removing intermediate container dff32d82e476
- ---> 48f5460ac4ca
+Removing intermediate container e44b0cd49126
+ ---> f6d47ad66d01
 Step 48/59 : RUN yum install -y fcitx ibus
- ---> Running in 4337aaa0cb19
+ ---> Running in 2f828e70c9ea
 Loaded plugins: fastestmirror, ovl
 Loading mirror speeds from cached hostfile
  * base: ty1.mirror.newmediaexpress.com
@@ -1961,7 +1961,7 @@ Total download size: 25 M
 Installed size: 100 M
 Downloading packages:
 --------------------------------------------------------------------------------
-Total                                              8.3 MB/s |  25 MB  00:03     
+Total                                              6.4 MB/s |  25 MB  00:03     
 Running transaction check
 Running transaction test
 Transaction test succeeded
@@ -2031,10 +2031,10 @@ Dependency Installed:
   qt-x11.x86_64 1:4.8.7-3.el7_6                                                 
 
 Complete!
-Removing intermediate container 4337aaa0cb19
- ---> 2278bb2a8c3c
+Removing intermediate container 2f828e70c9ea
+ ---> e7ac900a5429
 Step 49/59 : RUN yum -y reinstall glibc-common
- ---> Running in 96496ae838a4
+ ---> Running in 1d95f732e69c
 Loaded plugins: fastestmirror, ovl
 Loading mirror speeds from cached hostfile
  * base: ty1.mirror.newmediaexpress.com
@@ -2072,10 +2072,10 @@ Installed:
   glibc-common.x86_64 0:2.17-260.el7_6.6                                        
 
 Complete!
-Removing intermediate container 96496ae838a4
- ---> 01bac39e7b42
+Removing intermediate container 1d95f732e69c
+ ---> d7bc89bcd70d
 Step 50/59 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
- ---> Running in 8011bfd99293
+ ---> Running in dd62c4c5f20c
 [91m/usr/share/i18n/locales/ja_JP:11: non-symbolic character value should not be used
 /usr/share/i18n/locales/ja_JP:12: non-symbolic character value should not be used
 /usr/share/i18n/locales/ja_JP:15: non-symbolic character value should not be used
@@ -2117,9 +2117,9 @@ Step 50/59 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
 /usr/share/i18n/locales/translit_neutral:12: non-symbolic character value should not be used
 /usr/share/i18n/locales/translit_neutral:13: non-symbolic character value should not be used
 /usr/share/i18n/locales/translit_neutral:14: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:15: [0m[91mnon-symbolic character value should not be used
+/usr/share/i18n/locales/translit_neutral:15: non-symbolic character value should not be used
 /usr/share/i18n/locales/translit_neutral:16: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:17: non-symbolic character value should not be used[0m[91m
+/usr/share/i18n/locales/translit_neutral:17: non-symbolic character value should not be used
 [0m[91mLC_ADDRESS: field `country_name' not defined
 LC_ADDRESS: field `country_post' not defined
 LC_ADDRESS: field `country_car' not defined
@@ -2151,50 +2151,50 @@ LC_IDENTIFICATION: no identification for category `LC_MEASUREMENT'
 [0m[91mLC_CTYPE: table for class "jkata": 664 bytes
 [0m[91mLC_CTYPE: table for class "jkanji": 3224 bytes
 [0m[91mLC_CTYPE: table for class "jdigit": 600 bytes
-LC_CTYPE: table for map "toupper": 16924 bytes
+[0m[91mLC_CTYPE: table for map "toupper": 16924 bytes
 [0m[91mLC_CTYPE: table for map "tolower": 15388 bytes
 [0m[91mLC_CTYPE: table for map "totitle": 16924 bytes
-LC_CTYPE: table for map "tojhira": 2584 bytes
+[0m[91mLC_CTYPE: table for map "tojhira": 2584 bytes
 [0m[91mLC_CTYPE: table for map "tojkata": 3096 bytes
 [0m[91mLC_CTYPE: table for width: 26712 bytes
 [0m
-Removing intermediate container 8011bfd99293
- ---> 3230b04c649e
+Removing intermediate container dd62c4c5f20c
+ ---> f9e956e8037b
 Step 51/59 : ENV LANG=ja_JP.UTF-8
- ---> Running in 0742663c7070
-Removing intermediate container 0742663c7070
- ---> fcbe7ed12cff
+ ---> Running in f44b02ca0a19
+Removing intermediate container f44b02ca0a19
+ ---> 94991ae4f4ba
 Step 52/59 : RUN rm -f /etc/localtime
- ---> Running in c9b5ba828673
-Removing intermediate container c9b5ba828673
- ---> 881a13609447
+ ---> Running in 9bf528da4aaf
+Removing intermediate container 9bf528da4aaf
+ ---> bbb0de708175
 Step 53/59 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
- ---> Running in cf27999abece
-Removing intermediate container cf27999abece
- ---> 240bb5493a22
+ ---> Running in 0568fbbdb9f3
+Removing intermediate container 0568fbbdb9f3
+ ---> e8eed267c015
 Step 54/59 : EXPOSE 22
- ---> Running in 79899b0df6dc
-Removing intermediate container 79899b0df6dc
- ---> 04faa49e2819
+ ---> Running in 7e5a5fe3ee0b
+Removing intermediate container 7e5a5fe3ee0b
+ ---> 77c05e31f753
 Step 55/59 : EXPOSE 8787
- ---> Running in 3791f566be9e
-Removing intermediate container 3791f566be9e
- ---> 3908ea3cfd09
+ ---> Running in 4c748c37a3d8
+Removing intermediate container 4c748c37a3d8
+ ---> ff4f4cfa7fcb
 Step 56/59 : ENV DISPLAY=:0.0
- ---> Running in 30ee8f8f6412
-Removing intermediate container 30ee8f8f6412
- ---> c95932a497f3
+ ---> Running in 3fcfcc70b2af
+Removing intermediate container 3fcfcc70b2af
+ ---> aad9956f5ff6
 Step 57/59 : USER perl
- ---> Running in 78d62dbec8d8
-Removing intermediate container 78d62dbec8d8
- ---> 2b8423c9608a
+ ---> Running in 944068e5f681
+Removing intermediate container 944068e5f681
+ ---> d9145c86ab02
 Step 58/59 : WORKDIR /home/perl
- ---> Running in 76f129207e44
-Removing intermediate container 76f129207e44
- ---> 6c3f122d90d6
+ ---> Running in ea6233ac5c56
+Removing intermediate container ea6233ac5c56
+ ---> 1f452ffe5f0a
 Step 59/59 : CMD ["/sbin/init"]
- ---> Running in 35707ad7bbd9
-Removing intermediate container 35707ad7bbd9
- ---> d07875a78640
-Successfully built d07875a78640
+ ---> Running in bc679226eb42
+Removing intermediate container bc679226eb42
+ ---> dd04cb811ebe
+Successfully built dd04cb811ebe
 Successfully tagged centos_perl:latest

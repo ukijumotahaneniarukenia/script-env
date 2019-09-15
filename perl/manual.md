@@ -37,6 +37,7 @@ https://perlmaven.com/min-max-sum-using-list-util
 https://rpms.remirepo.net/rpmphp/all.php?what=jplesnik
 https://papix.hatenablog.com/entry/2018/03/10/160838
 https://www.javahelps.com/2015/04/install-intellij-idea-on-ubuntu.html
+https://qiita.com/AnnPin/items/5f868f0c7cb5d1af306b
 
 # パッケージのインストール先
 システムで使用しているperlのデフォルト的な場所
