@@ -152,11 +152,11 @@ echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
 echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
 echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
 echo "alias vi=\"sudo vim\"" >> ~/.bashrc && \
-echo "alias idea=\"/home/perl/idea-IC-192.6603.28/bin/idea.sh >~/launch_idea.log 2>&1 &\"" >> ~/.bashrc
+echo "alias idea=\"/home/perl/idea-IC-192.6603.28/bin/idea.sh >~/launch_idea.log 2>&1 &\"" >> ~/.bashrc && \
+echo "export PERL5LIB=/home/perl/perl5/lib/perl5:/home/perl/perl5/lib/perl5/x86_64-linux-thread-multi" >> ~/.bashrc
 
 #プラグインマウント
 COPY perl5.plugin-2019.2.2.zip /home/perl/perl5.plugin-2019.2.2.zip
-RUN cd ~ && unzip perl5.plugin-2019.2.2.zip && sudo chown -R perl:perl perl5.plugin
 
 #guiアプリインストール
 #事前にダウンロードしておき、dockerコンテナにコピー。
