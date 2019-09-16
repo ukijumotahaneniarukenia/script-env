@@ -1,136 +1,367 @@
-Sending build context to Docker daemon  88.21MB
-Step 1/57 : FROM centos:latest
+Sending build context to Docker daemon  88.95MB
+Step 1/58 : FROM centos:latest
  ---> 67fa590cfc1c
-Step 2/57 : RUN groupadd -g 1001 rstudio
+Step 2/58 : RUN groupadd -g 1001 rstudio
  ---> Using cache
  ---> 8a05fc9fdd96
-Step 3/57 : RUN useradd -m -g rstudio -u 1001 rstudio
+Step 3/58 : RUN useradd -m -g rstudio -u 1001 rstudio
  ---> Using cache
  ---> 180177997f68
-Step 4/57 : RUN chsh -s /bin/bash rstudio
+Step 4/58 : RUN chsh -s /bin/bash rstudio
  ---> Using cache
  ---> 456245e6f887
-Step 5/57 : RUN groupadd -g 1002 php
+Step 5/58 : RUN groupadd -g 1002 php
  ---> Using cache
  ---> 2517158037f8
-Step 6/57 : RUN useradd -m -g php -u 1002 php
+Step 6/58 : RUN useradd -m -g php -u 1002 php
  ---> Using cache
  ---> 3c5b3e832dba
-Step 7/57 : RUN chsh -s /bin/bash php
+Step 7/58 : RUN chsh -s /bin/bash php
  ---> Using cache
  ---> a214e3365c7c
-Step 8/57 : RUN echo 'root_pwd' | passwd --stdin root
+Step 8/58 : RUN echo 'root_pwd' | passwd --stdin root
  ---> Using cache
  ---> 55fd1ed2e1c3
-Step 9/57 : RUN echo 'rstudio_pwd' | passwd --stdin rstudio
+Step 9/58 : RUN echo 'rstudio_pwd' | passwd --stdin rstudio
  ---> Using cache
  ---> 30031be19217
-Step 10/57 : RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+Step 10/58 : RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
  ---> Using cache
  ---> 6ad977c719bd
-Step 11/57 : RUN echo 'php_pwd' | passwd --stdin php
+Step 11/58 : RUN echo 'php_pwd' | passwd --stdin php
  ---> Using cache
  ---> 3f8c50a9f8bc
-Step 12/57 : RUN echo 'php ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+Step 12/58 : RUN echo 'php ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
  ---> Using cache
  ---> f793de500ea4
-Step 13/57 : RUN yum install -y epel-release
+Step 13/58 : RUN yum install -y epel-release
  ---> Using cache
  ---> 77694d330024
-Step 14/57 : RUN yum install -y R
+Step 14/58 : RUN yum install -y R
  ---> Using cache
  ---> 63052bddaec1
-Step 15/57 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man file
+Step 15/58 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man file
  ---> Using cache
  ---> 298d15ebf64e
-Step 16/57 : RUN yum install -y which perl-App-cpanminus wxGTK-devel perl-ExtUtils-Embed perl-File-HomeDir perl-Term-ReadLine-Gnu wxGTK3 cpan
+Step 16/58 : RUN yum install -y which perl-App-cpanminus wxGTK-devel perl-ExtUtils-Embed perl-File-HomeDir perl-Term-ReadLine-Gnu wxGTK3 cpan
  ---> Using cache
  ---> eee543a1c885
-Step 17/57 : RUN cd ~ && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && cd Open-usp-Tukubai && make -j12 install
+Step 17/58 : RUN cd ~ && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && cd Open-usp-Tukubai && make -j12 install
  ---> Using cache
  ---> c053c75834a5
-Step 18/57 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && tar -zxvf gawk-5.0.0.tar.gz && cd gawk-5.0.0 && ./configure && make -j12 && make -j12 install
+Step 18/58 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && tar -zxvf gawk-5.0.0.tar.gz && cd gawk-5.0.0 && ./configure && make -j12 && make -j12 install
  ---> Using cache
  ---> d024c766c6f6
-Step 19/57 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && tar -zxvf bash-5.0.tar.gz && cd bash-5.0 && ./configure && make -j12 && make -j12 install
+Step 19/58 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && tar -zxvf bash-5.0.tar.gz && cd bash-5.0 && ./configure && make -j12 && make -j12 install
  ---> Using cache
  ---> d955073c4cbe
-Step 20/57 : RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd ~ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
+Step 20/58 : RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd ~ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
  ---> Using cache
  ---> 2703f1ed25a8
-Step 21/57 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+Step 21/58 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
  ---> Using cache
  ---> f754fa52d16f
-Step 22/57 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+Step 22/58 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
  ---> Using cache
  ---> 13f68b982bdb
-Step 23/57 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+Step 23/58 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
  ---> Using cache
  ---> f7ca1cd1d71d
-Step 24/57 : RUN cd ~ && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && tar -zxvf Python-3.7.4.tgz && cd Python-3.7.4 && ./configure && make -j12 && make -j12 install
+Step 24/58 : RUN cd ~ && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && tar -zxvf Python-3.7.4.tgz && cd Python-3.7.4 && ./configure && make -j12 && make -j12 install
  ---> Using cache
  ---> abc9d517efc9
-Step 25/57 : RUN cd ~ && curl -LO https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz && tar -xzf perl-5.30.0.tar.gz && cd perl-5.30.0 && ./Configure -des -Dprefix=/usr/local/ && make -j12 && make -j12 install
+Step 25/58 : RUN cd ~ && curl -LO https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz && tar -xzf perl-5.30.0.tar.gz && cd perl-5.30.0 && ./Configure -des -Dprefix=/usr/local/ && make -j12 && make -j12 install
  ---> Using cache
  ---> f75146389d4f
-Step 26/57 : RUN cd ~ && yum install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && tar jxf parallel-latest.tar.bz2 && cd parallel-20190822 && ./configure && make -j12 && make -j12 install
+Step 26/58 : RUN cd ~ && yum install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && tar jxf parallel-latest.tar.bz2 && cd parallel-20190822 && ./configure && make -j12 && make -j12 install
  ---> Using cache
  ---> 94373412f101
-Step 27/57 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc
+Step 27/58 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc
  ---> Using cache
  ---> b0504b247a64
-Step 28/57 : USER rstudio
+Step 28/58 : USER rstudio
  ---> Using cache
  ---> 219382988a8c
-Step 29/57 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+Step 29/58 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
  ---> Using cache
  ---> 4c36caa69eda
-Step 30/57 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+Step 30/58 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
  ---> Using cache
  ---> 22583e115301
-Step 31/57 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+Step 31/58 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
  ---> Using cache
  ---> 00b9c248f930
-Step 32/57 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc
+Step 32/58 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc
  ---> Using cache
  ---> d3129a76e90d
-Step 33/57 : USER php
+Step 33/58 : USER php
  ---> Using cache
  ---> de6c92c72d37
-Step 34/57 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+Step 34/58 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
  ---> Using cache
  ---> 7d127d7c54c2
-Step 35/57 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+Step 35/58 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
  ---> Using cache
  ---> f71f824987b2
-Step 36/57 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+Step 36/58 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
  ---> Using cache
  ---> 0f5b06241f71
-Step 37/57 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc && echo "alias komodo=\"komodo > ~launch_komodo.log 2>&1 &\"" >> ~/.bashrc && echo "export PATH=\"/home/php/Komodo-IDE-11/bin:$PATH\"" >> ~/.bashrc
- ---> Running in 426ba1729e6a
-Removing intermediate container 426ba1729e6a
- ---> 59eef2344cba
-Step 38/57 : COPY Komodo-IDE-11.1.1-91089-linux-x86_64.tar.gz /home/php/Komodo-IDE-11.1.1-91089-linux-x86_64.tar.gz
- ---> dab1256b45bc
-Step 39/57 : RUN cd ~ && tar -xzf Komodo-IDE-11.1.1-91089-linux-x86_64.tar.gz
- ---> Running in 28c70bacd651
-Removing intermediate container 28c70bacd651
- ---> d350e688bbdd
-Step 40/57 : RUN sudo ln -fsr "/home/php/Komodo-IDE-11/bin/komodo" /usr/local/bin/komodo
- ---> Running in d3a4a11b2c0a
-Removing intermediate container d3a4a11b2c0a
- ---> 6ee48e23b202
-Step 41/57 : USER root
- ---> Running in d7512a6d56b4
-Removing intermediate container d7512a6d56b4
- ---> 855b3b134ed7
-Step 42/57 : RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps
- ---> Running in 0922c12f5ae2
+Step 37/58 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc && echo "alias komodo=\"komodo > ~/launch_komodo.log 2>&1 &\"" >> ~/.bashrc && echo "export PATH=\"/home/php/Komodo-IDE-11/bin:$PATH\"" >> ~/.bashrc
+ ---> Running in 29937bafdd70
+Removing intermediate container 29937bafdd70
+ ---> 5e468b453cb2
+Step 38/58 : COPY Komodo-IDE-11.1.1-91089-linux-x86_64.tar.gz /home/php/Komodo-IDE-11.1.1-91089-linux-x86_64.tar.gz
+ ---> 9679a7eba6e1
+Step 39/58 : RUN cd ~ && tar -xzf Komodo-IDE-11.1.1-91089-linux-x86_64.tar.gz
+ ---> Running in 008ba92e9634
+Removing intermediate container 008ba92e9634
+ ---> cc31f7161c7a
+Step 40/58 : RUN sudo ln -fsr "/home/php/Komodo-IDE-11/bin/komodo" /usr/local/bin/komodo
+ ---> Running in fb29fe5bfcc5
+Removing intermediate container fb29fe5bfcc5
+ ---> 55b5db493b75
+Step 41/58 : RUN sudo yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm &&  sudo yum -y install --enablerepo=remi,remi-php73 php php-devel php-mbstring php-pdo php-gd php-xml php-mcrypt
+ ---> Running in f4fa5a0c733e
+Loaded plugins: fastestmirror, ovl
+Examining /var/tmp/yum-root-dD_T9i/remi-release-7.rpm: remi-release-7.7-1.el7.remi.noarch
+Marking /var/tmp/yum-root-dD_T9i/remi-release-7.rpm to be installed
+Resolving Dependencies
+--> Running transaction check
+---> Package remi-release.noarch 0:7.7-1.el7.remi will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package           Arch        Version               Repository            Size
+================================================================================
+Installing:
+ remi-release      noarch      7.7-1.el7.remi        /remi-release-7       23 k
+
+Transaction Summary
+================================================================================
+Install  1 Package
+
+Total size: 23 k
+Installed size: 23 k
+Downloading packages:
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : remi-release-7.7-1.el7.remi.noarch                           1/1 
+  Verifying  : remi-release-7.7-1.el7.remi.noarch                           1/1 
+
+Installed:
+  remi-release.noarch 0:7.7-1.el7.remi                                          
+
+Complete!
 Loaded plugins: fastestmirror, ovl
 Loading mirror speeds from cached hostfile
  * base: ftp-srv2.kddilabs.jp
  * epel: nrt.edge.kernel.org
  * extras: ftp-srv2.kddilabs.jp
+ * remi: ftp.riken.jp
+ * remi-php73: ftp.riken.jp
+ * remi-safe: ftp.riken.jp
+ * updates: ftp-srv2.kddilabs.jp
+Package php-mcrypt is obsoleted by php-pecl-mcrypt, trying to install php-pecl-mcrypt-1.0.2-2.el7.remi.7.3.x86_64 instead
+Resolving Dependencies
+--> Running transaction check
+---> Package php.x86_64 0:7.3.9-1.el7.remi will be installed
+--> Processing Dependency: httpd-mmn = 20120211x8664 for package: php-7.3.9-1.el7.remi.x86_64
+--> Processing Dependency: php-cli(x86-64) = 7.3.9-1.el7.remi for package: php-7.3.9-1.el7.remi.x86_64
+--> Processing Dependency: php-common(x86-64) = 7.3.9-1.el7.remi for package: php-7.3.9-1.el7.remi.x86_64
+--> Processing Dependency: httpd for package: php-7.3.9-1.el7.remi.x86_64
+--> Processing Dependency: libargon2.so.0()(64bit) for package: php-7.3.9-1.el7.remi.x86_64
+---> Package php-devel.x86_64 0:7.3.9-1.el7.remi will be installed
+--> Processing Dependency: libargon2-devel(x86-64) for package: php-devel-7.3.9-1.el7.remi.x86_64
+--> Processing Dependency: libedit-devel(x86-64) for package: php-devel-7.3.9-1.el7.remi.x86_64
+--> Processing Dependency: libtool for package: php-devel-7.3.9-1.el7.remi.x86_64
+--> Processing Dependency: libxml2-devel(x86-64) for package: php-devel-7.3.9-1.el7.remi.x86_64
+---> Package php-gd.x86_64 0:7.3.9-1.el7.remi will be installed
+--> Processing Dependency: gd-last(x86-64) >= 2.1.1 for package: php-gd-7.3.9-1.el7.remi.x86_64
+--> Processing Dependency: libgd.so.3()(64bit) for package: php-gd-7.3.9-1.el7.remi.x86_64
+---> Package php-mbstring.x86_64 0:7.3.9-1.el7.remi will be installed
+--> Processing Dependency: libonig.so.5()(64bit) for package: php-mbstring-7.3.9-1.el7.remi.x86_64
+---> Package php-pdo.x86_64 0:7.3.9-1.el7.remi will be installed
+---> Package php-pecl-mcrypt.x86_64 0:1.0.2-2.el7.remi.7.3 will be installed
+--> Processing Dependency: libmcrypt.so.4()(64bit) for package: php-pecl-mcrypt-1.0.2-2.el7.remi.7.3.x86_64
+---> Package php-xml.x86_64 0:7.3.9-1.el7.remi will be installed
+--> Running transaction check
+---> Package gd-last.x86_64 0:2.2.5-8.el7.remi will be installed
+--> Processing Dependency: libwebp.so.7()(64bit) for package: gd-last-2.2.5-8.el7.remi.x86_64
+---> Package httpd.x86_64 0:2.4.6-89.el7.centos.1 will be installed
+--> Processing Dependency: httpd-tools = 2.4.6-89.el7.centos.1 for package: httpd-2.4.6-89.el7.centos.1.x86_64
+--> Processing Dependency: system-logos >= 7.92.1-1 for package: httpd-2.4.6-89.el7.centos.1.x86_64
+--> Processing Dependency: libaprutil-1.so.0()(64bit) for package: httpd-2.4.6-89.el7.centos.1.x86_64
+--> Processing Dependency: libapr-1.so.0()(64bit) for package: httpd-2.4.6-89.el7.centos.1.x86_64
+---> Package libargon2.x86_64 0:20161029-3.el7 will be installed
+---> Package libargon2-devel.x86_64 0:20161029-3.el7 will be installed
+---> Package libedit-devel.x86_64 0:3.0-12.20121213cvs.el7 will be installed
+---> Package libmcrypt.x86_64 0:2.5.8-13.el7 will be installed
+---> Package libtool.x86_64 0:2.4.2-22.el7_3 will be installed
+---> Package libxml2-devel.x86_64 0:2.9.1-6.el7_2.3 will be installed
+---> Package oniguruma5.x86_64 0:6.9.3-1.el7.remi will be installed
+---> Package php-cli.x86_64 0:7.3.9-1.el7.remi will be installed
+---> Package php-common.x86_64 0:7.3.9-1.el7.remi will be installed
+--> Processing Dependency: php-json(x86-64) = 7.3.9-1.el7.remi for package: php-common-7.3.9-1.el7.remi.x86_64
+--> Running transaction check
+---> Package apr.x86_64 0:1.4.8-3.el7_4.1 will be installed
+---> Package apr-util.x86_64 0:1.5.2-6.el7 will be installed
+---> Package centos-logos.noarch 0:70.0.6-3.el7.centos will be installed
+---> Package httpd-tools.x86_64 0:2.4.6-89.el7.centos.1 will be installed
+---> Package libwebp7.x86_64 0:1.0.2-1.el7.remi will be installed
+---> Package php-json.x86_64 0:7.3.9-1.el7.remi will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package             Arch       Version                    Repository      Size
+================================================================================
+Installing:
+ php                 x86_64     7.3.9-1.el7.remi           remi-php73     3.2 M
+ php-devel           x86_64     7.3.9-1.el7.remi           remi-php73     1.2 M
+ php-gd              x86_64     7.3.9-1.el7.remi           remi-php73      80 k
+ php-mbstring        x86_64     7.3.9-1.el7.remi           remi-php73     510 k
+ php-pdo             x86_64     7.3.9-1.el7.remi           remi-php73     127 k
+ php-pecl-mcrypt     x86_64     1.0.2-2.el7.remi.7.3       remi-php73      29 k
+ php-xml             x86_64     7.3.9-1.el7.remi           remi-php73     207 k
+Installing for dependencies:
+ apr                 x86_64     1.4.8-3.el7_4.1            base           103 k
+ apr-util            x86_64     1.5.2-6.el7                base            92 k
+ centos-logos        noarch     70.0.6-3.el7.centos        base            21 M
+ gd-last             x86_64     2.2.5-8.el7.remi           remi           134 k
+ httpd               x86_64     2.4.6-89.el7.centos.1      updates        2.7 M
+ httpd-tools         x86_64     2.4.6-89.el7.centos.1      updates         91 k
+ libargon2           x86_64     20161029-3.el7             epel            23 k
+ libargon2-devel     x86_64     20161029-3.el7             epel            13 k
+ libedit-devel       x86_64     3.0-12.20121213cvs.el7     base            32 k
+ libmcrypt           x86_64     2.5.8-13.el7               epel            99 k
+ libtool             x86_64     2.4.2-22.el7_3             base           588 k
+ libwebp7            x86_64     1.0.2-1.el7.remi           remi           265 k
+ libxml2-devel       x86_64     2.9.1-6.el7_2.3            base           1.0 M
+ oniguruma5          x86_64     6.9.3-1.el7.remi           remi           193 k
+ php-cli             x86_64     7.3.9-1.el7.remi           remi-php73     4.9 M
+ php-common          x86_64     7.3.9-1.el7.remi           remi-php73     1.1 M
+ php-json            x86_64     7.3.9-1.el7.remi           remi-php73      65 k
+
+Transaction Summary
+================================================================================
+Install  7 Packages (+17 Dependent packages)
+
+Total download size: 38 M
+Installed size: 96 M
+Downloading packages:
+[91mwarning: /var/cache/yum/x86_64/7/remi/packages/gd-last-2.2.5-8.el7.remi.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 00f97f56: NOKEY
+[0mPublic key for gd-last-2.2.5-8.el7.remi.x86_64.rpm is not installed
+Public key for php-7.3.9-1.el7.remi.x86_64.rpm is not installed
+--------------------------------------------------------------------------------
+Total                                               27 MB/s |  38 MB  00:01     
+Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-remi
+[91mImporting GPG key 0x00F97F56:
+ Userid     : "Remi Collet <RPMS@FamilleCollet.com>"
+ Fingerprint: 1ee0 4cce 88a4 ae4a a29a 5df5 004e 6f47 00f9 7f56
+ Package    : remi-release-7.7-1.el7.remi.noarch (installed)
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-remi
+[0mRunning transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : php-json-7.3.9-1.el7.remi.x86_64                            1/24 
+  Installing : php-common-7.3.9-1.el7.remi.x86_64                          2/24 
+  Installing : apr-1.4.8-3.el7_4.1.x86_64                                  3/24 
+  Installing : libargon2-20161029-3.el7.x86_64                             4/24 
+  Installing : php-cli-7.3.9-1.el7.remi.x86_64                             5/24 
+  Installing : apr-util-1.5.2-6.el7.x86_64                                 6/24 
+  Installing : httpd-tools-2.4.6-89.el7.centos.1.x86_64                    7/24 
+  Installing : libargon2-devel-20161029-3.el7.x86_64                       8/24 
+  Installing : libedit-devel-3.0-12.20121213cvs.el7.x86_64                 9/24 
+  Installing : libwebp7-1.0.2-1.el7.remi.x86_64                           10/24 
+  Installing : gd-last-2.2.5-8.el7.remi.x86_64                            11/24 
+  Installing : libtool-2.4.2-22.el7_3.x86_64                              12/24 
+install-info: No such file or directory for /usr/share/info/libtool.info.gz
+  Installing : oniguruma5-6.9.3-1.el7.remi.x86_64                         13/24 
+  Installing : centos-logos-70.0.6-3.el7.centos.noarch                    14/24 
+  Installing : httpd-2.4.6-89.el7.centos.1.x86_64                         15/24 
+  Installing : libmcrypt-2.5.8-13.el7.x86_64                              16/24 
+  Installing : libxml2-devel-2.9.1-6.el7_2.3.x86_64                       17/24 
+  Installing : php-devel-7.3.9-1.el7.remi.x86_64                          18/24 
+  Installing : php-pecl-mcrypt-1.0.2-2.el7.remi.7.3.x86_64                19/24 
+  Installing : php-7.3.9-1.el7.remi.x86_64                                20/24 
+  Installing : php-mbstring-7.3.9-1.el7.remi.x86_64                       21/24 
+  Installing : php-gd-7.3.9-1.el7.remi.x86_64                             22/24 
+  Installing : php-xml-7.3.9-1.el7.remi.x86_64                            23/24 
+  Installing : php-pdo-7.3.9-1.el7.remi.x86_64                            24/24 
+  Verifying  : php-xml-7.3.9-1.el7.remi.x86_64                             1/24 
+  Verifying  : libxml2-devel-2.9.1-6.el7_2.3.x86_64                        2/24 
+  Verifying  : libargon2-20161029-3.el7.x86_64                             3/24 
+  Verifying  : libmcrypt-2.5.8-13.el7.x86_64                               4/24 
+  Verifying  : php-devel-7.3.9-1.el7.remi.x86_64                           5/24 
+  Verifying  : centos-logos-70.0.6-3.el7.centos.noarch                     6/24 
+  Verifying  : php-common-7.3.9-1.el7.remi.x86_64                          7/24 
+  Verifying  : httpd-2.4.6-89.el7.centos.1.x86_64                          8/24 
+  Verifying  : libargon2-devel-20161029-3.el7.x86_64                       9/24 
+  Verifying  : php-cli-7.3.9-1.el7.remi.x86_64                            10/24 
+  Verifying  : oniguruma5-6.9.3-1.el7.remi.x86_64                         11/24 
+  Verifying  : libtool-2.4.2-22.el7_3.x86_64                              12/24 
+  Verifying  : httpd-tools-2.4.6-89.el7.centos.1.x86_64                   13/24 
+  Verifying  : php-7.3.9-1.el7.remi.x86_64                                14/24 
+  Verifying  : apr-util-1.5.2-6.el7.x86_64                                15/24 
+  Verifying  : php-pdo-7.3.9-1.el7.remi.x86_64                            16/24 
+  Verifying  : php-json-7.3.9-1.el7.remi.x86_64                           17/24 
+  Verifying  : gd-last-2.2.5-8.el7.remi.x86_64                            18/24 
+  Verifying  : libwebp7-1.0.2-1.el7.remi.x86_64                           19/24 
+  Verifying  : apr-1.4.8-3.el7_4.1.x86_64                                 20/24 
+  Verifying  : php-mbstring-7.3.9-1.el7.remi.x86_64                       21/24 
+  Verifying  : php-pecl-mcrypt-1.0.2-2.el7.remi.7.3.x86_64                22/24 
+  Verifying  : php-gd-7.3.9-1.el7.remi.x86_64                             23/24 
+  Verifying  : libedit-devel-3.0-12.20121213cvs.el7.x86_64                24/24 
+
+Installed:
+  php.x86_64 0:7.3.9-1.el7.remi                                                 
+  php-devel.x86_64 0:7.3.9-1.el7.remi                                           
+  php-gd.x86_64 0:7.3.9-1.el7.remi                                              
+  php-mbstring.x86_64 0:7.3.9-1.el7.remi                                        
+  php-pdo.x86_64 0:7.3.9-1.el7.remi                                             
+  php-pecl-mcrypt.x86_64 0:1.0.2-2.el7.remi.7.3                                 
+  php-xml.x86_64 0:7.3.9-1.el7.remi                                             
+
+Dependency Installed:
+  apr.x86_64 0:1.4.8-3.el7_4.1                                                  
+  apr-util.x86_64 0:1.5.2-6.el7                                                 
+  centos-logos.noarch 0:70.0.6-3.el7.centos                                     
+  gd-last.x86_64 0:2.2.5-8.el7.remi                                             
+  httpd.x86_64 0:2.4.6-89.el7.centos.1                                          
+  httpd-tools.x86_64 0:2.4.6-89.el7.centos.1                                    
+  libargon2.x86_64 0:20161029-3.el7                                             
+  libargon2-devel.x86_64 0:20161029-3.el7                                       
+  libedit-devel.x86_64 0:3.0-12.20121213cvs.el7                                 
+  libmcrypt.x86_64 0:2.5.8-13.el7                                               
+  libtool.x86_64 0:2.4.2-22.el7_3                                               
+  libwebp7.x86_64 0:1.0.2-1.el7.remi                                            
+  libxml2-devel.x86_64 0:2.9.1-6.el7_2.3                                        
+  oniguruma5.x86_64 0:6.9.3-1.el7.remi                                          
+  php-cli.x86_64 0:7.3.9-1.el7.remi                                             
+  php-common.x86_64 0:7.3.9-1.el7.remi                                          
+  php-json.x86_64 0:7.3.9-1.el7.remi                                            
+
+Complete!
+Removing intermediate container f4fa5a0c733e
+ ---> 75faf06fe0a0
+Step 42/58 : USER root
+ ---> Running in 8b4dfda95c06
+Removing intermediate container 8b4dfda95c06
+ ---> 3505390ace17
+Step 43/58 : RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps
+ ---> Running in 4b664b2ec292
+Loaded plugins: fastestmirror, ovl
+Loading mirror speeds from cached hostfile
+ * base: ftp-srv2.kddilabs.jp
+ * epel: ftp.riken.jp
+ * extras: ftp-srv2.kddilabs.jp
+ * remi-safe: ftp.riken.jp
  * updates: ftp-srv2.kddilabs.jp
 Resolving Dependencies
 --> Running transaction check
@@ -165,7 +396,7 @@ Total download size: 1.0 M
 Installed size: 2.6 M
 Downloading packages:
 --------------------------------------------------------------------------------
-Total                                              7.4 MB/s | 1.0 MB  00:00     
+Total                                              4.8 MB/s | 1.0 MB  00:00     
 Running transaction check
 Running transaction test
 Transaction test succeeded
@@ -189,15 +420,16 @@ Dependency Installed:
   libXxf86misc.x86_64 0:1.0.3-7.1.el7      libxkbfile.x86_64 0:1.0.9-3.el7     
 
 Complete!
-Removing intermediate container 0922c12f5ae2
- ---> b9aa2b72350f
-Step 43/57 : RUN yum install -y java firefox
- ---> Running in 4cd20212fd1e
+Removing intermediate container 4b664b2ec292
+ ---> 82c436abd8d6
+Step 44/58 : RUN yum install -y java firefox
+ ---> Running in 9ca2d639339a
 Loaded plugins: fastestmirror, ovl
 Loading mirror speeds from cached hostfile
  * base: ftp-srv2.kddilabs.jp
  * epel: nrt.edge.kernel.org
  * extras: ftp-srv2.kddilabs.jp
+ * remi-safe: ftp.riken.jp
  * updates: ftp-srv2.kddilabs.jp
 Package 1:java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64 already installed and latest version
 Resolving Dependencies
@@ -239,7 +471,7 @@ Total download size: 91 M
 Installed size: 209 M
 Downloading packages:
 --------------------------------------------------------------------------------
-Total                                               16 MB/s |  91 MB  00:05     
+Total                                               21 MB/s |  91 MB  00:04     
 Running transaction check
 Running transaction test
 Transaction test succeeded
@@ -268,10 +500,10 @@ Dependency Installed:
   xcb-util.x86_64 0:0.4.0-2.el7                                                 
 
 Complete!
-Removing intermediate container 4cd20212fd1e
- ---> 25ac932b1e8b
-Step 44/57 : RUN yum -y groupinstall "X Window System"
- ---> Running in 9c7d9316d970
+Removing intermediate container 9ca2d639339a
+ ---> 8e7388a7339f
+Step 45/58 : RUN yum -y groupinstall "X Window System"
+ ---> Running in 2e22927b952f
 Loaded plugins: fastestmirror, ovl
 [91mThere is no installed groups file.
 Maybe run: yum groups mark convert (see man yum)
@@ -279,6 +511,7 @@ Maybe run: yum groups mark convert (see man yum)
  * base: ftp-srv2.kddilabs.jp
  * epel: nrt.edge.kernel.org
  * extras: ftp-srv2.kddilabs.jp
+ * remi-safe: ftp.riken.jp
  * updates: ftp-srv2.kddilabs.jp
 Resolving Dependencies
 --> Running transaction check
@@ -329,7 +562,6 @@ Resolving Dependencies
 --> Processing Dependency: zenity for package: anaconda-gui-21.48.22.147-1.el7.centos.0.1.x86_64
 --> Processing Dependency: yelp for package: anaconda-gui-21.48.22.147-1.el7.centos.0.1.x86_64
 --> Processing Dependency: tigervnc-server-minimal for package: anaconda-gui-21.48.22.147-1.el7.centos.0.1.x86_64
---> Processing Dependency: system-logos for package: anaconda-gui-21.48.22.147-1.el7.centos.0.1.x86_64
 --> Processing Dependency: nm-connection-editor for package: anaconda-gui-21.48.22.147-1.el7.centos.0.1.x86_64
 --> Processing Dependency: libgnomekbd for package: anaconda-gui-21.48.22.147-1.el7.centos.0.1.x86_64
 --> Processing Dependency: keybinder3 for package: anaconda-gui-21.48.22.147-1.el7.centos.0.1.x86_64
@@ -418,7 +650,6 @@ Resolving Dependencies
 ---> Package anaconda-widgets.x86_64 0:21.48.22.147-1.el7.centos.0.1 will be installed
 --> Processing Dependency: pygobject3 for package: anaconda-widgets-21.48.22.147-1.el7.centos.0.1.x86_64
 --> Processing Dependency: libgladeui-2.so.6()(64bit) for package: anaconda-widgets-21.48.22.147-1.el7.centos.0.1.x86_64
----> Package centos-logos.noarch 0:70.0.6-3.el7.centos will be installed
 ---> Package keybinder3.x86_64 0:0.3.0-1.el7 will be installed
 ---> Package libXvMC.x86_64 0:1.0.10-1.el7 will be installed
 ---> Package libcanberra.x86_64 0:0.30-5.el7 will be installed
@@ -820,7 +1051,6 @@ Installing for dependencies:
  authconfig                 x86_64 6.2.8-30.el7                   base    424 k
  bind-libs-lite             x86_64 32:9.9.4-74.el7_6.2            updates 742 k
  btrfs-progs                x86_64 4.9.1-1.el7                    base    678 k
- centos-logos               noarch 70.0.6-3.el7.centos            base     21 M
  chrony                     x86_64 3.2-2.el7                      base    243 k
  createrepo                 noarch 0.9.9-28.el7                   base     94 k
  cryptsetup                 x86_64 2.0.3-3.el7                    base    154 k
@@ -1033,479 +1263,477 @@ Installing for dependencies:
 
 Transaction Summary
 ================================================================================
-Install  11 Packages (+213 Dependent packages)
+Install  11 Packages (+212 Dependent packages)
 
-Total download size: 250 M
-Installed size: 676 M
+Total download size: 228 M
+Installed size: 655 M
 Downloading packages:
 Delta RPMs disabled because /usr/bin/applydeltarpm not installed.
 --------------------------------------------------------------------------------
-Total                                               27 MB/s | 250 MB  00:09     
+Total                                               29 MB/s | 228 MB  00:07     
 Running transaction check
 Running transaction test
 Transaction test succeeded
 Running transaction
-  Installing : augeas-libs-1.4.0-6.el7_6.1.x86_64                         1/224 
-  Installing : libtar-1.2.11-29.el7.x86_64                                2/224 
-  Installing : xmlrpc-c-1.32.5-1905.svn2451.el7.x86_64                    3/224 
-  Installing : libnl3-3.2.28-4.el7.x86_64                                 4/224 
-  Installing : 7:device-mapper-event-libs-1.02.149-10.el7_6.8.x86_64      5/224 
-  Installing : satyr-0.13-15.el7.x86_64                                   6/224 
-  Installing : xmlrpc-c-client-1.32.5-1905.svn2451.el7.x86_64             7/224 
-  Installing : parted-3.1-29.el7.x86_64                                   8/224 
-  Installing : plymouth-core-libs-0.8.9-0.31.20140113.el7.centos.x86_     9/224 
-  Installing : libaio-0.3.109-13.el7.x86_64                              10/224 
-  Installing : 1:pyparted-3.9-15.el7.x86_64                              11/224 
-  Installing : libtdb-1.3.15-1.el7.x86_64                                12/224 
-  Installing : lzo-2.06-8.el7.x86_64                                     13/224 
-  Installing : jansson-2.10-1.el7.x86_64                                 14/224 
-  Installing : 1:NetworkManager-libnm-1.12.0-10.el7_6.x86_64             15/224 
-  Installing : libxklavier-5.4-7.el7.x86_64                              16/224 
-  Installing : libtool-ltdl-2.4.2-22.el7_3.x86_64                        17/224 
-  Installing : plymouth-graphics-libs-0.8.9-0.31.20140113.el7.centos.    18/224 
-  Installing : libblockdev-utils-2.18-3.el7.x86_64                       19/224 
-  Installing : 7:device-mapper-event-1.02.149-10.el7_6.8.x86_64          20/224 
+  Installing : augeas-libs-1.4.0-6.el7_6.1.x86_64                         1/223 
+  Installing : libtar-1.2.11-29.el7.x86_64                                2/223 
+  Installing : xmlrpc-c-1.32.5-1905.svn2451.el7.x86_64                    3/223 
+  Installing : libnl3-3.2.28-4.el7.x86_64                                 4/223 
+  Installing : 7:device-mapper-event-libs-1.02.149-10.el7_6.8.x86_64      5/223 
+  Installing : satyr-0.13-15.el7.x86_64                                   6/223 
+  Installing : xmlrpc-c-client-1.32.5-1905.svn2451.el7.x86_64             7/223 
+  Installing : parted-3.1-29.el7.x86_64                                   8/223 
+  Installing : plymouth-core-libs-0.8.9-0.31.20140113.el7.centos.x86_     9/223 
+  Installing : libaio-0.3.109-13.el7.x86_64                              10/223 
+  Installing : 1:pyparted-3.9-15.el7.x86_64                              11/223 
+  Installing : libtdb-1.3.15-1.el7.x86_64                                12/223 
+  Installing : lzo-2.06-8.el7.x86_64                                     13/223 
+  Installing : jansson-2.10-1.el7.x86_64                                 14/223 
+  Installing : 1:NetworkManager-libnm-1.12.0-10.el7_6.x86_64             15/223 
+  Installing : libxklavier-5.4-7.el7.x86_64                              16/223 
+  Installing : libtool-ltdl-2.4.2-22.el7_3.x86_64                        17/223 
+  Installing : plymouth-graphics-libs-0.8.9-0.31.20140113.el7.centos.    18/223 
+  Installing : libblockdev-utils-2.18-3.el7.x86_64                       19/223 
+  Installing : 7:device-mapper-event-1.02.149-10.el7_6.8.x86_64          20/223 
 Failed to get D-Bus connection: Operation not permitted
 warning: %post(device-mapper-event-7:1.02.149-10.el7_6.8.x86_64) scriptlet failed, exit status 1
 [91mNon-fatal POSTIN scriptlet failure in rpm package 7:device-mapper-event-1.02.149-10.el7_6.8.x86_64
-[0m  Installing : 1:wpa_supplicant-2.6-12.el7.x86_64                        21/224 
-  Installing : libnl3-cli-3.2.28-4.el7.x86_64                            22/224 
-  Installing : iscsi-initiator-utils-iscsiuio-6.2.0.874-10.el7.x86_64    23/224 
-  Installing : iscsi-initiator-utils-6.2.0.874-10.el7.x86_64             24/224 
-  Installing : llvm-private-6.0.1-2.el7.x86_64                           25/224 
-  Installing : libXdmcp-1.1.2-6.el7.x86_64                               26/224 
-  Installing : libgudev1-219-62.el7_6.9.x86_64                           27/224 
-  Installing : 1:NetworkManager-glib-1.12.0-10.el7_6.x86_64              28/224 
-  Installing : centos-logos-70.0.6-3.el7.centos.noarch                   29/224 
-  Installing : xorg-x11-xkb-utils-7.7-14.el7.x86_64                      30/224 
-  Installing : pykickstart-1.99.66.19-2.el7.noarch                       31/224 
-  Installing : libdvdread-5.0.3-3.el7.x86_64                             32/224 
-  Installing : gcr-3.28.0-1.el7.x86_64                                   33/224 
-  Installing : langtable-0.0.31-3.el7.noarch                             34/224 
-  Installing : langtable-data-0.0.31-3.el7.noarch                        35/224 
-  Installing : libXfont2-2.0.3-1.el7.x86_64                              36/224 
-  Installing : gsm-1.0.13-11.el7.x86_64                                  37/224 
-  Installing : libevdev-1.5.6-1.el7.x86_64                               38/224 
-  Installing : slang-2.2.4-11.el7.x86_64                                 39/224 
-  Installing : hyphen-2.8.6-5.el7.x86_64                                 40/224 
-  Installing : daxctl-libs-62-1.el7.x86_64                               41/224 
-  Installing : ndctl-libs-62-1.el7.x86_64                                42/224 
-  Installing : libreport-filesystem-2.1.11-42.el7.centos.x86_64          43/224 
-  Installing : libreport-python-2.1.11-42.el7.centos.x86_64              44/224 
-  Installing : libreport-2.1.11-42.el7.centos.x86_64                     45/224 
-  Installing : libreport-web-2.1.11-42.el7.centos.x86_64                 46/224 
-  Installing : libreport-plugin-bugzilla-2.1.11-42.el7.centos.x86_64     47/224 
-  Installing : libreport-plugin-reportuploader-2.1.11-42.el7.centos.x    48/224 
-  Installing : e2fsprogs-libs-1.42.9-13.el7.x86_64                       49/224 
-  Installing : libselinux-python-2.5-14.1.el7.x86_64                     50/224 
-  Installing : python-decorator-3.4.0-3.el7.noarch                       51/224 
-  Installing : deltarpm-3.6-3.el7.x86_64                                 52/224 
-  Installing : 12:dhcp-libs-4.2.5-68.el7.centos.1.x86_64                 53/224 
-  Installing : libnotify-0.7.7-1.el7.x86_64                              54/224 
-  Installing : zenity-3.28.1-1.el7.x86_64                                55/224 
-  Installing : 12:dhcp-common-4.2.5-68.el7.centos.1.x86_64               56/224 
-  Installing : python-deltarpm-3.6-3.el7.x86_64                          57/224 
-  Installing : createrepo-0.9.9-28.el7.noarch                            58/224 
-  Installing : python-slip-0.4.0-4.el7.noarch                            59/224 
-  Installing : python-slip-dbus-0.4.0-4.el7.noarch                       60/224 
-  Installing : python-firewall-0.5.3-5.el7.noarch                        61/224 
-  Installing : btrfs-progs-4.9.1-1.el7.x86_64                            62/224 
-  Installing : libreport-rhel-anaconda-bugzilla-2.1.11-42.el7.centos.    63/224 
-  Installing : libreport-plugin-rhtsupport-2.1.11-42.el7.centos.x86_6    64/224 
-  Installing : libreport-anaconda-2.1.11-42.el7.centos.x86_64            65/224 
-  Installing : libreport-cli-2.1.11-42.el7.centos.x86_64                 66/224 
-  Installing : python-meh-0.25.2-1.el7.noarch                            67/224 
-  Installing : mdadm-4.1-rc1_2.el7.x86_64                                68/224 
-  Installing : ndctl-62-1.el7.x86_64                                     69/224 
-  Installing : libblockdev-nvdimm-2.18-3.el7.x86_64                      70/224 
-  Installing : newt-0.52.15-4.el7.x86_64                                 71/224 
-  Installing : newt-python-0.52.15-4.el7.x86_64                          72/224 
-  Installing : langtable-python-0.0.31-3.el7.noarch                      73/224 
-  Installing : libdvdnav-5.0.3-1.el7.x86_64                              74/224 
-  Installing : xorg-x11-server-common-1.20.1-5.6.el7_6.x86_64            75/224 
-  Installing : xorg-x11-server-Xorg-1.20.1-5.6.el7_6.x86_64              76/224 
-  Installing : xorg-x11-drv-fbdev-0.5.0-1.el7.x86_64                     77/224 
-  Installing : xorg-x11-drv-ati-18.1.0-1.el7_6.x86_64                    78/224 
-  Installing : xorg-x11-drv-vmmouse-13.1.0-1.el7.1.x86_64                79/224 
-  Installing : xorg-x11-drv-vesa-2.4.0-1.el7.x86_64                      80/224 
-  Installing : xorg-x11-drv-wacom-0.36.1-1.el7.x86_64                    81/224 
-  Installing : xorg-x11-drv-v4l-0.2.0-49.el7.x86_64                      82/224 
-  Installing : xorg-x11-drv-qxl-0.1.5-4.el7.1.x86_64                     83/224 
-  Installing : xorg-x11-drv-dummy-0.3.7-1.el7.1.x86_64                   84/224 
-  Installing : xorg-x11-drv-synaptics-1.9.0-2.el7.x86_64                 85/224 
-  Installing : xorg-x11-drv-void-1.4.1-2.el7.1.x86_64                    86/224 
-  Installing : 1:xorg-x11-drv-nouveau-1.0.15-1.el7.x86_64                87/224 
-  Installing : mesa-libxatracker-18.0.5-4.el7_6.x86_64                   88/224 
-  Installing : xorg-x11-drv-vmware-13.2.1-1.el7.1.x86_64                 89/224 
-  Installing : libteam-1.27-6.el7_6.1.x86_64                             90/224 
-  Installing : 7:lvm2-libs-2.02.180-10.el7_6.8.x86_64                    91/224 
-  Installing : libblockdev-2.18-3.el7.x86_64                             92/224 
-  Installing : python2-blockdev-2.18-3.el7.x86_64                        93/224 
-  Installing : libgnomekbd-3.26.0-1.el7.x86_64                           94/224 
-  Installing : libarchive-3.1.2-10.el7_2.x86_64                          95/224 
-  Installing : device-mapper-persistent-data-0.7.3-3.el7.x86_64          96/224 
-  Installing : 7:lvm2-2.02.180-10.el7_6.8.x86_64                         97/224 
+[0m  Installing : 1:wpa_supplicant-2.6-12.el7.x86_64                        21/223 
+  Installing : libnl3-cli-3.2.28-4.el7.x86_64                            22/223 
+  Installing : iscsi-initiator-utils-iscsiuio-6.2.0.874-10.el7.x86_64    23/223 
+  Installing : iscsi-initiator-utils-6.2.0.874-10.el7.x86_64             24/223 
+  Installing : llvm-private-6.0.1-2.el7.x86_64                           25/223 
+  Installing : libXdmcp-1.1.2-6.el7.x86_64                               26/223 
+  Installing : libgudev1-219-62.el7_6.9.x86_64                           27/223 
+  Installing : 1:NetworkManager-glib-1.12.0-10.el7_6.x86_64              28/223 
+  Installing : xorg-x11-xkb-utils-7.7-14.el7.x86_64                      29/223 
+  Installing : pykickstart-1.99.66.19-2.el7.noarch                       30/223 
+  Installing : libdvdread-5.0.3-3.el7.x86_64                             31/223 
+  Installing : gcr-3.28.0-1.el7.x86_64                                   32/223 
+  Installing : langtable-0.0.31-3.el7.noarch                             33/223 
+  Installing : langtable-data-0.0.31-3.el7.noarch                        34/223 
+  Installing : libXfont2-2.0.3-1.el7.x86_64                              35/223 
+  Installing : gsm-1.0.13-11.el7.x86_64                                  36/223 
+  Installing : libevdev-1.5.6-1.el7.x86_64                               37/223 
+  Installing : slang-2.2.4-11.el7.x86_64                                 38/223 
+  Installing : hyphen-2.8.6-5.el7.x86_64                                 39/223 
+  Installing : daxctl-libs-62-1.el7.x86_64                               40/223 
+  Installing : ndctl-libs-62-1.el7.x86_64                                41/223 
+  Installing : libreport-filesystem-2.1.11-42.el7.centos.x86_64          42/223 
+  Installing : libreport-python-2.1.11-42.el7.centos.x86_64              43/223 
+  Installing : libreport-2.1.11-42.el7.centos.x86_64                     44/223 
+  Installing : libreport-web-2.1.11-42.el7.centos.x86_64                 45/223 
+  Installing : libreport-plugin-bugzilla-2.1.11-42.el7.centos.x86_64     46/223 
+  Installing : libreport-plugin-reportuploader-2.1.11-42.el7.centos.x    47/223 
+  Installing : e2fsprogs-libs-1.42.9-13.el7.x86_64                       48/223 
+  Installing : libselinux-python-2.5-14.1.el7.x86_64                     49/223 
+  Installing : python-decorator-3.4.0-3.el7.noarch                       50/223 
+  Installing : deltarpm-3.6-3.el7.x86_64                                 51/223 
+  Installing : 12:dhcp-libs-4.2.5-68.el7.centos.1.x86_64                 52/223 
+  Installing : libnotify-0.7.7-1.el7.x86_64                              53/223 
+  Installing : zenity-3.28.1-1.el7.x86_64                                54/223 
+  Installing : 12:dhcp-common-4.2.5-68.el7.centos.1.x86_64               55/223 
+  Installing : python-deltarpm-3.6-3.el7.x86_64                          56/223 
+  Installing : createrepo-0.9.9-28.el7.noarch                            57/223 
+  Installing : python-slip-0.4.0-4.el7.noarch                            58/223 
+  Installing : python-slip-dbus-0.4.0-4.el7.noarch                       59/223 
+  Installing : python-firewall-0.5.3-5.el7.noarch                        60/223 
+  Installing : btrfs-progs-4.9.1-1.el7.x86_64                            61/223 
+  Installing : libreport-rhel-anaconda-bugzilla-2.1.11-42.el7.centos.    62/223 
+  Installing : libreport-plugin-rhtsupport-2.1.11-42.el7.centos.x86_6    63/223 
+  Installing : libreport-anaconda-2.1.11-42.el7.centos.x86_64            64/223 
+  Installing : libreport-cli-2.1.11-42.el7.centos.x86_64                 65/223 
+  Installing : python-meh-0.25.2-1.el7.noarch                            66/223 
+  Installing : mdadm-4.1-rc1_2.el7.x86_64                                67/223 
+  Installing : ndctl-62-1.el7.x86_64                                     68/223 
+  Installing : libblockdev-nvdimm-2.18-3.el7.x86_64                      69/223 
+  Installing : newt-0.52.15-4.el7.x86_64                                 70/223 
+  Installing : newt-python-0.52.15-4.el7.x86_64                          71/223 
+  Installing : langtable-python-0.0.31-3.el7.noarch                      72/223 
+  Installing : libdvdnav-5.0.3-1.el7.x86_64                              73/223 
+  Installing : xorg-x11-server-common-1.20.1-5.6.el7_6.x86_64            74/223 
+  Installing : xorg-x11-server-Xorg-1.20.1-5.6.el7_6.x86_64              75/223 
+  Installing : xorg-x11-drv-fbdev-0.5.0-1.el7.x86_64                     76/223 
+  Installing : xorg-x11-drv-ati-18.1.0-1.el7_6.x86_64                    77/223 
+  Installing : xorg-x11-drv-vmmouse-13.1.0-1.el7.1.x86_64                78/223 
+  Installing : xorg-x11-drv-vesa-2.4.0-1.el7.x86_64                      79/223 
+  Installing : xorg-x11-drv-wacom-0.36.1-1.el7.x86_64                    80/223 
+  Installing : xorg-x11-drv-v4l-0.2.0-49.el7.x86_64                      81/223 
+  Installing : xorg-x11-drv-qxl-0.1.5-4.el7.1.x86_64                     82/223 
+  Installing : xorg-x11-drv-dummy-0.3.7-1.el7.1.x86_64                   83/223 
+  Installing : xorg-x11-drv-synaptics-1.9.0-2.el7.x86_64                 84/223 
+  Installing : xorg-x11-drv-void-1.4.1-2.el7.1.x86_64                    85/223 
+  Installing : 1:xorg-x11-drv-nouveau-1.0.15-1.el7.x86_64                86/223 
+  Installing : mesa-libxatracker-18.0.5-4.el7_6.x86_64                   87/223 
+  Installing : xorg-x11-drv-vmware-13.2.1-1.el7.1.x86_64                 88/223 
+  Installing : libteam-1.27-6.el7_6.1.x86_64                             89/223 
+  Installing : 7:lvm2-libs-2.02.180-10.el7_6.8.x86_64                    90/223 
+  Installing : libblockdev-2.18-3.el7.x86_64                             91/223 
+  Installing : python2-blockdev-2.18-3.el7.x86_64                        92/223 
+  Installing : libgnomekbd-3.26.0-1.el7.x86_64                           93/223 
+  Installing : libarchive-3.1.2-10.el7_2.x86_64                          94/223 
+  Installing : device-mapper-persistent-data-0.7.3-3.el7.x86_64          95/223 
+  Installing : 7:lvm2-2.02.180-10.el7_6.8.x86_64                         96/223 
 Failed to get D-Bus connection: Operation not permitted
 Failed to get D-Bus connection: Operation not permitted
 Failed to get D-Bus connection: Operation not permitted
 warning: %post(lvm2-7:2.02.180-10.el7_6.8.x86_64) scriptlet failed, exit status 1
 [91mNon-fatal POSTIN scriptlet failure in rpm package 7:lvm2-2.02.180-10.el7_6.8.x86_64
-[0m  Installing : device-mapper-multipath-libs-0.4.9-123.el7.x86_64         98/224 
-  Installing : snappy-1.1.0-3.el7.x86_64                                 99/224 
-  Installing : python-ntplib-0.3.2-1.el7.noarch                         100/224 
-  Installing : python-backports-1.0-8.el7.x86_64                        101/224 
-  Installing : kbd-misc-1.15.5-15.el7.noarch                            102/224 
-  Installing : libss-1.42.9-13.el7.x86_64                               103/224 
-  Installing : e2fsprogs-1.42.9-13.el7.x86_64                           104/224 
-  Installing : cryptsetup-2.0.3-3.el7.x86_64                            105/224 
-  Installing : oddjob-0.31.5-4.el7.x86_64                               106/224 
+[0m  Installing : device-mapper-multipath-libs-0.4.9-123.el7.x86_64         97/223 
+  Installing : snappy-1.1.0-3.el7.x86_64                                 98/223 
+  Installing : python-ntplib-0.3.2-1.el7.noarch                          99/223 
+  Installing : python-backports-1.0-8.el7.x86_64                        100/223 
+  Installing : kbd-misc-1.15.5-15.el7.noarch                            101/223 
+  Installing : libss-1.42.9-13.el7.x86_64                               102/223 
+  Installing : e2fsprogs-1.42.9-13.el7.x86_64                           103/223 
+  Installing : cryptsetup-2.0.3-3.el7.x86_64                            104/223 
+  Installing : oddjob-0.31.5-4.el7.x86_64                               105/223 
 dbus-daemon: no process found
-  Installing : oddjob-mkhomedir-0.31.5-4.el7.x86_64                     107/224 
+  Installing : oddjob-mkhomedir-0.31.5-4.el7.x86_64                     106/223 
 dbus-daemon: no process found
-  Installing : python-pwquality-1.2.3-5.el7.x86_64                      108/224 
-  Installing : ipset-libs-6.38-3.el7_6.x86_64                           109/224 
-  Installing : ipset-6.38-3.el7_6.x86_64                                110/224 
-  Installing : grubby-8.28-25.el7.x86_64                                111/224 
-  Installing : libgtop2-2.38.0-3.el7.x86_64                             112/224 
-  Installing : soundtouch-1.4.0-9.el7.x86_64                            113/224 
-  Installing : usermode-1.111-5.el7.x86_64                              114/224 
-  Installing : pycairo-1.8.10-8.el7.x86_64                              115/224 
-  Installing : python-gobject-3.22.0-1.el7_4.1.x86_64                   116/224 
-  Installing : kbd-legacy-1.15.5-15.el7.noarch                          117/224 
-  Installing : 32:bind-libs-lite-9.9.4-74.el7_6.2.x86_64                118/224 
-  Installing : 1:isomd5sum-1.0.10-5.el7.x86_64                          119/224 
-  Installing : linux-firmware-20180911-69.git85c5d90.el7.noarch         120/224 
-  Installing : libseccomp-2.3.1-3.el7.x86_64                            121/224 
-  Installing : chrony-3.2-2.el7.x86_64                                  122/224 
-  Installing : keybinder3-0.3.0-1.el7.x86_64                            123/224 
-  Installing : libndp-1.2-7.el7.x86_64                                  124/224 
-  Installing : 1:NetworkManager-1.12.0-10.el7_6.x86_64                  125/224 
-  Installing : 1:NetworkManager-wifi-1.12.0-10.el7_6.x86_64             126/224 
-  Installing : libselinux-utils-2.5-14.1.el7.x86_64                     127/224 
-  Installing : policycoreutils-2.5-29.el7_6.1.x86_64                    128/224 
-  Installing : authconfig-6.2.8-30.el7.x86_64                           129/224 
-  Installing : realmd-0.16.1-11.el7.x86_64                              130/224 
-  Installing : 1:xorg-x11-xauth-1.0.9-1.el7.x86_64                      131/224 
-  Installing : yelp-xsl-3.28.0-1.el7.noarch                             132/224 
-  Installing : mtdev-1.1.5-5.el7.x86_64                                 133/224 
-  Installing : xorg-x11-drv-evdev-2.10.6-1.el7.x86_64                   134/224 
-  Installing : libmpcdec-1.2.6-12.el7.x86_64                            135/224 
-  Installing : python-di-0.3-2.el7.noarch                               136/224 
-  Installing : python2-subprocess32-3.2.6-13.el7.x86_64                 137/224 
-  Installing : mesa-filesystem-18.0.5-4.el7_6.x86_64                    138/224 
-  Installing : mesa-dri-drivers-18.0.5-4.el7_6.x86_64                   139/224 
-  Installing : libtimezonemap-0.4.4-1.el7.x86_64                        140/224 
-  Installing : python-nss-0.16.0-3.el7.x86_64                           141/224 
-  Installing : libXvMC-1.0.10-1.el7.x86_64                              142/224 
-  Installing : xorg-x11-drv-intel-2.99.917-28.20180530.el7.x86_64       143/224 
-  Installing : python-IPy-0.75-6.el7.noarch                             144/224 
-  Installing : fros-1.0-2.el7.noarch                                    145/224 
-  Installing : libreport-gtk-2.1.11-42.el7.centos.x86_64                146/224 
-  Installing : python-meh-gui-0.25.2-1.el7.noarch                       147/224 
-  Installing : flac-libs-1.3.0-5.el7_1.x86_64                           148/224 
-  Installing : libsndfile-1.0.25-10.el7.x86_64                          149/224 
-  Installing : libdaemon-0.14-7.el7.x86_64                              150/224 
-  Installing : teamd-1.27-6.el7_6.1.x86_64                              151/224 
-  Installing : 1:NetworkManager-team-1.12.0-10.el7_6.x86_64             152/224 
-  Installing : 2:ethtool-4.8-9.el7.x86_64                               153/224 
-  Installing : dosfstools-3.0.20-10.el7.x86_64                          154/224 
-  Installing : mobile-broadband-provider-info-1.20170310-1.el7.noarch   155/224 
-  Installing : libnma-1.8.6-2.el7.x86_64                                156/224 
-  Installing : libdmx-1.1.3-3.el7.x86_64                                157/224 
-  Installing : ebtables-2.0.10-16.el7.x86_64                            158/224 
-  Installing : sgpio-1.2.0.10-13.el7.x86_64                             159/224 
-  Installing : dmraid-1.0.0.rc16-28.el7.x86_64                          160/224 
-  Installing : dmraid-events-1.0.0.rc16-28.el7.x86_64                   161/224 
-  Installing : python-pyblock-0.53-6.el7.x86_64                         162/224 
-  Installing : python-ipaddress-1.0.16-2.el7.noarch                     163/224 
-  Installing : python-backports-ssl_match_hostname-3.5.0.1-1.el7.noar   164/224 
-  Installing : python-setuptools-0.9.8-7.el7.noarch                     165/224 
-  Installing : python-coverage-3.6-0.5.b3.el7.x86_64                    166/224 
-  Installing : python-pyudev-0.15-9.el7.noarch                          167/224 
-  Installing : libXxf86dga-1.1.4-2.1.el7.x86_64                         168/224 
-  Installing : tigervnc-license-1.8.0-13.el7.noarch                     169/224 
-  Installing : librsvg2-2.40.20-1.el7.x86_64                            170/224 
-  Installing : libconfig-1.4.9-5.el7.x86_64                             171/224 
-  Installing : libsrtp-1.4.4-10.20101004cvs.el7.x86_64                  172/224 
-  Installing : gstreamer1-plugins-bad-free-1.10.4-3.el7.x86_64          173/224 
-  Installing : webkitgtk4-jsc-2.20.5-1.el7.x86_64                       174/224 
-  Installing : webkitgtk4-plugin-process-gtk2-2.20.5-1.el7.x86_64       175/224 
-  Installing : webkitgtk4-2.20.5-1.el7.x86_64                           176/224 
-  Installing : glade-libs-3.22.1-1.el7.x86_64                           177/224 
-  Installing : anaconda-widgets-21.48.22.147-1.el7.centos.0.1.x86_64    178/224 
-  Installing : 2:yelp-libs-3.28.1-1.el7.x86_64                          179/224 
-  Installing : 2:yelp-3.28.1-1.el7.x86_64                               180/224 
-  Installing : libasyncns-0.8-7.el7.x86_64                              181/224 
-  Installing : pulseaudio-libs-10.0-5.el7.x86_64                        182/224 
-  Installing : 1:dmidecode-3.1-2.el7.x86_64                             183/224 
-  Installing : sound-theme-freedesktop-0.8-3.el7.noarch                 184/224 
-  Installing : libcanberra-0.30-5.el7.x86_64                            185/224 
-  Installing : libcanberra-gtk3-0.30-5.el7.x86_64                       186/224 
-  Installing : libcanberra-gtk2-0.30-5.el7.x86_64                       187/224 
-  Installing : marco-1.16.1-4.el7.x86_64                                188/224 
-  Installing : firewalld-filesystem-0.5.3-5.el7.noarch                  189/224 
-  Installing : firewalld-0.5.3-5.el7.noarch                             190/224 
-  Installing : sysvinit-tools-2.88-14.dsf.el7.x86_64                    191/224 
-  Installing : initscripts-9.49.46-1.el7.x86_64                         192/224 
-  Installing : plymouth-scripts-0.8.9-0.31.20140113.el7.centos.x86_64   193/224 
-  Installing : plymouth-0.8.9-0.31.20140113.el7.centos.x86_64           194/224 
-  Installing : 12:dhclient-4.2.5-68.el7.centos.1.x86_64                 195/224 
-  Installing : device-mapper-multipath-0.4.9-123.el7.x86_64             196/224 
-  Installing : dracut-network-033-554.el7.x86_64                        197/224 
-  Installing : kexec-tools-2.0.15-21.el7_6.4.x86_64                     198/224 
-  Installing : plymouth-plugin-label-0.8.9-0.31.20140113.el7.centos.x   199/224 
-  Installing : plymouth-plugin-two-step-0.8.9-0.31.20140113.el7.cento   200/224 
-  Installing : plymouth-theme-charge-0.8.9-0.31.20140113.el7.centos.x   201/224 
-  Installing : tigervnc-server-minimal-1.8.0-13.el7.x86_64              202/224 
-  Installing : kernel-3.10.0-957.27.2.el7.x86_64                        203/224 
-  Installing : lldpad-1.0.1-3.git036e314.el7.x86_64                     204/224 
-  Installing : fcoe-utils-1.0.32-2.el7_6.x86_64                         205/224 
-  Installing : kbd-1.15.5-15.el7.x86_64                                 206/224 
-  Installing : libuser-python-0.60-9.el7.x86_64                         207/224 
-  Installing : cryptsetup-python-2.0.3-3.el7.x86_64                     208/224 
-  Installing : 1:python-blivet-0.61.15.72-1.el7.noarch                  209/224 
-  Installing : pytz-2016.10-2.el7.noarch                                210/224 
-  Installing : anaconda-tui-21.48.22.147-1.el7.centos.0.1.x86_64        211/224 
-  Installing : anaconda-core-21.48.22.147-1.el7.centos.0.1.x86_64       212/224 
-  Installing : initial-setup-0.3.9.43-1.el7.centos.x86_64               213/224 
-  Installing : gnome-icon-theme-3.12.0-1.el7.noarch                     214/224 
-  Installing : nm-connection-editor-1.8.6-2.el7.x86_64                  215/224 
-  Installing : anaconda-gui-21.48.22.147-1.el7.centos.0.1.x86_64        216/224 
-  Installing : initial-setup-gui-0.3.9.43-1.el7.centos.x86_64           217/224 
-  Installing : plymouth-system-theme-0.8.9-0.31.20140113.el7.centos.x   218/224 
-  Installing : xorg-x11-utils-7.5-23.el7.x86_64                         219/224 
-  Installing : xorg-x11-drivers-7.7-6.el7.x86_64                        220/224 
-  Installing : xorg-x11-xinit-1.3.4-2.el7.x86_64                        221/224 
-  Installing : xvattr-1.3-27.el7.x86_64                                 222/224 
-  Installing : glx-utils-8.3.0-10.el7.x86_64                            223/224 
-  Installing : spice-vdagent-0.14.0-16.el7.x86_64                       224/224 
+  Installing : python-pwquality-1.2.3-5.el7.x86_64                      107/223 
+  Installing : ipset-libs-6.38-3.el7_6.x86_64                           108/223 
+  Installing : ipset-6.38-3.el7_6.x86_64                                109/223 
+  Installing : grubby-8.28-25.el7.x86_64                                110/223 
+  Installing : libgtop2-2.38.0-3.el7.x86_64                             111/223 
+  Installing : soundtouch-1.4.0-9.el7.x86_64                            112/223 
+  Installing : usermode-1.111-5.el7.x86_64                              113/223 
+  Installing : pycairo-1.8.10-8.el7.x86_64                              114/223 
+  Installing : python-gobject-3.22.0-1.el7_4.1.x86_64                   115/223 
+  Installing : kbd-legacy-1.15.5-15.el7.noarch                          116/223 
+  Installing : 32:bind-libs-lite-9.9.4-74.el7_6.2.x86_64                117/223 
+  Installing : 1:isomd5sum-1.0.10-5.el7.x86_64                          118/223 
+  Installing : linux-firmware-20180911-69.git85c5d90.el7.noarch         119/223 
+  Installing : libseccomp-2.3.1-3.el7.x86_64                            120/223 
+  Installing : chrony-3.2-2.el7.x86_64                                  121/223 
+  Installing : keybinder3-0.3.0-1.el7.x86_64                            122/223 
+  Installing : libndp-1.2-7.el7.x86_64                                  123/223 
+  Installing : 1:NetworkManager-1.12.0-10.el7_6.x86_64                  124/223 
+  Installing : 1:NetworkManager-wifi-1.12.0-10.el7_6.x86_64             125/223 
+  Installing : libselinux-utils-2.5-14.1.el7.x86_64                     126/223 
+  Installing : policycoreutils-2.5-29.el7_6.1.x86_64                    127/223 
+  Installing : authconfig-6.2.8-30.el7.x86_64                           128/223 
+  Installing : realmd-0.16.1-11.el7.x86_64                              129/223 
+  Installing : 1:xorg-x11-xauth-1.0.9-1.el7.x86_64                      130/223 
+  Installing : yelp-xsl-3.28.0-1.el7.noarch                             131/223 
+  Installing : mtdev-1.1.5-5.el7.x86_64                                 132/223 
+  Installing : xorg-x11-drv-evdev-2.10.6-1.el7.x86_64                   133/223 
+  Installing : libmpcdec-1.2.6-12.el7.x86_64                            134/223 
+  Installing : python-di-0.3-2.el7.noarch                               135/223 
+  Installing : python2-subprocess32-3.2.6-13.el7.x86_64                 136/223 
+  Installing : mesa-filesystem-18.0.5-4.el7_6.x86_64                    137/223 
+  Installing : mesa-dri-drivers-18.0.5-4.el7_6.x86_64                   138/223 
+  Installing : libtimezonemap-0.4.4-1.el7.x86_64                        139/223 
+  Installing : python-nss-0.16.0-3.el7.x86_64                           140/223 
+  Installing : libXvMC-1.0.10-1.el7.x86_64                              141/223 
+  Installing : xorg-x11-drv-intel-2.99.917-28.20180530.el7.x86_64       142/223 
+  Installing : python-IPy-0.75-6.el7.noarch                             143/223 
+  Installing : fros-1.0-2.el7.noarch                                    144/223 
+  Installing : libreport-gtk-2.1.11-42.el7.centos.x86_64                145/223 
+  Installing : python-meh-gui-0.25.2-1.el7.noarch                       146/223 
+  Installing : flac-libs-1.3.0-5.el7_1.x86_64                           147/223 
+  Installing : libsndfile-1.0.25-10.el7.x86_64                          148/223 
+  Installing : libdaemon-0.14-7.el7.x86_64                              149/223 
+  Installing : teamd-1.27-6.el7_6.1.x86_64                              150/223 
+  Installing : 1:NetworkManager-team-1.12.0-10.el7_6.x86_64             151/223 
+  Installing : 2:ethtool-4.8-9.el7.x86_64                               152/223 
+  Installing : dosfstools-3.0.20-10.el7.x86_64                          153/223 
+  Installing : mobile-broadband-provider-info-1.20170310-1.el7.noarch   154/223 
+  Installing : libnma-1.8.6-2.el7.x86_64                                155/223 
+  Installing : libdmx-1.1.3-3.el7.x86_64                                156/223 
+  Installing : ebtables-2.0.10-16.el7.x86_64                            157/223 
+  Installing : sgpio-1.2.0.10-13.el7.x86_64                             158/223 
+  Installing : dmraid-1.0.0.rc16-28.el7.x86_64                          159/223 
+  Installing : dmraid-events-1.0.0.rc16-28.el7.x86_64                   160/223 
+  Installing : python-pyblock-0.53-6.el7.x86_64                         161/223 
+  Installing : python-ipaddress-1.0.16-2.el7.noarch                     162/223 
+  Installing : python-backports-ssl_match_hostname-3.5.0.1-1.el7.noar   163/223 
+  Installing : python-setuptools-0.9.8-7.el7.noarch                     164/223 
+  Installing : python-coverage-3.6-0.5.b3.el7.x86_64                    165/223 
+  Installing : python-pyudev-0.15-9.el7.noarch                          166/223 
+  Installing : libXxf86dga-1.1.4-2.1.el7.x86_64                         167/223 
+  Installing : tigervnc-license-1.8.0-13.el7.noarch                     168/223 
+  Installing : librsvg2-2.40.20-1.el7.x86_64                            169/223 
+  Installing : libconfig-1.4.9-5.el7.x86_64                             170/223 
+  Installing : libsrtp-1.4.4-10.20101004cvs.el7.x86_64                  171/223 
+  Installing : gstreamer1-plugins-bad-free-1.10.4-3.el7.x86_64          172/223 
+  Installing : webkitgtk4-jsc-2.20.5-1.el7.x86_64                       173/223 
+  Installing : webkitgtk4-plugin-process-gtk2-2.20.5-1.el7.x86_64       174/223 
+  Installing : webkitgtk4-2.20.5-1.el7.x86_64                           175/223 
+  Installing : glade-libs-3.22.1-1.el7.x86_64                           176/223 
+  Installing : anaconda-widgets-21.48.22.147-1.el7.centos.0.1.x86_64    177/223 
+  Installing : 2:yelp-libs-3.28.1-1.el7.x86_64                          178/223 
+  Installing : 2:yelp-3.28.1-1.el7.x86_64                               179/223 
+  Installing : libasyncns-0.8-7.el7.x86_64                              180/223 
+  Installing : pulseaudio-libs-10.0-5.el7.x86_64                        181/223 
+  Installing : 1:dmidecode-3.1-2.el7.x86_64                             182/223 
+  Installing : sound-theme-freedesktop-0.8-3.el7.noarch                 183/223 
+  Installing : libcanberra-0.30-5.el7.x86_64                            184/223 
+  Installing : libcanberra-gtk3-0.30-5.el7.x86_64                       185/223 
+  Installing : libcanberra-gtk2-0.30-5.el7.x86_64                       186/223 
+  Installing : marco-1.16.1-4.el7.x86_64                                187/223 
+  Installing : firewalld-filesystem-0.5.3-5.el7.noarch                  188/223 
+  Installing : firewalld-0.5.3-5.el7.noarch                             189/223 
+  Installing : sysvinit-tools-2.88-14.dsf.el7.x86_64                    190/223 
+  Installing : initscripts-9.49.46-1.el7.x86_64                         191/223 
+  Installing : plymouth-scripts-0.8.9-0.31.20140113.el7.centos.x86_64   192/223 
+  Installing : plymouth-0.8.9-0.31.20140113.el7.centos.x86_64           193/223 
+  Installing : 12:dhclient-4.2.5-68.el7.centos.1.x86_64                 194/223 
+  Installing : device-mapper-multipath-0.4.9-123.el7.x86_64             195/223 
+  Installing : dracut-network-033-554.el7.x86_64                        196/223 
+  Installing : kexec-tools-2.0.15-21.el7_6.4.x86_64                     197/223 
+  Installing : plymouth-plugin-label-0.8.9-0.31.20140113.el7.centos.x   198/223 
+  Installing : plymouth-plugin-two-step-0.8.9-0.31.20140113.el7.cento   199/223 
+  Installing : plymouth-theme-charge-0.8.9-0.31.20140113.el7.centos.x   200/223 
+  Installing : tigervnc-server-minimal-1.8.0-13.el7.x86_64              201/223 
+  Installing : kernel-3.10.0-957.27.2.el7.x86_64                        202/223 
+  Installing : lldpad-1.0.1-3.git036e314.el7.x86_64                     203/223 
+  Installing : fcoe-utils-1.0.32-2.el7_6.x86_64                         204/223 
+  Installing : kbd-1.15.5-15.el7.x86_64                                 205/223 
+  Installing : libuser-python-0.60-9.el7.x86_64                         206/223 
+  Installing : cryptsetup-python-2.0.3-3.el7.x86_64                     207/223 
+  Installing : 1:python-blivet-0.61.15.72-1.el7.noarch                  208/223 
+  Installing : pytz-2016.10-2.el7.noarch                                209/223 
+  Installing : anaconda-tui-21.48.22.147-1.el7.centos.0.1.x86_64        210/223 
+  Installing : anaconda-core-21.48.22.147-1.el7.centos.0.1.x86_64       211/223 
+  Installing : initial-setup-0.3.9.43-1.el7.centos.x86_64               212/223 
+  Installing : gnome-icon-theme-3.12.0-1.el7.noarch                     213/223 
+  Installing : nm-connection-editor-1.8.6-2.el7.x86_64                  214/223 
+  Installing : anaconda-gui-21.48.22.147-1.el7.centos.0.1.x86_64        215/223 
+  Installing : initial-setup-gui-0.3.9.43-1.el7.centos.x86_64           216/223 
+  Installing : plymouth-system-theme-0.8.9-0.31.20140113.el7.centos.x   217/223 
+  Installing : xorg-x11-utils-7.5-23.el7.x86_64                         218/223 
+  Installing : xorg-x11-drivers-7.7-6.el7.x86_64                        219/223 
+  Installing : xorg-x11-xinit-1.3.4-2.el7.x86_64                        220/223 
+  Installing : xvattr-1.3-27.el7.x86_64                                 221/223 
+  Installing : glx-utils-8.3.0-10.el7.x86_64                            222/223 
+  Installing : spice-vdagent-0.14.0-16.el7.x86_64                       223/223 
 No '/dev/log' or 'logger' included for syslog logging
 findmnt: can't read (null): No such file or directory
 findmnt: can't read (null): No such file or directory
-  Verifying  : device-mapper-persistent-data-0.7.3-3.el7.x86_64           1/224 
-  Verifying  : langtable-data-0.0.31-3.el7.noarch                         2/224 
-  Verifying  : gnome-icon-theme-3.12.0-1.el7.noarch                       3/224 
-  Verifying  : pytz-2016.10-2.el7.noarch                                  4/224 
-  Verifying  : libnotify-0.7.7-1.el7.x86_64                               5/224 
-  Verifying  : cryptsetup-python-2.0.3-3.el7.x86_64                       6/224 
-  Verifying  : plymouth-theme-charge-0.8.9-0.31.20140113.el7.centos.x     7/224 
-  Verifying  : libuser-python-0.60-9.el7.x86_64                           8/224 
-  Verifying  : sysvinit-tools-2.88-14.dsf.el7.x86_64                      9/224 
-  Verifying  : firewalld-filesystem-0.5.3-5.el7.noarch                   10/224 
-  Verifying  : anaconda-tui-21.48.22.147-1.el7.centos.0.1.x86_64         11/224 
-  Verifying  : python-backports-ssl_match_hostname-3.5.0.1-1.el7.noar    12/224 
-  Verifying  : xorg-x11-server-Xorg-1.20.1-5.6.el7_6.x86_64              13/224 
-  Verifying  : plymouth-plugin-label-0.8.9-0.31.20140113.el7.centos.x    14/224 
-  Verifying  : webkitgtk4-jsc-2.20.5-1.el7.x86_64                        15/224 
-  Verifying  : satyr-0.13-15.el7.x86_64                                  16/224 
-  Verifying  : firewalld-0.5.3-5.el7.noarch                              17/224 
-  Verifying  : sound-theme-freedesktop-0.8-3.el7.noarch                  18/224 
-  Verifying  : libtool-ltdl-2.4.2-22.el7_3.x86_64                        19/224 
-  Verifying  : langtable-python-0.0.31-3.el7.noarch                      20/224 
-  Verifying  : 1:dmidecode-3.1-2.el7.x86_64                              21/224 
-  Verifying  : 12:dhcp-libs-4.2.5-68.el7.centos.1.x86_64                 22/224 
-  Verifying  : libasyncns-0.8-7.el7.x86_64                               23/224 
-  Verifying  : plymouth-plugin-two-step-0.8.9-0.31.20140113.el7.cento    24/224 
-  Verifying  : libsrtp-1.4.4-10.20101004cvs.el7.x86_64                   25/224 
-  Verifying  : initial-setup-gui-0.3.9.43-1.el7.centos.x86_64            26/224 
-  Verifying  : libconfig-1.4.9-5.el7.x86_64                              27/224 
-  Verifying  : libxklavier-5.4-7.el7.x86_64                              28/224 
-  Verifying  : 1:NetworkManager-libnm-1.12.0-10.el7_6.x86_64             29/224 
-  Verifying  : deltarpm-3.6-3.el7.x86_64                                 30/224 
-  Verifying  : xorg-x11-drv-vmware-13.2.1-1.el7.1.x86_64                 31/224 
-  Verifying  : librsvg2-2.40.20-1.el7.x86_64                             32/224 
-  Verifying  : libblockdev-2.18-3.el7.x86_64                             33/224 
-  Verifying  : tigervnc-license-1.8.0-13.el7.noarch                      34/224 
-  Verifying  : libblockdev-utils-2.18-3.el7.x86_64                       35/224 
-  Verifying  : python-decorator-3.4.0-3.el7.noarch                       36/224 
-  Verifying  : libselinux-python-2.5-14.1.el7.x86_64                     37/224 
-  Verifying  : e2fsprogs-libs-1.42.9-13.el7.x86_64                       38/224 
-  Verifying  : xorg-x11-drv-fbdev-0.5.0-1.el7.x86_64                     39/224 
-  Verifying  : initial-setup-0.3.9.43-1.el7.centos.x86_64                40/224 
-  Verifying  : python-slip-dbus-0.4.0-4.el7.noarch                       41/224 
-  Verifying  : python-deltarpm-3.6-3.el7.x86_64                          42/224 
-  Verifying  : tigervnc-server-minimal-1.8.0-13.el7.x86_64               43/224 
-  Verifying  : python2-blockdev-2.18-3.el7.x86_64                        44/224 
-  Verifying  : libreport-filesystem-2.1.11-42.el7.centos.x86_64          45/224 
-  Verifying  : libdvdnav-5.0.3-1.el7.x86_64                              46/224 
-  Verifying  : libXxf86dga-1.1.4-2.1.el7.x86_64                          47/224 
-  Verifying  : python-pyudev-0.15-9.el7.noarch                           48/224 
-  Verifying  : python-ipaddress-1.0.16-2.el7.noarch                      49/224 
-  Verifying  : libtar-1.2.11-29.el7.x86_64                               50/224 
-  Verifying  : daxctl-libs-62-1.el7.x86_64                               51/224 
-  Verifying  : 1:NetworkManager-team-1.12.0-10.el7_6.x86_64              52/224 
-  Verifying  : augeas-libs-1.4.0-6.el7_6.1.x86_64                        53/224 
-  Verifying  : plymouth-graphics-libs-0.8.9-0.31.20140113.el7.centos.    54/224 
-  Verifying  : sgpio-1.2.0.10-13.el7.x86_64                              55/224 
-  Verifying  : plymouth-0.8.9-0.31.20140113.el7.centos.x86_64            56/224 
-  Verifying  : realmd-0.16.1-11.el7.x86_64                               57/224 
-  Verifying  : ebtables-2.0.10-16.el7.x86_64                             58/224 
-  Verifying  : hyphen-2.8.6-5.el7.x86_64                                 59/224 
-  Verifying  : libdmx-1.1.3-3.el7.x86_64                                 60/224 
-  Verifying  : glade-libs-3.22.1-1.el7.x86_64                            61/224 
-  Verifying  : xorg-x11-drv-ati-18.1.0-1.el7_6.x86_64                    62/224 
-  Verifying  : mobile-broadband-provider-info-1.20170310-1.el7.noarch    63/224 
-  Verifying  : 7:lvm2-2.02.180-10.el7_6.8.x86_64                         64/224 
-  Verifying  : dosfstools-3.0.20-10.el7.x86_64                           65/224 
-  Verifying  : 2:ethtool-4.8-9.el7.x86_64                                66/224 
-  Verifying  : 1:wpa_supplicant-2.6-12.el7.x86_64                        67/224 
-  Verifying  : xorg-x11-drv-vmmouse-13.1.0-1.el7.1.x86_64                68/224 
-  Verifying  : python-setuptools-0.9.8-7.el7.noarch                      69/224 
-  Verifying  : libreport-plugin-bugzilla-2.1.11-42.el7.centos.x86_64     70/224 
-  Verifying  : libdaemon-0.14-7.el7.x86_64                               71/224 
-  Verifying  : slang-2.2.4-11.el7.x86_64                                 72/224 
-  Verifying  : libevdev-1.5.6-1.el7.x86_64                               73/224 
-  Verifying  : policycoreutils-2.5-29.el7_6.1.x86_64                     74/224 
-  Verifying  : flac-libs-1.3.0-5.el7_1.x86_64                            75/224 
-  Verifying  : btrfs-progs-4.9.1-1.el7.x86_64                            76/224 
-  Verifying  : libarchive-3.1.2-10.el7_2.x86_64                          77/224 
-  Verifying  : newt-0.52.15-4.el7.x86_64                                 78/224 
-  Verifying  : libreport-anaconda-2.1.11-42.el7.centos.x86_64            79/224 
-  Verifying  : libcanberra-gtk3-0.30-5.el7.x86_64                        80/224 
-  Verifying  : fros-1.0-2.el7.noarch                                     81/224 
-  Verifying  : xorg-x11-utils-7.5-23.el7.x86_64                          82/224 
-  Verifying  : python-IPy-0.75-6.el7.noarch                              83/224 
-  Verifying  : libXvMC-1.0.10-1.el7.x86_64                               84/224 
-  Verifying  : mdadm-4.1-rc1_2.el7.x86_64                                85/224 
-  Verifying  : plymouth-system-theme-0.8.9-0.31.20140113.el7.centos.x    86/224 
-  Verifying  : python-nss-0.16.0-3.el7.x86_64                            87/224 
-  Verifying  : libreport-gtk-2.1.11-42.el7.centos.x86_64                 88/224 
-  Verifying  : nm-connection-editor-1.8.6-2.el7.x86_64                   89/224 
-  Verifying  : libtimezonemap-0.4.4-1.el7.x86_64                         90/224 
-  Verifying  : xorg-x11-drv-evdev-2.10.6-1.el7.x86_64                    91/224 
-  Verifying  : mesa-filesystem-18.0.5-4.el7_6.x86_64                     92/224 
-  Verifying  : 12:dhcp-common-4.2.5-68.el7.centos.1.x86_64               93/224 
-  Verifying  : python2-subprocess32-3.2.6-13.el7.x86_64                  94/224 
-  Verifying  : pulseaudio-libs-10.0-5.el7.x86_64                         95/224 
-  Verifying  : gsm-1.0.13-11.el7.x86_64                                  96/224 
-  Verifying  : python-di-0.3-2.el7.noarch                                97/224 
-  Verifying  : libXfont2-2.0.3-1.el7.x86_64                              98/224 
-  Verifying  : libmpcdec-1.2.6-12.el7.x86_64                             99/224 
-  Verifying  : mtdev-1.1.5-5.el7.x86_64                                 100/224 
-  Verifying  : yelp-xsl-3.28.0-1.el7.noarch                             101/224 
-  Verifying  : xorg-x11-drv-vesa-2.4.0-1.el7.x86_64                     102/224 
-  Verifying  : xorg-x11-server-common-1.20.1-5.6.el7_6.x86_64           103/224 
-  Verifying  : 1:xorg-x11-xauth-1.0.9-1.el7.x86_64                      104/224 
-  Verifying  : jansson-2.10-1.el7.x86_64                                105/224 
-  Verifying  : libselinux-utils-2.5-14.1.el7.x86_64                     106/224 
-  Verifying  : langtable-0.0.31-3.el7.noarch                            107/224 
-  Verifying  : ndctl-62-1.el7.x86_64                                    108/224 
-  Verifying  : libgnomekbd-3.26.0-1.el7.x86_64                          109/224 
-  Verifying  : xorg-x11-drv-wacom-0.36.1-1.el7.x86_64                   110/224 
-  Verifying  : device-mapper-multipath-libs-0.4.9-123.el7.x86_64        111/224 
-  Verifying  : anaconda-core-21.48.22.147-1.el7.centos.0.1.x86_64       112/224 
-  Verifying  : libsndfile-1.0.25-10.el7.x86_64                          113/224 
-  Verifying  : libndp-1.2-7.el7.x86_64                                  114/224 
-  Verifying  : gcr-3.28.0-1.el7.x86_64                                  115/224 
-  Verifying  : kernel-3.10.0-957.27.2.el7.x86_64                        116/224 
-  Verifying  : python-coverage-3.6-0.5.b3.el7.x86_64                    117/224 
-  Verifying  : libreport-web-2.1.11-42.el7.centos.x86_64                118/224 
-  Verifying  : xorg-x11-drv-v4l-0.2.0-49.el7.x86_64                     119/224 
-  Verifying  : libnl3-cli-3.2.28-4.el7.x86_64                           120/224 
-  Verifying  : keybinder3-0.3.0-1.el7.x86_64                            121/224 
-  Verifying  : spice-vdagent-0.14.0-16.el7.x86_64                       122/224 
-  Verifying  : libseccomp-2.3.1-3.el7.x86_64                            123/224 
-  Verifying  : libdvdread-5.0.3-3.el7.x86_64                            124/224 
-  Verifying  : mesa-dri-drivers-18.0.5-4.el7_6.x86_64                   125/224 
-  Verifying  : fcoe-utils-1.0.32-2.el7_6.x86_64                         126/224 
-  Verifying  : lzo-2.06-8.el7.x86_64                                    127/224 
-  Verifying  : zenity-3.28.1-1.el7.x86_64                               128/224 
-  Verifying  : initscripts-9.49.46-1.el7.x86_64                         129/224 
-  Verifying  : dmraid-events-1.0.0.rc16-28.el7.x86_64                   130/224 
-  Verifying  : e2fsprogs-1.42.9-13.el7.x86_64                           131/224 
-  Verifying  : pykickstart-1.99.66.19-2.el7.noarch                      132/224 
-  Verifying  : kexec-tools-2.0.15-21.el7_6.4.x86_64                     133/224 
-  Verifying  : 1:NetworkManager-wifi-1.12.0-10.el7_6.x86_64             134/224 
-  Verifying  : libreport-2.1.11-42.el7.centos.x86_64                    135/224 
-  Verifying  : linux-firmware-20180911-69.git85c5d90.el7.noarch         136/224 
-  Verifying  : newt-python-0.52.15-4.el7.x86_64                         137/224 
-  Verifying  : libaio-0.3.109-13.el7.x86_64                             138/224 
-  Verifying  : 1:isomd5sum-1.0.10-5.el7.x86_64                          139/224 
-  Verifying  : 32:bind-libs-lite-9.9.4-74.el7_6.2.x86_64                140/224 
-  Verifying  : kbd-legacy-1.15.5-15.el7.noarch                          141/224 
-  Verifying  : python-pyblock-0.53-6.el7.x86_64                         142/224 
-  Verifying  : webkitgtk4-plugin-process-gtk2-2.20.5-1.el7.x86_64       143/224 
-  Verifying  : teamd-1.27-6.el7_6.1.x86_64                              144/224 
-  Verifying  : kbd-1.15.5-15.el7.x86_64                                 145/224 
-  Verifying  : lldpad-1.0.1-3.git036e314.el7.x86_64                     146/224 
-  Verifying  : chrony-3.2-2.el7.x86_64                                  147/224 
-  Verifying  : createrepo-0.9.9-28.el7.noarch                           148/224 
-  Verifying  : python-gobject-3.22.0-1.el7_4.1.x86_64                   149/224 
-  Verifying  : plymouth-core-libs-0.8.9-0.31.20140113.el7.centos.x86_   150/224 
-  Verifying  : anaconda-gui-21.48.22.147-1.el7.centos.0.1.x86_64        151/224 
-  Verifying  : libcanberra-gtk2-0.30-5.el7.x86_64                       152/224 
-  Verifying  : marco-1.16.1-4.el7.x86_64                                153/224 
-  Verifying  : python-firewall-0.5.3-5.el7.noarch                       154/224 
-  Verifying  : python-slip-0.4.0-4.el7.noarch                           155/224 
-  Verifying  : pycairo-1.8.10-8.el7.x86_64                              156/224 
-  Verifying  : usermode-1.111-5.el7.x86_64                              157/224 
-  Verifying  : libreport-rhel-anaconda-bugzilla-2.1.11-42.el7.centos.   158/224 
-  Verifying  : 7:device-mapper-event-libs-1.02.149-10.el7_6.8.x86_64    159/224 
-  Verifying  : gstreamer1-plugins-bad-free-1.10.4-3.el7.x86_64          160/224 
-  Verifying  : soundtouch-1.4.0-9.el7.x86_64                            161/224 
-  Verifying  : xorg-x11-drv-qxl-0.1.5-4.el7.1.x86_64                    162/224 
-  Verifying  : libnl3-3.2.28-4.el7.x86_64                               163/224 
-  Verifying  : iscsi-initiator-utils-6.2.0.874-10.el7.x86_64            164/224 
-  Verifying  : oddjob-mkhomedir-0.31.5-4.el7.x86_64                     165/224 
-  Verifying  : xorg-x11-drv-intel-2.99.917-28.20180530.el7.x86_64       166/224 
-  Verifying  : xmlrpc-c-1.32.5-1905.svn2451.el7.x86_64                  167/224 
-  Verifying  : libgtop2-2.38.0-3.el7.x86_64                             168/224 
-  Verifying  : 1:pyparted-3.9-15.el7.x86_64                             169/224 
-  Verifying  : mesa-libxatracker-18.0.5-4.el7_6.x86_64                  170/224 
-  Verifying  : grubby-8.28-25.el7.x86_64                                171/224 
-  Verifying  : glx-utils-8.3.0-10.el7.x86_64                            172/224 
-  Verifying  : python-meh-0.25.2-1.el7.noarch                           173/224 
-  Verifying  : libteam-1.27-6.el7_6.1.x86_64                            174/224 
-  Verifying  : libnma-1.8.6-2.el7.x86_64                                175/224 
-  Verifying  : ipset-libs-6.38-3.el7_6.x86_64                           176/224 
-  Verifying  : authconfig-6.2.8-30.el7.x86_64                           177/224 
-  Verifying  : plymouth-scripts-0.8.9-0.31.20140113.el7.centos.x86_64   178/224 
-  Verifying  : xorg-x11-xkb-utils-7.7-14.el7.x86_64                     179/224 
-  Verifying  : xorg-x11-drv-dummy-0.3.7-1.el7.1.x86_64                  180/224 
-  Verifying  : centos-logos-70.0.6-3.el7.centos.noarch                  181/224 
-  Verifying  : python-pwquality-1.2.3-5.el7.x86_64                      182/224 
-  Verifying  : xorg-x11-xinit-1.3.4-2.el7.x86_64                        183/224 
-  Verifying  : 1:python-blivet-0.61.15.72-1.el7.noarch                  184/224 
-  Verifying  : libreport-python-2.1.11-42.el7.centos.x86_64             185/224 
-  Verifying  : oddjob-0.31.5-4.el7.x86_64                               186/224 
-  Verifying  : python-meh-gui-0.25.2-1.el7.noarch                       187/224 
-  Verifying  : 12:dhclient-4.2.5-68.el7.centos.1.x86_64                 188/224 
-  Verifying  : cryptsetup-2.0.3-3.el7.x86_64                            189/224 
-  Verifying  : libss-1.42.9-13.el7.x86_64                               190/224 
-  Verifying  : iscsi-initiator-utils-iscsiuio-6.2.0.874-10.el7.x86_64   191/224 
-  Verifying  : 1:NetworkManager-glib-1.12.0-10.el7_6.x86_64             192/224 
-  Verifying  : 2:yelp-3.28.1-1.el7.x86_64                               193/224 
-  Verifying  : libgudev1-219-62.el7_6.9.x86_64                          194/224 
-  Verifying  : parted-3.1-29.el7.x86_64                                 195/224 
-  Verifying  : kbd-misc-1.15.5-15.el7.noarch                            196/224 
-  Verifying  : device-mapper-multipath-0.4.9-123.el7.x86_64             197/224 
-  Verifying  : anaconda-widgets-21.48.22.147-1.el7.centos.0.1.x86_64    198/224 
-  Verifying  : libreport-cli-2.1.11-42.el7.centos.x86_64                199/224 
-  Verifying  : libtdb-1.3.15-1.el7.x86_64                               200/224 
-  Verifying  : 2:yelp-libs-3.28.1-1.el7.x86_64                          201/224 
-  Verifying  : libcanberra-0.30-5.el7.x86_64                            202/224 
-  Verifying  : dracut-network-033-554.el7.x86_64                        203/224 
-  Verifying  : xorg-x11-drv-synaptics-1.9.0-2.el7.x86_64                204/224 
-  Verifying  : 1:NetworkManager-1.12.0-10.el7_6.x86_64                  205/224 
-  Verifying  : python-backports-1.0-8.el7.x86_64                        206/224 
-  Verifying  : python-ntplib-0.3.2-1.el7.noarch                         207/224 
-  Verifying  : ndctl-libs-62-1.el7.x86_64                               208/224 
-  Verifying  : xvattr-1.3-27.el7.x86_64                                 209/224 
-  Verifying  : 7:lvm2-libs-2.02.180-10.el7_6.8.x86_64                   210/224 
-  Verifying  : libreport-plugin-rhtsupport-2.1.11-42.el7.centos.x86_6   211/224 
-  Verifying  : webkitgtk4-2.20.5-1.el7.x86_64                           212/224 
-  Verifying  : snappy-1.1.0-3.el7.x86_64                                213/224 
-  Verifying  : 7:device-mapper-event-1.02.149-10.el7_6.8.x86_64         214/224 
-  Verifying  : xorg-x11-drivers-7.7-6.el7.x86_64                        215/224 
-  Verifying  : libXdmcp-1.1.2-6.el7.x86_64                              216/224 
-  Verifying  : ipset-6.38-3.el7_6.x86_64                                217/224 
-  Verifying  : libreport-plugin-reportuploader-2.1.11-42.el7.centos.x   218/224 
-  Verifying  : xorg-x11-drv-void-1.4.1-2.el7.1.x86_64                   219/224 
-  Verifying  : llvm-private-6.0.1-2.el7.x86_64                          220/224 
-  Verifying  : 1:xorg-x11-drv-nouveau-1.0.15-1.el7.x86_64               221/224 
-  Verifying  : dmraid-1.0.0.rc16-28.el7.x86_64                          222/224 
-  Verifying  : xmlrpc-c-client-1.32.5-1905.svn2451.el7.x86_64           223/224 
-  Verifying  : libblockdev-nvdimm-2.18-3.el7.x86_64                     224/224 
+  Verifying  : device-mapper-persistent-data-0.7.3-3.el7.x86_64           1/223 
+  Verifying  : langtable-data-0.0.31-3.el7.noarch                         2/223 
+  Verifying  : gnome-icon-theme-3.12.0-1.el7.noarch                       3/223 
+  Verifying  : pytz-2016.10-2.el7.noarch                                  4/223 
+  Verifying  : libnotify-0.7.7-1.el7.x86_64                               5/223 
+  Verifying  : cryptsetup-python-2.0.3-3.el7.x86_64                       6/223 
+  Verifying  : plymouth-theme-charge-0.8.9-0.31.20140113.el7.centos.x     7/223 
+  Verifying  : libuser-python-0.60-9.el7.x86_64                           8/223 
+  Verifying  : sysvinit-tools-2.88-14.dsf.el7.x86_64                      9/223 
+  Verifying  : firewalld-filesystem-0.5.3-5.el7.noarch                   10/223 
+  Verifying  : anaconda-tui-21.48.22.147-1.el7.centos.0.1.x86_64         11/223 
+  Verifying  : python-backports-ssl_match_hostname-3.5.0.1-1.el7.noar    12/223 
+  Verifying  : xorg-x11-server-Xorg-1.20.1-5.6.el7_6.x86_64              13/223 
+  Verifying  : plymouth-plugin-label-0.8.9-0.31.20140113.el7.centos.x    14/223 
+  Verifying  : webkitgtk4-jsc-2.20.5-1.el7.x86_64                        15/223 
+  Verifying  : satyr-0.13-15.el7.x86_64                                  16/223 
+  Verifying  : firewalld-0.5.3-5.el7.noarch                              17/223 
+  Verifying  : sound-theme-freedesktop-0.8-3.el7.noarch                  18/223 
+  Verifying  : libtool-ltdl-2.4.2-22.el7_3.x86_64                        19/223 
+  Verifying  : langtable-python-0.0.31-3.el7.noarch                      20/223 
+  Verifying  : 1:dmidecode-3.1-2.el7.x86_64                              21/223 
+  Verifying  : 12:dhcp-libs-4.2.5-68.el7.centos.1.x86_64                 22/223 
+  Verifying  : libasyncns-0.8-7.el7.x86_64                               23/223 
+  Verifying  : plymouth-plugin-two-step-0.8.9-0.31.20140113.el7.cento    24/223 
+  Verifying  : libsrtp-1.4.4-10.20101004cvs.el7.x86_64                   25/223 
+  Verifying  : initial-setup-gui-0.3.9.43-1.el7.centos.x86_64            26/223 
+  Verifying  : libconfig-1.4.9-5.el7.x86_64                              27/223 
+  Verifying  : libxklavier-5.4-7.el7.x86_64                              28/223 
+  Verifying  : 1:NetworkManager-libnm-1.12.0-10.el7_6.x86_64             29/223 
+  Verifying  : deltarpm-3.6-3.el7.x86_64                                 30/223 
+  Verifying  : xorg-x11-drv-vmware-13.2.1-1.el7.1.x86_64                 31/223 
+  Verifying  : librsvg2-2.40.20-1.el7.x86_64                             32/223 
+  Verifying  : libblockdev-2.18-3.el7.x86_64                             33/223 
+  Verifying  : tigervnc-license-1.8.0-13.el7.noarch                      34/223 
+  Verifying  : libblockdev-utils-2.18-3.el7.x86_64                       35/223 
+  Verifying  : python-decorator-3.4.0-3.el7.noarch                       36/223 
+  Verifying  : libselinux-python-2.5-14.1.el7.x86_64                     37/223 
+  Verifying  : e2fsprogs-libs-1.42.9-13.el7.x86_64                       38/223 
+  Verifying  : xorg-x11-drv-fbdev-0.5.0-1.el7.x86_64                     39/223 
+  Verifying  : initial-setup-0.3.9.43-1.el7.centos.x86_64                40/223 
+  Verifying  : python-slip-dbus-0.4.0-4.el7.noarch                       41/223 
+  Verifying  : python-deltarpm-3.6-3.el7.x86_64                          42/223 
+  Verifying  : tigervnc-server-minimal-1.8.0-13.el7.x86_64               43/223 
+  Verifying  : python2-blockdev-2.18-3.el7.x86_64                        44/223 
+  Verifying  : libreport-filesystem-2.1.11-42.el7.centos.x86_64          45/223 
+  Verifying  : libdvdnav-5.0.3-1.el7.x86_64                              46/223 
+  Verifying  : libXxf86dga-1.1.4-2.1.el7.x86_64                          47/223 
+  Verifying  : python-pyudev-0.15-9.el7.noarch                           48/223 
+  Verifying  : python-ipaddress-1.0.16-2.el7.noarch                      49/223 
+  Verifying  : libtar-1.2.11-29.el7.x86_64                               50/223 
+  Verifying  : daxctl-libs-62-1.el7.x86_64                               51/223 
+  Verifying  : 1:NetworkManager-team-1.12.0-10.el7_6.x86_64              52/223 
+  Verifying  : augeas-libs-1.4.0-6.el7_6.1.x86_64                        53/223 
+  Verifying  : plymouth-graphics-libs-0.8.9-0.31.20140113.el7.centos.    54/223 
+  Verifying  : sgpio-1.2.0.10-13.el7.x86_64                              55/223 
+  Verifying  : plymouth-0.8.9-0.31.20140113.el7.centos.x86_64            56/223 
+  Verifying  : realmd-0.16.1-11.el7.x86_64                               57/223 
+  Verifying  : ebtables-2.0.10-16.el7.x86_64                             58/223 
+  Verifying  : hyphen-2.8.6-5.el7.x86_64                                 59/223 
+  Verifying  : libdmx-1.1.3-3.el7.x86_64                                 60/223 
+  Verifying  : glade-libs-3.22.1-1.el7.x86_64                            61/223 
+  Verifying  : xorg-x11-drv-ati-18.1.0-1.el7_6.x86_64                    62/223 
+  Verifying  : mobile-broadband-provider-info-1.20170310-1.el7.noarch    63/223 
+  Verifying  : 7:lvm2-2.02.180-10.el7_6.8.x86_64                         64/223 
+  Verifying  : dosfstools-3.0.20-10.el7.x86_64                           65/223 
+  Verifying  : 2:ethtool-4.8-9.el7.x86_64                                66/223 
+  Verifying  : 1:wpa_supplicant-2.6-12.el7.x86_64                        67/223 
+  Verifying  : xorg-x11-drv-vmmouse-13.1.0-1.el7.1.x86_64                68/223 
+  Verifying  : python-setuptools-0.9.8-7.el7.noarch                      69/223 
+  Verifying  : libreport-plugin-bugzilla-2.1.11-42.el7.centos.x86_64     70/223 
+  Verifying  : libdaemon-0.14-7.el7.x86_64                               71/223 
+  Verifying  : slang-2.2.4-11.el7.x86_64                                 72/223 
+  Verifying  : libevdev-1.5.6-1.el7.x86_64                               73/223 
+  Verifying  : policycoreutils-2.5-29.el7_6.1.x86_64                     74/223 
+  Verifying  : flac-libs-1.3.0-5.el7_1.x86_64                            75/223 
+  Verifying  : btrfs-progs-4.9.1-1.el7.x86_64                            76/223 
+  Verifying  : libarchive-3.1.2-10.el7_2.x86_64                          77/223 
+  Verifying  : newt-0.52.15-4.el7.x86_64                                 78/223 
+  Verifying  : libreport-anaconda-2.1.11-42.el7.centos.x86_64            79/223 
+  Verifying  : libcanberra-gtk3-0.30-5.el7.x86_64                        80/223 
+  Verifying  : fros-1.0-2.el7.noarch                                     81/223 
+  Verifying  : xorg-x11-utils-7.5-23.el7.x86_64                          82/223 
+  Verifying  : python-IPy-0.75-6.el7.noarch                              83/223 
+  Verifying  : libXvMC-1.0.10-1.el7.x86_64                               84/223 
+  Verifying  : mdadm-4.1-rc1_2.el7.x86_64                                85/223 
+  Verifying  : plymouth-system-theme-0.8.9-0.31.20140113.el7.centos.x    86/223 
+  Verifying  : python-nss-0.16.0-3.el7.x86_64                            87/223 
+  Verifying  : libreport-gtk-2.1.11-42.el7.centos.x86_64                 88/223 
+  Verifying  : nm-connection-editor-1.8.6-2.el7.x86_64                   89/223 
+  Verifying  : libtimezonemap-0.4.4-1.el7.x86_64                         90/223 
+  Verifying  : xorg-x11-drv-evdev-2.10.6-1.el7.x86_64                    91/223 
+  Verifying  : mesa-filesystem-18.0.5-4.el7_6.x86_64                     92/223 
+  Verifying  : 12:dhcp-common-4.2.5-68.el7.centos.1.x86_64               93/223 
+  Verifying  : python2-subprocess32-3.2.6-13.el7.x86_64                  94/223 
+  Verifying  : pulseaudio-libs-10.0-5.el7.x86_64                         95/223 
+  Verifying  : gsm-1.0.13-11.el7.x86_64                                  96/223 
+  Verifying  : python-di-0.3-2.el7.noarch                                97/223 
+  Verifying  : libXfont2-2.0.3-1.el7.x86_64                              98/223 
+  Verifying  : libmpcdec-1.2.6-12.el7.x86_64                             99/223 
+  Verifying  : mtdev-1.1.5-5.el7.x86_64                                 100/223 
+  Verifying  : yelp-xsl-3.28.0-1.el7.noarch                             101/223 
+  Verifying  : xorg-x11-drv-vesa-2.4.0-1.el7.x86_64                     102/223 
+  Verifying  : xorg-x11-server-common-1.20.1-5.6.el7_6.x86_64           103/223 
+  Verifying  : 1:xorg-x11-xauth-1.0.9-1.el7.x86_64                      104/223 
+  Verifying  : jansson-2.10-1.el7.x86_64                                105/223 
+  Verifying  : libselinux-utils-2.5-14.1.el7.x86_64                     106/223 
+  Verifying  : langtable-0.0.31-3.el7.noarch                            107/223 
+  Verifying  : ndctl-62-1.el7.x86_64                                    108/223 
+  Verifying  : libgnomekbd-3.26.0-1.el7.x86_64                          109/223 
+  Verifying  : xorg-x11-drv-wacom-0.36.1-1.el7.x86_64                   110/223 
+  Verifying  : device-mapper-multipath-libs-0.4.9-123.el7.x86_64        111/223 
+  Verifying  : anaconda-core-21.48.22.147-1.el7.centos.0.1.x86_64       112/223 
+  Verifying  : libsndfile-1.0.25-10.el7.x86_64                          113/223 
+  Verifying  : libndp-1.2-7.el7.x86_64                                  114/223 
+  Verifying  : gcr-3.28.0-1.el7.x86_64                                  115/223 
+  Verifying  : kernel-3.10.0-957.27.2.el7.x86_64                        116/223 
+  Verifying  : python-coverage-3.6-0.5.b3.el7.x86_64                    117/223 
+  Verifying  : libreport-web-2.1.11-42.el7.centos.x86_64                118/223 
+  Verifying  : xorg-x11-drv-v4l-0.2.0-49.el7.x86_64                     119/223 
+  Verifying  : libnl3-cli-3.2.28-4.el7.x86_64                           120/223 
+  Verifying  : keybinder3-0.3.0-1.el7.x86_64                            121/223 
+  Verifying  : spice-vdagent-0.14.0-16.el7.x86_64                       122/223 
+  Verifying  : libseccomp-2.3.1-3.el7.x86_64                            123/223 
+  Verifying  : libdvdread-5.0.3-3.el7.x86_64                            124/223 
+  Verifying  : mesa-dri-drivers-18.0.5-4.el7_6.x86_64                   125/223 
+  Verifying  : fcoe-utils-1.0.32-2.el7_6.x86_64                         126/223 
+  Verifying  : lzo-2.06-8.el7.x86_64                                    127/223 
+  Verifying  : zenity-3.28.1-1.el7.x86_64                               128/223 
+  Verifying  : initscripts-9.49.46-1.el7.x86_64                         129/223 
+  Verifying  : dmraid-events-1.0.0.rc16-28.el7.x86_64                   130/223 
+  Verifying  : e2fsprogs-1.42.9-13.el7.x86_64                           131/223 
+  Verifying  : pykickstart-1.99.66.19-2.el7.noarch                      132/223 
+  Verifying  : kexec-tools-2.0.15-21.el7_6.4.x86_64                     133/223 
+  Verifying  : 1:NetworkManager-wifi-1.12.0-10.el7_6.x86_64             134/223 
+  Verifying  : libreport-2.1.11-42.el7.centos.x86_64                    135/223 
+  Verifying  : linux-firmware-20180911-69.git85c5d90.el7.noarch         136/223 
+  Verifying  : newt-python-0.52.15-4.el7.x86_64                         137/223 
+  Verifying  : libaio-0.3.109-13.el7.x86_64                             138/223 
+  Verifying  : 1:isomd5sum-1.0.10-5.el7.x86_64                          139/223 
+  Verifying  : 32:bind-libs-lite-9.9.4-74.el7_6.2.x86_64                140/223 
+  Verifying  : kbd-legacy-1.15.5-15.el7.noarch                          141/223 
+  Verifying  : python-pyblock-0.53-6.el7.x86_64                         142/223 
+  Verifying  : webkitgtk4-plugin-process-gtk2-2.20.5-1.el7.x86_64       143/223 
+  Verifying  : teamd-1.27-6.el7_6.1.x86_64                              144/223 
+  Verifying  : kbd-1.15.5-15.el7.x86_64                                 145/223 
+  Verifying  : lldpad-1.0.1-3.git036e314.el7.x86_64                     146/223 
+  Verifying  : chrony-3.2-2.el7.x86_64                                  147/223 
+  Verifying  : createrepo-0.9.9-28.el7.noarch                           148/223 
+  Verifying  : python-gobject-3.22.0-1.el7_4.1.x86_64                   149/223 
+  Verifying  : plymouth-core-libs-0.8.9-0.31.20140113.el7.centos.x86_   150/223 
+  Verifying  : anaconda-gui-21.48.22.147-1.el7.centos.0.1.x86_64        151/223 
+  Verifying  : libcanberra-gtk2-0.30-5.el7.x86_64                       152/223 
+  Verifying  : marco-1.16.1-4.el7.x86_64                                153/223 
+  Verifying  : python-firewall-0.5.3-5.el7.noarch                       154/223 
+  Verifying  : python-slip-0.4.0-4.el7.noarch                           155/223 
+  Verifying  : pycairo-1.8.10-8.el7.x86_64                              156/223 
+  Verifying  : usermode-1.111-5.el7.x86_64                              157/223 
+  Verifying  : libreport-rhel-anaconda-bugzilla-2.1.11-42.el7.centos.   158/223 
+  Verifying  : 7:device-mapper-event-libs-1.02.149-10.el7_6.8.x86_64    159/223 
+  Verifying  : gstreamer1-plugins-bad-free-1.10.4-3.el7.x86_64          160/223 
+  Verifying  : soundtouch-1.4.0-9.el7.x86_64                            161/223 
+  Verifying  : xorg-x11-drv-qxl-0.1.5-4.el7.1.x86_64                    162/223 
+  Verifying  : libnl3-3.2.28-4.el7.x86_64                               163/223 
+  Verifying  : iscsi-initiator-utils-6.2.0.874-10.el7.x86_64            164/223 
+  Verifying  : oddjob-mkhomedir-0.31.5-4.el7.x86_64                     165/223 
+  Verifying  : xorg-x11-drv-intel-2.99.917-28.20180530.el7.x86_64       166/223 
+  Verifying  : xmlrpc-c-1.32.5-1905.svn2451.el7.x86_64                  167/223 
+  Verifying  : libgtop2-2.38.0-3.el7.x86_64                             168/223 
+  Verifying  : 1:pyparted-3.9-15.el7.x86_64                             169/223 
+  Verifying  : mesa-libxatracker-18.0.5-4.el7_6.x86_64                  170/223 
+  Verifying  : grubby-8.28-25.el7.x86_64                                171/223 
+  Verifying  : glx-utils-8.3.0-10.el7.x86_64                            172/223 
+  Verifying  : python-meh-0.25.2-1.el7.noarch                           173/223 
+  Verifying  : libteam-1.27-6.el7_6.1.x86_64                            174/223 
+  Verifying  : libnma-1.8.6-2.el7.x86_64                                175/223 
+  Verifying  : ipset-libs-6.38-3.el7_6.x86_64                           176/223 
+  Verifying  : authconfig-6.2.8-30.el7.x86_64                           177/223 
+  Verifying  : plymouth-scripts-0.8.9-0.31.20140113.el7.centos.x86_64   178/223 
+  Verifying  : xorg-x11-xkb-utils-7.7-14.el7.x86_64                     179/223 
+  Verifying  : xorg-x11-drv-dummy-0.3.7-1.el7.1.x86_64                  180/223 
+  Verifying  : python-pwquality-1.2.3-5.el7.x86_64                      181/223 
+  Verifying  : xorg-x11-xinit-1.3.4-2.el7.x86_64                        182/223 
+  Verifying  : 1:python-blivet-0.61.15.72-1.el7.noarch                  183/223 
+  Verifying  : libreport-python-2.1.11-42.el7.centos.x86_64             184/223 
+  Verifying  : oddjob-0.31.5-4.el7.x86_64                               185/223 
+  Verifying  : python-meh-gui-0.25.2-1.el7.noarch                       186/223 
+  Verifying  : 12:dhclient-4.2.5-68.el7.centos.1.x86_64                 187/223 
+  Verifying  : cryptsetup-2.0.3-3.el7.x86_64                            188/223 
+  Verifying  : libss-1.42.9-13.el7.x86_64                               189/223 
+  Verifying  : iscsi-initiator-utils-iscsiuio-6.2.0.874-10.el7.x86_64   190/223 
+  Verifying  : 1:NetworkManager-glib-1.12.0-10.el7_6.x86_64             191/223 
+  Verifying  : 2:yelp-3.28.1-1.el7.x86_64                               192/223 
+  Verifying  : libgudev1-219-62.el7_6.9.x86_64                          193/223 
+  Verifying  : parted-3.1-29.el7.x86_64                                 194/223 
+  Verifying  : kbd-misc-1.15.5-15.el7.noarch                            195/223 
+  Verifying  : device-mapper-multipath-0.4.9-123.el7.x86_64             196/223 
+  Verifying  : anaconda-widgets-21.48.22.147-1.el7.centos.0.1.x86_64    197/223 
+  Verifying  : libreport-cli-2.1.11-42.el7.centos.x86_64                198/223 
+  Verifying  : libtdb-1.3.15-1.el7.x86_64                               199/223 
+  Verifying  : 2:yelp-libs-3.28.1-1.el7.x86_64                          200/223 
+  Verifying  : libcanberra-0.30-5.el7.x86_64                            201/223 
+  Verifying  : dracut-network-033-554.el7.x86_64                        202/223 
+  Verifying  : xorg-x11-drv-synaptics-1.9.0-2.el7.x86_64                203/223 
+  Verifying  : 1:NetworkManager-1.12.0-10.el7_6.x86_64                  204/223 
+  Verifying  : python-backports-1.0-8.el7.x86_64                        205/223 
+  Verifying  : python-ntplib-0.3.2-1.el7.noarch                         206/223 
+  Verifying  : ndctl-libs-62-1.el7.x86_64                               207/223 
+  Verifying  : xvattr-1.3-27.el7.x86_64                                 208/223 
+  Verifying  : 7:lvm2-libs-2.02.180-10.el7_6.8.x86_64                   209/223 
+  Verifying  : libreport-plugin-rhtsupport-2.1.11-42.el7.centos.x86_6   210/223 
+  Verifying  : webkitgtk4-2.20.5-1.el7.x86_64                           211/223 
+  Verifying  : snappy-1.1.0-3.el7.x86_64                                212/223 
+  Verifying  : 7:device-mapper-event-1.02.149-10.el7_6.8.x86_64         213/223 
+  Verifying  : xorg-x11-drivers-7.7-6.el7.x86_64                        214/223 
+  Verifying  : libXdmcp-1.1.2-6.el7.x86_64                              215/223 
+  Verifying  : ipset-6.38-3.el7_6.x86_64                                216/223 
+  Verifying  : libreport-plugin-reportuploader-2.1.11-42.el7.centos.x   217/223 
+  Verifying  : xorg-x11-drv-void-1.4.1-2.el7.1.x86_64                   218/223 
+  Verifying  : llvm-private-6.0.1-2.el7.x86_64                          219/223 
+  Verifying  : 1:xorg-x11-drv-nouveau-1.0.15-1.el7.x86_64               220/223 
+  Verifying  : dmraid-1.0.0.rc16-28.el7.x86_64                          221/223 
+  Verifying  : xmlrpc-c-client-1.32.5-1905.svn2451.el7.x86_64           222/223 
+  Verifying  : libblockdev-nvdimm-2.18-3.el7.x86_64                     223/223 
 
 Installed:
   glx-utils.x86_64 0:8.3.0-10.el7                                               
@@ -1534,7 +1762,6 @@ Dependency Installed:
   authconfig.x86_64 0:6.2.8-30.el7                                              
   bind-libs-lite.x86_64 32:9.9.4-74.el7_6.2                                     
   btrfs-progs.x86_64 0:4.9.1-1.el7                                              
-  centos-logos.noarch 0:70.0.6-3.el7.centos                                     
   chrony.x86_64 0:3.2-2.el7                                                     
   createrepo.noarch 0:0.9.9-28.el7                                              
   cryptsetup.x86_64 0:2.0.3-3.el7                                               
@@ -1736,15 +1963,16 @@ Dependency Installed:
   zenity.x86_64 0:3.28.1-1.el7                                                  
 
 Complete!
-Removing intermediate container 9c7d9316d970
- ---> 63b95f92cf50
-Step 45/57 : RUN yum install -y PackageKit-gtk3-module
- ---> Running in bf7ae577c6d7
+Removing intermediate container 2e22927b952f
+ ---> b8e02e206282
+Step 46/58 : RUN yum install -y PackageKit-gtk3-module
+ ---> Running in 5be8609e806c
 Loaded plugins: fastestmirror, ovl
 Loading mirror speeds from cached hostfile
  * base: ftp-srv2.kddilabs.jp
  * epel: nrt.edge.kernel.org
  * extras: ftp-srv2.kddilabs.jp
+ * remi-safe: ftp.riken.jp
  * updates: ftp-srv2.kddilabs.jp
 Resolving Dependencies
 --> Running transaction check
@@ -1773,7 +2001,7 @@ Total download size: 140 k
 Installed size: 502 k
 Downloading packages:
 --------------------------------------------------------------------------------
-Total                                              1.6 MB/s | 140 kB  00:00     
+Total                                              1.3 MB/s | 140 kB  00:00     
 Running transaction check
 Running transaction test
 Transaction test succeeded
@@ -1790,15 +2018,16 @@ Dependency Installed:
   PackageKit-glib.x86_64 0:1.1.10-1.el7.centos                                  
 
 Complete!
-Removing intermediate container bf7ae577c6d7
- ---> f57b61aaded1
-Step 46/57 : RUN yum install -y vlgothic-*
- ---> Running in c3b015ff49df
+Removing intermediate container 5be8609e806c
+ ---> 8c910750ab98
+Step 47/58 : RUN yum install -y vlgothic-*
+ ---> Running in 751864b8802e
 Loaded plugins: fastestmirror, ovl
 Loading mirror speeds from cached hostfile
  * base: ftp-srv2.kddilabs.jp
  * epel: nrt.edge.kernel.org
  * extras: ftp-srv2.kddilabs.jp
+ * remi-safe: ftp.riken.jp
  * updates: ftp-srv2.kddilabs.jp
 Resolving Dependencies
 --> Running transaction check
@@ -1823,7 +2052,7 @@ Total download size: 4.4 M
 Installed size: 7.9 M
 Downloading packages:
 --------------------------------------------------------------------------------
-Total                                              9.5 MB/s | 4.4 MB  00:00     
+Total                                               13 MB/s | 4.4 MB  00:00     
 Running transaction check
 Running transaction test
 Transaction test succeeded
@@ -1838,15 +2067,16 @@ Installed:
   vlgothic-p-fonts.noarch 0:20130607-2.el7                                      
 
 Complete!
-Removing intermediate container c3b015ff49df
- ---> f6c6b560a0a5
-Step 47/57 : RUN yum install -y fcitx ibus
- ---> Running in 3dca669c76c4
+Removing intermediate container 751864b8802e
+ ---> 134942df82f9
+Step 48/58 : RUN yum install -y fcitx ibus
+ ---> Running in 83077a2cac2b
 Loaded plugins: fastestmirror, ovl
 Loading mirror speeds from cached hostfile
  * base: ftp-srv2.kddilabs.jp
  * epel: nrt.edge.kernel.org
  * extras: ftp-srv2.kddilabs.jp
+ * remi-safe: ftp.riken.jp
  * updates: ftp-srv2.kddilabs.jp
 Resolving Dependencies
 --> Running transaction check
@@ -1942,7 +2172,7 @@ Total download size: 25 M
 Installed size: 100 M
 Downloading packages:
 --------------------------------------------------------------------------------
-Total                                               11 MB/s |  25 MB  00:02     
+Total                                               18 MB/s |  25 MB  00:01     
 Running transaction check
 Running transaction test
 Transaction test succeeded
@@ -2012,15 +2242,16 @@ Dependency Installed:
   qt-x11.x86_64 1:4.8.7-3.el7_6                                                 
 
 Complete!
-Removing intermediate container 3dca669c76c4
- ---> 5491dd75c704
-Step 48/57 : RUN yum -y reinstall glibc-common
- ---> Running in 0e611ca8a0f7
+Removing intermediate container 83077a2cac2b
+ ---> 10562817d4e5
+Step 49/58 : RUN yum -y reinstall glibc-common
+ ---> Running in bc9e37428fa1
 Loaded plugins: fastestmirror, ovl
 Loading mirror speeds from cached hostfile
  * base: ftp-srv2.kddilabs.jp
  * epel: nrt.edge.kernel.org
  * extras: ftp-srv2.kddilabs.jp
+ * remi-safe: ftp.riken.jp
  * updates: ftp-srv2.kddilabs.jp
 Resolving Dependencies
 --> Running transaction check
@@ -2053,10 +2284,10 @@ Installed:
   glibc-common.x86_64 0:2.17-260.el7_6.6                                        
 
 Complete!
-Removing intermediate container 0e611ca8a0f7
- ---> f039aa6a1e9e
-Step 49/57 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
- ---> Running in e9413ffb85e0
+Removing intermediate container bc9e37428fa1
+ ---> f5e03b4b41c8
+Step 50/58 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
+ ---> Running in 821c63a557bf
 [91m/usr/share/i18n/locales/ja_JP:11: non-symbolic character value should not be used
 /usr/share/i18n/locales/ja_JP:12: non-symbolic character value should not be used
 /usr/share/i18n/locales/ja_JP:15: non-symbolic character value should not be used
@@ -2069,13 +2300,13 @@ Step 49/57 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
 /usr/share/i18n/locales/ja_JP:25: non-symbolic character value should not be used
 /usr/share/i18n/locales/ja_JP:26: non-symbolic character value should not be used
 /usr/share/i18n/locales/ja_JP:27: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:28: non-symbolic character value should not be used[0m[91m
+/usr/share/i18n/locales/ja_JP:28: non-symbolic character value should not be used
 /usr/share/i18n/locales/ja_JP:29: non-symbolic character value should not be used
 /usr/share/i18n/locales/ja_JP:30: non-symbolic character value should not be used
 /usr/share/i18n/locales/ja_JP:31: non-symbolic character value should not be used
 /usr/share/i18n/locales/ja_JP:32: non-symbolic character value should not be used
 /usr/share/i18n/locales/ja_JP:33: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/ja_JP:42: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:42: non-symbolic character value should not be used
 [0m[91m/usr/share/i18n/locales/i18n:1425: non-symbolic character value should not be used
 [0m[91m/usr/share/i18n/locales/i18n:1674: non-symbolic character value should not be used
 [0m[91m/usr/share/i18n/locales/i18n:1719: non-symbolic character value should not be used
@@ -2092,14 +2323,14 @@ Step 49/57 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
 /usr/share/i18n/locales/ja_JP:14952: non-symbolic character value should not be used
 /usr/share/i18n/locales/ja_JP:14953: non-symbolic character value should not be used
 /usr/share/i18n/locales/ja_JP:14954: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/ja_JP:14955: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:14955: non-symbolic character value should not be used
 [0m[91m/usr/share/i18n/locales/translit_neutral:10: non-symbolic character value should not be used
 /usr/share/i18n/locales/translit_neutral:11: non-symbolic character value should not be used
 /usr/share/i18n/locales/translit_neutral:12: non-symbolic character value should not be used
 /usr/share/i18n/locales/translit_neutral:13: non-symbolic character value should not be used
 /usr/share/i18n/locales/translit_neutral:14: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/translit_neutral:15: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:16: [0m[91mnon-symbolic character value should not be used
+/usr/share/i18n/locales/translit_neutral:15: non-symbolic character value should not be used
+/usr/share/i18n/locales/translit_neutral:16: non-symbolic character value should not be used
 /usr/share/i18n/locales/translit_neutral:17: non-symbolic character value should not be used
 [0m[91mLC_ADDRESS: field `country_name' not defined
 LC_ADDRESS: field `country_post' not defined
@@ -2132,46 +2363,46 @@ LC_IDENTIFICATION: no identification for category `LC_MEASUREMENT'
 [0m[91mLC_CTYPE: table for class "jkata": 664 bytes
 [0m[91mLC_CTYPE: table for class "jkanji": 3224 bytes
 [0m[91mLC_CTYPE: table for class "jdigit": 600 bytes
-[0m[91mLC_CTYPE: table for map "toupper": 16924 bytes
+LC_CTYPE: table for map "toupper": 16924 bytes
 [0m[91mLC_CTYPE: table for map "tolower": 15388 bytes
 [0m[91mLC_CTYPE: table for map "totitle": 16924 bytes
 [0m[91mLC_CTYPE: table for map "tojhira": 2584 bytes
 LC_CTYPE: table for map "tojkata": 3096 bytes
 [0m[91mLC_CTYPE: table for width: 26712 bytes
 [0m
-Removing intermediate container e9413ffb85e0
- ---> a856cd2f07c8
-Step 50/57 : ENV LANG=ja_JP.UTF-8
- ---> Running in be4ac49ed1f9
-Removing intermediate container be4ac49ed1f9
- ---> d0462231a298
-Step 51/57 : RUN rm -f /etc/localtime
- ---> Running in 1d6bc076d384
-Removing intermediate container 1d6bc076d384
- ---> 45b6a524c791
-Step 52/57 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
- ---> Running in 7fd8af559dfd
-Removing intermediate container 7fd8af559dfd
- ---> 350cefc4fe47
-Step 53/57 : EXPOSE 22
- ---> Running in 7ea5083b3b78
-Removing intermediate container 7ea5083b3b78
- ---> 798a1edca05b
-Step 54/57 : EXPOSE 8787
- ---> Running in 5dab6b4d6f3b
-Removing intermediate container 5dab6b4d6f3b
- ---> 5143f6cdcd00
-Step 55/57 : ENV DISPLAY=:0.0
- ---> Running in 866c585c6764
-Removing intermediate container 866c585c6764
- ---> 5c18d0a352a3
-Step 56/57 : USER php
- ---> Running in fbbf46e88c03
-Removing intermediate container fbbf46e88c03
- ---> dd1286c14988
-Step 57/57 : WORKDIR /home/php
- ---> Running in 07b8cf4c9eac
-Removing intermediate container 07b8cf4c9eac
- ---> 0739dbca5d1f
-Successfully built 0739dbca5d1f
+Removing intermediate container 821c63a557bf
+ ---> 1a33fea6bf46
+Step 51/58 : ENV LANG=ja_JP.UTF-8
+ ---> Running in 6935a75c73c5
+Removing intermediate container 6935a75c73c5
+ ---> d1384d8a42e7
+Step 52/58 : RUN rm -f /etc/localtime
+ ---> Running in b3aa612d00c7
+Removing intermediate container b3aa612d00c7
+ ---> 9ef21f3a5e3f
+Step 53/58 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+ ---> Running in 0b35eec33788
+Removing intermediate container 0b35eec33788
+ ---> 1860708dc489
+Step 54/58 : EXPOSE 22
+ ---> Running in 272b9194d595
+Removing intermediate container 272b9194d595
+ ---> 262d7e601dd2
+Step 55/58 : EXPOSE 8787
+ ---> Running in 704c2f3907d4
+Removing intermediate container 704c2f3907d4
+ ---> 091e8c32f37f
+Step 56/58 : ENV DISPLAY=:0.0
+ ---> Running in 2e84350c85ab
+Removing intermediate container 2e84350c85ab
+ ---> 7c4588af8a6d
+Step 57/58 : USER php
+ ---> Running in 43ddb7216ff3
+Removing intermediate container 43ddb7216ff3
+ ---> 75a944dde91e
+Step 58/58 : WORKDIR /home/php
+ ---> Running in 1534411dec33
+Removing intermediate container 1534411dec33
+ ---> a59f50e46ed6
+Successfully built a59f50e46ed6
 Successfully tagged centos_php:latest
