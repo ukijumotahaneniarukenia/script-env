@@ -21,7 +21,7 @@ to set your account's default identity.
 Omit --global to set the identity only in this repository.
 
 fatal: empty ident name (for <rstudio@79ace1891861.(none)>) not allowed
-[rstudio@79ace1891861 ~]$ git config --global user.email "unko@gmail.com"
+[rstudio@79ace1891861 ~]$ git config --global user.email "mrchildrenkh1008@gmail.com"
 [rstudio@79ace1891861 ~]$ git config --global user.name "ukijumotahaneniarukenia"
 [rstudio@79ace1891861 ~]$ git commit -m "first commit"
 [master (root-commit) 7d7662f] first commit
@@ -203,9 +203,12 @@ http://192.168.1.109:18080
 
 # jenkinsにNodejsファイル実行プラグインをインストール
 テスト対象の言語に応じてプラグインをインストールする
-```
-
-```
+![](./13.png)
+![](./14.png)
+![](./15.png)
+![](./16.png)
+![](./17.png)
+![](./18.png)
 
 # jenkinsにDSLファイル実行プラグインをインストール
 DSLファイルは自動実行するためのjenkinsに対する指示書。groovyの言語仕様で記載。
