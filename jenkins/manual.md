@@ -2,8 +2,7 @@
 ![](./1.png)
 ![](./2.png)
 ![](./3.png)
-dockerコンテナ内の作業ディレクトリにおいて以下のコマンドを実行
-```
+dockerコンテナ内の作業ディレクトリにおいて以下のコマンドを実行 ```
 [rstudio@79ace1891861 ~]$ echo "# sandbox2" >> README.md
 [rstudio@79ace1891861 ~]$ git init
 Initialized empty Git repository in /home/rstudio/.git/
@@ -60,7 +59,52 @@ README.md
 
 # 作業用ディレクトリでの成果物を自動ビルド対象のレポジトリにコミット
 ```
+[rstudio@0118397ab4ba sandbox2]$ mkdir {src,test,usage}
+[rstudio@0118397ab4ba sandbox2]$ tree
+.
+├── README.md
+├── src
+├── test
+└── usage
 
+3 directories, 1 file
+[rstudio@0118397ab4ba sandbox2]$ tree
+.
+├── README.md
+├── src
+│   └── utils.js
+├── test
+│   └── utils.js
+└── usage
+    └── index.js
+
+3 directories, 4 files
+[rstudio@0118397ab4ba sandbox2]$ cat src/utils.js 
+const math = {
+  add: (x, y) => x + y,
+  subtract: (x, y) => x - y
+};
+
+module.exports = { math };
+[rstudio@0118397ab4ba sandbox2]$ cat test/utils.js 
+const { math } = require('../src/utils')
+
+describe('utils test', () => {
+  describe('math test', () => {
+    test('should be 3 when adding 1 and 2', () => {
+      expect(math.add(1, 2)).toBe(3);
+    });
+
+    test('should be -1 when subtracting 2 from 1', () => {
+      expect(math.subtract(1, 2)).toBe(-1);
+    });
+  });
+});
+[rstudio@0118397ab4ba sandbox2]$ cat usage/index.js 
+const { math } = require('../src/utils');
+
+console.log(`Next year is ${math.add(2018, 1)}.`);
+console.log(`${math.subtract(2020, 2018)} years until Tokyo Olympic.`);
 ```
 
 # dockerコンテナ潜入後、初期パスワードを確認
@@ -92,7 +136,37 @@ http://192.168.1.109:18080
 # jenkinsにDSLファイル実行プラグインをインストール
 DSLファイルは自動実行するためのjenkinsに対する指示書。groovyの言語仕様で記載。
 ```
+[rstudio@0118397ab4ba sandbox2]$ cat nodejs.groovy
+job('NodeJS_TestJob_01') {
+    scm {
+        git('https://github.com/ukijumotahaneniarukenia/sandbox2.git') {  node ->
+            node / gitConfigName('ukijumotahaneniarukenia')
+            node / gitConfigEmail('mrchildrenkh1008@gmail.com')
+        }
+    }
+    triggers {
+        scm('H/5 * * * *')
+    }
+    wrappers {
+        nodejs('nodejs_test')
+    }
+    steps {
+        shell("npm install")
+        shell("npm test")
+    }
+}
+[rstudio@0118397ab4ba sandbox2]$ tree
+.
+├── nodejs.groovy
+├── README.md
+├── src
+│   └── utils.js
+├── test
+│   └── utils.js
+└── usage
+    └── index.js
 
+3 directories, 5 files
 ```
 
 # jenkinsにテストジョブを登録
