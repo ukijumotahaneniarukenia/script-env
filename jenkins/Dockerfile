@@ -32,6 +32,16 @@ RUN { echo "[nginx]";\
     } >> /etc/yum.repos.d/nginx.repo
 RUN yum install -y nginx
 
+#ユーザー作成
+RUN groupadd -g 1001 rstudio
+RUN useradd -m -g rstudio -u 1001 rstudio
+RUN chsh -s /bin/bash rstudio
+RUN echo 'root_pwd' | passwd --stdin root
+RUN echo 'rstudio_pwd' | passwd --stdin rstudio
+RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+RUN yum install -y git
+
 #nodeサービス外部公開ポート
 EXPOSE 3000
 

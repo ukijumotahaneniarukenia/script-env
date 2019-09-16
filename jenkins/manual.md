@@ -54,42 +54,56 @@ INFO: Obtained the latest update center data file for UpdateSource default
 
 ```
 
-# jenkins起動
+# 自動ビルド対象のgithubレポジトリ作成
 ![](./1.png)
 ![](./2.png)
 ![](./3.png)
-![](./4.png)
-![](./5.png)
-![](./6.png)
-![](./7.png)
+dockerコンテナ内の作業ディレクトリにおいて以下のコマンドを実行
 ```
+[rstudio@79ace1891861 ~]$ echo "# sandbox2" >> README.md
+[rstudio@79ace1891861 ~]$ git init
+Initialized empty Git repository in /home/rstudio/.git/
+[rstudio@79ace1891861 ~]$ git add README.md
+[rstudio@79ace1891861 ~]$ git commit -m "first commit"
 
-```
-# githubレポジトリ作成
-```
-[rstudio@centos ~/unko/script_scratch/jenkins]$mkdir script
-[rstudio@centos ~/unko/script_scratch/jenkins]$cd script/
-[rstudio@centos ~/unko/script_scratch/jenkins/script]$echo "# sandbox" >> README.md
-[rstudio@centos ~/unko/script_scratch/jenkins/script]$git init
-Initialized empty Git repository in /home/rstudio/unko/script_scratch/jenkins/script/.git/
-[rstudio@centos ~/unko/script_scratch/jenkins/script]$git add README.md
-[rstudio@centos ~/unko/script_scratch/jenkins/script]$git commit -m "first commit"
-[master (root-commit) ec2b9ff] first commit
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+
+fatal: empty ident name (for <rstudio@79ace1891861.(none)>) not allowed
+[rstudio@79ace1891861 ~]$ git config --global user.email "mrchildrenkh1008@gmail.com"
+[rstudio@79ace1891861 ~]$ git config --global user.name "ukijumotahaneniarukenia"
+[rstudio@79ace1891861 ~]$ git commit -m "first commit"
+[master (root-commit) 7d7662f] first commit
  1 file changed, 1 insertion(+)
  create mode 100644 README.md
-[rstudio@centos ~/unko/script_scratch/jenkins/script]$git remote add origin https://github.com/ukijumotahaneniarukenia/sandbox.git
-[rstudio@centos ~/unko/script_scratch/jenkins/script]$git push -u origin master
+[rstudio@79ace1891861 ~]$ git remote add origin https://github.com/ukijumotahaneniarukenia/sandbox2.git
+[rstudio@79ace1891861 ~]$ git push -u origin master
 Username for 'https://github.com': ukijumotahaneniarukenia
 Password for 'https://ukijumotahaneniarukenia@github.com': 
 Counting objects: 3, done.
-Writing objects: 100% (3/3), 232 bytes | 0 bytes/s, done.
+Writing objects: 100% (3/3), 233 bytes | 0 bytes/s, done.
 Total 3 (delta 0), reused 0 (delta 0)
-To https://github.com/ukijumotahaneniarukenia/sandbox.git
+To https://github.com/ukijumotahaneniarukenia/sandbox2.git
  * [new branch]      master -> master
 Branch master set up to track remote branch master from origin.
 ```
+ブラウザをリフレッシュ後
+![](./4.png)
 
-# dockerコンテナ内で作業用レポジトリをクローン
+
+# jenkins起動
+```
+
+```
+
+# dockerコンテナ内で自動ビルド対象のgithubレポジトリをクローン
 ```
 [root@37b135d7e757 ~]# git clone https://github.com/ukijumotahaneniarukenia/sandbox.git
 Cloning into 'sandbox'...
@@ -104,8 +118,10 @@ drwxr-xr-x. 3 root root 4096 Sep 16 08:17 sandbox
 [root@37b135d7e757 ~]# cd sandbox
 [root@37b135d7e757 sandbox]# ls
 README.md
-
 ```
+
+# 作成した自動ビルド対象レポにコミットできるようにuser.emailとuser
+
 
 # 作業用レポジトリにコミットする内容
 
