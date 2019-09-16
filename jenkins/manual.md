@@ -90,6 +90,23 @@ To https://github.com/ukijumotahaneniarukenia/sandbox.git
 Branch master set up to track remote branch master from origin.
 ```
 
+# dockerコンテナ内で作業用レポジトリをクローン
+```
+[root@37b135d7e757 ~]# git clone https://github.com/ukijumotahaneniarukenia/sandbox.git
+Cloning into 'sandbox'...
+remote: Enumerating objects: 3, done.
+remote: Counting objects: 100% (3/3), done.
+remote: Total 3 (delta 0), reused 3 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+[root@37b135d7e757 ~]# ll
+total 12
+-rw-------. 1 root root 3415 Aug  1 01:10 anaconda-ks.cfg
+drwxr-xr-x. 3 root root 4096 Sep 16 08:17 sandbox
+[root@37b135d7e757 ~]# cd sandbox
+[root@37b135d7e757 sandbox]# ls
+README.md
+
+```
 
 # dockerコンテナ作成
 ```
