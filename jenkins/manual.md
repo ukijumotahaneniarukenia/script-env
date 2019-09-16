@@ -297,6 +297,16 @@ drwxr-xr-x. 2 jenkins jenkins 4096 Sep 16 14:44 usage
 ![](./34.png)
 ![](./35.png)
 
+# 実行許可付与後、ビルド実行
+![](./36.png)
+![](./37.png)
+![](./38.png)
+![](./39.png)
+
+# レポジトリにコミットをトリガにしてビルド実行
+
+
+
 # dockerコンテナ作成
 ```
 docker run --privileged --shm-size=8gb --name jenkins -itd -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 13000:3000 -p 280:80 -p 18080:8080 centos_jenkins /sbin/init
