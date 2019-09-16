@@ -40,7 +40,7 @@ RUN echo 'root_pwd' | passwd --stdin root
 RUN echo 'rstudio_pwd' | passwd --stdin rstudio
 RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
-RUN yum install -y git
+RUN yum install -y git lsof
 
 #nodeサービス外部公開ポート
 EXPOSE 3000

@@ -1,5 +1,4 @@
-# jenkins
-初期パスワード
+# dockerコンテナ潜入後、初期パスワードを確認
 ```
 [root@846e8d2f1f3c jenkins]# pwd
 /var/log/jenkins
@@ -35,8 +34,6 @@ Sep 14, 2019 8:06:38 AM hudson.model.AsyncPeriodicWork$1 run
 INFO: Finished Download metadata. 5,423 ms
 Sep 14, 2019 8:06:41 AM hudson.model.UpdateSite updateData
 INFO: Obtained the latest update center data file for UpdateSource default
-
-
 ```
 
 # 自動ビルド対象のレポジトリ作成
@@ -116,6 +113,7 @@ README.md
 ```
 
 # jenkinsにDSLファイル実行プラグインをインストール
+DSLファイルは自動実行するためのjenkinsに対する指示書。groovyの言語仕様で記載。
 ```
 
 ```
