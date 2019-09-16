@@ -1,18 +1,3 @@
-# 参考文献
-https://casualdevelopers.com/tech-tips/how-to-install-and-use-jenkins-on-docker-for-nodejs/
-https://jenkins.io/download/
-https://pkg.jenkins.io/redhat/
-https://wiki.jenkins.io/display/JENKINS/Installing+Jenkins+on+Red+Hat+distributions
-https://unix.stackexchange.com/questions/9314/no-such-file-or-directory-etc-init-d-functions
-
-# nodeアプリ参考文献
-https://casualdevelopers.com/tech-tips/how-to-install-and-use-jenkins-on-docker-for-nodejs/#Jenkins-3
-https://casualdevelopers.com/tech-tips/how-to-install-and-use-jenkins-on-docker-for-nodejs/
-http://tech-blog.rakus.co.jp/entry/2018/03/05/094238#%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89
-https://github.com/ryo-ohnishi/node_express_nginx
-https://qiita.com/ryo-ohnishi/items/b54e649b14b51694ef77
-https://qiita.com/ryo-ohnishi/items/3653f7583c8591eef333
-
 # jenkins
 初期パスワード
 ```
@@ -54,7 +39,7 @@ INFO: Obtained the latest update center data file for UpdateSource default
 
 ```
 
-# 自動ビルド対象のgithubレポジトリ作成
+# 自動ビルド対象のレポジトリ作成
 ![](./1.png)
 ![](./2.png)
 ![](./3.png)
@@ -97,7 +82,7 @@ Branch master set up to track remote branch master from origin.
 ブラウザをリフレッシュ後
 ![](./4.png)
 
-# 自動ビルド対象のgithubレポジトリをクローン
+# 自動ビルド対象のレポジトリをクローン
 dockerコンテナ内の作業ディレクトリにおいて以下のコマンドを実行
 ```
 [rstudio@3f2d79d4d6af ~]$ ls
@@ -114,84 +99,41 @@ sandbox2
 README.md
 ```
 
+# 作業用ディレクトリでの成果物を自動ビルド対象のレポジトリにコミット
+```
+
+```
+
 # jenkins起動
 ```
 
 ```
 
-# dockerコンテナ内で自動ビルド対象のgithubレポジトリをクローン
+# jenkinsにNodejsファイル実行プラグインをインストール
+テスト対象の言語に応じてプラグインをインストールする
 ```
-[root@37b135d7e757 ~]# git clone https://github.com/ukijumotahaneniarukenia/sandbox.git
-Cloning into 'sandbox'...
-remote: Enumerating objects: 3, done.
-remote: Counting objects: 100% (3/3), done.
-remote: Total 3 (delta 0), reused 3 (delta 0), pack-reused 0
-Unpacking objects: 100% (3/3), done.
-[root@37b135d7e757 ~]# ll
-total 12
--rw-------. 1 root root 3415 Aug  1 01:10 anaconda-ks.cfg
-drwxr-xr-x. 3 root root 4096 Sep 16 08:17 sandbox
-[root@37b135d7e757 ~]# cd sandbox
-[root@37b135d7e757 sandbox]# ls
-README.md
-```
-
-# 作成した自動ビルド対象レポにコミットできるようにuser.emailとuser
-
-
-# 作業用レポジトリにコミットする内容
-
-```
-[root@37b135d7e757 sandbox]# tree
-.
-├── README.md
-├── src
-│   ├── index.js
-│   └── utils.js
-└── test
-    └── utils.js
-
-2 directories, 4 files
-[root@37b135d7e757 sandbox]# vi src/index.js 
-[root@37b135d7e757 sandbox]# vi src/utils.js 
-[root@37b135d7e757 sandbox]# vi test/utils.js
-[root@37b135d7e757 sandbox]# npm init -y
-Wrote to /root/sandbox/package.json:
-
-{
-  "name": "sandbox",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "directories": {
-    "test": "test"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ukijumotahaneniarukenia/sandbox.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ukijumotahaneniarukenia/sandbox/issues"
-  },
-  "homepage": "https://github.com/ukijumotahaneniarukenia/sandbox#readme"
-}
 
 ```
 
-# jenkinsにNodejsをインストール
-
-```
+# jenkinsにDSLファイル実行プラグインをインストール
 ```
 
-# jenkinsでDSLファイルを実行させるときの参考文献
+```
 
-http://arasio.hatenablog.com/entry/2016/10/07/005055
+# jenkinsにテストジョブを登録
+```
+
+```
+
+# jenkinsからテストジョブを実行
+```
+
+```
+
+# コンソールログより実行結果確認
+```
+
+```
 
 # dockerコンテナ作成
 ```
@@ -202,3 +144,20 @@ docker run --privileged --shm-size=8gb --name jenkins -itd -v /run/udev:/run/ude
 ```
 docker exec -it jenkins /bin/bash
 ```
+
+# 参考文献
+https://casualdevelopers.com/tech-tips/how-to-install-and-use-jenkins-on-docker-for-nodejs/
+https://jenkins.io/download/
+https://pkg.jenkins.io/redhat/
+https://wiki.jenkins.io/display/JENKINS/Installing+Jenkins+on+Red+Hat+distributions
+https://unix.stackexchange.com/questions/9314/no-such-file-or-directory-etc-init-d-functions
+http://arasio.hatenablog.com/entry/2016/10/07/005055
+
+# nodeアプリ参考文献
+https://casualdevelopers.com/tech-tips/how-to-install-and-use-jenkins-on-docker-for-nodejs/#Jenkins-3
+https://casualdevelopers.com/tech-tips/how-to-install-and-use-jenkins-on-docker-for-nodejs/
+http://tech-blog.rakus.co.jp/entry/2018/03/05/094238#%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89
+https://github.com/ryo-ohnishi/node_express_nginx
+https://qiita.com/ryo-ohnishi/items/b54e649b14b51694ef77
+https://qiita.com/ryo-ohnishi/items/3653f7583c8591eef333
+
