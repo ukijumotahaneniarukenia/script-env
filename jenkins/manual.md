@@ -5,6 +5,14 @@ https://pkg.jenkins.io/redhat/
 https://wiki.jenkins.io/display/JENKINS/Installing+Jenkins+on+Red+Hat+distributions
 https://unix.stackexchange.com/questions/9314/no-such-file-or-directory-etc-init-d-functions
 
+# nodeアプリ参考文献
+https://casualdevelopers.com/tech-tips/how-to-install-and-use-jenkins-on-docker-for-nodejs/#Jenkins-3
+https://casualdevelopers.com/tech-tips/how-to-install-and-use-jenkins-on-docker-for-nodejs/
+http://tech-blog.rakus.co.jp/entry/2018/03/05/094238#%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89
+https://github.com/ryo-ohnishi/node_express_nginx
+https://qiita.com/ryo-ohnishi/items/b54e649b14b51694ef77
+https://qiita.com/ryo-ohnishi/items/3653f7583c8591eef333
+
 # jenkins
 初期パスワード
 ```
@@ -44,4 +52,14 @@ Sep 14, 2019 8:06:41 AM hudson.model.UpdateSite updateData
 INFO: Obtained the latest update center data file for UpdateSource default
 
 
+```
+
+# dockerコンテナ作成
+```
+docker run --privileged --shm-size=8gb --name jenkins -itd -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 13000:3000 -p 280:80 -p 18080:8080 centos_jenkins /sbin/init
+```
+
+# dockerコンテナ潜入
+```
+docker exec -it jenkins /bin/bash
 ```
