@@ -108,6 +108,51 @@ README.md
 
 ```
 
+# 作業用レポジトリにコミットする内容
+
+```
+[root@37b135d7e757 sandbox]# tree
+.
+├── README.md
+├── src
+│   ├── index.js
+│   └── utils.js
+└── test
+    └── utils.js
+
+2 directories, 4 files
+[root@37b135d7e757 sandbox]# vi src/index.js 
+[root@37b135d7e757 sandbox]# vi src/utils.js 
+[root@37b135d7e757 sandbox]# vi test/utils.js
+[root@37b135d7e757 sandbox]# npm init -y
+Wrote to /root/sandbox/package.json:
+
+{
+  "name": "sandbox",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ukijumotahaneniarukenia/sandbox.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ukijumotahaneniarukenia/sandbox/issues"
+  },
+  "homepage": "https://github.com/ukijumotahaneniarukenia/sandbox#readme"
+}
+
+```
+
 # dockerコンテナ作成
 ```
 docker run --privileged --shm-size=8gb --name jenkins -itd -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 13000:3000 -p 280:80 -p 18080:8080 centos_jenkins /sbin/init
