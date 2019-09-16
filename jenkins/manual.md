@@ -66,6 +66,31 @@ INFO: Obtained the latest update center data file for UpdateSource default
 ![](./6.png)
 ![](./7.png)
 
+# githubレポジトリ作成
+```
+[rstudio@centos ~/unko/script_scratch/jenkins]$mkdir script
+[rstudio@centos ~/unko/script_scratch/jenkins]$cd script/
+[rstudio@centos ~/unko/script_scratch/jenkins/script]$echo "# sandbox" >> README.md
+[rstudio@centos ~/unko/script_scratch/jenkins/script]$git init
+Initialized empty Git repository in /home/rstudio/unko/script_scratch/jenkins/script/.git/
+[rstudio@centos ~/unko/script_scratch/jenkins/script]$git add README.md
+[rstudio@centos ~/unko/script_scratch/jenkins/script]$git commit -m "first commit"
+[master (root-commit) ec2b9ff] first commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 README.md
+[rstudio@centos ~/unko/script_scratch/jenkins/script]$git remote add origin https://github.com/ukijumotahaneniarukenia/sandbox.git
+[rstudio@centos ~/unko/script_scratch/jenkins/script]$git push -u origin master
+Username for 'https://github.com': ukijumotahaneniarukenia
+Password for 'https://ukijumotahaneniarukenia@github.com': 
+Counting objects: 3, done.
+Writing objects: 100% (3/3), 232 bytes | 0 bytes/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/ukijumotahaneniarukenia/sandbox.git
+ * [new branch]      master -> master
+Branch master set up to track remote branch master from origin.
+```
+
+
 # dockerコンテナ作成
 ```
 docker run --privileged --shm-size=8gb --name jenkins -itd -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 13000:3000 -p 280:80 -p 18080:8080 centos_jenkins /sbin/init
