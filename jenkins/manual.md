@@ -2,7 +2,8 @@
 ![](./1.png)
 ![](./2.png)
 ![](./3.png)
-dockerコンテナ内の作業ディレクトリにおいて以下のコマンドを実行 ```
+dockerコンテナ内の作業ディレクトリにおいて以下のコマンドを実行
+```
 [rstudio@79ace1891861 ~]$ echo "# sandbox2" >> README.md
 [rstudio@79ace1891861 ~]$ git init
 Initialized empty Git repository in /home/rstudio/.git/
