@@ -77,7 +77,7 @@ to set your account's default identity.
 Omit --global to set the identity only in this repository.
 
 fatal: empty ident name (for <rstudio@79ace1891861.(none)>) not allowed
-[rstudio@79ace1891861 ~]$ git config --global user.email "mrchildrenkh1008@gmail.com"
+[rstudio@79ace1891861 ~]$ git config --global user.email "unko@gmail.com"
 [rstudio@79ace1891861 ~]$ git config --global user.name "ukijumotahaneniarukenia"
 [rstudio@79ace1891861 ~]$ git commit -m "first commit"
 [master (root-commit) 7d7662f] first commit
@@ -97,6 +97,22 @@ Branch master set up to track remote branch master from origin.
 ブラウザをリフレッシュ後
 ![](./4.png)
 
+# 自動ビルド対象のgithubレポジトリをクローン
+dockerコンテナ内の作業ディレクトリにおいて以下のコマンドを実行
+```
+[rstudio@3f2d79d4d6af ~]$ ls
+[rstudio@3f2d79d4d6af ~]$ git clone https://github.com/ukijumotahaneniarukenia/sandbox2.git
+Cloning into 'sandbox2'...
+remote: Enumerating objects: 3, done.
+remote: Counting objects: 100% (3/3), done.
+remote: Total 3 (delta 0), reused 3 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+[rstudio@3f2d79d4d6af ~]$ ls
+sandbox2
+[rstudio@3f2d79d4d6af ~]$ cd sandbox2/
+[rstudio@3f2d79d4d6af sandbox2]$ ls
+README.md
+```
 
 # jenkins起動
 ```
