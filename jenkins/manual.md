@@ -55,9 +55,6 @@ INFO: Obtained the latest update center data file for UpdateSource default
 ```
 
 # jenkins起動
-```
-
-```
 ![](./1.png)
 ![](./2.png)
 ![](./3.png)
@@ -65,7 +62,9 @@ INFO: Obtained the latest update center data file for UpdateSource default
 ![](./5.png)
 ![](./6.png)
 ![](./7.png)
+```
 
+```
 # githubレポジトリ作成
 ```
 [rstudio@centos ~/unko/script_scratch/jenkins]$mkdir script
@@ -152,6 +151,15 @@ Wrote to /root/sandbox/package.json:
 }
 
 ```
+
+# jenkinsにNodejsをインストール
+
+```
+```
+
+# jenkinsでDSLファイルを実行させるときの参考文献
+
+http://arasio.hatenablog.com/entry/2016/10/07/005055
 
 # dockerコンテナ作成
 ```
