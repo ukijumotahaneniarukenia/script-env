@@ -106,37 +106,6 @@ const { math } = require('../src/utils');
 
 console.log(`Next year is ${math.add(2018, 1)}.`);
 console.log(`${math.subtract(2020, 2018)} years until Tokyo Olympic.`);
-```
-
-# dockerコンテナ潜入後、初期パスワードを確認
-```
-[root@e0f1e2a88da2 /]# cat /var/lib/jenkins/secrets/initialAdminPassword
-3d6bf8c990be4c2492c4d2b1806431c0
-```
-
-# ブラウザよりjenkins起動確認
-```
-http://192.168.1.109:18080
-```
-
-# jenkins初期設定
-![](./6.png)
-![](./7.png)
-![](./8.png)
-![](./9.png)
-![](./10.png)
-![](./11.png)
-![](./12.png)
-
-# jenkinsにNodejsファイル実行プラグインをインストール
-テスト対象の言語に応じてプラグインをインストールする
-```
-
-```
-
-# jenkinsにDSLファイル実行プラグインをインストール
-DSLファイルは自動実行するためのjenkinsに対する指示書。groovyの言語仕様で記載。
-```
 [rstudio@0118397ab4ba sandbox2]$ cat nodejs.groovy
 job('NodeJS_TestJob_01') {
     scm {
@@ -168,6 +137,79 @@ job('NodeJS_TestJob_01') {
     └── index.js
 
 3 directories, 5 files
+[rstudio@0118397ab4ba sandbox2]$ ll
+total 20
+-rw-rw-r--. 1 rstudio rstudio  433 Sep 16 14:07 nodejs.groovy
+-rw-rw-r--. 1 rstudio rstudio   11 Sep 16 13:54 README.md
+drwxrwxr-x. 2 rstudio rstudio 4096 Sep 16 13:58 src
+drwxrwxr-x. 2 rstudio rstudio 4096 Sep 16 13:58 test
+drwxrwxr-x. 2 rstudio rstudio 4096 Sep 16 13:59 usage
+[rstudio@0118397ab4ba sandbox2]$ git add .
+[rstudio@0118397ab4ba sandbox2]$ git commit -m "成果物"
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+
+fatal: empty ident name (for <rstudio@0118397ab4ba.(none)>) not allowed
+[rstudio@0118397ab4ba sandbox2]$ git config --global user.email "mrchildrenkh1008@gmail.com"
+[rstudio@0118397ab4ba sandbox2]$ git config --global user.name "ukijumotahaneniarukenia"
+[rstudio@0118397ab4ba sandbox2]$ git commit -m "成果物"
+[master 74d1ea0] 成果物
+ 4 files changed, 41 insertions(+)
+ create mode 100644 nodejs.groovy
+ create mode 100644 src/utils.js
+ create mode 100644 test/utils.js
+ create mode 100644 usage/index.js
+[rstudio@0118397ab4ba sandbox2]$ git push -u origin master
+Username for 'https://github.com': ukijumotahaneniarukenia
+Password for 'https://ukijumotahaneniarukenia@github.com': 
+Counting objects: 10, done.
+Delta compression using up to 12 threads.
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (9/9), 1.14 KiB | 0 bytes/s, done.
+Total 9 (delta 0), reused 0 (delta 0)
+To https://github.com/ukijumotahaneniarukenia/sandbox2.git
+   7d7662f..74d1ea0  master -> master
+Branch master set up to track remote branch master from origin.
+
+```
+
+# dockerコンテナ潜入後、初期パスワードを確認
+```
+[root@e0f1e2a88da2 /]# cat /var/lib/jenkins/secrets/initialAdminPassword
+3d6bf8c990be4c2492c4d2b1806431c0
+```
+
+# ブラウザよりjenkins起動確認
+```
+http://192.168.1.109:18080
+```
+
+# jenkins初期設定
+![](./6.png)
+![](./7.png)
+![](./8.png)
+![](./9.png)
+![](./10.png)
+![](./11.png)
+![](./12.png)
+
+# jenkinsにNodejsファイル実行プラグインをインストール
+テスト対象の言語に応じてプラグインをインストールする
+```
+
+```
+
+# jenkinsにDSLファイル実行プラグインをインストール
+DSLファイルは自動実行するためのjenkinsに対する指示書。groovyの言語仕様で記載。
+```
 ```
 
 # jenkinsにテストジョブを登録
