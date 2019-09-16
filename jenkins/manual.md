@@ -210,6 +210,11 @@ http://192.168.1.109:18080
 ![](./17.png)
 ![](./18.png)
 
+# NodeJsプラグインを有効化する
+![](./27.png)
+![](./28.png)
+![](./29.png)
+
 # jenkinsにDSLファイル実行プラグインをインストール
 DSLファイルは自動実行するためのjenkinsに対する指示書。groovyの言語仕様で記載。
 ![](./19.png)
@@ -217,19 +222,80 @@ DSLファイルは自動実行するためのjenkinsに対する指示書。groo
 ![](./21.png)
 
 # jenkinsにテストジョブを登録
-```
+![](./22.png)
+![](./23.png)
+![](./24.png)
+![](./25.png)
+![](./26.png)
 
-```
+# jenkinsユーザーがDSLファイルを実行できるように許可する
+In-Process Script Approvalは5分ほど待つと表示されると思ったが、
+一度実行してから表示されるぽい
 
 # jenkinsからテストジョブを実行
+認証許可せず、実行するとテストは失敗する
+![](./30.png)
+![](./31.png)
+![](./32.png)
+![](./33.png)
+
+
+# サーバ上のファイルでの実行ログ
+workspace配下にクローンしてきて実行しているぽい
+```
+[root@0118397ab4ba jenkins]# pwd
+/var/lib/jenkins
+[root@0118397ab4ba jenkins]# ll
+total 172
+-rw-r--r--.  1 jenkins jenkins  1644 Sep 16 14:41 config.xml
+-rw-r--r--.  1 jenkins jenkins   156 Sep 16 14:22 hudson.model.UpdateCenter.xml
+-rw-r--r--.  1 jenkins jenkins   370 Sep 16 14:40 hudson.plugins.git.GitTool.xml
+-rw-r--r--.  1 jenkins jenkins   173 Sep 16 14:40 hudson.plugins.gradle.Gradle.xml
+-rw-r--r--.  1 jenkins jenkins   146 Sep 16 14:40 hudson.tasks.Ant.xml
+-rw-r--r--.  1 jenkins jenkins   132 Sep 16 14:40 hudson.tasks.Maven.xml
+-rw-------.  1 jenkins jenkins  1712 Sep 16 13:44 identity.key.enc
+-rw-r--r--.  1 jenkins jenkins     7 Sep 16 13:48 jenkins.install.InstallUtil.lastExecVersion
+-rw-r--r--.  1 jenkins jenkins     7 Sep 16 13:48 jenkins.install.UpgradeWizard.state
+-rw-r--r--.  1 jenkins jenkins   184 Sep 16 13:48 jenkins.model.JenkinsLocationConfiguration.xml
+-rw-r--r--.  1 jenkins jenkins   247 Sep 16 14:40 jenkins.mvn.GlobalMavenConfig.xml
+-rw-r--r--.  1 jenkins jenkins   867 Sep 16 14:40 jenkins.plugins.nodejs.tools.NodeJSInstallation.xml
+-rw-r--r--.  1 jenkins jenkins   171 Sep 16 13:44 jenkins.telemetry.Correlator.xml
+drwxr-xr-x.  3 jenkins jenkins  4096 Sep 16 14:29 jobs
+drwxr-xr-x.  3 jenkins jenkins  4096 Sep 16 13:44 logs
+-rw-r--r--.  1 jenkins jenkins   907 Sep 16 14:22 nodeMonitors.xml
+drwxr-xr-x.  2 jenkins jenkins  4096 Sep 16 13:44 nodes
+-rw-r--r--.  1 jenkins jenkins   299 Sep 16 14:40 org.jenkinsci.plugins.docker.commons.tools.DockerTool.xml
+-rw-r--r--.  1 jenkins jenkins   255 Sep 16 14:40 org.jenkinsci.plugins.gitclient.JGitApacheTool.xml
+-rw-r--r--.  1 jenkins jenkins   243 Sep 16 14:40 org.jenkinsci.plugins.gitclient.JGitTool.xml
+drwxr-xr-x. 78 jenkins jenkins 12288 Sep 16 14:22 plugins
+-rw-r--r--.  1 jenkins jenkins   129 Sep 16 14:45 queue.xml
+-rw-r--r--.  1 jenkins jenkins   129 Sep 16 14:41 queue.xml.bak
+-rw-r--r--.  1 jenkins jenkins   977 Sep 16 14:44 scriptApproval.xml
+-rw-r--r--.  1 jenkins jenkins    64 Sep 16 13:44 secret.key
+-rw-r--r--.  1 jenkins jenkins     0 Sep 16 13:44 secret.key.not-so-secret
+drwx------.  4 jenkins jenkins  4096 Sep 16 14:45 secrets
+drwxr-xr-x.  2 jenkins jenkins  4096 Sep 16 14:17 updates
+drwxr-xr-x.  2 jenkins jenkins  4096 Sep 16 13:44 userContent
+drwxr-xr-x.  3 jenkins jenkins  4096 Sep 16 13:48 users
+drwxr-xr-x.  2 jenkins jenkins  4096 Sep 16 13:46 workflow-libs
+drwxr-xr-x.  3 jenkins jenkins  4096 Sep 16 14:44 workspace
+[root@0118397ab4ba jenkins]# cd workspace
+[root@0118397ab4ba workspace]# ll
+total 4
+drwxr-xr-x. 6 jenkins jenkins 4096 Sep 16 14:44 NodeJs
+[root@0118397ab4ba workspace]# cd NodeJs
+[root@0118397ab4ba NodeJs]# ll
+total 20
+-rw-r--r--. 1 jenkins jenkins  433 Sep 16 14:44 nodejs.groovy
+-rw-r--r--. 1 jenkins jenkins   11 Sep 16 14:44 README.md
+drwxr-xr-x. 2 jenkins jenkins 4096 Sep 16 14:44 src
+drwxr-xr-x. 2 jenkins jenkins 4096 Sep 16 14:44 test
+drwxr-xr-x. 2 jenkins jenkins 4096 Sep 16 14:44 usage
 ```
 
-```
-
-# コンソールログより実行結果確認
-```
-
-```
+# DSLスクリプト実行許可付与
+![](./34.png)
+![](./35.png)
 
 # dockerコンテナ作成
 ```
