@@ -1,7 +1,7 @@
 # 参考文献
-```
 https://www.jetbrains.com/pycharm/download/#section=linux
-```
+この記事おもろい
+https://sdsawtelle.github.io/blog/output/large-data-files-pandas-sqlite.html
 
 # dockerコンテナ削除
 ```
