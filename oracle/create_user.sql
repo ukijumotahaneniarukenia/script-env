@@ -3,8 +3,8 @@ set timing on
 begin
     for i in 1..'&2' loop
         begin
-            dbms_output.put_line('drop user pdb'||lpad(i,2,0)); 
-            execute immediate 'drop user pdb'||lpad(i,2,0);
+            dbms_output.put_line('drop user user'||lpad(i,2,0)); 
+            execute immediate 'drop user user'||lpad(i,2,0);
             exception when others then dbms_output.put_line('[ '|| sqlcode||']'||sqlerrm);
         end;
         begin

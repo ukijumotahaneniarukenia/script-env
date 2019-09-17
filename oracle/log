@@ -203,22 +203,22 @@ Step 68/74 : COPY glogin.sql /opt/oracle/product/19c/dbhome_1/sqlplus/admin/glog
  ---> Using cache
  ---> 9206310c9067
 Step 69/74 : COPY init_db.sh /home/oracle/init_db.sh
+ ---> Using cache
  ---> d6110681fa80
 Step 70/74 : COPY launch_and_open_db.sql /home/oracle/launch_and_open_db.sql
- ---> 3eeffaf1eb91
+ ---> Using cache
+ ---> bf93f297ac2b
 Step 71/74 : COPY create_user.sql /home/oracle/create_user.sql
- ---> 18263186db98
+ ---> Using cache
+ ---> ce188c892d22
 Step 72/74 : RUN chown oracle:oinstall /home/oracle/* && chmod +x /home/oracle/*
- ---> Running in 06df324865ce
-Removing intermediate container 06df324865ce
- ---> c4e01a992dac
+ ---> Using cache
+ ---> 8912500e1680
 Step 73/74 : USER oracle
- ---> Running in d422f9843016
-Removing intermediate container d422f9843016
- ---> b88209bb87f2
+ ---> Using cache
+ ---> 35c1a02d4099
 Step 74/74 : WORKDIR /home/oracle
- ---> Running in 115bf6365961
-Removing intermediate container 115bf6365961
- ---> 88e1672db303
-Successfully built 88e1672db303
+ ---> Using cache
+ ---> b3e805af361d
+Successfully built b3e805af361d
 Successfully tagged centos_oracle:latest

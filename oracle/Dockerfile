@@ -1,5 +1,4 @@
 FROM centos:latest
-
 #各種X関連コマンドインストール
 RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps
 
