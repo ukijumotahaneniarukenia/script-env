@@ -1,3 +1,6 @@
+# clob型のcollect集約関数の実装について
+https://docs.oracle.com/cd/E82638_01/addci/using-user-defined-aggregate-functions.html#GUID-D7E77319-DC23-4CF0-B746-27ED7BE9240D
+
 # dockerコンテナ削除
 ```
 docker ps -qa | xargs -I@ bash -c 'docker stop @ && docker rm @'
