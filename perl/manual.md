@@ -81,6 +81,11 @@ docker exec -it perl /bin/bash
 /usr/local/lib/perl5/5.30.0
 ```
 
+# ideaにperlモジュールパスを通す
+Settings->Languages&Frameworks->External Libraries
+「+」ボタンでフォルダ指定。
+![](./30.png)
+
 # 参考文献
 https://papix.hatenablog.com/entry/2018/03/10/160838
 https://dev.classmethod.jp/business/business-analytics/alteryx-r-libpaths/
