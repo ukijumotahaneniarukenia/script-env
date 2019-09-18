@@ -6,3 +6,64 @@ cpanm Mojolicious
 ```
 # 参考文献
 https://gihyo.jp/dev/serial/01/perl-hackers-hub/003301
+
+# mojoコマンド
+```
+[perl@6b21ad52aa2e ~/IdeaProjects/untitled1]$/home/perl/perl5/bin/mojo --help
+Usage: APPLICATION COMMAND [OPTIONS]
+
+  mojo version
+  mojo generate lite_app
+  ./myapp.pl daemon -m production -l http://*:8080
+  ./myapp.pl get /foo
+  ./myapp.pl routes -v
+
+Tip: CGI and PSGI environments can be automatically detected very often and
+     work without commands.
+
+Options (for all commands):
+  -h, --help          Get more information on a specific command
+      --home <path>   Path to home directory of your application, defaults to
+                      the value of MOJO_HOME or auto-detection
+  -m, --mode <name>   Operating mode for your application, defaults to the
+                      value of MOJO_MODE/PLACK_ENV or "development"
+
+Commands:
+ cgi       Start application with CGI
+ cpanify   Upload distribution to CPAN
+ daemon    Start application with HTTP and WebSocket server
+ eval      Run code against application
+ generate  Generate files and directories from templates
+ get       Perform HTTP request
+ inflate   Inflate embedded files to real files
+ prefork   Start application with pre-forking HTTP and WebSocket server
+ psgi      Start application with PSGI
+ routes    Show available routes
+ version   Show versions of available modules
+
+See 'APPLICATION help COMMAND' for more information on a specific command.
+```
+
+# mojo generate lite_app myapp.pl
+
+## 実行前
+```
+[perl@6b21ad52aa2e ~/IdeaProjects/untitled1]$ll
+total 20
+-rw-rw-r--. 1 perl perl  176  9月 19 07:07 a.pl
+drwxrwxr-x. 2 perl perl 4096  9月 17 23:50 lib
+-rw-r--r--. 1 perl perl   47  9月 18 23:04 myapp.pl
+drwxrwxr-x. 2 perl perl 4096  9月 17 23:50 t
+-rw-rw-r--. 1 perl perl  439  9月 19 06:54 untitled1.iml
+```
+
+## 実行後
+ログインユーザーに実行権限が付与されている
+```
+[perl@6b21ad52aa2e ~/IdeaProjects/untitled1]$ll
+total 16
+drwxrwxr-x. 2 perl perl 4096  9月 17 23:50 lib
+-rwxr--r--. 1 perl perl  132  9月 19 07:11 myapp.pl
+drwxrwxr-x. 2 perl perl 4096  9月 17 23:50 t
+-rw-rw-r--. 1 perl perl  439  9月 19 06:54 untitled1.iml
+```
