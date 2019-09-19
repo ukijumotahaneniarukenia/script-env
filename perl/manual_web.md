@@ -43,27 +43,3 @@ Commands:
 
 See 'APPLICATION help COMMAND' for more information on a specific command.
 ```
-
-# mojo generate lite_app myapp.pl
-
-## 実行前
-```
-[perl@6b21ad52aa2e ~/IdeaProjects/untitled1]$ll
-total 20
--rw-rw-r--. 1 perl perl  176  9月 19 07:07 a.pl
-drwxrwxr-x. 2 perl perl 4096  9月 17 23:50 lib
--rw-r--r--. 1 perl perl   47  9月 18 23:04 myapp.pl
-drwxrwxr-x. 2 perl perl 4096  9月 17 23:50 t
--rw-rw-r--. 1 perl perl  439  9月 19 06:54 untitled1.iml
-```
-
-## 実行後
-ログインユーザーに実行権限が付与されている
-```
-[perl@6b21ad52aa2e ~/IdeaProjects/untitled1]$ll
-total 16
-drwxrwxr-x. 2 perl perl 4096  9月 17 23:50 lib
--rwxr--r--. 1 perl perl  132  9月 19 07:11 myapp.pl
-drwxrwxr-x. 2 perl perl 4096  9月 17 23:50 t
--rw-rw-r--. 1 perl perl  439  9月 19 06:54 untitled1.iml
-```

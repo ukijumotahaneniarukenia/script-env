@@ -87,6 +87,11 @@ Settings->Languages&Frameworks->External Libraries
 ![](./30.png)
 
 # 参考文献
+
+https://github.com/yuki-kimoto/mojolicious-guides-japanese/wiki/Mojolicious%3A%3ALite
+https://qntm.org/files/perl/perl.html
+https://github.com/yuki-kimoto/mojolicious-guides-japanese/wiki/Mojolicious%3A%3AGuides
+
 https://papix.hatenablog.com/entry/2018/03/10/160838
 https://dev.classmethod.jp/business/business-analytics/alteryx-r-libpaths/
 https://qiita.com/aosho235/items/e8efd18364408231062d
