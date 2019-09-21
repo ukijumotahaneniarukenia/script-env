@@ -10,6 +10,10 @@ grep "ANTICONF ERROR" pack_inst_log -A 10
 # 参考文献
 [最新版Rstudio](https://www.rstudio.com/products/rstudio/download/preview/)
 
+curlパッケージをインストールするためいかを参考
+https://stackoverflow.com/questions/57989480/r-install-package-curl-handle-c301-error-unknown-type-name-curl-sslbacken
+https://github.com/jeroen/curl/issues/204#issuecomment-532162699
+
 # サービス起動確認
 
 ```
