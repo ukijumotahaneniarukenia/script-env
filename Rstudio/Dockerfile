@@ -62,7 +62,7 @@ rm -rf ~/tmp
 #vim plugin manager
 RUN mkdir -p ~/.vim/bundle && \
 cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
-sh installer.sh ~/.vim/bundle
+sh installer.sh ~/.vim/bundle && rm -rf installer.sh
 
 #python install
 RUN cd ~ && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && \
@@ -111,7 +111,7 @@ rm -rf ~/tmp
 #vim plugin manager
 RUN mkdir -p ~/.vim/bundle && \
 cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
-sh installer.sh ~/.vim/bundle
+sh installer.sh ~/.vim/bundle && rm -rf installer.sh
 
 #alias設定
 RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
@@ -140,5 +140,9 @@ EXPOSE 8787
 
 #sshdサービス外部公開ポート
 EXPOSE 22
+
+USER rstudio
+
+WORKDIR /home/rstudio
 
 CMD ["/sbin/init"]
