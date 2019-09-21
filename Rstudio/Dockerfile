@@ -141,8 +141,4 @@ EXPOSE 8787
 #sshdサービス外部公開ポート
 EXPOSE 22
 
-USER rstudio
-
-WORKDIR /home/rstudio
-
 CMD ["/sbin/init"]
