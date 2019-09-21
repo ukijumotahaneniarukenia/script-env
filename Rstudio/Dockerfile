@@ -131,6 +131,10 @@ ENV LANG=ja_JP.UTF-8
 RUN rm -f /etc/localtime
 RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
+#No such file or directory /etc/init.d/functionsの対策のためいんすこ
+RUN yum install -y initscripts
+RUN yum install -y --nogpgcheck https://s3.amazonaws.com/rstudio-ide-build/server/centos6/x86_64/rstudio-server-rhel-1.2.1568-x86_64.rpm 
+
 #rstudioサービス外部公開ポート
 EXPOSE 8787
 

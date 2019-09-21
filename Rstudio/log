@@ -1,299 +1,207 @@
-Sending build context to Docker daemon  1.417MB
-Step 1/36 : FROM centos:latest
- ---> 9f38484d220f
-Step 2/36 : RUN groupadd -g 1001 rstudio
+Sending build context to Docker daemon  1.418MB
+Step 1/38 : FROM centos:latest
+ ---> 67fa590cfc1c
+Step 2/38 : RUN groupadd -g 1001 rstudio
  ---> Using cache
- ---> 963d719c7b0a
-Step 3/36 : RUN useradd -m -g rstudio -u 1001 rstudio
+ ---> 8a05fc9fdd96
+Step 3/38 : RUN useradd -m -g rstudio -u 1001 rstudio
  ---> Using cache
- ---> c453704ae02b
-Step 4/36 : RUN chsh -s /bin/bash rstudio
+ ---> 180177997f68
+Step 4/38 : RUN chsh -s /bin/bash rstudio
  ---> Using cache
- ---> 64fbedc07c3c
-Step 5/36 : RUN echo 'root_pwd' | passwd --stdin root
+ ---> 456245e6f887
+Step 5/38 : RUN echo 'root_pwd' | passwd --stdin root
  ---> Using cache
- ---> 3a16f20529b9
-Step 6/36 : RUN echo 'rstudio_pwd' | passwd --stdin rstudio
+ ---> b4ccbbd9ce29
+Step 6/38 : RUN echo 'rstudio_pwd' | passwd --stdin rstudio
  ---> Using cache
- ---> cc882ef86d9c
-Step 7/36 : RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> 7d80a36c646a
+Step 7/38 : RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
  ---> Using cache
- ---> f736c29a1f8a
-Step 8/36 : RUN yum install -y epel-release
+ ---> e4be4d93f4f6
+Step 8/38 : RUN yum install -y epel-release
  ---> Using cache
- ---> c6df6a61350b
-Step 9/36 : RUN yum install -y R
+ ---> 5007236d8714
+Step 9/38 : RUN yum install -y R
  ---> Using cache
- ---> 15dd06cf6064
-Step 10/36 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man
+ ---> 908d781532c4
+Step 10/38 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man
  ---> Using cache
- ---> 871be777d6aa
-Step 11/36 : RUN yum install -y which perl-App-cpanminus wxGTK-devel perl-ExtUtils-Embed perl-File-HomeDir perl-Term-ReadLine-Gnu wxGTK3 cpan
+ ---> a3043a7c2b60
+Step 11/38 : RUN yum install -y which perl-App-cpanminus wxGTK-devel perl-ExtUtils-Embed perl-File-HomeDir perl-Term-ReadLine-Gnu wxGTK3 cpan
  ---> Using cache
- ---> 372f690b8a95
-Step 12/36 : RUN cd ~ && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && cd Open-usp-Tukubai && make -j12 install
+ ---> b8ddb217dcfa
+Step 12/38 : RUN cd ~ && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && cd Open-usp-Tukubai && make -j12 install
  ---> Using cache
- ---> 7fe183f7ec95
-Step 13/36 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && tar -zxvf gawk-5.0.0.tar.gz && cd gawk-5.0.0 && ./configure && make -j12 && make -j12 install
+ ---> a193a54e752a
+Step 13/38 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && tar -zxvf gawk-5.0.0.tar.gz && cd gawk-5.0.0 && ./configure && make -j12 && make -j12 install
  ---> Using cache
- ---> 5caaa826786a
-Step 14/36 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && tar -zxvf bash-5.0.tar.gz && cd bash-5.0 && ./configure && make -j12 && make -j12 install
+ ---> 5da29789d47a
+Step 14/38 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && tar -zxvf bash-5.0.tar.gz && cd bash-5.0 && ./configure && make -j12 && make -j12 install
  ---> Using cache
- ---> 509e6a98f5c3
-Step 15/36 : RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd ~ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
+ ---> 18f1d7916f88
+Step 15/38 : RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd ~ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
  ---> Using cache
- ---> 5c969911a23d
-Step 16/36 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> ec6a32a17b79
+Step 16/38 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
  ---> Using cache
- ---> 9823c1e71a92
-Step 17/36 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> 4634907207f2
+Step 17/38 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
  ---> Using cache
- ---> 1158548b763d
-Step 18/36 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
+ ---> c441f4681ff3
+Step 18/38 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
  ---> Using cache
- ---> 7906c6bdae85
-Step 19/36 : RUN cd ~ && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && tar -zxvf Python-3.7.4.tgz && cd Python-3.7.4 && ./configure && make -j12 && make -j12 install
+ ---> 6407bcc34720
+Step 19/38 : RUN cd ~ && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && tar -zxvf Python-3.7.4.tgz && cd Python-3.7.4 && ./configure && make -j12 && make -j12 install
  ---> Using cache
- ---> d8a65d71c345
-Step 20/36 : RUN cd ~ && curl -LO https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz && tar -xzf perl-5.30.0.tar.gz && cd perl-5.30.0 && ./Configure -des -Dprefix=/usr/local/ && make -j12 && make -j12 install
+ ---> 8c3578d83670
+Step 20/38 : RUN cd ~ && curl -LO https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz && tar -xzf perl-5.30.0.tar.gz && cd perl-5.30.0 && ./Configure -des -Dprefix=/usr/local/ && make -j12 && make -j12 install
  ---> Using cache
- ---> ad62260c3b0f
-Step 21/36 : RUN cd ~ && yum install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && tar jxf parallel-latest.tar.bz2 && cd parallel-20190822 && ./configure && make -j12 && make -j12 install
+ ---> c0871108f6a9
+Step 21/38 : RUN cd ~ && yum install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && tar jxf parallel-latest.tar.bz2 && cd parallel-20190822 && ./configure && make -j12 && make -j12 install
  ---> Using cache
- ---> 70de6cccd762
-Step 22/36 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc
- ---> Running in 8ffb95942ab3
-Removing intermediate container 8ffb95942ab3
- ---> d08d3ad9c72a
-Step 23/36 : USER rstudio
- ---> Running in 2ecc8dbc755c
-Removing intermediate container 2ecc8dbc755c
- ---> 04f52b6543c2
-Step 24/36 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
- ---> Running in 0597af5169c2
-Cloning into '/home/rstudio/.vim'...
-Removing intermediate container 0597af5169c2
- ---> aa1e369d9988
-Step 25/36 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
- ---> Running in a2eadc1d0819
-Cloning into '/home/rstudio/tmp'...
-Removing intermediate container a2eadc1d0819
- ---> 338b92cd0d43
-Step 26/36 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
- ---> Running in d19e6d4c02af
-[91m  % Total    % Received % Xferd  Average Speed   Time    Time     Time  C[0m[91murrent
-                      [0m[91m   [0m[91m   [0m[91m  [0m[91m [0m[91m  [0m[91mDlo[0m[91mad[0m[91m [0m[91m U[0m[91mp[0m[91mload[0m[91m [0m[91m [0m[91m [0m[91mTot[0m[91mal[0m[91m [0m[91m  [0m[91mS[0m[91mpent    [0m[91mLeft  Speed
-[0m[91m  0[0m[91m   [0m[91m  0[0m[91m    [0m[91m0  [0m[91m   [0m[91m0  [0m[91m  0  [0m[91m   [0m[91m0  [0m[91m   [0m[91m 0 [0m[91m   [0m[91m  0 [0m[91m--:[0m[91m--:[0m[91m-- -[0m[91m-:--[0m[91m:-[0m[91m- --:[0m[91m--:[0m[91m-- [0m[91m   [0m[91m 0[0m[91m 85  2233   85  1902    0     0   4652      0 --:--:-- --:--:-- --:--:--  4650[0m[91m100  2233 [0m[91m 100  [0m[91m22[0m[91m33  [0m[91m  [0m[91m0     0[0m[91m  [0m[91m 5[0m[91m45[0m[91m9   [0m[91m  [0m[91m 0[0m[91m -[0m[91m-:[0m[91m--[0m[91m:-[0m[91m- [0m[91m--[0m[91m:--:[0m[91m-- --:--:--  5459
-[0mInstall to "/home/rstudio/.vim/bundle/repos/github.com/Shougo/dein.vim"...
-
-git is /usr/bin/git
-
-Begin fetching dein...
-Cloning into '/home/rstudio/.vim/bundle/repos/github.com/Shougo/dein.vim'...
-Done.
-
-Please add the following settings for dein to the top of your vimrc (Vim) or init.vim (NeoVim) file:
-
-
-"dein Scripts-----------------------------
-if &compatible
-  set nocompatible               " Be iMproved
-endif
-
-" Required:
-set runtimepath+=/home/rstudio/.vim/bundle/repos/github.com/Shougo/dein.vim
-
-" Required:
-if dein#load_state('/home/rstudio/.vim/bundle')
-  call dein#begin('/home/rstudio/.vim/bundle')
-
-  " Let dein manage dein
-  " Required:
-  call dein#add('/home/rstudio/.vim/bundle/repos/github.com/Shougo/dein.vim')
-
-  " Add or remove your plugins here like this:
-  "call dein#add('Shougo/neosnippet.vim')
-  "call dein#add('Shougo/neosnippet-snippets')
-
-  " Required:
-  call dein#end()
-  call dein#save_state()
-endif
-
-" Required:
-filetype plugin indent on
-syntax enable
-
-" If you want to install not installed plugins on startup.
-"if dein#check_install()
-"  call dein#install()
-"endif
-
-"End dein Scripts-------------------------
-
-
-Done.
-Complete setup dein!
-Removing intermediate container d19e6d4c02af
- ---> 983eedfeb1fc
-Step 27/36 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc
- ---> Running in 45d4e9778c9e
-Removing intermediate container 45d4e9778c9e
- ---> 5db497488117
-Step 28/36 : USER root
- ---> Running in 8d4f07fa0388
-Removing intermediate container 8d4f07fa0388
- ---> bbe3c66b9ebc
-Step 29/36 : RUN yum -y reinstall glibc-common
- ---> Running in 439eeccebe30
+ ---> 72a797a9d3bc
+Step 22/38 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc
+ ---> Using cache
+ ---> ea87c554fc05
+Step 23/38 : USER rstudio
+ ---> Using cache
+ ---> 8dec76050707
+Step 24/38 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> Using cache
+ ---> 128e3d3acb3b
+Step 25/38 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> Using cache
+ ---> 5a96d7376192
+Step 26/38 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
+ ---> Using cache
+ ---> 950a02055e0d
+Step 27/38 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc
+ ---> Using cache
+ ---> d87a1e89c169
+Step 28/38 : USER root
+ ---> Using cache
+ ---> ff50447d9756
+Step 29/38 : RUN yum -y reinstall glibc-common
+ ---> Using cache
+ ---> d76493d657ab
+Step 30/38 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
+ ---> Using cache
+ ---> 6636373dcec3
+Step 31/38 : ENV LANG=ja_JP.UTF-8
+ ---> Using cache
+ ---> 6d4e2f614f8f
+Step 32/38 : RUN rm -f /etc/localtime
+ ---> Using cache
+ ---> ff4c58d189bd
+Step 33/38 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+ ---> Using cache
+ ---> e83ce42085a1
+Step 34/38 : RUN yum install -y initscripts
+ ---> Running in dbbd8ba2700c
 Loaded plugins: fastestmirror, ovl
 Loading mirror speeds from cached hostfile
- * base: ty1.mirror.newmediaexpress.com
+ * base: ftp.iij.ad.jp
  * epel: nrt.edge.kernel.org
- * extras: ty1.mirror.newmediaexpress.com
- * updates: ty1.mirror.newmediaexpress.com
+ * extras: ftp.iij.ad.jp
+ * updates: ftp.iij.ad.jp
 Resolving Dependencies
 --> Running transaction check
----> Package glibc-common.x86_64 0:2.17-260.el7_6.6 will be reinstalled
+---> Package initscripts.x86_64 0:9.49.47-1.el7 will be installed
+--> Processing Dependency: sysvinit-tools >= 2.87-5 for package: initscripts-9.49.47-1.el7.x86_64
+--> Running transaction check
+---> Package sysvinit-tools.x86_64 0:2.88-14.dsf.el7 will be installed
 --> Finished Dependency Resolution
 
 Dependencies Resolved
 
 ================================================================================
- Package             Arch          Version                 Repository      Size
+ Package               Arch          Version                  Repository   Size
 ================================================================================
-Reinstalling:
- glibc-common        x86_64        2.17-260.el7_6.6        updates         12 M
+Installing:
+ initscripts           x86_64        9.49.47-1.el7            base        439 k
+Installing for dependencies:
+ sysvinit-tools        x86_64        2.88-14.dsf.el7          base         63 k
 
 Transaction Summary
 ================================================================================
-Reinstall  1 Package
+Install  1 Package (+1 Dependent package)
 
-Total download size: 12 M
-Installed size: 115 M
+Total download size: 502 k
+Installed size: 1.6 M
+Downloading packages:
+--------------------------------------------------------------------------------
+Total                                              2.0 MB/s | 502 kB  00:00     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : sysvinit-tools-2.88-14.dsf.el7.x86_64                        1/2 
+  Installing : initscripts-9.49.47-1.el7.x86_64                             2/2 
+  Verifying  : sysvinit-tools-2.88-14.dsf.el7.x86_64                        1/2 
+  Verifying  : initscripts-9.49.47-1.el7.x86_64                             2/2 
+
+Installed:
+  initscripts.x86_64 0:9.49.47-1.el7                                            
+
+Dependency Installed:
+  sysvinit-tools.x86_64 0:2.88-14.dsf.el7                                       
+
+Complete!
+Removing intermediate container dbbd8ba2700c
+ ---> 3b1ab5681396
+Step 35/38 : RUN yum install -y --nogpgcheck https://s3.amazonaws.com/rstudio-ide-build/server/centos6/x86_64/rstudio-server-rhel-1.2.1568-x86_64.rpm
+ ---> Running in a81856e4b9f4
+Loaded plugins: fastestmirror, ovl
+Examining /var/tmp/yum-root-t7tAUw/rstudio-server-rhel-1.2.1568-x86_64.rpm: rstudio-server-1.2.1568-1.x86_64
+Marking /var/tmp/yum-root-t7tAUw/rstudio-server-rhel-1.2.1568-x86_64.rpm to be installed
+Resolving Dependencies
+--> Running transaction check
+---> Package rstudio-server.x86_64 0:1.2.1568-1 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package        Arch   Version       Repository                            Size
+================================================================================
+Installing:
+ rstudio-server x86_64 1.2.1568-1    /rstudio-server-rhel-1.2.1568-x86_64 341 M
+
+Transaction Summary
+================================================================================
+Install  1 Package
+
+Total size: 341 M
+Installed size: 341 M
 Downloading packages:
 Running transaction check
 Running transaction test
 Transaction test succeeded
 Running transaction
-  Installing : glibc-common-2.17-260.el7_6.6.x86_64                         1/1 
-  Verifying  : glibc-common-2.17-260.el7_6.6.x86_64                         1/1 
+  Installing : rstudio-server-1.2.1568-1.x86_64                             1/1 
+groupadd: group 'rstudio-server' already exists
+Failed to get D-Bus connection: Operation not permitted
+Starting rstudio-server: [  OK  ]
+  Verifying  : rstudio-server-1.2.1568-1.x86_64                             1/1 
 
 Installed:
-  glibc-common.x86_64 0:2.17-260.el7_6.6                                        
+  rstudio-server.x86_64 0:1.2.1568-1                                            
 
 Complete!
-Removing intermediate container 439eeccebe30
- ---> 3dfff548b92e
-Step 30/36 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
- ---> Running in b5d7165335a5
-[91m/usr/share/i18n/locales/ja_JP:11: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:12: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:15: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:18: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:19: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:20: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:21: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:23: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:24: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:25: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:26: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:27: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:28: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:29: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:30: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:31: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:32: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:33: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/ja_JP:42: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/i18n:1425: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/i18n:1674: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/i18n:1719: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/i18n:1756: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/ja_JP:1675: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:1676: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/ja_JP:14945: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:14946: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:14947: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:14948: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:14949: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:14950: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:14951: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:14952: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:14953: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:14954: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:14955: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/translit_neutral:10: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:11: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:12: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:13: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:14: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:15: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:16: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:17: non-symbolic character value should not be used
-[0m[91mLC_ADDRESS: field `country_name' not defined
-LC_ADDRESS: field `country_post' not defined
-LC_ADDRESS: field `country_car' not defined
-LC_ADDRESS: field `country_isbn' not defined
-LC_ADDRESS: field `lang_name' not defined
-LC_ADDRESS: field `lang_term' not defined
-LC_ADDRESS: field `lang_ab' not defined
-LC_TELEPHONE: field `int_select' not defined
-LC_IDENTIFICATION: field `audience' not defined
-LC_IDENTIFICATION: field `application' not defined
-LC_IDENTIFICATION: field `abbreviation' not defined
-LC_IDENTIFICATION: no identification for category `LC_MEASUREMENT'
-[0m[91mLC_CTYPE: table for class "upper": 1756 bytes
-[0m[91mLC_CTYPE: table for class "lower": 1756 bytes
-[0m[91mLC_CTYPE: table for class "alpha": 4320 bytes
-[0m[91mLC_CTYPE: table for class "digit": 600 bytes
-[0m[91mLC_CTYPE: table for class "xdigit": 600 bytes
-[0m[91mLC_CTYPE: table for class "space": 856 bytes
-[0m[91mLC_CTYPE: table for class "print": 5976 bytes
-[0m[91mLC_CTYPE: table for class "graph": 5976 bytes
-[0m[91mLC_CTYPE: table for class "blank": 856 bytes
-[0m[91mLC_CTYPE: table for class "cntrl": 664 bytes
-[0m[91mLC_CTYPE: table for class "punct": 4824 bytes
-[0m[91mLC_CTYPE: table for class "alnum": 4320 bytes
-[0m[91mLC_CTYPE: table for class "combining": 3152 bytes
-[0m[91mLC_CTYPE: table for class "combining_level3": 2832 bytes
-[0m[91mLC_CTYPE: table for class "jspace": 600 bytes
-[0m[91mLC_CTYPE: table for class "jhira": 600 bytes
-[0m[91mLC_CTYPE: table for class "jkata": 664 bytes
-[0m[91mLC_CTYPE: table for class "jkanji": 3224 bytes
-[0m[91mLC_CTYPE: table for class "jdigit": 600 bytes
-[0m[91mLC_CTYPE: table for map "toupper": 16924 bytes
-[0m[91mLC_CTYPE: table for map "tolower": 15388 bytes
-[0m[91mLC_CTYPE: table for map "totitle": 16924 bytes
-[0m[91mLC_CTYPE: table for map "tojhira": 2584 bytes
-[0m[91mLC_CTYPE: table for map "tojkata": 3096 bytes
-[0m[91mLC_CTYPE: table for width: 26712 bytes
-[0m
-Removing intermediate container b5d7165335a5
- ---> f73e7edc1eea
-Step 31/36 : ENV LANG=ja_JP.UTF-8
- ---> Running in eae142f50476
-Removing intermediate container eae142f50476
- ---> bcf69dd65df4
-Step 32/36 : RUN rm -f /etc/localtime
- ---> Running in a9a412db5a11
-Removing intermediate container a9a412db5a11
- ---> ef511e4550be
-Step 33/36 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
- ---> Running in 5481d92965b5
-Removing intermediate container 5481d92965b5
- ---> 0f7033ac799f
-Step 34/36 : EXPOSE 8787
- ---> Running in cb3191a9b8e7
-Removing intermediate container cb3191a9b8e7
- ---> b06217fb08d1
-Step 35/36 : EXPOSE 22
- ---> Running in 52d7a2341ec2
-Removing intermediate container 52d7a2341ec2
- ---> d8ab65b63a71
-Step 36/36 : CMD ["/sbin/init"]
- ---> Running in 205af97c4538
-Removing intermediate container 205af97c4538
- ---> 5bc8695a60f9
-Successfully built 5bc8695a60f9
+Removing intermediate container a81856e4b9f4
+ ---> 27f22c06b59a
+Step 36/38 : EXPOSE 8787
+ ---> Running in 23d49edc2a52
+Removing intermediate container 23d49edc2a52
+ ---> 41c8ccedcab9
+Step 37/38 : EXPOSE 22
+ ---> Running in 6510ad0aef9f
+Removing intermediate container 6510ad0aef9f
+ ---> 73d969ed3bd4
+Step 38/38 : CMD ["/sbin/init"]
+ ---> Running in fefd453ff3fc
+Removing intermediate container fefd453ff3fc
+ ---> 7c0e2ca897b8
+Successfully built 7c0e2ca897b8
 Successfully tagged centos_rstudio:latest
