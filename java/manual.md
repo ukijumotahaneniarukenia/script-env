@@ -40,6 +40,10 @@ docker run --privileged --shm-size=8gb --name java -itd -v /run/udev:/run/udev -
 docker exec -it java /bin/bash
 ```
 
+# jshell
+https://qiita.com/HomMarkHunt/items/6579cc3587972909d85f
+
+
 # 絵文字をjavaで表示
 
 https://qiita.com/carimatics/items/48ca30434f192549283c
