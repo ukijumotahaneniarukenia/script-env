@@ -75,7 +75,7 @@ rm -rf ~/tmp
 #vim plugin manager
 RUN mkdir -p ~/.vim/bundle && \
 cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
-sh installer.sh ~/.vim/bundle
+sh installer.sh ~/.vim/bundle && rm -rf installer.sh
 
 #python install
 RUN cd ~ && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && \
@@ -124,12 +124,12 @@ rm -rf ~/tmp
 #vim plugin manager
 RUN mkdir -p ~/.vim/bundle && \
 cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
-sh installer.sh ~/.vim/bundle
+sh installer.sh ~/.vim/bundle && rm -rf installer.sh
 
 #guiアプリインストール
 #事前にダウンロードしておき、dockerコンテナにコピー。
 COPY ideaIC-2019.2.2.tar.gz /home/java/ideaIC-2019.2.2.tar.gz
-RUN cd ~ && tar -xzf ideaIC-2019.2.2.tar.gz
+RUN cd ~ && tar -xzf ideaIC-2019.2.2.tar.gz && chown -R java:java idea-IC-192.6603.28
 
 #alias設定
 RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
@@ -137,17 +137,27 @@ echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
 echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
 echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
 echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
-echo "alias vi=\"sudo vim\"" >> ~/.bashrc
+echo "alias vi=\"sudo vim\"" >> ~/.bashrc && \
+echo "alias idea=\"/home/java/idea-IC-192.6603.28/bin/idea.sh >~/launch_idea.log 2>&1 &\"" >> ~/.bashrc && \
+echo "export JAVA_HOME=/home/java/jdk-13" >> ~/.bashrc && \
+echo "export PATH=/home/java/jdk-13/bin:$PATH" >> ~/.bashrc
+
+#javaインストール
+RUN cd ~ && curl -LO https://download.java.net/java/GA/jdk13/5b8a42f3905b406298b72d750b6919f6/33/GPL/openjdk-13_linux-x64_bin.tar.gz && tar -zxvf openjdk-13_linux-x64_bin.tar.gz
 
 #最後はrootに戻す
 USER root 
 
 #日本語環境と時刻合わせ
-RUN yum -y reinstall glibc-common
+#RUN yum -y reinstall glibc-common
 RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
 ENV LANG=ja_JP.UTF-8
 RUN rm -f /etc/localtime
 RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+
+#No such file or directory /etc/init.d/functionsの対策のためいんすこ
+RUN yum install -y initscripts
+RUN yum install -y --nogpgcheck https://s3.amazonaws.com/rstudio-ide-build/server/centos6/x86_64/rstudio-server-rhel-1.2.1568-x86_64.rpm 
 
 #sshdサービス外部公開ポート
 EXPOSE 22
