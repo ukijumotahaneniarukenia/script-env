@@ -43,6 +43,24 @@ docker exec -it java /bin/bash
 # jshell
 https://qiita.com/HomMarkHunt/items/6579cc3587972909d85f
 https://twitter.com/EclipseJavaIDE/status/1147044351278747648
+```
+[java@441a10f53644 /]$jshell
+|  JShellへようこそ -- バージョン13
+|  概要については、次を入力してください: /help intro
+
+jshell> 
+
+jshell> 
+
+jshell> 
+
+jshell> 
+
+jshell> System.out.println("Hello World");
+Hello World
+
+
+```
 
 # 絵文字をjavaで表示
 
