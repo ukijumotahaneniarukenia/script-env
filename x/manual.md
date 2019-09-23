@@ -1,5 +1,4 @@
-# 参考文献
-https://www.itmedia.co.jp/enterprise/articles/1604/27/news001.html
+# 参考文献 https://www.itmedia.co.jp/enterprise/articles/1604/27/news001.html
 https://satoru739.hatenadiary.com/entry/20111007/1318086532
 
 xtermの色指定
@@ -23,6 +22,30 @@ https://solist.work/blog/posts/mozc/
 https://www.linux.ambitious-engineer.com/?p=984
 
 http://slavartemp.blogspot.com/2013/06/xming-teraterm-ssh-lubuntu-x.html
+
+X11とはみたいな
+http://nmaruichi.la.coocan.jp/XawDoc/Xaw02.html
+
+X11における日本語フォントファイル
+http://vega.pgw.jp/~kabe/vsd/k14/
+
+Xtermにおける日本語の表示に関して
+http://vega.pgw.jp/~kabe/vsd/k14/xterm-fontsel.html
+http://bogytech.blogspot.com/2019/
+
+Xの仕組み
+http://luozengbin.github.io/blog/2014-06-21-%5B%E3%83%A1%E3%83%A2%5D%E3%83%AA%E3%83%A2%E3%83%BC%E3%83%88x%E3%81%AE%E6%8E%A5%E7%B6%9A%E6%96%B9%E6%B3%95.html
+
+Xフォント
+https://running-dog.net/2011/10/post_303.html
+https://incompleteness-theorems.at.webry.info/201009/article_6.html
+https://linuxjf.osdn.jp/JFdocs/XWindow-User-HOWTO-7.html
+
+すげぇ
+https://running-dog.net/category/cat_kdeandqt
+
+dockerにmanいれる
+https://okisanjp.hatenablog.jp/entry/2017/01/06/214353
 
 # dockerコンテナ削除
 ```
