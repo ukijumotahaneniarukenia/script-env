@@ -1,212 +1,697 @@
-Sending build context to Docker daemon   3.32GB
-Step 1/68 : FROM centos:latest
+Sending build context to Docker daemon  11.78kB
+Step 1/30 : FROM centos:latest
  ---> 67fa590cfc1c
-Step 2/68 : RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps
+Step 2/30 : RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps
  ---> Using cache
  ---> 60fb85fcb65d
-Step 3/68 : RUN yum install -y java firefox
+Step 3/30 : RUN yum install -y java firefox
  ---> Using cache
  ---> d8279738dbb6
-Step 4/68 : RUN yum groups mark convert
+Step 4/30 : RUN yum groups mark convert
  ---> Using cache
  ---> d4b76280d7a0
-Step 5/68 : RUN yum groupinstall -y base "X Window System" --setopt=group_package_types=mandatory,default,optional
+Step 5/30 : RUN yum groupinstall -y base "X Window System" --setopt=group_package_types=mandatory,default,optional
  ---> Using cache
  ---> 91bf736c5a7f
-Step 6/68 : RUN yum install -y vlgothic-*
- ---> Using cache
- ---> 54208c206e79
-Step 7/68 : RUN yum install -y fcitx ibus
- ---> Using cache
- ---> 26caf8a74166
-Step 8/68 : COPY sqldeveloper-19.2.0.206.2117.noarch.rpm /root/sqldeveloper-19.2.0.206.2117.noarch.rpm
- ---> Using cache
- ---> a29d96ca2fca
-Step 9/68 : COPY jdk-8u221-linux-x64.rpm /root/jdk-8u221-linux-x64.rpm
- ---> Using cache
- ---> 438b4a0d5e8a
-Step 10/68 : RUN cd ~ && rpm -ivh jdk-8u221-linux-x64.rpm
- ---> Using cache
- ---> f6d1830387f0
-Step 11/68 : RUN cd ~ && rpm -ivh sqldeveloper-19.2.0.206.2117.noarch.rpm
- ---> Using cache
- ---> 0cf531192d01
-Step 12/68 : RUN curl -o oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm https://yum.oracle.com/repo/OracleLinux/OL7/latest/x86_64/getPackage/oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm
- ---> Using cache
- ---> c0be3816150c
-Step 13/68 : RUN yum -y localinstall oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm && rm oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm
- ---> Using cache
- ---> 49698b740049
-Step 14/68 : ENV ORACLE_DOCKER_INSTALL=true     ORACLE_HOME=/opt/oracle/product/19c/dbhome_1     ORACLE_SID=ORCLCDB     PDB_NAME=ORCLPDB1     PATH=$PATH:$ORACLE_HOME/bin
- ---> Using cache
- ---> b8e06c2432fe
-Step 15/68 : COPY oracle-database-ee-19c-1.0-1.x86_64.rpm /root/oracle-database-ee-19c-1.0-1.x86_64.rpm
- ---> Using cache
- ---> 676621040e6d
-Step 16/68 : RUN yum -y localinstall /root/oracle-database-ee-19c-1.0-1.x86_64.rpm
- ---> Using cache
- ---> 3132cb755bfa
-Step 17/68 : RUN groupadd -g 1001 rstudio
- ---> Using cache
- ---> bdd9099aceb1
-Step 18/68 : RUN useradd -m -g rstudio -u 1001 rstudio
- ---> Using cache
- ---> 1297a597c1d7
-Step 19/68 : RUN chsh -s /bin/bash rstudio
- ---> Using cache
- ---> 0f9ce81793ca
-Step 20/68 : RUN chsh -s /bin/bash oracle
- ---> Using cache
- ---> 6695274a0b18
-Step 21/68 : RUN echo 'root_pwd' | passwd --stdin root
- ---> Using cache
- ---> 35f210eeacee
-Step 22/68 : RUN echo 'rstudio_pwd' | passwd --stdin rstudio
- ---> Using cache
- ---> 1af4a8901758
-Step 23/68 : RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
- ---> Using cache
- ---> 8aac4518344c
-Step 24/68 : RUN echo 'oracle_pwd' | passwd --stdin oracle
- ---> Using cache
- ---> a5796c5e61a0
-Step 25/68 : RUN echo 'oracle ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
- ---> Using cache
- ---> 8404bd3bcdb6
-Step 26/68 : RUN yum install -y epel-release
- ---> Using cache
- ---> 82b74315273e
-Step 27/68 : RUN yum install -y R
- ---> Using cache
- ---> cf0bfb2b9f39
-Step 28/68 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man rlwrap
- ---> Using cache
- ---> e29c5aa5af87
-Step 29/68 : RUN yum install -y which perl-App-cpanminus wxGTK-devel perl-ExtUtils-Embed perl-File-HomeDir perl-Term-ReadLine-Gnu wxGTK3 cpan
- ---> Using cache
- ---> faa6b4b22d38
-Step 30/68 : RUN cd ~ && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && cd Open-usp-Tukubai && make -j12 install
- ---> Using cache
- ---> f9fa4164e30d
-Step 31/68 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && tar -zxvf gawk-5.0.0.tar.gz && cd gawk-5.0.0 && ./configure && make -j12 && make -j12 install
- ---> Using cache
- ---> f5243fcbb537
-Step 32/68 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && tar -zxvf bash-5.0.tar.gz && cd bash-5.0 && ./configure && make -j12 && make -j12 install
- ---> Using cache
- ---> 4244aaa2d604
-Step 33/68 : RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd ~ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
- ---> Using cache
- ---> d31cfb03b45f
-Step 34/68 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
- ---> Using cache
- ---> 784979ad1c8b
-Step 35/68 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
- ---> Using cache
- ---> fd3a22d4b13e
-Step 36/68 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
- ---> Using cache
- ---> ef32fe285f6f
-Step 37/68 : RUN cd ~ && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && tar -zxvf Python-3.7.4.tgz && cd Python-3.7.4 && ./configure && make -j12 && make -j12 install
- ---> Using cache
- ---> d4ef8e420f18
-Step 38/68 : RUN cd ~ && curl -LO https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz && tar -xzf perl-5.30.0.tar.gz && cd perl-5.30.0 && ./Configure -des -Dprefix=/usr/local/ && make -j12 && make -j12 install
- ---> Using cache
- ---> 8efe7f889cb3
-Step 39/68 : RUN cd ~ && yum install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && tar jxf parallel-latest.tar.bz2 && cd parallel-20190822 && ./configure && make -j12 && make -j12 install
- ---> Using cache
- ---> 3b73b3d19334
-Step 40/68 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1" >> ~/.bashrc && echo "export ORACLE_SID=ORCLCDB"  >> ~/.bashrc && echo "export PATH=$PATH:$ORACLE_HOME/bin" >> ~/.bashrc
- ---> Using cache
- ---> fb73e7555cdd
-Step 41/68 : USER rstudio
- ---> Using cache
- ---> 5e757b102d6a
-Step 42/68 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
- ---> Using cache
- ---> 3b7a9f117187
-Step 43/68 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
- ---> Using cache
- ---> 7fa3d3643369
-Step 44/68 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
- ---> Using cache
- ---> 8d7e0a843fd0
-Step 45/68 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc && echo "export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1" >> ~/.bashrc && echo "export ORACLE_SID=ORCLCDB"  >> ~/.bashrc && echo "export PATH=$PATH:$ORACLE_HOME/bin" >> ~/.bashrc
- ---> Using cache
- ---> 3b72389a0884
-Step 46/68 : USER oracle
- ---> Using cache
- ---> 9be714ba4d12
-Step 47/68 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
- ---> Using cache
- ---> f7c9c32a0560
-Step 48/68 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
- ---> Using cache
- ---> 0c7f0d33c147
-Step 49/68 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
- ---> Using cache
- ---> 8a3ac81e4f87
-Step 50/68 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc && echo "export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1" >> ~/.bashrc && echo "export ORACLE_SID=ORCLCDB"  >> ~/.bashrc && echo "export PATH=$PATH:$ORACLE_HOME/bin:$HOME/sqlcl/bin" >> ~/.bashrc
- ---> Using cache
- ---> 2c398c940cef
-Step 51/68 : RUN java -version
- ---> Using cache
- ---> 6c8c55149427
-Step 52/68 : COPY sqlcl-19.2.1.206.1649.zip /home/oracle/sqlcl-19.2.1.206.1649.zip
- ---> Using cache
- ---> 422d713637c2
-Step 53/68 : RUN cd ~ && unzip sqlcl-19.2.1.206.1649.zip
- ---> Using cache
- ---> 90bc40393fa3
-Step 54/68 : USER root
- ---> Using cache
- ---> dba79f877eaf
-Step 55/68 : RUN yum -y reinstall glibc-common
- ---> Using cache
- ---> 0c183011fc73
-Step 56/68 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
- ---> Using cache
- ---> 65b3ba9f7725
-Step 57/68 : ENV LANG=ja_JP.UTF-8
- ---> Using cache
- ---> 2ebe3e7799f0
-Step 58/68 : RUN rm -f /etc/localtime
- ---> Using cache
- ---> fff578661aa9
-Step 59/68 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
- ---> Using cache
- ---> fb9e40c7e953
-Step 60/68 : RUN yum install -y vlgothic-*
- ---> Using cache
- ---> 5a98710ba8dd
-Step 61/68 : RUN yum install -y PackageKit-gtk3-module
- ---> Using cache
- ---> 9b87039db4ba
-Step 62/68 : RUN sed -i '34i export PASSWORD=ORACLE_PWD' /etc/init.d/oracledb_ORCLCDB-19c &&  sed -i '165s;^;#;' /etc/init.d/oracledb_ORCLCDB-19c &&  sed -i '166i $SU -s /bin/bash  $ORACLE_OWNER -c "$DBCA -silent -createDatabase -gdbName $ORACLE_SID -templateName $TEMPLATE_NAME -characterSet $CHARSET -createAsContainerDatabase $CREATE_AS_CDB -numberOfPDBs $NUMBER_OF_PDBS -pdbName $PDB_NAME -pdbAdminPassword $PASSWORD -createListener $LISTENER_NAME:$LISTENER_PORT -datafileDestination $ORACLE_DATA_LOCATION -sid $ORACLE_SID -sysPassword $PASSWORD -systemPassword $PASSWORD -emConfiguration DBEXPRESS -emExpressPort $EM_EXPRESS_PORT"' /etc/init.d/oracledb_ORCLCDB-19c
- ---> Using cache
- ---> 2998a883708e
-Step 63/68 : EXPOSE 1521
- ---> Running in d7aaa7728aa4
-Removing intermediate container d7aaa7728aa4
- ---> 6ff26b18eb73
-Step 64/68 : EXPOSE 5500
- ---> Running in 3a272b02ab9f
-Removing intermediate container 3a272b02ab9f
- ---> 259672852507
-Step 65/68 : EXPOSE 22
- ---> Running in 22758c2f0a68
-Removing intermediate container 22758c2f0a68
- ---> 1bc9731d60a4
-Step 66/68 : EXPOSE 8787
- ---> Running in 86159a47e745
-Removing intermediate container 86159a47e745
- ---> c1d032a26509
-Step 67/68 : ENV DISPLAY=:0.0
- ---> Running in 888f77718f18
-Removing intermediate container 888f77718f18
- ---> 429293441166
-Step 68/68 : CMD ["/sbin/init"]
- ---> Running in 30877e001c6d
-Removing intermediate container 30877e001c6d
- ---> ac100eed3734
-Successfully built ac100eed3734
-Successfully tagged centos_x:latest
+Step 6/30 : RUN groupadd -g 1001 rstudio
+ ---> Running in 0c6564c5e2ac
+Removing intermediate container 0c6564c5e2ac
+ ---> 49f78d40ce5a
+Step 7/30 : RUN useradd -m -g rstudio -u 1001 rstudio
+ ---> Running in 96a6940c2355
+Removing intermediate container 96a6940c2355
+ ---> a483445baf84
+Step 8/30 : RUN chsh -s /bin/bash rstudio
+ ---> Running in feb9f6ff5eb8
+Changing shell for rstudio.
+[91mchsh: Shell not changed.
+[0mRemoving intermediate container feb9f6ff5eb8
+ ---> a8be741e2b47
+Step 9/30 : RUN echo 'root_pwd' | passwd --stdin root
+ ---> Running in 83bd418863bc
+Changing password for user root.
+passwd: all authentication tokens updated successfully.
+Removing intermediate container 83bd418863bc
+ ---> 44a1fd9af914
+Step 10/30 : RUN echo 'rstudio_pwd' | passwd --stdin rstudio
+ ---> Running in 4ea2ed5d0cfc
+Changing password for user rstudio.
+passwd: all authentication tokens updated successfully.
+Removing intermediate container 4ea2ed5d0cfc
+ ---> 997ff8f582f6
+Step 11/30 : RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Running in ca2865c1c119
+Removing intermediate container ca2865c1c119
+ ---> 2c7ee6e36250
+Step 12/30 : RUN yum install -y epel-release
+ ---> Running in e40743ddeb01
+Loaded plugins: aliases, changelog, fastestmirror, kabi, langpacks, ovl,
+              : tmprepo, verify, versionlock
+Loading support for Red Hat kernel ABI
+Determining fastest mirrors
+ * base: ftp-srv2.kddilabs.jp
+ * extras: ftp-srv2.kddilabs.jp
+ * updates: ftp-srv2.kddilabs.jp
+Resolving Dependencies
+--> Running transaction check
+---> Package epel-release.noarch 0:7-11 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package                Arch             Version         Repository        Size
+================================================================================
+Installing:
+ epel-release           noarch           7-11            extras            15 k
+
+Transaction Summary
+================================================================================
+Install  1 Package
+
+Total download size: 15 k
+Installed size: 24 k
+Downloading packages:
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : epel-release-7-11.noarch                                     1/1 
+  Verifying  : epel-release-7-11.noarch                                     1/1 
+
+Installed:
+  epel-release.noarch 0:7-11                                                    
+
+Complete!
+Removing intermediate container e40743ddeb01
+ ---> 3e973aa81872
+Step 13/30 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc
+ ---> Running in c8b8128c9a29
+Removing intermediate container c8b8128c9a29
+ ---> d571a0013036
+Step 14/30 : RUN echo "export GTK_IM_MODULE=ibus" >> ~/.bashrc && echo "export XMODIFIERS=@im=ibus" >> ~/.bashrc && echo "export QT_IM_MODULE=ibus" >> ~/.bashrc && echo "export NO_AT_BRIDGE=1" >> ~/.bashrc && echo "xset -r 49" >> ~/.bashrc && echo "ibus-daemon -dxr" >> ~/.bashrc
+ ---> Running in 8d8edbade9dc
+Removing intermediate container 8d8edbade9dc
+ ---> aae6f91341b6
+Step 15/30 : USER rstudio
+ ---> Running in ce4a20ce6c3e
+Removing intermediate container ce4a20ce6c3e
+ ---> 7360d31dd84f
+Step 16/30 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc
+ ---> Running in 1fd16636a60a
+Removing intermediate container 1fd16636a60a
+ ---> 5f8205a16a6b
+Step 17/30 : RUN echo "export GTK_IM_MODULE=ibus" >> ~/.bashrc && echo "export XMODIFIERS=@im=ibus" >> ~/.bashrc && echo "export QT_IM_MODULE=ibus" >> ~/.bashrc && echo "export NO_AT_BRIDGE=1" >> ~/.bashrc && echo "xset -r 49" >> ~/.bashrc && echo "ibus-daemon -dxr" >> ~/.bashrc
+ ---> Running in 2ebeddf0b05e
+Removing intermediate container 2ebeddf0b05e
+ ---> 5bf91414e018
+Step 18/30 : USER root
+ ---> Running in ccf1e956a0d1
+Removing intermediate container ccf1e956a0d1
+ ---> d2e95051437c
+Step 19/30 : RUN yum install -y ibus-mozc
+ ---> Running in 70c5548ab07d
+Loaded plugins: aliases, changelog, fastestmirror, kabi, langpacks, ovl,
+              : tmprepo, verify, versionlock
+Loading support for Red Hat kernel ABI
+Loading mirror speeds from cached hostfile
+ * base: ftp-srv2.kddilabs.jp
+ * epel: nrt.edge.kernel.org
+ * extras: ftp-srv2.kddilabs.jp
+ * updates: ftp-srv2.kddilabs.jp
+Resolving Dependencies
+--> Running transaction check
+---> Package ibus-mozc.x86_64 0:2.17.2322.102-1.el7 will be installed
+--> Processing Dependency: mozc(x86-64) = 2.17.2322.102-1.el7 for package: ibus-mozc-2.17.2322.102-1.el7.x86_64
+--> Processing Dependency: ibus(x86-64) >= 1.5.4 for package: ibus-mozc-2.17.2322.102-1.el7.x86_64
+--> Processing Dependency: libibus-1.0.so.5()(64bit) for package: ibus-mozc-2.17.2322.102-1.el7.x86_64
+--> Running transaction check
+---> Package ibus.x86_64 0:1.5.17-5.el7 will be installed
+--> Processing Dependency: ibus-setup = 1.5.17-5.el7 for package: ibus-1.5.17-5.el7.x86_64
+--> Processing Dependency: ibus-gtk3(x86-64) = 1.5.17-5.el7 for package: ibus-1.5.17-5.el7.x86_64
+--> Processing Dependency: ibus-gtk2(x86-64) = 1.5.17-5.el7 for package: ibus-1.5.17-5.el7.x86_64
+--> Processing Dependency: dbus-x11 for package: ibus-1.5.17-5.el7.x86_64
+---> Package ibus-libs.x86_64 0:1.5.17-5.el7 will be installed
+---> Package mozc.x86_64 0:2.17.2322.102-1.el7 will be installed
+--> Processing Dependency: xemacs-filesystem >= 21.5 for package: mozc-2.17.2322.102-1.el7.x86_64
+--> Processing Dependency: zinnia-tomoe-ja for package: mozc-2.17.2322.102-1.el7.x86_64
+--> Processing Dependency: libQtCore.so.4()(64bit) for package: mozc-2.17.2322.102-1.el7.x86_64
+--> Processing Dependency: libQtGui.so.4()(64bit) for package: mozc-2.17.2322.102-1.el7.x86_64
+--> Processing Dependency: libzinnia.so.0()(64bit) for package: mozc-2.17.2322.102-1.el7.x86_64
+--> Running transaction check
+---> Package dbus-x11.x86_64 1:1.10.24-13.el7_6 will be installed
+---> Package ibus-gtk2.x86_64 0:1.5.17-5.el7 will be installed
+---> Package ibus-gtk3.x86_64 0:1.5.17-5.el7 will be installed
+---> Package ibus-setup.noarch 0:1.5.17-5.el7 will be installed
+---> Package qt.x86_64 1:4.8.7-3.el7_6 will be installed
+--> Processing Dependency: qt-settings for package: 1:qt-4.8.7-3.el7_6.x86_64
+---> Package qt-x11.x86_64 1:4.8.7-3.el7_6 will be installed
+--> Processing Dependency: libmng.so.1()(64bit) for package: 1:qt-x11-4.8.7-3.el7_6.x86_64
+---> Package xemacs-filesystem.noarch 0:21.5.34-8.20140605hgacf1c26e3019.el7 will be installed
+---> Package zinnia.x86_64 0:0.06-22.el7 will be installed
+---> Package zinnia-tomoe-ja.x86_64 0:0.06-22.el7 will be installed
+--> Running transaction check
+---> Package libmng.x86_64 0:1.0.10-14.el7 will be installed
+---> Package qt-settings.noarch 0:19-23.10.el7.centos will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package           Arch   Version                                 Repository
+                                                                           Size
+================================================================================
+Installing:
+ ibus-mozc         x86_64 2.17.2322.102-1.el7                     epel    420 k
+Installing for dependencies:
+ dbus-x11          x86_64 1:1.10.24-13.el7_6                      base     48 k
+ ibus              x86_64 1.5.17-5.el7                            base    4.8 M
+ ibus-gtk2         x86_64 1.5.17-5.el7                            base     44 k
+ ibus-gtk3         x86_64 1.5.17-5.el7                            base     45 k
+ ibus-libs         x86_64 1.5.17-5.el7                            base    227 k
+ ibus-setup        noarch 1.5.17-5.el7                            base     80 k
+ libmng            x86_64 1.0.10-14.el7                           base    171 k
+ mozc              x86_64 2.17.2322.102-1.el7                     epel     16 M
+ qt                x86_64 1:4.8.7-3.el7_6                         base    4.6 M
+ qt-settings       noarch 19-23.10.el7.centos                     updates  18 k
+ qt-x11            x86_64 1:4.8.7-3.el7_6                         base     13 M
+ xemacs-filesystem noarch 21.5.34-8.20140605hgacf1c26e3019.el7    epel     16 k
+ zinnia            x86_64 0.06-22.el7                             epel     64 k
+ zinnia-tomoe-ja   x86_64 0.06-22.el7                             epel     12 M
+
+Transaction Summary
+================================================================================
+Install  1 Package (+14 Dependent packages)
+
+Total download size: 51 M
+Installed size: 144 M
+Downloading packages:
+[91mwarning: /var/cache/yum/x86_64/7/epel/packages/ibus-mozc-2.17.2322.102-1.el7.x86_64.rpm: Header V3 RSA/SHA256 Signature, key ID 352c64e5: NOKEY
+[0mPublic key for ibus-mozc-2.17.2322.102-1.el7.x86_64.rpm is not installed
+--------------------------------------------------------------------------------
+Total                                              3.8 MB/s |  51 MB  00:13     
+Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+[91mImporting GPG key 0x352C64E5:
+ Userid     : "Fedora EPEL (7) <epel@fedoraproject.org>"
+ Fingerprint: 91e9 7d7c 4a5e 96f1 7f3e 888f 6a2f aea2 352c 64e5
+ Package    : epel-release-7-11.noarch (@extras)
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+[0mRunning transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : ibus-libs-1.5.17-5.el7.x86_64                               1/15 
+  Installing : zinnia-0.06-22.el7.x86_64                                   2/15 
+  Installing : zinnia-tomoe-ja-0.06-22.el7.x86_64                          3/15 
+  Installing : libmng-1.0.10-14.el7.x86_64                                 4/15 
+  Installing : xemacs-filesystem-21.5.34-8.20140605hgacf1c26e3019.el7.n    5/15 
+  Installing : 1:dbus-x11-1.10.24-13.el7_6.x86_64                          6/15 
+  Installing : ibus-gtk2-1.5.17-5.el7.x86_64                               7/15 
+  Installing : ibus-setup-1.5.17-5.el7.noarch                              8/15 
+  Installing : ibus-gtk3-1.5.17-5.el7.x86_64                               9/15 
+  Installing : ibus-1.5.17-5.el7.x86_64                                   10/15 
+  Installing : qt-settings-19-23.10.el7.centos.noarch                     11/15 
+  Installing : 1:qt-4.8.7-3.el7_6.x86_64                                  12/15 
+  Installing : 1:qt-x11-4.8.7-3.el7_6.x86_64                              13/15 
+  Installing : mozc-2.17.2322.102-1.el7.x86_64                            14/15 
+  Installing : ibus-mozc-2.17.2322.102-1.el7.x86_64                       15/15 
+  Verifying  : qt-settings-19-23.10.el7.centos.noarch                      1/15 
+  Verifying  : 1:qt-4.8.7-3.el7_6.x86_64                                   2/15 
+  Verifying  : 1:dbus-x11-1.10.24-13.el7_6.x86_64                          3/15 
+  Verifying  : xemacs-filesystem-21.5.34-8.20140605hgacf1c26e3019.el7.n    4/15 
+  Verifying  : ibus-mozc-2.17.2322.102-1.el7.x86_64                        5/15 
+  Verifying  : 1:qt-x11-4.8.7-3.el7_6.x86_64                               6/15 
+  Verifying  : ibus-1.5.17-5.el7.x86_64                                    7/15 
+  Verifying  : ibus-libs-1.5.17-5.el7.x86_64                               8/15 
+  Verifying  : ibus-gtk2-1.5.17-5.el7.x86_64                               9/15 
+  Verifying  : zinnia-tomoe-ja-0.06-22.el7.x86_64                         10/15 
+  Verifying  : zinnia-0.06-22.el7.x86_64                                  11/15 
+  Verifying  : ibus-setup-1.5.17-5.el7.noarch                             12/15 
+  Verifying  : mozc-2.17.2322.102-1.el7.x86_64                            13/15 
+  Verifying  : libmng-1.0.10-14.el7.x86_64                                14/15 
+  Verifying  : ibus-gtk3-1.5.17-5.el7.x86_64                              15/15 
+
+Installed:
+  ibus-mozc.x86_64 0:2.17.2322.102-1.el7                                        
+
+Dependency Installed:
+  dbus-x11.x86_64 1:1.10.24-13.el7_6                                            
+  ibus.x86_64 0:1.5.17-5.el7                                                    
+  ibus-gtk2.x86_64 0:1.5.17-5.el7                                               
+  ibus-gtk3.x86_64 0:1.5.17-5.el7                                               
+  ibus-libs.x86_64 0:1.5.17-5.el7                                               
+  ibus-setup.noarch 0:1.5.17-5.el7                                              
+  libmng.x86_64 0:1.0.10-14.el7                                                 
+  mozc.x86_64 0:2.17.2322.102-1.el7                                             
+  qt.x86_64 1:4.8.7-3.el7_6                                                     
+  qt-settings.noarch 0:19-23.10.el7.centos                                      
+  qt-x11.x86_64 1:4.8.7-3.el7_6                                                 
+  xemacs-filesystem.noarch 0:21.5.34-8.20140605hgacf1c26e3019.el7               
+  zinnia.x86_64 0:0.06-22.el7                                                   
+  zinnia-tomoe-ja.x86_64 0:0.06-22.el7                                          
+
+Complete!
+Removing intermediate container 70c5548ab07d
+ ---> 03809ef1dd37
+Step 20/30 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
+ ---> Running in 845ed4ecacd9
+[91m/usr/share/i18n/locales/ja_JP:11: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:12: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:15: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:18: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:19: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:20: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:21: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:23: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:24: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:25: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:26: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:27: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:28: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:29: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:30: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:31: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:32: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:33: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:42: non-symbolic character value should not be used
+[0m[91m/usr/share/i18n/locales/i18n:1425: non-symbolic character value should not be used
+[0m[91m/usr/share/i18n/locales/i18n:1674: non-symbolic character value should not be used
+[0m[91m/usr/share/i18n/locales/i18n:1719: non-symbolic character value should not be used
+[0m[91m/usr/share/i18n/locales/i18n:1756: non-symbolic character value should not be used
+[0m[91m/usr/share/i18n/locales/ja_JP:1675: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:1676: non-symbolic character value should not be used
+[0m[91m/usr/share/i18n/locales/ja_JP:14945: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:14946: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:14947: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:14948: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:14949: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:14950: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:14951: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:14952: non-symbolic character value should not be used
+[0m[91m/usr/share/i18n/locales/ja_JP:14953: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:14954: non-symbolic character value should not be used
+/usr/share/i18n/locales/ja_JP:14955: non-symbolic character value should not be used
+[0m[91m/usr/share/i18n/locales/translit_neutral:10: non-symbolic character value should not be used
+/usr/share/i18n/locales/translit_neutral:11: non-symbolic character value should not be used
+/usr/share/i18n/locales/translit_neutral:12: non-symbolic character value should not be used
+/usr/share/i18n/locales/translit_neutral:13: non-symbolic character value should not be used
+/usr/share/i18n/locales/translit_neutral:14: non-symbolic character value should not be used
+/usr/share/i18n/locales/translit_neutral:15: non-symbolic character value should not be used
+/usr/share/i18n/locales/translit_neutral:16: non-symbolic character value should not be used
+/usr/share/i18n/locales/translit_neutral:17: non-symbolic character value should not be used
+[0m[91mLC_ADDRESS: field `country_name' not defined
+LC_ADDRESS: field `country_post' not defined
+LC_ADDRESS: field `country_car' not defined
+LC_ADDRESS: field `country_isbn' not defined
+LC_ADDRESS: field `lang_name' not defined
+LC_ADDRESS: field `lang_term' not defined
+LC_ADDRESS: field `lang_ab' not defined
+LC_TELEPHONE: field `int_select' not defined
+LC_IDENTIFICATION: field `audience' not defined
+LC_IDENTIFICATION: field `application' not defined
+LC_IDENTIFICATION: field `abbreviation' not defined
+LC_IDENTIFICATION: no identification for category `LC_MEASUREMENT'
+[0m[91mLC_CTYPE: table for class "upper": 1756 bytes
+[0m[91mLC_CTYPE: table for class "lower": 1756 bytes
+[0m[91mLC_CTYPE: table for class "alpha": 4320 bytes
+[0m[91mLC_CTYPE: table for class "digit": 600 bytes
+[0m[91mLC_CTYPE: table for class "xdigit": 600 bytes
+[0m[91mLC_CTYPE: table for class "space": 856 bytes
+[0m[91mLC_CTYPE: table for class "print": 5976 bytes
+[0m[91mLC_CTYPE: table for class "graph": 5976 bytes
+[0m[91mLC_CTYPE: table for class "blank": 856 bytes
+[0m[91mLC_CTYPE: table for class "cntrl": 664 bytes
+[0m[91mLC_CTYPE: table for class "punct": 4824 bytes
+[0m[91mLC_CTYPE: table for class "alnum": 4320 bytes
+[0m[91mLC_CTYPE: table for class "combining": 3152 bytes
+[0m[91mLC_CTYPE: table for class "combining_level3": 2832 bytes
+[0m[91mLC_CTYPE: table for class "jspace": 600 bytes
+[0m[91mLC_CTYPE: table for class "jhira": 600 bytes
+[0m[91mLC_CTYPE: table for class "jkata": 664 bytes
+[0m[91mLC_CTYPE: table for class "jkanji": 3224 bytes
+[0m[91mLC_CTYPE: table for class "jdigit": 600 bytes
+[0m[91mLC_CTYPE: table for map "toupper": 16924 bytes
+[0m[91mLC_CTYPE: table for map "tolower": 15388 bytes
+[0m[91mLC_CTYPE: table for map "totitle": 16924 bytes
+LC_CTYPE: table for map "tojhira": 2584 bytes
+[0m[91mLC_CTYPE: table for map "tojkata": 3096 bytes
+[0m[91mLC_CTYPE: table for width: 26712 bytes
+[0m
+Removing intermediate container 845ed4ecacd9
+ ---> dc7d91e5ecef
+Step 21/30 : ENV LANG=ja_JP.UTF-8
+ ---> Running in 99cb69d3f88c
+Removing intermediate container 99cb69d3f88c
+ ---> 84b2e839b307
+Step 22/30 : RUN rm -f /etc/localtime
+ ---> Running in 34a3e392fc54
+Removing intermediate container 34a3e392fc54
+ ---> d9d1b0620e6e
+Step 23/30 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+ ---> Running in 5b02d230ddae
+Removing intermediate container 5b02d230ddae
+ ---> 4f17c0691530
+Step 24/30 : RUN yum install -y vlgothic-*
+ ---> Running in 1fe291cafa63
+Loaded plugins: aliases, changelog, fastestmirror, kabi, langpacks, ovl,
+              : tmprepo, verify, versionlock
+Loading support for Red Hat kernel ABI
+Loading mirror speeds from cached hostfile
+ * base: ftp-srv2.kddilabs.jp
+ * epel: mirrors.aliyun.com
+ * extras: ftp-srv2.kddilabs.jp
+ * updates: ftp-srv2.kddilabs.jp
+Resolving Dependencies
+--> Running transaction check
+---> Package vlgothic-fonts.noarch 0:20130607-2.el7 will be installed
+---> Package vlgothic-p-fonts.noarch 0:20130607-2.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package                 Arch          Version                Repository   Size
+================================================================================
+Installing:
+ vlgothic-fonts          noarch        20130607-2.el7         base        2.2 M
+ vlgothic-p-fonts        noarch        20130607-2.el7         base        2.2 M
+
+Transaction Summary
+================================================================================
+Install  2 Packages
+
+Total download size: 4.4 M
+Installed size: 7.9 M
+Downloading packages:
+--------------------------------------------------------------------------------
+Total                                              4.2 MB/s | 4.4 MB  00:01     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : vlgothic-p-fonts-20130607-2.el7.noarch                       1/2 
+  Installing : vlgothic-fonts-20130607-2.el7.noarch                         2/2 
+  Verifying  : vlgothic-fonts-20130607-2.el7.noarch                         1/2 
+  Verifying  : vlgothic-p-fonts-20130607-2.el7.noarch                       2/2 
+
+Installed:
+  vlgothic-fonts.noarch 0:20130607-2.el7                                        
+  vlgothic-p-fonts.noarch 0:20130607-2.el7                                      
+
+Complete!
+Removing intermediate container 1fe291cafa63
+ ---> cf157b0412d0
+Step 25/30 : RUN yum install -y PackageKit-gtk3-module
+ ---> Running in 1e49cffaa181
+Loaded plugins: aliases, changelog, fastestmirror, kabi, langpacks, ovl,
+              : tmprepo, verify, versionlock
+Loading support for Red Hat kernel ABI
+Loading mirror speeds from cached hostfile
+ * base: ftp-srv2.kddilabs.jp
+ * epel: nrt.edge.kernel.org
+ * extras: ftp-srv2.kddilabs.jp
+ * updates: ftp-srv2.kddilabs.jp
+Resolving Dependencies
+--> Running transaction check
+---> Package PackageKit-gtk3-module.x86_64 0:1.1.10-1.el7.centos will be installed
+--> Processing Dependency: PackageKit-glib(x86-64) = 1.1.10-1.el7.centos for package: PackageKit-gtk3-module-1.1.10-1.el7.centos.x86_64
+--> Running transaction check
+---> Package PackageKit-glib.x86_64 0:1.1.10-1.el7.centos will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package                    Arch       Version                   Repository
+                                                                           Size
+================================================================================
+Installing:
+ PackageKit-gtk3-module     x86_64     1.1.10-1.el7.centos       base      12 k
+Installing for dependencies:
+ PackageKit-glib            x86_64     1.1.10-1.el7.centos       base     127 k
+
+Transaction Summary
+================================================================================
+Install  1 Package (+1 Dependent package)
+
+Total download size: 140 k
+Installed size: 502 k
+Downloading packages:
+--------------------------------------------------------------------------------
+Total                                              921 kB/s | 140 kB  00:00     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : PackageKit-glib-1.1.10-1.el7.centos.x86_64                   1/2 
+  Installing : PackageKit-gtk3-module-1.1.10-1.el7.centos.x86_64            2/2 
+  Verifying  : PackageKit-glib-1.1.10-1.el7.centos.x86_64                   1/2 
+  Verifying  : PackageKit-gtk3-module-1.1.10-1.el7.centos.x86_64            2/2 
+
+Installed:
+  PackageKit-gtk3-module.x86_64 0:1.1.10-1.el7.centos                           
+
+Dependency Installed:
+  PackageKit-glib.x86_64 0:1.1.10-1.el7.centos                                  
+
+Complete!
+Removing intermediate container 1e49cffaa181
+ ---> d69cbcaa49a1
+Step 26/30 : RUN yum groupinstall -y "Input Methods"
+ ---> Running in c5936152ebbd
+Loaded plugins: aliases, changelog, fastestmirror, kabi, langpacks, ovl,
+              : tmprepo, verify, versionlock
+Loading support for Red Hat kernel ABI
+Loading mirror speeds from cached hostfile
+ * base: ftp-srv2.kddilabs.jp
+ * epel: nrt.edge.kernel.org
+ * extras: ftp-srv2.kddilabs.jp
+ * updates: ftp-srv2.kddilabs.jp
+Package ibus-gtk3-1.5.17-5.el7.x86_64 already installed and latest version
+Package ibus-gtk2-1.5.17-5.el7.x86_64 already installed and latest version
+Resolving Dependencies
+--> Running transaction check
+---> Package gtk2-immodule-xim.x86_64 0:2.24.31-1.el7 will be installed
+---> Package gtk3-immodule-xim.x86_64 0:3.22.30-3.el7 will be installed
+---> Package ibus-chewing.x86_64 0:1.4.4-14.el7 will be installed
+--> Processing Dependency: libchewing >= 0.3.3 for package: ibus-chewing-1.4.4-14.el7.x86_64
+--> Processing Dependency: libchewing.so.3()(64bit) for package: ibus-chewing-1.4.4-14.el7.x86_64
+---> Package ibus-hangul.x86_64 0:1.4.2-11.el7 will be installed
+--> Processing Dependency: libhangul >= 0.1.0 for package: ibus-hangul-1.4.2-11.el7.x86_64
+--> Processing Dependency: libhangul.so.1()(64bit) for package: ibus-hangul-1.4.2-11.el7.x86_64
+---> Package ibus-kkc.x86_64 0:1.5.18-7.el7 will be installed
+--> Processing Dependency: libkkc.so.2()(64bit) for package: ibus-kkc-1.5.18-7.el7.x86_64
+--> Processing Dependency: libgee.so.2()(64bit) for package: ibus-kkc-1.5.18-7.el7.x86_64
+---> Package ibus-libpinyin.x86_64 0:1.6.91-4.el7 will be installed
+--> Processing Dependency: libpinyin-data(x86-64) >= 0.9.91 for package: ibus-libpinyin-1.6.91-4.el7.x86_64
+--> Processing Dependency: libpinyin >= 0.9.91 for package: ibus-libpinyin-1.6.91-4.el7.x86_64
+--> Processing Dependency: libpinyin.so.4(LIBPINYIN)(64bit) for package: ibus-libpinyin-1.6.91-4.el7.x86_64
+--> Processing Dependency: libpinyin.so.4()(64bit) for package: ibus-libpinyin-1.6.91-4.el7.x86_64
+--> Processing Dependency: libopencc.so.1()(64bit) for package: ibus-libpinyin-1.6.91-4.el7.x86_64
+---> Package ibus-m17n.x86_64 0:1.3.4-13.el7 will be installed
+--> Processing Dependency: m17n-lib for package: ibus-m17n-1.3.4-13.el7.x86_64
+--> Processing Dependency: libm17n.so.0()(64bit) for package: ibus-m17n-1.3.4-13.el7.x86_64
+--> Processing Dependency: libm17n-core.so.0()(64bit) for package: ibus-m17n-1.3.4-13.el7.x86_64
+---> Package ibus-qt.x86_64 0:1.3.2-4.el7 will be installed
+---> Package ibus-rawcode.x86_64 0:1.3.2-3.el7 will be installed
+---> Package ibus-sayura.x86_64 0:1.3.2-3.el7 will be installed
+---> Package ibus-table.noarch 0:1.5.0-5.el7 will be installed
+---> Package ibus-table-chinese.noarch 0:1.4.6-3.el7 will be installed
+---> Package imsettings-qt.x86_64 0:1.6.3-11.el7 will be installed
+--> Processing Dependency: imsettings(x86-64) = 1.6.3-11.el7 for package: imsettings-qt-1.6.3-11.el7.x86_64
+--> Processing Dependency: im-chooser for package: imsettings-qt-1.6.3-11.el7.x86_64
+--> Processing Dependency: libimsettings.so.5()(64bit) for package: imsettings-qt-1.6.3-11.el7.x86_64
+---> Package m17n-contrib.noarch 0:1.1.14-3.el7 will be installed
+---> Package m17n-db.noarch 0:1.6.4-4.el7 will be installed
+--> Running transaction check
+---> Package im-chooser.x86_64 0:1.6.4-6.el7 will be installed
+--> Processing Dependency: im-chooser-common = 1.6.4-6.el7 for package: im-chooser-1.6.4-6.el7.x86_64
+--> Processing Dependency: libimchooseui.so.0()(64bit) for package: im-chooser-1.6.4-6.el7.x86_64
+---> Package imsettings.x86_64 0:1.6.3-11.el7 will be installed
+---> Package imsettings-libs.x86_64 0:1.6.3-11.el7 will be installed
+---> Package libchewing.x86_64 0:0.3.4-6.el7 will be installed
+---> Package libgee06.x86_64 0:0.6.8-3.el7 will be installed
+---> Package libhangul.x86_64 0:0.1.0-8.el7 will be installed
+---> Package libkkc.x86_64 0:0.3.1-9.el7 will be installed
+--> Processing Dependency: libkkc-data = 0.3.1-9.el7 for package: libkkc-0.3.1-9.el7.x86_64
+--> Processing Dependency: libkkc-common = 0.3.1-9.el7 for package: libkkc-0.3.1-9.el7.x86_64
+--> Processing Dependency: skkdic for package: libkkc-0.3.1-9.el7.x86_64
+--> Processing Dependency: libmarisa.so.0()(64bit) for package: libkkc-0.3.1-9.el7.x86_64
+---> Package libpinyin.x86_64 0:0.9.93-4.el7 will be installed
+---> Package libpinyin-data.x86_64 0:0.9.93-4.el7 will be installed
+---> Package m17n-lib.x86_64 0:1.6.4-14.el7 will be installed
+---> Package opencc.x86_64 0:0.4.3-3.el7 will be installed
+--> Running transaction check
+---> Package im-chooser-common.x86_64 0:1.6.4-6.el7 will be installed
+---> Package libkkc-common.noarch 0:0.3.1-9.el7 will be installed
+---> Package libkkc-data.x86_64 0:0.3.1-9.el7 will be installed
+---> Package marisa.x86_64 0:0.2.4-4.el7 will be installed
+---> Package skkdic.noarch 0:20130104-6.T1435.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package                 Arch        Version                    Repository
+                                                                           Size
+================================================================================
+Installing for group install "入力メソッド":
+ ibus-chewing            x86_64      1.4.4-14.el7               base       88 k
+ ibus-hangul             x86_64      1.4.2-11.el7               base       66 k
+ ibus-kkc                x86_64      1.5.18-7.el7               base       73 k
+ ibus-libpinyin          x86_64      1.6.91-4.el7               base      704 k
+ ibus-m17n               x86_64      1.3.4-13.el7               base       59 k
+ ibus-rawcode            x86_64      1.3.2-3.el7                base       23 k
+ ibus-sayura             x86_64      1.3.2-3.el7                base       22 k
+ ibus-table              noarch      1.5.0-5.el7                base      297 k
+ ibus-table-chinese      noarch      1.4.6-3.el7                base       21 k
+ m17n-contrib            noarch      1.1.14-3.el7               base      345 k
+ m17n-db                 noarch      1.6.4-4.el7                base      225 k
+Installing:
+ gtk2-immodule-xim       x86_64      2.24.31-1.el7              base       17 k
+ gtk3-immodule-xim       x86_64      3.22.30-3.el7              base       16 k
+ ibus-qt                 x86_64      1.3.2-4.el7                base      139 k
+ imsettings-qt           x86_64      1.6.3-11.el7               base      102 k
+Installing for dependencies:
+ im-chooser              x86_64      1.6.4-6.el7                base       25 k
+ im-chooser-common       x86_64      1.6.4-6.el7                base      229 k
+ imsettings              x86_64      1.6.3-11.el7               base      207 k
+ imsettings-libs         x86_64      1.6.3-11.el7               base      112 k
+ libchewing              x86_64      0.3.4-6.el7                base      1.6 M
+ libgee06                x86_64      0.6.8-3.el7                base      128 k
+ libhangul               x86_64      0.1.0-8.el7                base      2.1 M
+ libkkc                  x86_64      0.3.1-9.el7                base      202 k
+ libkkc-common           noarch      0.3.1-9.el7                base       64 k
+ libkkc-data             x86_64      0.3.1-9.el7                base       14 M
+ libpinyin               x86_64      0.9.93-4.el7               base      139 k
+ libpinyin-data          x86_64      0.9.93-4.el7               base       10 M
+ m17n-lib                x86_64      1.6.4-14.el7               base      185 k
+ marisa                  x86_64      0.2.4-4.el7                base       78 k
+ opencc                  x86_64      0.4.3-3.el7                base      694 k
+ skkdic                  noarch      20130104-6.T1435.el7       base      7.4 M
+
+Transaction Summary
+================================================================================
+Install  15 Packages (+16 Dependent packages)
+
+Total download size: 39 M
+Installed size: 116 M
+Downloading packages:
+--------------------------------------------------------------------------------
+Total                                              8.1 MB/s |  39 MB  00:04     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : imsettings-libs-1.6.3-11.el7.x86_64                         1/31 
+  Installing : libpinyin-0.9.93-4.el7.x86_64                               2/31 
+  Installing : libpinyin-data-0.9.93-4.el7.x86_64                          3/31 
+  Installing : libgee06-0.6.8-3.el7.x86_64                                 4/31 
+  Installing : m17n-db-1.6.4-4.el7.noarch                                  5/31 
+  Installing : m17n-lib-1.6.4-14.el7.x86_64                                6/31 
+  Installing : im-chooser-common-1.6.4-6.el7.x86_64                        7/31 
+  Installing : im-chooser-1.6.4-6.el7.x86_64                               8/31 
+  Installing : imsettings-1.6.3-11.el7.x86_64                              9/31 
+  Installing : imsettings-qt-1.6.3-11.el7.x86_64                          10/31 
+  Installing : skkdic-20130104-6.T1435.el7.noarch                         11/31 
+  Installing : libchewing-0.3.4-6.el7.x86_64                              12/31 
+install-info: No such file or directory for /usr/share/info/libchewing.info
+  Installing : libkkc-common-0.3.1-9.el7.noarch                           13/31 
+  Installing : opencc-0.4.3-3.el7.x86_64                                  14/31 
+  Installing : libkkc-data-0.3.1-9.el7.x86_64                             15/31 
+  Installing : libhangul-0.1.0-8.el7.x86_64                               16/31 
+  Installing : marisa-0.2.4-4.el7.x86_64                                  17/31 
+  Installing : libkkc-0.3.1-9.el7.x86_64                                  18/31 
+  Installing : ibus-table-1.5.0-5.el7.noarch                              19/31 
+  Installing : ibus-table-chinese-1.4.6-3.el7.noarch                      20/31 
+  Installing : ibus-kkc-1.5.18-7.el7.x86_64                               21/31 
+  Installing : ibus-hangul-1.4.2-11.el7.x86_64                            22/31 
+  Installing : ibus-libpinyin-1.6.91-4.el7.x86_64                         23/31 
+  Installing : ibus-chewing-1.4.4-14.el7.x86_64                           24/31 
+  Installing : ibus-m17n-1.3.4-13.el7.x86_64                              25/31 
+  Installing : m17n-contrib-1.1.14-3.el7.noarch                           26/31 
+  Installing : gtk2-immodule-xim-2.24.31-1.el7.x86_64                     27/31 
+  Installing : gtk3-immodule-xim-3.22.30-3.el7.x86_64                     28/31 
+  Installing : ibus-rawcode-1.3.2-3.el7.x86_64                            29/31 
+  Installing : ibus-qt-1.3.2-4.el7.x86_64                                 30/31 
+  Installing : ibus-sayura-1.3.2-3.el7.x86_64                             31/31 
+  Verifying  : libkkc-0.3.1-9.el7.x86_64                                   1/31 
+  Verifying  : im-chooser-1.6.4-6.el7.x86_64                               2/31 
+  Verifying  : ibus-m17n-1.3.4-13.el7.x86_64                               3/31 
+  Verifying  : m17n-db-1.6.4-4.el7.noarch                                  4/31 
+  Verifying  : ibus-table-1.5.0-5.el7.noarch                               5/31 
+  Verifying  : marisa-0.2.4-4.el7.x86_64                                   6/31 
+  Verifying  : m17n-lib-1.6.4-14.el7.x86_64                                7/31 
+  Verifying  : libpinyin-data-0.9.93-4.el7.x86_64                          8/31 
+  Verifying  : ibus-sayura-1.3.2-3.el7.x86_64                              9/31 
+  Verifying  : ibus-qt-1.3.2-4.el7.x86_64                                 10/31 
+  Verifying  : ibus-rawcode-1.3.2-3.el7.x86_64                            11/31 
+  Verifying  : ibus-chewing-1.4.4-14.el7.x86_64                           12/31 
+  Verifying  : gtk3-immodule-xim-3.22.30-3.el7.x86_64                     13/31 
+  Verifying  : libgee06-0.6.8-3.el7.x86_64                                14/31 
+  Verifying  : libhangul-0.1.0-8.el7.x86_64                               15/31 
+  Verifying  : im-chooser-common-1.6.4-6.el7.x86_64                       16/31 
+  Verifying  : libkkc-data-0.3.1-9.el7.x86_64                             17/31 
+  Verifying  : opencc-0.4.3-3.el7.x86_64                                  18/31 
+  Verifying  : ibus-kkc-1.5.18-7.el7.x86_64                               19/31 
+  Verifying  : ibus-libpinyin-1.6.91-4.el7.x86_64                         20/31 
+  Verifying  : ibus-hangul-1.4.2-11.el7.x86_64                            21/31 
+  Verifying  : libkkc-common-0.3.1-9.el7.noarch                           22/31 
+  Verifying  : libchewing-0.3.4-6.el7.x86_64                              23/31 
+  Verifying  : imsettings-libs-1.6.3-11.el7.x86_64                        24/31 
+  Verifying  : libpinyin-0.9.93-4.el7.x86_64                              25/31 
+  Verifying  : imsettings-qt-1.6.3-11.el7.x86_64                          26/31 
+  Verifying  : ibus-table-chinese-1.4.6-3.el7.noarch                      27/31 
+  Verifying  : imsettings-1.6.3-11.el7.x86_64                             28/31 
+  Verifying  : skkdic-20130104-6.T1435.el7.noarch                         29/31 
+  Verifying  : gtk2-immodule-xim-2.24.31-1.el7.x86_64                     30/31 
+  Verifying  : m17n-contrib-1.1.14-3.el7.noarch                           31/31 
+
+Installed:
+  gtk2-immodule-xim.x86_64 0:2.24.31-1.el7                                      
+  gtk3-immodule-xim.x86_64 0:3.22.30-3.el7                                      
+  ibus-chewing.x86_64 0:1.4.4-14.el7                                            
+  ibus-hangul.x86_64 0:1.4.2-11.el7                                             
+  ibus-kkc.x86_64 0:1.5.18-7.el7                                                
+  ibus-libpinyin.x86_64 0:1.6.91-4.el7                                          
+  ibus-m17n.x86_64 0:1.3.4-13.el7                                               
+  ibus-qt.x86_64 0:1.3.2-4.el7                                                  
+  ibus-rawcode.x86_64 0:1.3.2-3.el7                                             
+  ibus-sayura.x86_64 0:1.3.2-3.el7                                              
+  ibus-table.noarch 0:1.5.0-5.el7                                               
+  ibus-table-chinese.noarch 0:1.4.6-3.el7                                       
+  imsettings-qt.x86_64 0:1.6.3-11.el7                                           
+  m17n-contrib.noarch 0:1.1.14-3.el7                                            
+  m17n-db.noarch 0:1.6.4-4.el7                                                  
+
+Dependency Installed:
+  im-chooser.x86_64 0:1.6.4-6.el7      im-chooser-common.x86_64 0:1.6.4-6.el7  
+  imsettings.x86_64 0:1.6.3-11.el7     imsettings-libs.x86_64 0:1.6.3-11.el7   
+  libchewing.x86_64 0:0.3.4-6.el7      libgee06.x86_64 0:0.6.8-3.el7           
+  libhangul.x86_64 0:0.1.0-8.el7       libkkc.x86_64 0:0.3.1-9.el7             
+  libkkc-common.noarch 0:0.3.1-9.el7   libkkc-data.x86_64 0:0.3.1-9.el7        
+  libpinyin.x86_64 0:0.9.93-4.el7      libpinyin-data.x86_64 0:0.9.93-4.el7    
+  m17n-lib.x86_64 0:1.6.4-14.el7       marisa.x86_64 0:0.2.4-4.el7             
+  opencc.x86_64 0:0.4.3-3.el7          skkdic.noarch 0:20130104-6.T1435.el7    
+
+Complete!
+Removing intermediate container c5936152ebbd
+ ---> df637e8901a0
+Step 27/30 : EXPOSE 22
+ ---> Running in 15ae3c7428d7
+Removing intermediate container 15ae3c7428d7
+ ---> 52dfc7c3c77b
+Step 28/30 : EXPOSE 8787
+ ---> Running in 34461d624056
+Removing intermediate container 34461d624056
+ ---> bf5b0a20f109
+Step 29/30 : ENV DISPLAY=:0.0
+ ---> Running in 9b145791d5f9
+Removing intermediate container 9b145791d5f9
+ ---> ec61d137bab5
+Step 30/30 : CMD ["/sbin/init"]
+ ---> Running in d8f9e7c11311
+Removing intermediate container d8f9e7c11311
+ ---> 0c47a77e6953
+Successfully built 0c47a77e6953
+Successfully tagged centos_xxx:latest
