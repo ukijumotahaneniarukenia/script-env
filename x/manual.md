@@ -18,6 +18,10 @@ https://tkng.org/unixuser/200405/part3.html
 http://note.kurodigi.com/xterm-customize/#id304
 https://solist.work/blog/posts/mozc/
 
+日本語のロケール問題
+
+https://www.linux.ambitious-engineer.com/?p=984
+
 # dockerコンテナ削除
 ```
 docker ps -qa | xargs -I@ bash -c 'docker stop @ && docker rm @'
