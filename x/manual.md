@@ -69,6 +69,11 @@ https://linux.keicode.com/linux/japanese.php
 
 Xtermコマンド
 https://www.ibm.com/support/knowledgecenter/ja/ssw_aix_72/x_commands/xterm.html
+http://x68000.q-e-d.net/~68user/unix/pickup?xterm
+http://x68000.q-e-d.net/~68user/unix/pickup?kterm
+https://www.ibm.com/support/knowledgecenter/ja/ssw_aix_72/a_commands/aixterm.html
+https://www.ibm.com/support/knowledgecenter/ja/ssw_aix_71/d_commands/dtterm.html
+
 
 # dockerコンテナ削除
 ```
