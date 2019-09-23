@@ -67,6 +67,9 @@ https://wiki.archlinux.jp/index.php/Xorg_%E3%81%A7%E3%81%AE%E3%82%AD%E3%83%BC%E3
 SuperはWindowsキー
 https://linux.keicode.com/linux/japanese.php
 
+Xtermコマンド
+https://www.ibm.com/support/knowledgecenter/ja/ssw_aix_72/x_commands/xterm.html
+
 # dockerコンテナ削除
 ```
 docker ps -qa | xargs -I@ bash -c 'docker stop @ && docker rm @'
