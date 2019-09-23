@@ -22,6 +22,8 @@ https://solist.work/blog/posts/mozc/
 
 https://www.linux.ambitious-engineer.com/?p=984
 
+http://slavartemp.blogspot.com/2013/06/xming-teraterm-ssh-lubuntu-x.html
+
 # dockerコンテナ削除
 ```
 docker ps -qa | xargs -I@ bash -c 'docker stop @ && docker rm @'
