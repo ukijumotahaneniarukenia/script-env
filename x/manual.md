@@ -40,6 +40,7 @@ iBusのしくみ
 https://ja.opensuse.org/IBus
 
 Xフォント
+https://medium.com/source-words/how-to-manually-install-update-and-uninstall-fonts-on-linux-a8d09a3853b0
 https://running-dog.net/2011/10/post_303.html
 https://incompleteness-theorems.at.webry.info/201009/article_6.html
 https://linuxjf.osdn.jp/JFdocs/XWindow-User-HOWTO-7.html
@@ -73,6 +74,11 @@ http://x68000.q-e-d.net/~68user/unix/pickup?xterm
 http://x68000.q-e-d.net/~68user/unix/pickup?kterm
 https://www.ibm.com/support/knowledgecenter/ja/ssw_aix_72/a_commands/aixterm.html
 https://www.ibm.com/support/knowledgecenter/ja/ssw_aix_71/d_commands/dtterm.html
+
+
+キーボード入力
+全角半角キー入力の設定
+https://github.com/uim/uim-doc-ja/wiki/CustomizeUim
 
 
 # dockerコンテナ削除

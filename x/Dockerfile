@@ -66,6 +66,22 @@ echo "xrdb ~/.Xresources" >> ~/.bashrc
 #実行ユーザをrstudioに変更
 USER rstudio
 
+#自身のvim環境をクローン
+RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+
+#自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
+RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
+cd ~/tmp && \
+#移動したいdotfileをchoiceしてHOMEディレクトリへ
+mv rc/.[^.]* ~ && \
+#用が済んだらリム
+rm -rf ~/tmp
+
+#vim plugin manager
+RUN mkdir -p ~/.vim/bundle && \
+cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
+sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+
 #alias設定
 RUN echo "alias python=/usr/local/bin/python3.7" >> ~/.bashrc && \
 echo "alias pip=/usr/local/bin/pip3.7" >> ~/.bashrc && \
