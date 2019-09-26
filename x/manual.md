@@ -80,6 +80,61 @@ https://www.ibm.com/support/knowledgecenter/ja/ssw_aix_71/d_commands/dtterm.html
 全角半角キー入力の設定
 https://github.com/uim/uim-doc-ja/wiki/CustomizeUim
 
+たぶんこれじゃないか2回目
+https://slackware.jp/configuration/x_window_configuration.html
+149行目コメントインして150行目をコメントアウトする
+```
+[root💝0f0a00fd19e2 (木  9月 26 20:23:49) /etc/X11]$vi /usr/share/X11/xkb/keycodes/evdev
+[root💙0f0a00fd19e2 (木  9月 26 20:31:03) /]$grep -A15 -n Japan /usr/share/X11/xkb/keycodes/evdev
+147:	// Keys that are generated on Japanese keyboards
+148-
+149-	//<HZTG> =  93;	// Hankaku/Zenkakau toggle - not actually used
+150-	alias <HZTG> = <TLDE>;
+151-	<HKTG> = 101;	// Hiragana/Katakana toggle
+152-	<AB11> = 97;	// backslash/underscore
+153-	<HENK> = 100;	// Henkan
+154-	<MUHE> = 102;	// Muhenkan
+155-	<AE13> = 132;	// Yen
+156-	<KATA> =  98;	// Katakana
+157-	<HIRA> =  99;	// Hiragana
+158-	<JPCM> = 103;	// KPJPComma
+159-	//<RO>   =  97;	// Romaji
+160-
+161-	// Keys that are generated on Korean keyboards
+162-
+
+```
+
+docker側のキーボード入力設定
+keyboard.confのデフォルト
+```
+[root💜0f0a00fd19e2 (木  9月 26 21:51:43) /]$cat /etc/X11/xorg.conf.d/00-keyboard.conf
+# Read and parsed by systemd-localed. It's probably wise not to edit this file
+# manually too freely.
+Section "InputClass"
+        Identifier "system-keyboard"
+        MatchIsKeyboard "on"
+        Option "XkbLayout" "us"
+EndSection
+```
+
+dockerコンテナ側のキーボード入力設定
+```
+[rstudio❤centos (木  9月 26 21:53:49) ~/unko/script_scratch/x]$find / -name "*keyboard*" 2>/dev/null |& grep X11
+/etc/X11/xorg.conf.d/00-keyboard.conf
+/usr/include/X11/bitmaps/keyboard16
+[rstudio❤centos (木  9月 26 21:54:05) ~/unko/script_scratch/x]$vi /etc/X11/xorg.conf.d/00-keyboard.conf
+[rstudio❤centos (木  9月 26 21:54:20) ~/unko/script_scratch/x]$cat /etc/X11/xorg.conf.d/00-keyboard.conf
+# Read and parsed by systemd-localed. It's probably wise not to edit this file
+# manually too freely.
+Section "InputClass"
+        Identifier "system-keyboard"
+        MatchIsKeyboard "on"
+        Option "XkbLayout" "jp,jp"
+        Option "XkbVariant" "kana,"
+EndSection
+
+```
 
 # dockerコンテナ削除
 ```
