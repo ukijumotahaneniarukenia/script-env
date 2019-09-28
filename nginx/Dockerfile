@@ -107,10 +107,10 @@ RUN yum install -y nginx
 USER rstudio
 
 #自身のvim環境をクローン
-RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
 
 #自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
-RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
+RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
 cd ~/tmp && \
 #移動したいdotfileをchoiceしてHOMEディレクトリへ
 mv rc/.[^.]* ~ && \
@@ -130,41 +130,14 @@ echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
 echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
 echo "alias vi=\"sudo vim\"" >> ~/.bashrc
 
-#実行ユーザをelasticsearchに変更
-USER elasticsearch
-
-#自身のvim環境をクローン
-RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
-
-#自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
-RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
-cd ~/tmp && \
-#移動したいdotfileをchoiceしてHOMEディレクトリへ
-mv rc/.[^.]* ~ && \
-#用が済んだらリム
-rm -rf ~/tmp
-
-#vim plugin manager
-RUN mkdir -p ~/.vim/bundle && \
-cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
-sh installer.sh ~/.vim/bundle
-
-#alias設定
-RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
-echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
-echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
-echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
-echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
-echo "alias vi=\"sudo vim\"" >> ~/.bashrc 
-
 #実行ユーザをnginxに変更
 USER nginx
 
 #自身のvim環境をクローン
-RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
 
 #自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
-RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
+RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
 cd ~/tmp && \
 #移動したいdotfileをchoiceしてHOMEディレクトリへ
 mv rc/.[^.]* ~ && \

@@ -6,6 +6,7 @@
 https://docs.fluentd.org/installation/before-install
 https://docs.fluentd.org/input
 http://pppurple.hatenablog.com/entry/2018/02/17/035403
+https://blog.idcf.jp/entry/elasticsearch1
 ```
 
 # dockerイメージ作成

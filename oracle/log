@@ -209,16 +209,18 @@ Step 70/74 : COPY launch_and_open_db.sql /home/oracle/launch_and_open_db.sql
  ---> Using cache
  ---> bf93f297ac2b
 Step 71/74 : COPY create_user.sql /home/oracle/create_user.sql
- ---> Using cache
- ---> ce188c892d22
+ ---> f6d00b3a21bc
 Step 72/74 : RUN chown oracle:oinstall /home/oracle/* && chmod +x /home/oracle/*
- ---> Using cache
- ---> 8912500e1680
+ ---> Running in 543c2a0f13d5
+Removing intermediate container 543c2a0f13d5
+ ---> 2375a28ffb4c
 Step 73/74 : USER oracle
- ---> Using cache
- ---> 35c1a02d4099
+ ---> Running in 4e44185deded
+Removing intermediate container 4e44185deded
+ ---> 42004a1a4aa0
 Step 74/74 : WORKDIR /home/oracle
- ---> Using cache
- ---> b3e805af361d
-Successfully built b3e805af361d
+ ---> Running in c1aaf07724eb
+Removing intermediate container c1aaf07724eb
+ ---> 1af88d846955
+Successfully built 1af88d846955
 Successfully tagged centos_oracle:latest

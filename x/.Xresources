@@ -1,28 +1,33 @@
-XTerm*locale : true
-XTerm*selectToClipboard : true
-XTerm*faceName : 'Monospace'
-XTerm*forcePackedFont : false
-XTerm*faceSize : 12
-XTerm*saveLines : 2000
+XTerm*termName:              xterm-256color
+XTerm*locale:                true
+XTerm*selectToClipboard:     true
+XTerm*faceName:              Monoid
+XTerm*faceNameDoublesize:    MigMix 2M
+XTerm*faceSize:              12
+xterm*ximFont:               MigMix 2M
 XTerm*cjkWidth : true
+XTerm*saveLines : 2000
 XTerm*rightScrollBar : true
 XTerm*scrollBar : true
-xterm*faceName: MigMix 1M
-*background: #292929
-*foreground: #ffffff
-*color0: #333333
-*color1: #A94952
-*color2: #83A949
-*color3: #A99F49
-*color4: #4983A9
-*color5: #A94983
-*color6: #49A99F
-*color7: #AAAAAA
-*color8: #666666
-*color9: #ED6975
-*color10: #B8ED69
-*color11: #EDE169
-*color12: #69B8ED
-*color13: #ED69B8
-*color14: #69EDE1
-*color15: #CCCCCC
+
+! molokai color scheme
+!
+*background:    #101010
+*foreground:    #d0d0d0
+*cursorColor:   #d0d0d0
+*color0:        #101010
+*color1:        #960050
+*color2:        #66aa11
+*color3:        #c47f2c
+*color4:        #30309b
+*color5:        #7e40a5
+*color6:        #3579a8
+*color7:        #9999aa
+*color8:        #303030
+*color9:        #ff0090
+*color10:       #80ff00
+*color11:       #ffba68
+*color12:       #5f5fee
+*color13:       #bb88dd
+*color14:       #4eb4fa
+*color15:       #d0d0d0

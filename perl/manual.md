@@ -88,6 +88,12 @@ Settings->Languages&Frameworks->External Libraries
 
 # 参考文献
 
+Perlで正規表現にマッチした所を置換する方法
+https://www.toumasu-program.net/entry/2019/04/11/233126
+
+Perlでグラフ
+https://running-dog.net/category/ca_program
+
 https://github.com/yuki-kimoto/mojolicious-guides-japanese/wiki/Mojolicious%3A%3ALite
 https://qntm.org/files/perl/perl.html
 https://github.com/yuki-kimoto/mojolicious-guides-japanese/wiki/Mojolicious%3A%3AGuides

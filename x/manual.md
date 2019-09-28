@@ -1,4 +1,8 @@
 # 参考文献 https://www.itmedia.co.jp/enterprise/articles/1604/27/news001.html
+
+リナックスディレクトリ構成
+https://oxynotes.com/?p=5987
+
 https://satoru739.hatenadiary.com/entry/20111007/1318086532
 
 xtermの色指定
