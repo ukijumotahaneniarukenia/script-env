@@ -2,6 +2,8 @@
 ```
 [aine💖centos (土  9月 28 19:53:59) ~/unko/x]$cat /etc/redhat-release 
 CentOS Linux release 7.7.1908 (Core)
+[aine💖centos (土  9月 28 19:56:33) ~/unko]$docker --version
+Docker version 19.03.2, build 6a30dfc
 ```
 
 # dockerコンテナ削除
