@@ -1,3 +1,9 @@
+# dockerホスト環境
+```
+[aine💖centos (土  9月 28 19:53:59) ~/unko/x]$cat /etc/redhat-release 
+CentOS Linux release 7.7.1908 (Core)
+```
+
 # dockerコンテナ削除
 ```
 docker ps -qa | xargs -I@ bash -c 'docker stop @ && docker rm @'
