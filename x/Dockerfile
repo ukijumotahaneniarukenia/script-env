@@ -1,4 +1,4 @@
-FROM centos:latest
+FROM centos:7.6.1810
 
 #各種X関連コマンドインストール
 RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps
@@ -20,7 +20,6 @@ RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN yum install -y epel-release git
 
 RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man
-
 
 #vimも最新
 RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && \
@@ -128,8 +127,12 @@ RUN yum -y install man-pages-ja.noarch
 # tsflags=nodocsのため
 RUN yum --setopt=tsflags='' reinstall -y man-pages
 
+#絵文字いんすこ
+RUN mkdir -p /usr/share/fonts/emoji && cd /usr/share/fonts/emoji && curl -LO https://noto-website-2.storage.googleapis.com/pkgs/Noto-unhinted.zip && unzip Noto-unhinted.zip && rm Noto-unhinted.zip && fc-cache -f -v
+
+#idea
+COPY ideaIC-2019.2.3.tar.gz /home/rstudio/ideaIC-2019.2.3.tar.gz
+RUN cd /home/rstudio && tar -xzf ideaIC-2019.2.3.tar.gz && chown -R rstudio:rstudio idea-IC-192.6817.14
 
 #XクライアントがXサーバーにGUI転送出来るように、転送先のIPを指定する
 ENV DISPLAY=:0.0
-
-CMD ["/sbin/init"]
