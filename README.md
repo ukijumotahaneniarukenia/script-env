@@ -208,3 +208,8 @@ uid=1000(aine) gid=1000(aine) groups=1000(aine),981(docker) context=unconfined_u
 [aine@centos ~]$ sudo reboot
 
 ```
+
+# gitコマンドインストール
+```
+[aine@centos ~]$ sudo yum install -y git
+```
