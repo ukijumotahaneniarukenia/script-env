@@ -168,7 +168,7 @@ echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
 echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
 echo "alias vi=\"sudo vim\"" >> ~/.bashrc && \
 echo "export PATH=/home/php/Komodo-Edit-11/bin:$PATH" >> ~/.bashrc && \
-echo "alias komodo=\"komodo > ~/launch_komodo.log 2>&1 &\"" >> ~/.bashrc && \
+echo "alias komodo=\"komodo --verbose > ~/launch_komodo.log 2>&1 &\"" >> ~/.bashrc && \
 echo "export GTK_IM_MODULE=ibus" >> ~/.bashrc && \
 echo "export XMODIFIERS=@im=ibus" >> ~/.bashrc && \
 echo "export QT_IM_MODULE=ibus" >> ~/.bashrc && \
