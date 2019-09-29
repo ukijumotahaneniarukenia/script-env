@@ -1,4 +1,4 @@
-FROM centos:latest
+FROM centos:7.6.1810
 
 #ユーザー作成
 RUN groupadd -g 1001 rstudio
@@ -88,7 +88,7 @@ make -j12 install
 #parallelコマンド install
 RUN cd ~ && yum install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && \
 tar jxf parallel-latest.tar.bz2 && \
-cd parallel-20190822 && \
+cd parallel-20190922 && \
 ./configure && \
 make -j12 && \
 make -j12 install
@@ -97,7 +97,15 @@ make -j12 install
 RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
 echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
 echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
-echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc
+echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
+echo "export GTK_IM_MODULE=ibus" >> ~/.bashrc && \
+echo "export XMODIFIERS=@im=ibus" >> ~/.bashrc && \
+echo "export QT_IM_MODULE=ibus" >> ~/.bashrc && \
+echo "export DefalutIMModule=ibus" >> ~/.bashrc && \
+echo "export NO_AT_BRIDGE=1" >> ~/.bashrc && \
+echo "xset -r 49" >> ~/.bashrc && \
+echo "ibus-daemon -dxr" >> ~/.bashrc && \
+echo "xrdb ~/.Xresources" >> ~/.bashrc
 
 #実行ユーザをrstudioに変更
 USER rstudio
@@ -124,7 +132,15 @@ echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
 echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
 echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
 echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
-echo "alias vi=\"sudo vim\"" >> ~/.bashrc
+echo "alias vi=\"sudo vim\"" >> ~/.bashrc && \
+echo "export GTK_IM_MODULE=ibus" >> ~/.bashrc && \
+echo "export XMODIFIERS=@im=ibus" >> ~/.bashrc && \
+echo "export QT_IM_MODULE=ibus" >> ~/.bashrc && \
+echo "export DefalutIMModule=ibus" >> ~/.bashrc && \
+echo "export NO_AT_BRIDGE=1" >> ~/.bashrc && \
+echo "xset -r 49" >> ~/.bashrc && \
+echo "ibus-daemon -dxr" >> ~/.bashrc && \
+echo "xrdb ~/.Xresources" >> ~/.bashrc
 
 USER php
 
@@ -151,13 +167,20 @@ echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
 echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
 echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
 echo "alias vi=\"sudo vim\"" >> ~/.bashrc && \
+echo "export PATH=/home/php/Komodo-Edit-11/bin:$PATH" >> ~/.bashrc && \
 echo "alias komodo=\"komodo > ~/launch_komodo.log 2>&1 &\"" >> ~/.bashrc && \
-echo "export PATH=\"/home/php/Komodo-IDE-11/bin:$PATH\"" >> ~/.bashrc
+echo "export GTK_IM_MODULE=ibus" >> ~/.bashrc && \
+echo "export XMODIFIERS=@im=ibus" >> ~/.bashrc && \
+echo "export QT_IM_MODULE=ibus" >> ~/.bashrc && \
+echo "export DefalutIMModule=ibus" >> ~/.bashrc && \
+echo "export NO_AT_BRIDGE=1" >> ~/.bashrc && \
+echo "xset -r 49" >> ~/.bashrc && \
+echo "ibus-daemon -dxr" >> ~/.bashrc && \
+echo "xrdb ~/.Xresources" >> ~/.bashrc
 
 #komodoエディタいんすこ
-COPY Komodo-IDE-11.1.1-91089-linux-x86_64.tar.gz /home/php/Komodo-IDE-11.1.1-91089-linux-x86_64.tar.gz
-RUN cd ~ && tar -xzf Komodo-IDE-11.1.1-91089-linux-x86_64.tar.gz
-RUN sudo ln -fsr "/home/php/Komodo-IDE-11/bin/komodo" /usr/local/bin/komodo
+COPY Komodo-Edit-11.1.1-18206-linux-x86_64.tar.gz /home/php/Komodo-Edit-11.1.1-18206-linux-x86_64.tar.gz
+RUN cd ~ && tar -xzf Komodo-Edit-11.1.1-18206-linux-x86_64.tar.gz
 
 #phpいんすこ
 RUN sudo yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm && \
@@ -178,14 +201,33 @@ RUN yum install -y PackageKit-gtk3-module
 
 #日本語フォントいんすこ
 RUN yum install -y vlgothic-*
+#以下の対応のためインストール
+#Gtk-Message: 23:27:11.098: Failed to load module "pk-gtk-module"
+RUN yum install -y PackageKit-gtk3-module
+
+#IMEいんすこ
+#かな漢字install
 RUN yum install -y fcitx ibus
+RUN yum groupinstall -y "Input Methods"
 
 #日本語環境と時刻合わせ
-RUN yum -y reinstall glibc-common
+RUN yum install -y glibc-common
+RUN yum reinstall -y glibc-common
 RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
 ENV LANG=ja_JP.UTF-8
 RUN rm -f /etc/localtime
 RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+
+# manと、man-pagesをインストール
+RUN yum -y install man
+RUN yum -y install man-pages.noarch
+RUN yum -y install man-pages-ja.noarch
+# cat /etc/yum.conf配下の
+# tsflags=nodocsのため
+RUN yum --setopt=tsflags='' reinstall -y man-pages
+
+#絵文字いんすこ
+RUN mkdir -p /usr/share/fonts/emoji && cd /usr/share/fonts/emoji && curl -LO https://noto-website-2.storage.googleapis.com/pkgs/Noto-unhinted.zip && unzip Noto-unhinted.zip && rm Noto-unhinted.zip && fc-cache -f -v
 
 #sshdサービス外部公開ポート
 EXPOSE 22
