@@ -185,5 +185,6 @@ Moving DOCUMENTS directory from ドキュメント to Documents
 Moving MUSIC directory from 音楽 to Music
 Moving PICTURES directory from 画像 to Pictures
 Moving VIDEOS directory from ビデオ to Videos
+[aine@centos ~]$ sudo reboot
 
 ```
