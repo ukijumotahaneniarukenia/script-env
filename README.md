@@ -213,3 +213,16 @@ uid=1000(aine) gid=1000(aine) groups=1000(aine),981(docker) context=unconfined_u
 ```
 [aine@centos ~]$ sudo yum install -y git
 ```
+
+# このレポジトリをクローン
+```
+[aine@centos ~]$ git clone https://github.com/ukijumotahaneniarukenia/script_scratch.git ~/unko
+Cloning into '/home/aine/unko'...
+remote: Enumerating objects: 223, done.
+remote: Counting objects: 100% (223/223), done.
+remote: Compressing objects: 100% (168/168), done.
+remote: Total 1232 (delta 138), reused 119 (delta 55), pack-reused 1009
+Receiving objects: 100% (1232/1232), 21.86 MiB | 2.32 MiB/s, done.
+Resolving deltas: 100% (635/635), done.
+
+```
