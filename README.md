@@ -175,5 +175,15 @@ For more examples and ideas, visit:
 ## Same thing without a password
 # %wheel        ALL=(ALL)       NOPASSWD: ALL
   %docker       ALL=(ALL)       NOPASSWD: ALL
+[aine@centos ~]$ LANG=C xdg-user-dirs-gtk-update
+Gtk-Message: 21:06:55.787: GtkDialog mapped without a transient parent. This is discouraged.
+Moving DESKTOP directory from デスクトップ to Desktop
+Moving DOWNLOAD directory from ダウンロード to Downloads
+Moving TEMPLATES directory from テンプレート to Templates
+Moving PUBLICSHARE directory from 公開 to Public
+Moving DOCUMENTS directory from ドキュメント to Documents
+Moving MUSIC directory from 音楽 to Music
+Moving PICTURES directory from 画像 to Pictures
+Moving VIDEOS directory from ビデオ to Videos
 
 ```
