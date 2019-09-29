@@ -1,6 +1,16 @@
 # 参考文献 
 https://www.itmedia.co.jp/enterprise/articles/1604/27/news001.html
 
+ibusやりとり
+https://github.com/ibus/ibus/issues/2005
+https://github.com/ibus/ibus/issues/385
+
+coredump味方
+http://rabbitfoot141.hatenablog.com/entry/2016/11/14/153101
+
+iBus最新
+https://www.clear-code.com/blog/2018/7/25.html
+
 iBus
 https://wiki.archlinux.jp/index.php/IBus#.E5.88.9D.E6.9C.9F.E8.A8.AD.E5.AE.9A
 

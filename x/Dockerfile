@@ -59,7 +59,7 @@ echo "export QT_IM_MODULE=ibus" >> ~/.bashrc && \
 echo "export DefalutIMModule=ibus" >> ~/.bashrc && \
 echo "export NO_AT_BRIDGE=1" >> ~/.bashrc && \
 echo "xset -r 49" >> ~/.bashrc && \
-echo "ibus-daemon -dxr" >> ~/.bashrc && \
+echo "ibus-daemon -rxd" >> ~/.bashrc && \
 echo "xrdb ~/.Xresources" >> ~/.bashrc
 
 #実行ユーザをrstudioに変更
@@ -94,8 +94,9 @@ echo "export QT_IM_MODULE=ibus" >> ~/.bashrc && \
 echo "export DefalutIMModule=ibus" >> ~/.bashrc && \
 echo "export NO_AT_BRIDGE=1" >> ~/.bashrc && \
 echo "xset -r 49" >> ~/.bashrc && \
-echo "ibus-daemon -dxr" >> ~/.bashrc && \
-echo "xrdb ~/.Xresources" >> ~/.bashrc
+echo "ibus-daemon -rxd" >> ~/.bashrc && \
+echo "xrdb ~/.Xresources" >> ~/.bashrc && \
+echo "alias idea=\"~/idea-IC-192.6817.14/bin/idea.sh >~/launch_idea_log 2>&1 &\"" >> ~/.bashrc
 
 #最後はrootに戻す
 USER root 
@@ -128,7 +129,7 @@ RUN yum -y install man-pages-ja.noarch
 RUN yum --setopt=tsflags='' reinstall -y man-pages
 
 #絵文字いんすこ
-RUN mkdir -p /usr/share/fonts/emoji && cd /usr/share/fonts/emoji && curl -LO https://noto-website-2.storage.googleapis.com/pkgs/Noto-unhinted.zip && unzip Noto-unhinted.zip && rm Noto-unhinted.zip && fc-cache -f -v
+RUN mkdir -p /usr/share/fonts/emoji && cd /usr/share/fonts/emoji && curl -LO https://noto-website-2.storage.googleapis.com/pkgs/Noto-unhinted.zip && unzip Noto-unhinted.zip && rm Noto-unhinted.zip && fc-cache -f -v && fc-cat
 
 #idea
 COPY ideaIC-2019.2.3.tar.gz /home/rstudio/ideaIC-2019.2.3.tar.gz

@@ -1,1756 +1,170 @@
 Sending build context to Docker daemon  674.3MB
-Step 1/41 : FROM centos:7.6.1810
+Step 1/42 : FROM centos:7.6.1810
  ---> f1cb7c7d58b7
-Step 2/41 : RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps
+Step 2/42 : RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps
  ---> Using cache
  ---> d2fd1494c690
-Step 3/41 : RUN yum install -y java firefox
+Step 3/42 : RUN yum install -y java firefox
  ---> Using cache
  ---> da9f7ece32f7
-Step 4/41 : RUN yum groupinstall -y base "X Window System" --setopt=group_package_types=mandatory,default,optional
+Step 4/42 : RUN yum groupinstall -y base "X Window System" --setopt=group_package_types=mandatory,default,optional
  ---> Using cache
  ---> 897d77f0fc20
-Step 5/41 : RUN groupadd -g 1001 rstudio
+Step 5/42 : RUN groupadd -g 1001 rstudio
  ---> Using cache
  ---> 4a7620e040a7
-Step 6/41 : RUN useradd -m -g rstudio -u 1001 rstudio
+Step 6/42 : RUN useradd -m -g rstudio -u 1001 rstudio
  ---> Using cache
  ---> 5eb3c1d81ccb
-Step 7/41 : RUN chsh -s /bin/bash rstudio
+Step 7/42 : RUN chsh -s /bin/bash rstudio
  ---> Using cache
  ---> 3ba8a5973dc6
-Step 8/41 : RUN echo 'root_pwd' | passwd --stdin root
+Step 8/42 : RUN echo 'root_pwd' | passwd --stdin root
  ---> Using cache
  ---> ac256afbeecd
-Step 9/41 : RUN echo 'rstudio_pwd' | passwd --stdin rstudio
+Step 9/42 : RUN echo 'rstudio_pwd' | passwd --stdin rstudio
  ---> Using cache
  ---> b30100c55397
-Step 10/41 : RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+Step 10/42 : RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
  ---> Using cache
  ---> c046d0ecc416
-Step 11/41 : RUN yum install -y epel-release git
+Step 11/42 : RUN yum install -y epel-release git
  ---> Using cache
  ---> ebbbd80c7b7b
-Step 12/41 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man
+Step 12/42 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man
  ---> Using cache
  ---> fa7216cba7ce
-Step 13/41 : RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd ~ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
+Step 13/42 : RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd ~ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
  ---> Using cache
  ---> 5d733464ea06
-Step 14/41 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+Step 14/42 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
  ---> Using cache
  ---> f0abc3d73378
-Step 15/41 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+Step 15/42 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
  ---> Using cache
  ---> 1b7e152b0ad0
-Step 16/41 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+Step 16/42 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
  ---> Using cache
  ---> 1425b19704d2
-Step 17/41 : RUN echo "alias python=/usr/local/bin/python3.7" >> ~/.bashrc && echo "alias pip=/usr/local/bin/pip3.7" >> ~/.bashrc && echo "alias perl=/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=/usr/local/bin/parallel" >> ~/.bashrc && echo "export GTK_IM_MODULE=ibus" >> ~/.bashrc && echo "export XMODIFIERS=@im=ibus" >> ~/.bashrc && echo "export QT_IM_MODULE=ibus" >> ~/.bashrc && echo "export DefalutIMModule=ibus" >> ~/.bashrc && echo "export NO_AT_BRIDGE=1" >> ~/.bashrc && echo "xset -r 49" >> ~/.bashrc && echo "ibus-daemon -dxr" >> ~/.bashrc && echo "xrdb ~/.Xresources" >> ~/.bashrc
+Step 17/42 : RUN echo "alias python=/usr/local/bin/python3.7" >> ~/.bashrc && echo "alias pip=/usr/local/bin/pip3.7" >> ~/.bashrc && echo "alias perl=/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=/usr/local/bin/parallel" >> ~/.bashrc && echo "export GTK_IM_MODULE=ibus" >> ~/.bashrc && echo "export XMODIFIERS=@im=ibus" >> ~/.bashrc && echo "export QT_IM_MODULE=ibus" >> ~/.bashrc && echo "export DefalutIMModule=ibus" >> ~/.bashrc && echo "export NO_AT_BRIDGE=1" >> ~/.bashrc && echo "xset -r 49" >> ~/.bashrc && echo "ibus-daemon -rxd" >> ~/.bashrc && echo "xrdb ~/.Xresources" >> ~/.bashrc
  ---> Using cache
- ---> 22a61a80bf3c
-Step 18/41 : USER rstudio
+ ---> a343b4987ad1
+Step 18/42 : USER rstudio
  ---> Using cache
- ---> 2aefa4cafdb0
-Step 19/41 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> 2df03fa351b1
+Step 19/42 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
  ---> Using cache
- ---> 31b89f33038a
-Step 20/41 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> b687dd481440
+Step 20/42 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
  ---> Using cache
- ---> c4be56de8a4d
-Step 21/41 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+ ---> 4c85918d1997
+Step 21/42 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
  ---> Using cache
- ---> 5f239da76a91
-Step 22/41 : RUN echo "alias python=/usr/local/bin/python3.7" >> ~/.bashrc && echo "alias pip=/usr/local/bin/pip3.7" >> ~/.bashrc && echo "alias perl=/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=/usr/local/bin/parallel" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc && echo "export GTK_IM_MODULE=ibus" >> ~/.bashrc && echo "export XMODIFIERS=@im=ibus" >> ~/.bashrc && echo "export QT_IM_MODULE=ibus" >> ~/.bashrc && echo "export DefalutIMModule=ibus" >> ~/.bashrc && echo "export NO_AT_BRIDGE=1" >> ~/.bashrc && echo "xset -r 49" >> ~/.bashrc && echo "ibus-daemon -dxr" >> ~/.bashrc && echo "xrdb ~/.Xresources" >> ~/.bashrc
+ ---> 68a818563acf
+Step 22/42 : RUN echo "alias python=/usr/local/bin/python3.7" >> ~/.bashrc && echo "alias pip=/usr/local/bin/pip3.7" >> ~/.bashrc && echo "alias perl=/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=/usr/local/bin/parallel" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc && echo "export GTK_IM_MODULE=ibus" >> ~/.bashrc && echo "export XMODIFIERS=@im=ibus" >> ~/.bashrc && echo "export QT_IM_MODULE=ibus" >> ~/.bashrc && echo "export DefalutIMModule=ibus" >> ~/.bashrc && echo "export NO_AT_BRIDGE=1" >> ~/.bashrc && echo "xset -r 49" >> ~/.bashrc && echo "ibus-daemon -rxd" >> ~/.bashrc && echo "xrdb ~/.Xresources" >> ~/.bashrc && echo "alias idea=\"~/idea-IC-192.6817.14/bin/idea.sh >~/launch_idea_log 2>&1 &\"" >> ~/.bashrc
  ---> Using cache
- ---> c1c0b79ea8ea
-Step 23/41 : USER root
+ ---> 7dcb8f941855
+Step 23/42 : USER root
  ---> Using cache
- ---> cf6fb177a701
-Step 24/41 : RUN yum install -y ibus-mozc
+ ---> 54a021de1014
+Step 24/42 : RUN yum install -y ibus-mozc
  ---> Using cache
- ---> 926ae4428657
-Step 25/41 : RUN yum install -y glibc-common
+ ---> 506b9e68e106
+Step 25/42 : RUN yum install -y glibc-common
  ---> Using cache
- ---> 514c5027df6e
-Step 26/41 : RUN yum reinstall -y glibc-common
+ ---> 2361211a075e
+Step 26/42 : RUN yum reinstall -y glibc-common
  ---> Using cache
- ---> 7a48579e69c6
-Step 27/41 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
+ ---> 29d542c180ec
+Step 27/42 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
  ---> Using cache
- ---> 8583dad2b60a
-Step 28/41 : ENV LANG=ja_JP.UTF-8
+ ---> 1ad5632ceaf1
+Step 28/42 : ENV LANG=ja_JP.UTF-8
  ---> Using cache
- ---> 137533639e13
-Step 29/41 : RUN rm -f /etc/localtime
+ ---> 37f8b7350863
+Step 29/42 : RUN rm -f /etc/localtime
  ---> Using cache
- ---> 34508d830555
-Step 30/41 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+ ---> 99b9a3c21565
+Step 30/42 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
  ---> Using cache
- ---> 02af0d9abf98
-Step 31/41 : RUN yum install -y vlgothic-*
+ ---> 91ef4079f61b
+Step 31/42 : RUN yum install -y vlgothic-*
  ---> Using cache
- ---> b62126e81f4e
-Step 32/41 : RUN yum install -y PackageKit-gtk3-module
+ ---> 0a3c7ba0ab06
+Step 32/42 : RUN yum install -y PackageKit-gtk3-module
  ---> Using cache
- ---> 409c920b7e83
-Step 33/41 : RUN yum groupinstall -y "Input Methods"
+ ---> 2fa0bcbb40e5
+Step 33/42 : RUN yum groupinstall -y "Input Methods"
  ---> Using cache
- ---> df5c740148bd
-Step 34/41 : RUN yum -y install man
+ ---> 09f35bd650ea
+Step 34/42 : RUN yum -y install man
  ---> Using cache
- ---> 4eeda09c608f
-Step 35/41 : RUN yum -y install man-pages.noarch
+ ---> a5658b316099
+Step 35/42 : RUN yum -y install man-pages.noarch
  ---> Using cache
- ---> 7ba894f96fdd
-Step 36/41 : RUN yum -y install man-pages-ja.noarch
+ ---> ac32a4be7d5d
+Step 36/42 : RUN yum -y install man-pages-ja.noarch
  ---> Using cache
- ---> e37b9288e5eb
-Step 37/41 : RUN yum --setopt=tsflags='' reinstall -y man-pages
+ ---> 17e6d0e5c76b
+Step 37/42 : RUN yum --setopt=tsflags='' reinstall -y man-pages
  ---> Using cache
- ---> 9fca28154e6c
-Step 38/41 : RUN mkdir -p /usr/share/fonts/emoji && cd /usr/share/fonts/emoji && curl -LO https://noto-website-2.storage.googleapis.com/pkgs/Noto-unhinted.zip && unzip Noto-unhinted.zip && rm Noto-unhinted.zip && fc-cache -f -v
- ---> Running in 14ad1d6f4d5a
-[91m  % Total    % Received % Xferd  Averag[0m[91me Sp[0m[91meed   Time    Time  [0m[91m  [0m[91m Time[0m[91m  [0m[91mCur[0m[91mren[0m[91mt
-  [0m[91m   [0m[91m   [0m[91m     [0m[91m  [0m[91m    [0m[91m    [0m[91m  [0m[91m     [0m[91m [0m[91m  D[0m[91mload[0m[91m  Up[0m[91mloa[0m[91md[0m[91m   Tot[0m[91mal[0m[91m   [0m[91mSpent[0m[91m  [0m[91m  Le[0m[91mft [0m[91m Spe[0m[91med
-[0m[91m  0     0    0 [0m[91m    0  [0m[91m  0[0m[91m [0m[91m  [0m[91m  0      0     [0m[91m [0m[91m0 --:--:-[0m[91m- --:--:-- --:--:[0m[91m--     [0m[91m0[0m[91m  0 1062M    0[0m[91m   540   [0m[91m 0     0    8[0m[91m26      0  [0m[91m15d [0m[91m14[0m[91mh --:--:--  15d[0m[91m 14h  [0m[91m 826[0m[91m  0 1062M    0 2942k    0 [0m[91m    0  1[0m[91m963k    [0m[91m  0  0:[0m[91m09:14 [0m[91m 0[0m[91m:00[0m[91m:01  0:09:13[0m[91m 1[0m[91m964k[0m[91m  0 [0m[91m1062M   [0m[91m 0 9838k    0   [0m[91m  [0m[91m0  3936[0m[91mk     [0m[91m 0  0:04:3[0m[91m6  0:00:[0m[91m02  [0m[91m0:04:34[0m[91m [0m[91m3937k[0m[91m  1 1062M    1 18.0M    0  [0m[91m   0  5282k  [0m[91m    0 [0m[91m 0[0m[91m:[0m[91m03:26  0:00:03  0:[0m[91m03:23 5282[0m[91mk[0m[91m  2 1062M    2 31.0M    0     0  7060k     [0m[91m 0  0:02:34[0m[91m  0[0m[91m:00:04  0[0m[91m:02:[0m[91m30[0m[91m 70[0m[91m60[0m[91mk[0m[91m  4 1062M    4 48.0M    0     0  8386[0m[91mk      0  0[0m[91m:02:0[0m[91m9  0:00:05 [0m[91m 0:02:04 9439k[0m[91m  5 10[0m[91m62M    [0m[91m5 57.2M[0m[91m    0  [0m[91m   0  9003k[0m[91m      0 [0m[91m [0m[91m0:02:00  0[0m[91m:00:06  [0m[91m0:01:54 10.8M[0m[91m  6 1062M    6 66.5M    0     0  9090k   [0m[91m   0  0:01:59 [0m[91m 0:00:0[0m[91m7  [0m[91m0:0[0m[91m1:52[0m[91m 11[0m[91m.[0m[91m3M[0m[91m  7 1062M    7 76.7M    0     0  9250k      0  0:01:57  0:[0m[91m00:08  0:01:49 1[0m[91m1.7M[0m[91m  8 1062M    8 87.1M    0 [0m[91m    0  [0m[91m9398k      0  0:0[0m[91m1:55  [0m[91m0:00:09  0:01:46[0m[91m [0m[91m11.2M[0m[91m  9 1062M    9  101M    0     0  9863k      0[0m[91m  0:01:50[0m[91m  0:00[0m[91m:10[0m[91m [0m[91m 0:01[0m[91m:40[0m[91m 1[0m[91m1[0m[91m.4[0m[91mM[0m[91m 10 1062M   10  109M    0     0 [0m[91m 9684k      0  0:01:5[0m[91m2  0:00:11  0:01:41 10.3M[0m[91m 11 [0m[91m1062M   1[0m[91m1  [0m[91m12[0m[91m4M    0     0   9.9M      0  0:01:46  0:00:1[0m[91m2 [0m[91m 0:01:34 11.6M[0m[91m 13 1062M   13  141M    0 [0m[91m    0  10.4M      0  [0m[91m0:01:41  0[0m[91m:00:13  [0m[91m0:[0m[91m01:28 12.9M[0m[91m 14 1062M   14  157M    0     0  10.8[0m[91mM      0  0:01:3[0m[91m7  0:[0m[91m00:14 [0m[91m 0[0m[91m:01[0m[91m:23 14.1M[0m[91m 16 1062M   16  173M    0     0 [0m[91m 11.2M      0  0:01:[0m[91m34  [0m[91m0:00:15  0:01:19 14.5M[0m[91m 17 1062M   17  188M    0     0  11.3M      0  0:01:33  0:00:16  0:0[0m[91m1:17 15.9M[0m[91m 18 1062M   18  200M    0     0  11.3M      0 [0m[91m 0:01:33[0m[91m  0:00:17  0:01:16 14.9M[0m[91m 20 1062M [0m[91m  20  [0m[91m21[0m[91m6[0m[91mM    0     0  11[0m[91m.[0m[91m7M      [0m[91m0[0m[91m  0:01:30  0:[0m[91m00:18  0:01:12 14.9M[0m[91m 21 1062M   21  228M    0     0  11.7M      0  0[0m[91m:01:30  0:00:19 [0m[91m 0:01:11 14.0M[0m[91m 23 1062M   23  247M    0     0  12.0M    [0m[91m  0  0:01:28  0:00:20  0:01:08 14.6M[0m[91m 24 1062M   24  260M    0     0  12[0m[91m.1M      0  0:01:27 [0m[91m 0:00[0m[91m:21  [0m[91m0:0[0m[91m1:[0m[91m06 1[0m[91m4.4M[0m[91m 25 1062M   25  275M    0     0  12.2M      0  0:01:26[0m[91m  0:00:22  0:01:[0m[91m04 15.1M[0m[91m 27 1062M   27  288M    0     0  12.2M      0  0:01:26  0:00:23  0:01[0m[91m:03 14.3M[0m[91m 28 1062M   28  303M    0     0  12.1M      0  0:01:27  0:00:24  0:01[0m[91m:03 13.9M[0m[91m 28 1062M   28  305M    0     0  11.8[0m[91mM      0  0:[0m[91m01:29  0:00[0m[91m:25  0:01:04 11.2[0m[91mM[0m[91m 29 1062M   29  312M    0     0  11.7M      0  0[0m[91m:01:30  [0m[91m0:00:26[0m[91m  0[0m[91m:01[0m[91m:04 10.2[0m[91mM[0m[91m 30 1062M   30  320M    0     0  11.6M      0  0:01:31  0:00:27  0:01:04 9361k[0m[91m 31 1062M   31  331M    0     0  11.6M      0  0:01:31  0:00:28  0:01:03 8824k[0m[91m 32 1062M   32  340M    0     0  [0m[91m11.5M      0  0:01:[0m[91m32  0:00:[0m[91m29  0:01:0[0m[91m3 [0m[91m8147[0m[91mk[0m[91m 33 1062M   33  352M    0     0  11.5M   [0m[91m   0  0:01:32  0:00:30 [0m[91m 0:01:02 9933[0m[91mk[0m[91m 33 1062M   33  359M    0     0  11.4M      [0m[91m0  0:01:33  0:00:31  0:01:[0m[91m02 9823k[0m[91m 34 1062M   34  369M    0     0  11.3M   [0m[91m   0  0:0[0m[91m1:3[0m[91m3  0:[0m[91m00:32 [0m[91m 0:01:01 9852k[0m[91m 35 1062M   35  378M    0     0  11[0m[91m.2M     [0m[91m 0[0m[91m  0:01:34[0m[91m  0:00:33[0m[91m  0:01:[0m[91m01 9[0m[91m619[0m[91mk[0m[91m 3[0m[91m6 1062M   36[0m[91m  390M    0  [0m[91m   0 [0m[91m 11.3M[0m[91m      0 [0m[91m 0:0[0m[91m1:[0m[91m33[0m[91m  0:[0m[91m00[0m[91m:34  [0m[91m0:00[0m[91m:59 [0m[91m10.0M[0m[91m 38 1062M   38  410[0m[91mM [0m[91m [0m[91m  0     0  [0m[91m11.5M    [0m[91m  0  0:[0m[91m01:[0m[91m31  0:00:35[0m[91m  0:0[0m[91m0:56 11.[0m[91m7M[0m[91m 40 1062M   40  425M[0m[91m    0 [0m[91m  [0m[91m  0 [0m[91m 11.6M      0[0m[91m  0:01:3[0m[91m1 [0m[91m 0:00:36  0:00:55 1[0m[91m3.1M[0m[91m 42 1062M   42  447M    0     0  11.9M      0  0:01:29  [0m[91m0:00:37  0:00:[0m[91m52 15.8M[0m[91m 43 1062M   43  466M    0     0  [0m[91m12.1M      [0m[91m0  0:01:27  0:00:38  0:00[0m[91m:49 17.6M[0m[91m 45 1062M   45  486M    0     0  12.3[0m[91mM      0  [0m[91m0:01[0m[91m:26  0:00:39  0:00:47 19.3M[0m[91m 47 1062M   47  504M    0     0  [0m[91m12.4M  [0m[91m   [0m[91m 0  0:01:25  0:00:40  0:00:45 18.5[0m[91mM[0m[91m 48 1062M   48  516M    0     0  12.4M      0  0:01[0m[91m:25  0:00:41[0m[91m  0:00[0m[91m:44 [0m[91m18[0m[91m.2[0m[91mM[0m[91m 50 1062M   50  537M    0     0  12.6M      [0m[91m0  0:01:24 [0m[91m 0:00:[0m[91m42  0:00:42 17.9[0m[91mM[0m[91m 51 1062M   51  551M    0     0  12.6[0m[91mM      0 [0m[91m [0m[91m0:0[0m[91m1:[0m[91m23  0[0m[91m:[0m[91m00:43[0m[91m  0:00:40 16.8M[0m[91m 53 1062M   53  569M    0     0  12.8M      0  0:01:23  0:00:44  0:00:39 [0m[91m16.5M[0m[91m 54 1062M   54  584M    0     0  12.8M   [0m[91m   0  0:01:22 [0m[91m 0:00:45 [0m[91m 0:00:37 16[0m[91m.0M[0m[91m 56 1062M   56  600M    0     0  12.9[0m[91mM[0m[91m     [0m[91m 0  0[0m[91m:01:[0m[91m22  0:00[0m[91m:46 [0m[91m 0[0m[91m:0[0m[91m0:36[0m[91m 16[0m[91m.6M[0m[91m 58 1062M   58  617M    0     0  12.9M      [0m[91m0  0:[0m[91m01:[0m[91m21 [0m[91m 0[0m[91m:[0m[91m0[0m[91m0:47 [0m[91m 0:00:34 16.0[0m[91mM[0m[91m 59 1062M   59  631M    0[0m[91m     0  13.0M   [0m[91m   0  0[0m[91m:01:21  0:[0m[91m00:48  0:0[0m[91m0:33 [0m[91m16.1M[0m[91m 60 1062M   60  647M    0     0  13.0M      0  0:01:21  [0m[91m0:00:49  0:00:32 15[0m[91m.6M[0m[91m 62 1062M   62  662M    0     0  13.1M      0  0:[0m[91m01:21  0:00:50[0m[91m  0:00:3[0m[91m1 [0m[91m15[0m[91m.6M[0m[91m 63 1062M   63  678M    0     0  13.1M      0  0:01:20  0:00:51  0:00:29 15.6M[0m[91m 65 1062M   65  691M    0     0  13.1M      0  0:01:20  0:[0m[91m00:52  0[0m[91m:00:28[0m[91m 14.[0m[91m8M[0m[91m 66 1062M   66  702M    0     0  13.1M      0  0:01:20  0:00:53  0:[0m[91m00:27 14.1M[0m[91m 67 1062M   67  717M    0     0[0m[91m  13.1M    [0m[91m  0[0m[91m  0:01:20  0:00:54  [0m[91m0:00:2[0m[91m6 13[0m[91m.8M[0m[91m 69 1062M   69  734M    0   [0m[91m  0  13.2M  [0m[91m    0  0:01[0m[91m:20[0m[91m  0:0[0m[91m0:55  0:00[0m[91m:25 14[0m[91m.4M[0m[91m 70 1062M   70  744M    0     0  13.1M  [0m[91m    0 [0m[91m 0:[0m[91m01:[0m[91m2[0m[91m0 [0m[91m 0:00:56 [0m[91m 0:[0m[91m00:[0m[91m24[0m[91m 1[0m[91m3.2M[0m[91m 71 1062M   71  758M    0     0  13.[0m[91m1M      0  0:01[0m[91m:20  0[0m[91m:0[0m[91m0:5[0m[91m7  0:00:23 13.[0m[91m5M[0m[91m 72 1062M   72  765M    0     0  13.0M      0  0:01:21  0:00:58  0:00[0m[91m:23 12.5M[0m[91m 73 1062M   73  779M    0     0  13.1M  [0m[91m    0  0:01:21 [0m[91m 0:00:[0m[91m59 [0m[91m 0[0m[91m:00:22 [0m[91m12.5[0m[91mM[0m[91m 74 1062M   74  790M    0     0  13[0m[91m.0M  [0m[91m    0  0:01[0m[91m:21  0:01[0m[91m:00  0[0m[91m:00:21 11.2M[0m[91m 75 1062M   75  803M    0     0  13.0M      0  0:01:21  0:01:01  0:00:20 11.7M[0m[91m 76 1062M   76  817M    0     0  13.0M      0  0:01:21  0:01:02  0:00:19 11.6M[0m[91m 78 1062M   78  830M    0     0  13.0M      0  0:0[0m[91m1:21  0:01:03  0[0m[91m:00:18 12.9M[0m[91m 79 1062M   79  844M    0     0  13.0M      0  0:01:21  [0m[91m0:01:04  0:00:17 [0m[91m12.9M[0m[91m 80 1062M   80  856M    0     0  [0m[91m13.0M   [0m[91m   0  [0m[91m0:01:21  0[0m[91m:01:05  0:00:16 [0m[91m13.2M[0m[91m 82 1062M   82  871M[0m[91m    0[0m[91m     0  13.1M      [0m[91m0  0[0m[91m:01:21  0:01:06[0m[91m  0[0m[91m:00:15 13.6M[0m[91m 82 1062M   82  879M    0     0  13.0M      0[0m[91m  0:01:21 [0m[91m 0:01:[0m[91m0[0m[91m7[0m[91m  0:00:14[0m[91m 12.5M[0m[91m 83 1062M   83  891M    0     0  13[0m[91m.0M      0  0:[0m[91m01:2[0m[91m1  [0m[91m0:01:0[0m[91m8  0[0m[91m:00[0m[91m:13[0m[91m 12.0M[0m[91m 84 1062M   84  902M    0     [0m[91m0  12.9M      [0m[91m0  0[0m[91m:0[0m[91m1:2[0m[91m1  0:01:09  0:00[0m[91m:12 11.7M[0m[91m 85 1062M  [0m[91m 85  910M    0 [0m[91m    0  [0m[91m12.9M [0m[91m     0  [0m[91m0:01:22  0:0[0m[91m1:10  [0m[91m0:00[0m[91m:12[0m[91m 10.7M[0m[91m 86 1062M   86  917M    0     0  12.8M      0  0:01:22  0:01:11  0:00:11 9341k[0m[91m 87 1062M   87  924M    0     0[0m[91m  12.7M      0 [0m[91m 0:01:23  0:01:[0m[91m12  0:00:11 92[0m[91m26k[0m[91m 87 1062M   87  934M    0     [0m[91m0  12.7M      0 [0m[91m 0:0[0m[91m1:23  0:01[0m[91m:13 [0m[91m 0:00[0m[91m:10[0m[91m 893[0m[91m0k[0m[91m 88 1062M   88  940M    0     0  12.6M      0[0m[91m  0:01:24  0:0[0m[91m1:14  0:00:1[0m[91m0 7[0m[91m748k[0m[91m 89 1062M   89  950M    0     0  12.5M      0  0:01:24[0m[91m  0:01:15  0:00:09 8259k[0m[91m 90 1062M   90  960M    0     0  1[0m[91m2.5M   [0m[91m   0 [0m[91m 0:01:[0m[91m24  0:01:16  0:[0m[91m00:08 8887k[0m[91m 91 1062M   91  9[0m[91m69M   [0m[91m 0     0  1[0m[91m2.5M    [0m[91m  0  0[0m[91m:01:[0m[91m24  0:01:17  0:00:07 [0m[91m9068k[0m[91m 92 1062M   92  978M    0     0  12.4M      0  0:01:25  0:0[0m[91m1:18  0:00:07 8921[0m[91mk[0m[91m 92 1062M   92  985M    0     0  12.4M     [0m[91m 0  0:01:25  0:01:19  0:00:06 [0m[91m9212k[0m[91m 92 1062M   92  988M    0     0  12.2M    [0m[91m  0  0:01:26  0:01:20  0[0m[91m:00:06 7717k[0m[91m 93 1062M   93  992M    0     0  12[0m[91m.1M      0  0:01:2[0m[91m7  0:[0m[91m01:[0m[91m21  [0m[91m0:[0m[91m00:06[0m[91m 6[0m[91m546k[0m[91m 93 1062M   93  996M    0     0  12.0M   [0m[91m   0  0:01:28  0:01:22[0m[91m  0:[0m[91m00:0[0m[91m6 5[0m[91m524k[0m[91m 94 1062M   94 1001M    0     0  11.9M      0  0:01:28  0:01:23  0:00:05 [0m[91m4748k[0m[91m 94 1062M   94 1007M    0     0  11.9M[0m[91m      0  0:0[0m[91m1:[0m[91m29[0m[91m  0:01:24  0:00:05 4542k[0m[91m 95 1062M   95 1015M    0   [0m[91m  0  11[0m[91m.8M[0m[91m [0m[91m     [0m[91m0  0:0[0m[91m1:29[0m[91m  [0m[91m0:[0m[91m0[0m[91m1[0m[91m:25[0m[91m [0m[91m 0:0[0m[91m0:0[0m[91m4 56[0m[91m49k[0m[91m 96 1062M   96 1023M    0     0  11.8M      0  0:01:29  0:01:26  0:00[0m[91m:03 6258k[0m[91m 97 1062M   97 1031M    0     0  11.7M      0 [0m[91m 0:01:30[0m[91m  0:01[0m[91m:2[0m[91m7  [0m[91m0:[0m[91m00:0[0m[91m3 7224k[0m[91m 98 1062M   98 1044M    0     0  11.8M      0  0:01:30 [0m[91m 0:01:28  0:00:02 8891k[0m[91m 99 1062M   99 1057M[0m[91m    0     0  11.8M [0m[91m     0  0:01:29  0:01:29[0m[91m --:--:--  9.[0m[91m8M[0m[91m100 1062M  100 1062M    0     0  11.8M     [0m[91m 0  0:01[0m[91m:30  [0m[91m0:01:30 [0m[91m--:--:-- 10.3[0m[91mM
-[0mArchive:  Noto-unhinted.zip
-  inflating: LICENSE_OFL.txt         
-  inflating: NotoColorEmoji.ttf      
-  inflating: NotoEmoji-Regular.ttf   
-  inflating: NotoKufiArabic-Bold.ttf  
-  inflating: NotoKufiArabic-Regular.ttf  
-  inflating: NotoMono-Regular.ttf    
-  inflating: NotoNaskhArabic-Bold.ttf  
-  inflating: NotoNaskhArabic-Regular.ttf  
-  inflating: NotoNaskhArabicUI-Bold.ttf  
-  inflating: NotoNaskhArabicUI-Regular.ttf  
-  inflating: NotoNastaliqUrdu-Regular.ttf  
-  inflating: NotoSans-Black.ttf      
-  inflating: NotoSans-BlackItalic.ttf  
-  inflating: NotoSans-Bold.ttf       
-  inflating: NotoSans-BoldItalic.ttf  
-  inflating: NotoSans-Condensed.ttf  
-  inflating: NotoSans-CondensedBlack.ttf  
-  inflating: NotoSans-CondensedBlackItalic.ttf  
-  inflating: NotoSans-CondensedBold.ttf  
-  inflating: NotoSans-CondensedBoldItalic.ttf  
-  inflating: NotoSans-CondensedExtraBold.ttf  
-  inflating: NotoSans-CondensedExtraBoldItalic.ttf  
-  inflating: NotoSans-CondensedExtraLight.ttf  
-  inflating: NotoSans-CondensedExtraLightItalic.ttf  
-  inflating: NotoSans-CondensedItalic.ttf  
-  inflating: NotoSans-CondensedLight.ttf  
-  inflating: NotoSans-CondensedLightItalic.ttf  
-  inflating: NotoSans-CondensedMedium.ttf  
-  inflating: NotoSans-CondensedMediumItalic.ttf  
-  inflating: NotoSans-CondensedSemiBold.ttf  
-  inflating: NotoSans-CondensedSemiBoldItalic.ttf  
-  inflating: NotoSans-CondensedThin.ttf  
-  inflating: NotoSans-CondensedThinItalic.ttf  
-  inflating: NotoSans-ExtraBold.ttf  
-  inflating: NotoSans-ExtraBoldItalic.ttf  
-  inflating: NotoSans-ExtraCondensed.ttf  
-  inflating: NotoSans-ExtraCondensedBlack.ttf  
-  inflating: NotoSans-ExtraCondensedBlackItalic.ttf  
-  inflating: NotoSans-ExtraCondensedBold.ttf  
-  inflating: NotoSans-ExtraCondensedBoldItalic.ttf  
-  inflating: NotoSans-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSans-ExtraCondensedExtraBoldItalic.ttf  
-  inflating: NotoSans-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSans-ExtraCondensedExtraLightItalic.ttf  
-  inflating: NotoSans-ExtraCondensedItalic.ttf  
-  inflating: NotoSans-ExtraCondensedLight.ttf  
-  inflating: NotoSans-ExtraCondensedLightItalic.ttf  
-  inflating: NotoSans-ExtraCondensedMedium.ttf  
-  inflating: NotoSans-ExtraCondensedMediumItalic.ttf  
-  inflating: NotoSans-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSans-ExtraCondensedSemiBoldItalic.ttf  
-  inflating: NotoSans-ExtraCondensedThin.ttf  
-  inflating: NotoSans-ExtraCondensedThinItalic.ttf  
-  inflating: NotoSans-ExtraLight.ttf  
-  inflating: NotoSans-ExtraLightItalic.ttf  
-  inflating: NotoSans-Italic.ttf     
-  inflating: NotoSans-Light.ttf      
-  inflating: NotoSans-LightItalic.ttf  
-  inflating: NotoSans-Medium.ttf     
-  inflating: NotoSans-MediumItalic.ttf  
-  inflating: NotoSans-Regular.ttf    
-  inflating: NotoSans-SemiBold.ttf   
-  inflating: NotoSans-SemiBoldItalic.ttf  
-  inflating: NotoSans-SemiCondensed.ttf  
-  inflating: NotoSans-SemiCondensedBlack.ttf  
-  inflating: NotoSans-SemiCondensedBlackItalic.ttf  
-  inflating: NotoSans-SemiCondensedBold.ttf  
-  inflating: NotoSans-SemiCondensedBoldItalic.ttf  
-  inflating: NotoSans-SemiCondensedExtraBold.ttf  
-  inflating: NotoSans-SemiCondensedExtraBoldItalic.ttf  
-  inflating: NotoSans-SemiCondensedExtraLight.ttf  
-  inflating: NotoSans-SemiCondensedExtraLightItalic.ttf  
-  inflating: NotoSans-SemiCondensedItalic.ttf  
-  inflating: NotoSans-SemiCondensedLight.ttf  
-  inflating: NotoSans-SemiCondensedLightItalic.ttf  
-  inflating: NotoSans-SemiCondensedMedium.ttf  
-  inflating: NotoSans-SemiCondensedMediumItalic.ttf  
-  inflating: NotoSans-SemiCondensedSemiBold.ttf  
-  inflating: NotoSans-SemiCondensedSemiBoldItalic.ttf  
-  inflating: NotoSans-SemiCondensedThin.ttf  
-  inflating: NotoSans-SemiCondensedThinItalic.ttf  
-  inflating: NotoSans-Thin.ttf       
-  inflating: NotoSans-ThinItalic.ttf  
-  inflating: NotoSansAdlam-Regular.ttf  
-  inflating: NotoSansAdlamUnjoined-Regular.ttf  
-  inflating: NotoSansAnatolianHieroglyphs-Regular.ttf  
-  inflating: NotoSansArabic-Black.ttf  
-  inflating: NotoSansArabic-Bold.ttf  
-  inflating: NotoSansArabic-Condensed.ttf  
-  inflating: NotoSansArabic-CondensedBlack.ttf  
-  inflating: NotoSansArabic-CondensedBold.ttf  
-  inflating: NotoSansArabic-CondensedExtraBold.ttf  
-  inflating: NotoSansArabic-CondensedExtraLight.ttf  
-  inflating: NotoSansArabic-CondensedLight.ttf  
-  inflating: NotoSansArabic-CondensedMedium.ttf  
-  inflating: NotoSansArabic-CondensedSemiBold.ttf  
-  inflating: NotoSansArabic-CondensedThin.ttf  
-  inflating: NotoSansArabic-ExtraBold.ttf  
-  inflating: NotoSansArabic-ExtraCondensed.ttf  
-  inflating: NotoSansArabic-ExtraCondensedBlack.ttf  
-  inflating: NotoSansArabic-ExtraCondensedBold.ttf  
-  inflating: NotoSansArabic-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSansArabic-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSansArabic-ExtraCondensedLight.ttf  
-  inflating: NotoSansArabic-ExtraCondensedMedium.ttf  
-  inflating: NotoSansArabic-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSansArabic-ExtraCondensedThin.ttf  
-  inflating: NotoSansArabic-ExtraLight.ttf  
-  inflating: NotoSansArabic-Light.ttf  
-  inflating: NotoSansArabic-Medium.ttf  
-  inflating: NotoSansArabic-Regular.ttf  
-  inflating: NotoSansArabic-SemiBold.ttf  
-  inflating: NotoSansArabic-SemiCondensed.ttf  
-  inflating: NotoSansArabic-SemiCondensedBlack.ttf  
-  inflating: NotoSansArabic-SemiCondensedBold.ttf  
-  inflating: NotoSansArabic-SemiCondensedExtraBold.ttf  
-  inflating: NotoSansArabic-SemiCondensedExtraLight.ttf  
-  inflating: NotoSansArabic-SemiCondensedLight.ttf  
-  inflating: NotoSansArabic-SemiCondensedMedium.ttf  
-  inflating: NotoSansArabic-SemiCondensedSemiBold.ttf  
-  inflating: NotoSansArabic-SemiCondensedThin.ttf  
-  inflating: NotoSansArabic-Thin.ttf  
-  inflating: NotoSansArabicUI-Black.ttf  
-  inflating: NotoSansArabicUI-Bold.ttf  
-  inflating: NotoSansArabicUI-Condensed.ttf  
-  inflating: NotoSansArabicUI-CondensedBlack.ttf  
-  inflating: NotoSansArabicUI-CondensedBold.ttf  
-  inflating: NotoSansArabicUI-CondensedExtraBold.ttf  
-  inflating: NotoSansArabicUI-CondensedExtraLight.ttf  
-  inflating: NotoSansArabicUI-CondensedLight.ttf  
-  inflating: NotoSansArabicUI-CondensedMedium.ttf  
-  inflating: NotoSansArabicUI-CondensedSemiBold.ttf  
-  inflating: NotoSansArabicUI-CondensedThin.ttf  
-  inflating: NotoSansArabicUI-ExtraBold.ttf  
-  inflating: NotoSansArabicUI-ExtraCondensed.ttf  
-  inflating: NotoSansArabicUI-ExtraCondensedBlack.ttf  
-  inflating: NotoSansArabicUI-ExtraCondensedBold.ttf  
-  inflating: NotoSansArabicUI-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSansArabicUI-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSansArabicUI-ExtraCondensedLight.ttf  
-  inflating: NotoSansArabicUI-ExtraCondensedMedium.ttf  
-  inflating: NotoSansArabicUI-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSansArabicUI-ExtraCondensedThin.ttf  
-  inflating: NotoSansArabicUI-ExtraLight.ttf  
-  inflating: NotoSansArabicUI-Light.ttf  
-  inflating: NotoSansArabicUI-Medium.ttf  
-  inflating: NotoSansArabicUI-Regular.ttf  
-  inflating: NotoSansArabicUI-SemiBold.ttf  
-  inflating: NotoSansArabicUI-SemiCondensed.ttf  
-  inflating: NotoSansArabicUI-SemiCondensedBlack.ttf  
-  inflating: NotoSansArabicUI-SemiCondensedBold.ttf  
-  inflating: NotoSansArabicUI-SemiCondensedExtraBold.ttf  
-  inflating: NotoSansArabicUI-SemiCondensedExtraLight.ttf  
-  inflating: NotoSansArabicUI-SemiCondensedLight.ttf  
-  inflating: NotoSansArabicUI-SemiCondensedMedium.ttf  
-  inflating: NotoSansArabicUI-SemiCondensedSemiBold.ttf  
-  inflating: NotoSansArabicUI-SemiCondensedThin.ttf  
-  inflating: NotoSansArabicUI-Thin.ttf  
-  inflating: NotoSansArmenian-Black.ttf  
-  inflating: NotoSansArmenian-Bold.ttf  
-  inflating: NotoSansArmenian-Condensed.ttf  
-  inflating: NotoSansArmenian-CondensedBlack.ttf  
-  inflating: NotoSansArmenian-CondensedBold.ttf  
-  inflating: NotoSansArmenian-CondensedExtraBold.ttf  
-  inflating: NotoSansArmenian-CondensedExtraLight.ttf  
-  inflating: NotoSansArmenian-CondensedLight.ttf  
-  inflating: NotoSansArmenian-CondensedMedium.ttf  
-  inflating: NotoSansArmenian-CondensedSemiBold.ttf  
-  inflating: NotoSansArmenian-CondensedThin.ttf  
-  inflating: NotoSansArmenian-ExtraBold.ttf  
-  inflating: NotoSansArmenian-ExtraCondensed.ttf  
-  inflating: NotoSansArmenian-ExtraCondensedBlack.ttf  
-  inflating: NotoSansArmenian-ExtraCondensedBold.ttf  
-  inflating: NotoSansArmenian-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSansArmenian-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSansArmenian-ExtraCondensedLight.ttf  
-  inflating: NotoSansArmenian-ExtraCondensedMedium.ttf  
-  inflating: NotoSansArmenian-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSansArmenian-ExtraCondensedThin.ttf  
-  inflating: NotoSansArmenian-ExtraLight.ttf  
-  inflating: NotoSansArmenian-Light.ttf  
-  inflating: NotoSansArmenian-Medium.ttf  
-  inflating: NotoSansArmenian-Regular.ttf  
-  inflating: NotoSansArmenian-SemiBold.ttf  
-  inflating: NotoSansArmenian-SemiCondensed.ttf  
-  inflating: NotoSansArmenian-SemiCondensedBlack.ttf  
-  inflating: NotoSansArmenian-SemiCondensedBold.ttf  
-  inflating: NotoSansArmenian-SemiCondensedExtraBold.ttf  
-  inflating: NotoSansArmenian-SemiCondensedExtraLight.ttf  
-  inflating: NotoSansArmenian-SemiCondensedLight.ttf  
-  inflating: NotoSansArmenian-SemiCondensedMedium.ttf  
-  inflating: NotoSansArmenian-SemiCondensedSemiBold.ttf  
-  inflating: NotoSansArmenian-SemiCondensedThin.ttf  
-  inflating: NotoSansArmenian-Thin.ttf  
-  inflating: NotoSansAvestan-Regular.ttf  
-  inflating: NotoSansBalinese-Regular.ttf  
-  inflating: NotoSansBamum-Regular.ttf  
-  inflating: NotoSansBatak-Regular.ttf  
-  inflating: NotoSansBengali-Black.ttf  
-  inflating: NotoSansBengali-Bold.ttf  
-  inflating: NotoSansBengali-ExtraBold.ttf  
-  inflating: NotoSansBengali-ExtraLight.ttf  
-  inflating: NotoSansBengali-Light.ttf  
-  inflating: NotoSansBengali-Medium.ttf  
-  inflating: NotoSansBengali-Regular.ttf  
-  inflating: NotoSansBengali-SemiBold.ttf  
-  inflating: NotoSansBengali-Thin.ttf  
-  inflating: NotoSansBengaliUI-Black.ttf  
-  inflating: NotoSansBengaliUI-Bold.ttf  
-  inflating: NotoSansBengaliUI-ExtraBold.ttf  
-  inflating: NotoSansBengaliUI-ExtraLight.ttf  
-  inflating: NotoSansBengaliUI-Light.ttf  
-  inflating: NotoSansBengaliUI-Medium.ttf  
-  inflating: NotoSansBengaliUI-Regular.ttf  
-  inflating: NotoSansBengaliUI-SemiBold.ttf  
-  inflating: NotoSansBengaliUI-Thin.ttf  
-  inflating: NotoSansBrahmi-Regular.ttf  
-  inflating: NotoSansBuginese-Regular.ttf  
-  inflating: NotoSansBuhid-Regular.ttf  
-  inflating: NotoSansCJKjp-Black.otf  
-  inflating: NotoSansCJKjp-Bold.otf  
-  inflating: NotoSansCJKjp-DemiLight.otf  
-  inflating: NotoSansCJKjp-Light.otf  
-  inflating: NotoSansCJKjp-Medium.otf  
-  inflating: NotoSansCJKjp-Regular.otf  
-  inflating: NotoSansCJKjp-Thin.otf  
-  inflating: NotoSansCJKkr-Black.otf  
-  inflating: NotoSansCJKkr-Bold.otf  
-  inflating: NotoSansCJKkr-DemiLight.otf  
-  inflating: NotoSansCJKkr-Light.otf  
-  inflating: NotoSansCJKkr-Medium.otf  
-  inflating: NotoSansCJKkr-Regular.otf  
-  inflating: NotoSansCJKkr-Thin.otf  
-  inflating: NotoSansCJKsc-Black.otf  
-  inflating: NotoSansCJKsc-Bold.otf  
-  inflating: NotoSansCJKsc-DemiLight.otf  
-  inflating: NotoSansCJKsc-Light.otf  
-  inflating: NotoSansCJKsc-Medium.otf  
-  inflating: NotoSansCJKsc-Regular.otf  
-  inflating: NotoSansCJKsc-Thin.otf  
-  inflating: NotoSansCJKtc-Black.otf  
-  inflating: NotoSansCJKtc-Bold.otf  
-  inflating: NotoSansCJKtc-DemiLight.otf  
-  inflating: NotoSansCJKtc-Light.otf  
-  inflating: NotoSansCJKtc-Medium.otf  
-  inflating: NotoSansCJKtc-Regular.otf  
-  inflating: NotoSansCJKtc-Thin.otf  
-  inflating: NotoSansCanadianAboriginal-Regular.ttf  
-  inflating: NotoSansCarian-Regular.ttf  
-  inflating: NotoSansChakma-Regular.ttf  
-  inflating: NotoSansCham-Black.ttf  
-  inflating: NotoSansCham-Bold.ttf   
-  inflating: NotoSansCham-ExtraBold.ttf  
-  inflating: NotoSansCham-ExtraLight.ttf  
-  inflating: NotoSansCham-Light.ttf  
-  inflating: NotoSansCham-Medium.ttf  
-  inflating: NotoSansCham-Regular.ttf  
-  inflating: NotoSansCham-SemiBold.ttf  
-  inflating: NotoSansCham-Thin.ttf   
-  inflating: NotoSansCherokee-Black.ttf  
-  inflating: NotoSansCherokee-Bold.ttf  
-  inflating: NotoSansCherokee-ExtraBold.ttf  
-  inflating: NotoSansCherokee-ExtraLight.ttf  
-  inflating: NotoSansCherokee-Light.ttf  
-  inflating: NotoSansCherokee-Medium.ttf  
-  inflating: NotoSansCherokee-Regular.ttf  
-  inflating: NotoSansCherokee-SemiBold.ttf  
-  inflating: NotoSansCherokee-Thin.ttf  
-  inflating: NotoSansCoptic-Regular.ttf  
-  inflating: NotoSansCuneiform-Regular.ttf  
-  inflating: NotoSansCypriot-Regular.ttf  
-  inflating: NotoSansDeseret-Regular.ttf  
-  inflating: NotoSansDevanagari-Black.ttf  
-  inflating: NotoSansDevanagari-Bold.ttf  
-  inflating: NotoSansDevanagari-Condensed.ttf  
-  inflating: NotoSansDevanagari-CondensedBlack.ttf  
-  inflating: NotoSansDevanagari-CondensedBold.ttf  
-  inflating: NotoSansDevanagari-CondensedExtraBold.ttf  
-  inflating: NotoSansDevanagari-CondensedExtraLight.ttf  
-  inflating: NotoSansDevanagari-CondensedLight.ttf  
-  inflating: NotoSansDevanagari-CondensedMedium.ttf  
-  inflating: NotoSansDevanagari-CondensedSemiBold.ttf  
-  inflating: NotoSansDevanagari-CondensedThin.ttf  
-  inflating: NotoSansDevanagari-ExtraBold.ttf  
-  inflating: NotoSansDevanagari-ExtraCondensed.ttf  
-  inflating: NotoSansDevanagari-ExtraCondensedBlack.ttf  
-  inflating: NotoSansDevanagari-ExtraCondensedBold.ttf  
-  inflating: NotoSansDevanagari-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSansDevanagari-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSansDevanagari-ExtraCondensedLight.ttf  
-  inflating: NotoSansDevanagari-ExtraCondensedMedium.ttf  
-  inflating: NotoSansDevanagari-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSansDevanagari-ExtraCondensedThin.ttf  
-  inflating: NotoSansDevanagari-ExtraLight.ttf  
-  inflating: NotoSansDevanagari-Light.ttf  
-  inflating: NotoSansDevanagari-Medium.ttf  
-  inflating: NotoSansDevanagari-Regular.ttf  
-  inflating: NotoSansDevanagari-SemiBold.ttf  
-  inflating: NotoSansDevanagari-SemiCondensed.ttf  
-  inflating: NotoSansDevanagari-SemiCondensedBlack.ttf  
-  inflating: NotoSansDevanagari-SemiCondensedBold.ttf  
-  inflating: NotoSansDevanagari-SemiCondensedExtraBold.ttf  
-  inflating: NotoSansDevanagari-SemiCondensedExtraLight.ttf  
-  inflating: NotoSansDevanagari-SemiCondensedLight.ttf  
-  inflating: NotoSansDevanagari-SemiCondensedMedium.ttf  
-  inflating: NotoSansDevanagari-SemiCondensedSemiBold.ttf  
-  inflating: NotoSansDevanagari-SemiCondensedThin.ttf  
-  inflating: NotoSansDevanagari-Thin.ttf  
-  inflating: NotoSansDevanagariUI-Black.ttf  
-  inflating: NotoSansDevanagariUI-Bold.ttf  
-  inflating: NotoSansDevanagariUI-Condensed.ttf  
-  inflating: NotoSansDevanagariUI-CondensedBlack.ttf  
-  inflating: NotoSansDevanagariUI-CondensedBold.ttf  
-  inflating: NotoSansDevanagariUI-CondensedExtraBold.ttf  
-  inflating: NotoSansDevanagariUI-CondensedExtraLight.ttf  
-  inflating: NotoSansDevanagariUI-CondensedLight.ttf  
-  inflating: NotoSansDevanagariUI-CondensedMedium.ttf  
-  inflating: NotoSansDevanagariUI-CondensedSemiBold.ttf  
-  inflating: NotoSansDevanagariUI-CondensedThin.ttf  
-  inflating: NotoSansDevanagariUI-ExtraBold.ttf  
-  inflating: NotoSansDevanagariUI-ExtraCondensed.ttf  
-  inflating: NotoSansDevanagariUI-ExtraCondensedBlack.ttf  
-  inflating: NotoSansDevanagariUI-ExtraCondensedBold.ttf  
-  inflating: NotoSansDevanagariUI-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSansDevanagariUI-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSansDevanagariUI-ExtraCondensedLight.ttf  
-  inflating: NotoSansDevanagariUI-ExtraCondensedMedium.ttf  
-  inflating: NotoSansDevanagariUI-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSansDevanagariUI-ExtraCondensedThin.ttf  
-  inflating: NotoSansDevanagariUI-ExtraLight.ttf  
-  inflating: NotoSansDevanagariUI-Light.ttf  
-  inflating: NotoSansDevanagariUI-Medium.ttf  
-  inflating: NotoSansDevanagariUI-Regular.ttf  
-  inflating: NotoSansDevanagariUI-SemiBold.ttf  
-  inflating: NotoSansDevanagariUI-SemiCondensed.ttf  
-  inflating: NotoSansDevanagariUI-SemiCondensedBlack.ttf  
-  inflating: NotoSansDevanagariUI-SemiCondensedBold.ttf  
-  inflating: NotoSansDevanagariUI-SemiCondensedExtraBold.ttf  
-  inflating: NotoSansDevanagariUI-SemiCondensedExtraLight.ttf  
-  inflating: NotoSansDevanagariUI-SemiCondensedLight.ttf  
-  inflating: NotoSansDevanagariUI-SemiCondensedMedium.ttf  
-  inflating: NotoSansDevanagariUI-SemiCondensedSemiBold.ttf  
-  inflating: NotoSansDevanagariUI-SemiCondensedThin.ttf  
-  inflating: NotoSansDevanagariUI-Thin.ttf  
-  inflating: NotoSansDisplay-Black.ttf  
-  inflating: NotoSansDisplay-BlackItalic.ttf  
-  inflating: NotoSansDisplay-Bold.ttf  
-  inflating: NotoSansDisplay-BoldItalic.ttf  
-  inflating: NotoSansDisplay-Condensed.ttf  
-  inflating: NotoSansDisplay-CondensedBlack.ttf  
-  inflating: NotoSansDisplay-CondensedBlackItalic.ttf  
-  inflating: NotoSansDisplay-CondensedBold.ttf  
-  inflating: NotoSansDisplay-CondensedBoldItalic.ttf  
-  inflating: NotoSansDisplay-CondensedExtraBold.ttf  
-  inflating: NotoSansDisplay-CondensedExtraBoldItalic.ttf  
-  inflating: NotoSansDisplay-CondensedExtraLight.ttf  
-  inflating: NotoSansDisplay-CondensedExtraLightItalic.ttf  
-  inflating: NotoSansDisplay-CondensedItalic.ttf  
-  inflating: NotoSansDisplay-CondensedLight.ttf  
-  inflating: NotoSansDisplay-CondensedLightItalic.ttf  
-  inflating: NotoSansDisplay-CondensedMedium.ttf  
-  inflating: NotoSansDisplay-CondensedMediumItalic.ttf  
-  inflating: NotoSansDisplay-CondensedSemiBold.ttf  
-  inflating: NotoSansDisplay-CondensedSemiBoldItalic.ttf  
-  inflating: NotoSansDisplay-CondensedThin.ttf  
-  inflating: NotoSansDisplay-CondensedThinItalic.ttf  
-  inflating: NotoSansDisplay-ExtraBold.ttf  
-  inflating: NotoSansDisplay-ExtraBoldItalic.ttf  
-  inflating: NotoSansDisplay-ExtraCondensed.ttf  
-  inflating: NotoSansDisplay-ExtraCondensedBlack.ttf  
-  inflating: NotoSansDisplay-ExtraCondensedBlackItalic.ttf  
-  inflating: NotoSansDisplay-ExtraCondensedBold.ttf  
-  inflating: NotoSansDisplay-ExtraCondensedBoldItalic.ttf  
-  inflating: NotoSansDisplay-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSansDisplay-ExtraCondensedExtraBoldItalic.ttf  
-  inflating: NotoSansDisplay-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSansDisplay-ExtraCondensedExtraLightItalic.ttf  
-  inflating: NotoSansDisplay-ExtraCondensedItalic.ttf  
-  inflating: NotoSansDisplay-ExtraCondensedLight.ttf  
-  inflating: NotoSansDisplay-ExtraCondensedLightItalic.ttf  
-  inflating: NotoSansDisplay-ExtraCondensedMedium.ttf  
-  inflating: NotoSansDisplay-ExtraCondensedMediumItalic.ttf  
-  inflating: NotoSansDisplay-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSansDisplay-ExtraCondensedSemiBoldItalic.ttf  
-  inflating: NotoSansDisplay-ExtraCondensedThin.ttf  
-  inflating: NotoSansDisplay-ExtraCondensedThinItalic.ttf  
-  inflating: NotoSansDisplay-ExtraLight.ttf  
-  inflating: NotoSansDisplay-ExtraLightItalic.ttf  
-  inflating: NotoSansDisplay-Italic.ttf  
-  inflating: NotoSansDisplay-Light.ttf  
-  inflating: NotoSansDisplay-LightItalic.ttf  
-  inflating: NotoSansDisplay-Medium.ttf  
-  inflating: NotoSansDisplay-MediumItalic.ttf  
-  inflating: NotoSansDisplay-Regular.ttf  
-  inflating: NotoSansDisplay-SemiBold.ttf  
-  inflating: NotoSansDisplay-SemiBoldItalic.ttf  
-  inflating: NotoSansDisplay-SemiCondensed.ttf  
-  inflating: NotoSansDisplay-SemiCondensedBlack.ttf  
-  inflating: NotoSansDisplay-SemiCondensedBlackItalic.ttf  
-  inflating: NotoSansDisplay-SemiCondensedBold.ttf  
-  inflating: NotoSansDisplay-SemiCondensedBoldItalic.ttf  
-  inflating: NotoSansDisplay-SemiCondensedExtraBold.ttf  
-  inflating: NotoSansDisplay-SemiCondensedExtraBoldItalic.ttf  
-  inflating: NotoSansDisplay-SemiCondensedExtraLight.ttf  
-  inflating: NotoSansDisplay-SemiCondensedExtraLightItalic.ttf  
-  inflating: NotoSansDisplay-SemiCondensedItalic.ttf  
-  inflating: NotoSansDisplay-SemiCondensedLight.ttf  
-  inflating: NotoSansDisplay-SemiCondensedLightItalic.ttf  
-  inflating: NotoSansDisplay-SemiCondensedMedium.ttf  
-  inflating: NotoSansDisplay-SemiCondensedMediumItalic.ttf  
-  inflating: NotoSansDisplay-SemiCondensedSemiBold.ttf  
-  inflating: NotoSansDisplay-SemiCondensedSemiBoldItalic.ttf  
-  inflating: NotoSansDisplay-SemiCondensedThin.ttf  
-  inflating: NotoSansDisplay-SemiCondensedThinItalic.ttf  
-  inflating: NotoSansDisplay-Thin.ttf  
-  inflating: NotoSansDisplay-ThinItalic.ttf  
-  inflating: NotoSansEgyptianHieroglyphs-Regular.ttf  
-  inflating: NotoSansEthiopic-Black.ttf  
-  inflating: NotoSansEthiopic-Bold.ttf  
-  inflating: NotoSansEthiopic-Condensed.ttf  
-  inflating: NotoSansEthiopic-CondensedBlack.ttf  
-  inflating: NotoSansEthiopic-CondensedBold.ttf  
-  inflating: NotoSansEthiopic-CondensedExtraBold.ttf  
-  inflating: NotoSansEthiopic-CondensedExtraLight.ttf  
-  inflating: NotoSansEthiopic-CondensedLight.ttf  
-  inflating: NotoSansEthiopic-CondensedMedium.ttf  
-  inflating: NotoSansEthiopic-CondensedSemiBold.ttf  
-  inflating: NotoSansEthiopic-CondensedThin.ttf  
-  inflating: NotoSansEthiopic-ExtraBold.ttf  
-  inflating: NotoSansEthiopic-ExtraCondensed.ttf  
-  inflating: NotoSansEthiopic-ExtraCondensedBlack.ttf  
-  inflating: NotoSansEthiopic-ExtraCondensedBold.ttf  
-  inflating: NotoSansEthiopic-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSansEthiopic-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSansEthiopic-ExtraCondensedLight.ttf  
-  inflating: NotoSansEthiopic-ExtraCondensedMedium.ttf  
-  inflating: NotoSansEthiopic-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSansEthiopic-ExtraCondensedThin.ttf  
-  inflating: NotoSansEthiopic-ExtraLight.ttf  
-  inflating: NotoSansEthiopic-Light.ttf  
-  inflating: NotoSansEthiopic-Medium.ttf  
-  inflating: NotoSansEthiopic-Regular.ttf  
-  inflating: NotoSansEthiopic-SemiBold.ttf  
-  inflating: NotoSansEthiopic-SemiCondensed.ttf  
-  inflating: NotoSansEthiopic-SemiCondensedBlack.ttf  
-  inflating: NotoSansEthiopic-SemiCondensedBold.ttf  
-  inflating: NotoSansEthiopic-SemiCondensedExtraBold.ttf  
-  inflating: NotoSansEthiopic-SemiCondensedExtraLight.ttf  
-  inflating: NotoSansEthiopic-SemiCondensedLight.ttf  
-  inflating: NotoSansEthiopic-SemiCondensedMedium.ttf  
-  inflating: NotoSansEthiopic-SemiCondensedSemiBold.ttf  
-  inflating: NotoSansEthiopic-SemiCondensedThin.ttf  
-  inflating: NotoSansEthiopic-Thin.ttf  
-  inflating: NotoSansGeorgian-Black.ttf  
-  inflating: NotoSansGeorgian-Bold.ttf  
-  inflating: NotoSansGeorgian-Condensed.ttf  
-  inflating: NotoSansGeorgian-CondensedBlack.ttf  
-  inflating: NotoSansGeorgian-CondensedBold.ttf  
-  inflating: NotoSansGeorgian-CondensedExtraBold.ttf  
-  inflating: NotoSansGeorgian-CondensedExtraLight.ttf  
-  inflating: NotoSansGeorgian-CondensedLight.ttf  
-  inflating: NotoSansGeorgian-CondensedMedium.ttf  
-  inflating: NotoSansGeorgian-CondensedSemiBold.ttf  
-  inflating: NotoSansGeorgian-CondensedThin.ttf  
-  inflating: NotoSansGeorgian-ExtraBold.ttf  
-  inflating: NotoSansGeorgian-ExtraCondensed.ttf  
-  inflating: NotoSansGeorgian-ExtraCondensedBlack.ttf  
-  inflating: NotoSansGeorgian-ExtraCondensedBold.ttf  
-  inflating: NotoSansGeorgian-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSansGeorgian-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSansGeorgian-ExtraCondensedLight.ttf  
-  inflating: NotoSansGeorgian-ExtraCondensedMedium.ttf  
-  inflating: NotoSansGeorgian-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSansGeorgian-ExtraCondensedThin.ttf  
-  inflating: NotoSansGeorgian-ExtraLight.ttf  
-  inflating: NotoSansGeorgian-Light.ttf  
-  inflating: NotoSansGeorgian-Medium.ttf  
-  inflating: NotoSansGeorgian-Regular.ttf  
-  inflating: NotoSansGeorgian-SemiBold.ttf  
-  inflating: NotoSansGeorgian-SemiCondensed.ttf  
-  inflating: NotoSansGeorgian-SemiCondensedBlack.ttf  
-  inflating: NotoSansGeorgian-SemiCondensedBold.ttf  
-  inflating: NotoSansGeorgian-SemiCondensedExtraBold.ttf  
-  inflating: NotoSansGeorgian-SemiCondensedExtraLight.ttf  
-  inflating: NotoSansGeorgian-SemiCondensedLight.ttf  
-  inflating: NotoSansGeorgian-SemiCondensedMedium.ttf  
-  inflating: NotoSansGeorgian-SemiCondensedSemiBold.ttf  
-  inflating: NotoSansGeorgian-SemiCondensedThin.ttf  
-  inflating: NotoSansGeorgian-Thin.ttf  
-  inflating: NotoSansGlagolitic-Regular.ttf  
-  inflating: NotoSansGothic-Regular.ttf  
-  inflating: NotoSansGujarati-Bold.ttf  
-  inflating: NotoSansGujarati-Regular.ttf  
-  inflating: NotoSansGujaratiUI-Bold.ttf  
-  inflating: NotoSansGujaratiUI-Regular.ttf  
-  inflating: NotoSansGurmukhi-Bold.ttf  
-  inflating: NotoSansGurmukhi-Regular.ttf  
-  inflating: NotoSansGurmukhiUI-Bold.ttf  
-  inflating: NotoSansGurmukhiUI-Regular.ttf  
-  inflating: NotoSansHanunoo-Regular.ttf  
-  inflating: NotoSansHebrew-Black.ttf  
-  inflating: NotoSansHebrew-Bold.ttf  
-  inflating: NotoSansHebrew-Condensed.ttf  
-  inflating: NotoSansHebrew-CondensedBlack.ttf  
-  inflating: NotoSansHebrew-CondensedBold.ttf  
-  inflating: NotoSansHebrew-CondensedExtraBold.ttf  
-  inflating: NotoSansHebrew-CondensedExtraLight.ttf  
-  inflating: NotoSansHebrew-CondensedLight.ttf  
-  inflating: NotoSansHebrew-CondensedMedium.ttf  
-  inflating: NotoSansHebrew-CondensedSemiBold.ttf  
-  inflating: NotoSansHebrew-CondensedThin.ttf  
-  inflating: NotoSansHebrew-ExtraBold.ttf  
-  inflating: NotoSansHebrew-ExtraCondensed.ttf  
-  inflating: NotoSansHebrew-ExtraCondensedBlack.ttf  
-  inflating: NotoSansHebrew-ExtraCondensedBold.ttf  
-  inflating: NotoSansHebrew-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSansHebrew-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSansHebrew-ExtraCondensedLight.ttf  
-  inflating: NotoSansHebrew-ExtraCondensedMedium.ttf  
-  inflating: NotoSansHebrew-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSansHebrew-ExtraCondensedThin.ttf  
-  inflating: NotoSansHebrew-ExtraLight.ttf  
-  inflating: NotoSansHebrew-Light.ttf  
-  inflating: NotoSansHebrew-Medium.ttf  
-  inflating: NotoSansHebrew-Regular.ttf  
-  inflating: NotoSansHebrew-SemiBold.ttf  
-  inflating: NotoSansHebrew-SemiCondensed.ttf  
-  inflating: NotoSansHebrew-SemiCondensedBlack.ttf  
-  inflating: NotoSansHebrew-SemiCondensedBold.ttf  
-  inflating: NotoSansHebrew-SemiCondensedExtraBold.ttf  
-  inflating: NotoSansHebrew-SemiCondensedExtraLight.ttf  
-  inflating: NotoSansHebrew-SemiCondensedLight.ttf  
-  inflating: NotoSansHebrew-SemiCondensedMedium.ttf  
-  inflating: NotoSansHebrew-SemiCondensedSemiBold.ttf  
-  inflating: NotoSansHebrew-SemiCondensedThin.ttf  
-  inflating: NotoSansHebrew-Thin.ttf  
-  inflating: NotoSansImperialAramaic-Regular.ttf  
-  inflating: NotoSansInscriptionalPahlavi-Regular.ttf  
-  inflating: NotoSansInscriptionalParthian-Regular.ttf  
-  inflating: NotoSansJavanese-Regular.ttf  
-  inflating: NotoSansKaithi-Regular.ttf  
-  inflating: NotoSansKannada-Bold.ttf  
-  inflating: NotoSansKannada-Regular.ttf  
-  inflating: NotoSansKannadaUI-Bold.ttf  
-  inflating: NotoSansKannadaUI-Regular.ttf  
-  inflating: NotoSansKayahLi-Regular.ttf  
-  inflating: NotoSansKharoshthi-Regular.ttf  
-  inflating: NotoSansKhmer-Black.ttf  
-  inflating: NotoSansKhmer-Bold.ttf  
-  inflating: NotoSansKhmer-Condensed.ttf  
-  inflating: NotoSansKhmer-CondensedBlack.ttf  
-  inflating: NotoSansKhmer-CondensedBold.ttf  
-  inflating: NotoSansKhmer-CondensedExtraBold.ttf  
-  inflating: NotoSansKhmer-CondensedExtraLight.ttf  
-  inflating: NotoSansKhmer-CondensedLight.ttf  
-  inflating: NotoSansKhmer-CondensedMedium.ttf  
-  inflating: NotoSansKhmer-CondensedSemiBold.ttf  
-  inflating: NotoSansKhmer-CondensedThin.ttf  
-  inflating: NotoSansKhmer-ExtraBold.ttf  
-  inflating: NotoSansKhmer-ExtraCondensed.ttf  
-  inflating: NotoSansKhmer-ExtraCondensedBlack.ttf  
-  inflating: NotoSansKhmer-ExtraCondensedBold.ttf  
-  inflating: NotoSansKhmer-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSansKhmer-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSansKhmer-ExtraCondensedLight.ttf  
-  inflating: NotoSansKhmer-ExtraCondensedMedium.ttf  
-  inflating: NotoSansKhmer-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSansKhmer-ExtraCondensedThin.ttf  
-  inflating: NotoSansKhmer-ExtraLight.ttf  
-  inflating: NotoSansKhmer-Light.ttf  
-  inflating: NotoSansKhmer-Medium.ttf  
-  inflating: NotoSansKhmer-Regular.ttf  
-  inflating: NotoSansKhmer-SemiBold.ttf  
-  inflating: NotoSansKhmer-SemiCondensed.ttf  
-  inflating: NotoSansKhmer-SemiCondensedBlack.ttf  
-  inflating: NotoSansKhmer-SemiCondensedBold.ttf  
-  inflating: NotoSansKhmer-SemiCondensedExtraBold.ttf  
-  inflating: NotoSansKhmer-SemiCondensedExtraLight.ttf  
-  inflating: NotoSansKhmer-SemiCondensedLight.ttf  
-  inflating: NotoSansKhmer-SemiCondensedMedium.ttf  
-  inflating: NotoSansKhmer-SemiCondensedSemiBold.ttf  
-  inflating: NotoSansKhmer-SemiCondensedThin.ttf  
-  inflating: NotoSansKhmer-Thin.ttf  
-  inflating: NotoSansKhmerUI-Black.ttf  
-  inflating: NotoSansKhmerUI-Bold.ttf  
-  inflating: NotoSansKhmerUI-Condensed.ttf  
-  inflating: NotoSansKhmerUI-CondensedBlack.ttf  
-  inflating: NotoSansKhmerUI-CondensedBold.ttf  
-  inflating: NotoSansKhmerUI-CondensedExtraBold.ttf  
-  inflating: NotoSansKhmerUI-CondensedExtraLight.ttf  
-  inflating: NotoSansKhmerUI-CondensedLight.ttf  
-  inflating: NotoSansKhmerUI-CondensedMedium.ttf  
-  inflating: NotoSansKhmerUI-CondensedSemiBold.ttf  
-  inflating: NotoSansKhmerUI-CondensedThin.ttf  
-  inflating: NotoSansKhmerUI-ExtraBold.ttf  
-  inflating: NotoSansKhmerUI-ExtraCondensed.ttf  
-  inflating: NotoSansKhmerUI-ExtraCondensedBlack.ttf  
-  inflating: NotoSansKhmerUI-ExtraCondensedBold.ttf  
-  inflating: NotoSansKhmerUI-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSansKhmerUI-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSansKhmerUI-ExtraCondensedLight.ttf  
-  inflating: NotoSansKhmerUI-ExtraCondensedMedium.ttf  
-  inflating: NotoSansKhmerUI-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSansKhmerUI-ExtraCondensedThin.ttf  
-  inflating: NotoSansKhmerUI-ExtraLight.ttf  
-  inflating: NotoSansKhmerUI-Light.ttf  
-  inflating: NotoSansKhmerUI-Medium.ttf  
-  inflating: NotoSansKhmerUI-Regular.ttf  
-  inflating: NotoSansKhmerUI-SemiBold.ttf  
-  inflating: NotoSansKhmerUI-SemiCondensed.ttf  
-  inflating: NotoSansKhmerUI-SemiCondensedBlack.ttf  
-  inflating: NotoSansKhmerUI-SemiCondensedBold.ttf  
-  inflating: NotoSansKhmerUI-SemiCondensedExtraBold.ttf  
-  inflating: NotoSansKhmerUI-SemiCondensedExtraLight.ttf  
-  inflating: NotoSansKhmerUI-SemiCondensedLight.ttf  
-  inflating: NotoSansKhmerUI-SemiCondensedMedium.ttf  
-  inflating: NotoSansKhmerUI-SemiCondensedSemiBold.ttf  
-  inflating: NotoSansKhmerUI-SemiCondensedThin.ttf  
-  inflating: NotoSansKhmerUI-Thin.ttf  
-  inflating: NotoSansLao-Black.ttf   
-  inflating: NotoSansLao-Bold.ttf    
-  inflating: NotoSansLao-Condensed.ttf  
-  inflating: NotoSansLao-CondensedBlack.ttf  
-  inflating: NotoSansLao-CondensedBold.ttf  
-  inflating: NotoSansLao-CondensedExtraBold.ttf  
-  inflating: NotoSansLao-CondensedExtraLight.ttf  
-  inflating: NotoSansLao-CondensedLight.ttf  
-  inflating: NotoSansLao-CondensedMedium.ttf  
-  inflating: NotoSansLao-CondensedSemiBold.ttf  
-  inflating: NotoSansLao-CondensedThin.ttf  
-  inflating: NotoSansLao-ExtraBold.ttf  
-  inflating: NotoSansLao-ExtraCondensed.ttf  
-  inflating: NotoSansLao-ExtraCondensedBlack.ttf  
-  inflating: NotoSansLao-ExtraCondensedBold.ttf  
-  inflating: NotoSansLao-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSansLao-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSansLao-ExtraCondensedLight.ttf  
-  inflating: NotoSansLao-ExtraCondensedMedium.ttf  
-  inflating: NotoSansLao-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSansLao-ExtraCondensedThin.ttf  
-  inflating: NotoSansLao-ExtraLight.ttf  
-  inflating: NotoSansLao-Light.ttf   
-  inflating: NotoSansLao-Medium.ttf  
-  inflating: NotoSansLao-Regular.ttf  
-  inflating: NotoSansLao-SemiBold.ttf  
-  inflating: NotoSansLao-SemiCondensed.ttf  
-  inflating: NotoSansLao-SemiCondensedBlack.ttf  
-  inflating: NotoSansLao-SemiCondensedBold.ttf  
-  inflating: NotoSansLao-SemiCondensedExtraBold.ttf  
-  inflating: NotoSansLao-SemiCondensedExtraLight.ttf  
-  inflating: NotoSansLao-SemiCondensedLight.ttf  
-  inflating: NotoSansLao-SemiCondensedMedium.ttf  
-  inflating: NotoSansLao-SemiCondensedSemiBold.ttf  
-  inflating: NotoSansLao-SemiCondensedThin.ttf  
-  inflating: NotoSansLao-Thin.ttf    
-  inflating: NotoSansLaoUI-Black.ttf  
-  inflating: NotoSansLaoUI-Bold.ttf  
-  inflating: NotoSansLaoUI-Condensed.ttf  
-  inflating: NotoSansLaoUI-CondensedBlack.ttf  
-  inflating: NotoSansLaoUI-CondensedBold.ttf  
-  inflating: NotoSansLaoUI-CondensedExtraBold.ttf  
-  inflating: NotoSansLaoUI-CondensedExtraLight.ttf  
-  inflating: NotoSansLaoUI-CondensedLight.ttf  
-  inflating: NotoSansLaoUI-CondensedMedium.ttf  
-  inflating: NotoSansLaoUI-CondensedSemiBold.ttf  
-  inflating: NotoSansLaoUI-CondensedThin.ttf  
-  inflating: NotoSansLaoUI-ExtraBold.ttf  
-  inflating: NotoSansLaoUI-ExtraCondensed.ttf  
-  inflating: NotoSansLaoUI-ExtraCondensedBlack.ttf  
-  inflating: NotoSansLaoUI-ExtraCondensedBold.ttf  
-  inflating: NotoSansLaoUI-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSansLaoUI-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSansLaoUI-ExtraCondensedLight.ttf  
-  inflating: NotoSansLaoUI-ExtraCondensedMedium.ttf  
-  inflating: NotoSansLaoUI-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSansLaoUI-ExtraCondensedThin.ttf  
-  inflating: NotoSansLaoUI-ExtraLight.ttf  
-  inflating: NotoSansLaoUI-Light.ttf  
-  inflating: NotoSansLaoUI-Medium.ttf  
-  inflating: NotoSansLaoUI-Regular.ttf  
-  inflating: NotoSansLaoUI-SemiBold.ttf  
-  inflating: NotoSansLaoUI-SemiCondensed.ttf  
-  inflating: NotoSansLaoUI-SemiCondensedBlack.ttf  
-  inflating: NotoSansLaoUI-SemiCondensedBold.ttf  
-  inflating: NotoSansLaoUI-SemiCondensedExtraBold.ttf  
-  inflating: NotoSansLaoUI-SemiCondensedExtraLight.ttf  
-  inflating: NotoSansLaoUI-SemiCondensedLight.ttf  
-  inflating: NotoSansLaoUI-SemiCondensedMedium.ttf  
-  inflating: NotoSansLaoUI-SemiCondensedSemiBold.ttf  
-  inflating: NotoSansLaoUI-SemiCondensedThin.ttf  
-  inflating: NotoSansLaoUI-Thin.ttf  
-  inflating: NotoSansLepcha-Regular.ttf  
-  inflating: NotoSansLimbu-Regular.ttf  
-  inflating: NotoSansLinearB-Regular.ttf  
-  inflating: NotoSansLisu-Regular.ttf  
-  inflating: NotoSansLycian-Regular.ttf  
-  inflating: NotoSansLydian-Regular.ttf  
-  inflating: NotoSansMalayalam-Bold.ttf  
-  inflating: NotoSansMalayalam-Regular.ttf  
-  inflating: NotoSansMalayalamUI-Bold.ttf  
-  inflating: NotoSansMalayalamUI-Regular.ttf  
-  inflating: NotoSansMandaic-Regular.ttf  
-  inflating: NotoSansMeeteiMayek-Regular.ttf  
-  inflating: NotoSansMongolian-Regular.ttf  
-  inflating: NotoSansMono-Black.ttf  
-  inflating: NotoSansMono-Bold.ttf   
-  inflating: NotoSansMono-Condensed.ttf  
-  inflating: NotoSansMono-CondensedBlack.ttf  
-  inflating: NotoSansMono-CondensedBold.ttf  
-  inflating: NotoSansMono-CondensedExtraBold.ttf  
-  inflating: NotoSansMono-CondensedExtraLight.ttf  
-  inflating: NotoSansMono-CondensedLight.ttf  
-  inflating: NotoSansMono-CondensedMedium.ttf  
-  inflating: NotoSansMono-CondensedSemiBold.ttf  
-  inflating: NotoSansMono-CondensedThin.ttf  
-  inflating: NotoSansMono-ExtraBold.ttf  
-  inflating: NotoSansMono-ExtraCondensed.ttf  
-  inflating: NotoSansMono-ExtraCondensedBlack.ttf  
-  inflating: NotoSansMono-ExtraCondensedBold.ttf  
-  inflating: NotoSansMono-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSansMono-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSansMono-ExtraCondensedLight.ttf  
-  inflating: NotoSansMono-ExtraCondensedMedium.ttf  
-  inflating: NotoSansMono-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSansMono-ExtraCondensedThin.ttf  
-  inflating: NotoSansMono-ExtraLight.ttf  
-  inflating: NotoSansMono-Light.ttf  
-  inflating: NotoSansMono-Medium.ttf  
-  inflating: NotoSansMono-Regular.ttf  
-  inflating: NotoSansMono-SemiBold.ttf  
-  inflating: NotoSansMono-SemiCondensed.ttf  
-  inflating: NotoSansMono-SemiCondensedBlack.ttf  
-  inflating: NotoSansMono-SemiCondensedBold.ttf  
-  inflating: NotoSansMono-SemiCondensedExtraBold.ttf  
-  inflating: NotoSansMono-SemiCondensedExtraLight.ttf  
-  inflating: NotoSansMono-SemiCondensedLight.ttf  
-  inflating: NotoSansMono-SemiCondensedMedium.ttf  
-  inflating: NotoSansMono-SemiCondensedSemiBold.ttf  
-  inflating: NotoSansMono-SemiCondensedThin.ttf  
-  inflating: NotoSansMono-Thin.ttf   
-  inflating: NotoSansMonoCJKjp-Bold.otf  
-  inflating: NotoSansMonoCJKjp-Regular.otf  
-  inflating: NotoSansMonoCJKkr-Bold.otf  
-  inflating: NotoSansMonoCJKkr-Regular.otf  
-  inflating: NotoSansMonoCJKsc-Bold.otf  
-  inflating: NotoSansMonoCJKsc-Regular.otf  
-  inflating: NotoSansMonoCJKtc-Bold.otf  
-  inflating: NotoSansMonoCJKtc-Regular.otf  
-  inflating: NotoSansMyanmar-Black.ttf  
-  inflating: NotoSansMyanmar-Bold.ttf  
-  inflating: NotoSansMyanmar-Condensed.ttf  
-  inflating: NotoSansMyanmar-CondensedBlack.ttf  
-  inflating: NotoSansMyanmar-CondensedBold.ttf  
-  inflating: NotoSansMyanmar-CondensedExtraBold.ttf  
-  inflating: NotoSansMyanmar-CondensedExtraLight.ttf  
-  inflating: NotoSansMyanmar-CondensedLight.ttf  
-  inflating: NotoSansMyanmar-CondensedMedium.ttf  
-  inflating: NotoSansMyanmar-CondensedSemiBold.ttf  
-  inflating: NotoSansMyanmar-CondensedThin.ttf  
-  inflating: NotoSansMyanmar-ExtraBold.ttf  
-  inflating: NotoSansMyanmar-ExtraCondensed.ttf  
-  inflating: NotoSansMyanmar-ExtraCondensedBlack.ttf  
-  inflating: NotoSansMyanmar-ExtraCondensedBold.ttf  
-  inflating: NotoSansMyanmar-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSansMyanmar-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSansMyanmar-ExtraCondensedLight.ttf  
-  inflating: NotoSansMyanmar-ExtraCondensedMedium.ttf  
-  inflating: NotoSansMyanmar-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSansMyanmar-ExtraCondensedThin.ttf  
-  inflating: NotoSansMyanmar-ExtraLight.ttf  
-  inflating: NotoSansMyanmar-Light.ttf  
-  inflating: NotoSansMyanmar-Medium.ttf  
-  inflating: NotoSansMyanmar-Regular.ttf  
-  inflating: NotoSansMyanmar-SemiBold.ttf  
-  inflating: NotoSansMyanmar-SemiCondensed.ttf  
-  inflating: NotoSansMyanmar-SemiCondensedBlack.ttf  
-  inflating: NotoSansMyanmar-SemiCondensedBold.ttf  
-  inflating: NotoSansMyanmar-SemiCondensedExtraBold.ttf  
-  inflating: NotoSansMyanmar-SemiCondensedExtraLight.ttf  
-  inflating: NotoSansMyanmar-SemiCondensedLight.ttf  
-  inflating: NotoSansMyanmar-SemiCondensedMedium.ttf  
-  inflating: NotoSansMyanmar-SemiCondensedSemiBold.ttf  
-  inflating: NotoSansMyanmar-SemiCondensedThin.ttf  
-  inflating: NotoSansMyanmar-Thin.ttf  
-  inflating: NotoSansMyanmarUI-Black.ttf  
-  inflating: NotoSansMyanmarUI-Bold.ttf  
-  inflating: NotoSansMyanmarUI-Condensed.ttf  
-  inflating: NotoSansMyanmarUI-CondensedBlack.ttf  
-  inflating: NotoSansMyanmarUI-CondensedBold.ttf  
-  inflating: NotoSansMyanmarUI-CondensedExtraBold.ttf  
-  inflating: NotoSansMyanmarUI-CondensedExtraLight.ttf  
-  inflating: NotoSansMyanmarUI-CondensedLight.ttf  
-  inflating: NotoSansMyanmarUI-CondensedMedium.ttf  
-  inflating: NotoSansMyanmarUI-CondensedSemiBold.ttf  
-  inflating: NotoSansMyanmarUI-CondensedThin.ttf  
-  inflating: NotoSansMyanmarUI-ExtraBold.ttf  
-  inflating: NotoSansMyanmarUI-ExtraCondensed.ttf  
-  inflating: NotoSansMyanmarUI-ExtraCondensedBlack.ttf  
-  inflating: NotoSansMyanmarUI-ExtraCondensedBold.ttf  
-  inflating: NotoSansMyanmarUI-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSansMyanmarUI-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSansMyanmarUI-ExtraCondensedLight.ttf  
-  inflating: NotoSansMyanmarUI-ExtraCondensedMedium.ttf  
-  inflating: NotoSansMyanmarUI-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSansMyanmarUI-ExtraCondensedThin.ttf  
-  inflating: NotoSansMyanmarUI-ExtraLight.ttf  
-  inflating: NotoSansMyanmarUI-Light.ttf  
-  inflating: NotoSansMyanmarUI-Medium.ttf  
-  inflating: NotoSansMyanmarUI-Regular.ttf  
-  inflating: NotoSansMyanmarUI-SemiBold.ttf  
-  inflating: NotoSansMyanmarUI-SemiCondensed.ttf  
-  inflating: NotoSansMyanmarUI-SemiCondensedBlack.ttf  
-  inflating: NotoSansMyanmarUI-SemiCondensedBold.ttf  
-  inflating: NotoSansMyanmarUI-SemiCondensedExtraBold.ttf  
-  inflating: NotoSansMyanmarUI-SemiCondensedExtraLight.ttf  
-  inflating: NotoSansMyanmarUI-SemiCondensedLight.ttf  
-  inflating: NotoSansMyanmarUI-SemiCondensedMedium.ttf  
-  inflating: NotoSansMyanmarUI-SemiCondensedSemiBold.ttf  
-  inflating: NotoSansMyanmarUI-SemiCondensedThin.ttf  
-  inflating: NotoSansMyanmarUI-Thin.ttf  
-  inflating: NotoSansNKo-Regular.ttf  
-  inflating: NotoSansNewTaiLue-Regular.ttf  
-  inflating: NotoSansOgham-Regular.ttf  
-  inflating: NotoSansOlChiki-Regular.ttf  
-  inflating: NotoSansOldItalic-Regular.ttf  
-  inflating: NotoSansOldPersian-Regular.ttf  
-  inflating: NotoSansOldSouthArabian-Regular.ttf  
-  inflating: NotoSansOldTurkic-Regular.ttf  
-  inflating: NotoSansOriya-Bold.ttf  
-  inflating: NotoSansOriya-Regular.ttf  
-  inflating: NotoSansOriyaUI-Bold.ttf  
-  inflating: NotoSansOriyaUI-Regular.ttf  
-  inflating: NotoSansOsage-Regular.ttf  
-  inflating: NotoSansOsmanya-Regular.ttf  
-  inflating: NotoSansPhagsPa-Regular.ttf  
-  inflating: NotoSansPhoenician-Regular.ttf  
-  inflating: NotoSansRejang-Regular.ttf  
-  inflating: NotoSansRunic-Regular.ttf  
-  inflating: NotoSansSamaritan-Regular.ttf  
-  inflating: NotoSansSaurashtra-Regular.ttf  
-  inflating: NotoSansShavian-Regular.ttf  
-  inflating: NotoSansSinhala-Black.ttf  
-  inflating: NotoSansSinhala-Bold.ttf  
-  inflating: NotoSansSinhala-Condensed.ttf  
-  inflating: NotoSansSinhala-CondensedBlack.ttf  
-  inflating: NotoSansSinhala-CondensedBold.ttf  
-  inflating: NotoSansSinhala-CondensedExtraBold.ttf  
-  inflating: NotoSansSinhala-CondensedExtraLight.ttf  
-  inflating: NotoSansSinhala-CondensedLight.ttf  
-  inflating: NotoSansSinhala-CondensedMedium.ttf  
-  inflating: NotoSansSinhala-CondensedSemiBold.ttf  
-  inflating: NotoSansSinhala-CondensedThin.ttf  
-  inflating: NotoSansSinhala-ExtraBold.ttf  
-  inflating: NotoSansSinhala-ExtraCondensed.ttf  
-  inflating: NotoSansSinhala-ExtraCondensedBlack.ttf  
-  inflating: NotoSansSinhala-ExtraCondensedBold.ttf  
-  inflating: NotoSansSinhala-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSansSinhala-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSansSinhala-ExtraCondensedLight.ttf  
-  inflating: NotoSansSinhala-ExtraCondensedMedium.ttf  
-  inflating: NotoSansSinhala-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSansSinhala-ExtraCondensedThin.ttf  
-  inflating: NotoSansSinhala-ExtraLight.ttf  
-  inflating: NotoSansSinhala-Light.ttf  
-  inflating: NotoSansSinhala-Medium.ttf  
-  inflating: NotoSansSinhala-Regular.ttf  
-  inflating: NotoSansSinhala-SemiBold.ttf  
-  inflating: NotoSansSinhala-SemiCondensed.ttf  
-  inflating: NotoSansSinhala-SemiCondensedBlack.ttf  
-  inflating: NotoSansSinhala-SemiCondensedBold.ttf  
-  inflating: NotoSansSinhala-SemiCondensedExtraBold.ttf  
-  inflating: NotoSansSinhala-SemiCondensedExtraLight.ttf  
-  inflating: NotoSansSinhala-SemiCondensedLight.ttf  
-  inflating: NotoSansSinhala-SemiCondensedMedium.ttf  
-  inflating: NotoSansSinhala-SemiCondensedSemiBold.ttf  
-  inflating: NotoSansSinhala-SemiCondensedThin.ttf  
-  inflating: NotoSansSinhala-Thin.ttf  
-  inflating: NotoSansSinhalaUI-Black.ttf  
-  inflating: NotoSansSinhalaUI-Bold.ttf  
-  inflating: NotoSansSinhalaUI-Condensed.ttf  
-  inflating: NotoSansSinhalaUI-CondensedBlack.ttf  
-  inflating: NotoSansSinhalaUI-CondensedBold.ttf  
-  inflating: NotoSansSinhalaUI-CondensedExtraBold.ttf  
-  inflating: NotoSansSinhalaUI-CondensedExtraLight.ttf  
-  inflating: NotoSansSinhalaUI-CondensedLight.ttf  
-  inflating: NotoSansSinhalaUI-CondensedMedium.ttf  
-  inflating: NotoSansSinhalaUI-CondensedSemiBold.ttf  
-  inflating: NotoSansSinhalaUI-CondensedThin.ttf  
-  inflating: NotoSansSinhalaUI-ExtraBold.ttf  
-  inflating: NotoSansSinhalaUI-ExtraCondensed.ttf  
-  inflating: NotoSansSinhalaUI-ExtraCondensedBlack.ttf  
-  inflating: NotoSansSinhalaUI-ExtraCondensedBold.ttf  
-  inflating: NotoSansSinhalaUI-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSansSinhalaUI-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSansSinhalaUI-ExtraCondensedLight.ttf  
-  inflating: NotoSansSinhalaUI-ExtraCondensedMedium.ttf  
-  inflating: NotoSansSinhalaUI-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSansSinhalaUI-ExtraCondensedThin.ttf  
-  inflating: NotoSansSinhalaUI-ExtraLight.ttf  
-  inflating: NotoSansSinhalaUI-Light.ttf  
-  inflating: NotoSansSinhalaUI-Medium.ttf  
-  inflating: NotoSansSinhalaUI-Regular.ttf  
-  inflating: NotoSansSinhalaUI-SemiBold.ttf  
-  inflating: NotoSansSinhalaUI-SemiCondensed.ttf  
-  inflating: NotoSansSinhalaUI-SemiCondensedBlack.ttf  
-  inflating: NotoSansSinhalaUI-SemiCondensedBold.ttf  
-  inflating: NotoSansSinhalaUI-SemiCondensedExtraBold.ttf  
-  inflating: NotoSansSinhalaUI-SemiCondensedExtraLight.ttf  
-  inflating: NotoSansSinhalaUI-SemiCondensedLight.ttf  
-  inflating: NotoSansSinhalaUI-SemiCondensedMedium.ttf  
-  inflating: NotoSansSinhalaUI-SemiCondensedSemiBold.ttf  
-  inflating: NotoSansSinhalaUI-SemiCondensedThin.ttf  
-  inflating: NotoSansSinhalaUI-Thin.ttf  
-  inflating: NotoSansSundanese-Regular.ttf  
-  inflating: NotoSansSylotiNagri-Regular.ttf  
-  inflating: NotoSansSymbols-Black.ttf  
-  inflating: NotoSansSymbols-Bold.ttf  
-  inflating: NotoSansSymbols-ExtraBold.ttf  
-  inflating: NotoSansSymbols-ExtraLight.ttf  
-  inflating: NotoSansSymbols-Light.ttf  
-  inflating: NotoSansSymbols-Medium.ttf  
-  inflating: NotoSansSymbols-Regular.ttf  
-  inflating: NotoSansSymbols-SemiBold.ttf  
-  inflating: NotoSansSymbols-Thin.ttf  
-  inflating: NotoSansSymbols2-Regular.ttf  
-  inflating: NotoSansSyriacEastern-Regular.ttf  
-  inflating: NotoSansSyriacEstrangela-Regular.ttf  
-  inflating: NotoSansSyriacWestern-Regular.ttf  
-  inflating: NotoSansTagalog-Regular.ttf  
-  inflating: NotoSansTagbanwa-Regular.ttf  
-  inflating: NotoSansTaiLe-Regular.ttf  
-  inflating: NotoSansTaiTham-Regular.ttf  
-  inflating: NotoSansTaiViet-Regular.ttf  
-  inflating: NotoSansTamil-Black.ttf  
-  inflating: NotoSansTamil-Bold.ttf  
-  inflating: NotoSansTamil-Condensed.ttf  
-  inflating: NotoSansTamil-CondensedBlack.ttf  
-  inflating: NotoSansTamil-CondensedBold.ttf  
-  inflating: NotoSansTamil-CondensedExtraBold.ttf  
-  inflating: NotoSansTamil-CondensedExtraLight.ttf  
-  inflating: NotoSansTamil-CondensedLight.ttf  
-  inflating: NotoSansTamil-CondensedMedium.ttf  
-  inflating: NotoSansTamil-CondensedSemiBold.ttf  
-  inflating: NotoSansTamil-CondensedThin.ttf  
-  inflating: NotoSansTamil-ExtraBold.ttf  
-  inflating: NotoSansTamil-ExtraCondensed.ttf  
-  inflating: NotoSansTamil-ExtraCondensedBlack.ttf  
-  inflating: NotoSansTamil-ExtraCondensedBold.ttf  
-  inflating: NotoSansTamil-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSansTamil-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSansTamil-ExtraCondensedLight.ttf  
-  inflating: NotoSansTamil-ExtraCondensedMedium.ttf  
-  inflating: NotoSansTamil-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSansTamil-ExtraCondensedThin.ttf  
-  inflating: NotoSansTamil-ExtraLight.ttf  
-  inflating: NotoSansTamil-Light.ttf  
-  inflating: NotoSansTamil-Medium.ttf  
-  inflating: NotoSansTamil-Regular.ttf  
-  inflating: NotoSansTamil-SemiBold.ttf  
-  inflating: NotoSansTamil-SemiCondensed.ttf  
-  inflating: NotoSansTamil-SemiCondensedBlack.ttf  
-  inflating: NotoSansTamil-SemiCondensedBold.ttf  
-  inflating: NotoSansTamil-SemiCondensedExtraBold.ttf  
-  inflating: NotoSansTamil-SemiCondensedExtraLight.ttf  
-  inflating: NotoSansTamil-SemiCondensedLight.ttf  
-  inflating: NotoSansTamil-SemiCondensedMedium.ttf  
-  inflating: NotoSansTamil-SemiCondensedSemiBold.ttf  
-  inflating: NotoSansTamil-SemiCondensedThin.ttf  
-  inflating: NotoSansTamil-Thin.ttf  
-  inflating: NotoSansTamilUI-Black.ttf  
-  inflating: NotoSansTamilUI-Bold.ttf  
-  inflating: NotoSansTamilUI-Condensed.ttf  
-  inflating: NotoSansTamilUI-CondensedBlack.ttf  
-  inflating: NotoSansTamilUI-CondensedBold.ttf  
-  inflating: NotoSansTamilUI-CondensedExtraBold.ttf  
-  inflating: NotoSansTamilUI-CondensedExtraLight.ttf  
-  inflating: NotoSansTamilUI-CondensedLight.ttf  
-  inflating: NotoSansTamilUI-CondensedMedium.ttf  
-  inflating: NotoSansTamilUI-CondensedSemiBold.ttf  
-  inflating: NotoSansTamilUI-CondensedThin.ttf  
-  inflating: NotoSansTamilUI-ExtraBold.ttf  
-  inflating: NotoSansTamilUI-ExtraCondensed.ttf  
-  inflating: NotoSansTamilUI-ExtraCondensedBlack.ttf  
-  inflating: NotoSansTamilUI-ExtraCondensedBold.ttf  
-  inflating: NotoSansTamilUI-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSansTamilUI-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSansTamilUI-ExtraCondensedLight.ttf  
-  inflating: NotoSansTamilUI-ExtraCondensedMedium.ttf  
-  inflating: NotoSansTamilUI-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSansTamilUI-ExtraCondensedThin.ttf  
-  inflating: NotoSansTamilUI-ExtraLight.ttf  
-  inflating: NotoSansTamilUI-Light.ttf  
-  inflating: NotoSansTamilUI-Medium.ttf  
-  inflating: NotoSansTamilUI-Regular.ttf  
-  inflating: NotoSansTamilUI-SemiBold.ttf  
-  inflating: NotoSansTamilUI-SemiCondensed.ttf  
-  inflating: NotoSansTamilUI-SemiCondensedBlack.ttf  
-  inflating: NotoSansTamilUI-SemiCondensedBold.ttf  
-  inflating: NotoSansTamilUI-SemiCondensedExtraBold.ttf  
-  inflating: NotoSansTamilUI-SemiCondensedExtraLight.ttf  
-  inflating: NotoSansTamilUI-SemiCondensedLight.ttf  
-  inflating: NotoSansTamilUI-SemiCondensedMedium.ttf  
-  inflating: NotoSansTamilUI-SemiCondensedSemiBold.ttf  
-  inflating: NotoSansTamilUI-SemiCondensedThin.ttf  
-  inflating: NotoSansTamilUI-Thin.ttf  
-  inflating: NotoSansTelugu-Bold.ttf  
-  inflating: NotoSansTelugu-Regular.ttf  
-  inflating: NotoSansTeluguUI-Bold.ttf  
-  inflating: NotoSansTeluguUI-Regular.ttf  
-  inflating: NotoSansThaana-Bold.ttf  
-  inflating: NotoSansThaana-Regular.ttf  
-  inflating: NotoSansThai-Black.ttf  
-  inflating: NotoSansThai-Bold.ttf   
-  inflating: NotoSansThai-Condensed.ttf  
-  inflating: NotoSansThai-CondensedBlack.ttf  
-  inflating: NotoSansThai-CondensedBold.ttf  
-  inflating: NotoSansThai-CondensedExtraBold.ttf  
-  inflating: NotoSansThai-CondensedExtraLight.ttf  
-  inflating: NotoSansThai-CondensedLight.ttf  
-  inflating: NotoSansThai-CondensedMedium.ttf  
-  inflating: NotoSansThai-CondensedSemiBold.ttf  
-  inflating: NotoSansThai-CondensedThin.ttf  
-  inflating: NotoSansThai-ExtraBold.ttf  
-  inflating: NotoSansThai-ExtraCondensed.ttf  
-  inflating: NotoSansThai-ExtraCondensedBlack.ttf  
-  inflating: NotoSansThai-ExtraCondensedBold.ttf  
-  inflating: NotoSansThai-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSansThai-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSansThai-ExtraCondensedLight.ttf  
-  inflating: NotoSansThai-ExtraCondensedMedium.ttf  
-  inflating: NotoSansThai-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSansThai-ExtraCondensedThin.ttf  
-  inflating: NotoSansThai-ExtraLight.ttf  
-  inflating: NotoSansThai-Light.ttf  
-  inflating: NotoSansThai-Medium.ttf  
-  inflating: NotoSansThai-Regular.ttf  
-  inflating: NotoSansThai-SemiBold.ttf  
-  inflating: NotoSansThai-SemiCondensed.ttf  
-  inflating: NotoSansThai-SemiCondensedBlack.ttf  
-  inflating: NotoSansThai-SemiCondensedBold.ttf  
-  inflating: NotoSansThai-SemiCondensedExtraBold.ttf  
-  inflating: NotoSansThai-SemiCondensedExtraLight.ttf  
-  inflating: NotoSansThai-SemiCondensedLight.ttf  
-  inflating: NotoSansThai-SemiCondensedMedium.ttf  
-  inflating: NotoSansThai-SemiCondensedSemiBold.ttf  
-  inflating: NotoSansThai-SemiCondensedThin.ttf  
-  inflating: NotoSansThai-Thin.ttf   
-  inflating: NotoSansThaiUI-Black.ttf  
-  inflating: NotoSansThaiUI-Bold.ttf  
-  inflating: NotoSansThaiUI-Condensed.ttf  
-  inflating: NotoSansThaiUI-CondensedBlack.ttf  
-  inflating: NotoSansThaiUI-CondensedBold.ttf  
-  inflating: NotoSansThaiUI-CondensedExtraBold.ttf  
-  inflating: NotoSansThaiUI-CondensedExtraLight.ttf  
-  inflating: NotoSansThaiUI-CondensedLight.ttf  
-  inflating: NotoSansThaiUI-CondensedMedium.ttf  
-  inflating: NotoSansThaiUI-CondensedSemiBold.ttf  
-  inflating: NotoSansThaiUI-CondensedThin.ttf  
-  inflating: NotoSansThaiUI-ExtraBold.ttf  
-  inflating: NotoSansThaiUI-ExtraCondensed.ttf  
-  inflating: NotoSansThaiUI-ExtraCondensedBlack.ttf  
-  inflating: NotoSansThaiUI-ExtraCondensedBold.ttf  
-  inflating: NotoSansThaiUI-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSansThaiUI-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSansThaiUI-ExtraCondensedLight.ttf  
-  inflating: NotoSansThaiUI-ExtraCondensedMedium.ttf  
-  inflating: NotoSansThaiUI-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSansThaiUI-ExtraCondensedThin.ttf  
-  inflating: NotoSansThaiUI-ExtraLight.ttf  
-  inflating: NotoSansThaiUI-Light.ttf  
-  inflating: NotoSansThaiUI-Medium.ttf  
-  inflating: NotoSansThaiUI-Regular.ttf  
-  inflating: NotoSansThaiUI-SemiBold.ttf  
-  inflating: NotoSansThaiUI-SemiCondensed.ttf  
-  inflating: NotoSansThaiUI-SemiCondensedBlack.ttf  
-  inflating: NotoSansThaiUI-SemiCondensedBold.ttf  
-  inflating: NotoSansThaiUI-SemiCondensedExtraBold.ttf  
-  inflating: NotoSansThaiUI-SemiCondensedExtraLight.ttf  
-  inflating: NotoSansThaiUI-SemiCondensedLight.ttf  
-  inflating: NotoSansThaiUI-SemiCondensedMedium.ttf  
-  inflating: NotoSansThaiUI-SemiCondensedSemiBold.ttf  
-  inflating: NotoSansThaiUI-SemiCondensedThin.ttf  
-  inflating: NotoSansThaiUI-Thin.ttf  
-  inflating: NotoSansTibetan-Bold.ttf  
-  inflating: NotoSansTibetan-Regular.ttf  
-  inflating: NotoSansTifinagh-Regular.ttf  
-  inflating: NotoSansUgaritic-Regular.ttf  
-  inflating: NotoSansVai-Regular.ttf  
-  inflating: NotoSansYi-Regular.ttf  
-  inflating: NotoSerif-Black.ttf     
-  inflating: NotoSerif-BlackItalic.ttf  
-  inflating: NotoSerif-Bold.ttf      
-  inflating: NotoSerif-BoldItalic.ttf  
-  inflating: NotoSerif-Condensed.ttf  
-  inflating: NotoSerif-CondensedBlack.ttf  
-  inflating: NotoSerif-CondensedBlackItalic.ttf  
-  inflating: NotoSerif-CondensedBold.ttf  
-  inflating: NotoSerif-CondensedBoldItalic.ttf  
-  inflating: NotoSerif-CondensedExtraBold.ttf  
-  inflating: NotoSerif-CondensedExtraBoldItalic.ttf  
-  inflating: NotoSerif-CondensedExtraLight.ttf  
-  inflating: NotoSerif-CondensedExtraLightItalic.ttf  
-  inflating: NotoSerif-CondensedItalic.ttf  
-  inflating: NotoSerif-CondensedLight.ttf  
-  inflating: NotoSerif-CondensedLightItalic.ttf  
-  inflating: NotoSerif-CondensedMedium.ttf  
-  inflating: NotoSerif-CondensedMediumItalic.ttf  
-  inflating: NotoSerif-CondensedSemiBold.ttf  
-  inflating: NotoSerif-CondensedSemiBoldItalic.ttf  
-  inflating: NotoSerif-CondensedThin.ttf  
-  inflating: NotoSerif-CondensedThinItalic.ttf  
-  inflating: NotoSerif-ExtraBold.ttf  
-  inflating: NotoSerif-ExtraBoldItalic.ttf  
-  inflating: NotoSerif-ExtraCondensed.ttf  
-  inflating: NotoSerif-ExtraCondensedBlack.ttf  
-  inflating: NotoSerif-ExtraCondensedBlackItalic.ttf  
-  inflating: NotoSerif-ExtraCondensedBold.ttf  
-  inflating: NotoSerif-ExtraCondensedBoldItalic.ttf  
-  inflating: NotoSerif-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSerif-ExtraCondensedExtraBoldItalic.ttf  
-  inflating: NotoSerif-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSerif-ExtraCondensedExtraLightItalic.ttf  
-  inflating: NotoSerif-ExtraCondensedItalic.ttf  
-  inflating: NotoSerif-ExtraCondensedLight.ttf  
-  inflating: NotoSerif-ExtraCondensedLightItalic.ttf  
-  inflating: NotoSerif-ExtraCondensedMedium.ttf  
-  inflating: NotoSerif-ExtraCondensedMediumItalic.ttf  
-  inflating: NotoSerif-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSerif-ExtraCondensedSemiBoldItalic.ttf  
-  inflating: NotoSerif-ExtraCondensedThin.ttf  
-  inflating: NotoSerif-ExtraCondensedThinItalic.ttf  
-  inflating: NotoSerif-ExtraLight.ttf  
-  inflating: NotoSerif-ExtraLightItalic.ttf  
-  inflating: NotoSerif-Italic.ttf    
-  inflating: NotoSerif-Light.ttf     
-  inflating: NotoSerif-LightItalic.ttf  
-  inflating: NotoSerif-Medium.ttf    
-  inflating: NotoSerif-MediumItalic.ttf  
-  inflating: NotoSerif-Regular.ttf   
-  inflating: NotoSerif-SemiBold.ttf  
-  inflating: NotoSerif-SemiBoldItalic.ttf  
-  inflating: NotoSerif-SemiCondensed.ttf  
-  inflating: NotoSerif-SemiCondensedBlack.ttf  
-  inflating: NotoSerif-SemiCondensedBlackItalic.ttf  
-  inflating: NotoSerif-SemiCondensedBold.ttf  
-  inflating: NotoSerif-SemiCondensedBoldItalic.ttf  
-  inflating: NotoSerif-SemiCondensedExtraBold.ttf  
-  inflating: NotoSerif-SemiCondensedExtraBoldItalic.ttf  
-  inflating: NotoSerif-SemiCondensedExtraLight.ttf  
-  inflating: NotoSerif-SemiCondensedExtraLightItalic.ttf  
-  inflating: NotoSerif-SemiCondensedItalic.ttf  
-  inflating: NotoSerif-SemiCondensedLight.ttf  
-  inflating: NotoSerif-SemiCondensedLightItalic.ttf  
-  inflating: NotoSerif-SemiCondensedMedium.ttf  
-  inflating: NotoSerif-SemiCondensedMediumItalic.ttf  
-  inflating: NotoSerif-SemiCondensedSemiBold.ttf  
-  inflating: NotoSerif-SemiCondensedSemiBoldItalic.ttf  
-  inflating: NotoSerif-SemiCondensedThin.ttf  
-  inflating: NotoSerif-SemiCondensedThinItalic.ttf  
-  inflating: NotoSerif-Thin.ttf      
-  inflating: NotoSerif-ThinItalic.ttf  
-  inflating: NotoSerifArmenian-Black.ttf  
-  inflating: NotoSerifArmenian-Bold.ttf  
-  inflating: NotoSerifArmenian-Condensed.ttf  
-  inflating: NotoSerifArmenian-CondensedBlack.ttf  
-  inflating: NotoSerifArmenian-CondensedBold.ttf  
-  inflating: NotoSerifArmenian-CondensedExtraBold.ttf  
-  inflating: NotoSerifArmenian-CondensedExtraLight.ttf  
-  inflating: NotoSerifArmenian-CondensedLight.ttf  
-  inflating: NotoSerifArmenian-CondensedMedium.ttf  
-  inflating: NotoSerifArmenian-CondensedSemiBold.ttf  
-  inflating: NotoSerifArmenian-CondensedThin.ttf  
-  inflating: NotoSerifArmenian-ExtraBold.ttf  
-  inflating: NotoSerifArmenian-ExtraCondensed.ttf  
-  inflating: NotoSerifArmenian-ExtraCondensedBlack.ttf  
-  inflating: NotoSerifArmenian-ExtraCondensedBold.ttf  
-  inflating: NotoSerifArmenian-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSerifArmenian-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSerifArmenian-ExtraCondensedLight.ttf  
-  inflating: NotoSerifArmenian-ExtraCondensedMedium.ttf  
-  inflating: NotoSerifArmenian-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSerifArmenian-ExtraCondensedThin.ttf  
-  inflating: NotoSerifArmenian-ExtraLight.ttf  
-  inflating: NotoSerifArmenian-Light.ttf  
-  inflating: NotoSerifArmenian-Medium.ttf  
-  inflating: NotoSerifArmenian-Regular.ttf  
-  inflating: NotoSerifArmenian-SemiBold.ttf  
-  inflating: NotoSerifArmenian-SemiCondensed.ttf  
-  inflating: NotoSerifArmenian-SemiCondensedBlack.ttf  
-  inflating: NotoSerifArmenian-SemiCondensedBold.ttf  
-  inflating: NotoSerifArmenian-SemiCondensedExtraBold.ttf  
-  inflating: NotoSerifArmenian-SemiCondensedExtraLight.ttf  
-  inflating: NotoSerifArmenian-SemiCondensedLight.ttf  
-  inflating: NotoSerifArmenian-SemiCondensedMedium.ttf  
-  inflating: NotoSerifArmenian-SemiCondensedSemiBold.ttf  
-  inflating: NotoSerifArmenian-SemiCondensedThin.ttf  
-  inflating: NotoSerifArmenian-Thin.ttf  
-  inflating: NotoSerifBengali-Bold.ttf  
-  inflating: NotoSerifBengali-Regular.ttf  
-  inflating: NotoSerifCJKjp-Black.otf  
-  inflating: NotoSerifCJKjp-Bold.otf  
-  inflating: NotoSerifCJKjp-ExtraLight.otf  
-  inflating: NotoSerifCJKjp-Light.otf  
-  inflating: NotoSerifCJKjp-Medium.otf  
-  inflating: NotoSerifCJKjp-Regular.otf  
-  inflating: NotoSerifCJKjp-SemiBold.otf  
-  inflating: NotoSerifCJKkr-Black.otf  
-  inflating: NotoSerifCJKkr-Bold.otf  
-  inflating: NotoSerifCJKkr-ExtraLight.otf  
-  inflating: NotoSerifCJKkr-Light.otf  
-  inflating: NotoSerifCJKkr-Medium.otf  
-  inflating: NotoSerifCJKkr-Regular.otf  
-  inflating: NotoSerifCJKkr-SemiBold.otf  
-  inflating: NotoSerifCJKsc-Black.otf  
-  inflating: NotoSerifCJKsc-Bold.otf  
-  inflating: NotoSerifCJKsc-ExtraLight.otf  
-  inflating: NotoSerifCJKsc-Light.otf  
-  inflating: NotoSerifCJKsc-Medium.otf  
-  inflating: NotoSerifCJKsc-Regular.otf  
-  inflating: NotoSerifCJKsc-SemiBold.otf  
-  inflating: NotoSerifCJKtc-Black.otf  
-  inflating: NotoSerifCJKtc-Bold.otf  
-  inflating: NotoSerifCJKtc-ExtraLight.otf  
-  inflating: NotoSerifCJKtc-Light.otf  
-  inflating: NotoSerifCJKtc-Medium.otf  
-  inflating: NotoSerifCJKtc-Regular.otf  
-  inflating: NotoSerifCJKtc-SemiBold.otf  
-  inflating: NotoSerifDevanagari-Bold.ttf  
-  inflating: NotoSerifDevanagari-Regular.ttf  
-  inflating: NotoSerifDisplay-Black.ttf  
-  inflating: NotoSerifDisplay-BlackItalic.ttf  
-  inflating: NotoSerifDisplay-Bold.ttf  
-  inflating: NotoSerifDisplay-BoldItalic.ttf  
-  inflating: NotoSerifDisplay-Condensed.ttf  
-  inflating: NotoSerifDisplay-CondensedBlack.ttf  
-  inflating: NotoSerifDisplay-CondensedBlackItalic.ttf  
-  inflating: NotoSerifDisplay-CondensedBold.ttf  
-  inflating: NotoSerifDisplay-CondensedBoldItalic.ttf  
-  inflating: NotoSerifDisplay-CondensedExtraBold.ttf  
-  inflating: NotoSerifDisplay-CondensedExtraBoldItalic.ttf  
-  inflating: NotoSerifDisplay-CondensedExtraLight.ttf  
-  inflating: NotoSerifDisplay-CondensedExtraLightItalic.ttf  
-  inflating: NotoSerifDisplay-CondensedItalic.ttf  
-  inflating: NotoSerifDisplay-CondensedLight.ttf  
-  inflating: NotoSerifDisplay-CondensedLightItalic.ttf  
-  inflating: NotoSerifDisplay-CondensedMedium.ttf  
-  inflating: NotoSerifDisplay-CondensedMediumItalic.ttf  
-  inflating: NotoSerifDisplay-CondensedSemiBold.ttf  
-  inflating: NotoSerifDisplay-CondensedSemiBoldItalic.ttf  
-  inflating: NotoSerifDisplay-CondensedThin.ttf  
-  inflating: NotoSerifDisplay-CondensedThinItalic.ttf  
-  inflating: NotoSerifDisplay-ExtraBold.ttf  
-  inflating: NotoSerifDisplay-ExtraBoldItalic.ttf  
-  inflating: NotoSerifDisplay-ExtraCondensed.ttf  
-  inflating: NotoSerifDisplay-ExtraCondensedBlack.ttf  
-  inflating: NotoSerifDisplay-ExtraCondensedBlackItalic.ttf  
-  inflating: NotoSerifDisplay-ExtraCondensedBold.ttf  
-  inflating: NotoSerifDisplay-ExtraCondensedBoldItalic.ttf  
-  inflating: NotoSerifDisplay-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSerifDisplay-ExtraCondensedExtraBoldItalic.ttf  
-  inflating: NotoSerifDisplay-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSerifDisplay-ExtraCondensedExtraLightItalic.ttf  
-  inflating: NotoSerifDisplay-ExtraCondensedItalic.ttf  
-  inflating: NotoSerifDisplay-ExtraCondensedLight.ttf  
-  inflating: NotoSerifDisplay-ExtraCondensedLightItalic.ttf  
-  inflating: NotoSerifDisplay-ExtraCondensedMedium.ttf  
-  inflating: NotoSerifDisplay-ExtraCondensedMediumItalic.ttf  
-  inflating: NotoSerifDisplay-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSerifDisplay-ExtraCondensedSemiBoldItalic.ttf  
-  inflating: NotoSerifDisplay-ExtraCondensedThin.ttf  
-  inflating: NotoSerifDisplay-ExtraCondensedThinItalic.ttf  
-  inflating: NotoSerifDisplay-ExtraLight.ttf  
-  inflating: NotoSerifDisplay-ExtraLightItalic.ttf  
-  inflating: NotoSerifDisplay-Italic.ttf  
-  inflating: NotoSerifDisplay-Light.ttf  
-  inflating: NotoSerifDisplay-LightItalic.ttf  
-  inflating: NotoSerifDisplay-Medium.ttf  
-  inflating: NotoSerifDisplay-MediumItalic.ttf  
-  inflating: NotoSerifDisplay-Regular.ttf  
-  inflating: NotoSerifDisplay-SemiBold.ttf  
-  inflating: NotoSerifDisplay-SemiBoldItalic.ttf  
-  inflating: NotoSerifDisplay-SemiCondensed.ttf  
-  inflating: NotoSerifDisplay-SemiCondensedBlack.ttf  
-  inflating: NotoSerifDisplay-SemiCondensedBlackItalic.ttf  
-  inflating: NotoSerifDisplay-SemiCondensedBold.ttf  
-  inflating: NotoSerifDisplay-SemiCondensedBoldItalic.ttf  
-  inflating: NotoSerifDisplay-SemiCondensedExtraBold.ttf  
-  inflating: NotoSerifDisplay-SemiCondensedExtraBoldItalic.ttf  
-  inflating: NotoSerifDisplay-SemiCondensedExtraLight.ttf  
-  inflating: NotoSerifDisplay-SemiCondensedExtraLightItalic.ttf  
-  inflating: NotoSerifDisplay-SemiCondensedItalic.ttf  
-  inflating: NotoSerifDisplay-SemiCondensedLight.ttf  
-  inflating: NotoSerifDisplay-SemiCondensedLightItalic.ttf  
-  inflating: NotoSerifDisplay-SemiCondensedMedium.ttf  
-  inflating: NotoSerifDisplay-SemiCondensedMediumItalic.ttf  
-  inflating: NotoSerifDisplay-SemiCondensedSemiBold.ttf  
-  inflating: NotoSerifDisplay-SemiCondensedSemiBoldItalic.ttf  
-  inflating: NotoSerifDisplay-SemiCondensedThin.ttf  
-  inflating: NotoSerifDisplay-SemiCondensedThinItalic.ttf  
-  inflating: NotoSerifDisplay-Thin.ttf  
-  inflating: NotoSerifDisplay-ThinItalic.ttf  
-  inflating: NotoSerifEthiopic-Black.ttf  
-  inflating: NotoSerifEthiopic-Bold.ttf  
-  inflating: NotoSerifEthiopic-Condensed.ttf  
-  inflating: NotoSerifEthiopic-CondensedBlack.ttf  
-  inflating: NotoSerifEthiopic-CondensedBold.ttf  
-  inflating: NotoSerifEthiopic-CondensedExtraBold.ttf  
-  inflating: NotoSerifEthiopic-CondensedExtraLight.ttf  
-  inflating: NotoSerifEthiopic-CondensedLight.ttf  
-  inflating: NotoSerifEthiopic-CondensedMedium.ttf  
-  inflating: NotoSerifEthiopic-CondensedSemiBold.ttf  
-  inflating: NotoSerifEthiopic-CondensedThin.ttf  
-  inflating: NotoSerifEthiopic-ExtraBold.ttf  
-  inflating: NotoSerifEthiopic-ExtraCondensed.ttf  
-  inflating: NotoSerifEthiopic-ExtraCondensedBlack.ttf  
-  inflating: NotoSerifEthiopic-ExtraCondensedBold.ttf  
-  inflating: NotoSerifEthiopic-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSerifEthiopic-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSerifEthiopic-ExtraCondensedLight.ttf  
-  inflating: NotoSerifEthiopic-ExtraCondensedMedium.ttf  
-  inflating: NotoSerifEthiopic-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSerifEthiopic-ExtraCondensedThin.ttf  
-  inflating: NotoSerifEthiopic-ExtraLight.ttf  
-  inflating: NotoSerifEthiopic-Light.ttf  
-  inflating: NotoSerifEthiopic-Medium.ttf  
-  inflating: NotoSerifEthiopic-Regular.ttf  
-  inflating: NotoSerifEthiopic-SemiBold.ttf  
-  inflating: NotoSerifEthiopic-SemiCondensed.ttf  
-  inflating: NotoSerifEthiopic-SemiCondensedBlack.ttf  
-  inflating: NotoSerifEthiopic-SemiCondensedBold.ttf  
-  inflating: NotoSerifEthiopic-SemiCondensedExtraBold.ttf  
-  inflating: NotoSerifEthiopic-SemiCondensedExtraLight.ttf  
-  inflating: NotoSerifEthiopic-SemiCondensedLight.ttf  
-  inflating: NotoSerifEthiopic-SemiCondensedMedium.ttf  
-  inflating: NotoSerifEthiopic-SemiCondensedSemiBold.ttf  
-  inflating: NotoSerifEthiopic-SemiCondensedThin.ttf  
-  inflating: NotoSerifEthiopic-Thin.ttf  
-  inflating: NotoSerifGeorgian-Black.ttf  
-  inflating: NotoSerifGeorgian-Bold.ttf  
-  inflating: NotoSerifGeorgian-Condensed.ttf  
-  inflating: NotoSerifGeorgian-CondensedBlack.ttf  
-  inflating: NotoSerifGeorgian-CondensedBold.ttf  
-  inflating: NotoSerifGeorgian-CondensedExtraBold.ttf  
-  inflating: NotoSerifGeorgian-CondensedExtraLight.ttf  
-  inflating: NotoSerifGeorgian-CondensedLight.ttf  
-  inflating: NotoSerifGeorgian-CondensedMedium.ttf  
-  inflating: NotoSerifGeorgian-CondensedSemiBold.ttf  
-  inflating: NotoSerifGeorgian-CondensedThin.ttf  
-  inflating: NotoSerifGeorgian-ExtraBold.ttf  
-  inflating: NotoSerifGeorgian-ExtraCondensed.ttf  
-  inflating: NotoSerifGeorgian-ExtraCondensedBlack.ttf  
-  inflating: NotoSerifGeorgian-ExtraCondensedBold.ttf  
-  inflating: NotoSerifGeorgian-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSerifGeorgian-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSerifGeorgian-ExtraCondensedLight.ttf  
-  inflating: NotoSerifGeorgian-ExtraCondensedMedium.ttf  
-  inflating: NotoSerifGeorgian-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSerifGeorgian-ExtraCondensedThin.ttf  
-  inflating: NotoSerifGeorgian-ExtraLight.ttf  
-  inflating: NotoSerifGeorgian-Light.ttf  
-  inflating: NotoSerifGeorgian-Medium.ttf  
-  inflating: NotoSerifGeorgian-Regular.ttf  
-  inflating: NotoSerifGeorgian-SemiBold.ttf  
-  inflating: NotoSerifGeorgian-SemiCondensed.ttf  
-  inflating: NotoSerifGeorgian-SemiCondensedBlack.ttf  
-  inflating: NotoSerifGeorgian-SemiCondensedBold.ttf  
-  inflating: NotoSerifGeorgian-SemiCondensedExtraBold.ttf  
-  inflating: NotoSerifGeorgian-SemiCondensedExtraLight.ttf  
-  inflating: NotoSerifGeorgian-SemiCondensedLight.ttf  
-  inflating: NotoSerifGeorgian-SemiCondensedMedium.ttf  
-  inflating: NotoSerifGeorgian-SemiCondensedSemiBold.ttf  
-  inflating: NotoSerifGeorgian-SemiCondensedThin.ttf  
-  inflating: NotoSerifGeorgian-Thin.ttf  
-  inflating: NotoSerifGujarati-Bold.ttf  
-  inflating: NotoSerifGujarati-Regular.ttf  
-  inflating: NotoSerifHebrew-Black.ttf  
-  inflating: NotoSerifHebrew-Bold.ttf  
-  inflating: NotoSerifHebrew-Condensed.ttf  
-  inflating: NotoSerifHebrew-CondensedBlack.ttf  
-  inflating: NotoSerifHebrew-CondensedBold.ttf  
-  inflating: NotoSerifHebrew-CondensedExtraBold.ttf  
-  inflating: NotoSerifHebrew-CondensedExtraLight.ttf  
-  inflating: NotoSerifHebrew-CondensedLight.ttf  
-  inflating: NotoSerifHebrew-CondensedMedium.ttf  
-  inflating: NotoSerifHebrew-CondensedSemiBold.ttf  
-  inflating: NotoSerifHebrew-CondensedThin.ttf  
-  inflating: NotoSerifHebrew-ExtraBold.ttf  
-  inflating: NotoSerifHebrew-ExtraCondensed.ttf  
-  inflating: NotoSerifHebrew-ExtraCondensedBlack.ttf  
-  inflating: NotoSerifHebrew-ExtraCondensedBold.ttf  
-  inflating: NotoSerifHebrew-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSerifHebrew-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSerifHebrew-ExtraCondensedLight.ttf  
-  inflating: NotoSerifHebrew-ExtraCondensedMedium.ttf  
-  inflating: NotoSerifHebrew-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSerifHebrew-ExtraCondensedThin.ttf  
-  inflating: NotoSerifHebrew-ExtraLight.ttf  
-  inflating: NotoSerifHebrew-Light.ttf  
-  inflating: NotoSerifHebrew-Medium.ttf  
-  inflating: NotoSerifHebrew-Regular.ttf  
-  inflating: NotoSerifHebrew-SemiBold.ttf  
-  inflating: NotoSerifHebrew-SemiCondensed.ttf  
-  inflating: NotoSerifHebrew-SemiCondensedBlack.ttf  
-  inflating: NotoSerifHebrew-SemiCondensedBold.ttf  
-  inflating: NotoSerifHebrew-SemiCondensedExtraBold.ttf  
-  inflating: NotoSerifHebrew-SemiCondensedExtraLight.ttf  
-  inflating: NotoSerifHebrew-SemiCondensedLight.ttf  
-  inflating: NotoSerifHebrew-SemiCondensedMedium.ttf  
-  inflating: NotoSerifHebrew-SemiCondensedSemiBold.ttf  
-  inflating: NotoSerifHebrew-SemiCondensedThin.ttf  
-  inflating: NotoSerifHebrew-Thin.ttf  
-  inflating: NotoSerifKannada-Bold.ttf  
-  inflating: NotoSerifKannada-Regular.ttf  
-  inflating: NotoSerifKhmer-Black.ttf  
-  inflating: NotoSerifKhmer-Bold.ttf  
-  inflating: NotoSerifKhmer-Condensed.ttf  
-  inflating: NotoSerifKhmer-CondensedBlack.ttf  
-  inflating: NotoSerifKhmer-CondensedBold.ttf  
-  inflating: NotoSerifKhmer-CondensedExtraBold.ttf  
-  inflating: NotoSerifKhmer-CondensedExtraLight.ttf  
-  inflating: NotoSerifKhmer-CondensedLight.ttf  
-  inflating: NotoSerifKhmer-CondensedMedium.ttf  
-  inflating: NotoSerifKhmer-CondensedSemiBold.ttf  
-  inflating: NotoSerifKhmer-CondensedThin.ttf  
-  inflating: NotoSerifKhmer-ExtraBold.ttf  
-  inflating: NotoSerifKhmer-ExtraCondensed.ttf  
-  inflating: NotoSerifKhmer-ExtraCondensedBlack.ttf  
-  inflating: NotoSerifKhmer-ExtraCondensedBold.ttf  
-  inflating: NotoSerifKhmer-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSerifKhmer-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSerifKhmer-ExtraCondensedLight.ttf  
-  inflating: NotoSerifKhmer-ExtraCondensedMedium.ttf  
-  inflating: NotoSerifKhmer-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSerifKhmer-ExtraCondensedThin.ttf  
-  inflating: NotoSerifKhmer-ExtraLight.ttf  
-  inflating: NotoSerifKhmer-Light.ttf  
-  inflating: NotoSerifKhmer-Medium.ttf  
-  inflating: NotoSerifKhmer-Regular.ttf  
-  inflating: NotoSerifKhmer-SemiBold.ttf  
-  inflating: NotoSerifKhmer-SemiCondensed.ttf  
-  inflating: NotoSerifKhmer-SemiCondensedBlack.ttf  
-  inflating: NotoSerifKhmer-SemiCondensedBold.ttf  
-  inflating: NotoSerifKhmer-SemiCondensedExtraBold.ttf  
-  inflating: NotoSerifKhmer-SemiCondensedExtraLight.ttf  
-  inflating: NotoSerifKhmer-SemiCondensedLight.ttf  
-  inflating: NotoSerifKhmer-SemiCondensedMedium.ttf  
-  inflating: NotoSerifKhmer-SemiCondensedSemiBold.ttf  
-  inflating: NotoSerifKhmer-SemiCondensedThin.ttf  
-  inflating: NotoSerifKhmer-Thin.ttf  
-  inflating: NotoSerifLao-Black.ttf  
-  inflating: NotoSerifLao-Bold.ttf   
-  inflating: NotoSerifLao-Condensed.ttf  
-  inflating: NotoSerifLao-CondensedBlack.ttf  
-  inflating: NotoSerifLao-CondensedBold.ttf  
-  inflating: NotoSerifLao-CondensedExtraBold.ttf  
-  inflating: NotoSerifLao-CondensedExtraLight.ttf  
-  inflating: NotoSerifLao-CondensedLight.ttf  
-  inflating: NotoSerifLao-CondensedMedium.ttf  
-  inflating: NotoSerifLao-CondensedSemiBold.ttf  
-  inflating: NotoSerifLao-CondensedThin.ttf  
-  inflating: NotoSerifLao-ExtraBold.ttf  
-  inflating: NotoSerifLao-ExtraCondensed.ttf  
-  inflating: NotoSerifLao-ExtraCondensedBlack.ttf  
-  inflating: NotoSerifLao-ExtraCondensedBold.ttf  
-  inflating: NotoSerifLao-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSerifLao-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSerifLao-ExtraCondensedLight.ttf  
-  inflating: NotoSerifLao-ExtraCondensedMedium.ttf  
-  inflating: NotoSerifLao-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSerifLao-ExtraCondensedThin.ttf  
-  inflating: NotoSerifLao-ExtraLight.ttf  
-  inflating: NotoSerifLao-Light.ttf  
-  inflating: NotoSerifLao-Medium.ttf  
-  inflating: NotoSerifLao-Regular.ttf  
-  inflating: NotoSerifLao-SemiBold.ttf  
-  inflating: NotoSerifLao-SemiCondensed.ttf  
-  inflating: NotoSerifLao-SemiCondensedBlack.ttf  
-  inflating: NotoSerifLao-SemiCondensedBold.ttf  
-  inflating: NotoSerifLao-SemiCondensedExtraBold.ttf  
-  inflating: NotoSerifLao-SemiCondensedExtraLight.ttf  
-  inflating: NotoSerifLao-SemiCondensedLight.ttf  
-  inflating: NotoSerifLao-SemiCondensedMedium.ttf  
-  inflating: NotoSerifLao-SemiCondensedSemiBold.ttf  
-  inflating: NotoSerifLao-SemiCondensedThin.ttf  
-  inflating: NotoSerifLao-Thin.ttf   
-  inflating: NotoSerifMalayalam-Bold.ttf  
-  inflating: NotoSerifMalayalam-Regular.ttf  
-  inflating: NotoSerifMyanmar-Black.ttf  
-  inflating: NotoSerifMyanmar-Bold.ttf  
-  inflating: NotoSerifMyanmar-Condensed.ttf  
-  inflating: NotoSerifMyanmar-CondensedBlack.ttf  
-  inflating: NotoSerifMyanmar-CondensedBold.ttf  
-  inflating: NotoSerifMyanmar-CondensedExtraBold.ttf  
-  inflating: NotoSerifMyanmar-CondensedExtraLight.ttf  
-  inflating: NotoSerifMyanmar-CondensedLight.ttf  
-  inflating: NotoSerifMyanmar-CondensedMedium.ttf  
-  inflating: NotoSerifMyanmar-CondensedSemiBold.ttf  
-  inflating: NotoSerifMyanmar-CondensedThin.ttf  
-  inflating: NotoSerifMyanmar-ExtraBold.ttf  
-  inflating: NotoSerifMyanmar-ExtraCondensed.ttf  
-  inflating: NotoSerifMyanmar-ExtraCondensedBlack.ttf  
-  inflating: NotoSerifMyanmar-ExtraCondensedBold.ttf  
-  inflating: NotoSerifMyanmar-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSerifMyanmar-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSerifMyanmar-ExtraCondensedLight.ttf  
-  inflating: NotoSerifMyanmar-ExtraCondensedMedium.ttf  
-  inflating: NotoSerifMyanmar-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSerifMyanmar-ExtraCondensedThin.ttf  
-  inflating: NotoSerifMyanmar-ExtraLight.ttf  
-  inflating: NotoSerifMyanmar-Light.ttf  
-  inflating: NotoSerifMyanmar-Medium.ttf  
-  inflating: NotoSerifMyanmar-Regular.ttf  
-  inflating: NotoSerifMyanmar-SemiBold.ttf  
-  inflating: NotoSerifMyanmar-SemiCondensed.ttf  
-  inflating: NotoSerifMyanmar-SemiCondensedBlack.ttf  
-  inflating: NotoSerifMyanmar-SemiCondensedBold.ttf  
-  inflating: NotoSerifMyanmar-SemiCondensedExtraBold.ttf  
-  inflating: NotoSerifMyanmar-SemiCondensedExtraLight.ttf  
-  inflating: NotoSerifMyanmar-SemiCondensedLight.ttf  
-  inflating: NotoSerifMyanmar-SemiCondensedMedium.ttf  
-  inflating: NotoSerifMyanmar-SemiCondensedSemiBold.ttf  
-  inflating: NotoSerifMyanmar-SemiCondensedThin.ttf  
-  inflating: NotoSerifMyanmar-Thin.ttf  
-  inflating: NotoSerifSinhala-Black.ttf  
-  inflating: NotoSerifSinhala-Bold.ttf  
-  inflating: NotoSerifSinhala-ExtraBold.ttf  
-  inflating: NotoSerifSinhala-ExtraLight.ttf  
-  inflating: NotoSerifSinhala-Light.ttf  
-  inflating: NotoSerifSinhala-Medium.ttf  
-  inflating: NotoSerifSinhala-Regular.ttf  
-  inflating: NotoSerifSinhala-SemiBold.ttf  
-  inflating: NotoSerifSinhala-Thin.ttf  
-  inflating: NotoSerifTamil-Black.ttf  
-  inflating: NotoSerifTamil-Bold.ttf  
-  inflating: NotoSerifTamil-Condensed.ttf  
-  inflating: NotoSerifTamil-CondensedBlack.ttf  
-  inflating: NotoSerifTamil-CondensedBold.ttf  
-  inflating: NotoSerifTamil-CondensedExtraBold.ttf  
-  inflating: NotoSerifTamil-CondensedExtraLight.ttf  
-  inflating: NotoSerifTamil-CondensedLight.ttf  
-  inflating: NotoSerifTamil-CondensedMedium.ttf  
-  inflating: NotoSerifTamil-CondensedSemiBold.ttf  
-  inflating: NotoSerifTamil-CondensedThin.ttf  
-  inflating: NotoSerifTamil-ExtraBold.ttf  
-  inflating: NotoSerifTamil-ExtraCondensed.ttf  
-  inflating: NotoSerifTamil-ExtraCondensedBlack.ttf  
-  inflating: NotoSerifTamil-ExtraCondensedBold.ttf  
-  inflating: NotoSerifTamil-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSerifTamil-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSerifTamil-ExtraCondensedLight.ttf  
-  inflating: NotoSerifTamil-ExtraCondensedMedium.ttf  
-  inflating: NotoSerifTamil-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSerifTamil-ExtraCondensedThin.ttf  
-  inflating: NotoSerifTamil-ExtraLight.ttf  
-  inflating: NotoSerifTamil-Light.ttf  
-  inflating: NotoSerifTamil-Medium.ttf  
-  inflating: NotoSerifTamil-Regular.ttf  
-  inflating: NotoSerifTamil-SemiBold.ttf  
-  inflating: NotoSerifTamil-SemiCondensed.ttf  
-  inflating: NotoSerifTamil-SemiCondensedBlack.ttf  
-  inflating: NotoSerifTamil-SemiCondensedBold.ttf  
-  inflating: NotoSerifTamil-SemiCondensedExtraBold.ttf  
-  inflating: NotoSerifTamil-SemiCondensedExtraLight.ttf  
-  inflating: NotoSerifTamil-SemiCondensedLight.ttf  
-  inflating: NotoSerifTamil-SemiCondensedMedium.ttf  
-  inflating: NotoSerifTamil-SemiCondensedSemiBold.ttf  
-  inflating: NotoSerifTamil-SemiCondensedThin.ttf  
-  inflating: NotoSerifTamil-Thin.ttf  
-  inflating: NotoSerifTelugu-Bold.ttf  
-  inflating: NotoSerifTelugu-Regular.ttf  
-  inflating: NotoSerifThai-Black.ttf  
-  inflating: NotoSerifThai-Bold.ttf  
-  inflating: NotoSerifThai-Condensed.ttf  
-  inflating: NotoSerifThai-CondensedBlack.ttf  
-  inflating: NotoSerifThai-CondensedBold.ttf  
-  inflating: NotoSerifThai-CondensedExtraBold.ttf  
-  inflating: NotoSerifThai-CondensedExtraLight.ttf  
-  inflating: NotoSerifThai-CondensedLight.ttf  
-  inflating: NotoSerifThai-CondensedMedium.ttf  
-  inflating: NotoSerifThai-CondensedSemiBold.ttf  
-  inflating: NotoSerifThai-CondensedThin.ttf  
-  inflating: NotoSerifThai-ExtraBold.ttf  
-  inflating: NotoSerifThai-ExtraCondensed.ttf  
-  inflating: NotoSerifThai-ExtraCondensedBlack.ttf  
-  inflating: NotoSerifThai-ExtraCondensedBold.ttf  
-  inflating: NotoSerifThai-ExtraCondensedExtraBold.ttf  
-  inflating: NotoSerifThai-ExtraCondensedExtraLight.ttf  
-  inflating: NotoSerifThai-ExtraCondensedLight.ttf  
-  inflating: NotoSerifThai-ExtraCondensedMedium.ttf  
-  inflating: NotoSerifThai-ExtraCondensedSemiBold.ttf  
-  inflating: NotoSerifThai-ExtraCondensedThin.ttf  
-  inflating: NotoSerifThai-ExtraLight.ttf  
-  inflating: NotoSerifThai-Light.ttf  
-  inflating: NotoSerifThai-Medium.ttf  
-  inflating: NotoSerifThai-Regular.ttf  
-  inflating: NotoSerifThai-SemiBold.ttf  
-  inflating: NotoSerifThai-SemiCondensed.ttf  
-  inflating: NotoSerifThai-SemiCondensedBlack.ttf  
-  inflating: NotoSerifThai-SemiCondensedBold.ttf  
-  inflating: NotoSerifThai-SemiCondensedExtraBold.ttf  
-  inflating: NotoSerifThai-SemiCondensedExtraLight.ttf  
-  inflating: NotoSerifThai-SemiCondensedLight.ttf  
-  inflating: NotoSerifThai-SemiCondensedMedium.ttf  
-  inflating: NotoSerifThai-SemiCondensedSemiBold.ttf  
-  inflating: NotoSerifThai-SemiCondensedThin.ttf  
-  inflating: NotoSerifThai-Thin.ttf  
-  inflating: README                  
-/usr/share/fonts: caching, new cache contents: 0 fonts, 4 dirs
-/usr/share/fonts/dejavu: caching, new cache contents: 9 fonts, 0 dirs
-/usr/share/fonts/emoji: caching, new cache contents: 1605 fonts, 0 dirs
-/usr/share/fonts/liberation: caching, new cache contents: 4 fonts, 0 dirs
-/usr/share/fonts/vlgothic: caching, new cache contents: 2 fonts, 0 dirs
-/usr/share/X11/fonts/Type1: caching, new cache contents: 13 fonts, 0 dirs
-/usr/share/X11/fonts/TTF: skipping, no such directory
-/usr/local/share/fonts: skipping, no such directory
-/root/.local/share/fonts: skipping, no such directory
-/root/.fonts: skipping, no such directory
-/usr/share/fonts/dejavu: skipping, looped directory detected
-/usr/share/fonts/emoji: skipping, looped directory detected
-/usr/share/fonts/liberation: skipping, looped directory detected
-/usr/share/fonts/vlgothic: skipping, looped directory detected
-/usr/lib/fontconfig/cache: cleaning cache directory
-/root/.cache/fontconfig: not cleaning non-existent cache directory
-/root/.fontconfig: not cleaning non-existent cache directory
-/usr/bin/fc-cache-64: succeeded
-Removing intermediate container 14ad1d6f4d5a
- ---> 1c33ecf33f9e
-Step 39/41 : COPY ideaIC-2019.2.3.tar.gz /home/rstudio/ideaIC-2019.2.3.tar.gz
- ---> c039d2c8abfa
-Step 40/41 : RUN cd /home/rstudio && tar -xzf ideaIC-2019.2.3.tar.gz && chown -R rstudio:rstudio idea-IC-192.6817.14
- ---> Running in baecc8a14f3c
-Removing intermediate container baecc8a14f3c
- ---> ebf74497cc41
-Step 41/41 : ENV DISPLAY=:0.0
- ---> Running in 0df8f7a293c7
-Removing intermediate container 0df8f7a293c7
- ---> c294abf56990
-Successfully built c294abf56990
+ ---> 7a56c4d4f1ba
+Step 38/42 : RUN mkdir -p /usr/share/fonts/emoji && cd /usr/share/fonts/emoji && curl -LO https://noto-website-2.storage.googleapis.com/pkgs/Noto-unhinted.zip && unzip Noto-unhinted.zip && rm Noto-unhinted.zip && fc-cache -f -v && fc-cat
+ ---> Using cache
+ ---> 3f92012b3d13
+Step 39/42 : COPY ideaIC-2019.2.3.tar.gz /home/rstudio/ideaIC-2019.2.3.tar.gz
+ ---> Using cache
+ ---> 356bcc4bca49
+Step 40/42 : RUN cd /home/rstudio && tar -xzf ideaIC-2019.2.3.tar.gz && chown -R rstudio:rstudio idea-IC-192.6817.14
+ ---> Using cache
+ ---> fc2a94bfbab6
+Step 41/42 : RUN yum install -y ibus-qt-devel ibus-qt
+ ---> Running in 180198ce3d98
+Loaded plugins: aliases, changelog, fastestmirror, kabi, langpacks, ovl,
+              : tmprepo, verify, versionlock
+Loading support for Red Hat kernel ABI
+Loading mirror speeds from cached hostfile
+ * base: ftp.iij.ad.jp
+ * epel: nrt.edge.kernel.org
+ * extras: ftp.iij.ad.jp
+ * updates: ftp.iij.ad.jp
+Package ibus-qt-1.3.2-4.el7.x86_64 already installed and latest version
+Resolving Dependencies
+--> Running transaction check
+---> Package ibus-qt-devel.x86_64 0:1.3.2-4.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package               Arch           Version                Repository    Size
+================================================================================
+Installing:
+ ibus-qt-devel         x86_64         1.3.2-4.el7            base          19 k
+
+Transaction Summary
+================================================================================
+Install  1 Package
+
+Total download size: 19 k
+Installed size: 60 k
+Downloading packages:
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : ibus-qt-devel-1.3.2-4.el7.x86_64                             1/1 
+  Verifying  : ibus-qt-devel-1.3.2-4.el7.x86_64                             1/1 
+
+Installed:
+  ibus-qt-devel.x86_64 0:1.3.2-4.el7                                            
+
+Complete!
+Removing intermediate container 180198ce3d98
+ ---> ff2740566b88
+Step 42/42 : ENV DISPLAY=:0.0
+ ---> Running in dd2a4fc85899
+Removing intermediate container dd2a4fc85899
+ ---> 6c4b10658cfb
+Successfully built 6c4b10658cfb
 Successfully tagged centos_xxx:latest
