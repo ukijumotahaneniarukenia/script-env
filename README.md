@@ -194,5 +194,6 @@ enabled=1
 gpgcheck=1
 gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub
 EOF
+[root@centos aine]# yum install -y google-chrome-stable
 
 ```
