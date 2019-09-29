@@ -4,6 +4,8 @@ https://www.itmedia.co.jp/enterprise/articles/1604/27/news001.html
 iBus
 https://wiki.archlinux.jp/index.php/IBus#.E5.88.9D.E6.9C.9F.E8.A8.AD.E5.AE.9A
 
+日本語入力
+https://sites.google.com/site/voidlinuxmemo/ri-ben-yu-huan-jing-1#TOC-mozc-
 
 フォントキャッシュ作成する際に参照しているフォルダ見つける
 ```
