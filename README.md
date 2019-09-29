@@ -200,3 +200,9 @@ EOF
 uid=1000(aine) gid=1000(aine) groups=1000(aine),981(docker) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
 
 ```
+
+# ibus-mozcインストール
+```
+[aine@centos ~]$ sudo yum install -y epel-release
+
+```
