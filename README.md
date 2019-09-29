@@ -196,4 +196,7 @@ EOF
 ## Allows people in group wheel to run all commands
 #%wheel ALL=(ALL)       ALL
 %docker ALL=(ALL)       ALL
+[aine@centos ~]$ id
+uid=1000(aine) gid=1000(aine) groups=1000(aine),981(docker) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+
 ```
