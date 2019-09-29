@@ -229,6 +229,9 @@ RUN yum --setopt=tsflags='' reinstall -y man-pages
 #絵文字いんすこ
 RUN mkdir -p /usr/share/fonts/emoji && cd /usr/share/fonts/emoji && curl -LO https://noto-website-2.storage.googleapis.com/pkgs/Noto-unhinted.zip && unzip Noto-unhinted.zip && rm Noto-unhinted.zip && fc-cache -f -v
 
+#ibus-mozcインストール
+RUN yum install -y ibus-mozc
+
 #sshdサービス外部公開ポート
 EXPOSE 22
 
