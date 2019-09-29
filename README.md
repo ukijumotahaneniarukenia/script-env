@@ -170,11 +170,6 @@ Share images, automate workflows, and more with a free Docker ID:
 For more examples and ideas, visit:
  https://docs.docker.com/get-started/
 
-[root@centos aine]# usermod -aG docker aine
-[root@centos aine]# visudo
-## Same thing without a password
-# %wheel        ALL=(ALL)       NOPASSWD: ALL
-  %docker       ALL=(ALL)       NOPASSWD: ALL
 [aine@centos ~]$ LANG=C xdg-user-dirs-gtk-update
 Gtk-Message: 21:06:55.787: GtkDialog mapped without a transient parent. This is discouraged.
 Moving DESKTOP directory from デスクトップ to Desktop
@@ -195,5 +190,9 @@ gpgcheck=1
 gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub
 EOF
 [root@centos aine]# yum install -y google-chrome-stable
-
+[root@centos aine]# usermod -aG docker aine
+[root@centos aine]# visudo
+## Allows people in group wheel to run all commands
+#%wheel ALL=(ALL)       ALL
+%docker ALL=(ALL)       ALL
 ```
