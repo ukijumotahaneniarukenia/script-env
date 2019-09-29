@@ -186,5 +186,13 @@ Moving MUSIC directory from 音楽 to Music
 Moving PICTURES directory from 画像 to Pictures
 Moving VIDEOS directory from ビデオ to Videos
 [aine@centos ~]$ sudo reboot
+[root@centos aine]# cat <<EOF >/etc/yum.repos.d/google-chrome.repo
+[google-chrome]
+name=google-chrome
+baseurl=http://dl.google.com/linux/chrome/rpm/stable/x86_64
+enabled=1
+gpgcheck=1
+gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub
+EOF
 
 ```
