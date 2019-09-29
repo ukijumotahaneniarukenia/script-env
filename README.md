@@ -240,6 +240,24 @@ ln -fsr /usr/local/bin/vim /usr/bin/vim && \
 ln -fsr /usr/local/bin/vim /usr/bin/vi
 ```
 
+# 自身のvim環境インストール
+
+```
+# 自身のvim環境クローン
+git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim && \
+git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
+cd ~/tmp && \
+#移動したいdotfileをchoiceしてHOMEディレクトリへ
+mv rc/.[^.]* ~ && \
+#用が済んだらリム
+rm -rf ~/tmp
+
+#vim plugin manager
+mkdir -p ~/.vim/bundle && \
+cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
+sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+```
+
 # git commit!
 ```
 
