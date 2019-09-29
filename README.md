@@ -169,7 +169,8 @@ Share images, automate workflows, and more with a free Docker ID:
 
 For more examples and ideas, visit:
  https://docs.docker.com/get-started/
-
+[root@centos aine]# systemctl enable docker
+Created symlink from /etc/systemd/system/multi-user.target.wants/docker.service to /usr/lib/systemd/system/docker.service.
 [aine@centos ~]$ LANG=C xdg-user-dirs-gtk-update
 Gtk-Message: 21:06:55.787: GtkDialog mapped without a transient parent. This is discouraged.
 Moving DESKTOP directory from デスクトップ to Desktop
