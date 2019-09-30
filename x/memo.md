@@ -10,6 +10,7 @@ https://invisible-island.net/xterm/xterm.html
 Xフォント
 ArchLinuxは偉大
 https://bbs.archlinux.org/viewtopic.php?id=167204
+https://l-w-i.net/t/x/font_101.txt
 ```
 [rstudio💓2de5d80db52a (月  9月 30 09:40:49) /]$cd /usr/share/fonts/vlgothic/
 [rstudio💓2de5d80db52a (月  9月 30 09:42:04) /usr/share/fonts/vlgothic]$ll
