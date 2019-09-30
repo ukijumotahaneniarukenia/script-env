@@ -1,170 +1,120 @@
-Sending build context to Docker daemon  674.3MB
-Step 1/42 : FROM centos:7.6.1810
+Sending build context to Docker daemon  761.9kB
+Step 1/39 : FROM centos:7.6.1810
  ---> f1cb7c7d58b7
-Step 2/42 : RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps
+Step 2/39 : RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps
  ---> Using cache
- ---> d2fd1494c690
-Step 3/42 : RUN yum install -y java firefox
+ ---> f92c48997297
+Step 3/39 : RUN yum install -y java firefox
  ---> Using cache
- ---> da9f7ece32f7
-Step 4/42 : RUN yum groupinstall -y base "X Window System" --setopt=group_package_types=mandatory,default,optional
+ ---> 1d8cdae09f47
+Step 4/39 : RUN yum groupinstall -y base "X Window System" --setopt=group_package_types=mandatory,default,optional
  ---> Using cache
- ---> 897d77f0fc20
-Step 5/42 : RUN groupadd -g 1001 rstudio
+ ---> f288ee5bb6ab
+Step 5/39 : RUN groupadd -g 1001 rstudio
  ---> Using cache
- ---> 4a7620e040a7
-Step 6/42 : RUN useradd -m -g rstudio -u 1001 rstudio
+ ---> 3863ef93a86e
+Step 6/39 : RUN useradd -m -g rstudio -u 1001 rstudio
  ---> Using cache
- ---> 5eb3c1d81ccb
-Step 7/42 : RUN chsh -s /bin/bash rstudio
+ ---> 9b3773e6fce0
+Step 7/39 : RUN chsh -s /bin/bash rstudio
  ---> Using cache
- ---> 3ba8a5973dc6
-Step 8/42 : RUN echo 'root_pwd' | passwd --stdin root
+ ---> 17924bf8c38c
+Step 8/39 : RUN echo 'root_pwd' | passwd --stdin root
  ---> Using cache
- ---> ac256afbeecd
-Step 9/42 : RUN echo 'rstudio_pwd' | passwd --stdin rstudio
+ ---> 8faa74387ffc
+Step 9/39 : RUN echo 'rstudio_pwd' | passwd --stdin rstudio
  ---> Using cache
- ---> b30100c55397
-Step 10/42 : RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> d1837eb12672
+Step 10/39 : RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
  ---> Using cache
- ---> c046d0ecc416
-Step 11/42 : RUN yum install -y epel-release git
+ ---> 553f2a4af40a
+Step 11/39 : RUN yum install -y epel-release git
  ---> Using cache
- ---> ebbbd80c7b7b
-Step 12/42 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man
+ ---> f43f2401ebbe
+Step 12/39 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man
  ---> Using cache
- ---> fa7216cba7ce
-Step 13/42 : RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd ~ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
+ ---> b5198130e049
+Step 13/39 : RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd ~ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
  ---> Using cache
- ---> 5d733464ea06
-Step 14/42 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> fb2807d84d13
+Step 14/39 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
  ---> Using cache
- ---> f0abc3d73378
-Step 15/42 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> 8f320010cd2d
+Step 15/39 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
  ---> Using cache
- ---> 1b7e152b0ad0
-Step 16/42 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+ ---> 0746ce66a27a
+Step 16/39 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
  ---> Using cache
- ---> 1425b19704d2
-Step 17/42 : RUN echo "alias python=/usr/local/bin/python3.7" >> ~/.bashrc && echo "alias pip=/usr/local/bin/pip3.7" >> ~/.bashrc && echo "alias perl=/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=/usr/local/bin/parallel" >> ~/.bashrc && echo "export GTK_IM_MODULE=ibus" >> ~/.bashrc && echo "export XMODIFIERS=@im=ibus" >> ~/.bashrc && echo "export QT_IM_MODULE=ibus" >> ~/.bashrc && echo "export DefalutIMModule=ibus" >> ~/.bashrc && echo "export NO_AT_BRIDGE=1" >> ~/.bashrc && echo "xset -r 49" >> ~/.bashrc && echo "ibus-daemon -rxd" >> ~/.bashrc && echo "xrdb ~/.Xresources" >> ~/.bashrc
+ ---> 170111470937
+Step 17/39 : RUN echo "alias python=/usr/local/bin/python3.7" >> ~/.bashrc && echo "alias pip=/usr/local/bin/pip3.7" >> ~/.bashrc && echo "alias perl=/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=/usr/local/bin/parallel" >> ~/.bashrc && echo "export GTK_IM_MODULE=ibus" >> ~/.bashrc && echo "export XMODIFIERS=@im=ibus" >> ~/.bashrc && echo "export QT_IM_MODULE=ibus" >> ~/.bashrc && echo "export DefalutIMModule=ibus" >> ~/.bashrc && echo "export NO_AT_BRIDGE=1" >> ~/.bashrc && echo "xset -r 49" >> ~/.bashrc && echo "ibus-daemon -rxd" >> ~/.bashrc && echo "xrdb ~/.Xresources" >> ~/.bashrc
  ---> Using cache
- ---> a343b4987ad1
-Step 18/42 : USER rstudio
+ ---> 6f66f5681abe
+Step 18/39 : USER rstudio
  ---> Using cache
- ---> 2df03fa351b1
-Step 19/42 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> 5ea0dd31d234
+Step 19/39 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
  ---> Using cache
- ---> b687dd481440
-Step 20/42 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> 79b0bb3d5857
+Step 20/39 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
  ---> Using cache
- ---> 4c85918d1997
-Step 21/42 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+ ---> 4ab6b748f7fd
+Step 21/39 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
  ---> Using cache
- ---> 68a818563acf
-Step 22/42 : RUN echo "alias python=/usr/local/bin/python3.7" >> ~/.bashrc && echo "alias pip=/usr/local/bin/pip3.7" >> ~/.bashrc && echo "alias perl=/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=/usr/local/bin/parallel" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc && echo "export GTK_IM_MODULE=ibus" >> ~/.bashrc && echo "export XMODIFIERS=@im=ibus" >> ~/.bashrc && echo "export QT_IM_MODULE=ibus" >> ~/.bashrc && echo "export DefalutIMModule=ibus" >> ~/.bashrc && echo "export NO_AT_BRIDGE=1" >> ~/.bashrc && echo "xset -r 49" >> ~/.bashrc && echo "ibus-daemon -rxd" >> ~/.bashrc && echo "xrdb ~/.Xresources" >> ~/.bashrc && echo "alias idea=\"~/idea-IC-192.6817.14/bin/idea.sh >~/launch_idea_log 2>&1 &\"" >> ~/.bashrc
+ ---> d87909c45a05
+Step 22/39 : RUN echo "alias python=/usr/local/bin/python3.7" >> ~/.bashrc && echo "alias pip=/usr/local/bin/pip3.7" >> ~/.bashrc && echo "alias perl=/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=/usr/local/bin/parallel" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc && echo "export GTK_IM_MODULE=ibus" >> ~/.bashrc && echo "export XMODIFIERS=@im=ibus" >> ~/.bashrc && echo "export QT_IM_MODULE=ibus" >> ~/.bashrc && echo "export DefalutIMModule=ibus" >> ~/.bashrc && echo "export NO_AT_BRIDGE=1" >> ~/.bashrc && echo "xset -r 49" >> ~/.bashrc && echo "ibus-daemon -rxd" >> ~/.bashrc && echo "xrdb ~/.Xresources" >> ~/.bashrc && echo "alias idea=\"~/idea-IC-192.6817.14/bin/idea.sh >~/launch_idea_log 2>&1 &\"" >> ~/.bashrc
  ---> Using cache
- ---> 7dcb8f941855
-Step 23/42 : USER root
+ ---> 8b75e739c0bb
+Step 23/39 : USER root
  ---> Using cache
- ---> 54a021de1014
-Step 24/42 : RUN yum install -y ibus-mozc
+ ---> 3258b129cb65
+Step 24/39 : RUN yum install -y ibus-mozc
  ---> Using cache
- ---> 506b9e68e106
-Step 25/42 : RUN yum install -y glibc-common
+ ---> 7cd812c57578
+Step 25/39 : RUN yum install -y glibc-common
  ---> Using cache
- ---> 2361211a075e
-Step 26/42 : RUN yum reinstall -y glibc-common
+ ---> fd6f93385e93
+Step 26/39 : RUN yum reinstall -y glibc-common
  ---> Using cache
- ---> 29d542c180ec
-Step 27/42 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
+ ---> 8cc3b33c1cf9
+Step 27/39 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
  ---> Using cache
- ---> 1ad5632ceaf1
-Step 28/42 : ENV LANG=ja_JP.UTF-8
+ ---> 5b9574e4a2f1
+Step 28/39 : ENV LANG=ja_JP.UTF-8
  ---> Using cache
- ---> 37f8b7350863
-Step 29/42 : RUN rm -f /etc/localtime
+ ---> 438b265968ef
+Step 29/39 : RUN rm -f /etc/localtime
  ---> Using cache
- ---> 99b9a3c21565
-Step 30/42 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+ ---> 929561cbe525
+Step 30/39 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
  ---> Using cache
- ---> 91ef4079f61b
-Step 31/42 : RUN yum install -y vlgothic-*
+ ---> 0943a244df1f
+Step 31/39 : RUN yum install -y vlgothic-*
  ---> Using cache
- ---> 0a3c7ba0ab06
-Step 32/42 : RUN yum install -y PackageKit-gtk3-module
+ ---> eeb91a6d18be
+Step 32/39 : RUN yum install -y PackageKit-gtk3-module
  ---> Using cache
- ---> 2fa0bcbb40e5
-Step 33/42 : RUN yum groupinstall -y "Input Methods"
+ ---> a9c42371304a
+Step 33/39 : RUN yum groupinstall -y "Input Methods"
  ---> Using cache
- ---> 09f35bd650ea
-Step 34/42 : RUN yum -y install man
+ ---> 059b2ba8fcad
+Step 34/39 : RUN yum -y install man
  ---> Using cache
- ---> a5658b316099
-Step 35/42 : RUN yum -y install man-pages.noarch
+ ---> f39e748b03c4
+Step 35/39 : RUN yum -y install man-pages.noarch
  ---> Using cache
- ---> ac32a4be7d5d
-Step 36/42 : RUN yum -y install man-pages-ja.noarch
+ ---> df877498a1d2
+Step 36/39 : RUN yum -y install man-pages-ja.noarch
  ---> Using cache
- ---> 17e6d0e5c76b
-Step 37/42 : RUN yum --setopt=tsflags='' reinstall -y man-pages
+ ---> 30efbe45b10a
+Step 37/39 : RUN yum --setopt=tsflags='' reinstall -y man-pages
  ---> Using cache
- ---> 7a56c4d4f1ba
-Step 38/42 : RUN mkdir -p /usr/share/fonts/emoji && cd /usr/share/fonts/emoji && curl -LO https://noto-website-2.storage.googleapis.com/pkgs/Noto-unhinted.zip && unzip Noto-unhinted.zip && rm Noto-unhinted.zip && fc-cache -f -v && fc-cat
+ ---> d9fd054840ab
+Step 38/39 : RUN mkdir -p /usr/share/fonts/emoji && cd /usr/share/fonts/emoji && curl -LO https://noto-website-2.storage.googleapis.com/pkgs/Noto-unhinted.zip && unzip Noto-unhinted.zip && rm Noto-unhinted.zip && fc-cache -f -v && fc-cat
  ---> Using cache
- ---> 3f92012b3d13
-Step 39/42 : COPY ideaIC-2019.2.3.tar.gz /home/rstudio/ideaIC-2019.2.3.tar.gz
- ---> Using cache
- ---> 356bcc4bca49
-Step 40/42 : RUN cd /home/rstudio && tar -xzf ideaIC-2019.2.3.tar.gz && chown -R rstudio:rstudio idea-IC-192.6817.14
- ---> Using cache
- ---> fc2a94bfbab6
-Step 41/42 : RUN yum install -y ibus-qt-devel ibus-qt
- ---> Running in 180198ce3d98
-Loaded plugins: aliases, changelog, fastestmirror, kabi, langpacks, ovl,
-              : tmprepo, verify, versionlock
-Loading support for Red Hat kernel ABI
-Loading mirror speeds from cached hostfile
- * base: ftp.iij.ad.jp
- * epel: nrt.edge.kernel.org
- * extras: ftp.iij.ad.jp
- * updates: ftp.iij.ad.jp
-Package ibus-qt-1.3.2-4.el7.x86_64 already installed and latest version
-Resolving Dependencies
---> Running transaction check
----> Package ibus-qt-devel.x86_64 0:1.3.2-4.el7 will be installed
---> Finished Dependency Resolution
-
-Dependencies Resolved
-
-================================================================================
- Package               Arch           Version                Repository    Size
-================================================================================
-Installing:
- ibus-qt-devel         x86_64         1.3.2-4.el7            base          19 k
-
-Transaction Summary
-================================================================================
-Install  1 Package
-
-Total download size: 19 k
-Installed size: 60 k
-Downloading packages:
-Running transaction check
-Running transaction test
-Transaction test succeeded
-Running transaction
-  Installing : ibus-qt-devel-1.3.2-4.el7.x86_64                             1/1 
-  Verifying  : ibus-qt-devel-1.3.2-4.el7.x86_64                             1/1 
-
-Installed:
-  ibus-qt-devel.x86_64 0:1.3.2-4.el7                                            
-
-Complete!
-Removing intermediate container 180198ce3d98
- ---> ff2740566b88
-Step 42/42 : ENV DISPLAY=:0.0
- ---> Running in dd2a4fc85899
-Removing intermediate container dd2a4fc85899
- ---> 6c4b10658cfb
-Successfully built 6c4b10658cfb
+ ---> c997c212a7b1
+Step 39/39 : ENV DISPLAY=:0.0
+ ---> Running in ade76278bfc8
+Removing intermediate container ade76278bfc8
+ ---> eb84f72519c5
+Successfully built eb84f72519c5
 Successfully tagged centos_xxx:latest

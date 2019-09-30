@@ -1,6 +1,15 @@
 # 参考文献 
 https://www.itmedia.co.jp/enterprise/articles/1604/27/news001.html
 
+貴重なXtermの参考文献
+https://invisible-island.net/xterm/xterm.html
+
+Xtermの設定ファイル漁るgit
+https://github.com/jfoscarini/.Xresources/blob/master/.Xresources
+
+絵文字の表示幅
+https://github.com/hamano/locale-eaw
+
 ibusやりとり
 https://github.com/ibus/ibus/issues/2005
 https://github.com/ibus/ibus/issues/385

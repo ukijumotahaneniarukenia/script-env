@@ -20,6 +20,11 @@ time docker build -t centos_xxx . | tee log
 
 ```
 
+# dockerコンテナ削除
+```
+docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
+```
+
 # dockerコンテナ作成
 ```
 docker run --privileged --shm-size=8gb --name xxx -itd -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 28787:8787 centos_xxx
