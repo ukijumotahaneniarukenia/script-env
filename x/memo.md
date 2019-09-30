@@ -10,6 +10,9 @@ http://www.momonga-linux.org/docs/TTF-HOWTO/ja/fontpath.html
 貴重なXtermの参考文献
 https://invisible-island.net/xterm/xterm.html
 
+Xのデフォルトの設定ファイル
+http://watermans-linuxtips.blogspot.com/2009/02/centosx.html?m=1
+
 Xフォント
 ArchLinuxは偉大
 https://bbs.archlinux.org/viewtopic.php?id=167204
