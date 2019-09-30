@@ -7,6 +7,43 @@ http://www.momonga-linux.org/docs/TTF-HOWTO/ja/fontpath.html
 貴重なXtermの参考文献
 https://invisible-island.net/xterm/xterm.html
 
+Xフォント
+ArchLinuxは偉大
+https://bbs.archlinux.org/viewtopic.php?id=167204
+```
+[rstudio💓2de5d80db52a (月  9月 30 09:40:49) /]$cd /usr/share/fonts/vlgothic/
+[rstudio💓2de5d80db52a (月  9月 30 09:42:04) /usr/share/fonts/vlgothic]$ll
+total 8092
+-rw-r--r--. 1 root root 4111416  6月  7  2013 VL-Gothic-Regular.ttf
+-rw-r--r--. 1 root root 4171796  6月  7  2013 VL-PGothic-Regular.ttf
+[rstudio💓2de5d80db52a (月  9月 30 09:42:06) /usr/share/fonts/vlgothic]$which mkfontscale
+/usr/bin/mkfontscale
+[rstudio💓2de5d80db52a (月  9月 30 09:42:43) /usr/share/fonts/vlgothic]$which mkfontdir
+/usr/bin/mkfontdir
+[rstudio💓2de5d80db52a (月  9月 30 09:42:52) /usr/share/fonts/vlgothic]$sudo mkfontscale
+[rstudio💓2de5d80db52a (月  9月 30 09:42:59) /usr/share/fonts/vlgothic]$ll
+total 8096
+-rw-r--r--. 1 root root 4111416  6月  7  2013 VL-Gothic-Regular.ttf
+-rw-r--r--. 1 root root 4171796  6月  7  2013 VL-PGothic-Regular.ttf
+-rw-r--r--. 1 root root    2404  9月 30 09:42 fonts.scale
+[rstudio💓2de5d80db52a (月  9月 30 09:43:02) /usr/share/fonts/vlgothic]$sudo mkfontdir
+[rstudio💓2de5d80db52a (月  9月 30 09:43:08) /usr/share/fonts/vlgothic]$ll
+total 8100
+-rw-r--r--. 1 root root 4111416  6月  7  2013 VL-Gothic-Regular.ttf
+-rw-r--r--. 1 root root 4171796  6月  7  2013 VL-PGothic-Regular.ttf
+-rw-r--r--. 1 root root    2404  9月 30 09:43 fonts.dir
+-rw-r--r--. 1 root root    2404  9月 30 09:42 fonts.scale
+```
+
+
+このコマンドでフォント遊べる
+```
+[root💛2de5d80db52a (月  9月 30 09:12:56) /]$/usr/bin/xfontsel
+```
+
+おためしようフォント
+https://github.com/tomokuni/Myrica
+
 Xtermの設定ファイル漁るgit
 https://github.com/jfoscarini/.Xresources/blob/master/.Xresources
 
