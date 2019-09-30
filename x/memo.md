@@ -1,6 +1,9 @@
 # 参考文献 
 https://www.itmedia.co.jp/enterprise/articles/1604/27/news001.html
 
+Xアプリでのフォントの設定
+http://www.momonga-linux.org/docs/TTF-HOWTO/ja/fontpath.html
+
 貴重なXtermの参考文献
 https://invisible-island.net/xterm/xterm.html
 
