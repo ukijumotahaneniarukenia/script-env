@@ -1,6 +1,9 @@
 # 参考文献 
 https://www.itmedia.co.jp/enterprise/articles/1604/27/news001.html
 
+# xフォント関連コマンド
+http://www.yam-web.net/c-programing/font/index.html
+
 Xアプリでのフォントの設定
 http://www.momonga-linux.org/docs/TTF-HOWTO/ja/fontpath.html
 
