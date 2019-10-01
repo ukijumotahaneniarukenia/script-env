@@ -1,6 +1,9 @@
 # 参考文献 
 https://www.itmedia.co.jp/enterprise/articles/1604/27/news001.html
 
+# xterm build手順
+http://lfsbookja.osdn.jp/BLFS/svn-ja/x/xterm.html
+
 xtermで起動フォント確認やっとできた
 
 Rictyフォントは全角スペースが可視化される
