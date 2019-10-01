@@ -1,6 +1,9 @@
 # 参考文献 
 https://www.itmedia.co.jp/enterprise/articles/1604/27/news001.html
 
+# x環境でじゃんはい表示するヒント
+https://unix.stackexchange.com/questions/196152/xterm-not-displaying-unicode
+
 # xterm build手順
 http://lfsbookja.osdn.jp/BLFS/svn-ja/x/xterm.html
 
