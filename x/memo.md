@@ -1,8 +1,34 @@
 # 参考文献 
 https://www.itmedia.co.jp/enterprise/articles/1604/27/news001.html
 
-# xフォント関連コマンド
+xtermで起動フォント確認やっとできた
+
+Rictyフォントは全角スペースが可視化される
+https://github.com/metalefty/Ricty/blob/master/README.md
+![](./5.png)
+
+```
+[root♥12f7ecdc2a7e (火 10月 01 09:43:30) /]$fc-list | grep Ri
+/usr/share/fonts/RictyDiminished/RictyDiminished-Oblique.ttf: Ricty Diminished:style=Oblique
+/usr/share/fonts/RictyDiminished/RictyDiminished-Regular.ttf: Ricty Diminished:style=Regular
+/usr/share/fonts/RictyDiminished/RictyDiminished-Bold.ttf: Ricty Diminished:style=Bold
+/usr/share/fonts/RictyDiminished/RictyDiminishedDiscord-Bold.ttf: Ricty Diminished Discord:style=Bold
+/usr/share/fonts/RictyDiminished/RictyDiminishedDiscord-BoldOblique.ttf: Ricty Diminished Discord:style=Bold Oblique
+/usr/share/fonts/RictyDiminished/RictyDiminishedDiscord-Regular.ttf: Ricty Diminished Discord:style=Regular
+/usr/share/fonts/RictyDiminished/RictyDiminishedDiscord-Oblique.ttf: Ricty Diminished Discord:style=Oblique
+/usr/share/fonts/RictyDiminished/RictyDiminished-BoldOblique.ttf: Ricty Diminished:style=Bold Oblique
+[root♥12f7ecdc2a7e (火 10月 01 09:44:38) /]$xterm -fa 'Ricty Diminished:style=Regular'
+```
+
+xtermをソースコードからビルド
+https://gist.github.com/dichotomies/6b41496e23bbb89d461e23f8b9b0c262
+
+UnicodeとXterm
+https://linuxjf.osdn.jp/JFdocs/Unicode-HOWTO-3.html
+
+xフォント関連コマンド
 http://www.yam-web.net/c-programing/font/index.html
+https://orebibou.com/2017/01/centosubuntu%E3%81%A7%E3%83%95%E3%82%A9%E3%83%B3%E3%83%88%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/
 
 Xアプリでのフォントの設定
 http://www.momonga-linux.org/docs/TTF-HOWTO/ja/fontpath.html

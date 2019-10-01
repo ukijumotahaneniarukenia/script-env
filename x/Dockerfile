@@ -129,11 +129,15 @@ RUN yum -y install man-pages-ja.noarch
 RUN yum --setopt=tsflags='' reinstall -y man-pages
 
 #絵文字いんすこ
-RUN mkdir -p /usr/share/fonts/emoji && cd /usr/share/fonts/emoji && curl -LO https://noto-website-2.storage.googleapis.com/pkgs/Noto-unhinted.zip && unzip Noto-unhinted.zip && rm Noto-unhinted.zip && fc-cache -f -v && fc-cat
+RUN mkdir -p /usr/share/fonts/emoji && cd /usr/share/fonts/emoji && curl -LO https://noto-website-2.storage.googleapis.com/pkgs/Noto-unhinted.zip && unzip Noto-unhinted.zip && rm Noto-unhinted.zip && ls | grep -v ttf | xargs rm -rf && fc-cache -f -v && fc-cat
+
+#ricty_diminishedフォントいんすこ
+RUN mkdir -p /usr/share/fonts/RictyDiminished/ && cd /usr/share/fonts/RictyDiminished/ && git clone https://github.com/edihbrandon/RictyDiminished && \
+mv RictyDiminished/*ttf . && rm -rf RictyDiminished && fc-cache -f -v && fc-cat
 
 #idea
-#COPY ideaIC-2019.2.3.tar.gz /home/rstudio/ideaIC-2019.2.3.tar.gz
-#RUN cd /home/rstudio && tar -xzf ideaIC-2019.2.3.tar.gz && chown -R rstudio:rstudio idea-IC-192.6817.14
+COPY ideaIC-2019.2.3.tar.gz /home/rstudio/ideaIC-2019.2.3.tar.gz
+RUN cd /home/rstudio && tar -xzf ideaIC-2019.2.3.tar.gz && chown -R rstudio:rstudio idea-IC-192.6817.14
 
 #XクライアントがXサーバーにGUI転送出来るように、転送先のIPを指定する
 ENV DISPLAY=:0.0
