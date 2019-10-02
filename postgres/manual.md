@@ -1,3 +1,6 @@
+# 参考文献
+https://weblabo.oscasierra.net/postgresql10-centos7-install/
+
 # Dockerfileよりイメージ作成
 ```
 time docker build -t centos_postgres . | tee log
