@@ -5,6 +5,9 @@ https://www.itmedia.co.jp/enterprise/articles/1604/27/news001.html
 起動手順記載あり
 https://www.ibm.com/support/knowledgecenter/ja/ssw_aix_72/s_commands/startx.html
 
+読み込むファイル
+startx コマンド内の xinit コマンドは、.Xdefaults ファイルをロードしようとします。
+
 # x環境でじゃんはい表示するヒント
 https://unix.stackexchange.com/questions/196152/xterm-not-displaying-unicode
 
