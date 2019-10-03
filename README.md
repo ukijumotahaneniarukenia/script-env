@@ -11,14 +11,8 @@ CentOS Linux release 7.7.1908 (Core)
 ```
 [aine@centos ~]$ su root
 パスワード:
-[root@centos aine]# yum remove docker \
->                   docker-client \
->                   docker-client-latest \
->                   docker-common \
->                   docker-latest \
->                   docker-latest-logrotate \
->                   docker-logrotate \
->                   docker-engine
+[root@centos aine]# yum remove docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate 
+ docker-logrotate docker-engine
 読み込んだプラグイン:fastestmirror, langpacks
 引数に一致しません: docker
 引数に一致しません: docker-client
@@ -29,9 +23,7 @@ CentOS Linux release 7.7.1908 (Core)
 引数に一致しません: docker-logrotate
 引数に一致しません: docker-engine
 削除対象とマークされたパッケージはありません。
-[root@centos aine]# yum install -y yum-utils \
->   device-mapper-persistent-data \
->   lvm2
+[root@centos aine]# yum install -y yum-utils device-mapper-persistent-data lvm2
 読み込んだプラグイン:fastestmirror, langpacks
 Loading mirror speeds from cached hostfile
  * base: ftp.nara.wide.ad.jp
@@ -41,14 +33,11 @@ Loading mirror speeds from cached hostfile
 パッケージ device-mapper-persistent-data-0.8.5-1.el7.x86_64 はインストール済みか最新バージョンです
 パッケージ 7:lvm2-2.02.185-2.el7.x86_64 はインストール済みか最新バージョンです
 何もしません
-[root@centos aine]# yum-config-manager \
->     --add-repo \
->     https://download.docker.com/linux/centos/docker-ce.repo
+[root@centos aine]# yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 読み込んだプラグイン:fastestmirror, langpacks
 adding repo from: https://download.docker.com/linux/centos/docker-ce.repo
 grabbing file https://download.docker.com/linux/centos/docker-ce.repo to /etc/yum.repos.d/docker-ce.repo
 repo saved to /etc/yum.repos.d/docker-ce.repo
-[root@centos aine]# yum install -y docker-ce docker-ce-cli containerd.io
 [root@centos aine]# yum install -y docker-ce docker-ce-cli containerd.io
 読み込んだプラグイン:fastestmirror, langpacks
 Loading mirror speeds from cached hostfile
