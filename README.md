@@ -219,8 +219,8 @@ Resolving deltas: 100% (635/635), done.
 # vimは最新インストールしておく
 ```
 yum install -y gcc gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && \
-cd ~ && git clone https://github.com/vim/vim.git ~/---pkg--- && \
-cd ~/---pkg--- && \
+cd ~ && git clone https://github.com/vim/vim.git ~/pkg && \
+cd ~/pkg && \
 ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && \
 make -j12 distclean && \
 make -j12 && \
