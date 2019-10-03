@@ -3,6 +3,8 @@ https://weblabo.oscasierra.net/postgresql10-centos7-install/
 http://note.kurodigi.com/centos7-postgresql/
 https://freelance-jak.com/technology/postgresql/451/
 
+https://codezine.jp/article/detail/2686
+
 
 # Dockerfileよりイメージ作成
 ```
