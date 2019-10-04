@@ -23,7 +23,7 @@ docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
 
 # dockerコンテナ起動
 ```
-docker run --privileged -v /etc/localtime:/etc/localtime  --name postgres -p 50022:22 -p 55050:5050 -p 58787:8787 -p 5432:5432 -itd centos_postgres /sbin/init
+docker run --privileged -v /etc/localtime:/etc/localtime  --name postgres -p 50022:22 -p 55050:5050 -p 58787:8787 -p 5432:5432 -itd centos_postgres
 ```
 
 # ブラウザから起動確認(rstudio)

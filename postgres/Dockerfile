@@ -1,4 +1,4 @@
-FROM centos:latest
+FROM centos:7.6.1810
 
 #ユーザー作成
 RUN groupadd -g 1001 rstudio
@@ -105,7 +105,7 @@ make -j12 install
 #parallelコマンド install
 RUN cd ~ && yum install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && \
 tar jxf parallel-latest.tar.bz2 && \
-cd parallel-20190822 && \
+cd parallel-20190922 && \
 ./configure && \
 make -j12 && \
 make -j12 install
@@ -202,4 +202,4 @@ EXPOSE 5432
 #pgAdminサービス外部公開ポート
 EXPOSE 5050
 
-CMD ["/sbin/init"]
+#CMD ["/sbin/init"]
