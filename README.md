@@ -12,7 +12,17 @@ CentOS Linux release 7.7.1908 (Core)
 
 # rootユーザーでmy_installer.shを実行
 
+# visudoでdockerグループに属するユーザーはroot権限をもつように修正
+```
+[root♥centos (金 10月 04 20:39:17) /home/aine]$visudo
+
+## Allows people in group wheel to run all commands
+%wheel    ALL=(ALL)        ALL
+%docker    ALL=(ALL)        ALL
+```
+
 # ユーザーごとに自身のvim環境インストール
+aineユーザーで実行
 ```
 # 自身のvim環境クローン
 git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim && \
