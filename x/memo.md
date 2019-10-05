@@ -4,6 +4,10 @@ https://www.itmedia.co.jp/enterprise/articles/1604/27/news001.html
 # keyboard
 https://wiki.archlinux.jp/index.php/%E3%82%B3%E3%83%B3%E3%82%BD%E3%83%BC%E3%83%AB%E3%81%A7%E3%81%AE%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E8%A8%AD%E5%AE%9A
 ```
+[aine💜centos (土 10月 05 10:58:34) ~]$cat /etc/vconsole.conf 
+KEYMAP=/usr/share/ibus/keymaps/jp
+FONT=latarcyrheb-sun16
+
 [aine💜centos (土 10月 05 10:36:30) ~]$cat /usr/share/ibus/keymaps/jp
 include common
     shift keycode 2 = exclam
