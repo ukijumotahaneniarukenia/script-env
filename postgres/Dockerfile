@@ -188,6 +188,9 @@ RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 RUN yum install -y initscripts
 RUN yum install -y --nogpgcheck https://s3.amazonaws.com/rstudio-ide-build/server/centos6/x86_64/rstudio-server-rhel-1.2.1568-x86_64.rpm 
 
+#postgresソースファイルを調査用にコンテナ側にコピー
+COPY postgresql-11.5 /home/postgres/postgresql-11.5
+
 #sshdサービス外部公開ポート
 EXPOSE 22
 
