@@ -13,18 +13,9 @@ CentOS Linux release 7.7.1908 (Core)
 # aineユーザーでデスクトップ環境日本語化
 ```
 [aine@centos ~]$ LANG=C xdg-user-dirs-gtk-update
-Gtk-Message: 23:43:59.894: GtkDialog mapped without a transient parent. This is discouraged.
-Moving DESKTOP directory from デスクトップ to Desktop
-Moving DOWNLOAD directory from ダウンロード to Downloads
-Moving TEMPLATES directory from テンプレート to Templates
-Moving PUBLICSHARE directory from 公開 to Public
-Moving DOCUMENTS directory from ドキュメント to Documents
-Moving MUSIC directory from 音楽 to Music
-Moving PICTURES directory from 画像 to Pictures
-Moving VIDEOS directory from ビデオ to Videos
 ```
 
-# rootユーザーでmy_installer.shを実行
+# rootユーザーでmy-installer.shを実行
 
 # visudoでdockerグループに属するユーザーはroot権限をもつように修正
 ```
