@@ -23,7 +23,7 @@ docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
 
 # dockerコンテナ起動
 ```
-docker run --privileged -v /etc/localtime:/etc/localtime  --name postgres -p 50022:22 -p 55050:5050 -p 58787:8787 -p 5432:5432 -itd centos_postgres
+docker run --privileged --shm-size=8gb --name postgres -itd -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id centos_postgres
 ```
 
 # ブラウザから起動確認(rstudio)
@@ -43,7 +43,7 @@ docker exec --user root -it postgres /bin/bash
 ```
 
 # dockerコンテナ潜入後
-rootで作業。pythonはシステム共通で使用しているパスを指定。
+rootユーザーで実行。pythonはシステム共通で使用しているパスを指定。
 ```
 [aine💚centos (土 10月 05 12:19:23) ~/script_scratch/postgres]$docker exec --user root -it postgres /bin/bash
 [root🖤4718e7a94014 (土 10月 05 12:19:57) /]$cd /usr/lib/python2.7/site-packages/pgadmin4-web
@@ -59,8 +59,37 @@ pgAdmin 4 - Application Initialisation
 ======================================
 ```
 ## データベースの初期化
+postgresユーザーで実行。
 ```
-postgresql-11-setup initdb
+[postgres💗8800564297cd (土 10月 05 12:43:00) /]$initdb -D /var/lib/pgsql/11/data
+The files belonging to this database system will be owned by user "postgres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "ja_JP.utf8".
+The default database encoding has accordingly been set to "UTF8".
+initdb: could not find suitable text search configuration for locale "ja_JP.utf8"
+The default text search configuration will be set to "simple".
+
+Data page checksums are disabled.
+
+fixing permissions on existing directory /var/lib/pgsql/11/data ... ok
+creating subdirectories ... ok
+selecting default max_connections ... 100
+selecting default shared_buffers ... 128MB
+selecting default timezone ... Asia/Tokyo
+selecting dynamic shared memory implementation ... posix
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+WARNING: enabling "trust" authentication for local connections
+You can change this by editing pg_hba.conf or using the option -A, or
+--auth-local and --auth-host, the next time you run initdb.
+
+Success. You can now start the database server using:
+
+    pg_ctl -D /var/lib/pgsql/11/data -l logfile start
 ``` 
 ## 外部からの接続を許可する
 ローカルネットワークからのアクセスは認証なしで接続可。
