@@ -43,13 +43,20 @@ docker exec --user root -it postgres /bin/bash
 ```
 
 # dockerコンテナ潜入後
-rootで作業
-## setup.pyを実行。pythonはシステム共通で使用しているパスを指定。
+rootで作業。pythonはシステム共通で使用しているパスを指定。
 ```
-cd /usr/lib/python2.7/site-packages/pgadmin4-web
-/usr/bin/python2.7 ./setup.py
-Email address: unko@gmail.com
-Password:unko
+[aine💚centos (土 10月 05 12:19:23) ~/script_scratch/postgres]$docker exec --user root -it postgres /bin/bash
+[root🖤4718e7a94014 (土 10月 05 12:19:57) /]$cd /usr/lib/python2.7/site-packages/pgadmin4-web
+[root🖤4718e7a94014 (土 10月 05 12:19:59) /usr/lib/python2.7/site-packages/pgadmin4-web]$/usr/bin/python2.7 ./setup.py
+NOTE: Configuring authentication for SERVER mode.
+
+Enter the email address and password to use for the initial pgAdmin user account:
+
+Email address: mrchildrenkh1008@gmail.com
+Password: 
+Retype password:
+pgAdmin 4 - Application Initialisation
+======================================
 ```
 ## データベースの初期化
 ```
