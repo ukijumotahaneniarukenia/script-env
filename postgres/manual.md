@@ -5,9 +5,7 @@ https://freelance-jak.com/technology/postgresql/451/
 https://codezine.jp/article/detail/2686
 
 postgresのソースコード
-```
 https://www.postgresql.org/ftp/source/
-```
 
 
 # Dockerfileよりイメージ作成
@@ -102,6 +100,35 @@ total 3320
 -rw-r--r--. 1 postgres postgres    2233 10月  5 12:16 installer.sh
 -rw-------. 1 postgres postgres     697 10月  5 12:48 logfile
 ```
+いい感じに動いているとこんな具合
+```
+[postgres💓26c364215a07 (土 10月 05 14:48:41) ~]$sudo systemctl status
+● 26c364215a07
+    State: running
+     Jobs: 0 queued
+   Failed: 0 units
+    Since: 土 2019-10-05 13:33:48 JST; 1h 14min ago
+   CGroup: /
+           ├─   1 /bin/bash
+           ├─  74 /usr/pgsql-11/bin/postgres -D /var/lib/pgsql/11/data
+           ├─  75 postgres: logger                                    
+           ├─  77 postgres: checkpointer                              
+           ├─  78 postgres: background writer                         
+           ├─  79 postgres: walwriter                                 
+           ├─  80 postgres: autovacuum launcher                       
+           ├─  81 postgres: stats collector                           
+           ├─  82 postgres: logical replication launcher              
+           ├─ 606 sudo /usr/bin/python2.7 pgAdmin4.py
+           ├─ 607 /usr/bin/python2.7 pgAdmin4.py
+           ├─ 897 postgres: postgres dvdrental 127.0.0.1(36954) idle  
+           ├─ 898 postgres: postgres postgres 127.0.0.1(36956) idle   
+           ├─ 923 postgres: postgres dvdrental 127.0.0.1(37006) idle  
+           ├─1117 /bin/bash
+           ├─1153 sudo systemctl status
+           ├─1154 systemctl status
+           └─1155 less
+```
+
 
 ## 外部からの接続を許可する
 ローカルネットワークからのアクセスは認証なしで接続可。
