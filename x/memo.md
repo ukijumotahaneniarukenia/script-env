@@ -1,6 +1,56 @@
 # 参考文献 
 https://www.itmedia.co.jp/enterprise/articles/1604/27/news001.html
 
+# keyboard
+https://wiki.archlinux.jp/index.php/%E3%82%B3%E3%83%B3%E3%82%BD%E3%83%BC%E3%83%AB%E3%81%A7%E3%81%AE%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E8%A8%AD%E5%AE%9A
+```
+[aine💜centos (土 10月 05 10:36:30) ~]$cat /usr/share/ibus/keymaps/jp
+include common
+    shift keycode 2 = exclam
+    shift keycode 3 = quotedbl
+    shift keycode 4 = numbersign
+    shift keycode 5 = dollar
+    shift keycode 6 = percent
+    shift keycode 7 = ampersand
+    shift keycode 8 = apostrophe
+    shift keycode 9 = parenleft
+    shift keycode 10 = parenright
+    shift keycode 11 = asciitilde
+keycode 12 = minus
+    shift keycode 12 = equal
+keycode 13 = asciicircum
+    shift keycode 13 = asciitilde
+keycode 26 = at
+    shift keycode 26 = grave
+keycode 27 = bracketleft
+    shift keycode 27 = braceleft
+keycode 39 = semicolon
+    shift keycode 39 = plus
+keycode 40 = colon
+    shift keycode 40 = asterisk
+keycode 41 = Zenkaku_Hankaku
+keycode 43 = bracketright
+    shift keycode 43 = braceright
+keycode 51 = comma
+    shift keycode 51 = less
+keycode 52 = period
+    shift keycode 52 = greater
+keycode 53 = slash
+    shift keycode 53 = question
+    shift keycode 58 = Eisu_toggle
+keycode 89 = backslash
+    shift keycode 89 = underscore
+keycode 92 = Henkan_Mode
+keycode 93 = Hiragana_Katakana
+keycode 94 = Muhenkan
+keycode 124 = yen
+    shift keycode 124 = bar
+keycode 122 = Hangul
+keycode 123 = Hangul_Hanja
+    shift keycode 84 = Execute
+keycode 112 = Katakana
+```
+
 # startxコマンド
 起動手順記載あり
 https://www.ibm.com/support/knowledgecenter/ja/ssw_aix_72/s_commands/startx.html
