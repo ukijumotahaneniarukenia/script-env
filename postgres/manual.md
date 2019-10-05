@@ -23,17 +23,12 @@ docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
 
 # dockerコンテナ起動
 ```
-docker run --privileged --shm-size=8gb --name postgres -itd -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id centos_postgres
-```
-
-# ブラウザから起動確認(rstudio)
-```
-http://192.168.1.109:58787/
+docker run --privileged --shm-size=8gb --name postgres -itd -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 5432:5432 -p 5050:5050 centos_postgres
 ```
 
 # ブラウザから起動確認(pgadmin)
 ```
-http://192.168.1.109:55050/
+http://192.168.1.109:5050/
 ```
 
 # dockerコンテナ潜入
@@ -91,6 +86,19 @@ Success. You can now start the database server using:
 
     pg_ctl -D /var/lib/pgsql/11/data -l logfile start
 ``` 
+## postgresサービス起動
+```
+[postgres💖8800564297cd (土 10月 05 12:48:24) ~]$pg_ctl -D /var/lib/pgsql/11/data -l logfile start
+waiting for server to start.... done
+server started
+[postgres💖8800564297cd (土 10月 05 12:48:56) ~]$ll
+total 3320
+-rw-r--r--. 1 postgres postgres 2835456  5月 12 19:36 dvdrental.tar
+-rw-r--r--. 1 postgres postgres  550906 10月  5 12:16 dvdrental.zip
+-rw-r--r--. 1 postgres postgres    2233 10月  5 12:16 installer.sh
+-rw-------. 1 postgres postgres     697 10月  5 12:48 logfile
+```
+
 ## 外部からの接続を許可する
 ローカルネットワークからのアクセスは認証なしで接続可。
 修正前

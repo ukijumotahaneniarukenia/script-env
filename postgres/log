@@ -1,339 +1,700 @@
-Sending build context to Docker daemon  749.1kB
-Step 1/34 : FROM centos:7.6.1810
+Sending build context to Docker daemon    746kB
+Step 1/22 : FROM centos:7.6.1810
  ---> f1cb7c7d58b7
-Step 2/34 : RUN adduser postgres
- ---> Using cache
- ---> 98883ffa54c0
-Step 3/34 : RUN chsh -s /bin/bash postgres
- ---> Using cache
- ---> 2a67a463b39e
-Step 4/34 : RUN echo 'root_pwd' | passwd --stdin root
- ---> Using cache
- ---> 2c9fad1c784f
-Step 5/34 : RUN echo 'postgres_pwd' | passwd --stdin postgres
- ---> Using cache
- ---> 45b173c8c7fa
-Step 6/34 : RUN echo 'postgres ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
- ---> Using cache
- ---> ac7aa368ae55
-Step 7/34 : RUN yum -y install https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
- ---> Using cache
- ---> 12d452b19d42
-Step 8/34 : RUN yum -y install epel-release
- ---> Using cache
- ---> 3b804d1b7869
-Step 9/34 : RUN yum -y install pgadmin4
- ---> Using cache
- ---> 75c863ab2e15
-Step 10/34 : RUN echo "SERVER_MODE = True" >> /usr/lib/python2.7/site-packages/pgadmin4-web/config_local.py
- ---> Using cache
- ---> 2352fba321d4
-Step 11/34 : RUN echo "DEFAULT_SERVER = '0.0.0.0'" >> /usr/lib/python2.7/site-packages/pgadmin4-web/config_local.py
- ---> Using cache
- ---> 639da7c9b790
-Step 12/34 : RUN echo "LOG_FILE = '/var/log/pgadmin4/pgadmin4.log'" >> /usr/lib/python2.7/site-packages/pgadmin4-web/config_local.py
- ---> Using cache
- ---> 258052249c4e
-Step 13/34 : RUN yum -y install postgresql11-server
- ---> Using cache
- ---> b22b46d5d39c
-Step 14/34 : RUN yum install -y sudo gcc git gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd ~ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
- ---> Using cache
- ---> f5da7a73164e
-Step 15/34 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
- ---> Using cache
- ---> 3292459c3f34
-Step 16/34 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
- ---> Using cache
- ---> 5de60ca8f94f
-Step 17/34 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
- ---> Using cache
- ---> c1603495d064
-Step 18/34 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo export PATH=$PATH:/usr/pgsql-11/bin >> ~/.bashrc && echo export PGSETUP_INITDB_OPTIONS="-E UTF8 --locale=C"
- ---> Running in f806204711e7
-export PGSETUP_INITDB_OPTIONS=-E UTF8 --locale=C
-Removing intermediate container f806204711e7
- ---> 8fb95a2981e3
-Step 19/34 : USER postgres
- ---> Running in eefc1ebe2860
-Removing intermediate container eefc1ebe2860
- ---> 9245d85bbae1
-Step 20/34 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
- ---> Running in 0d78c0a2fba8
-Cloning into '/home/postgres/.vim'...
-Removing intermediate container 0d78c0a2fba8
- ---> 84a8323eb48d
-Step 21/34 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
- ---> Running in d41fdaf38392
-Cloning into '/home/postgres/tmp'...
-Removing intermediate container d41fdaf38392
- ---> 67c740abfb2f
-Step 22/34 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
- ---> Running in 9473aa0cd6fd
-[91m  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                [0m[91m                 Dload  Upload [0m[91m  Total   Spent   [0m[91m Left  Speed
-[0m[91m  0    [0m[91m 0 [0m[91m  [0m[91m 0    [0m[91m 0    [0m[91m0     0    [0m[91m  0      0 --:--:-- --:--:-- --:-[0m[91m-:--     [0m[91m0[0m[91m100  2233  100  2233    0     0  11464      0 [0m[91m--:--:-- --:--:-- [0m[91m--:--[0m[91m:-- 11510
-[0mInstall to "/home/postgres/.vim/bundle/repos/github.com/Shougo/dein.vim"...
-
-git is /usr/bin/git
-
-Begin fetching dein...
-Cloning into '/home/postgres/.vim/bundle/repos/github.com/Shougo/dein.vim'...
-Done.
-
-Please add the following settings for dein to the top of your vimrc (Vim) or init.vim (NeoVim) file:
-
-
-"dein Scripts-----------------------------
-if &compatible
-  set nocompatible               " Be iMproved
-endif
-
-" Required:
-set runtimepath+=/home/postgres/.vim/bundle/repos/github.com/Shougo/dein.vim
-
-" Required:
-if dein#load_state('/home/postgres/.vim/bundle')
-  call dein#begin('/home/postgres/.vim/bundle')
-
-  " Let dein manage dein
-  " Required:
-  call dein#add('/home/postgres/.vim/bundle/repos/github.com/Shougo/dein.vim')
-
-  " Add or remove your plugins here like this:
-  "call dein#add('Shougo/neosnippet.vim')
-  "call dein#add('Shougo/neosnippet-snippets')
-
-  " Required:
-  call dein#end()
-  call dein#save_state()
-endif
-
-" Required:
-filetype plugin indent on
-syntax enable
-
-" If you want to install not installed plugins on startup.
-"if dein#check_install()
-"  call dein#install()
-"endif
-
-"End dein Scripts-------------------------
-
-
-Done.
-Complete setup dein!
-Removing intermediate container 9473aa0cd6fd
- ---> f9508e074484
-Step 23/34 : RUN cd ~ && curl -LO http://www.postgresqltutorial.com/wp-content/uploads/2019/05/dvdrental.zip
- ---> Running in f5fd6873b903
-[91m  % Total    % Received % Xferd  Average[0m[91m Speed   Time    Time     Time[0m[91m  Curre[0m[91mnt
-   [0m[91m     [0m[91m        [0m[91m   [0m[91m   [0m[91m  [0m[91m    [0m[91m  [0m[91m   D[0m[91mlo[0m[91mad  [0m[91mUpl[0m[91moa[0m[91md [0m[91m  To[0m[91mtal [0m[91m  [0m[91mSpen[0m[91mt   [0m[91m L[0m[91meft [0m[91m S[0m[91mpee[0m[91md
-[0m[91m  0     0   [0m[91m 0    [0m[91m 0    0    [0m[91m 0      0      0 --:--:-- --:--:-- --:--[0m[91m:--     0[0m[91m 39  537k   39  210k    0     0   209k      0  0:00:02  0:00:01  0:00:01  210k[0m[91m100  537k  100  537k    0     0   404[0m[91mk      0  0:00:01  0:00:01 --[0m[91m:--:--  404k[0m[91m
-[0mRemoving intermediate container f5fd6873b903
- ---> 636ee9697afa
-Step 24/34 : RUN cd ~ && sudo yum install -y unzip && unzip dvdrental.zip
- ---> Running in ef038394dcca
+Step 2/22 : RUN echo 'root_pwd' | passwd --stdin root
+ ---> Running in 6850692abead
+Changing password for user root.
+passwd: all authentication tokens updated successfully.
+Removing intermediate container 6850692abead
+ ---> 3f4cd1a45692
+Step 3/22 : RUN yum -y install https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+ ---> Running in 381f7466524a
 Loaded plugins: fastestmirror, ovl
-Loading mirror speeds from cached hostfile
- * base: ftp-srv2.kddilabs.jp
- * epel: nrt.edge.kernel.org
- * extras: ftp-srv2.kddilabs.jp
- * updates: ftp-srv2.kddilabs.jp
+Examining /var/tmp/yum-root-aK4UFQ/pgdg-redhat-repo-latest.noarch.rpm: pgdg-redhat-repo-42.0-5.noarch
+Marking /var/tmp/yum-root-aK4UFQ/pgdg-redhat-repo-latest.noarch.rpm to be installed
 Resolving Dependencies
 --> Running transaction check
----> Package unzip.x86_64 0:6.0-20.el7 will be installed
+---> Package pgdg-redhat-repo.noarch 0:42.0-5 will be installed
 --> Finished Dependency Resolution
 
 Dependencies Resolved
 
 ================================================================================
- Package          Arch              Version               Repository       Size
+ Package            Arch     Version    Repository                         Size
 ================================================================================
 Installing:
- unzip            x86_64            6.0-20.el7            base            170 k
+ pgdg-redhat-repo   noarch   42.0-5     /pgdg-redhat-repo-latest.noarch   7.5 k
 
 Transaction Summary
 ================================================================================
 Install  1 Package
 
-Total download size: 170 k
-Installed size: 365 k
+Total size: 7.5 k
+Installed size: 7.5 k
 Downloading packages:
 Running transaction check
 Running transaction test
 Transaction test succeeded
 Running transaction
-  Installing : unzip-6.0-20.el7.x86_64                                      1/1 
-  Verifying  : unzip-6.0-20.el7.x86_64                                      1/1 
+  Installing : pgdg-redhat-repo-42.0-5.noarch                               1/1 
+  Verifying  : pgdg-redhat-repo-42.0-5.noarch                               1/1 
 
 Installed:
-  unzip.x86_64 0:6.0-20.el7                                                     
+  pgdg-redhat-repo.noarch 0:42.0-5                                              
 
 Complete!
-Archive:  dvdrental.zip
-  inflating: dvdrental.tar           
-Removing intermediate container ef038394dcca
- ---> 6a5788946952
-Step 25/34 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc && echo export PATH=$PATH:/usr/pgsql-11/bin >> ~/.bashrc && echo export PGSETUP_INITDB_OPTIONS="-E UTF8 --locale=C"
- ---> Running in 801dd91b428d
-export PGSETUP_INITDB_OPTIONS=-E UTF8 --locale=C
-Removing intermediate container 801dd91b428d
- ---> a9c7c4ba598e
-Step 26/34 : USER root
- ---> Running in c27faa6ff135
-Removing intermediate container c27faa6ff135
- ---> de2d08ca74ee
-Step 27/34 : RUN yum -y reinstall glibc-common
- ---> Running in 420121b6e3fc
+Removing intermediate container 381f7466524a
+ ---> bb31fb19dbb7
+Step 4/22 : RUN yum -y install epel-release
+ ---> Running in 2a428acc782e
 Loaded plugins: fastestmirror, ovl
-Loading mirror speeds from cached hostfile
- * base: ftp-srv2.kddilabs.jp
- * epel: nrt.edge.kernel.org
- * extras: ftp-srv2.kddilabs.jp
- * updates: ftp-srv2.kddilabs.jp
+Determining fastest mirrors
+ * base: ftp.iij.ad.jp
+ * extras: ftp.iij.ad.jp
+ * updates: ftp.iij.ad.jp
 Resolving Dependencies
 --> Running transaction check
----> Package glibc-common.x86_64 0:2.17-292.el7 will be reinstalled
+---> Package epel-release.noarch 0:7-11 will be installed
 --> Finished Dependency Resolution
 
 Dependencies Resolved
 
 ================================================================================
- Package              Arch           Version                 Repository    Size
+ Package                Arch             Version         Repository        Size
 ================================================================================
-Reinstalling:
- glibc-common         x86_64         2.17-292.el7            base          11 M
+Installing:
+ epel-release           noarch           7-11            extras            15 k
 
 Transaction Summary
 ================================================================================
-Reinstall  1 Package
+Install  1 Package
 
-Total download size: 11 M
-Installed size: 115 M
+Total download size: 15 k
+Installed size: 24 k
 Downloading packages:
-Running transaction check
+[91mwarning: /var/cache/yum/x86_64/7/extras/packages/epel-release-7-11.noarch.rpm: Header V3 RSA/SHA256 Signature, key ID f4a80eb5: NOKEY
+[0mPublic key for epel-release-7-11.noarch.rpm is not installed
+Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+[91mImporting GPG key 0xF4A80EB5:
+ Userid     : "CentOS-7 Key (CentOS 7 Official Signing Key) <security@centos.org>"
+ Fingerprint: 6341 ab27 53d7 8a78 a7c2 7bb1 24c6 a8a7 f4a8 0eb5
+ Package    : centos-release-7-6.1810.2.el7.centos.x86_64 (@CentOS)
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+[0mRunning transaction check
 Running transaction test
 Transaction test succeeded
 Running transaction
-  Installing : glibc-common-2.17-292.el7.x86_64                             1/1 
-  Verifying  : glibc-common-2.17-292.el7.x86_64                             1/1 
+  Installing : epel-release-7-11.noarch                                     1/1 
+  Verifying  : epel-release-7-11.noarch                                     1/1 
 
 Installed:
-  glibc-common.x86_64 0:2.17-292.el7                                            
+  epel-release.noarch 0:7-11                                                    
 
 Complete!
-Removing intermediate container 420121b6e3fc
- ---> 2bfc0ac0d025
-Step 28/34 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
- ---> Running in 6e2115e8fa2d
-[91m/usr/share/i18n/locales/ja_JP:11: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:12: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:15: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:18: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:19: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:20: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:21: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:23: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:24: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:25: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:26: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:27: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:28: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:29: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:30: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:31: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:32: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:33: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:42: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/i18n:1425: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/i18n:1674: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/i18n:1719: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/i18n:1756: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/ja_JP:1675: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:1676: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/ja_JP:14945: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:14946: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:14947: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:14948: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:14949: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:14950: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:14951: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:14952: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:14953: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:14954: non-symbolic character value should not be used
-/usr/share/i18n/locales/ja_JP:14955: non-symbolic character value should not be used
-[0m[91m/usr/share/i18n/locales/translit_neutral:10: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:11: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:12: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:13: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:14: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:15: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:16: non-symbolic character value should not be used
-/usr/share/i18n/locales/translit_neutral:17: non-symbolic character value should not be used
-[0m[91mLC_ADDRESS: field `country_name' not defined
-LC_ADDRESS: field `country_post' not defined
-LC_ADDRESS: field `country_car' not defined
-LC_ADDRESS: field `country_isbn' not defined
-LC_ADDRESS: field `lang_name' not defined
-LC_ADDRESS: field `lang_term' not defined
-LC_ADDRESS: field `lang_ab' not defined
-LC_TELEPHONE: field `int_select' not defined
-LC_IDENTIFICATION: field `audience' not defined
-LC_IDENTIFICATION: field `application' not defined
-LC_IDENTIFICATION: field `abbreviation' not defined
-LC_IDENTIFICATION: no identification for category `LC_MEASUREMENT'
-[0m[91mLC_CTYPE: table for class "upper": 1756 bytes
-[0m[91mLC_CTYPE: table for class "lower": 1756 bytes
-[0m[91mLC_CTYPE: table for class "alpha": 4320 bytes
-[0m[91mLC_CTYPE: table for class "digit": 600 bytes
-[0m[91mLC_CTYPE: table for class "xdigit": 600 bytes
-[0m[91mLC_CTYPE: table for class "space": 856 bytes
-[0m[91mLC_CTYPE: table for class "print": 5976 bytes
-[0m[91mLC_CTYPE: table for class "graph": 5976 bytes
-[0m[91mLC_CTYPE: table for class "blank": 856 bytes
-[0m[91mLC_CTYPE: table for class "cntrl": 664 bytes
-[0m[91mLC_CTYPE: table for class "punct": 4824 bytes
-[0m[91mLC_CTYPE: table for class "alnum": 4320 bytes
-[0m[91mLC_CTYPE: table for class "combining": 3152 bytes
-[0m[91mLC_CTYPE: table for class "combining_level3": 2832 bytes
-[0m[91mLC_CTYPE: table for class "jspace": 600 bytes
-[0m[91mLC_CTYPE: table for class "jhira": 600 bytes
-[0m[91mLC_CTYPE: table for class "jkata": 664 bytes
-[0m[91mLC_CTYPE: table for class "jkanji": 3224 bytes
-[0m[91mLC_CTYPE: table for class "jdigit": 600 bytes
-[0m[91mLC_CTYPE: table for map "toupper": 16924 bytes
-LC_CTYPE: table for map "tolower": 15388 bytes
-[0m[91mLC_CTYPE: table for map "totitle": 16924 bytes
-LC_CTYPE: table for map "tojhira": 2584 bytes
-LC_CTYPE: table for map "tojkata": 3096 bytes
-[0m[91mLC_CTYPE: table for width: 26712 bytes
-[0m
-Removing intermediate container 6e2115e8fa2d
- ---> 0b01fe44c313
-Step 29/34 : ENV LANG=ja_JP.UTF-8
- ---> Running in df840184d7dd
-Removing intermediate container df840184d7dd
- ---> 05a794f2b63f
-Step 30/34 : RUN rm -f /etc/localtime
- ---> Running in 057fd54e9716
-Removing intermediate container 057fd54e9716
- ---> 13f199390384
-Step 31/34 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
- ---> Running in 956e2b8a9099
-Removing intermediate container 956e2b8a9099
- ---> 4ccb42e3c2ca
-Step 32/34 : EXPOSE 22
- ---> Running in ba379a05b382
-Removing intermediate container ba379a05b382
- ---> 196711aec5c4
-Step 33/34 : EXPOSE 5432
- ---> Running in 2b2c8d5a2570
-Removing intermediate container 2b2c8d5a2570
- ---> 22c4225b230a
-Step 34/34 : EXPOSE 5050
- ---> Running in 5d49152b9c21
-Removing intermediate container 5d49152b9c21
- ---> 1dda4e4cfc3a
-Successfully built 1dda4e4cfc3a
-Successfully tagged centos_postgres:latest
+Removing intermediate container 2a428acc782e
+ ---> 15940abd580e
+Step 5/22 : RUN yum -y install pgadmin4
+ ---> Running in 17df3ac85f5c
+Loaded plugins: fastestmirror, ovl
+Loading mirror speeds from cached hostfile
+ * base: ftp.iij.ad.jp
+ * epel: ftp.yz.yamagata-u.ac.jp
+ * extras: ftp.iij.ad.jp
+ * updates: ftp.iij.ad.jp
+Resolving Dependencies
+--> Running transaction check
+---> Package pgadmin4.x86_64 0:4.13-1.rhel7 will be installed
+--> Processing Dependency: pgadmin4-web for package: pgadmin4-4.13-1.rhel7.x86_64
+--> Running transaction check
+---> Package pgadmin4-web.noarch 0:4.13-1.rhel7 will be installed
+--> Processing Dependency: python-speaklater >= 1.3 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: python-psycopg2 >= 2.8 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: python-crypto >= 2.6.1 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-pytz >= 2018.9 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-wtforms >= 2.2.1 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-werkzeug >= 0.15.4 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-sshtunnel >= 0.1.4 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-sqlparse >= 0.2.4 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-sqlalchemy >= 1.2.18 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-six >= 1.12.0 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-simplejson >= 3.16.0 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-psutil >= 5.5.1 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-passlib >= 1.7.1 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-markupsafe >= 0.23 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-jinja2 >= 2.7.3 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-itsdangerous >= 0.24 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-flask-wtf >= 0.14.2 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-flask-sqlalchemy >= 2.3.2 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-flask-security >= 3.0.0 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-flask-principal >= 0.4.0 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-flask-paranoid >= 0.2 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-flask-migrate >= 2.4.0 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-flask-login >= 0.4.1 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-flask-htmlmin >= 1.5.0 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-flask-gravatar >= 0.5.0 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-flask-babel >= 0.11.1 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-flask >= 1.0.2 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-dateutil >= 2.8.0 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-blinker >= 1.4 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-beautifulsoup4 >= 4.4.1 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-backports.csv >= 1.0.5 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-babel >= 2.3.4 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-Flask-Mail >= 0.9.1 for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: python-click for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-flask-babelex for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-python-alembic for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: pgadmin4-docs for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: mod_wsgi for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Processing Dependency: httpd for package: pgadmin4-web-4.13-1.rhel7.noarch
+--> Running transaction check
+---> Package httpd.x86_64 0:2.4.6-90.el7.centos will be installed
+--> Processing Dependency: httpd-tools = 2.4.6-90.el7.centos for package: httpd-2.4.6-90.el7.centos.x86_64
+--> Processing Dependency: system-logos >= 7.92.1-1 for package: httpd-2.4.6-90.el7.centos.x86_64
+--> Processing Dependency: /etc/mime.types for package: httpd-2.4.6-90.el7.centos.x86_64
+--> Processing Dependency: libaprutil-1.so.0()(64bit) for package: httpd-2.4.6-90.el7.centos.x86_64
+--> Processing Dependency: libapr-1.so.0()(64bit) for package: httpd-2.4.6-90.el7.centos.x86_64
+---> Package mod_wsgi.x86_64 0:3.4-18.el7 will be installed
+---> Package pgadmin4-docs.noarch 0:4.13-1.rhel7 will be installed
+---> Package pgadmin4-python-Flask-Mail.noarch 0:0.9.1-4.rhel7.1 will be installed
+---> Package pgadmin4-python-alembic.noarch 0:0.9.7-3.rhel7.1 will be installed
+--> Processing Dependency: python-mako for package: pgadmin4-python-alembic-0.9.7-3.rhel7.1.noarch
+--> Processing Dependency: python-editor for package: pgadmin4-python-alembic-0.9.7-3.rhel7.1.noarch
+--> Processing Dependency: python-dateutil for package: pgadmin4-python-alembic-0.9.7-3.rhel7.1.noarch
+---> Package pgadmin4-python-babel.noarch 0:2.3.4-2.rhel7.1 will be installed
+--> Processing Dependency: pytz for package: pgadmin4-python-babel-2.3.4-2.rhel7.1.noarch
+--> Processing Dependency: python-setuptools for package: pgadmin4-python-babel-2.3.4-2.rhel7.1.noarch
+---> Package pgadmin4-python-backports.csv.noarch 1:1.0.5-3.rhel7.1 will be installed
+---> Package pgadmin4-python-beautifulsoup4.noarch 0:4.5.1-3.rhel7.1 will be installed
+--> Processing Dependency: python-lxml for package: pgadmin4-python-beautifulsoup4-4.5.1-3.rhel7.1.noarch
+---> Package pgadmin4-python-blinker.noarch 0:1.4-3.rhel7.1 will be installed
+---> Package pgadmin4-python-dateutil.noarch 1:2.7.2-1.rhel7.1 will be installed
+--> Processing Dependency: python-six for package: 1:pgadmin4-python-dateutil-2.7.2-1.rhel7.1.noarch
+---> Package pgadmin4-python-flask.noarch 1:1.0.2-1.rhel7 will be installed
+---> Package pgadmin4-python-flask-babel.noarch 0:0.11.1-4.rhel7.1 will be installed
+---> Package pgadmin4-python-flask-babelex.noarch 0:0.9.3-1.rhel7.1 will be installed
+---> Package pgadmin4-python-flask-gravatar.noarch 0:0.5.0-1.rhel7.1 will be installed
+---> Package pgadmin4-python-flask-htmlmin.noarch 0:1.5.0-1.rhel7 will be installed
+--> Processing Dependency: pgadmin4-python-htmlmin for package: pgadmin4-python-flask-htmlmin-1.5.0-1.rhel7.noarch
+---> Package pgadmin4-python-flask-login.noarch 0:0.4.1-1.rhel7 will be installed
+---> Package pgadmin4-python-flask-migrate.noarch 0:2.4.0-1.rhel7 will be installed
+---> Package pgadmin4-python-flask-paranoid.noarch 0:0.2-1.rhel7.1 will be installed
+---> Package pgadmin4-python-flask-principal.noarch 0:0.4.0-14.rhel7.1 will be installed
+--> Processing Dependency: python-flask for package: pgadmin4-python-flask-principal-0.4.0-14.rhel7.1.noarch
+--> Processing Dependency: python-blinker for package: pgadmin4-python-flask-principal-0.4.0-14.rhel7.1.noarch
+---> Package pgadmin4-python-flask-security.noarch 0:3.0.0-1.rhel7.1 will be installed
+---> Package pgadmin4-python-flask-sqlalchemy.noarch 0:2.3.2-1.rhel7 will be installed
+---> Package pgadmin4-python-flask-wtf.noarch 0:0.14.2-1.rhel7 will be installed
+---> Package pgadmin4-python-itsdangerous.noarch 0:0.24-10.rhel7.1 will be installed
+---> Package pgadmin4-python-jinja2.noarch 0:2.8-9.rhel7.1 will be installed
+--> Processing Dependency: python-babel >= 0.8 for package: pgadmin4-python-jinja2-2.8-9.rhel7.1.noarch
+--> Processing Dependency: python-markupsafe for package: pgadmin4-python-jinja2-2.8-9.rhel7.1.noarch
+---> Package pgadmin4-python-markupsafe.x86_64 0:0.23-13.rhel7.1 will be installed
+---> Package pgadmin4-python-passlib.noarch 0:1.7.1-1.rhel7.1 will be installed
+---> Package pgadmin4-python-psutil.x86_64 0:5.5.1-1.rhel7 will be installed
+---> Package pgadmin4-python-simplejson.x86_64 0:3.16.0-1.rhel7 will be installed
+---> Package pgadmin4-python-six.noarch 0:1.12.0-3.rhel7 will be installed
+---> Package pgadmin4-python-sqlalchemy.x86_64 0:1.2.18-1.rhel7 will be installed
+---> Package pgadmin4-python-sqlparse.noarch 0:0.2.4-1.rhel7.1 will be installed
+---> Package pgadmin4-python-sshtunnel.noarch 0:0.1.4-1.rhel7 will be installed
+--> Processing Dependency: python-paramiko for package: pgadmin4-python-sshtunnel-0.1.4-1.rhel7.noarch
+---> Package pgadmin4-python-werkzeug.noarch 0:0.15.4-1.rhel7 will be installed
+---> Package pgadmin4-python-wtforms.noarch 0:2.2.1-1.rhel7 will be installed
+---> Package pgadmin4-pytz.noarch 0:2018.9-1.rhel7 will be installed
+---> Package python-speaklater.noarch 0:1.3-1.el7 will be installed
+---> Package python2-click.noarch 0:6.7-8.el7 will be installed
+---> Package python2-crypto.x86_64 0:2.6.1-16.el7 will be installed
+--> Processing Dependency: libtomcrypt.so.0()(64bit) for package: python2-crypto-2.6.1-16.el7.x86_64
+---> Package python2-psycopg2.x86_64 0:2.8.3-2.rhel7 will be installed
+--> Processing Dependency: postgresql-libs for package: python2-psycopg2-2.8.3-2.rhel7.x86_64
+--> Processing Dependency: libpq.so.5()(64bit) for package: python2-psycopg2-2.8.3-2.rhel7.x86_64
+--> Running transaction check
+---> Package apr.x86_64 0:1.4.8-5.el7 will be installed
+---> Package apr-util.x86_64 0:1.5.2-6.el7 will be installed
+---> Package centos-logos.noarch 0:70.0.6-3.el7.centos will be installed
+---> Package httpd-tools.x86_64 0:2.4.6-90.el7.centos will be installed
+---> Package libtomcrypt.x86_64 0:1.17-26.el7 will be installed
+--> Processing Dependency: libtommath >= 0.42.0 for package: libtomcrypt-1.17-26.el7.x86_64
+--> Processing Dependency: libtommath.so.0()(64bit) for package: libtomcrypt-1.17-26.el7.x86_64
+---> Package mailcap.noarch 0:2.1.41-2.el7 will be installed
+---> Package pgadmin4-python-htmlmin.noarch 0:0.1.12-1.rhel7.1 will be installed
+---> Package postgresql12-libs.x86_64 0:12.0-1PGDG.rhel7 will be installed
+---> Package python-babel.noarch 0:0.9.6-8.el7 will be installed
+---> Package python-blinker.noarch 0:1.3-2.el7 will be installed
+---> Package python-dateutil.noarch 0:1.5-7.el7 will be installed
+---> Package python-editor.noarch 0:0.4-4.el7 will be installed
+---> Package python-flask.noarch 1:0.10.1-4.el7 will be installed
+--> Processing Dependency: python-werkzeug for package: 1:python-flask-0.10.1-4.el7.noarch
+--> Processing Dependency: python-jinja2 for package: 1:python-flask-0.10.1-4.el7.noarch
+--> Processing Dependency: python-itsdangerous for package: 1:python-flask-0.10.1-4.el7.noarch
+---> Package python-lxml.x86_64 0:3.2.1-4.el7 will be installed
+--> Processing Dependency: libxslt.so.1(LIBXML2_1.1.9)(64bit) for package: python-lxml-3.2.1-4.el7.x86_64
+--> Processing Dependency: libxslt.so.1(LIBXML2_1.1.26)(64bit) for package: python-lxml-3.2.1-4.el7.x86_64
+--> Processing Dependency: libxslt.so.1(LIBXML2_1.1.2)(64bit) for package: python-lxml-3.2.1-4.el7.x86_64
+--> Processing Dependency: libxslt.so.1(LIBXML2_1.0.24)(64bit) for package: python-lxml-3.2.1-4.el7.x86_64
+--> Processing Dependency: libxslt.so.1(LIBXML2_1.0.22)(64bit) for package: python-lxml-3.2.1-4.el7.x86_64
+--> Processing Dependency: libxslt.so.1(LIBXML2_1.0.18)(64bit) for package: python-lxml-3.2.1-4.el7.x86_64
+--> Processing Dependency: libxslt.so.1(LIBXML2_1.0.11)(64bit) for package: python-lxml-3.2.1-4.el7.x86_64
+--> Processing Dependency: libxslt.so.1()(64bit) for package: python-lxml-3.2.1-4.el7.x86_64
+--> Processing Dependency: libexslt.so.0()(64bit) for package: python-lxml-3.2.1-4.el7.x86_64
+---> Package python-mako.noarch 0:0.8.1-2.el7 will be installed
+--> Processing Dependency: python-beaker for package: python-mako-0.8.1-2.el7.noarch
+---> Package python-markupsafe.x86_64 0:0.11-10.el7 will be installed
+---> Package python-paramiko.noarch 0:2.1.1-9.el7 will be installed
+--> Processing Dependency: python2-pyasn1 for package: python-paramiko-2.1.1-9.el7.noarch
+--> Processing Dependency: python-cryptography for package: python-paramiko-2.1.1-9.el7.noarch
+---> Package python-setuptools.noarch 0:0.9.8-7.el7 will be installed
+--> Processing Dependency: python-backports-ssl_match_hostname for package: python-setuptools-0.9.8-7.el7.noarch
+---> Package python-six.noarch 0:1.9.0-2.el7 will be installed
+---> Package pytz.noarch 0:2016.10-2.el7 will be installed
+--> Running transaction check
+---> Package libtommath.x86_64 0:0.42.0-6.el7 will be installed
+---> Package libxslt.x86_64 0:1.1.28-5.el7 will be installed
+---> Package python-backports-ssl_match_hostname.noarch 0:3.5.0.1-1.el7 will be installed
+--> Processing Dependency: python-ipaddress for package: python-backports-ssl_match_hostname-3.5.0.1-1.el7.noarch
+--> Processing Dependency: python-backports for package: python-backports-ssl_match_hostname-3.5.0.1-1.el7.noarch
+---> Package python-beaker.noarch 0:1.5.4-10.el7 will be installed
+--> Processing Dependency: python-paste for package: python-beaker-1.5.4-10.el7.noarch
+---> Package python-itsdangerous.noarch 0:0.23-2.el7 will be installed
+---> Package python-jinja2.noarch 0:2.8-7.rhel7 will be installed
+---> Package python-werkzeug.noarch 0:0.11.11-2.rhel7 will be installed
+---> Package python2-cryptography.x86_64 0:1.7.2-2.el7 will be installed
+--> Processing Dependency: python-idna >= 2.0 for package: python2-cryptography-1.7.2-2.el7.x86_64
+--> Processing Dependency: python-cffi >= 1.4.1 for package: python2-cryptography-1.7.2-2.el7.x86_64
+--> Processing Dependency: python-enum34 for package: python2-cryptography-1.7.2-2.el7.x86_64
+--> Processing Dependency: openssl for package: python2-cryptography-1.7.2-2.el7.x86_64
+---> Package python2-pyasn1.noarch 0:0.1.9-7.el7 will be installed
+--> Running transaction check
+---> Package openssl.x86_64 1:1.0.2k-19.el7 will be installed
+--> Processing Dependency: openssl-libs(x86-64) = 1:1.0.2k-19.el7 for package: 1:openssl-1.0.2k-19.el7.x86_64
+--> Processing Dependency: make for package: 1:openssl-1.0.2k-19.el7.x86_64
+---> Package python-backports.x86_64 0:1.0-8.el7 will be installed
+---> Package python-cffi.x86_64 0:1.6.0-5.el7 will be installed
+--> Processing Dependency: python-pycparser for package: python-cffi-1.6.0-5.el7.x86_64
+---> Package python-enum34.noarch 0:1.0.4-1.el7 will be installed
+---> Package python-idna.noarch 0:2.4-1.el7 will be installed
+---> Package python-ipaddress.noarch 0:1.0.16-2.el7 will be installed
+---> Package python-paste.noarch 0:1.7.5.1-9.20111221hg1498.el7 will be installed
+--> Processing Dependency: python-tempita for package: python-paste-1.7.5.1-9.20111221hg1498.el7.noarch
+--> Processing Dependency: pyOpenSSL for package: python-paste-1.7.5.1-9.20111221hg1498.el7.noarch
+--> Running transaction check
+---> Package make.x86_64 1:3.82-24.el7 will be installed
+---> Package openssl-libs.x86_64 1:1.0.2k-16.el7 will be updated
+---> Package openssl-libs.x86_64 1:1.0.2k-19.el7 will be an update
+---> Package pyOpenSSL.x86_64 0:0.13.1-4.el7 will be installed
+---> Package python-pycparser.noarch 0:2.14-1.el7 will be installed
+--> Processing Dependency: python-ply for package: python-pycparser-2.14-1.el7.noarch
+---> Package python-tempita.noarch 0:0.5.1-6.el7 will be installed
+--> Running transaction check
+---> Package python-ply.noarch 0:3.4-11.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package                             Arch   Version                Repository
+                                                                           Size
+================================================================================
+Installing:
+ pgadmin4                            x86_64 4.13-1.rhel7           pgdg10  11 k
+Installing for dependencies:
+ apr                                 x86_64 1.4.8-5.el7            base   103 k
+ apr-util                            x86_64 1.5.2-6.el7            base    92 k
+ centos-logos                        noarch 70.0.6-3.el7.centos    base    21 M
+ httpd                               x86_64 2.4.6-90.el7.centos    base   2.7 M
+ httpd-tools                         x86_64 2.4.6-90.el7.centos    base    91 k
+ libtomcrypt                         x86_64 1.17-26.el7            extras 224 k
+ libtommath                          x86_64 0.42.0-6.el7           extras  36 k
+ libxslt                             x86_64 1.1.28-5.el7           base   242 k
+ mailcap                             noarch 2.1.41-2.el7           base    31 k
+ make                                x86_64 1:3.82-24.el7          base   421 k
+ mod_wsgi                            x86_64 3.4-18.el7             base    77 k
+ openssl                             x86_64 1:1.0.2k-19.el7        base   493 k
+ pgadmin4-docs                       noarch 4.13-1.rhel7           pgdg10  33 M
+ pgadmin4-python-Flask-Mail          noarch 0.9.1-4.rhel7.1        pgdg10  18 k
+ pgadmin4-python-alembic             noarch 0.9.7-3.rhel7.1        pgdg10 260 k
+ pgadmin4-python-babel               noarch 2.3.4-2.rhel7.1        pgdg10 4.8 M
+ pgadmin4-python-backports.csv       noarch 1:1.0.5-3.rhel7.1      pgdg10  27 k
+ pgadmin4-python-beautifulsoup4      noarch 4.5.1-3.rhel7.1        pgdg10 164 k
+ pgadmin4-python-blinker             noarch 1.4-3.rhel7.1          pgdg10 107 k
+ pgadmin4-python-dateutil            noarch 1:2.7.2-1.rhel7.1      pgdg10 264 k
+ pgadmin4-python-flask               noarch 1:1.0.2-1.rhel7        pgdg10 149 k
+ pgadmin4-python-flask-babel         noarch 0.11.1-4.rhel7.1       pgdg10  49 k
+ pgadmin4-python-flask-babelex       noarch 0.9.3-1.rhel7.1        pgdg10  18 k
+ pgadmin4-python-flask-gravatar      noarch 0.5.0-1.rhel7.1        pgdg10  12 k
+ pgadmin4-python-flask-htmlmin       noarch 1.5.0-1.rhel7          pgdg10 9.0 k
+ pgadmin4-python-flask-login         noarch 0.4.1-1.rhel7          pgdg10  29 k
+ pgadmin4-python-flask-migrate       noarch 2.4.0-1.rhel7          pgdg10  23 k
+ pgadmin4-python-flask-paranoid      noarch 0.2-1.rhel7.1          pgdg10  10 k
+ pgadmin4-python-flask-principal     noarch 0.4.0-14.rhel7.1       pgdg10  15 k
+ pgadmin4-python-flask-security      noarch 3.0.0-1.rhel7.1        pgdg10  78 k
+ pgadmin4-python-flask-sqlalchemy    noarch 2.3.2-1.rhel7          pgdg10 104 k
+ pgadmin4-python-flask-wtf           noarch 0.14.2-1.rhel7         pgdg10  54 k
+ pgadmin4-python-htmlmin             noarch 0.1.12-1.rhel7.1       pgdg10  39 k
+ pgadmin4-python-itsdangerous        noarch 0.24-10.rhel7.1        pgdg10  23 k
+ pgadmin4-python-jinja2              noarch 2.8-9.rhel7.1          pgdg10 420 k
+ pgadmin4-python-markupsafe          x86_64 0.23-13.rhel7.1        pgdg10  28 k
+ pgadmin4-python-passlib             noarch 1.7.1-1.rhel7.1        pgdg10 738 k
+ pgadmin4-python-psutil              x86_64 5.5.1-1.rhel7          pgdg10 1.9 M
+ pgadmin4-python-simplejson          x86_64 3.16.0-1.rhel7         pgdg10 186 k
+ pgadmin4-python-six                 noarch 1.12.0-3.rhel7         pgdg10  29 k
+ pgadmin4-python-sqlalchemy          x86_64 1.2.18-1.rhel7         pgdg10 3.8 M
+ pgadmin4-python-sqlparse            noarch 0.2.4-1.rhel7.1        pgdg10  73 k
+ pgadmin4-python-sshtunnel           noarch 0.1.4-1.rhel7          pgdg10  38 k
+ pgadmin4-python-werkzeug            noarch 0.15.4-1.rhel7         pgdg10 460 k
+ pgadmin4-python-wtforms             noarch 2.2.1-1.rhel7          pgdg10 177 k
+ pgadmin4-pytz                       noarch 2018.9-1.rhel7         pgdg10  46 k
+ pgadmin4-web                        noarch 4.13-1.rhel7           pgdg10 4.9 M
+ postgresql12-libs                   x86_64 12.0-1PGDG.rhel7       pgdg12 367 k
+ pyOpenSSL                           x86_64 0.13.1-4.el7           base   135 k
+ python-babel                        noarch 0.9.6-8.el7            base   1.4 M
+ python-backports                    x86_64 1.0-8.el7              base   5.8 k
+ python-backports-ssl_match_hostname noarch 3.5.0.1-1.el7          base    13 k
+ python-beaker                       noarch 1.5.4-10.el7           base    80 k
+ python-blinker                      noarch 1.3-2.el7              extras  93 k
+ python-cffi                         x86_64 1.6.0-5.el7            base   218 k
+ python-dateutil                     noarch 1.5-7.el7              base    85 k
+ python-editor                       noarch 0.4-4.el7              epel    13 k
+ python-enum34                       noarch 1.0.4-1.el7            base    52 k
+ python-flask                        noarch 1:0.10.1-4.el7         extras 204 k
+ python-idna                         noarch 2.4-1.el7              base    94 k
+ python-ipaddress                    noarch 1.0.16-2.el7           base    34 k
+ python-itsdangerous                 noarch 0.23-2.el7             extras  24 k
+ python-jinja2                       noarch 2.8-7.rhel7            pgdg94 444 k
+ python-lxml                         x86_64 3.2.1-4.el7            base   758 k
+ python-mako                         noarch 0.8.1-2.el7            base   307 k
+ python-markupsafe                   x86_64 0.11-10.el7            base    25 k
+ python-paramiko                     noarch 2.1.1-9.el7            base   269 k
+ python-paste                        noarch 1.7.5.1-9.20111221hg1498.el7
+                                                                   base   866 k
+ python-ply                          noarch 3.4-11.el7             base   123 k
+ python-pycparser                    noarch 2.14-1.el7             base   104 k
+ python-setuptools                   noarch 0.9.8-7.el7            base   397 k
+ python-six                          noarch 1.9.0-2.el7            base    29 k
+ python-speaklater                   noarch 1.3-1.el7              epel   9.8 k
+ python-tempita                      noarch 0.5.1-6.el7            base    33 k
+ python-werkzeug                     noarch 0.11.11-2.rhel7        pgdg94 426 k
+ python2-click                       noarch 6.7-8.el7              epel   126 k
+ python2-crypto                      x86_64 2.6.1-16.el7           epel   477 k
+ python2-cryptography                x86_64 1.7.2-2.el7            base   502 k
+ python2-psycopg2                    x86_64 2.8.3-2.rhel7          pgdg10 169 k
+ python2-pyasn1                      noarch 0.1.9-7.el7            base   100 k
+ pytz                                noarch 2016.10-2.el7          base    46 k
+Updating for dependencies:
+ openssl-libs                        x86_64 1:1.0.2k-19.el7        base   1.2 M
+
+Transaction Summary
+================================================================================
+Install  1 Package  (+81 Dependent packages)
+Upgrade             (  1 Dependent package)
+
+Total download size: 87 M
+Downloading packages:
+Delta RPMs disabled because /usr/bin/applydeltarpm not installed.
+[91mwarning: /var/cache/yum/x86_64/7/pgdg10/packages/pgadmin4-4.13-1.rhel7.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 442df0f8: NOKEY
+[0mPublic key for pgadmin4-4.13-1.rhel7.x86_64.rpm is not installed
+Public key for python-editor-0.4-4.el7.noarch.rpm is not installed
+[91mwarning: /var/cache/yum/x86_64/7/epel/packages/python-editor-0.4-4.el7.noarch.rpm: Header V3 RSA/SHA256 Signature, key ID 352c64e5: NOKEY
+[0mPublic key for postgresql12-libs-12.0-1PGDG.rhel7.x86_64.rpm is not installed
+Public key for python-werkzeug-0.11.11-2.rhel7.noarch.rpm is not installed
+--------------------------------------------------------------------------------
+Total                                              596 kB/s |  87 MB  02:28     
+Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+[91mImporting GPG key 0x352C64E5:
+ Userid     : "Fedora EPEL (7) <epel@fedoraproject.org>"
+ Fingerprint: 91e9 7d7c 4a5e 96f1 7f3e 888f 6a2f aea2 352c 64e5
+ Package    : epel-release-7-11.noarch (@extras)
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+[0mRetrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-PGDG
+[91mImporting GPG key 0x442DF0F8:
+ Userid     : "PostgreSQL RPM Building Project <pgsqlrpms-hackers@pgfoundry.org>"
+ Fingerprint: 68c9 e2b9 1a37 d136 fe74 d176 1f16 d2e1 442d f0f8
+ Package    : pgdg-redhat-repo-42.0-5.noarch (installed)
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-PGDG
+[0mRunning transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Updating   : 1:openssl-libs-1.0.2k-19.el7.x86_64                         1/84 
+  Installing : apr-1.4.8-5.el7.x86_64                                      2/84 
+  Installing : python-markupsafe-0.11-10.el7.x86_64                        3/84 
+  Installing : python-speaklater-1.3-1.el7.noarch                          4/84 
+  Installing : apr-util-1.5.2-6.el7.x86_64                                 5/84 
+  Installing : python2-pyasn1-0.1.9-7.el7.noarch                           6/84 
+  Installing : python-ipaddress-1.0.16-2.el7.noarch                        7/84 
+  Installing : python-six-1.9.0-2.el7.noarch                               8/84 
+  Installing : pgadmin4-python-werkzeug-0.15.4-1.rhel7.noarch              9/84 
+  Installing : pgadmin4-python-itsdangerous-0.24-10.rhel7.1.noarch        10/84 
+  Installing : python2-click-6.7-8.el7.noarch                             11/84 
+  Installing : python-babel-0.9.6-8.el7.noarch                            12/84 
+  Installing : pgadmin4-pytz-2018.9-1.rhel7.noarch                        13/84 
+  Installing : 1:pgadmin4-python-dateutil-2.7.2-1.rhel7.1.noarch          14/84 
+  Installing : httpd-tools-2.4.6-90.el7.centos.x86_64                     15/84 
+  Installing : postgresql12-libs-12.0-1PGDG.rhel7.x86_64                  16/84 
+  Installing : python2-psycopg2-2.8.3-2.rhel7.x86_64                      17/84 
+  Installing : pyOpenSSL-0.13.1-4.el7.x86_64                              18/84 
+  Installing : python-blinker-1.3-2.el7.noarch                            19/84 
+  Installing : pgadmin4-python-wtforms-2.2.1-1.rhel7.noarch               20/84 
+  Installing : pgadmin4-python-flask-wtf-0.14.2-1.rhel7.noarch            21/84 
+  Installing : 1:make-3.82-24.el7.x86_64                                  22/84 
+  Installing : 1:openssl-1.0.2k-19.el7.x86_64                             23/84 
+  Installing : python-itsdangerous-0.23-2.el7.noarch                      24/84 
+  Installing : pgadmin4-python-passlib-1.7.1-1.rhel7.1.noarch             25/84 
+  Installing : python-tempita-0.5.1-6.el7.noarch                          26/84 
+  Installing : pgadmin4-python-markupsafe-0.23-13.rhel7.1.x86_64          27/84 
+  Installing : pgadmin4-python-flask-security-3.0.0-1.rhel7.1.noarch      28/84 
+  Installing : pgadmin4-python-sqlparse-0.2.4-1.rhel7.1.noarch            29/84 
+  Installing : pgadmin4-python-blinker-1.4-3.rhel7.1.noarch               30/84 
+  Installing : python-ply-3.4-11.el7.noarch                               31/84 
+  Installing : python-pycparser-2.14-1.el7.noarch                         32/84 
+  Installing : python-cffi-1.6.0-5.el7.x86_64                             33/84 
+  Installing : pgadmin4-python-flask-sqlalchemy-2.3.2-1.rhel7.noarch      34/84 
+  Installing : libtommath-0.42.0-6.el7.x86_64                             35/84 
+  Installing : libtomcrypt-1.17-26.el7.x86_64                             36/84 
+  Installing : python2-crypto-2.6.1-16.el7.x86_64                         37/84 
+  Installing : 1:pgadmin4-python-backports.csv-1.0.5-3.rhel7.1.noarch     38/84 
+  Installing : python-backports-1.0-8.el7.x86_64                          39/84 
+  Installing : python-backports-ssl_match_hostname-3.5.0.1-1.el7.noarch   40/84 
+  Installing : python-setuptools-0.9.8-7.el7.noarch                       41/84 
+  Installing : pgadmin4-python-jinja2-2.8-9.rhel7.1.noarch                42/84 
+  Installing : 1:pgadmin4-python-flask-1.0.2-1.rhel7.noarch               43/84 
+  Installing : pgadmin4-python-flask-login-0.4.1-1.rhel7.noarch           44/84 
+  Installing : pgadmin4-python-flask-migrate-2.4.0-1.rhel7.noarch         45/84 
+  Installing : pgadmin4-python-flask-gravatar-0.5.0-1.rhel7.1.noarch      46/84 
+  Installing : python-paste-1.7.5.1-9.20111221hg1498.el7.noarch           47/84 
+  Installing : python-beaker-1.5.4-10.el7.noarch                          48/84 
+  Installing : python-mako-0.8.1-2.el7.noarch                             49/84 
+  Installing : python-jinja2-2.8-7.rhel7.noarch                           50/84 
+  Installing : pgadmin4-python-simplejson-3.16.0-1.rhel7.x86_64           51/84 
+  Installing : libxslt-1.1.28-5.el7.x86_64                                52/84 
+  Installing : python-lxml-3.2.1-4.el7.x86_64                             53/84 
+  Installing : pgadmin4-python-beautifulsoup4-4.5.1-3.rhel7.1.noarch      54/84 
+  Installing : python-werkzeug-0.11.11-2.rhel7.noarch                     55/84 
+  Installing : 1:python-flask-0.10.1-4.el7.noarch                         56/84 
+  Installing : pgadmin4-python-flask-principal-0.4.0-14.rhel7.1.noarch    57/84 
+  Installing : pgadmin4-docs-4.13-1.rhel7.noarch                          58/84 
+  Installing : pgadmin4-python-six-1.12.0-3.rhel7.noarch                  59/84 
+  Installing : pgadmin4-python-psutil-5.5.1-1.rhel7.x86_64                60/84 
+  Installing : pytz-2016.10-2.el7.noarch                                  61/84 
+  Installing : pgadmin4-python-babel-2.3.4-2.rhel7.1.noarch               62/84 
+  Installing : pgadmin4-python-flask-babel-0.11.1-4.rhel7.1.noarch        63/84 
+  Installing : pgadmin4-python-flask-babelex-0.9.3-1.rhel7.1.noarch       64/84 
+  Installing : python-dateutil-1.5-7.el7.noarch                           65/84 
+  Installing : pgadmin4-python-Flask-Mail-0.9.1-4.rhel7.1.noarch          66/84 
+  Installing : pgadmin4-python-htmlmin-0.1.12-1.rhel7.1.noarch            67/84 
+  Installing : pgadmin4-python-flask-htmlmin-1.5.0-1.rhel7.noarch         68/84 
+  Installing : centos-logos-70.0.6-3.el7.centos.noarch                    69/84 
+  Installing : python-editor-0.4-4.el7.noarch                             70/84 
+  Installing : pgadmin4-python-alembic-0.9.7-3.rhel7.1.noarch             71/84 
+  Installing : python-enum34-1.0.4-1.el7.noarch                           72/84 
+  Installing : pgadmin4-python-sqlalchemy-1.2.18-1.rhel7.x86_64           73/84 
+  Installing : mailcap-2.1.41-2.el7.noarch                                74/84 
+  Installing : httpd-2.4.6-90.el7.centos.x86_64                           75/84 
+  Installing : mod_wsgi-3.4-18.el7.x86_64                                 76/84 
+  Installing : pgadmin4-python-flask-paranoid-0.2-1.rhel7.1.noarch        77/84 
+  Installing : python-idna-2.4-1.el7.noarch                               78/84 
+  Installing : python2-cryptography-1.7.2-2.el7.x86_64                    79/84 
+  Installing : python-paramiko-2.1.1-9.el7.noarch                         80/84 
+  Installing : pgadmin4-python-sshtunnel-0.1.4-1.rhel7.noarch             81/84 
+  Installing : pgadmin4-web-4.13-1.rhel7.noarch                           82/84 
+  Installing : pgadmin4-4.13-1.rhel7.x86_64                               83/84 
+  Cleanup    : 1:openssl-libs-1.0.2k-16.el7.x86_64                        84/84 
+  Verifying  : python-idna-2.4-1.el7.noarch                                1/84 
+  Verifying  : python-speaklater-1.3-1.el7.noarch                          2/84 
+  Verifying  : 1:python-flask-0.10.1-4.el7.noarch                          3/84 
+  Verifying  : python-paste-1.7.5.1-9.20111221hg1498.el7.noarch            4/84 
+  Verifying  : python-backports-ssl_match_hostname-3.5.0.1-1.el7.noarch    5/84 
+  Verifying  : python-markupsafe-0.11-10.el7.x86_64                        6/84 
+  Verifying  : pgadmin4-python-flask-paranoid-0.2-1.rhel7.1.noarch         7/84 
+  Verifying  : mailcap-2.1.41-2.el7.noarch                                 8/84 
+  Verifying  : httpd-tools-2.4.6-90.el7.centos.x86_64                      9/84 
+  Verifying  : pgadmin4-pytz-2018.9-1.rhel7.noarch                        10/84 
+  Verifying  : pgadmin4-python-sqlalchemy-1.2.18-1.rhel7.x86_64           11/84 
+  Verifying  : httpd-2.4.6-90.el7.centos.x86_64                           12/84 
+  Verifying  : apr-1.4.8-5.el7.x86_64                                     13/84 
+  Verifying  : python-lxml-3.2.1-4.el7.x86_64                             14/84 
+  Verifying  : python-enum34-1.0.4-1.el7.noarch                           15/84 
+  Verifying  : pgadmin4-python-beautifulsoup4-4.5.1-3.rhel7.1.noarch      16/84 
+  Verifying  : python-editor-0.4-4.el7.noarch                             17/84 
+  Verifying  : pgadmin4-python-flask-login-0.4.1-1.rhel7.noarch           18/84 
+  Verifying  : pgadmin4-python-sshtunnel-0.1.4-1.rhel7.noarch             19/84 
+  Verifying  : python-setuptools-0.9.8-7.el7.noarch                       20/84 
+  Verifying  : centos-logos-70.0.6-3.el7.centos.noarch                    21/84 
+  Verifying  : pgadmin4-python-htmlmin-0.1.12-1.rhel7.1.noarch            22/84 
+  Verifying  : python2-cryptography-1.7.2-2.el7.x86_64                    23/84 
+  Verifying  : 1:openssl-libs-1.0.2k-19.el7.x86_64                        24/84 
+  Verifying  : python-mako-0.8.1-2.el7.noarch                             25/84 
+  Verifying  : pgadmin4-python-alembic-0.9.7-3.rhel7.1.noarch             26/84 
+  Verifying  : python2-psycopg2-2.8.3-2.rhel7.x86_64                      27/84 
+  Verifying  : pgadmin4-python-Flask-Mail-0.9.1-4.rhel7.1.noarch          28/84 
+  Verifying  : python-dateutil-1.5-7.el7.noarch                           29/84 
+  Verifying  : python-beaker-1.5.4-10.el7.noarch                          30/84 
+  Verifying  : pytz-2016.10-2.el7.noarch                                  31/84 
+  Verifying  : pgadmin4-python-jinja2-2.8-9.rhel7.1.noarch                32/84 
+  Verifying  : python2-crypto-2.6.1-16.el7.x86_64                         33/84 
+  Verifying  : mod_wsgi-3.4-18.el7.x86_64                                 34/84 
+  Verifying  : python-babel-0.9.6-8.el7.noarch                            35/84 
+  Verifying  : pgadmin4-python-psutil-5.5.1-1.rhel7.x86_64                36/84 
+  Verifying  : python-jinja2-2.8-7.rhel7.noarch                           37/84 
+  Verifying  : pgadmin4-python-six-1.12.0-3.rhel7.noarch                  38/84 
+  Verifying  : pgadmin4-python-flask-babel-0.11.1-4.rhel7.1.noarch        39/84 
+  Verifying  : pgadmin4-docs-4.13-1.rhel7.noarch                          40/84 
+  Verifying  : pgadmin4-python-flask-htmlmin-1.5.0-1.rhel7.noarch         41/84 
+  Verifying  : libtomcrypt-1.17-26.el7.x86_64                             42/84 
+  Verifying  : python2-click-6.7-8.el7.noarch                             43/84 
+  Verifying  : pgadmin4-python-flask-babelex-0.9.3-1.rhel7.1.noarch       44/84 
+  Verifying  : python-paramiko-2.1.1-9.el7.noarch                         45/84 
+  Verifying  : python-werkzeug-0.11.11-2.rhel7.noarch                     46/84 
+  Verifying  : pgadmin4-python-flask-migrate-2.4.0-1.rhel7.noarch         47/84 
+  Verifying  : pgadmin4-python-babel-2.3.4-2.rhel7.1.noarch               48/84 
+  Verifying  : postgresql12-libs-12.0-1PGDG.rhel7.x86_64                  49/84 
+  Verifying  : libxslt-1.1.28-5.el7.x86_64                                50/84 
+  Verifying  : pgadmin4-python-simplejson-3.16.0-1.rhel7.x86_64           51/84 
+  Verifying  : python-backports-1.0-8.el7.x86_64                          52/84 
+  Verifying  : apr-util-1.5.2-6.el7.x86_64                                53/84 
+  Verifying  : 1:pgadmin4-python-backports.csv-1.0.5-3.rhel7.1.noarch     54/84 
+  Verifying  : libtommath-0.42.0-6.el7.x86_64                             55/84 
+  Verifying  : 1:openssl-1.0.2k-19.el7.x86_64                             56/84 
+  Verifying  : pgadmin4-python-flask-sqlalchemy-2.3.2-1.rhel7.noarch      57/84 
+  Verifying  : python-ply-3.4-11.el7.noarch                               58/84 
+  Verifying  : pyOpenSSL-0.13.1-4.el7.x86_64                              59/84 
+  Verifying  : pgadmin4-python-blinker-1.4-3.rhel7.1.noarch               60/84 
+  Verifying  : pgadmin4-python-flask-principal-0.4.0-14.rhel7.1.noarch    61/84 
+  Verifying  : python-cffi-1.6.0-5.el7.x86_64                             62/84 
+  Verifying  : pgadmin4-python-sqlparse-0.2.4-1.rhel7.1.noarch            63/84 
+  Verifying  : pgadmin4-python-flask-security-3.0.0-1.rhel7.1.noarch      64/84 
+  Verifying  : pgadmin4-python-markupsafe-0.23-13.rhel7.1.x86_64          65/84 
+  Verifying  : pgadmin4-python-itsdangerous-0.24-10.rhel7.1.noarch        66/84 
+  Verifying  : pgadmin4-4.13-1.rhel7.x86_64                               67/84 
+  Verifying  : python-tempita-0.5.1-6.el7.noarch                          68/84 
+  Verifying  : pgadmin4-python-werkzeug-0.15.4-1.rhel7.noarch             69/84 
+  Verifying  : pgadmin4-python-flask-gravatar-0.5.0-1.rhel7.1.noarch      70/84 
+  Verifying  : pgadmin4-python-passlib-1.7.1-1.rhel7.1.noarch             71/84 
+  Verifying  : python-itsdangerous-0.23-2.el7.noarch                      72/84 
+  Verifying  : 1:make-3.82-24.el7.x86_64                                  73/84 
+  Verifying  : python-six-1.9.0-2.el7.noarch                              74/84 
+  Verifying  : python-ipaddress-1.0.16-2.el7.noarch                       75/84 
+  Verifying  : pgadmin4-python-flask-wtf-0.14.2-1.rhel7.noarch            76/84 
+  Verifying  : 1:pgadmin4-python-flask-1.0.2-1.rhel7.noarch               77/84 
+  Verifying  : python2-pyasn1-0.1.9-7.el7.noarch                          78/84 
+  Verifying  : python-pycparser-2.14-1.el7.noarch                         79/84 
+  Verifying  : pgadmin4-python-wtforms-2.2.1-1.rhel7.noarch               80/84 
+  Verifying  : python-blinker-1.3-2.el7.noarch                            81/84 
+  Verifying  : pgadmin4-web-4.13-1.rhel7.noarch                           82/84 
+  Verifying  : 1:pgadmin4-python-dateutil-2.7.2-1.rhel7.1.noarch          83/84 
+  Verifying  : 1:openssl-libs-1.0.2k-16.el7.x86_64                        84/84 
+
+Installed:
+  pgadmin4.x86_64 0:4.13-1.rhel7                                                
+
+Dependency Installed:
+  apr.x86_64 0:1.4.8-5.el7                                                      
+  apr-util.x86_64 0:1.5.2-6.el7                                                 
+  centos-logos.noarch 0:70.0.6-3.el7.centos                                     
+  httpd.x86_64 0:2.4.6-90.el7.centos                                            
+  httpd-tools.x86_64 0:2.4.6-90.el7.centos                                      
+  libtomcrypt.x86_64 0:1.17-26.el7                                              
+  libtommath.x86_64 0:0.42.0-6.el7                                              
+  libxslt.x86_64 0:1.1.28-5.el7                                                 
+  mailcap.noarch 0:2.1.41-2.el7                                                 
+  make.x86_64 1:3.82-24.el7                                                     
+  mod_wsgi.x86_64 0:3.4-18.el7                                                  
+  openssl.x86_64 1:1.0.2k-19.el7                                                
+  pgadmin4-docs.noarch 0:4.13-1.rhel7                                           
+  pgadmin4-python-Flask-Mail.noarch 0:0.9.1-4.rhel7.1                           
+  pgadmin4-python-alembic.noarch 0:0.9.7-3.rhel7.1                              
+  pgadmin4-python-babel.noarch 0:2.3.4-2.rhel7.1                                
+  pgadmin4-python-backports.csv.noarch 1:1.0.5-3.rhel7.1                        
+  pgadmin4-python-beautifulsoup4.noarch 0:4.5.1-3.rhel7.1                       
+  pgadmin4-python-blinker.noarch 0:1.4-3.rhel7.1                                
+  pgadmin4-python-dateutil.noarch 1:2.7.2-1.rhel7.1                             
+  pgadmin4-python-flask.noarch 1:1.0.2-1.rhel7                                  
+  pgadmin4-python-flask-babel.noarch 0:0.11.1-4.rhel7.1                         
+  pgadmin4-python-flask-babelex.noarch 0:0.9.3-1.rhel7.1                        
+  pgadmin4-python-flask-gravatar.noarch 0:0.5.0-1.rhel7.1                       
+  pgadmin4-python-flask-htmlmin.noarch 0:1.5.0-1.rhel7                          
+  pgadmin4-python-flask-login.noarch 0:0.4.1-1.rhel7                            
+  pgadmin4-python-flask-migrate.noarch 0:2.4.0-1.rhel7                          
+  pgadmin4-python-flask-paranoid.noarch 0:0.2-1.rhel7.1                         
+  pgadmin4-python-flask-principal.noarch 0:0.4.0-14.rhel7.1                     
+  pgadmin4-python-flask-security.noarch 0:3.0.0-1.rhel7.1                       
+  pgadmin4-python-flask-sqlalchemy.noarch 0:2.3.2-1.rhel7                       
+  pgadmin4-python-flask-wtf.noarch 0:0.14.2-1.rhel7                             
+  pgadmin4-python-htmlmin.noarch 0:0.1.12-1.rhel7.1                             
+  pgadmin4-python-itsdangerous.noarch 0:0.24-10.rhel7.1                         
+  pgadmin4-python-jinja2.noarch 0:2.8-9.rhel7.1                                 
+  pgadmin4-python-markupsafe.x86_64 0:0.23-13.rhel7.1                           
+  pgadmin4-python-passlib.noarch 0:1.7.1-1.rhel7.1                              
+  pgadmin4-python-psutil.x86_64 0:5.5.1-1.rhel7                                 
+  pgadmin4-python-simplejson.x86_64 0:3.16.0-1.rhel7                            
+  pgadmin4-python-six.noarch 0:1.12.0-3.rhel7                                   
+  pgadmin4-python-sqlalchemy.x86_64 0:1.2.18-1.rhel7                            
+  pgadmin4-python-sqlparse.noarch 0:0.2.4-1.rhel7.1                             
+  pgadmin4-python-sshtunnel.noarch 0:0.1.4-1.rhel7                              
+  pgadmin4-python-werkzeug.noarch 0:0.15.4-1.rhel7                              
+  pgadmin4-python-wtforms.noarch 0:2.2.1-1.rhel7                                
+  pgadmin4-pytz.noarch 0:2018.9-1.rhel7                                         
+  pgadmin4-web.noarch 0:4.13-1.rhel7                                            
+  postgresql12-libs.x86_64 0:12.0-1PGDG.rhel7                                   
+  pyOpenSSL.x86_64 0:0.13.1-4.el7                                               
+  python-babel.noarch 0:0.9.6-8.el7                                             
+  python-backports.x86_64 0:1.0-8.el7                                           
+  python-backports-ssl_match_hostname.noarch 0:3.5.0.1-1.el7                    
+  python-beaker.noarch 0:1.5.4-10.el7                                           
+  python-blinker.noarch 0:1.3-2.el7                                             
+  python-cffi.x86_64 0:1.6.0-5.el7                                              
+  python-dateutil.noarch 0:1.5-7.el7                                            
+  python-editor.noarch 0:0.4-4.el7                                              
+  python-enum34.noarch 0:1.0.4-1.el7                                            
+  python-flask.noarch 1:0.10.1-4.el7                                            
+  python-idna.noarch 0:2.4-1.el7                                                
+  python-ipaddress.noarch 0:1.0.16-2.el7                                        
+  python-itsdangerous.noarch 0:0.23-2.el7                                       
+  python-jinja2.noarch 0:2.8-7.rhel7                                            
+  python-lxml.x86_64 0:3.2.1-4.el7                                              
+  python-mako.noarch 0:0.8.1-2.el7                                              
+  python-markupsafe.x86_64 0:0.11-10.el7                                        
+  python-paramiko.noarch 0:2.1.1-9.el7                                          
+  python-paste.noarch 0:1.7.5.1-9.20111221hg1498.el7                            
+  python-ply.noarch 0:3.4-11.el7                                                
+  python-pycparser.noarch 0:2.14-1.el7                                          
+  python-setuptools.noarch 0:0.9.8-7.el7                                        
+  python-six.noarch 0:1.9.0-2.el7                                               
+  python-speaklater.noarch 0:1.3-1.el7                                          
+  python-tempita.noarch 0:0.5.1-6.el7                                           
+  python-werkzeug.noarch 0:0.11.11-2.rhel7                                      
+  python2-click.noarch 0:6.7-8.el7                                              
+  python2-crypto.x86_64 0:2.6.1-16.el7                                          
+  python2-cryptography.x86_64 0:1.7.2-2.el7                                     
+  python2-psycopg2.x86_64 0:2.8.3-2.rhel7                                       
+  python2-pyasn1.noarch 0:0.1.9-7.el7                                           
+  pytz.noarch 0:2016.10-2.el7                                                   
+
+Dependency Updated:
+  openssl-libs.x86_64 1:1.0.2k-19.el7                                           
+
+Complete!
+Removing intermediate container 17df3ac85f5c
+ ---> 10294e08f011
+Step 6/22 : RUN echo "SERVER_MODE = True" >> /usr/lib/python2.7/site-packages/pgadmin4-web/config_local.py
+ ---> Running in 8c5e3524b97c
+Removing intermediate container 8c5e3524b97c
+ ---> 452999f31a14
+Step 7/22 : RUN echo "DEFAULT_SERVER = '0.0.0.0'" >> /usr/lib/python2.7/site-packages/pgadmin4-web/config_local.py
+ ---> Running in b5ef2d01aac7
+Removing intermediate container b5ef2d01aac7
+ ---> 151a5b008c31
+Step 8/22 : RUN echo "LOG_FILE = '/var/log/pgadmin4/pgadmin4.log'" >> /usr/lib/python2.7/site-packages/pgadmin4-web/config_local.py
+ ---> Running in 904478d437f3
+Removing intermediate container 904478d437f3
+ ---> 52fd3b474cae
+Step 9/22 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo export PATH=$PATH:/usr/pgsql-11/bin >> ~/.bashrc && echo export PGSETUP_INITDB_OPTIONS="-E UTF8 --locale=C"
+ ---> Running in 15e976a80fc5
+export PGSETUP_INITDB_OPTIONS=-E UTF8 --locale=C
+Removing intermediate container 15e976a80fc5
+ ---> 5a08a2d4064d
+Step 10/22 : USER postgres
+ ---> Running in 2ba08eceb0d1
+Removing intermediate container 2ba08eceb0d1
+ ---> 9acc7b83ca24
+Step 11/22 : RUN cd ~ && curl -LO http://www.postgresqltutorial.com/wp-content/uploads/2019/05/dvdrental.zip
+ ---> Running in cac2051378bf
