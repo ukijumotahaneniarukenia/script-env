@@ -2,8 +2,12 @@
 https://weblabo.oscasierra.net/postgresql10-centos7-install/
 http://note.kurodigi.com/centos7-postgresql/
 https://freelance-jak.com/technology/postgresql/451/
-
 https://codezine.jp/article/detail/2686
+
+postgresのソースコード
+```
+https://www.postgresql.org/ftp/source/
+```
 
 
 # Dockerfileよりイメージ作成
@@ -122,19 +126,8 @@ host    replication     all             127.0.0.1/32            ident
 host    replication     all             ::1/128                 ident
 ```
 
-## データベースの再起動
-```
-systemctl restart postgresql-11.service
-```
-
-## データベースの初期化とサービス起動＆自動起動設定
-```
-postgresql-11-setup initdb
-systemctl start postgresql-11.service
-systemctl status postgresql-11.service
-systemctl enable postgresql-11.service
-``` 
-## pgAdmin起動。pythonはシステム共通で使用しているパスを指定。
+## pgAdmin起動
+pythonはシステム共通で使用しているパスを指定。
 ```
 [root@7a38ce597c69 /]$cd /usr/lib/python2.7/site-packages/pgadmin4-web/
 [root@7a38ce597c69 /usr/lib/python2.7/site-packages/pgadmin4-web]$/usr/bin/python2.7 pgAdmin4.py
@@ -157,12 +150,12 @@ pg_restore -U postgres -d dvdrental dvdrental.tar
 # サンプルデータベース接続
 ```
 psql -l
-psql -U postgres -d dvdrentals
+psql -U postgres -d dvdrental
 ```
 
 # ブラウザでの表示確認
 
-![setup.pyで入力したものと同じ文言を入力](./0.png)
+![](./0.png)
 ![](./1.png)
 ![](./2.png)
 ![](./3.png)
