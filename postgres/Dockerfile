@@ -191,6 +191,22 @@ RUN yum install -y --nogpgcheck https://s3.amazonaws.com/rstudio-ide-build/serve
 #postgresソースファイルを調査用にコンテナ側にコピー
 COPY postgresql-11.5 /home/postgres/postgresql-11.5
 
+#python3.3 install
+RUN cd ~ && curl -LO curl -LO https://www.python.org/ftp/python/3.3.7/Python-3.3.7.tgz && \
+tar xvf Python-3.3.7.tgz && \
+cd Python-3.3.7 && \
+./configure --enable-shared && \
+make -j12 && \
+make -j12 install
+
+#python3.2 install
+RUN cd ~ && curl -LO curl -LO https://www.python.org/ftp/python/3.2.6/Python-3.2.6.tgz && \
+tar xvf Python-3.2.6.tgz && \
+cd Python-3.2.6 && \
+./configure --enable-shared && \
+make -j12 && \
+make -j12 install
+
 #sshdサービス外部公開ポート
 EXPOSE 22
 
