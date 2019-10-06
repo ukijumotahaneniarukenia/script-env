@@ -89,7 +89,7 @@ sh installer.sh ~/.vim/bundle && rm -rf installer.sh
 RUN cd ~ && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && \
 tar -zxvf Python-3.7.4.tgz && \
 cd Python-3.7.4 && \
-./configure && \
+./configure --enable-shared && \
 make -j12 && \
 make -j12 install
 
