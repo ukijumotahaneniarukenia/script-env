@@ -12,8 +12,6 @@ RUN echo 'postgres_pwd' | passwd --stdin postgres
 RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN echo 'postgres ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
-#レポジトリ登録
-RUN yum -y install https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
 
 #epelレポ登録
 RUN yum -y install epel-release
@@ -22,6 +20,8 @@ RUN yum -y install epel-release
 RUN yum install -y R
 RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man
 
+#レポジトリ登録
+RUN yum -y install https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
 #登録したレポジトリからインストール
 RUN yum -y install pgadmin4
 
@@ -32,7 +32,7 @@ RUN echo "DEFAULT_SERVER = '0.0.0.0'" >> /usr/lib/python2.7/site-packages/pgadmi
 RUN echo "LOG_FILE = '/var/log/pgadmin4/pgadmin4.log'" >> /usr/lib/python2.7/site-packages/pgadmin4-web/config_local.py
 
 #postgres install
-RUN yum -y install postgresql11-server
+#RUN yum -y install postgresql11-server
 
 #perl パッケージ管理cpanmないしcpanインストール
 RUN yum install -y which perl-App-cpanminus wxGTK-devel perl-ExtUtils-Embed perl-File-HomeDir perl-Term-ReadLine-Gnu wxGTK3 cpan
@@ -85,22 +85,6 @@ RUN mkdir -p ~/.vim/bundle && \
 cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
 sh installer.sh ~/.vim/bundle && rm -rf installer.sh
 
-#python install
-RUN cd ~ && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && \
-tar -zxvf Python-3.7.4.tgz && \
-cd Python-3.7.4 && \
-./configure --enable-shared && \
-make -j12 && \
-make -j12 install
-
-#perl install
-RUN cd ~ && curl -LO https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz && \
-tar -xzf perl-5.30.0.tar.gz && \
-cd perl-5.30.0 && \
-./Configure -des -Dprefix=/usr/local/ && \
-make -j12 && \
-make -j12 install
-
 #parallelコマンド install
 RUN cd ~ && yum install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && \
 tar jxf parallel-latest.tar.bz2 && \
@@ -113,7 +97,8 @@ make -j12 install
 RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
 echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
 echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
-echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc
+echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
+echo "export LD_LIBRARY_PATH=/usr/local/lib" >> ~/.bashrc
 
 #実行ユーザをpostgresに変更
 USER postgres
@@ -145,8 +130,7 @@ echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
 echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
 echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
 echo "alias vi=\"sudo vim\"" >> ~/.bashrc && \
-echo export PATH=$PATH:/usr/pgsql-11/bin >> ~/.bashrc && \
-echo export PGSETUP_INITDB_OPTIONS="-E UTF8 --locale=C"
+echo "export LD_LIBRARY_PATH=/usr/local/lib" >> ~/.bashrc
 
 #実行ユーザをrstudioに変更
 USER rstudio
@@ -173,7 +157,8 @@ echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
 echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
 echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
 echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
-echo "alias vi=\"sudo vim\"" >> ~/.bashrc 
+echo "alias vi=\"sudo vim\"" >> ~/.bashrc && \
+echo "export LD_LIBRARY_PATH=/usr/local/lib" >> ~/.bashrc
 
 USER root 
 
@@ -188,24 +173,41 @@ RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 RUN yum install -y initscripts
 RUN yum install -y --nogpgcheck https://s3.amazonaws.com/rstudio-ide-build/server/centos6/x86_64/rstudio-server-rhel-1.2.1568-x86_64.rpm 
 
-#postgresソースファイルを調査用にコンテナ側にコピー
-COPY postgresql-11.5 /home/postgres/postgresql-11.5
-
-#python3.3 install
-RUN cd ~ && curl -LO curl -LO https://www.python.org/ftp/python/3.3.7/Python-3.3.7.tgz && \
-tar xvf Python-3.3.7.tgz && \
-cd Python-3.3.7 && \
-./configure --enable-shared && \
+#python install
+RUN cd /usr/local/src && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && \
+tar -zxvf Python-3.7.4.tgz && \
+cd Python-3.7.4 && \
+./configure --enable-shared --with-ensurepip=install && \
 make -j12 && \
 make -j12 install
 
-#python3.2 install
-RUN cd ~ && curl -LO curl -LO https://www.python.org/ftp/python/3.2.6/Python-3.2.6.tgz && \
-tar xvf Python-3.2.6.tgz && \
-cd Python-3.2.6 && \
-./configure --enable-shared && \
-make -j12 && \
-make -j12 install
+#perl install
+RUN cd ~ && curl -LO https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz && \
+tar -xzf perl-5.30.0.tar.gz && \
+echo
+#cd perl-5.30.0 && \
+#./Configure -des -Dprefix=/usr/local/ && \
+#make -j12 && \
+#make -j12 install
+
+#postgresビルド時にこけるのを防ぐ
+#python2.7のC言語のヘッダファイルを準備するため、いんすこしている
+RUN yum install -y python-devel
+
+#postgres12 install
+RUN cd /usr/local/src && curl -LO https://ftp.postgresql.org/pub/source/v12.0/postgresql-12.0.tar.gz && \
+tar xvf postgresql-12.0.tar.gz && \
+cd postgresql-12.0 && \
+./configure --prefix=/usr/local --with-python --with-includes=/usr/local/include/python3.7m --with-libraries=/lib64 | tee log && \
+make -j12 | tee logg && \
+make -j12 install | tee loggg
+
+#plpython3を使えるようにする
+RUN ln -s /usr/local/lib/libpython3.7m.so.1.0 /usr/lib64/libpython3.7.so && ldconfig && \
+cd /usr/local/src/postgresql-12.0/src/pl/plpython && \
+gcc -std=gnu99 -Wall -Wmissing-prototypes -Wpointer-arith -Wdeclaration-after-statement -Werror=vla -Wendif-labels -Wmissing-format-attribute -Wformat-security -fno-strict-aliasing -fwrapv -fexcess-precision=standard -O2 -fPIC -shared -o plpython3.so plpy_cursorobject.o plpy_elog.o plpy_exec.o plpy_main.o plpy_planobject.o plpy_plpymodule.o plpy_procedure.o plpy_resultobject.o plpy_spi.o plpy_subxactobject.o plpy_typeio.o plpy_util.o  -L../../../src/port -L../../../src/common    -Wl,--as-needed -Wl,-rpath,'/usr/lib64',--enable-new-dtags  -L/usr/lib64 -lpython3.7 -lpthread -ldl  -lutil -lm && \
+/usr/bin/install -c -m 755  plpython3.so '/usr/local/lib/postgresql/plpython3.so' && \
+/usr/bin/install -c -m 644 ./plpython3u.control ./plpython3u--1.0.sql ./plpython3u--unpackaged--1.0.sql '/usr/local/share/postgresql/extension/'
 
 #sshdサービス外部公開ポート
 EXPOSE 22
@@ -218,5 +220,16 @@ EXPOSE 5050
 
 #最後はpostgresに戻す
 USER postgres
+
+#postgres起動
+#dockerコンテナ作成後の手順に移植
+#RUN mkdir ~/pgdata && \
+#initdb -D ~/pgdata && \
+#pg_ctl -D ~/pgdata -l logfile start && \
+#psql -U postgres -c "create database test_01" && \
+#psql -U postgres -d test_01 && \
+#psql -U postgres -d test_01 -c "SELECT * FROM pg_available_extensions;" && \
+#psql -U postgres -d test_01 -c "CREATE EXTENSION plpython3u;" && \
+#psql -U postgres -d test_01 -c "SELECT * FROM pg_available_extensions;"
 
 WORKDIR /home/postgres
