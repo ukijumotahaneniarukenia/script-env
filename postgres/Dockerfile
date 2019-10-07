@@ -176,6 +176,7 @@ RUN yum install -y --nogpgcheck https://s3.amazonaws.com/rstudio-ide-build/serve
 #python install
 RUN cd /usr/local/src && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && \
 tar -zxvf Python-3.7.4.tgz && \
+chown -R root:root Python-3.7.4 && \
 cd Python-3.7.4 && \
 ./configure --enable-shared --with-ensurepip=install && \
 make -j12 && \
@@ -192,21 +193,27 @@ echo
 
 #postgresビルド時にこけるのを防ぐ
 #python2.7のC言語のヘッダファイルを準備するため、いんすこしている
-RUN yum install -y python-devel
+#dockerコンテナ作成後の手順に移植
+#RUN yum install -y python-devel
 
 #postgres12 install
+#dockerコンテナ作成後の手順に移植
 RUN cd /usr/local/src && curl -LO https://ftp.postgresql.org/pub/source/v12.0/postgresql-12.0.tar.gz && \
 tar xvf postgresql-12.0.tar.gz && \
-cd postgresql-12.0 && \
-./configure --prefix=/usr/local --with-python --with-includes=/usr/local/include/python3.7m --with-libraries=/lib64 | tee log && \
-make -j12 | tee logg && \
-make -j12 install | tee loggg
+chown -R root:root postgresql-12.0 && \
+echo
+#cd postgresql-12.0 && \
+#./configure --prefix=/usr/local --with-python --with-includes=/usr/local/include/python3.7m --with-libraries=/lib64 | tee log && \
+#make -j12 | tee logg && \
+#make -j12 install | tee loggg
 
 #plpython3を使えるようにする
 #dockerコンテナ作成後の手順に移植
-#RUN ln -s /usr/local/lib/libpython3.7m.so.1.0 /usr/lib64/libpython3.7.so && ldconfig && \
+#RUN ln -s /usr/local/lib/libpython3.7m.so.1.0 /usr/lib64/libpython3.7.so && \
+#ln -s /usr/local/lib/libpython3.7m.so.1.0 /usr/lib64/libpython3.7m.so.1.0 && \
+#ldconfig && \
 #cd /usr/local/src/postgresql-12.0/src/pl/plpython && \
-#gcc -std=gnu99 -Wall -Wmissing-prototypes -Wpointer-arith -Wdeclaration-after-statement -Werror=vla -Wendif-labels -Wmissing-format-attribute -Wformat-security -fno-strict-aliasing -fwrapv -fexcess-precision=standard -O2 -fPIC -shared -o plpython3.so plpy_cursorobject.o plpy_elog.o plpy_exec.o plpy_main.o plpy_planobject.o plpy_plpymodule.o plpy_procedure.o plpy_resultobject.o plpy_spi.o plpy_subxactobject.o plpy_typeio.o plpy_util.o  -L../../../src/port -L../../../src/common    -Wl,--as-needed -Wl,-rpath,'/usr/lib64',--enable-new-dtags  -L/usr/lib64 -lpython3.7 -lpthread -ldl  -lutil -lm && \
+#gcc -std=gnu99 -Wall -Wmissing-prototypes -Wpointer-arith -Wdeclaration-after-statement -Werror=vla -Wendif-labels -Wmissing-format-attribute -Wformat-security -fno-strict-aliasing -fwrapv -fexcess-precision=standard -O2 -fPIC -shared -o plpython3.so plpy_cursorobject.o plpy_elog.o plpy_exec.o plpy_main.o plpy_planobject.o plpy_plpymodule.o plpy_procedure.o plpy_resultobject.o plpy_spi.o plpy_subxactobject.o plpy_typeio.o plpy_util.o  -L../../../src/port -L../../../src/common    -Wl,--as-needed -Wl,-rpath,'/usr/lib64',--enable-new-dtags  -L/usr/lib64 -lpython3.7m -lpthread -ldl  -lutil -lm && \
 #/usr/bin/install -c -m 755  plpython3.so '/usr/local/lib/postgresql/plpython3.so' && \
 #/usr/bin/install -c -m 644 ./plpython3u.control ./plpython3u--1.0.sql ./plpython3u--unpackaged--1.0.sql '/usr/local/share/postgresql/extension/'
 
@@ -224,11 +231,9 @@ USER postgres
 
 #postgres起動
 #dockerコンテナ作成後の手順に移植
-#RUN mkdir ~/pgdata && \
-#initdb -D ~/pgdata && \
+#RUN initdb -D ~/pgdata && \
 #pg_ctl -D ~/pgdata -l logfile start && \
 #psql -U postgres -c "create database test_01" && \
-#psql -U postgres -d test_01 && \
 #psql -U postgres -d test_01 -c "SELECT * FROM pg_available_extensions;" && \
 #psql -U postgres -d test_01 -c "CREATE EXTENSION plpython3u;" && \
 #psql -U postgres -d test_01 -c "SELECT * FROM pg_available_extensions;"
