@@ -203,11 +203,12 @@ make -j12 | tee logg && \
 make -j12 install | tee loggg
 
 #plpython3を使えるようにする
-RUN ln -s /usr/local/lib/libpython3.7m.so.1.0 /usr/lib64/libpython3.7.so && ldconfig && \
-cd /usr/local/src/postgresql-12.0/src/pl/plpython && \
-gcc -std=gnu99 -Wall -Wmissing-prototypes -Wpointer-arith -Wdeclaration-after-statement -Werror=vla -Wendif-labels -Wmissing-format-attribute -Wformat-security -fno-strict-aliasing -fwrapv -fexcess-precision=standard -O2 -fPIC -shared -o plpython3.so plpy_cursorobject.o plpy_elog.o plpy_exec.o plpy_main.o plpy_planobject.o plpy_plpymodule.o plpy_procedure.o plpy_resultobject.o plpy_spi.o plpy_subxactobject.o plpy_typeio.o plpy_util.o  -L../../../src/port -L../../../src/common    -Wl,--as-needed -Wl,-rpath,'/usr/lib64',--enable-new-dtags  -L/usr/lib64 -lpython3.7 -lpthread -ldl  -lutil -lm && \
-/usr/bin/install -c -m 755  plpython3.so '/usr/local/lib/postgresql/plpython3.so' && \
-/usr/bin/install -c -m 644 ./plpython3u.control ./plpython3u--1.0.sql ./plpython3u--unpackaged--1.0.sql '/usr/local/share/postgresql/extension/'
+#dockerコンテナ作成後の手順に移植
+#RUN ln -s /usr/local/lib/libpython3.7m.so.1.0 /usr/lib64/libpython3.7.so && ldconfig && \
+#cd /usr/local/src/postgresql-12.0/src/pl/plpython && \
+#gcc -std=gnu99 -Wall -Wmissing-prototypes -Wpointer-arith -Wdeclaration-after-statement -Werror=vla -Wendif-labels -Wmissing-format-attribute -Wformat-security -fno-strict-aliasing -fwrapv -fexcess-precision=standard -O2 -fPIC -shared -o plpython3.so plpy_cursorobject.o plpy_elog.o plpy_exec.o plpy_main.o plpy_planobject.o plpy_plpymodule.o plpy_procedure.o plpy_resultobject.o plpy_spi.o plpy_subxactobject.o plpy_typeio.o plpy_util.o  -L../../../src/port -L../../../src/common    -Wl,--as-needed -Wl,-rpath,'/usr/lib64',--enable-new-dtags  -L/usr/lib64 -lpython3.7 -lpthread -ldl  -lutil -lm && \
+#/usr/bin/install -c -m 755  plpython3.so '/usr/local/lib/postgresql/plpython3.so' && \
+#/usr/bin/install -c -m 644 ./plpython3u.control ./plpython3u--1.0.sql ./plpython3u--unpackaged--1.0.sql '/usr/local/share/postgresql/extension/'
 
 #sshdサービス外部公開ポート
 EXPOSE 22

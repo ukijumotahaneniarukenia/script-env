@@ -1,180 +1,181 @@
 Sending build context to Docker daemon  754.7kB
-Step 1/59 : FROM centos:7.6.1810
+Step 1/58 : FROM centos:7.6.1810
  ---> f1cb7c7d58b7
-Step 2/59 : RUN groupadd -g 1001 rstudio
+Step 2/58 : RUN groupadd -g 1001 rstudio
  ---> Using cache
  ---> 844951ac7957
-Step 3/59 : RUN useradd -m -g rstudio -u 1001 rstudio
+Step 3/58 : RUN useradd -m -g rstudio -u 1001 rstudio
  ---> Using cache
  ---> f1ebfb6e4271
-Step 4/59 : RUN adduser postgres
+Step 4/58 : RUN adduser postgres
  ---> Using cache
  ---> e22a33618983
-Step 5/59 : RUN chsh -s /bin/bash rstudio
+Step 5/58 : RUN chsh -s /bin/bash rstudio
  ---> Using cache
  ---> 14b20ce4960e
-Step 6/59 : RUN chsh -s /bin/bash postgres
+Step 6/58 : RUN chsh -s /bin/bash postgres
  ---> Using cache
  ---> 7a5dc2a729ec
-Step 7/59 : RUN echo 'root_pwd' | passwd --stdin root
+Step 7/58 : RUN echo 'root_pwd' | passwd --stdin root
  ---> Using cache
  ---> 9cafa9222a28
-Step 8/59 : RUN echo 'rstudio_pwd' | passwd --stdin rstudio
+Step 8/58 : RUN echo 'rstudio_pwd' | passwd --stdin rstudio
  ---> Using cache
  ---> f86742013a72
-Step 9/59 : RUN echo 'postgres_pwd' | passwd --stdin postgres
+Step 9/58 : RUN echo 'postgres_pwd' | passwd --stdin postgres
  ---> Using cache
  ---> ba0654c72818
-Step 10/59 : RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+Step 10/58 : RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
  ---> Using cache
  ---> 35829bfb545f
-Step 11/59 : RUN echo 'postgres ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+Step 11/58 : RUN echo 'postgres ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
  ---> Using cache
  ---> 7e7f08131cdd
-Step 12/59 : RUN yum -y install epel-release
+Step 12/58 : RUN yum -y install epel-release
  ---> Using cache
  ---> 96c46f9952d3
-Step 13/59 : RUN yum install -y R
+Step 13/58 : RUN yum install -y R
  ---> Using cache
  ---> edd7d0872537
-Step 14/59 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man
+Step 14/58 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man
  ---> Using cache
  ---> 1317a16bf736
-Step 15/59 : RUN yum -y install https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+Step 15/58 : RUN yum -y install https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
  ---> Using cache
  ---> 0c94b48132ec
-Step 16/59 : RUN yum -y install pgadmin4
+Step 16/58 : RUN yum -y install pgadmin4
  ---> Using cache
  ---> 242c795220ae
-Step 17/59 : RUN echo "SERVER_MODE = True" >> /usr/lib/python2.7/site-packages/pgadmin4-web/config_local.py
+Step 17/58 : RUN echo "SERVER_MODE = True" >> /usr/lib/python2.7/site-packages/pgadmin4-web/config_local.py
  ---> Using cache
  ---> 1df71b4567ed
-Step 18/59 : RUN echo "DEFAULT_SERVER = '0.0.0.0'" >> /usr/lib/python2.7/site-packages/pgadmin4-web/config_local.py
+Step 18/58 : RUN echo "DEFAULT_SERVER = '0.0.0.0'" >> /usr/lib/python2.7/site-packages/pgadmin4-web/config_local.py
  ---> Using cache
  ---> 0b37df00988c
-Step 19/59 : RUN echo "LOG_FILE = '/var/log/pgadmin4/pgadmin4.log'" >> /usr/lib/python2.7/site-packages/pgadmin4-web/config_local.py
+Step 19/58 : RUN echo "LOG_FILE = '/var/log/pgadmin4/pgadmin4.log'" >> /usr/lib/python2.7/site-packages/pgadmin4-web/config_local.py
  ---> Using cache
  ---> 8c0b49082405
-Step 20/59 : RUN yum install -y which perl-App-cpanminus wxGTK-devel perl-ExtUtils-Embed perl-File-HomeDir perl-Term-ReadLine-Gnu wxGTK3 cpan
+Step 20/58 : RUN yum install -y which perl-App-cpanminus wxGTK-devel perl-ExtUtils-Embed perl-File-HomeDir perl-Term-ReadLine-Gnu wxGTK3 cpan
  ---> Using cache
  ---> fad3eba26847
-Step 21/59 : RUN cd ~ && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && cd Open-usp-Tukubai && make -j12 install
+Step 21/58 : RUN cd ~ && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && cd Open-usp-Tukubai && make -j12 install
  ---> Using cache
  ---> 12ab978b6881
-Step 22/59 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && tar -zxvf gawk-5.0.0.tar.gz && cd gawk-5.0.0 && ./configure && make -j12 && make -j12 install
+Step 22/58 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && tar -zxvf gawk-5.0.0.tar.gz && cd gawk-5.0.0 && ./configure && make -j12 && make -j12 install
  ---> Using cache
  ---> c5ff1b3d936e
-Step 23/59 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && tar -zxvf bash-5.0.tar.gz && cd bash-5.0 && ./configure && make -j12 && make -j12 install
+Step 23/58 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && tar -zxvf bash-5.0.tar.gz && cd bash-5.0 && ./configure && make -j12 && make -j12 install
  ---> Using cache
  ---> 5d56c23fac5a
-Step 24/59 : RUN yum install -y sudo gcc git gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd ~ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
+Step 24/58 : RUN yum install -y sudo gcc git gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd ~ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
  ---> Using cache
  ---> 5a9c303652b5
-Step 25/59 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+Step 25/58 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
  ---> Using cache
  ---> 9a0712654654
-Step 26/59 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+Step 26/58 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
  ---> Using cache
  ---> 924cbd1ac7c1
-Step 27/59 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+Step 27/58 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
  ---> Using cache
  ---> 8418534614dd
-Step 28/59 : RUN cd ~ && yum install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && tar jxf parallel-latest.tar.bz2 && cd parallel-20190922 && ./configure && make -j12 && make -j12 install
+Step 28/58 : RUN cd ~ && yum install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && tar jxf parallel-latest.tar.bz2 && cd parallel-20190922 && ./configure && make -j12 && make -j12 install
  ---> Using cache
  ---> 98f762764e3f
-Step 29/59 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "export LD_LIBRARY_PATH=/usr/local/lib" >> ~/.bashrc
+Step 29/58 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "export LD_LIBRARY_PATH=/usr/local/lib" >> ~/.bashrc
  ---> Using cache
  ---> a58caecca281
-Step 30/59 : USER postgres
+Step 30/58 : USER postgres
  ---> Using cache
  ---> f33a6f33ed39
-Step 31/59 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+Step 31/58 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
  ---> Using cache
  ---> 44bb41506c5e
-Step 32/59 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+Step 32/58 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
  ---> Using cache
  ---> 5a838f398081
-Step 33/59 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+Step 33/58 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
  ---> Using cache
  ---> 5d81f353973e
-Step 34/59 : RUN cd ~ && curl -LO http://www.postgresqltutorial.com/wp-content/uploads/2019/05/dvdrental.zip
+Step 34/58 : RUN cd ~ && curl -LO http://www.postgresqltutorial.com/wp-content/uploads/2019/05/dvdrental.zip
  ---> Using cache
  ---> 0505d094e23c
-Step 35/59 : RUN cd ~ && sudo yum install -y unzip && unzip dvdrental.zip
+Step 35/58 : RUN cd ~ && sudo yum install -y unzip && unzip dvdrental.zip
  ---> Using cache
  ---> 9ee45e433ee9
-Step 36/59 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc && echo "export LD_LIBRARY_PATH=/usr/local/lib" >> ~/.bashrc
+Step 36/58 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc && echo "export LD_LIBRARY_PATH=/usr/local/lib" >> ~/.bashrc
  ---> Using cache
  ---> fe2470f54a36
-Step 37/59 : USER rstudio
+Step 37/58 : USER rstudio
  ---> Using cache
  ---> 7dd697d5fb8a
-Step 38/59 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+Step 38/58 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
  ---> Using cache
  ---> 26fa3b10e03f
-Step 39/59 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+Step 39/58 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
  ---> Using cache
  ---> 31e8310dc84b
-Step 40/59 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+Step 40/58 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
  ---> Using cache
  ---> ee67feaaceef
-Step 41/59 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc && echo "export LD_LIBRARY_PATH=/usr/local/lib" >> ~/.bashrc
+Step 41/58 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc && echo "export LD_LIBRARY_PATH=/usr/local/lib" >> ~/.bashrc
  ---> Using cache
  ---> fffc07c66d7e
-Step 42/59 : USER root
+Step 42/58 : USER root
  ---> Using cache
  ---> 50a8aadfb49a
-Step 43/59 : RUN yum -y reinstall glibc-common
+Step 43/58 : RUN yum -y reinstall glibc-common
  ---> Using cache
  ---> c7a0bf6c1caf
-Step 44/59 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
+Step 44/58 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
  ---> Using cache
  ---> d80281bb0f12
-Step 45/59 : ENV LANG=ja_JP.UTF-8
+Step 45/58 : ENV LANG=ja_JP.UTF-8
  ---> Using cache
  ---> 7d23dba0393a
-Step 46/59 : RUN rm -f /etc/localtime
+Step 46/58 : RUN rm -f /etc/localtime
  ---> Using cache
  ---> 72878eefa91a
-Step 47/59 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+Step 47/58 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
  ---> Using cache
  ---> 6b9a97090289
-Step 48/59 : RUN yum install -y initscripts
+Step 48/58 : RUN yum install -y initscripts
  ---> Using cache
  ---> 2bd7f42e6d13
-Step 49/59 : RUN yum install -y --nogpgcheck https://s3.amazonaws.com/rstudio-ide-build/server/centos6/x86_64/rstudio-server-rhel-1.2.1568-x86_64.rpm
+Step 49/58 : RUN yum install -y --nogpgcheck https://s3.amazonaws.com/rstudio-ide-build/server/centos6/x86_64/rstudio-server-rhel-1.2.1568-x86_64.rpm
  ---> Using cache
  ---> cd3088c0912d
-Step 50/59 : RUN cd /usr/local/src && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && tar -zxvf Python-3.7.4.tgz && cd Python-3.7.4 && ./configure --enable-shared --with-ensurepip=install && make -j12 && make -j12 install
+Step 50/58 : RUN cd /usr/local/src && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && tar -zxvf Python-3.7.4.tgz && cd Python-3.7.4 && ./configure --enable-shared --with-ensurepip=install && make -j12 && make -j12 install
  ---> Using cache
  ---> 39707d25b874
-Step 51/59 : RUN cd ~ && curl -LO https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz && tar -xzf perl-5.30.0.tar.gz && echo
+Step 51/58 : RUN cd ~ && curl -LO https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz && tar -xzf perl-5.30.0.tar.gz && echo
  ---> Using cache
  ---> 4950701192e0
-Step 52/59 : RUN yum install -y python-devel
+Step 52/58 : RUN yum install -y python-devel
  ---> Using cache
  ---> 6de500d7e69a
-Step 53/59 : RUN cd /usr/local/src && curl -LO https://ftp.postgresql.org/pub/source/v12.0/postgresql-12.0.tar.gz && tar xvf postgresql-12.0.tar.gz && cd postgresql-12.0 && ./configure --prefix=/usr/local --with-python --with-includes=/usr/local/include/python3.7m --with-libraries=/lib64 | tee log && make -j12 | tee logg && make -j12 install | tee loggg
+Step 53/58 : RUN cd /usr/local/src && curl -LO https://ftp.postgresql.org/pub/source/v12.0/postgresql-12.0.tar.gz && tar xvf postgresql-12.0.tar.gz && cd postgresql-12.0 && ./configure --prefix=/usr/local --with-python --with-includes=/usr/local/include/python3.7m --with-libraries=/lib64 | tee log && make -j12 | tee logg && make -j12 install | tee loggg
  ---> Using cache
  ---> a274f54a9c6f
-Step 54/59 : RUN ln -s /usr/local/lib/libpython3.7m.so.1.0 /usr/lib64/libpython3.7.so && ldconfig && cd /usr/local/src/postgresql-12.0/src/pl/plpython && gcc -std=gnu99 -Wall -Wmissing-prototypes -Wpointer-arith -Wdeclaration-after-statement -Werror=vla -Wendif-labels -Wmissing-format-attribute -Wformat-security -fno-strict-aliasing -fwrapv -fexcess-precision=standard -O2 -fPIC -shared -o plpython3.so plpy_cursorobject.o plpy_elog.o plpy_exec.o plpy_main.o plpy_planobject.o plpy_plpymodule.o plpy_procedure.o plpy_resultobject.o plpy_spi.o plpy_subxactobject.o plpy_typeio.o plpy_util.o  -L../../../src/port -L../../../src/common    -Wl,--as-needed -Wl,-rpath,'/usr/lib64',--enable-new-dtags  -L/usr/lib64 -lpython3.7 -lpthread -ldl  -lutil -lm && /usr/bin/install -c -m 755  plpython3.so '/usr/local/lib/postgresql/plpython3.so' && /usr/bin/install -c -m 644 ./plpython3u.control ./plpython3u--1.0.sql ./plpython3u--unpackaged--1.0.sql '/usr/local/share/postgresql/extension/'
- ---> Using cache
- ---> 2d8acd5c98de
-Step 55/59 : EXPOSE 22
- ---> Using cache
- ---> cba15900c9a4
-Step 56/59 : EXPOSE 5432
- ---> Using cache
- ---> ad1e2696df76
-Step 57/59 : EXPOSE 5050
- ---> Using cache
- ---> 1fbe8bec149d
-Step 58/59 : USER postgres
- ---> Using cache
- ---> fbde87a5c4d6
-Step 59/59 : WORKDIR /home/postgres
- ---> Running in 70df78536ead
-Removing intermediate container 70df78536ead
- ---> 6be2d2d7ba73
-Successfully built 6be2d2d7ba73
+Step 54/58 : EXPOSE 22
+ ---> Running in 8b2b48d72d45
+Removing intermediate container 8b2b48d72d45
+ ---> af23b19de29d
+Step 55/58 : EXPOSE 5432
+ ---> Running in 16f8ecc3250d
+Removing intermediate container 16f8ecc3250d
+ ---> e6db26d1a697
+Step 56/58 : EXPOSE 5050
+ ---> Running in 0e25118aaff7
+Removing intermediate container 0e25118aaff7
+ ---> f93fbc1752fa
+Step 57/58 : USER postgres
+ ---> Running in ceb2554d8d01
+Removing intermediate container ceb2554d8d01
+ ---> d0a3e5b05718
+Step 58/58 : WORKDIR /home/postgres
+ ---> Running in b46c3ae8d769
+Removing intermediate container b46c3ae8d769
+ ---> dffb0be4173d
+Successfully built dffb0be4173d
 Successfully tagged centos_postgres:latest
