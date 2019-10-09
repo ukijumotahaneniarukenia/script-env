@@ -1,4 +1,8 @@
 # 参考文献
+
+環境変数の設定
+https://kenpg.bitbucket.io/blog/201607/19.html
+
 https://weblabo.oscasierra.net/postgresql10-centos7-install/
 http://note.kurodigi.com/centos7-postgresql/
 https://freelance-jak.com/technology/postgresql/451/
