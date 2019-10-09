@@ -207,12 +207,12 @@ RUN yum install -y initscripts
 RUN yum install -y --nogpgcheck https://s3.amazonaws.com/rstudio-ide-build/server/centos6/x86_64/rstudio-server-rhel-1.2.1568-x86_64.rpm 
 
 #sqlite install
-RUN cd ~ && curl -LO https://www.sqlite.org/2019/sqlite-autoconf-3300000.tar.gz && \
+RUN cd /usr/local/src && curl -LO https://www.sqlite.org/2019/sqlite-autoconf-3300000.tar.gz && \
 tar xvf sqlite-autoconf-3300000.tar.gz && \
 cd sqlite-autoconf-3300000 && \
 ./configure --prefix=/usr/local --enable-readline | tee log && \
-make -j12 | tee sqlite_logg && \
-make -j12 install | tee sqlite_loggg
+make -j12 | tee logg && \
+make -j12 install | tee loggg
 
 #python install
 RUN cd /usr/local/src && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && \
@@ -224,13 +224,12 @@ make -j12 && \
 make -j12 install
 
 #perl install
-RUN cd ~ && curl -LO https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz && \
+RUN cd /usr/local/src && curl -LO https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz && \
 tar -xzf perl-5.30.0.tar.gz && \
-echo
-#cd perl-5.30.0 && \
-#./Configure -des -Dprefix=/usr/local/ && \
-#make -j12 && \
-#make -j12 install
+cd perl-5.30.0 && \
+./Configure -des -Dprefix=/usr/local/ -Duseshrplib && \
+make -j12 && \
+make -j12 install
 
 #postgresビルド時にこけるのを防ぐ
 #python2.7のC言語のヘッダファイルを準備するため、いんすこしている
