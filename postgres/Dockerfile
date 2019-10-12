@@ -12,7 +12,6 @@ RUN echo 'postgres_pwd' | passwd --stdin postgres
 RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN echo 'postgres ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
-
 #epelレポ登録
 RUN yum -y install epel-release
 
@@ -30,9 +29,6 @@ RUN echo "SERVER_MODE = True" >> /usr/lib/python2.7/site-packages/pgadmin4-web/c
 #外部からのアクセスを可能にする
 RUN echo "DEFAULT_SERVER = '0.0.0.0'" >> /usr/lib/python2.7/site-packages/pgadmin4-web/config_local.py
 RUN echo "LOG_FILE = '/var/log/pgadmin4/pgadmin4.log'" >> /usr/lib/python2.7/site-packages/pgadmin4-web/config_local.py
-
-#postgres install
-#RUN yum -y install postgresql11-server
 
 #perl パッケージ管理cpanmないしcpanインストール
 RUN yum install -y which perl-App-cpanminus wxGTK-devel perl-ExtUtils-Embed perl-File-HomeDir perl-Term-ReadLine-Gnu wxGTK3 cpan
@@ -98,7 +94,7 @@ RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
 echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
 echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
 echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
-echo "export LD_LIBRARY_PATH=/usr/local/lib" >> ~/.bashrc
+echo "export LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib/postgresql:$LD_LIBRARY_PATH" >> ~/.bashrc
 
 #実行ユーザをpostgresに変更
 USER postgres
@@ -130,7 +126,7 @@ echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
 echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
 echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
 echo "alias vi=\"sudo vim\"" >> ~/.bashrc && \
-echo "export LD_LIBRARY_PATH=/usr/local/lib" >> ~/.bashrc
+echo "export LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib/postgresql:$LD_LIBRARY_PATH" >> ~/.bashrc
 
 #実行ユーザをrstudioに変更
 USER rstudio
@@ -158,7 +154,7 @@ echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
 echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
 echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
 echo "alias vi=\"sudo vim\"" >> ~/.bashrc && \
-echo "export LD_LIBRARY_PATH=/usr/local/lib" >> ~/.bashrc
+echo "export LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib/postgresql:$LD_LIBRARY_PATH" >> ~/.bashrc
 
 USER root 
 
@@ -183,18 +179,20 @@ make -j12 && \
 make -j12 install
 
 #perl install
-RUN cd ~ && curl -LO https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz && \
+RUN cd /usr/local/src && curl -LO https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz && \
 tar -xzf perl-5.30.0.tar.gz && \
-echo
-#cd perl-5.30.0 && \
-#./Configure -des -Dprefix=/usr/local/ && \
-#make -j12 && \
-#make -j12 install
+cd perl-5.30.0 && \
+./Configure -des -Dprefix=/usr/local -Duseshrplib && \
+make -j12 && \
+make -j12 install
 
-#postgresビルド時にこけるのを防ぐ
 #python2.7のC言語のヘッダファイルを準備するため、いんすこしている
-#dockerコンテナ作成後の手順に移植
 #RUN yum install -y python-devel
+
+#リンク読み込めるように修正
+#RUN /usr/sbin/ldconfig -p | grep -E "py|perl" && mkdir -p /etc/ld.so.conf.d/Python-3.7.4 && echo /usr/local/src/Python-3.7.4 >/etc/ld.so.conf.d/Python-3.7.4/ld.so.conf && \
+#mkdir -p /etc/ld.so.conf.d/perl-5.30.0 && echo /usr/local/src/perl-5.30.0 >/etc/ld.so.conf.d/perl-5.30.0/ld.so.conf && /usr/sbin/ldconfig && \
+#/usr/sbin/ldconfig -p | grep -E "py|perl"
 
 #postgres12 install
 #dockerコンテナ作成後の手順に移植
@@ -208,11 +206,7 @@ echo
 #make -j12 install | tee loggg
 
 #plpython3を使えるようにする
-#dockerコンテナ作成後の手順に移植
-#RUN ln -s /usr/local/lib/libpython3.7m.so.1.0 /usr/lib64/libpython3.7.so && \
-#ln -s /usr/local/lib/libpython3.7m.so.1.0 /usr/lib64/libpython3.7m.so.1.0 && \
-#ldconfig && \
-#cd /usr/local/src/postgresql-12.0/src/pl/plpython && \
+#RUN cd /usr/local/src/postgresql-12.0/src/pl/plpython && \
 #gcc -std=gnu99 -Wall -Wmissing-prototypes -Wpointer-arith -Wdeclaration-after-statement -Werror=vla -Wendif-labels -Wmissing-format-attribute -Wformat-security -fno-strict-aliasing -fwrapv -fexcess-precision=standard -O2 -fPIC -shared -o plpython3.so plpy_cursorobject.o plpy_elog.o plpy_exec.o plpy_main.o plpy_planobject.o plpy_plpymodule.o plpy_procedure.o plpy_resultobject.o plpy_spi.o plpy_subxactobject.o plpy_typeio.o plpy_util.o  -L../../../src/port -L../../../src/common    -Wl,--as-needed -Wl,-rpath,'/usr/lib64',--enable-new-dtags  -L/usr/lib64 -lpython3.7m -lpthread -ldl  -lutil -lm && \
 #/usr/bin/install -c -m 755  plpython3.so '/usr/local/lib/postgresql/plpython3.so' && \
 #/usr/bin/install -c -m 644 ./plpython3u.control ./plpython3u--1.0.sql ./plpython3u--unpackaged--1.0.sql '/usr/local/share/postgresql/extension/'
@@ -228,14 +222,5 @@ EXPOSE 5050
 
 #最後はpostgresに戻す
 USER postgres
-
-#postgres起動
-#dockerコンテナ作成後の手順に移植
-#RUN initdb -D ~/pgdata && \
-#pg_ctl -D ~/pgdata -l logfile start && \
-#psql -U postgres -c "create database test_01" && \
-#psql -U postgres -d test_01 -c "SELECT * FROM pg_available_extensions;" && \
-#psql -U postgres -d test_01 -c "CREATE EXTENSION plpython3u;" && \
-#psql -U postgres -d test_01 -c "SELECT * FROM pg_available_extensions;"
 
 WORKDIR /home/postgres
