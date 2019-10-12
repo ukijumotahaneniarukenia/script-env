@@ -2,6 +2,7 @@
 https://code.visualstudio.com/#alt-downloads
 https://qiita.com/kusanoiskuzuno/items/c323446f2707f9950ebb
 https://code.visualstudio.com/docs/?dv=linux64_rpm
+http://www5d.biglobe.ne.jp/~noocyte/Programming/CharCode.html
 
 # dockerイメージ削除
 ```
