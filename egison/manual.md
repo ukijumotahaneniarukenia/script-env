@@ -1,5 +1,6 @@
 # 参考文献
 https://www.slideshare.net/mobile/rakutentech/egison-44189985
+https://qiita.com/greymd/items/3515869d9ed2a1a61a49
 https://www.egison.org/getting-started/getting-started-linux.html
 
 # ghcインストール
