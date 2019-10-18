@@ -11,6 +11,9 @@ https://www.haskell.org/ghc/download_ghc_8_8_1.html
 
 https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/ghci.html
 
+ghcとは
+https://ja.wikipedia.org/wiki/Glasgow_Haskell_Compiler
+
 
 # ghcインストール
 ```
