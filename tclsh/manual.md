@@ -92,3 +92,7 @@ https://freesoftnet.co.jp/webfiles/tclkits/doc/tcl.html
 # 文字列つなぎのサンプル
 
 https://qiita.com/qoLop/items/982a749fedeeb8fbe839#%E3%83%AA%E3%82%B9%E3%83%88%E3%82%92%E3%81%A4%E3%81%AA%E3%81%92%E3%81%A6hello-world
+
+
+# これいいな
+http://simplesandsamples.com/args.tcl.html
