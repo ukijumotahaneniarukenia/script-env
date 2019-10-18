@@ -8,6 +8,8 @@ https://wiki.tcl-lang.org/page/Tcl+Tutorial+Index
 
 # tcl xml強み
 https://wiki.tcl-lang.org/page/A+tDOM+Tutorial
+https://forums.xilinx.com/t5/Vivado-TCL-Community/XML-parser-for-TCL/td-p/662425
+
 
 # tclインストール
 http://lfsbookja.osdn.jp/BLFS/svn-ja/general/tcl.html
