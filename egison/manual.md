@@ -81,6 +81,8 @@ Leaving GHCi.
 
 stack install egisonは10分ぐらいかかる。
 
+https://www.egison.org/
+
 ```
 [sqlite💗b64e746d9822 (土 10月 19 00:01:25) ~]$sudo yum update
 [sqlite💗b64e746d9822 (土 10月 19 00:01:25) ~]$sudo yum -y install https://git.io/egison.x86_64.rpm
