@@ -1,6 +1,10 @@
 # 参考文献
-https://www.slideshare.net/mobile/rakutentech/egison-44189985
-https://www.egison.org/getting-started/getting-started-linux.html
+https://qiita.com/waddlaw/items/49874f4cf9b680e4b015
+https://qiita.com/arowM/items/9ebfb7cafecd99290663
+https://qiita.com/arowM/items/33245802f9305a73082e
+https://qiita.com/ayase/items/a03e9e8484b492e6bc08
+https://qiita.com/mamoru09230937/items/792f8e591186453d6b63
+https://qiita.com/norkron/items/237735106ee6e5333678
 
 # ghcインストール
 haskellを動かすにはghc環境が必要
@@ -76,33 +80,3 @@ Prelude> x
 Prelude> 
 Leaving GHCi.
 ```
-
-# egisonインストール
-
-stack install egisonは10分ぐらいかかる。
-
-https://www.egison.org/
-
-```
-[sqlite💗b64e746d9822 (土 10月 19 00:01:25) ~]$sudo yum update
-[sqlite💗b64e746d9822 (土 10月 19 00:01:25) ~]$sudo yum -y install https://git.io/egison.x86_64.rpm
-[sqlite💗b64e746d9822 (土 10月 19 00:16:49) ~]$stack install egison
-[sqlite💗b64e746d9822 (土 10月 19 00:16:49) ~]$echo "PATH=\$PATH:/home/sqlite/.local/bin" >> ~/.bashrc
-[sqlite💗b64e746d9822 (土 10月 19 00:18:06) ~]$source ~/.bashrc
-[sqlite💓b64e746d9822 (土 10月 19 00:18:15) ~]$which egison
-~/.local/bin/egison
-[sqlite💓b64e746d9822 (土 10月 19 00:18:26) ~]$egison --version
-3.9.1
-[sqlite💓b64e746d9822 (土 10月 19 00:18:34) ~]$egison
-Egison Version 3.9.1 (C) 2011-2019 Satoshi Egi
-https://www.egison.org
-Welcome to Egison Interpreter!
-> 1+2
-Parse error at: "egison" (line 1, column 2):
-unexpected '+'
-expecting digit, "...", "_", "~", "~_", "|", "^" or end of input
-> (define $x 2)
-> (test (+ x 3))
-5
-```
-
