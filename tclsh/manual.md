@@ -1,3 +1,6 @@
+# TCL-readline機能
+https://wiki.tcl-lang.org/page/Pure-tcl+readline
+
 # 参考文献
 https://freesoftnet.co.jp/webfiles/tclkits/doc/TclCmdRef/UserCmd/tclsh_jp.htm
 http://www.phys.shimane-u.ac.jp/tanaka_lab/lecture/joho/sec9.pdf
