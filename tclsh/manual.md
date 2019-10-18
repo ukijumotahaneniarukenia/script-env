@@ -82,3 +82,8 @@ https://freesoftnet.co.jp/webfiles/tclkits/doc/tclcom.html
 
 外部ファイルの切り出しに使える
 https://freesoftnet.co.jp/webfiles/tclkits/doc/TclCmdRef/TclCmd/source_jp.htm
+
+
+# utf-8らしい
+
+https://freesoftnet.co.jp/webfiles/tclkits/doc/tcl.html
