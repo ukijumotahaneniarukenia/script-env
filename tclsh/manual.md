@@ -71,3 +71,11 @@ https://qiita.com/akinori-ito/items/a6abe82f4c814272f06c
 https://qiita.com/akinori-ito/items/919edfd6c52cf0b37247#_reference-43be2037b7826774b1a9
 https://github.com/mistachkin/jtcl/blob/master/src/main/scripts/paraffin.tcl
 
+
+
+
+
+# sourceコマンド
+
+外部ファイルの切り出しに使える
+https://freesoftnet.co.jp/webfiles/tclkits/doc/TclCmdRef/TclCmd/source_jp.htm
