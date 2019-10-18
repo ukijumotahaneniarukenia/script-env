@@ -15,6 +15,14 @@ ghcとは
 https://ja.wikipedia.org/wiki/Glasgow_Haskell_Compiler
 
 
+# haskellチュートリアル
+
+https://wiki.haskell.org/Haskell%E5%85%A5%E9%96%80_5%E3%82%B9%E3%83%86%E3%83%83%E3%83%97
+
+```
+
+```
+
 # ghcインストール
 ```
 [sqlite💚b64e746d9822 (金 10月 18 23:19:43) ~]$curl -LO https://downloads.haskell.org/~ghc/8.8.1/ghc-8.8.1-x86_64-centos7-linux.tar.xz
