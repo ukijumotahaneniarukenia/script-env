@@ -95,4 +95,4 @@ https://qiita.com/qoLop/items/982a749fedeeb8fbe839#%E3%83%AA%E3%82%B9%E3%83%88%E
 
 
 # これいいな
-http://simplesandsamples.com/args.tcl.html
+http://simplesandsamples.com/stdin.tcl.html
