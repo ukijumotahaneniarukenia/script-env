@@ -1,6 +1,7 @@
 # 参考文献
 https://www.sqlite.org/src/doc/trunk/README.md
 https://www.sqlite.org/index.html
+https://sqlite.org/quickstart.html
 
 time docker build -t centos_sqlite . | tee log
 
