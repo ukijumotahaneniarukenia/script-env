@@ -1,5 +1,6 @@
 # 参考文献
 https://freesoftnet.co.jp/webfiles/tclkits/doc/TclCmdRef/UserCmd/tclsh_jp.htm
+http://www.phys.shimane-u.ac.jp/tanaka_lab/lecture/joho/sec9.pdf
 
 # 開発TREE
 https://core.tcl-lang.org/index.html
