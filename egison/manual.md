@@ -20,6 +20,22 @@ https://ja.wikipedia.org/wiki/Glasgow_Haskell_Compiler
 https://wiki.haskell.org/Haskell%E5%85%A5%E9%96%80_5%E3%82%B9%E3%83%86%E3%83%83%E3%83%97
 
 ```
+[sqlite💗b64e746d9822 (金 10月 18 23:45:29) ~]$echo "main=putStrLn \"hello\"" > hello.hs
+[sqlite💗b64e746d9822 (金 10月 18 23:46:10) ~]$cat hello.hs 
+main=putStrLn "hello"
+[sqlite💗b64e746d9822 (金 10月 18 23:46:15) ~]$ghc -o hello hello.hs
+[1 of 1] Compiling Main             ( hello.hs, hello.o )
+Linking hello ...
+[sqlite💗b64e746d9822 (金 10月 18 23:46:30) ~]$ll
+total 192264
+drwxrwxr-x 14 sqlite sqlite      4096 10月 18 23:25 ghc-8.8.1
+-rw-rw-r--  1 sqlite sqlite 194601024 10月 18 23:20 ghc-8.8.1-x86_64-centos7-linux.tar.xz
+-rwxrwxr-x  1 sqlite sqlite   2255992 10月 18 23:46 hello
+-rw-rw-r--  1 sqlite sqlite       842 10月 18 23:46 hello.hi
+-rw-rw-r--  1 sqlite sqlite        22 10月 18 23:46 hello.hs
+-rw-rw-r--  1 sqlite sqlite      3184 10月 18 23:46 hello.o
+[sqlite💗b64e746d9822 (金 10月 18 23:46:35) ~]$./hello
+hello
 
 ```
 
