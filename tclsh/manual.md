@@ -1,6 +1,14 @@
 # TCL-readline機能
 https://wiki.tcl-lang.org/page/Pure-tcl+readline
 
+
+Ctrl+Dではなく、exitで抜ける。
+```
+[sqlite💕b64e746d9822 (土 10月 19 01:57:34) ~/tcl8.6.9/unix]$tclsh
+>exit
+[sqlite💕b64e746d9822 (土 10月 19 01:57:45) ~/tcl8.6.9/unix]$
+```
+
 # 参考文献
 https://freesoftnet.co.jp/webfiles/tclkits/doc/TclCmdRef/UserCmd/tclsh_jp.htm
 http://www.phys.shimane-u.ac.jp/tanaka_lab/lecture/joho/sec9.pdf
