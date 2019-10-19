@@ -25,6 +25,32 @@ https://wiki.tcl-lang.org/page/Tcl+Tutorial+Index
 https://wiki.tcl-lang.org/page/A+tDOM+Tutorial
 https://forums.xilinx.com/t5/Vivado-TCL-Community/XML-parser-for-TCL/td-p/662425
 
+tdomパッケージをインストール
+https://github.com/tDOM/tdom.git
+```
+[sqlite💙b64e746d9822 (土 10月 19 03:06:31) ~/tcl8.6.9/script_scratch/tclsh]$git clone https://github.com/tDOM/tdom.git
+[sqlite💙b64e746d9822 (土 10月 19 03:09:21) ~/tcl8.6.9/script_scratch/tclsh]$cd tdom/
+[sqlite💙b64e746d9822 (土 10月 19 03:10:06) ~/tcl8.6.9/script_scratch/tclsh/tdom]$./configure --prefix=/usr/local --enable-shared | tee log
+[sqlite💙b64e746d9822 (土 10月 19 03:10:51) ~/tcl8.6.9/script_scratch/tclsh/tdom]$make -j12 | tee logg
+[sqlite💙b64e746d9822 (土 10月 19 03:11:31) ~/tcl8.6.9/script_scratch/tclsh/tdom]$sudo make -j12 install  | tee loggg
+[sqlite💙b64e746d9822 (土 10月 19 03:15:02) ~/tcl8.6.9/script_scratch/tclsh]$tclsh
+>puts $auto_path
+/usr/local/lib/tcl8.6 /usr/local/lib
+[sqlite💙b64e746d9822 (土 10月 19 03:15:43) ~/tcl8.6.9/script_scratch/tclsh]$find / -name "*libtdom0.8.3.so*" 2>/dev/null
+/usr/local/lib/tdom0.8.3/libtdom0.8.3.so
+/home/sqlite/tcl8.6.9/script_scratch/tclsh/tdom/libtdom0.8.3.so
+```
+
+インクルードはできている
+```
+[sqlite💙b64e746d9822 (土 10月 19 03:16:10) ~/tcl8.6.9/script_scratch/tclsh]$cat dom.tcl
+package require tdom
+[sqlite💙b64e746d9822 (土 10月 19 03:16:17) ~/tcl8.6.9/script_scratch/tclsh]$tclsh dom.tcl 
+
+```
+
+
+
 
 # tclインストール
 http://lfsbookja.osdn.jp/BLFS/svn-ja/general/tcl.html
