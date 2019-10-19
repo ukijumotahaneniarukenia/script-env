@@ -6,6 +6,10 @@ https://qiita.com/ayase/items/a03e9e8484b492e6bc08
 https://qiita.com/mamoru09230937/items/792f8e591186453d6b63
 https://qiita.com/norkron/items/237735106ee6e5333678
 
+# 組み合わせ、順列
+https://kazu-yamamoto.hatenablog.jp/entry/20081208/1228727709
+
+
 # ghcインストール
 haskellを動かすにはghc環境が必要
 egisonを動かすにはhaskellが必要
