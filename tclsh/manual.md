@@ -2,6 +2,8 @@
 https://wiki.tcl-lang.org/page/Pure-tcl+readline
 
 
+key入力変わるので、いじれるまではスクリプトにして実行するように訓練
+
 Ctrl+Dではなく、exitで抜ける。
 ```
 [sqlite💕b64e746d9822 (土 10月 19 01:57:34) ~/tcl8.6.9/unix]$tclsh
