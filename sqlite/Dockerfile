@@ -266,6 +266,8 @@ EXPOSE 5432
 #pgAdminサービス外部公開ポート
 EXPOSE 5050
 
+RUN yum install -y moreutils
+
 #最後はsqliteに戻す
 USER sqlite
 
