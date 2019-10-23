@@ -3,6 +3,25 @@ https://www.slideshare.net/mobile/rakutentech/egison-44189985
 https://qiita.com/greymd/items/3515869d9ed2a1a61a49
 https://www.egison.org/getting-started/getting-started-linux.html
 
+
+# dockerコンテナ作成
+
+```
+docker run --privileged --shm-size=2gb --name egison -itd -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X1-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id centos_egison
+```
+
+# dockerイメージ作成
+
+```
+time docker build . -t centos_egison | tee log
+```
+
+# dockerコンテナ潜入
+
+```
+docker exec -it egison /bin/bash
+```
+
 # ghcインストール
 haskellを動かすにはghc環境が必要
 egisonを動かすにはhaskellが必要
