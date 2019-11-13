@@ -69,6 +69,17 @@ cd parallel-20191022 && \
 make -j12 && \
 make -j12 install
 
+#tclコマンド
+RUN cd ~ && curl -LO https://prdownloads.sourceforge.net/tcl/tcl8.6.9-src.tar.gz && \
+tar xvf tcl8.6.9-src.tar.gz && \
+cd tcl8.6.9 && \
+export CFLAGS=-DTCL_UTF_MAX=6 && \
+export MAKEFLAGS=-j5 && \
+./configure --prefix=/usr/local --enable-threads --enable-shared --enable-symbols --enable-64bit --enable-langinfo --enable-man-symlinks && \
+make -j12 && \
+sudo make install && \
+sudo ln -fns /home/tcl/tcl8.6.9/unix/tclsh /usr/local/bin/tclsh
+
 #alias設定
 RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
 echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
