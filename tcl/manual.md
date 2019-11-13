@@ -55,3 +55,9 @@ Press return to begin installation
 % info tclversion
 8.6
 ```
+
+
+```
+[rootd2d7186ae1e4 (Wed Nov 13 12:09:11) /home/tcl/ActiveTcl-8.6.9.8609.2-x86_64-linux-glibc-2.5-dcd3ff05d]$ln -fsr /usr/local/src/ActiveTcl-8.6/bin/tclsh /usr/local/bin/tclsh
+
+```
