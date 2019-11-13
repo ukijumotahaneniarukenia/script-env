@@ -22,6 +22,34 @@ https://wiki.tcl-lang.org/page/emoji
 
 ```
 
+ソースのダウンロード先
+
+https://www.tcl.tk/software/tcltk/download.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 tar -xvf ActiveTcl-8.6.9.8609.2-x86_64-linux-glibc-2.5-dcd3ff05d.tar.gz
 cd ActiveTcl-8.6.9.8609.2-x86_64-linux-glibc-2.5-dcd3ff05d
 ./install.sh | tee log

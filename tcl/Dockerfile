@@ -74,9 +74,7 @@ RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
 echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
 echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
 echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
-echo "export LD_LIBRARY_PATH=/usr/local/lib" >> ~/.bashrc && \
-echo "alias sqlite=/usr/local/bin/sqlite3" >> ~/.bashrc && \
-echo "export PATH=/usr/local/src/ActiveTcl-8.6/bin:$PATH" >>~/.bashrc
+echo "export LD_LIBRARY_PATH=/usr/local/lib" >> ~/.bashrc
 
 RUN source ~/.bashrc
 
@@ -103,12 +101,6 @@ sh installer.sh ~/.vim/bundle && rm -rf installer.sh
 RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
 echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
 echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
-echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
-#echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
-#echo "alias vi=\"sudo vim\"" >> ~/.bashrc && \
-echo "export PATH=/usr/local/src/ActiveTcl-8.6/bin:$PATH" >>~/.bashrc
+echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc
 
 RUN source ~/.bashrc
-
-COPY ActiveTcl-8.6.9.8609.2-x86_64-linux-glibc-2.5-dcd3ff05d.tar.gz /home/tcl/ActiveTcl-8.6.9.8609.2-x86_64-linux-glibc-2.5-dcd3ff05d.tar.gz
-RUN cd /home/tcl && tar -xvf ActiveTcl-8.6.9.8609.2-x86_64-linux-glibc-2.5-dcd3ff05d.tar.gz
