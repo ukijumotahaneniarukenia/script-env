@@ -18,6 +18,7 @@ docker exec --user tcl -it tcl bash
 
 
 https://www.activestate.com/products/tcl/downloads/
+https://wiki.tcl-lang.org/page/emoji
 
 ```
 

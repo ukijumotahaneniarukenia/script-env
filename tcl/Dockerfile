@@ -7,11 +7,108 @@ RUN chsh -s /bin/bash tcl
 RUN echo 'root_pwd' | passwd --stdin root
 RUN echo 'tcl_pwd' | passwd --stdin tcl
 
-#epelレポ登録
-RUN yum -y install epel-release
+RUN yum install -y epel-release 
+RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man rlwrap
 
+#perl パッケージ管理cpanmないしcpanインストール
+RUN yum install -y which perl-App-cpanminus wxGTK-devel perl-ExtUtils-Embed perl-File-HomeDir perl-Term-ReadLine-Gnu wxGTK3 cpan
 
+#Tukubaiコマンドは便利
+RUN cd ~ && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && \
+cd Open-usp-Tukubai && \
+make -j12 install
 
+#awkコマンドは最新の奴 include使える
+RUN cd ~ && curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && \
+tar -zxvf gawk-5.0.0.tar.gz && \
+cd gawk-5.0.0 && \
+./configure && \
+make -j12 && \
+make -j12 install
+
+#bashも最新
+RUN cd ~ && curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && \
+tar -zxvf bash-5.0.tar.gz && \
+cd bash-5.0 && \
+./configure && \
+make -j12 && \
+make -j12 install
+
+#vimも最新
+RUN yum install -y sudo gcc git gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && \
+cd ~ && git clone https://github.com/vim/vim.git && \
+cd vim && \
+./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && \
+make -j12 distclean && \
+make -j12 && \
+make -j12 install && \
+ln -fsr /usr/local/bin/vim /usr/bin/vim && \
+ln -fsr /usr/local/bin/vim /usr/bin/vi
+
+#自身のvim環境をクローン
+RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+
+#自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
+RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
+cd ~/tmp && \
+#移動したいdotfileをchoiceしてHOMEディレクトリへ
+mv rc/.[^.]* ~ && \
+#用が済んだらリム
+rm -rf ~/tmp
+
+#vim plugin manager
+RUN mkdir -p ~/.vim/bundle && \
+cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
+sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+
+#parallelコマンド install
+RUN cd ~ && yum install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && \
+tar jxf parallel-latest.tar.bz2 && \
+cd parallel-20191022 && \
+./configure && \
+make -j12 && \
+make -j12 install
+
+#alias設定
+RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
+echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
+echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
+echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
+echo "export LD_LIBRARY_PATH=/usr/local/lib" >> ~/.bashrc && \
+echo "alias sqlite=/usr/local/bin/sqlite3" >> ~/.bashrc && \
+echo "export PATH=/usr/local/src/ActiveTcl-8.6/bin:$PATH" >>~/.bashrc
+
+RUN source ~/.bashrc
+
+#実行ユーザをtclに変更
 USER tcl
 
-WORKDIR /home/tcl
+#自身のvim環境をクローン
+RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+
+#自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
+RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
+cd ~/tmp && \
+#移動したいdotfileをchoiceしてHOMEディレクトリへ
+mv rc/.[^.]* ~ && \
+#用が済んだらリム
+rm -rf ~/tmp
+
+#vim plugin manager
+RUN mkdir -p ~/.vim/bundle && \
+cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
+sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+
+#alias設定
+RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
+echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
+echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
+echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
+#echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
+#echo "alias vi=\"sudo vim\"" >> ~/.bashrc && \
+echo "export PATH=/usr/local/src/ActiveTcl-8.6/bin:$PATH" >>~/.bashrc
+
+RUN source ~/.bashrc
+
+COPY ActiveTcl-8.6.9.8609.2-x86_64-linux-glibc-2.5-dcd3ff05d.tar.gz /home/tcl/ActiveTcl-8.6.9.8609.2-x86_64-linux-glibc-2.5-dcd3ff05d.tar.gz
+RUN cd /home/tcl && tar -xvf ActiveTcl-8.6.9.8609.2-x86_64-linux-glibc-2.5-dcd3ff05d.tar.gz
