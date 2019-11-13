@@ -17,6 +17,8 @@ docker exec --user tcl -it tcl bash
 ```
 
 
+https://www.activestate.com/products/tcl/downloads/
+
 ```
 
 tar -xvf ActiveTcl-8.6.9.8609.2-x86_64-linux-glibc-2.5-dcd3ff05d.tar.gz
