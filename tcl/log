@@ -1,0 +1,86 @@
+Sending build context to Docker daemon  24.79MB
+Step 1/9 : FROM centos:7.6.1810
+ ---> f1cb7c7d58b7
+Step 2/9 : RUN groupadd -g 1001 tcl
+ ---> Using cache
+ ---> b31126eca46e
+Step 3/9 : RUN useradd -m -g tcl -u 1001 tcl
+ ---> Running in 43dd9e183f1c
+Removing intermediate container 43dd9e183f1c
+ ---> 2ff09da2cb66
+Step 4/9 : RUN chsh -s /bin/bash tcl
+ ---> Running in d07c639e8670
+[91mchsh: Shell not changed.
+[0mChanging shell for tcl.
+Removing intermediate container d07c639e8670
+ ---> fffeeb88c57a
+Step 5/9 : RUN echo 'root_pwd' | passwd --stdin root
+ ---> Running in f4315cc7f618
+Changing password for user root.
+passwd: all authentication tokens updated successfully.
+Removing intermediate container f4315cc7f618
+ ---> 1e1152c1ee6a
+Step 6/9 : RUN echo 'tcl_pwd' | passwd --stdin tcl
+ ---> Running in 6233cd7e4ac4
+Changing password for user tcl.
+passwd: all authentication tokens updated successfully.
+Removing intermediate container 6233cd7e4ac4
+ ---> 0e593a4f25b5
+Step 7/9 : RUN yum -y install epel-release
+ ---> Running in 941e57f9cff4
+Loaded plugins: fastestmirror, ovl
+Determining fastest mirrors
+ * base: ftp.iij.ad.jp
+ * extras: ftp.iij.ad.jp
+ * updates: ftp.iij.ad.jp
+Resolving Dependencies
+--> Running transaction check
+---> Package epel-release.noarch 0:7-11 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package                Arch             Version         Repository        Size
+================================================================================
+Installing:
+ epel-release           noarch           7-11            extras            15 k
+
+Transaction Summary
+================================================================================
+Install  1 Package
+
+Total download size: 15 k
+Installed size: 24 k
+Downloading packages:
+[91mwarning: /var/cache/yum/x86_64/7/extras/packages/epel-release-7-11.noarch.rpm: Header V3 RSA/SHA256 Signature, key ID f4a80eb5: NOKEY
+[0mPublic key for epel-release-7-11.noarch.rpm is not installed
+Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+[91mImporting GPG key 0xF4A80EB5:
+ Userid     : "CentOS-7 Key (CentOS 7 Official Signing Key) <security@centos.org>"
+ Fingerprint: 6341 ab27 53d7 8a78 a7c2 7bb1 24c6 a8a7 f4a8 0eb5
+ Package    : centos-release-7-6.1810.2.el7.centos.x86_64 (@CentOS)
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+[0mRunning transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : epel-release-7-11.noarch                                     1/1 
+  Verifying  : epel-release-7-11.noarch                                     1/1 
+
+Installed:
+  epel-release.noarch 0:7-11                                                    
+
+Complete!
+Removing intermediate container 941e57f9cff4
+ ---> 9620d050150a
+Step 8/9 : USER tcl
+ ---> Running in 97e7e51d069c
+Removing intermediate container 97e7e51d069c
+ ---> 459fd7ae3902
+Step 9/9 : WORKDIR /home/tcl
+ ---> Running in e95d1d09582d
+Removing intermediate container e95d1d09582d
+ ---> 55e8aff4e192
+Successfully built 55e8aff4e192
+Successfully tagged centos_tcl:latest
