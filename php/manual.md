@@ -1,3 +1,10 @@
+# phpインスト
+
+```
+sudo yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm && \
+ sudo yum -y install --enablerepo=remi,remi-php73 php php-devel php-mbstring php-pdo php-gd php-xml php-mcrypt
+```
+
 # 参考文献
 https://mattintosh.hatenablog.com/entry/20140815/1408057200
 https://www.activestate.com/products/komodo-ide/download-ide/#edit
