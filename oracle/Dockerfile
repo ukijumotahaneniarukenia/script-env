@@ -1,4 +1,4 @@
-FROM centos:latest
+FROM centos:7.6.1810
 #各種X関連コマンドインストール
 RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps
 
@@ -14,7 +14,9 @@ RUN yum install -y fcitx ibus
 
 #guiアプリインストール
 #事前にダウンロードしておき、dockerコンテナにコピー。
+#https://www.oracle.com/tools/downloads/sqldev-v192-downloads.html
 COPY sqldeveloper-19.2.0.206.2117.noarch.rpm /root/sqldeveloper-19.2.0.206.2117.noarch.rpm
+#https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
 COPY jdk-8u221-linux-x64.rpm /root/jdk-8u221-linux-x64.rpm
 RUN cd ~ && rpm -ivh jdk-8u221-linux-x64.rpm
 RUN cd ~ && rpm -ivh sqldeveloper-19.2.0.206.2117.noarch.rpm
@@ -30,6 +32,7 @@ ENV ORACLE_DOCKER_INSTALL=true \
     PATH=$PATH:$ORACLE_HOME/bin
 
 #事前にダウンロードしておき、dockerコンテナにコピー。
+#https://www.oracle.com/technetwork/jp/database/enterprise-edition/downloads/index.html
 COPY oracle-database-ee-19c-1.0-1.x86_64.rpm /root/oracle-database-ee-19c-1.0-1.x86_64.rpm
 
 RUN yum -y localinstall /root/oracle-database-ee-19c-1.0-1.x86_64.rpm
@@ -120,7 +123,7 @@ make -j12 install
 #parallelコマンド install
 RUN cd ~ && yum install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && \
 tar jxf parallel-latest.tar.bz2 && \
-cd parallel-20190822 && \
+cd parallel-20191022 && \
 ./configure && \
 make -j12 && \
 make -j12 install

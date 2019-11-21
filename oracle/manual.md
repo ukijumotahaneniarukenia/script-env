@@ -1,3 +1,16 @@
+# ダウンロード先
+
+sqldeveloper
+https://www.oracle.com/tools/downloads/sqldev-v192-downloads.html
+
+jdk8
+https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+
+oracle19cr3
+https://www.oracle.com/technetwork/jp/database/enterprise-edition/downloads/index.html
+
+
+
 # clob型のcollect集約関数の実装について
 https://docs.oracle.com/cd/E82638_01/addci/using-user-defined-aggregate-functions.html#GUID-D7E77319-DC23-4CF0-B746-27ED7BE9240D
 
