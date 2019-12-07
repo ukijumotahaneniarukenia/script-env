@@ -1,309 +1,5 @@
-Sending build context to Docker daemon  607.7kB
-Step 1/93 : FROM centos:latest
- ---> 9f38484d220f
-Step 2/93 : RUN groupadd -g 1001 rstudio
- ---> Using cache
- ---> 963d719c7b0a
-Step 3/93 : RUN useradd -m -g rstudio -u 1001 rstudio
- ---> Using cache
- ---> c453704ae02b
-Step 4/93 : RUN groupadd -g 1002 mysql
- ---> Using cache
- ---> 6ef1368e6a31
-Step 5/93 : RUN useradd -m -g mysql -u 1002 mysql
- ---> Using cache
- ---> 787cbcae224a
-Step 6/93 : RUN groupadd -g 1003 apache
- ---> Using cache
- ---> f645e2cbdba3
-Step 7/93 : RUN useradd -m -g rstudio -u 1003 apache
- ---> Using cache
- ---> 1582a2989c69
-Step 8/93 : RUN chsh -s /bin/bash rstudio
- ---> Using cache
- ---> 30f62c71e314
-Step 9/93 : RUN chsh -s /bin/bash mysql
- ---> Using cache
- ---> dda57e308d9f
-Step 10/93 : RUN chsh -s /bin/bash apache
- ---> Using cache
- ---> 16a6b22b731a
-Step 11/93 : RUN echo 'root_pwd' | passwd --stdin root
- ---> Using cache
- ---> 95cdc4506eea
-Step 12/93 : RUN echo 'rstudio_pwd' | passwd --stdin rstudio
- ---> Using cache
- ---> b44a5452222e
-Step 13/93 : RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
- ---> Using cache
- ---> 86e9b2a097bf
-Step 14/93 : RUN echo 'mysql_pwd' | passwd --stdin mysql
- ---> Using cache
- ---> ab3e178043c9
-Step 15/93 : RUN echo 'mysql ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
- ---> Using cache
- ---> 014c05f479e5
-Step 16/93 : RUN echo 'apache_pwd' | passwd --stdin apache
- ---> Using cache
- ---> 1a73e66dd591
-Step 17/93 : RUN echo 'apache ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
- ---> Using cache
- ---> c0a9a78aa645
-Step 18/93 : RUN yum install -y epel-release
- ---> Using cache
- ---> 857f396cacf0
-Step 19/93 : RUN yum install -y R
- ---> Using cache
- ---> d6a09c940bf7
-Step 20/93 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man httpd
- ---> Using cache
- ---> 6c42c47be0e7
-Step 21/93 : RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
- ---> Using cache
- ---> 9ad6d9df6069
-Step 22/93 : RUN yum install -y --disablerepo=* --enablerepo=epel,remi,remi-safe,remi-php73 php php-mysqlnd
- ---> Using cache
- ---> 937246a9de7f
-Step 23/93 : RUN cd /usr/share && curl -LO https://files.phpmyadmin.net/phpMyAdmin/4.9.0.1/phpMyAdmin-4.9.0.1-all-languages.tar.gz && tar -zxvf phpMyAdmin-4.9.0.1-all-languages.tar.gz && mv phpMyAdmin-4.9.0.1-all-languages phpmyadmin && chown -R apache:apache /usr/share/phpmyadmin && chmod -R 755 /usr/share/phpmyadmin && mkdir -p /etc/httpd/conf.d
- ---> Using cache
- ---> e3121d0f867f
-Step 24/93 : RUN yum install -y https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
- ---> Using cache
- ---> 4d3f711ce317
-Step 25/93 : RUN yum install -y --nogpgcheck mysql-community-server
- ---> Using cache
- ---> 4a212add23ba
-Step 26/93 : RUN echo log_timestamps=SYSTEM >> /etc/my.cnf
- ---> Using cache
- ---> c5201d468e32
-Step 27/93 : RUN echo skip-character-set-client-handshake >> /etc/my.cnf
- ---> Using cache
- ---> e62c486d8bd6
-Step 28/93 : RUN echo character-set-server=utf8mb4 >> /etc/my.cnf
- ---> Using cache
- ---> 00a79411e890
-Step 29/93 : RUN echo explicit_defaults_for_timestamp=ON >> /etc/my.cnf
- ---> Using cache
- ---> db8d0c278ab5
-Step 30/93 : RUN yum install -y which perl-App-cpanminus wxGTK-devel perl-ExtUtils-Embed perl-File-HomeDir perl-Term-ReadLine-Gnu wxGTK3 cpan
- ---> Using cache
- ---> 10b9de58c5b3
-Step 31/93 : RUN cd ~ && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && cd Open-usp-Tukubai && make -j12 install
- ---> Using cache
- ---> e413c8aee20d
-Step 32/93 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && tar -zxvf gawk-5.0.0.tar.gz && cd gawk-5.0.0 && ./configure && make -j12 && make -j12 install
- ---> Using cache
- ---> 1ee232b562fa
-Step 33/93 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && tar -zxvf bash-5.0.tar.gz && cd bash-5.0 && ./configure && make -j12 && make -j12 install
- ---> Using cache
- ---> 97e4ec1e236f
-Step 34/93 : RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd ~ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
- ---> Using cache
- ---> 52cd1eb3dd31
-Step 35/93 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
- ---> Using cache
- ---> 43ae9f2312f1
-Step 36/93 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
- ---> Using cache
- ---> 9fe0a664245d
-Step 37/93 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
- ---> Using cache
- ---> 2cd5eef30fb8
-Step 38/93 : RUN cd ~ && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && tar -zxvf Python-3.7.4.tgz && cd Python-3.7.4 && ./configure && make -j12 && make -j12 install
- ---> Using cache
- ---> ded02208d24a
-Step 39/93 : RUN cd ~ && curl -LO https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz && tar -xzf perl-5.30.0.tar.gz && cd perl-5.30.0 && ./Configure -des -Dprefix=/usr/local/ && make -j12 && make -j12 install
- ---> Using cache
- ---> e258c18eeda1
-Step 40/93 : RUN cd ~ && yum install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && tar jxf parallel-latest.tar.bz2 && cd parallel-20190822 && ./configure && make -j12 && make -j12 install
- ---> Using cache
- ---> 0dd8f74f0fbe
-Step 41/93 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc
- ---> Using cache
- ---> 35e55655e113
-Step 42/93 : USER mysql
- ---> Using cache
- ---> 61efb00b8602
-Step 43/93 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
- ---> Using cache
- ---> ea789726bbcf
-Step 44/93 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
- ---> Using cache
- ---> 5262ba519bf6
-Step 45/93 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
- ---> Using cache
- ---> 11e7660ee88b
-Step 46/93 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc
- ---> Using cache
- ---> f6a069d77e45
-Step 47/93 : USER rstudio
- ---> Using cache
- ---> 687419c7dc3d
-Step 48/93 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
- ---> Using cache
- ---> 2ef4737814bc
-Step 49/93 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
- ---> Using cache
- ---> 7c0dcd5b503b
-Step 50/93 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
- ---> Using cache
- ---> 6b63f5c8b90b
-Step 51/93 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc
- ---> Using cache
- ---> 6718c77342c3
-Step 52/93 : USER apache
- ---> Using cache
- ---> 223696ba72ef
-Step 53/93 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
- ---> Using cache
- ---> 7af6c8679ca4
-Step 54/93 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
- ---> Using cache
- ---> 4fd3b2560fff
-Step 55/93 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
- ---> Using cache
- ---> 9c1fbd960fd9
-Step 56/93 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc
- ---> Using cache
- ---> 125e4f69c527
-Step 57/93 : USER root
- ---> Using cache
- ---> 4bfc9fe7e43a
-Step 58/93 : RUN yum -y reinstall glibc-common
- ---> Using cache
- ---> 296c6661435a
-Step 59/93 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
- ---> Using cache
- ---> 5b3976aeb7a3
-Step 60/93 : ENV LANG=ja_JP.UTF-8
- ---> Using cache
- ---> 8037526db794
-Step 61/93 : RUN rm -f /etc/localtime
- ---> Using cache
- ---> 0500ecfdc046
-Step 62/93 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
- ---> Using cache
- ---> 0680fc142afa
-Step 63/93 : RUN echo "OLD_PWD=\$(grep password /var/log/mysqld.log | cut -d\" \" -f 13)" >> ~/a.sh
- ---> Using cache
- ---> a38b01bd9dce
-Step 64/93 : RUN echo "NEW_PWD=Mysql-3306" >> ~/a.sh
- ---> Using cache
- ---> 9cbe46e614a9
-Step 65/93 : RUN echo "expect -c \"spawn mysql_secure_installation --use-default" >> ~/a.sh
- ---> Using cache
- ---> 8a84be265dd9
-Step 66/93 : RUN echo "expect \\\"user root:\\\"" >> ~/a.sh
- ---> Using cache
- ---> 55914a3e32cd
-Step 67/93 : RUN echo "send \\\"\${OLD_PWD}\n\\\"" >> ~/a.sh
- ---> Using cache
- ---> 05e8f972eccd
-Step 68/93 : RUN echo "expect \\\"New password:\\\"" >> ~/a.sh
- ---> Using cache
- ---> d4e74bc1b68d
-Step 69/93 : RUN echo "send \\\"\${NEW_PWD}\n\\\"" >> ~/a.sh
- ---> Using cache
- ---> 0f2d7e4de78d
-Step 70/93 : RUN echo "expect \\\"Re-enter new password:\\\"" >> ~/a.sh
- ---> Using cache
- ---> 1e4eadbe0eee
-Step 71/93 : RUN echo "send \\\"\${NEW_PWD}\n\\\"" >> ~/a.sh
- ---> Using cache
- ---> 37f9b5e68a46
-Step 72/93 : RUN echo "expect \\\"$\\\"" >> ~/a.sh
- ---> Using cache
- ---> ca6b0bb1ace8
-Step 73/93 : RUN echo "exit 0 \"" >> ~/a.sh
- ---> Using cache
- ---> fe28c494d867
-Step 74/93 : RUN echo "mysql -u root -pMysql-3306 -e \"show databases;\"" >> ~/a.sh
- ---> Using cache
- ---> c943348856ab
-Step 75/93 : RUN echo "mysql -u root -pMysql-3306 -e \"CREATE USER \"mysql_test\"@\"localhost\" IDENTIFIED WITH mysql_native_password BY \\\"Mysql-3306\\\";\"" >> ~/a.sh
- ---> Using cache
- ---> 4474c286c04f
-Step 76/93 : RUN echo "mysql -u root -pMysql-3306 -e \"GRANT ALL PRIVILEGES ON mysql.* TO \"mysql_test\"@\"localhost\" WITH GRANT OPTION;\"" >> ~/a.sh
- ---> Using cache
- ---> 4116b6031272
-Step 77/93 : RUN chmod +x ~/a.sh
- ---> Using cache
- ---> 6fbbe5a71d6a
-Step 78/93 : RUN echo "<Directory \"/usr/share/phpmyadmin\">" >> /etc/httpd/conf.d/phpmyadmin.conf
- ---> Using cache
- ---> 1dd3250451dd
-Step 79/93 : RUN echo "  Require all granted" >> /etc/httpd/conf.d/phpmyadmin.conf
- ---> Using cache
- ---> 25219b190f62
-Step 80/93 : RUN echo "  AllowOverride all" >> /etc/httpd/conf.d/phpmyadmin.conf
- ---> Using cache
- ---> 707f48f86c6a
-Step 81/93 : RUN echo "</Directory>" >> /etc/httpd/conf.d/phpmyadmin.conf
- ---> Using cache
- ---> fb408574eb8b
-Step 82/93 : RUN echo "Alias /phpmyadmin /usr/share/phpmyadmin" >> /etc/httpd/conf.d/phpmyadmin.conf
- ---> Running in 44bde31cce34
-Removing intermediate container 44bde31cce34
- ---> 71ac6379b514
-Step 83/93 : RUN echo "Include /etc/httpd/conf.d/phpmyadmin.conf" >> /etc/httpd/conf/httpd.conf
- ---> Running in f1cbb7942b66
-Removing intermediate container f1cbb7942b66
- ---> 29713606e7ba
-Step 84/93 : RUN cd ~ && curl -LO https://github.com/datacharmer/test_db/archive/master.zip
- ---> Running in d8da6bd19395
-[91m  % Total    % Received % Xferd  Average Speed   Time    Time     Time [0m[91m Current
-                               [0m[91m  Dl[0m[91moad  Upload[0m[91m   To[0m[91mtal   [0m[91mSpen[0m[91mt [0m[91m   L[0m[91meft [0m[91m S[0m[91mpeed
-[0m[91m  0     0  [0m[91m  0     0  [0m[91m  0 [0m[91m    0    [0m[91m  0   [0m[91m [0m[91m  0 [0m[91m-[0m[91m-:-[0m[91m-:-- --:--[0m[91m:-- --:--:[0m[91m--     0[0m[91m  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0[0m[91m100   124    0   124    0     0    217      0 --:--:-- --:--:-- --:--:--   217
-[0m[91m  0     0    0 76022    0     0  59792      0 --:--:--  0:00:01 --:--:-- 59792[0m[91m  0     0    0  449k    0     0   204k      0 --:--:--  0:00:02 --:--:--  402k[0m[91m  0     0    0 2139k    0     0   668k      0 --:--:--  0:00:03 --:--:-- 1071k[0m[91m  0     0    0 4292k    0     [0m[91m0  1021k      0 --:[0m[91m--:--  [0m[91m0:00:0[0m[91m4 [0m[91m--[0m[91m:--:-[0m[91m- 1439k[0m[91m  0     0    0 5972k    0     0  1148k      0 --:--:--  0:00[0m[91m:05 --:--:-- 1500k[0m[91m  0     0    0 10.8M    0     0  1796k [0m[91m     0 --:--:--  0:00:06 --:--:-- 2243k[0m[91m  0     0    0 14.2M    0     0  2023k  [0m[91m    0 --:--:--  0:00:07 --:[0m[91m--:-- 28[0m[91m24k[0m[91m  0     0    0 18.7M    0     0  2340k      0 --:--:--  0:00:08[0m[91m --:--:-- 3410k[0m[91m  0     0    0 23.3M    0     0  2395k      0 --:--:[0m[91m--  0:00:09 --:--:[0m[91m--[0m[91m 339[0m[91m4k[0m[91m  0     0    0 24.5M    0     0  2469k      0 --:--:--  0:00:10 --:--:-- [0m[91m3845k[0m[91m  0     0    0 30.2M    0     0  2770k      0 --:--:--  0:00:11[0m[91m --:--:-- 3978k[0m[91m  0     0    0 33.3M    0     0  2802k      0 --:--:--  0:00:12 --:--:-- 3925k[0m[91m  0     0    0 34.9M    0     0  2797k [0m[91m     0 --:--:--  0:00[0m[91m:12 --:-[0m[91m-:-- 3611[0m[91mk
-[0mRemoving intermediate container d8da6bd19395
- ---> b8d9c71555dc
-Step 85/93 : RUN cd ~ && curl -LO https://downloads.mysql.com/docs/world.sql.zip
- ---> Running in 87310ddd6710
-[91m  % Total    % Received % Xferd  Average Speed   Time[0m[91m    Time     Time  Current
-    [0m[91m      [0m[91m           [0m[91m        [0m[91m   [0m[91m Dload  U[0m[91mpload   To[0m[91mta[0m[91ml   S[0m[91mpent[0m[91m  [0m[91m  Le[0m[91mft [0m[91m S[0m[91mpeed[0m[91m
-[0m[91m  0     0  [0m[91m  0     [0m[91m0  [0m[91m  [0m[91m0   [0m[91m  [0m[91m0  [0m[91m   [0m[91m 0   [0m[91m   0[0m[91m --[0m[91m:--:[0m[91m--[0m[91m --:-[0m[91m-:-[0m[91m- --:[0m[91m--:[0m[91m--   [0m[91m  0[0m[91m  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0[0m[91m 51 92244   51 47147    0     0  31887      0  0:00:02  0:00:0[0m[91m1  0:00:01 318[0m[91m77[0m[91m100 92244  100 92244    0     0  55275      0  [0m[91m0:00:01  0:00:01 --:--:-- 55269
-[0mRemoving intermediate container 87310ddd6710
- ---> 317504c0f630
-Step 86/93 : RUN cd ~ && curl -LO https://downloads.mysql.com/docs/world_x-db.zip
- ---> Running in 38bc601c5cc3
-[91m  % Total    % Received % Xferd  Average Speed[0m[91m   Time    Time     Time  Current
-    [0m[91m           [0m[91m      [0m[91m       [0m[91m     Dlo[0m[91mad [0m[91m Uplo[0m[91mad[0m[91m   Tot[0m[91mal [0m[91m  Spe[0m[91mnt[0m[91m   [0m[91m Left [0m[91m S[0m[91mpee[0m[91md
-[0m[91m  0     0    0  [0m[91m   0 [0m[91m   0     0[0m[91m      0     [0m[91m 0 --:--:-- --:--[0m[91m:-- -[0m[91m-:--:-- [0m[91m    0[0m[91m  0 94314    0   881    0     0    875      0  0:01:47  0:00:0[0m[91m1  0:01:46   876[0m[91m100 94314  100 94314    0     0  55726      0 [0m[91m 0:00:01  0:0[0m[91m0:01[0m[91m --[0m[91m:--[0m[91m:-- 557[0m[91m41
-[0mRemoving intermediate container 38bc601c5cc3
- ---> 289b00d34a6a
-Step 87/93 : RUN cd ~ && curl -LO https://downloads.mysql.com/docs/sakila-db.zip
- ---> Running in 912c25914704
-[91m  % Total    % Received % Xferd  Aver[0m[91mage Speed   Time    Time     Time  Current
-   [0m[91m        [0m[91m    [0m[91m           [0m[91m       Dload[0m[91m  Uplo[0m[91mad   Tot[0m[91mal   Sp[0m[91ment   [0m[91m Left  [0m[91mSpeed
- [0m[91m 0     0    0     0    [0m[91m0     0  [0m[91m    0      0 --:--:-- [0m[91m--:--:-- --:[0m[91m--:--     [0m[91m0[0m[91m  0     0    0     0    0     0      0      0 --:--:-[0m[91m-  0:00:01 --:--:--     0[0m[91m  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0[0m[91m  1  724k    1 10694    0     0   4140      0  0:02:59  0:00:0[0m[91m2  0:02:57  4140[0m[91m 10  724k   10 76588    0     0  21384      0  0:00:34  0:00:03  0:00:31 21381[0m[91m 24  724k   24  174k    0     0  39301      0  0:00:18  0:00:04  0:00:14 39300[0m[91m 46  724k   46  339k    0     0  62383      0  0:00:11  0:00:05  0:00:06 84821[0m[91m 77  724k   77  563k    0     0  87910      0  0:00:08  0:00:06  0:00:0[0m[91m2  114k[0m[91m100  724k  100  724k    0     0   101k      0  0:[0m[91m00:07  0:00:07[0m[91m --:--:--  156k[0m[91m
-[0mRemoving intermediate container 912c25914704
- ---> b3708f4b1cdd
-Step 88/93 : RUN cd ~ && curl -LO https://downloads.mysql.com/docs/menagerie-db.zip
- ---> Running in 7c1bd5b523fb
-[91m  % Total    % Received % Xferd  Average Speed   Tim[0m[91me    Time     Time[0m[91m  Curr[0m[91me[0m[91mnt
- [0m[91m          [0m[91m               [0m[91m       [0m[91mDload  Uploa[0m[91md   Tota[0m[91ml   [0m[91mSpe[0m[91mnt    Left[0m[91m  Speed
-  0     0    0     0    0     0      0      [0m[91m0 --:--:-- -[0m[91m-:--:-- --:-[0m[91m-:--  [0m[91m   0[0m[91m  0     0    0     0    0     0      0      0 --:-[0m[91m-:-- --:--:-- [0m[91m--:--:-- [0m[91m  [0m[91m  0[0m[91m100  3192  100  3192    0     0   2417      0 [0m[91m 0:00:01  0:00:01 --:-[0m[91m-:--  24[0m[91m18
-[0mRemoving intermediate container 7c1bd5b523fb
- ---> a3122bc5ec59
-Step 89/93 : EXPOSE 8787
- ---> Running in e9ef965d05a8
-Removing intermediate container e9ef965d05a8
- ---> f1e7d2f682ba
-Step 90/93 : EXPOSE 3306
- ---> Running in e3bd0e141917
-Removing intermediate container e3bd0e141917
- ---> 5e3d0604d4e8
-Step 91/93 : EXPOSE 22
- ---> Running in 90c0c1d583c9
-Removing intermediate container 90c0c1d583c9
- ---> c005cce3edbd
-Step 92/93 : EXPOSE 80
- ---> Running in a07479be805b
-Removing intermediate container a07479be805b
- ---> a79fc88f6e77
-Step 93/93 : CMD ["/sbin/init"]
- ---> Running in 34f9101cd86b
-Removing intermediate container 34f9101cd86b
- ---> 6c54e12bae53
-Successfully built 6c54e12bae53
+Sending build context to Docker daemon  635.4kB
+Step 1/1 : FROM centos:7.6.1810
+ ---> f1cb7c7d58b7
+Successfully built f1cb7c7d58b7
 Successfully tagged centos_mysql:latest
