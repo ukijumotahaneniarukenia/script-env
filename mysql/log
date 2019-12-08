@@ -1,5 +1,173 @@
-Sending build context to Docker daemon  635.4kB
-Step 1/1 : FROM centos:7.6.1810
+Sending build context to Docker daemon  626.7kB
+Step 1/57 : FROM centos:7.6.1810
  ---> f1cb7c7d58b7
-Successfully built f1cb7c7d58b7
+Step 2/57 : RUN groupadd -g 1001 dev
+ ---> Using cache
+ ---> 3be1bb5ee94d
+Step 3/57 : RUN useradd -m -g dev -u 1001 dev
+ ---> Using cache
+ ---> 8240193fd8bb
+Step 4/57 : RUN chsh -s /bin/bash dev
+ ---> Using cache
+ ---> b5a19e8ee7e9
+Step 5/57 : RUN echo 'root_pwd' | passwd --stdin root
+ ---> Using cache
+ ---> 978c34feca05
+Step 6/57 : RUN echo 'dev_pwd' | passwd --stdin dev
+ ---> Using cache
+ ---> 2ee8b948f60f
+Step 7/57 : RUN echo 'dev ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Using cache
+ ---> 07f91a8b9ee5
+Step 8/57 : RUN yum install -y epel-release
+ ---> Using cache
+ ---> 9a83912f303e
+Step 9/57 : RUN yum install -y R
+ ---> Using cache
+ ---> a261b3f9eb08
+Step 10/57 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man httpd
+ ---> Using cache
+ ---> e0ba33962b8f
+Step 11/57 : RUN yum -y reinstall glibc-common
+ ---> Using cache
+ ---> 3e080c31836d
+Step 12/57 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
+ ---> Using cache
+ ---> 7ff12edc9ebe
+Step 13/57 : ENV LANG=ja_JP.UTF-8
+ ---> Using cache
+ ---> fb4dbc35659f
+Step 14/57 : RUN rm -f /etc/localtime
+ ---> Using cache
+ ---> a341e51cb44c
+Step 15/57 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+ ---> Using cache
+ ---> 5a65dfb9e2ae
+Step 16/57 : RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+ ---> Using cache
+ ---> 6a888e286892
+Step 17/57 : RUN yum install -y --disablerepo=* --enablerepo=epel,remi,remi-safe,remi-php73 php php-mysqlnd
+ ---> Using cache
+ ---> 1e5c297deb09
+Step 18/57 : RUN cd /usr/share && curl -LO https://files.phpmyadmin.net/phpMyAdmin/4.9.0.1/phpMyAdmin-4.9.0.1-all-languages.tar.gz && tar -zxvf phpMyAdmin-4.9.0.1-all-languages.tar.gz && mv phpMyAdmin-4.9.0.1-all-languages phpmyadmin && chown -R apache:apache /usr/share/phpmyadmin && chmod -R 755 /usr/share/phpmyadmin && mkdir -p /etc/httpd/conf.d
+ ---> Using cache
+ ---> 67f99159cb33
+Step 19/57 : RUN echo "<Directory \"/usr/share/phpmyadmin\">" >> /etc/httpd/conf.d/phpmyadmin.conf
+ ---> Using cache
+ ---> 0d7a070dec37
+Step 20/57 : RUN echo "  Require all granted" >> /etc/httpd/conf.d/phpmyadmin.conf
+ ---> Using cache
+ ---> 422a93afc97a
+Step 21/57 : RUN echo "  AllowOverride all" >> /etc/httpd/conf.d/phpmyadmin.conf
+ ---> Using cache
+ ---> 6ea381e06c0b
+Step 22/57 : RUN echo "</Directory>" >> /etc/httpd/conf.d/phpmyadmin.conf
+ ---> Using cache
+ ---> 79b8ba48541c
+Step 23/57 : RUN echo "Alias /phpmyadmin /usr/share/phpmyadmin" >> /etc/httpd/conf.d/phpmyadmin.conf
+ ---> Using cache
+ ---> 60647e41db2d
+Step 24/57 : RUN echo "Include /etc/httpd/conf.d/phpmyadmin.conf" >> /etc/httpd/conf/httpd.conf
+ ---> Using cache
+ ---> 392544e7ac9f
+Step 25/57 : RUN yum install -y which perl-App-cpanminus wxGTK-devel perl-ExtUtils-Embed perl-File-HomeDir perl-Term-ReadLine-Gnu wxGTK3 cpan
+ ---> Using cache
+ ---> b9b875bea22e
+Step 26/57 : RUN cd ~ && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && cd Open-usp-Tukubai && make -j12 install
+ ---> Using cache
+ ---> fd7fc69c6d7a
+Step 27/57 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && tar -zxvf gawk-5.0.0.tar.gz && cd gawk-5.0.0 && ./configure && make -j12 && make -j12 install
+ ---> Using cache
+ ---> 5f96e61c2861
+Step 28/57 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && tar -zxvf bash-5.0.tar.gz && cd bash-5.0 && ./configure && make -j12 && make -j12 install
+ ---> Using cache
+ ---> cdf9c8ba7587
+Step 29/57 : RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd ~ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
+ ---> Using cache
+ ---> e16ac134b9a4
+Step 30/57 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> Using cache
+ ---> 07873ded59fa
+Step 31/57 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> Using cache
+ ---> a19b0dadca38
+Step 32/57 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
+ ---> Using cache
+ ---> 52d6857f3702
+Step 33/57 : RUN cd ~ && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && tar -zxvf Python-3.7.4.tgz && cd Python-3.7.4 && ./configure && make -j12 && make -j12 install
+ ---> Using cache
+ ---> fadf611eacf6
+Step 34/57 : RUN cd ~ && curl -LO https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz && tar -xzf perl-5.30.0.tar.gz && cd perl-5.30.0 && ./Configure -des -Dprefix=/usr/local/ && make -j12 && make -j12 install
+ ---> Using cache
+ ---> eef1b44c2254
+Step 35/57 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc
+ ---> Using cache
+ ---> cb224868d0db
+Step 36/57 : RUN cd ~ && curl -LO https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
+ ---> Using cache
+ ---> f8c205cc86e7
+Step 37/57 : RUN cd ~ && yum localinstall -y mysql80-community-release-el7-3.noarch.rpm
+ ---> Using cache
+ ---> 800f1c8e742d
+Step 38/57 : RUN yum-config-manager --disable mysql57-community
+ ---> Using cache
+ ---> 1939fa48a49d
+Step 39/57 : RUN yum-config-manager --enable mysql80-community
+ ---> Using cache
+ ---> 8ea8202ddaa5
+Step 40/57 : RUN yum install -y mysql-community-server
+ ---> Using cache
+ ---> a52d8233b0f9
+Step 41/57 : RUN ln -fsr /usr/lib/systemd/system/mysqld@.service /etc/systemd/system/mysqld.service
+ ---> Using cache
+ ---> c1d3f87e747c
+Step 42/57 : RUN rm -rf /var/lib/mysql/
+ ---> Using cache
+ ---> 8950d58cd3e6
+Step 43/57 : RUN >/var/log/mysqld.log
+ ---> Using cache
+ ---> 693a5efc4f16
+Step 44/57 : RUN mysqld --initialize --user=mysql
+ ---> Using cache
+ ---> 202a3b786cba
+Step 45/57 : RUN echo log_timestamps=SYSTEM >> /etc/my.cnf
+ ---> Using cache
+ ---> 8133b4a87053
+Step 46/57 : RUN echo skip-character-set-client-handshake >> /etc/my.cnf
+ ---> Using cache
+ ---> 42290f675a5d
+Step 47/57 : RUN echo character-set-server=utf8mb4 >> /etc/my.cnf
+ ---> Using cache
+ ---> ea68f88a27bb
+Step 48/57 : RUN echo explicit_defaults_for_timestamp=ON >> /etc/my.cnf
+ ---> Using cache
+ ---> a7723021dbed
+Step 49/57 : USER dev
+ ---> Using cache
+ ---> 4e07b5a60598
+Step 50/57 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> Using cache
+ ---> d7e600537d31
+Step 51/57 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> Using cache
+ ---> d97c0b6f0d44
+Step 52/57 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle
+ ---> Using cache
+ ---> feb07ae06266
+Step 53/57 : RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && echo "alias vim=\"sudo vim\"" >> ~/.bashrc && echo "alias vi=\"sudo vim\"" >> ~/.bashrc
+ ---> Using cache
+ ---> 57f7310bbbee
+Step 54/57 : EXPOSE 3306
+ ---> Using cache
+ ---> df57d02db5b0
+Step 55/57 : EXPOSE 80
+ ---> Using cache
+ ---> e224df312e75
+Step 56/57 : USER root
+ ---> Using cache
+ ---> d46d7543f870
+Step 57/57 : WORKDIR /home/root
+ ---> Using cache
+ ---> d4712cdf1299
+Successfully built d4712cdf1299
 Successfully tagged centos_mysql:latest
