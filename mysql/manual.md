@@ -1,3 +1,58 @@
+# 8.x系の動作確認
+
+```
+with sub as(
+    select '[{"x":"8"},{"x":"3"},{"x":"4"}]' as rsv_args
+)
+select s1.rsv_args,s2.ele
+from
+  sub s1,json_table(
+    rsv_args,
+    "$[*]" columns(
+      ele longtext path "$.x" 
+    )
+  ) as s2;
+```
+
+```
+[root@7b214415ce2e /]# cat ./a.sh
+#!/bin/bash
+
+f(){
+  start_rn=$1;shift;
+  end_rn=$1;shift;
+  mysql -uroot -pMysql3306 -t -n < <(cat <<EOS
+	set @nat=${start_rn}-1;
+	with nats as(
+	  select @nat := @nat + 1 as n from information_schema.columns limit ${end_rn}
+	) select s1.n,s2.n from nats s1,lateral(select s2.n from nats s2 where s1.n<=s2.n) s2;
+EOS
+) 2>/dev/null
+}
+
+f "$@"
+[root@7b214415ce2e /]# ./a.sh 1 5
++------+------+
+| n    | n    |
++------+------+
+|    1 |    1 |
+|    1 |    2 |
+|    1 |    3 |
+|    1 |    4 |
+|    1 |    5 |
+|    2 |    2 |
+|    2 |    3 |
+|    2 |    4 |
+|    2 |    5 |
+|    3 |    3 |
+|    3 |    4 |
+|    3 |    5 |
+|    4 |    4 |
+|    4 |    5 |
+|    5 |    5 |
++------+------+
+```
+
 # 8.x用にちょいと変更
 https://dev.mysql.com/doc/refman/8.0/en/linux-installation-yum-repo.html
 
