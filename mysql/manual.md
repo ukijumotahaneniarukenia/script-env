@@ -175,6 +175,30 @@ mysql> with sub as(select split_table('あっぷる,バナナ,ｵﾚﾝｼﾞ,�
 | [{"key": "あっぷる"}, {"key": "バナナ"}, {"key": "ｵﾚﾝｼﾞ"}, {"key": "大根"}]                    | 大根            |
 +------------------------------------------------------------------------------------------------+-----------------+
 4 rows in set (0.00 sec)
+[root❣ab9938775985 (日 12月 08 17:20:28) /home/root]$mysql -uuser01 -pMysql3306 -Dtestdb
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.18 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> with sub as(select split_table('あっぷる,バナナ,ｵﾚﾝｼﾞ,大根') as tgt)select * from sub s1,json_table(s1.tgt,"$[*]" columns(ele longtext path "$.key"))s2;
++------------------------------------------------------------------------------------------------+-----------------+
+| tgt                                                                                            | ele             |
++------------------------------------------------------------------------------------------------+-----------------+
+| [{"key": "あっぷる"}, {"key": "バナナ"}, {"key": "ｵﾚﾝｼﾞ"}, {"key": "大根"}]                    | あっぷる        |
+| [{"key": "あっぷる"}, {"key": "バナナ"}, {"key": "ｵﾚﾝｼﾞ"}, {"key": "大根"}]                    | バナナ          |
+| [{"key": "あっぷる"}, {"key": "バナナ"}, {"key": "ｵﾚﾝｼﾞ"}, {"key": "大根"}]                    | ｵﾚﾝｼﾞ           |
+| [{"key": "あっぷる"}, {"key": "バナナ"}, {"key": "ｵﾚﾝｼﾞ"}, {"key": "大根"}]                    | 大根            |
++------------------------------------------------------------------------------------------------+-----------------+
+4 rows in set (0.00 sec)
 
 
 ```
