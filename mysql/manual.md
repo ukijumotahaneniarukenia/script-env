@@ -1,3 +1,184 @@
+# マシン再起動後コンテナ作成
+
+```
+[aine❣centos (日 12月 08 17:10:17) ~]$docker start ab9938775985
+ab9938775985
+[aine❣centos (日 12月 08 17:10:28) ~]$docker exec -it mysql bash
+[root❣ab9938775985 (日 12月 08 17:10:31) /home/root]$
+[root❣ab9938775985 (日 12月 08 17:10:31) /home/root]$ls
+a.sh  b.sh
+[root❣ab9938775985 (日 12月 08 17:10:32) /home/root]$mysql -uroot -pMysql3306 -Dtestdb
+mysql: [Warning] Using a password on the command line interface can be insecure.
+ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+[root❣ab9938775985 (日 12月 08 17:12:59) /home/root]$ll /var/lib/mysql/
+total 168076
+drwxr-x---. 1 mysql mysql     4096 12月  8 11:45 #innodb_temp
+-rw-r-----. 1 mysql mysql       56 12月  8 11:19 auto.cnf
+-rw-r-----. 1 mysql mysql    25333 12月  8 16:48 binlog.000001
+-rw-r-----. 1 mysql mysql       16 12月  8 11:45 binlog.index
+-rw-------. 1 mysql mysql     1676 12月  8 11:19 ca-key.pem
+-rw-r--r--. 1 mysql mysql     1112 12月  8 11:19 ca.pem
+-rw-r--r--. 1 mysql mysql     1112 12月  8 11:19 client-cert.pem
+-rw-------. 1 mysql mysql     1676 12月  8 11:19 client-key.pem
+-rw-r-----. 1 mysql mysql     5907 12月  8 11:19 ib_buffer_pool
+-rw-r-----. 1 mysql mysql 50331648 12月  8 16:48 ib_logfile0
+-rw-r-----. 1 mysql mysql 50331648 12月  8 11:19 ib_logfile1
+-rw-r-----. 1 mysql mysql 12582912 12月  8 16:48 ibdata1
+-rw-r-----. 1 mysql mysql 12582912 12月  8 11:45 ibtmp1
+drwxr-x---. 2 mysql mysql     4096 12月  8 11:19 mysql
+-rw-r-----. 1 mysql mysql 25165824 12月  8 16:48 mysql.ibd
+srwxrwxrwx. 1 mysql mysql        0 12月  8 11:45 mysql.sock
+-rw-------. 1 mysql mysql        3 12月  8 11:45 mysql.sock.lock
+drwxr-x---. 2 mysql mysql     4096 12月  8 11:19 performance_schema
+-rw-------. 1 mysql mysql     1676 12月  8 11:19 private_key.pem
+-rw-r--r--. 1 mysql mysql      452 12月  8 11:19 public_key.pem
+-rw-r--r--. 1 mysql mysql     1112 12月  8 11:19 server-cert.pem
+-rw-------. 1 mysql mysql     1680 12月  8 11:19 server-key.pem
+drwxr-x---. 2 mysql mysql     4096 12月  8 11:19 sys
+drwxr-x---. 2 mysql mysql     4096 12月  8 13:22 testdb
+-rw-r-----. 1 mysql mysql 10485760 12月  8 16:48 undo_001
+-rw-r-----. 1 mysql mysql 10485760 12月  8 16:48 undo_002
+[root❣ab9938775985 (日 12月 08 17:13:49) /home/root]$>/var/log/mysqld.log
+[root❣ab9938775985 (日 12月 08 17:14:03) /home/root]$rm -rf /var/lib/mysql/*
+[root❣ab9938775985 (日 12月 08 17:14:15) /home/root]$ll /var/lib/mysql/
+total 0
+[root❣ab9938775985 (日 12月 08 17:14:18) /home/root]$mysqld --initialize --user=mysql
+[root❣ab9938775985 (日 12月 08 17:14:46) /home/root]$ll /var/lib/mysql/
+total 155728
+drwxr-x---. 2 mysql mysql     4096 12月  8 17:14 #innodb_temp
+-rw-r-----. 1 mysql mysql       56 12月  8 17:14 auto.cnf
+-rw-------. 1 mysql mysql     1680 12月  8 17:14 ca-key.pem
+-rw-r--r--. 1 mysql mysql     1112 12月  8 17:14 ca.pem
+-rw-r--r--. 1 mysql mysql     1112 12月  8 17:14 client-cert.pem
+-rw-------. 1 mysql mysql     1680 12月  8 17:14 client-key.pem
+-rw-r-----. 1 mysql mysql     5907 12月  8 17:14 ib_buffer_pool
+-rw-r-----. 1 mysql mysql 50331648 12月  8 17:14 ib_logfile0
+-rw-r-----. 1 mysql mysql 50331648 12月  8 17:14 ib_logfile1
+-rw-r-----. 1 mysql mysql 12582912 12月  8 17:14 ibdata1
+drwxr-x---. 2 mysql mysql     4096 12月  8 17:14 mysql
+-rw-r-----. 1 mysql mysql 25165824 12月  8 17:14 mysql.ibd
+drwxr-x---. 2 mysql mysql     4096 12月  8 17:14 performance_schema
+-rw-------. 1 mysql mysql     1676 12月  8 17:14 private_key.pem
+-rw-r--r--. 1 mysql mysql      452 12月  8 17:14 public_key.pem
+-rw-r--r--. 1 mysql mysql     1112 12月  8 17:14 server-cert.pem
+-rw-------. 1 mysql mysql     1680 12月  8 17:14 server-key.pem
+drwxr-x---. 2 mysql mysql     4096 12月  8 17:14 sys
+-rw-r-----. 1 mysql mysql 10485760 12月  8 17:14 undo_001
+-rw-r-----. 1 mysql mysql 10485760 12月  8 17:14 undo_002
+[root❣ab9938775985 (日 12月 08 17:14:47) /home/root]$cat /var/log/mysqld.log
+2019-12-08T17:14:40.520936+09:00 0 [System] [MY-013169] [Server] /usr/sbin/mysqld (mysqld 8.0.18) initializing of server in progress as process 40
+2019-12-08T17:14:43.103011+09:00 5 [Note] [MY-010454] [Server] A temporary password is generated for root@localhost: yw*Ho3h+55Wv
+[root❣ab9938775985 (日 12月 08 17:14:56) /home/root]$mysqld -D --user=mysql
+mysqld will log errors to /var/log/mysqld.log
+mysqld is running as pid 91
+[root❣ab9938775985 (日 12月 08 17:15:10) /home/root]$systemctl status
+● ab9938775985
+    State: running
+     Jobs: 0 queued
+   Failed: 0 units
+    Since: 日 2019-12-08 17:09:35 JST; 5min ago
+   CGroup: /
+           ├─  1 /bin/bash
+           ├─ 18 bash
+           ├─ 91 mysqld -D --user=mysql
+           ├─134 systemctl status
+           └─135 less
+[root❣ab9938775985 (日 12月 08 17:15:18) /home/root]$ps -aux
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.0  14376  1828 pts/0    Ss+  17:10   0:00 /bin/bash
+root        18  0.0  0.0  14812  2496 pts/1    Ss   17:10   0:00 bash
+mysql       91  2.8  1.2 1989064 401676 ?      Sl   17:15   0:00 mysqld -D --user=mysql
+root       136  0.0  0.0  54296  1880 pts/1    R+   17:15   0:00 ps -aux
+[root❣ab9938775985 (日 12月 08 17:15:24) /home/root]$mysql -uroot -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.18
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'Mysql3306';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE USER 'user01'@'localhost' IDENTIFIED BY 'Mysql3306';
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> GRANT ALL PRIVILEGES ON mysql.* TO 'user01'@'localhost' WITH GRANT OPTION;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> create database testdb;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> grant all privileges on testdb.* to user01@localhost;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> ^DBye
+[root❣ab9938775985 (日 12月 08 17:17:18) /home/root]$mysql -uroot -pMysql3306 -Dtestdb
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.18 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> drop function if exists split_table;
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql> create function split_table(init_args longtext)
+    -> returns json deterministic
+    -> return(
+    ->   with recursive args as(
+    ->     select case when 0=instr(init_args,',') then concat(init_args,',') else init_args end as rsv_args
+    ->   ),rec (grp,rsv_args,pos,ele)as(
+    ->     select 1,rsv_args,locate(',',rsv_args,1),substr(rsv_args,1,locate(',',rsv_args,1)-1) from args
+    ->     union all
+    ->     select grp+1,rsv_args,case when 0=locate(',',rsv_args,pos+1) then length(rsv_args) else locate(',',rsv_args,pos+1) end
+    ->     ,substr(rsv_args,pos+1,case when 0=locate(',',rsv_args,pos+1) then length(rsv_args)+1 else locate(',',rsv_args,pos+1) end-(pos+1))
+    ->     from rec
+    ->     where grp+1<=case when 0=instr(init_args,',') then 1 else length(rsv_args)-length(replace(rsv_args,',',''))+1 end
+    ->   )select
+    ->      json_arrayagg(s1.jele)
+    ->   from(
+    ->      select s1.*,json_objectagg("key",s1.ele)over(order by s1.pos) as jele from rec s1
+    ->   )s1
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> with sub as(select split_table('a,b') as tgt)select * from sub s1,json_table(s1.tgt,"$[*]" columns(ele longtext path "$.key"))s2;
++------------------------------+------+
+| tgt                          | ele  |
++------------------------------+------+
+| [{"key": "a"}, {"key": "b"}] | a    |
+| [{"key": "a"}, {"key": "b"}] | b    |
++------------------------------+------+
+2 rows in set (0.00 sec)
+
+mysql> with sub as(select split_table('あっぷる,バナナ,ｵﾚﾝｼﾞ,大根') as tgt)select * from sub s1,json_table(s1.tgt,"$[*]" columns(ele longtext path "$.key"))s2;
++------------------------------------------------------------------------------------------------+-----------------+
+| tgt                                                                                            | ele             |
++------------------------------------------------------------------------------------------------+-----------------+
+| [{"key": "あっぷる"}, {"key": "バナナ"}, {"key": "ｵﾚﾝｼﾞ"}, {"key": "大根"}]                    | あっぷる        |
+| [{"key": "あっぷる"}, {"key": "バナナ"}, {"key": "ｵﾚﾝｼﾞ"}, {"key": "大根"}]                    | バナナ          |
+| [{"key": "あっぷる"}, {"key": "バナナ"}, {"key": "ｵﾚﾝｼﾞ"}, {"key": "大根"}]                    | ｵﾚﾝｼﾞ           |
+| [{"key": "あっぷる"}, {"key": "バナナ"}, {"key": "ｵﾚﾝｼﾞ"}, {"key": "大根"}]                    | 大根            |
++------------------------------------------------------------------------------------------------+-----------------+
+4 rows in set (0.00 sec)
+
+
+```
+
 # 8.x系の動作確認
 
 ```
