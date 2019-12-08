@@ -1,39 +1,3 @@
-# コンテナ潜入後
-
-```
-[root🖤016d33eed63b (日 12月 08 11:31:44) /home/root]$mysqld -D --user=mysql
-mysqld will log errors to /var/log/mysqld.log
-mysqld is running as pid 37
-[root🖤016d33eed63b (日 12月 08 11:31:53) /home/root]$exit
-[root🖤016d33eed63b (日 12月 08 11:32:55) /home/root]$mysql -uroot -p$(grep password /var/log/mysqld.log | cut -d" " -f 13)
-mysql: [Warning] Using a password on the command line interface can be insecure.
-Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 9
-Server version: 8.0.18
-
-Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
-
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
-
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
-
-mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'Mysql3306';
-Query OK, 0 rows affected (0.03 sec)
-
-mysql> select version();
-+-----------+
-| version() |
-+-----------+
-| 8.0.18    |
-+-----------+
-1 row in set (0.00 sec)
-
-mysql> ^DBye
-[root🖤016d33eed63b (日 12月 08 11:33:35) /home/root]$exit
-```
-
 # 8.x系の動作確認
 
 ```
@@ -338,9 +302,9 @@ docker run --privileged --shm-size=8gb --name mysql -itd -v /etc/localtime:/etc/
 ```
 
 # dockerコンテナ潜入
-```
 
-docker exec --user mysql -it mysql /bin/bash
+```
+docker exec --user dev -it mysql /bin/bash
 docker exec --user root -it mysql /bin/bash
 ```
 
@@ -392,10 +356,60 @@ Hint: Some lines were ellipsized, use -l to show in full.
  9月 06 00:38:17 4000ae99ae5c systemd[1]: Started MySQL Server.
 ```
 
-# コンテナ起動後a.shをたたく
+# コンテナ潜入後
+
 ```
-[root@4000ae99ae5c /]$cd ~
-[root@4000ae99ae5c ~]$./a.sh
+[root🖤016d33eed63b (日 12月 08 11:31:44) /home/root]$mysqld -D --user=mysql
+mysqld will log errors to /var/log/mysqld.log
+mysqld is running as pid 37
+[root🖤016d33eed63b (日 12月 08 11:32:55) /home/root]$mysql -uroot -p$(grep password /var/log/mysqld.log | cut -d" " -f 13)
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.18
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'Mysql3306';
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> select version();
++-----------+
+| version() |
++-----------+
+| 8.0.18    |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> ^DBye
+[root💗ab9938775985 (日 12月 08 11:45:51) /home/root]$mysql -uroot -pMysql3306
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.18 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> select version();
++-----------+
+| version() |
++-----------+
+| 8.0.18    |
++-----------+
+1 row in set (0.00 sec)
+
 ```
 
 # ブラウザより確認
@@ -403,10 +417,7 @@ phpMyAdminの場合
 ```
 http://192.168.1.109:8080/phpmyadmin/
 ```
-rstudioの場合
-```
-http://192.168.1.109:38787/
-```
+
 ![](./1.png)
 ![](./2.png)
 ![](./3.png)
