@@ -1,139 +1,94 @@
-Sending build context to Docker daemon  4.096kB
-Step 1/13 : FROM centos:latest
- ---> 67fa590cfc1c
-Step 2/13 : RUN groupadd -g 1001 rstudio
+Sending build context to Docker daemon  9.728kB
+Step 1/30 : FROM centos:7.6.1810
+ ---> f1cb7c7d58b7
+Step 2/30 : RUN groupadd -g 1001 kuraine
  ---> Using cache
- ---> 8a05fc9fdd96
-Step 3/13 : RUN useradd -m -g rstudio -u 1001 rstudio
+ ---> 58ca74da87b0
+Step 3/30 : RUN useradd -m -g kuraine -u 1001 kuraine
  ---> Using cache
- ---> 180177997f68
-Step 4/13 : RUN chsh -s /bin/bash rstudio
+ ---> 447bb9395d41
+Step 4/30 : RUN chsh -s /bin/bash kuraine
  ---> Using cache
- ---> 456245e6f887
-Step 5/13 : RUN echo 'root_pwd' | passwd --stdin root
+ ---> 7305e63ed9e5
+Step 5/30 : RUN echo 'root_pwd' | passwd --stdin root
  ---> Using cache
- ---> b4ccbbd9ce29
-Step 6/13 : RUN echo 'rstudio_pwd' | passwd --stdin rstudio
+ ---> 8de58fcd3b7b
+Step 6/30 : RUN echo 'kuraine_pwd' | passwd --stdin kuraine
  ---> Using cache
- ---> 7d80a36c646a
-Step 7/13 : RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> d69fcb931659
+Step 7/30 : RUN echo 'kuraine ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
  ---> Using cache
- ---> e4be4d93f4f6
-Step 8/13 : RUN curl -sL https://rpm.nodesource.com/setup_12.x | bash - &&  yum install -y nodejs &&  yum install -y gcc-c++ make &&  curl -sL https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo &&  yum install -y yarn
+ ---> 848192a6ef76
+Step 8/30 : RUN yum -y install epel-release
  ---> Using cache
- ---> c8619a0d0f60
-Step 9/13 : RUN yum install -y epel-release
- ---> Running in f8f72cab5fd4
-Loaded plugins: fastestmirror, ovl
-Loading mirror speeds from cached hostfile
- * base: ftp.iij.ad.jp
- * extras: ftp.iij.ad.jp
- * updates: ftp.iij.ad.jp
-Resolving Dependencies
---> Running transaction check
----> Package epel-release.noarch 0:7-11 will be installed
---> Finished Dependency Resolution
-
-Dependencies Resolved
-
-================================================================================
- Package                Arch             Version         Repository        Size
-================================================================================
-Installing:
- epel-release           noarch           7-11            extras            15 k
-
-Transaction Summary
-================================================================================
-Install  1 Package
-
-Total download size: 15 k
-Installed size: 24 k
-Downloading packages:
-Running transaction check
-Running transaction test
-Transaction test succeeded
-Running transaction
-  Installing : epel-release-7-11.noarch                                     1/1 
-  Verifying  : epel-release-7-11.noarch                                     1/1 
-
-Installed:
-  epel-release.noarch 0:7-11                                                    
-
-Complete!
-Removing intermediate container f8f72cab5fd4
- ---> 33ba960ebb3e
-Step 10/13 : RUN yum install -y jq
- ---> Running in 9015e22d0114
-Loaded plugins: fastestmirror, ovl
-Loading mirror speeds from cached hostfile
- * base: ftp.iij.ad.jp
- * epel: nrt.edge.kernel.org
- * extras: ftp.iij.ad.jp
- * updates: ftp.iij.ad.jp
-Resolving Dependencies
---> Running transaction check
----> Package jq.x86_64 0:1.5-1.el7 will be installed
---> Processing Dependency: libonig.so.2()(64bit) for package: jq-1.5-1.el7.x86_64
---> Running transaction check
----> Package oniguruma.x86_64 0:5.9.5-3.el7 will be installed
---> Finished Dependency Resolution
-
-Dependencies Resolved
-
-================================================================================
- Package            Arch            Version                 Repository     Size
-================================================================================
-Installing:
- jq                 x86_64          1.5-1.el7               epel          153 k
-Installing for dependencies:
- oniguruma          x86_64          5.9.5-3.el7             epel          129 k
-
-Transaction Summary
-================================================================================
-Install  1 Package (+1 Dependent package)
-
-Total download size: 282 k
-Installed size: 906 k
-Downloading packages:
-[91mwarning: /var/cache/yum/x86_64/7/epel/packages/oniguruma-5.9.5-3.el7.x86_64.rpm: Header V3 RSA/SHA256 Signature, key ID 352c64e5: NOKEY
-[0mPublic key for oniguruma-5.9.5-3.el7.x86_64.rpm is not installed
---------------------------------------------------------------------------------
-Total                                              893 kB/s | 282 kB  00:00     
-Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
-[91mImporting GPG key 0x352C64E5:
- Userid     : "Fedora EPEL (7) <epel@fedoraproject.org>"
- Fingerprint: 91e9 7d7c 4a5e 96f1 7f3e 888f 6a2f aea2 352c 64e5
- Package    : epel-release-7-11.noarch (@extras)
- From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
-[0mRunning transaction check
-Running transaction test
-Transaction test succeeded
-Running transaction
-  Installing : oniguruma-5.9.5-3.el7.x86_64                                 1/2 
-  Installing : jq-1.5-1.el7.x86_64                                          2/2 
-  Verifying  : oniguruma-5.9.5-3.el7.x86_64                                 1/2 
-  Verifying  : jq-1.5-1.el7.x86_64                                          2/2 
-
-Installed:
-  jq.x86_64 0:1.5-1.el7                                                         
-
-Dependency Installed:
-  oniguruma.x86_64 0:5.9.5-3.el7                                                
-
-Complete!
-Removing intermediate container 9015e22d0114
- ---> de15d42d7de5
-Step 11/13 : EXPOSE 22
- ---> Running in 801c3b1ff422
-Removing intermediate container 801c3b1ff422
- ---> e4a2c3f02772
-Step 12/13 : EXPOSE 8787
- ---> Running in a93a795e056d
-Removing intermediate container a93a795e056d
- ---> 05e14ba74d16
-Step 13/13 : CMD ["/sbin/init"]
- ---> Running in 65b5cb95dd21
-Removing intermediate container 65b5cb95dd21
- ---> c984cf26d1bc
-Successfully built c984cf26d1bc
+ ---> 241e807e6ec6
+Step 9/30 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man moreutils lbzip2 which
+ ---> Using cache
+ ---> 91a96113a74b
+Step 10/30 : RUN cd ~ && mkdir ~/go1.4 && mkdir ~/tmp && curl -LO https://dl.google.com/go/go1.4.3.linux-amd64.tar.gz && tar xvf go1.4.3.linux-amd64.tar.gz -C ~/tmp/ && mv ~/tmp/go/* ~/go1.4 && rm -rf ~/tmp
+ ---> Using cache
+ ---> aa92cac6671e
+Step 11/30 : RUN cd ~ && rm -rf ~/tmp && mkdir ~/tmp && curl -LO https://dl.google.com/go/go1.13.5.linux-amd64.tar.gz && cd ~ && tar xvf go1.13.5.linux-amd64.tar.gz -C ~/tmp/ && cd ~/tmp/go/src/ && ./all.bash && mv /root/tmp/go /usr/local/go1.13
+ ---> Using cache
+ ---> 3ef218483082
+Step 12/30 : RUN cd /usr/local/src && curl -LO https://download.java.net/java/GA/jdk13.0.1/cec27d702aa74d5a8630c65ae61e4305/9/GPL/openjdk-13.0.1_linux-x64_bin.tar.gz && tar xvf openjdk-13*_bin.tar.gz && ln -fsr /usr/local/src/jdk-13.0.1/bin/javac /usr/local/bin/javac && ln -fsr /usr/local/src/jdk-13.0.1/bin/java /usr/local/bin/java && ln -fsr /usr/local/src/jdk-13.0.1/bin/jshell /usr/local/bin/jshell && ln -fsr /usr/local/src/jdk-13.0.1/bin/jar /usr/local/bin/jar
+ ---> Using cache
+ ---> 1f27ba3de9dc
+Step 13/30 : RUN cd /usr/local/src && curl -LO https://ftp.gnu.org/pub/gnu/findutils/findutils-4.7.0.tar.xz && tar xvf findutils-4.7.0.tar.xz && cd findutils-4.7.0 && ./configure && make -j12 && make -j12 install
+ ---> Using cache
+ ---> 3df4e64fd214
+Step 14/30 : RUN yum install -y lbzip gcc-c++ libtool makeinfo file && cd /usr/local/src && curl -LO http://ftp.tsukuba.wide.ad.jp/software/gcc/releases/gcc-7.5.0/gcc-7.5.0.tar.gz && tar xvf gcc-7.5.0.tar.gz && cd gcc-7.5.0 && ./contrib/download_prerequisites && ./configure --enable-languages=c,c++ --prefix=/usr/local --disable-bootstrap --disable-multilib && make -j12 && make -j12 install
+ ---> Using cache
+ ---> 08aa271d1ec0
+Step 15/30 : RUN curl -sL https://rpm.nodesource.com/setup_12.x | bash - &&  yum install -y nodejs &&  yum install -y gcc-c++ make &&  curl -sL https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo &&  yum install -y yarn
+ ---> Using cache
+ ---> 04e60d91f792
+Step 16/30 : RUN yum install -y libtool && git clone https://github.com/kkos/oniguruma.git && cd oniguruma && autoreconf -vfi && ./configure --prefix=/usr/local --enable-shared && make -j12 && make -j12 install
+ ---> Using cache
+ ---> 74a555df3303
+Step 17/30 : RUN cd /usr/local/src && curl -LO https://github.com/stedolan/jq/releases/download/jq-1.6/jq-1.6.tar.gz && tar xvf jq-1.6.tar.gz && cd jq-1.6 && ./configure && make -j12 && make -j12 install
+ ---> Using cache
+ ---> 14bd9ceef43a
+Step 18/30 : RUN cd /usr/local/src && curl -LO https://www.sqlite.org/2019/sqlite-autoconf-3300000.tar.gz && tar xvf sqlite-autoconf-3300000.tar.gz && cd sqlite-autoconf-3300000 && ./configure --prefix=/usr/local --enable-readline | tee log && make -j12 | tee logg && make -j12 install | tee loggg
+ ---> Using cache
+ ---> 20d525a5819c
+Step 19/30 : RUN cd /usr/local/src && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && tar -zxvf Python-3.7.4.tgz && chown -R root:root Python-3.7.4 && cd Python-3.7.4 && ./configure --enable-shared --with-ensurepip=install && make -j12 && make -j12 install
+ ---> Using cache
+ ---> fed006bd5d8c
+Step 20/30 : RUN cd /usr/local/src && curl -LO https://github.com/tomnomnom/gron/releases/download/v0.6.0/gron-linux-amd64-0.6.0.tgz && tar xvf gron-linux-amd64-0.6.0.tgz -C /usr/local/bin
+ ---> Using cache
+ ---> 9be951251b8d
+Step 21/30 : RUN yum install -y sudo gcc git gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd ~ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
+ ---> Using cache
+ ---> be446bf34ab1
+Step 22/30 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> Using cache
+ ---> 2af8ac22d81e
+Step 23/30 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> Using cache
+ ---> 5cd49b50572a
+Step 24/30 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+ ---> Using cache
+ ---> 7a5aa439fb14
+Step 25/30 : RUN echo "export GOROOT=/usr/local/go1.13">>~/.bashrc && echo "export PATH=$PATH:$GOROOT/bin">>~/.bashrc && source ~/.bashrc
+ ---> Using cache
+ ---> 4d3d14c6f3d9
+Step 26/30 : USER kuraine
+ ---> Using cache
+ ---> 232f86919b4c
+Step 27/30 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> Using cache
+ ---> d41226a7cb80
+Step 28/30 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> Using cache
+ ---> 65327d5d5d57
+Step 29/30 : RUN echo 'export GOROOT=/usr/local/go1.13'>>~/.bashrc && echo 'export PATH=$PATH:$GOROOT/bin'>>~/.bashrc && echo 'alias vim="sudo vim"'>>~/.bashrc && echo 'alias vi="sudo vim"'>>~/.bashrc && source ~/.bashrc
+ ---> Running in fbcb81d5395f
+Removing intermediate container fbcb81d5395f
+ ---> 54730d992b33
+Step 30/30 : WORKDIR /home/kuraine
+ ---> Running in be4a97991d65
+Removing intermediate container be4a97991d65
+ ---> 7323d4298b7b
+Successfully built 7323d4298b7b
 Successfully tagged centos_node:latest
