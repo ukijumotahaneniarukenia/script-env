@@ -1,4 +1,9 @@
-##https://tnishinaga.hatenablog.com/entry/2015/02/28/045304
+
+# 参考文献
+
+https://tnishinaga.hatenablog.com/entry/2015/02/28/045304
+https://github.com/astaxie/build-web-application-with-golang/blob/master/ja/01.1.md
+
 
 # ビルド用にgo言語いんすこ
 ```
@@ -9,7 +14,6 @@ $mv ~/tmp/go/* ~/go1.4
 ```
 
 # 新バージョンのgo言語いんすこ
-##https://github.com/astaxie/build-web-application-with-golang/blob/master/ja/01.1.md
 ```
 $curl -LO https://dl.google.com/go/go1.13.5.linux-amd64.tar.gz
 $tar xvf go1.13.5.linux-amd64.tar.gz -C ~/tmp/
