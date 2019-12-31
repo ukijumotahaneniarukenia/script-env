@@ -92,6 +92,35 @@ make -j12 install
 RUN cd /usr/local/src && curl -LO https://github.com/tomnomnom/gron/releases/download/v0.6.0/gron-linux-amd64-0.6.0.tgz && \
 tar xvf gron-linux-amd64-0.6.0.tgz -C /usr/local/bin
 
+#Tukubaiコマンドいんすこ
+RUN cd ~ && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && \
+cd Open-usp-Tukubai && \
+make -j12 install
+
+#awkこまんどいんすこ
+RUN cd ~ && curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && \
+tar -zxvf gawk-5.0.0.tar.gz && \
+cd gawk-5.0.0 && \
+./configure && \
+make -j12 && \
+make -j12 install
+
+#bashこまんどいんすこ
+RUN cd ~ && curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && \
+tar -zxvf bash-5.0.tar.gz && \
+cd bash-5.0 && \
+./configure && \
+make -j12 && \
+make -j12 install
+
+#trdsqlコマンドいんすこ
+RUN cd /usr/local/src && \
+curl -LO https://github.com/noborus/trdsql/releases/download/v0.7.3/trdsql_v0.7.3_linux_amd64.zip && \
+yum install -y unzip && \
+unzip trdsql_v0.7.3_linux_amd64.zip && \
+cd trdsql_v0.7.3_linux_amd64 && \
+cp /usr/local/src/trdsql_v0.7.3_linux_amd64/trdsql /usr/local/bin/trdsql
+
 #vimも最新
 RUN yum install -y sudo gcc git gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && \
 cd ~ && git clone https://github.com/vim/vim.git && \
@@ -122,7 +151,15 @@ sh installer.sh ~/.vim/bundle && rm -rf installer.sh
 #環境変数設定
 RUN echo "export GOROOT=/usr/local/go1.13">>~/.bashrc && \
 echo "export PATH=$PATH:$GOROOT/bin">>~/.bashrc && \
+echo "export LD_LIBRARY_PATH=/usr/local/lib" >> ~/.bashrc && \
 source ~/.bashrc
+
+#日本語環境と時刻合わせ
+RUN yum -y reinstall glibc-common
+RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
+ENV LANG=ja_JP.UTF-8
+RUN rm -f /etc/localtime
+RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 USER kuraine
 
@@ -140,6 +177,7 @@ rm -rf ~/tmp
 #環境変数設定
 RUN echo 'export GOROOT=/usr/local/go1.13'>>~/.bashrc && \
 echo 'export PATH=$PATH:$GOROOT/bin'>>~/.bashrc && \
+echo "export LD_LIBRARY_PATH=/usr/local/lib" >> ~/.bashrc && \
 echo 'alias vim="sudo vim"'>>~/.bashrc && \
 echo 'alias vi="sudo vim"'>>~/.bashrc && \
 source ~/.bashrc
