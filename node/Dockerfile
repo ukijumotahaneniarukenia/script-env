@@ -161,6 +161,36 @@ ENV LANG=ja_JP.UTF-8
 RUN rm -f /etc/localtime
 RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
+#X環境周りいんすこ
+#各種X関連コマンドインストール
+RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps firefox
+
+#Xwindowシステムパッケージいんすこ
+RUN yum groupinstall -y base "X Window System" --setopt=group_package_types=mandatory,default,optional
+
+#XクライアントがXサーバーにGUI転送出来るように、転送先のIPを指定する
+ENV DISPLAY=:0.0
+
+#日本語フォントいんすこ
+RUN yum install -y vlgothic-*
+#以下の対応のためインストール
+#Gtk-Message: 23:27:11.098: Failed to load module "pk-gtk-module"
+RUN yum install -y PackageKit-gtk3-module
+
+#入力メソッドいんすこ
+RUN yum install -y ibus-mozc
+
+#gitコマンドいんすこ
+RUN yum install -y gcc autoconf && \
+yum install -y curl-devel expat-devel gettext-devel openssl-devel perl-devel zlib-devel perl-ExtUtils-MakeMaker && \
+yum install -y asciidoc xmlto docbook2X && \
+ln -fns /usr/bin/db2x_docbook2texi /usr/bin/docbook2x-texi && \
+sudo curl -LkvOf https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.24.1.tar.gz && \
+sudo tar xvf git-2.24.1.tar.gz && \
+cd git-2.24.1/ && \
+make -j12 prefix=/usr/local all && \
+sudo make -j12 prefix=/usr/local install
+
 USER kuraine
 
 #自身のvim環境をクローン
@@ -181,5 +211,8 @@ echo "export LD_LIBRARY_PATH=/usr/local/lib" >> ~/.bashrc && \
 echo 'alias vim="sudo vim"'>>~/.bashrc && \
 echo 'alias vi="sudo vim"'>>~/.bashrc && \
 source ~/.bashrc
+
+#VScodeいんすこ
+COPY code-1.41.1-1576681965.el7.x86_64.rpm /home/kuraine/code-1.41.1-1576681965.el7.x86_64.rpm
 
 WORKDIR /home/kuraine
