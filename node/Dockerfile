@@ -93,12 +93,12 @@ RUN cd /usr/local/src && curl -LO https://github.com/tomnomnom/gron/releases/dow
 tar xvf gron-linux-amd64-0.6.0.tgz -C /usr/local/bin
 
 #Tukubaiコマンドいんすこ
-RUN cd ~ && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && \
+RUN cd /usr/local/src && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && \
 cd Open-usp-Tukubai && \
 make -j12 install
 
 #awkこまんどいんすこ
-RUN cd ~ && curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && \
+RUN cd /usr/local/src && curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && \
 tar -zxvf gawk-5.0.0.tar.gz && \
 cd gawk-5.0.0 && \
 ./configure && \
@@ -106,7 +106,7 @@ make -j12 && \
 make -j12 install
 
 #bashこまんどいんすこ
-RUN cd ~ && curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && \
+RUN cd /usr/local/src && curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && \
 tar -zxvf bash-5.0.tar.gz && \
 cd bash-5.0 && \
 ./configure && \
@@ -120,6 +120,27 @@ yum install -y unzip && \
 unzip trdsql_v0.7.3_linux_amd64.zip && \
 cd trdsql_v0.7.3_linux_amd64 && \
 cp /usr/local/src/trdsql_v0.7.3_linux_amd64/trdsql /usr/local/bin/trdsql
+
+#gitコマンドいんすこ
+RUN yum install -y gcc autoconf && \
+yum install -y curl-devel expat-devel gettext-devel openssl-devel perl-devel zlib-devel perl-ExtUtils-MakeMaker && \
+yum install -y asciidoc xmlto docbook2X && \
+ln -fns /usr/bin/db2x_docbook2texi /usr/bin/docbook2x-texi && \
+curl -LkvOf https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.24.1.tar.gz && \
+tar xvf git-2.24.1.tar.gz && \
+cd git-2.24.1/ && \
+make -j12 prefix=/usr/local all && \
+make -j12 prefix=/usr/local install
+
+#rubyコマンドいんすこ
+RUN yum install -y bison && \
+git clone https://github.com/ruby/ruby.git && \
+cd ruby && \
+autoconf && \
+yum install -y ruby && \
+./configure --prefix=/usr/local --enable-shared && \
+make -j12 && \
+make -j12 install
 
 #vimも最新
 RUN yum install -y sudo gcc git gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && \
@@ -179,17 +200,6 @@ RUN yum install -y PackageKit-gtk3-module
 
 #入力メソッドいんすこ
 RUN yum install -y ibus-mozc
-
-#gitコマンドいんすこ
-RUN yum install -y gcc autoconf && \
-yum install -y curl-devel expat-devel gettext-devel openssl-devel perl-devel zlib-devel perl-ExtUtils-MakeMaker && \
-yum install -y asciidoc xmlto docbook2X && \
-ln -fns /usr/bin/db2x_docbook2texi /usr/bin/docbook2x-texi && \
-sudo curl -LkvOf https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.24.1.tar.gz && \
-sudo tar xvf git-2.24.1.tar.gz && \
-cd git-2.24.1/ && \
-make -j12 prefix=/usr/local all && \
-sudo make -j12 prefix=/usr/local install
 
 USER kuraine
 
