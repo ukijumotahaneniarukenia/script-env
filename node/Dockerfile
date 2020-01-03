@@ -19,12 +19,12 @@ tar xvf go1.4.3.linux-amd64.tar.gz -C ~/tmp/ && \
 mv ~/tmp/go/* ~/go1.4 && \
 rm -rf ~/tmp
 # 新バージョンのgo言語いんすこ
-##https://github.com/astaxie/build-web-application-with-golang/blob/master/ja/01.1.md
+#https://github.com/astaxie/build-web-application-with-golang/blob/master/ja/01.1.md
 RUN cd ~ && rm -rf ~/tmp && mkdir ~/tmp && curl -LO https://dl.google.com/go/go1.13.5.linux-amd64.tar.gz && \
 cd ~ && tar xvf go1.13.5.linux-amd64.tar.gz -C ~/tmp/ && \
 cd ~/tmp/go/src/ && \
 ./all.bash && \
-mv /root/tmp/go /usr/local/go1.13
+mv /root/tmp/go /usr/local/bin/go1.13
 
 #javaコマンドいんすこ
 RUN cd /usr/local/src && curl -LO https://download.java.net/java/GA/jdk13.0.1/cec27d702aa74d5a8630c65ae61e4305/9/GPL/openjdk-13.0.1_linux-x64_bin.tar.gz && \
@@ -179,7 +179,7 @@ cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/instal
 sh installer.sh ~/.vim/bundle && rm -rf installer.sh
 
 #環境変数設定
-RUN echo "export GOROOT=/usr/local/go1.13">>~/.bashrc && \
+RUN echo "export GOROOT=/usr/local/bin/go1.13">>~/.bashrc && \
 echo "export PATH=$PATH:$GOROOT/bin">>~/.bashrc && \
 echo "export LD_LIBRARY_PATH=/usr/local/lib" >> ~/.bashrc && \
 source ~/.bashrc
@@ -210,6 +210,16 @@ RUN yum install -y PackageKit-gtk3-module
 #入力メソッドいんすこ
 RUN yum install -y ibus-mozc
 
+#elasticインストール
+RUN cd /usr/local/src && curl -LO https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.5.1-x86_64.rpm && \
+yum install -y elasticsearch-7.5.1-x86_64.rpm
+
+#kibanaいんすこ
+RUN cd /usr/local/src && curl -LO https://artifacts.elastic.co/downloads/kibana/kibana-7.5.1-x86_64.rpm && \
+yum install -y kibana-7.5.1-x86_64.rpm
+RUN sed -i 's;#server.port: 5601;server.port: 5601;' /etc/kibana/kibana.yml
+RUN ( IP=$(ifconfig eth0 | grep inet | sed -E 's;\s{1,}; ;' | cut -d" " -f 3) && sed -i "s;#server.host: \"localhost\";server.host: \"$IP\";" /etc/kibana/kibana.yml )
+
 USER kuraine
 
 #自身のvim環境をクローン
@@ -223,15 +233,31 @@ mv rc/.[^.]* ~ && \
 #用が済んだらリム
 rm -rf ~/tmp
 
+#vim plugin manager
+RUN mkdir -p ~/.vim/bundle && \
+cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
+sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+
 #環境変数設定
-RUN echo 'export GOROOT=/usr/local/go1.13'>>~/.bashrc && \
-echo 'export PATH=$PATH:$GOROOT/bin'>>~/.bashrc && \
+#環境変数設定
+RUN echo "export GOROOT=/usr/local/bin/go1.13">>~/.bashrc && \
+echo "export PATH=$PATH:$GOROOT/bin">>~/.bashrc && \
 echo "export LD_LIBRARY_PATH=/usr/local/lib" >> ~/.bashrc && \
-echo 'alias vim="sudo vim"'>>~/.bashrc && \
-echo 'alias vi="sudo vim"'>>~/.bashrc && \
+echo 'alias idea="/home/kuraine/idea-IC-192.7142.36/bin/idea.sh >~/launch_idea.log 2>&1 &"' >> ~/.bashrc && \
 source ~/.bashrc
 
 #VScodeいんすこ
 COPY code-1.41.1-1576681965.el7.x86_64.rpm /home/kuraine/code-1.41.1-1576681965.el7.x86_64.rpm
+RUN cd ~ && sudo yum install -y code-1.41.1-1576681965.el7.x86_64.rpm
+
+#ideaいんすこ
+COPY ideaIC-2019.2.4.tar.gz /home/kuraine/ideaIC-2019.2.4.tar.gz
+RUN cd ~ && tar -xzf ideaIC-2019.2.4.tar.gz && chown -R kuraine:kuraine idea-IC-192.7142.36
+
+#elasticサービス外部公開ポート
+EXPOSE 9200
+
+#kibanaサービス外部公開ポート
+EXPOSE 5601
 
 WORKDIR /home/kuraine
