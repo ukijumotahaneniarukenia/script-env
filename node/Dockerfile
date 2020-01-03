@@ -179,9 +179,9 @@ cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/instal
 sh installer.sh ~/.vim/bundle && rm -rf installer.sh
 
 #環境変数設定
-RUN echo "export GOROOT=/usr/local/bin/go1.13">>~/.bashrc && \
-echo "export PATH=$PATH:$GOROOT/bin">>~/.bashrc && \
-echo "export LD_LIBRARY_PATH=/usr/local/lib" >> ~/.bashrc && \
+RUN echo 'export GOROOT=/usr/local/bin/go1.13'>>~/.bashrc && \
+echo 'export PATH=$PATH:$GOROOT/bin'>>~/.bashrc && \
+echo 'export LD_LIBRARY_PATH=/usr/local/lib' >> ~/.bashrc && \
 source ~/.bashrc
 
 #日本語環境と時刻合わせ
@@ -239,10 +239,9 @@ cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/instal
 sh installer.sh ~/.vim/bundle && rm -rf installer.sh
 
 #環境変数設定
-#環境変数設定
-RUN echo "export GOROOT=/usr/local/bin/go1.13">>~/.bashrc && \
-echo "export PATH=$PATH:$GOROOT/bin">>~/.bashrc && \
-echo "export LD_LIBRARY_PATH=/usr/local/lib" >> ~/.bashrc && \
+RUN echo 'export GOROOT=/usr/local/bin/go1.13'>>~/.bashrc && \
+echo 'export PATH=$PATH:$GOROOT/bin'>>~/.bashrc && \
+echo 'export LD_LIBRARY_PATH=/usr/local/lib' >> ~/.bashrc && \
 echo 'alias idea="/home/kuraine/idea-IC-192.7142.36/bin/idea.sh >~/launch_idea.log 2>&1 &"' >> ~/.bashrc && \
 source ~/.bashrc
 
