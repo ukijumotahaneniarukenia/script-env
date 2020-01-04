@@ -101,6 +101,8 @@ RUN mkdir -p ~/.vim/bundle && \
 cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
 sh installer.sh ~/.vim/bundle && rm -rf installer.sh
 
+WORKDIR /home/nginx
+
 #httpdサービス外部公開ポート
 EXPOSE 8080
 
