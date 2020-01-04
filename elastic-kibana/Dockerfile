@@ -108,6 +108,11 @@ mv rc/.[^.]* ~ && \
 #用が済んだらリム
 rm -rf ~/tmp
 
+#vim plugin manager
+RUN mkdir -p ~/.vim/bundle && \
+cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
+sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+
 USER elasticsearch
 
 #自身のvim環境をクローン
