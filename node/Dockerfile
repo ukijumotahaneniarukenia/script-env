@@ -1,16 +1,42 @@
 FROM centos:7.6.1810
 
 #ユーザー作成
-RUN groupadd -g 1001 kuraine
-RUN useradd -m -g kuraine -u 1001 kuraine
-RUN chsh -s /bin/bash kuraine
+RUN groupadd -g 1001 kuraine && \
+useradd -m -g kuraine -u 1001 kuraine && \
+chsh -s /bin/bash kuraine && \
+echo 'kuraine_pwd' | passwd --stdin kuraine && \
+echo 'kuraine ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+RUN groupadd -g 991 elasticsearch && \
+useradd -m -g elasticsearch -u 994 elasticsearch && \
+chsh -s /bin/bash elasticsearch && \
+echo 'elasticsearch_pwd' | passwd --stdin elasticsearch && \
+echo 'elasticsearch ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+RUN groupadd -g 990 kibana && \
+useradd -m -g kibana -u 993 kibana && \
+chsh -s /bin/bash kibana && \
+echo 'kibana_pwd' | passwd --stdin kibana && \
+echo 'kibana ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
 RUN echo 'root_pwd' | passwd --stdin root
-RUN echo 'kuraine_pwd' | passwd --stdin kuraine
-RUN echo 'kuraine ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 #各種コマンドいんすこ
 RUN yum -y install epel-release
-RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man moreutils lbzip2 which
+RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man moreutils lbzip2 which perl-Digest-SHA
+
+#apacheのwebサーバーいんすこ
+RUN yum install -y httpd
+
+#phpこまんどいんすこ
+RUN yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm && \
+yum -y install --enablerepo=remi,remi-php73 php php-devel php-mbstring php-pdo php-gd php-xml php-mcrypt
+
+#adminerインストール
+RUN cd /var/www/html && \
+curl -LO https://github.com/vrana/adminer/releases/download/v4.7.5/adminer-4.7.5.php && \
+mv adminer-4.7.5.php adminer.php && \
+chown -R apache:apache /var/www/html/adminer.php
 
 # ビルド用にgo言語いんすこ
 RUN cd ~ && mkdir ~/go1.4 && mkdir ~/tmp && \
@@ -58,7 +84,7 @@ RUN curl -sL https://rpm.nodesource.com/setup_12.x | bash - && \
  yum install -y yarn
 
 #onigurumaいんすこ
-RUN yum install -y libtool && git clone https://github.com/kkos/oniguruma.git && \
+RUN yum install -y libtool && cd /usr/local/src && git clone https://github.com/kkos/oniguruma.git && \
 cd oniguruma && autoreconf -vfi && \
 ./configure --prefix=/usr/local --enable-shared && \
 make -j12 && \
@@ -126,6 +152,7 @@ RUN yum install -y gcc autoconf && \
 yum install -y curl-devel expat-devel gettext-devel openssl-devel perl-devel zlib-devel perl-ExtUtils-MakeMaker && \
 yum install -y asciidoc xmlto docbook2X && \
 ln -fns /usr/bin/db2x_docbook2texi /usr/bin/docbook2x-texi && \
+cd /usr/local/src && \
 curl -LkvOf https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.24.1.tar.gz && \
 tar xvf git-2.24.1.tar.gz && \
 cd git-2.24.1/ && \
@@ -220,6 +247,42 @@ yum install -y kibana-7.5.1-x86_64.rpm
 RUN sed -i 's;#server.port: 5601;server.port: 5601;' /etc/kibana/kibana.yml
 RUN ( IP=$(ifconfig eth0 | grep inet | sed -E 's;\s{1,}; ;' | cut -d" " -f 3) && sed -i "s;#server.host: \"localhost\";server.host: \"$IP\";" /etc/kibana/kibana.yml )
 
+USER elasticsearch
+
+#自身のvim環境をクローン
+RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+
+#自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
+RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
+cd ~/tmp && \
+#移動したいdotfileをchoiceしてHOMEディレクトリへ
+mv rc/.[^.]* ~ && \
+#用が済んだらリム
+rm -rf ~/tmp
+
+#vim plugin manager
+RUN mkdir -p ~/.vim/bundle && \
+cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
+sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+
+USER kibana
+
+#自身のvim環境をクローン
+RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+
+#自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
+RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
+cd ~/tmp && \
+#移動したいdotfileをchoiceしてHOMEディレクトリへ
+mv rc/.[^.]* ~ && \
+#用が済んだらリム
+rm -rf ~/tmp
+
+#vim plugin manager
+RUN mkdir -p ~/.vim/bundle && \
+cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
+sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+
 USER kuraine
 
 #自身のvim環境をクローン
@@ -259,4 +322,11 @@ EXPOSE 9200
 #kibanaサービス外部公開ポート
 EXPOSE 5601
 
+#httpdサービス外部公開ポート
+EXPOSE 8080
+
 WORKDIR /home/kuraine
+
+#systemctlコマンド周りのエラー解消用。一度dockerホストマシンの再起動が起きる
+#httpdサービス関連のみ。それ以外は解消しないので、泥臭く起動
+CMD ["/sbin/init"]
