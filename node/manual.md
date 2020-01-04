@@ -48,9 +48,8 @@ Option                Description
 
 **tail -f launch_elasticsearch.log**で書き込まれていることを確認
 
-[elasticsearch@48d59e46f51d ~]$ /usr/share/elasticsearch/bin/elasticsearch --verbose 1>~/launch_elasticsearch.log 2>&1 &
-[elasticsearch@48d59e46f51d ~]$ tail -f launch_elasticsearch.log
-
+$/usr/share/elasticsearch/bin/elasticsearch --verbose 1>~/launch_elasticsearch.log 2>&1 &
+$tail -f launch_elasticsearch.log
 
 **/var/log/elasticsearch/elasticsearch.log**でもログ確認（こっちが本物）
 
