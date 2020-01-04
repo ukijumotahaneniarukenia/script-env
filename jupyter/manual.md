@@ -19,6 +19,9 @@ docker exec --user kuraine -it jupyter /bin/bash
 # 参考文献
 
 https://qiita.com/taka4sato/items/2c3397ff34c440044978
+https://qiita.com/tand826/items/0c478bf63ead75427782
+https://code-graffiti.com/how-to-use-jupyter-notebook/#toc6
+
 
 # バージョン確認
 
@@ -124,6 +127,3 @@ total 8
 [Parent 402, Gecko_IOThread] WARNING: pipe error (108): Connection reset by peer: file /builddir/build/BUILD/firefox-68.3.0/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
 [Parent 402, Gecko_IOThread] WARNING: pipe error (95): Connection reset by peer: file /builddir/build/BUILD/firefox-68.3.0/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
 ```
-
-■参考文献
-https://code-graffiti.com/how-to-use-jupyter-notebook/#toc6
