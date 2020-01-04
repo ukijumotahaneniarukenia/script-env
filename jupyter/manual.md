@@ -18,9 +18,9 @@ docker exec --user kuraine -it jupyter /bin/bash
 
 # 参考文献
 
-https://qiita.com/taka4sato/items/2c3397ff34c440044978
-https://qiita.com/tand826/items/0c478bf63ead75427782
-https://code-graffiti.com/how-to-use-jupyter-notebook/#toc6
+https://qiita.com/taka4sato/items/2c3397ff34c440044978</br>
+https://qiita.com/tand826/items/0c478bf63ead75427782</br>
+https://code-graffiti.com/how-to-use-jupyter-notebook/#toc6</br>
 
 
 # バージョン確認
