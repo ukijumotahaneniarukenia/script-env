@@ -53,6 +53,23 @@ $/usr/share/elasticsearch/bin/elasticsearch --verbose 1>~/launch_elasticsearch.l
 $tail -f launch_elasticsearch.log
 ```
 
+様子はこんな感じ
+
+```
+$tail -f launch_elasticsearch.log
+[2020-01-05T01:22:05,194][INFO ][o.e.c.m.MetaDataIndexTemplateService] [23df2d9237d5] adding template [.slm-history] for index patterns [.slm-history-1*]
+[2020-01-05T01:22:05,218][INFO ][o.e.c.m.MetaDataIndexTemplateService] [23df2d9237d5] adding template [.monitoring-logstash] for index patterns [.monitoring-logstash-7-*]
+[2020-01-05T01:22:05,248][INFO ][o.e.c.m.MetaDataIndexTemplateService] [23df2d9237d5] adding template [.monitoring-es] for index patterns [.monitoring-es-7-*]
+[2020-01-05T01:22:05,274][INFO ][o.e.c.m.MetaDataIndexTemplateService] [23df2d9237d5] adding template [.monitoring-beats] for index patterns [.monitoring-beats-7-*]
+[2020-01-05T01:22:05,297][INFO ][o.e.c.m.MetaDataIndexTemplateService] [23df2d9237d5] adding template [.monitoring-alerts-7] for index patterns [.monitoring-alerts-7]
+[2020-01-05T01:22:05,323][INFO ][o.e.c.m.MetaDataIndexTemplateService] [23df2d9237d5] adding template [.monitoring-kibana] for index patterns [.monitoring-kibana-7-*]
+[2020-01-05T01:22:05,345][INFO ][o.e.a.s.m.TransportMasterNodeAction] [23df2d9237d5] adding index lifecycle policy [watch-history-ilm-policy]
+[2020-01-05T01:22:05,369][INFO ][o.e.a.s.m.TransportMasterNodeAction] [23df2d9237d5] adding index lifecycle policy [slm-history-ilm-policy]
+[2020-01-05T01:22:05,448][INFO ][o.e.l.LicenseService     ] [23df2d9237d5] license [d3d3adc4-5ebc-4e8c-b5cd-c26c1b00ffcb] mode [basic] - valid
+[2020-01-05T01:22:05,449][INFO ][o.e.x.s.s.SecurityStatusChangeListener] [23df2d9237d5] Active license is now [BASIC]; Security is disabled
+^C
+```
+
 **/var/log/elasticsearch/elasticsearch.log**でもログ確認（こっちが本物）
 
 ```
