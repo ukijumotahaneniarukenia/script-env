@@ -100,28 +100,36 @@ total 1204
 ログにはかれているプロセスIDとpsコマンドの出力結果に含まれているプロセスIDが一致していればプログラムはうまく動いていそう。
 
 ```
-[elasticsearch@48d59e46f51d ~]$ grep pid launch_elasticsearch.log
-[2020-01-04T01:45:05,672][INFO ][o.e.n.Node               ] [48d59e46f51d] version[7.5.1], pid[333], build[default/rpm/3ae9ac9a93c95bd0cdc054951cf95d88e1e18d96/2019-12-16T22:57:37.835892Z], OS[Linux/3.10.0-1062.el7.x86_64/amd64], JVM[AdoptOpenJDK/OpenJDK 64-Bit Server VM/13.0.1/13.0.1+9]
-[2020-01-04T01:45:05,673][INFO ][o.e.n.Node               ] [48d59e46f51d] JVM arguments [-Des.networkaddress.cache.ttl=60, -Des.networkaddress.cache.negative.ttl=10, -XX:+AlwaysPreTouch, -Xss1m, -Djava.awt.headless=true, -Dfile.encoding=UTF-8, -Djna.nosys=true, -XX:-OmitStackTraceInFastThrow, -Dio.netty.noUnsafe=true, -Dio.netty.noKeySetOptimization=true, -Dio.netty.recycler.maxCapacityPerThread=0, -Dio.netty.allocator.numDirectArenas=0, -Dlog4j.shutdownHookEnabled=false, -Dlog4j2.disable.jmx=true, -Djava.locale.providers=COMPAT, -Xms1g, -Xmx1g, -XX:+UseConcMarkSweepGC, -XX:CMSInitiatingOccupancyFraction=75, -XX:+UseCMSInitiatingOccupancyOnly, -Djava.io.tmpdir=/tmp/elasticsearch-16636342414391443596, -XX:+HeapDumpOnOutOfMemoryError, -XX:HeapDumpPath=/var/lib/elasticsearch, -XX:ErrorFile=/var/log/elasticsearch/hs_err_pid%p.log, -Xlog:gc*,gc+age=trace,safepoint:file=/var/log/elasticsearch/gc.log:utctime,pid,tags:filecount=32,filesize=64m, -XX:MaxDirectMemorySize=536870912, -Des.path.home=/usr/share/elasticsearch, -Des.path.conf=/etc/elasticsearch, -Des.distribution.flavor=default, -Des.distribution.type=rpm, -Des.bundled_jdk=true]
-[kuraine💕48d59e46f51d (土  1月 04 01:59:41) ~]$ps -aux
+$grep -Po 'pid\[([0-9]+)\]' launch_elasticsearch.log
+pid[242]
+
+$ps -aux
 USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-kuraine      1  0.0  0.0  15480  3096 pts/0    Ss+  01:42   0:00 /bin/bash
-kuraine     48  0.0  0.0  15612  3324 pts/1    Ss   01:42   0:00 /bin/bash
-elastic+   333  3.8  4.4 9092628 1449788 pts/1 Sl   01:45   0:34 /usr/share/elasticsearch/jdk/bin/java -Des.networkaddress.cache.ttl=60 -Des.networkaddress.cache.negative.ttl=10 -XX:+AlwaysPreTouch -Xss1m -Djava
-elastic+   431  0.0  0.0  70444  4516 pts/1    Sl   01:45   0:00 /usr/share/elasticsearch/modules/x-pack-ml/platform/linux-x86_64/bin/controller
+elastic+     1  0.0  0.0  42688  1560 pts/0    Ss+  01:20   0:00 /usr/sbin/init
+elastic+   221  0.0  0.0  14376  2072 pts/1    Ss   01:21   0:00 /bin/bash
+elastic+   242  8.6  3.9 7898304 1303648 pts/1 Sl   01:21   0:19 /usr/share/elasticsearch/jdk/bin/java -Des.networkaddress.cache.ttl=60 -Des.networkaddress.cache.negative.ttl=10 -XX:+AlwaysPreTouch -Xss1m -Djava
+elastic+   337  0.0  0.0  70444  4512 pts/1    Sl   01:21   0:00 /usr/share/elasticsearch/modules/x-pack-ml/platform/linux-x86_64/bin/controller
+elastic+   410  0.0  0.0  54296  1868 pts/1    R+   01:25   0:00 ps -aux
 ```
 
-
-### 5.ターミナルから起動確認
-
-別ターミナルを開いてcurlコマンドで起動確認
+### 5.待ち受けポート確認
 
 ```
-[kuraine💕48d59e46f51d (土  1月 04 01:45:54) ~]$curl localhost:9200
+$lsof -i:9200
+COMMAND PID          USER   FD   TYPE  DEVICE SIZE/OFF NODE NAME
+java    242 elasticsearch  339u  IPv4 3940703      0t0  TCP localhost:wap-wsp (LISTEN)
+```
+
+### 6.ターミナルから起動確認
+
+curlコマンドで起動確認
+
+```
+$curl localhost:9200
 {
-  "name" : "48d59e46f51d",
+  "name" : "23df2d9237d5",
   "cluster_name" : "elasticsearch",
-  "cluster_uuid" : "le0et1XaT5-E9590dxyC0w",
+  "cluster_uuid" : "2x4llkX4QWWAU-vM0iyxqw",
   "version" : {
     "number" : "7.5.1",
     "build_flavor" : "default",
@@ -135,11 +143,11 @@ elastic+   431  0.0  0.0  70444  4516 pts/1    Sl   01:45   0:00 /usr/share/elas
   },
   "tagline" : "You Know, for Search"
 }
-[kibana@48d59e46f51d kuraine]$ curl http://localhost:9200
+$curl http://localhost:9200
 {
-  "name" : "48d59e46f51d",
+  "name" : "23df2d9237d5",
   "cluster_name" : "elasticsearch",
-  "cluster_uuid" : "le0et1XaT5-E9590dxyC0w",
+  "cluster_uuid" : "2x4llkX4QWWAU-vM0iyxqw",
   "version" : {
     "number" : "7.5.1",
     "build_flavor" : "default",
@@ -156,33 +164,40 @@ elastic+   431  0.0  0.0  70444  4516 pts/1    Sl   01:45   0:00 /usr/share/elas
 ```
 
 
-### 6.elasticseachプロセス停止
+### 7.elasticseachプロセス停止
 
 **kibana**のように**/etc/rc.d/init.d/elasticsearch**コマンドで実行するとunit.service経由となるので、うまくいかない。手動でプロセスkill。
 
+```
+$ps -aux
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+elastic+     1  0.0  0.0  42688  1560 pts/0    Ss+  01:20   0:00 /usr/sbin/init
+elastic+   221  0.0  0.0  14376  2072 pts/1    Ss   01:21   0:00 /bin/bash
+elastic+   242  5.3  4.0 7898304 1307912 pts/1 Sl   01:21   0:21 /usr/share/elasticsearch/jdk/bin/java -Des.networkaddress.cache.ttl=60 -Des.networkaddress.cache.negative.ttl=10 -XX:+AlwaysPreTouch -Xss1m -Djava
+elastic+   337  0.0  0.0  70444  4512 pts/1    Sl   01:21   0:00 /usr/share/elasticsearch/modules/x-pack-ml/platform/linux-x86_64/bin/controller
+elastic+   418  0.0  0.0  54296  1868 pts/1    R+   01:28   0:00 ps -aux
+$sudo kill 242
+$ps -aux
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+elastic+     1  0.0  0.0  42688  1560 pts/0    Ss+  01:20   0:00 /usr/sbin/init
+elastic+   221  0.0  0.0  14376  2072 pts/1    Ss   01:21   0:00 /bin/bash
+elastic+   452  0.0  0.0  54296  1872 pts/1    R+   01:28   0:00 ps -aux
+```
+
+ログ
 
 ```
-[elasticsearch@48d59e46f51d ~]$ ps aux
-USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-kuraine      1  0.0  0.0  15480  3096 pts/0    Ss+  01:42   0:00 /bin/bash
-elastic+   333  1.4  4.7 9110064 1554780 ?     Sl   01:45   1:22 /usr/share/elasticsearch/jdk/bin/java -Des.networkaddress.cache.ttl=60 -Des.networkaddress.cache.negative.ttl=10 -XX:+AlwaysPreTouch -Xss1m -Djava
-elastic+   431  0.0  0.0  70444  4516 ?        Sl   01:45   0:00 /usr/share/elasticsearch/modules/x-pack-ml/platform/linux-x86_64/bin/controller
-kuraine    515  0.0  0.0  15608  3328 pts/2    Ss   01:45   0:00 /bin/bash
-kuraine   1459  0.0  0.0  58908   888 ?        S    02:09   0:00 dbus-launch --autolaunch=bc74deaa9e044c079ed6fc963d084157 --binary-syntax --close-stderr
-kuraine   1460  0.0  0.0  60084  1120 ?        Ss   02:09   0:00 /usr/bin/dbus-daemon --fork --print-pid 5 --print-address 7 --session
-root      3140  0.0  0.0  89352  2660 pts/2    S    03:13   0:00 su elasticsearch
-elastic+  3142  0.0  0.0  15652  3428 pts/2    S    03:13   0:00 bash
-elastic+  3339  0.0  0.0  54304  1864 pts/2    R+   03:20   0:00 ps aux
-[elasticsearch@48d59e46f51d ~]$ kill 333
-[elasticsearch@48d59e46f51d ~]$ ps aux
-USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-kuraine      1  0.0  0.0  15480  3096 pts/0    Ss+  01:42   0:00 /bin/bash
-kuraine    515  0.0  0.0  15608  3328 pts/2    Ss   01:45   0:00 /bin/bash
-kuraine   1459  0.0  0.0  58908   888 ?        S    02:09   0:00 dbus-launch --autolaunch=bc74deaa9e044c079ed6fc963d084157 --binary-syntax --close-stderr
-kuraine   1460  0.0  0.0  60084  1120 ?        Ss   02:09   0:00 /usr/bin/dbus-daemon --fork --print-pid 5 --print-address 7 --session
-root      3140  0.0  0.0  89352  2660 pts/2    S    03:13   0:00 su elasticsearch
-elastic+  3142  0.0  0.0  15652  3428 pts/2    S    03:13   0:00 bash
-elastic+  3353  0.0  0.0  54304  1864 pts/2    R+   03:20   0:00 ps aux
+$tail ~/launch_elasticsearch.log
+[2020-01-05T01:22:05,448][INFO ][o.e.l.LicenseService     ] [23df2d9237d5] license [d3d3adc4-5ebc-4e8c-b5cd-c26c1b00ffcb] mode [basic] - valid
+[2020-01-05T01:22:05,449][INFO ][o.e.x.s.s.SecurityStatusChangeListener] [23df2d9237d5] Active license is now [BASIC]; Security is disabled
+[2020-01-05T01:28:44,141][INFO ][o.e.n.Node               ] [23df2d9237d5] stopping ...
+[2020-01-05T01:28:44,149][INFO ][o.e.x.w.WatcherService   ] [23df2d9237d5] stopping watch service, reason [shutdown initiated]
+[2020-01-05T01:28:44,149][INFO ][o.e.x.w.WatcherLifeCycleService] [23df2d9237d5] watcher has stopped and shutdown
+[2020-01-05T01:28:44,308][INFO ][o.e.x.m.p.l.CppLogMessageHandler] [23df2d9237d5] [controller/337] [Main.cc@150] Ml controller exiting
+[2020-01-05T01:28:44,310][INFO ][o.e.x.m.p.NativeController] [23df2d9237d5] Native controller process has stopped - no new native processes can be started
+[2020-01-05T01:28:44,317][INFO ][o.e.n.Node               ] [23df2d9237d5] stopped
+[2020-01-05T01:28:44,317][INFO ][o.e.n.Node               ] [23df2d9237d5] closing ...
+[2020-01-05T01:28:44,322][INFO ][o.e.n.Node               ] [23df2d9237d5] closed
 ```
 
 ## kibanaサービス
