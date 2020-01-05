@@ -1,3 +1,9 @@
+# テーブル表示ができるようにする
+
+```
+https://www.randpy.tokyo/entry/shiny_25
+```
+
 # RパッケージのinstallログからANTICONFを見つけて設定ファイルを見直す
 ```
 Rscript install_packages.R | tee pack_inst_log
