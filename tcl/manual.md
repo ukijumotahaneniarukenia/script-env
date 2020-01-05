@@ -1,4 +1,4 @@
-# Dockerfileよりイメージ作成
+# dockerイメージ作成
 
 ```
 time docker build -t centos_tcl . | tee log
@@ -13,5 +13,5 @@ docker run --name tcl -itd centos_tcl
 # dockerコンテナ潜入
 
 ```
-docker exec --user kuraine -it tcl bash
+docker exec --user kuraine -it tcl /bin/bash
 ```

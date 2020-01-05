@@ -1,4 +1,4 @@
-FROM centos:7.6.1810
+FROM centos/systemd
 
 #ユーザー作成
 RUN groupadd -g 1001 kuraine && \
@@ -11,11 +11,11 @@ RUN echo 'root_pwd' | passwd --stdin root
 
 #各種コマンドいんすこ
 RUN yum install -y epel-release 
-RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man rlwrap
+RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man moreutils lbzip2 which perl-Digest-SHA unzip
 
 #vimも最新
 RUN yum install -y sudo gcc git gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && \
-cd ~ && git clone https://github.com/vim/vim.git && \
+cd /usr/local/src && git clone https://github.com/vim/vim.git && \
 cd vim && \
 ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && \
 make -j12 distclean && \
@@ -82,3 +82,8 @@ sh installer.sh ~/.vim/bundle && rm -rf installer.sh
 
 #alias設定
 RUN echo "export LD_LIBRARY_PATH=/usr/local/lib" >> ~/.bashrc && source ~/.bashrc
+
+WORKDIR /home/kuraine
+
+#systemdコマンドを扱う上で必須
+CMD ["/usr/sbin/init"]
