@@ -1,9 +1,3 @@
-# テーブル表示ができるようにする
-
-```
-https://www.randpy.tokyo/entry/shiny_25
-```
-
 # RパッケージのinstallログからANTICONFを見つけて設定ファイルを見直す
 ```
 Rscript install_packages.R | tee pack_inst_log
@@ -148,6 +142,35 @@ shiny       99  0.0  0.0  54296  1872 pts/1    R+   16:50   0:00 ps aux
 $lsof -i:3838
 COMMAND   PID  USER   FD   TYPE  DEVICE SIZE/OFF NODE NAME
 shiny-ser  87 shiny   10u  IPv6 2537109      0t0  TCP *:sos (LISTEN)
+```
+
+shiny-serverプロセス停止
+
+```
+$ps aux
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+rstudio      1  0.0  0.0  42696  1548 pts/0    Ss+  16:46   0:00 /usr/sbin/init
+rstudio+   120  0.0  0.0 288696  6764 ?        Ssl  16:57   0:01 /usr/lib/rstudio-server/bin/rserver
+rstudio    154  0.3  0.4 797868 146372 ?       Sl   16:58   0:14 /usr/lib/rstudio-server/bin/rsession -u rstudio --launcher-token C59E46F2
+shiny      272  0.0  0.1 1210364 57008 ?       Sl   17:03   0:01 /opt/shiny-server/ext/node/bin/shiny-server /opt/shiny-server/lib/main.js
+rstudio    326  0.0  0.0  14376  2064 pts/1    Ss   17:33   0:00 /bin/bash
+root       348  0.0  0.0  87256  2492 pts/1    S    17:34   0:00 su shiny
+shiny      349  0.0  0.0  14376  2100 pts/1    S    17:34   0:00 bash
+rstudio    644  0.0  0.0  14380  1908 pts/3    Ss+  17:53   0:00 bash -l
+shiny      683  0.1  0.3 507924 130544 ?       Ssl  17:57   0:01 /usr/lib64/R/bin/exec/R --no-save --slave -f /opt/shiny-server/R/SockJSAdapter.R
+shiny      797  0.0  0.0  54296  1872 pts/1    R+   18:10   0:00 ps aux
+$sudo kill -9 272
+$ps aux
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+rstudio      1  0.0  0.0  42696  1548 pts/0    Ss+  16:46   0:00 /usr/sbin/init
+rstudio+   120  0.0  0.0 288696  6764 ?        Ssl  16:57   0:01 /usr/lib/rstudio-server/bin/rserver
+rstudio    154  0.3  0.4 797868 146372 ?       Sl   16:58   0:14 /usr/lib/rstudio-server/bin/rsession -u rstudio --launcher-token C59E46F2
+rstudio    326  0.0  0.0  14376  2064 pts/1    Ss   17:33   0:00 /bin/bash
+root       348  0.0  0.0  87256  2492 pts/1    S    17:34   0:00 su shiny
+shiny      349  0.0  0.0  14376  2100 pts/1    S    17:34   0:00 bash
+rstudio    644  0.0  0.0  14380  1908 pts/3    Ss+  17:53   0:00 bash -l
+shiny      683  0.1  0.3 507924 130544 ?       Ssl  17:57   0:01 /usr/lib64/R/bin/exec/R --no-save --slave -f /opt/shiny-server/R/SockJSAdapter.R
+shiny      800  0.0  0.0  54296  1876 pts/1    R+   18:10   0:00 ps aux
 ```
 
 shiny-serverのレンダラでうまく行っていないときは以下の情報をもとに
