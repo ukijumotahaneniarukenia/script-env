@@ -11,19 +11,27 @@ grep "ANTICONF ERROR" pack_inst_log -A 10
 [最新版Rstudio](https://www.rstudio.com/products/rstudio/download/preview/)</br>
 
 curlパッケージをインストールするためいかを参考
-https://stackoverflow.com/questions/57989480/r-install-package-curl-handle-c301-error-unknown-type-name-curl-sslbacken
-https://github.com/jeroen/curl/issues/204#issuecomment-532162699
+https://stackoverflow.com/questions/57989480/r-install-package-curl-handle-c301-error-unknown-type-name-curl-sslbacken</br>
+https://github.com/jeroen/curl/issues/204#issuecomment-532162699 </br>
 
-# プロセス起動
+# rstudio-serverプロセス起動
 
 あいかわらず、systemdコマンド経由は不安定なので、泥臭く起動。
 
-ログインユーザーはrstudioユーザーでスクリプトはrootユーザーで起動。
+rstudioユーザーになる
 
 ```
-[rstudio❤542cc0682e68 (土  1月 04 23:22:34) ~]$ll /etc/rc.d/init.d/rstudio-server
+$su rstudio
+$whoami
+rstudio
+```
+
+rootユーザーで実行
+
+```
+$ll /etc/rc.d/init.d/rstudio-server
 -rwxr-xr-x. 1 root root 1100  1月  4 22:48 /etc/rc.d/init.d/rstudio-server
-[rstudio❤542cc0682e68 (土  1月 04 23:21:37) ~]$sudo /etc/rc.d/init.d/rstudio-server start
+$sudo /etc/rc.d/init.d/rstudio-server start
 Starting rstudio-server:                                   [  OK  ]
 ```
 
@@ -39,7 +47,16 @@ rstudio+   481  0.1  0.0 149428  3116 ?        Ssl  23:21   0:00 /usr/lib/rstudi
 rstudio    513  0.0  0.0  54296  1872 pts/2    R+   23:21   0:00 ps aux
 ```
 
-ログイン後
+ブラウザからアクセス
+
+ID:rstudio
+PW:rstudio_pwd
+
+```
+http://192.168.1.109:8787/
+```
+
+ログイン後のプロセス
 
 ログインユーザーに対してサーバーがトークン払い出している。
 
@@ -54,22 +71,16 @@ rstudio    523  2.6  0.2 479408 69304 ?        Sl   23:23   0:00 /usr/lib/rstudi
 rstudio    541  0.0  0.0  54296  1868 pts/2    R+   23:23   0:00 ps aux
 ```
 
-# ブラウザから起動確認
+# rstudio-serverプロセス停止
+
+rootユーザーで実行
 
 ```
-http://192.168.1.109:8787/
-```
-
-# プロセス停止
-
-ログインユーザーはrstudioユーザーでスクリプトはrootユーザーで起動。
-
-```
-[rstudio❤542cc0682e68 (土  1月 04 23:28:22) ~]$sudo /etc/rc.d/init.d/rstudio-server stop
+$sudo /etc/rc.d/init.d/rstudio-server stop
 Stopping rstudio-server:                                   [  OK  ]
 ```
 
-セッションを払い出すためのプロセスは前回の作業状態を復元するためのバッググランドプロセスなので、そっとしておく。
+セッションを払い出すためのプロセスは前回の作業状態を復元するためのバッググランドプロセスなので、そっとしておく
 ```
 $ps aux
 USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
@@ -81,9 +92,102 @@ rstudio    567  0.0  0.0  14380  2072 pts/3    Ss+  23:27   0:00 bash -l
 rstudio    617  0.0  0.0  54296  1864 pts/2    R+   23:29   0:00 ps aux
 ```
 
-# Dockerイメージ作成
+# shiny-serverプロセス起動
+
+shinyユーザーになる
+
 ```
-time docker build -t centos_rstudio . | tee log
+$su shiny
+Password: 
+$whoami
+shiny
+```
+
+ホームディレクトリで以下のコマンドをshinyユーザーで実行
+
+```
+$ll /opt/shiny-server/bin/shiny-server
+-rwxr-xr-x. 1 root root 25343  9月 12  2018 /opt/shiny-server/bin/shiny-server
+$/opt/shiny-server/bin/shiny-server 1>~/launch_shiny-server.log 2>&1 &
+[1] 87
+```
+
+ログ確認
+```
+$ll ~/launch_shiny-server.log
+-rw-rw-r--. 1 shiny shiny 280  1月  5 16:49 /home/shiny/launch_shiny-server.log
+
+$tail ~/launch_shiny-server.log
+[2020-01-05T16:49:48.879] [INFO] shiny-server - Shiny Server v1.5.9.923 (Node.js v8.11.3)
+[2020-01-05T16:49:48.880] [INFO] shiny-server - Using config file "/etc/shiny-server/shiny-server.conf"
+[2020-01-05T16:49:48.909] [INFO] shiny-server - Starting listener on http://[::]:3838
+```
+
+プロセス確認
+
+```
+$ps aux
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+rstudio      1  0.0  0.0  42696  1548 pts/0    Ss+  16:46   0:00 /usr/sbin/init
+rstudio     47  0.0  0.0  14376  2044 pts/1    Ss   16:48   0:00 /bin/bash
+root        68  0.0  0.0  87256  2496 pts/1    S    16:48   0:00 su shiny
+shiny       69  0.0  0.0  14376  2068 pts/1    S    16:48   0:00 bash
+shiny       87  0.3  0.1 935744 33828 pts/1    Sl   16:49   0:00 /opt/shiny-server/ext/node/bin/shiny-server /opt/shiny-server/lib/main.js
+shiny       99  0.0  0.0  54296  1872 pts/1    R+   16:50   0:00 ps aux
+```
+
+待受ポート確認
+
+```
+$lsof -i:3838
+COMMAND   PID  USER   FD   TYPE  DEVICE SIZE/OFF NODE NAME
+shiny-ser  87 shiny   10u  IPv6 2537109      0t0  TCP *:sos (LISTEN)
+```
+
+shiny-serverのレンダラでうまく行っていないときは以下の情報をもとに
+**/var/lib/shiny-server**ディレクトリの権限を変更する。
+
+https://github.com/rocker-org/shiny/issues/49 </br>
+
+```
+$ll /var/lib/
+total 72
+drwxr-xr-x. 1 root root 4096  1月  5 15:56 alternatives
+drwxr-xr-x. 2 root root 4096 11月  3  2018 dbus
+drwxr-xr-x. 2 root root 4096  4月 11  2018 games
+drwxr-xr-x. 2 root root 4096 11月  3  2018 initramfs
+drwx------. 2 root root 4096 12月  5  2018 machines
+drwxr-xr-x. 2 root root 4096  4月 11  2018 misc
+drwxr-xr-x. 1 root root 4096 12月  5  2018 rpm
+drwxr-xr-x. 1 root root 4096  1月  5 16:00 rpm-state
+drwxr-xr-x. 5 root root 4096  1月  5 15:47 rstudio-server
+drwxr-xr-x. 2 root root 4096  1月  5 15:47 shiny-server
+drwxr-xr-x. 4 root root 4096  1月  5 15:42 stateless
+drwxr-xr-x. 1 root root 4096 10月 19 01:48 systemd
+drwxr-xr-x. 3 root root 4096  1月  5 15:57 texmf
+drwxr-xr-x. 1 root root 4096  1月  5 16:10 yum
+$sudo chown shiny:shiny /var/lib/shiny-server
+$ll /var/lib/
+total 72
+drwxr-xr-x. 1 root  root  4096  1月  5 15:56 alternatives
+drwxr-xr-x. 2 root  root  4096 11月  3  2018 dbus
+drwxr-xr-x. 2 root  root  4096  4月 11  2018 games
+drwxr-xr-x. 2 root  root  4096 11月  3  2018 initramfs
+drwx------. 2 root  root  4096 12月  5  2018 machines
+drwxr-xr-x. 2 root  root  4096  4月 11  2018 misc
+drwxr-xr-x. 1 root  root  4096 12月  5  2018 rpm
+drwxr-xr-x. 1 root  root  4096  1月  5 16:00 rpm-state
+drwxr-xr-x. 5 root  root  4096  1月  5 15:47 rstudio-server
+drwxr-xr-x. 1 shiny shiny 4096  1月  5 15:47 shiny-server
+drwxr-xr-x. 4 root  root  4096  1月  5 15:42 stateless
+drwxr-xr-x. 1 root  root  4096 10月 19 01:48 systemd
+drwxr-xr-x. 3 root  root  4096  1月  5 15:57 texmf
+drwxr-xr-x. 1 root  root  4096  1月  5 16:10 yum
+```
+
+# dockerイメージ作成
+```
+time docker build -t centos_shiny-rstudio . | tee log
 ```
 
 # dockerコンテナ削除
@@ -98,10 +202,10 @@ docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
 
 # dockerコンテナ作成
 ```
-docker run --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -p 8787:8787 --name rstudio -itd centos_rstudio
+docker run --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -p 8787:8787 -p 3838:3838 --name shiny-rstudio -itd centos_shiny-rstudio
 ```
 
 # dockerコンテナ潜入
 ```
-docker exec --user rstudio -it rstudio /bin/bash
+docker exec --user rstudio -it shiny-rstudio /bin/bash
 ```
