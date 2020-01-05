@@ -1,5 +1,3 @@
-# shinyはrstudioと共存しない方が確かよかった。
-
 # dockerイメージ作成
 ```
 time docker build -t centos_shiny . | tee log
