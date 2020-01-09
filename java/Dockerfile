@@ -1,58 +1,46 @@
-FROM centos:latest
-
-#各種X関連コマンドインストール
-RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps
-
-RUN yum install -y java firefox
-
-#Xwindowシステムパッケージいんすこ
-RUN yum -y groupinstall "X Window System"
-RUN yum install -y PackageKit-gtk3-module
-
-#日本語フォントいんすこ
-RUN yum install -y vlgothic-*
-RUN yum install -y fcitx ibus
+FROM centos/systemd
 
 #ユーザー作成
-RUN groupadd -g 1001 java
-RUN useradd -m -g java -u 1001 java
-RUN chsh -s /bin/bash java
+RUN groupadd -g 1001 kuraine && \
+useradd -m -g kuraine -u 1001 kuraine && \
+chsh -s /bin/bash kuraine && \
+echo 'kuraine_pwd' | passwd --stdin kuraine && \
+echo 'kuraine ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
 RUN echo 'root_pwd' | passwd --stdin root
-RUN echo 'java_pwd' | passwd --stdin java
-RUN echo 'java ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
-#各種コマンドインストール
-RUN yum install -y epel-release 
-RUN yum install -y R
-RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man rlwrap
+#各種コマンドいんすこ
+RUN yum -y install epel-release
+RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man moreutils lbzip2 which perl-Digest-SHA unzip 
+#javaコマンドインストール
+RUN cd /usr/local/src && \
+curl -LO https://download.java.net/java/GA/jdk13/5b8a42f3905b406298b72d750b6919f6/33/GPL/openjdk-13_linux-x64_bin.tar.gz && \
+tar -zxvf openjdk-13_linux-x64_bin.tar.gz
 
-#perl パッケージ管理cpanmないしcpanインストール
-RUN yum install -y which perl-App-cpanminus wxGTK-devel perl-ExtUtils-Embed perl-File-HomeDir perl-Term-ReadLine-Gnu wxGTK3 cpan
+#日本語環境と時刻合わせ
+RUN yum -y reinstall glibc-common
+RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
+ENV LANG=ja_JP.UTF-8
+RUN rm -f /etc/localtime
+RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
-#Tukubaiコマンドは便利
-RUN cd ~ && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && \
-cd Open-usp-Tukubai && \
-make -j12 install
-
-#awkコマンドは最新の奴 include使える
-RUN cd ~ && curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && \
-tar -zxvf gawk-5.0.0.tar.gz && \
-cd gawk-5.0.0 && \
-./configure && \
-make -j12 && \
-make -j12 install
-
-#bashも最新
-RUN cd ~ && curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && \
-tar -zxvf bash-5.0.tar.gz && \
-cd bash-5.0 && \
-./configure && \
-make -j12 && \
-make -j12 install
+#各種X関連コマンドインストール
+RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps firefox
+#Xwindowシステムパッケージいんすこ
+RUN yum groupinstall -y base "X Window System" --setopt=group_package_types=mandatory,default,optional
+#XクライアントがXサーバーにGUI転送出来るように、転送先のIPを指定する
+ENV DISPLAY=:0.0
+#日本語フォントいんすこ
+RUN yum install -y vlgothic-*
+#以下の対応のためインストール
+#Gtk-Message: 23:27:11.098: Failed to load module "pk-gtk-module"
+RUN yum install -y PackageKit-gtk3-module
+#入力メソッドいんすこ
+RUN yum install -y ibus-mozc
 
 #vimも最新
 RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && \
-cd ~ && git clone https://github.com/vim/vim.git && \
+cd /usr/local/src && git clone https://github.com/vim/vim.git && \
 cd vim && \
 ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && \
 make -j12 distclean && \
@@ -77,38 +65,7 @@ RUN mkdir -p ~/.vim/bundle && \
 cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
 sh installer.sh ~/.vim/bundle && rm -rf installer.sh
 
-#python install
-RUN cd ~ && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && \
-tar -zxvf Python-3.7.4.tgz && \
-cd Python-3.7.4 && \
-./configure && \
-make -j12 && \
-make -j12 install
-
-#perl install
-RUN cd ~ && curl -LO https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz && \
-tar -xzf perl-5.30.0.tar.gz && \
-cd perl-5.30.0 && \
-./Configure -des -Dprefix=/usr/local/ && \
-make -j12 && \
-make -j12 install
-
-#parallelコマンド install
-RUN cd ~ && yum install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && \
-tar jxf parallel-latest.tar.bz2 && \
-cd parallel-20190822 && \
-./configure && \
-make -j12 && \
-make -j12 install
-
-#alias設定
-RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
-echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
-echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
-echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc
-
-#実行ユーザをjavaに変更
-USER java
+USER kuraine
 
 #自身のvim環境をクローン
 RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
@@ -126,44 +83,37 @@ RUN mkdir -p ~/.vim/bundle && \
 cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
 sh installer.sh ~/.vim/bundle && rm -rf installer.sh
 
-#guiアプリインストール
-#事前にダウンロードしておき、dockerコンテナにコピー。
-COPY ideaIC-2019.2.2.tar.gz /home/java/ideaIC-2019.2.2.tar.gz
-RUN cd ~ && tar -xzf ideaIC-2019.2.2.tar.gz && chown -R java:java idea-IC-192.6603.28
+#jetty
+RUN cd ~ && \
+curl -LO https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-distribution/9.4.24.v20191120/jetty-distribution-9.4.24.v20191120.tar.gz && \
+tar xvf jetty-distribution-9.4.24.v20191120.tar.gz
+
+#jersey
+RUN cd ~ && \
+curl -LO http://repo1.maven.org/maven2/org/glassfish/jersey/bundles/jaxrs-ri/2.29.1/jaxrs-ri-2.29.1.zip && \
+unzip jaxrs-ri-2.29.1.zip
+
+#ideaインストール
+COPY ideaIC-2019.2.4.tar.gz /home/kuraine/ideaIC-2019.2.4.tar.gz
+RUN cd ~ && tar -xzf ideaIC-2019.2.4.tar.gz && chown -R kuraine:kuraine idea-IC-192.7142.36
+
+#eclipseインストール
+COPY eclipse-inst-linux64.tar.gz /home/kuraine/eclipse-inst-linux64.tar.gz
+RUN cd ~ && tar xzf eclipse-inst-linux64.tar.gz
 
 #alias設定
-RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
-echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
-echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
-echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
-echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
-echo "alias vi=\"sudo vim\"" >> ~/.bashrc && \
-echo "alias idea=\"/home/java/idea-IC-192.6603.28/bin/idea.sh >~/launch_idea.log 2>&1 &\"" >> ~/.bashrc && \
-echo "export JAVA_HOME=/home/java/jdk-13" >> ~/.bashrc && \
-echo "export PATH=/home/java/jdk-13/bin:$PATH" >> ~/.bashrc
+RUN echo 'alias idea="/home/kuraine/idea-IC-192.7142.36/bin/idea.sh >~/launch_idea.log 2>&1 &"' >> ~/.bashrc && \
+echo 'export JAVA_HOME=/usr/local/src/jdk-13' >> ~/.bashrc && \
+echo 'export JETTY_HOME=~/jetty-distribution-9.4.24.v20191120' >> ~/.bashrc && \
+echo 'export CATALINA_HOME=$HOME/apache-tomcat-9.0.30' >> ~/.bashrc && \
+echo 'export PATH=$JAVA_HOME/bin:$CATALINA_HOME/bin:$JETTY_HOME/bin:$PATH' >> ~/.bashrc && \
+echo 'alias ecli="~/eclipse/jee-2019-12/eclipse/eclipse 1>~/launch_eclipse.log 2>&1 &"' >> ~/.bashrc 
 
-#javaインストール
-RUN cd ~ && curl -LO https://download.java.net/java/GA/jdk13/5b8a42f3905b406298b72d750b6919f6/33/GPL/openjdk-13_linux-x64_bin.tar.gz && tar -zxvf openjdk-13_linux-x64_bin.tar.gz
+RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/script_scratch.git
 
-#最後はrootに戻す
-USER root 
+#jettyサービス外部公開ポート
+EXPOSE 8080
 
-#日本語環境と時刻合わせ
-#RUN yum -y reinstall glibc-common
-RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
-ENV LANG=ja_JP.UTF-8
-RUN rm -f /etc/localtime
-RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+WORKDIR /home/kuraine
 
-#No such file or directory /etc/init.d/functionsの対策のためいんすこ
-RUN yum install -y initscripts
-RUN yum install -y --nogpgcheck https://s3.amazonaws.com/rstudio-ide-build/server/centos6/x86_64/rstudio-server-rhel-1.2.1568-x86_64.rpm 
-
-#sshdサービス外部公開ポート
-EXPOSE 22
-
-#javaサービス外部公開ポート
-EXPOSE 8787
-
-#XクライアントがXサーバーにGUI転送出来るように、転送先のIPを指定する
-ENV DISPLAY=:0.0
+CMD ["/usr/sbin/init"]

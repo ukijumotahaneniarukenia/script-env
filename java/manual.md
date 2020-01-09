@@ -31,7 +31,7 @@ docker ps -qa | xargs -I@ bash -c 'docker stop @ && docker rm @'
 # dockerコンテナ作成
 
 ```
-docker run --privileged --shm-size=8gb --name java -itd -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 28787:8787  centos_java /sbin/init
+docker run --privileged --shm-size=16gb --name java -itd -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 8080:8080 centos_java
 ```
 
 # dockerコンテナ潜入
