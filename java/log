@@ -1,846 +1,156 @@
 Sending build context to Docker daemon    728MB
-Step 1/34 : FROM centos/systemd
+Step 1/36 : FROM centos/systemd
  ---> 05d3c1e2d0c1
-Step 2/34 : RUN groupadd -g 1001 kuraine && useradd -m -g kuraine -u 1001 kuraine && chsh -s /bin/bash kuraine && echo 'kuraine_pwd' | passwd --stdin kuraine && echo 'kuraine ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+Step 2/36 : RUN groupadd -g 1001 kuraine && useradd -m -g kuraine -u 1001 kuraine && chsh -s /bin/bash kuraine && echo 'kuraine_pwd' | passwd --stdin kuraine && echo 'kuraine ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
  ---> Using cache
  ---> ac683dd168ac
-Step 3/34 : RUN echo 'root_pwd' | passwd --stdin root
+Step 3/36 : RUN echo 'root_pwd' | passwd --stdin root
  ---> Using cache
  ---> b595ffd459dd
-Step 4/34 : RUN yum -y install epel-release
+Step 4/36 : RUN yum -y install epel-release
  ---> Using cache
  ---> 80a33b4f4b7d
-Step 5/34 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man moreutils lbzip2 which perl-Digest-SHA unzip
+Step 5/36 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man moreutils lbzip2 which perl-Digest-SHA unzip
  ---> Using cache
  ---> 4b0c28f92b7a
-Step 6/34 : RUN cd /usr/local/src && curl -LO https://download.java.net/java/GA/jdk13/5b8a42f3905b406298b72d750b6919f6/33/GPL/openjdk-13_linux-x64_bin.tar.gz && tar -zxvf openjdk-13_linux-x64_bin.tar.gz
+Step 6/36 : RUN cd /usr/local/src && curl -LO https://download.java.net/java/GA/jdk13/5b8a42f3905b406298b72d750b6919f6/33/GPL/openjdk-13_linux-x64_bin.tar.gz && tar -zxvf openjdk-13_linux-x64_bin.tar.gz
  ---> Using cache
  ---> c6ebbabf251f
-Step 7/34 : RUN yum -y reinstall glibc-common
+Step 7/36 : RUN yum -y reinstall glibc-common
  ---> Using cache
  ---> ca4e3d2dde26
-Step 8/34 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
+Step 8/36 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
  ---> Using cache
  ---> 9c8615f5c48d
-Step 9/34 : ENV LANG=ja_JP.UTF-8
+Step 9/36 : ENV LANG=ja_JP.UTF-8
  ---> Using cache
  ---> 6f4fa8402e47
-Step 10/34 : RUN rm -f /etc/localtime
+Step 10/36 : RUN rm -f /etc/localtime
  ---> Using cache
  ---> 2266fabfd164
-Step 11/34 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+Step 11/36 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
  ---> Using cache
  ---> 9afdb745f697
-Step 12/34 : RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps firefox
+Step 12/36 : RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps firefox
  ---> Using cache
  ---> f84e38331250
-Step 13/34 : RUN yum groupinstall -y base "X Window System" --setopt=group_package_types=mandatory,default,optional
+Step 13/36 : RUN yum groupinstall -y base "X Window System" --setopt=group_package_types=mandatory,default,optional
  ---> Using cache
  ---> 5aad93df94e5
-Step 14/34 : ENV DISPLAY=:0.0
+Step 14/36 : ENV DISPLAY=:0.0
  ---> Using cache
  ---> d2c8a2b5ff73
-Step 15/34 : RUN yum install -y vlgothic-*
+Step 15/36 : RUN yum install -y vlgothic-*
  ---> Using cache
  ---> 97485cf2072e
-Step 16/34 : RUN yum install -y PackageKit-gtk3-module
+Step 16/36 : RUN yum install -y PackageKit-gtk3-module
  ---> Using cache
  ---> ee64251e73cf
-Step 17/34 : RUN yum install -y ibus-mozc
+Step 17/36 : RUN yum install -y ibus-mozc
  ---> Using cache
  ---> 5fe790d9e7e0
-Step 18/34 : RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd /usr/local/src && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
+Step 18/36 : RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd /usr/local/src && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
  ---> Using cache
  ---> c459d9af5cc1
-Step 19/34 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+Step 19/36 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
  ---> Using cache
  ---> 69c784cf1b29
-Step 20/34 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+Step 20/36 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
  ---> Using cache
  ---> 0428cc2b3868
-Step 21/34 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+Step 21/36 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
  ---> Using cache
  ---> 72e455cab58f
-Step 22/34 : USER kuraine
+Step 22/36 : USER kuraine
  ---> Using cache
  ---> 187b9c38829d
-Step 23/34 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+Step 23/36 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
  ---> Using cache
  ---> 64bbbe1dd191
-Step 24/34 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+Step 24/36 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
  ---> Using cache
  ---> 08aa8ef14bcf
-Step 25/34 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+Step 25/36 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
  ---> Using cache
  ---> 1c308290fe0a
-Step 26/34 : RUN cd ~ && curl -LO https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-distribution/9.4.24.v20191120/jetty-distribution-9.4.24.v20191120.tar.gz && tar xvf jetty-distribution-9.4.24.v20191120.tar.gz
- ---> Running in c8bf76d9d5ac
-[91m  % Total    % Received % Xferd [0m[91m Average Speed   Time    Time [0m[91m    Ti[0m[91mme  Curr[0m[91ment
- [0m[91m        [0m[91m    [0m[91m    [0m[91m              [0m[91m  Dloa[0m[91md [0m[91m U[0m[91mpl[0m[91moad   [0m[91mTota[0m[91ml   [0m[91mSp[0m[91ment [0m[91m [0m[91m  [0m[91mLef[0m[91mt  Speed
-[0m[91m  0   [0m[91m  0  [0m[91m  [0m[91m0   [0m[91m  0    0[0m[91m  [0m[91m   [0m[91m0 [0m[91m     [0m[91m0    [0m[91m  0 -[0m[91m-:--:-- -[0m[91m-:--:-- -[0m[91m-:--[0m[91m:--     0[0m[91m  0     0    0     0    0     0      0     [0m[91m 0 --:--:-- --:-[0m[91m-:-- --:--:-- [0m[91m    0[0m[91m  0 18.3M    0 62636    0     0  42967      0 [0m[91m 0:07:27  0:00:[0m[91m01  0:07:2[0m[91m6 42[0m[91m960[0m[91m  2 18.3M    2  456k    0     0   188k     [0m[91m 0  0:01:39  0:00:0[0m[91m2  0:01:37  188[0m[91mk[0m[91m  3 18.3M    3  712k    0     0   213k      0  [0m[91m0:01:27  0:00:03  0:01:24[0m[91m  213k[0m[91m  5 18.3M    5  968k    0     0   223k     [0m[91m 0  0:01:24  0:00[0m[91m:04  0:01:2[0m[91m0 [0m[91m 22[0m[91m3k[0m[91m  6 18.3M    6 1288k    0     0   240k [0m[91m     0  0:01:1[0m[91m8 [0m[91m 0:00:05[0m[91m  0:01[0m[91m:13  267k[0m[91m  8 18.3M    8 1656k    0     0   256k      0  0:01:13 [0m[91m 0:00:06 [0m[91m 0:01:0[0m[91m7  3[0m[91m18[0m[91mk[0m[91m 10 18.3M   10 1928k    0     0   261k    [0m[91m  0  0:01:11[0m[91m  0:00:[0m[91m07  0:01:04  297[0m[91mk[0m[91m 11 18.3M   11 2216k    0     0   265k  [0m[91m    0  0:01:10  0[0m[91m:00:08  0:01:02[0m[91m  300k[0m[91m 13 18.3M   13 2504k    0     0   268k      0 [0m[91m 0:01:09  0:00:09 [0m[91m 0:01:[0m[91m00  307k[0m[91m 15 18.3M   15 2872k    0     0   [0m[91m278k      0  0:01:[0m[91m07  0:00:10  [0m[91m0:00:57  318k[0m[91m 16 18.3M   16 3176k    0     0   279k     [0m[91m 0  0:01:07  0:00:11[0m[91m  0:00:56  [0m[91m310k[0m[91m 18 18.3M   18 3448k    0     0   279k      0  0[0m[91m:[0m[91m0[0m[91m1:07  0:[0m[91m00:12[0m[91m  [0m[91m0:0[0m[91m0:5[0m[91m5  3[0m[91m06k[0m[91m 20 18.3M   20 3768k    0     0   282k      0  [0m[91m0:01:06  0:00:13  0:00:53  309[0m[91mk[0m[91m 21 18.3M   21 4024k    0     0   280k      0  0:[0m[91m01:06  0:00:14  0:00:52  302k[0m[91m 23 18.3M   23 4328k    0     0   282k      0  0:[0m[91m01:06  0:00:15  0:00:[0m[91m51  [0m[91m291k[0m[91m 24 18.3M   24 4632k    0     0   283k      0[0m[91m  0:01:06  0:00:16 [0m[91m 0:00:50  292[0m[91mk[0m[91m 25 18.3M   25 4856k    0     0   280k      0  0:01:0[0m[91m7  0:00:17  0:00:50  281k[0m[91m 27 18.3M   27 5096k    0     0   277k      0  0:[0m[91m01:07  0:00:[0m[91m18  [0m[91m0:00:4[0m[91m9[0m[91m  266[0m[91mk[0m[91m 27 18.3M   27 5256k    0     0   271k    [0m[91m  0  0:01:09  0:00:19  [0m[91m0:00:5[0m[91m0  2[0m[91m46k[0m[91m 29 18.3M   29 5464k    0     0   268k [0m[91m     0 [0m[91m 0:01:0[0m[91m9  0:00:2[0m[91m0  0[0m[91m:00:[0m[91m49  227k[0m[91m 30 18.3M   30 5736k    0     0   268k      0  0:[0m[91m01:09  0:00:21 [0m[91m 0:00:48  2[0m[91m20k[0m[91m 32 18.3M   32 6024k    0     0   268k      [0m[91m0  0:0[0m[91m1:09  0:00:22  0:00:47  228[0m[91mk[0m[91m 33 18.3M   33 6264k    0     0   267k      0 [0m[91m 0:01:10  0:0[0m[91m0:23[0m[91m  [0m[91m0:00:47  [0m[91m230k[0m[91m 34 18.3M   34 650[0m[91m4k    0     0   267k      0  0:01:10  [0m[91m0:00:24  0[0m[91m:00:[0m[91m46[0m[91m  [0m[91m24[0m[91m9k[0m[91m 35 18.3M   35 6728k    0     0   265k      [0m[91m0  0:01:10  0:00:25  0:[0m[91m00:45  253k[0m[91m 36 18.3M   36 6888k    0     0   261k      [0m[91m0  0:01:[0m[91m11  0:00[0m[91m:2[0m[91m6  0:00:45[0m[91m  [0m[91m230k[0m[91m 37 18.3M   37 7096k    0     0   259k      0  0:[0m[91m01:12  0:00:27 [0m[91m 0:00:45  2[0m[91m18k[0m[91m 39 18.3M   39 7368k    0     0   260k      0  0:01:12[0m[91m  0:00:28[0m[91m  0:00[0m[91m:44 [0m[91m 22[0m[91m4k[0m[91m 40 18.3M   40 7656k    0     0   261k      0 [0m[91m 0:01:11  0:00:29 [0m[91m 0:[0m[91m00:42  230k[0m[91m 41 18.3M   41 7880k    0     0[0m[91m   259k      0  0:01[0m[91m:12  0[0m[91m:00[0m[91m:[0m[91m30[0m[91m  0:00:42  230[0m[91mk[0m[91m 42 18.3M   42 8072k    0     0   257k[0m[91m      0  0[0m[91m:01:12[0m[91m  0:[0m[91m00:31 [0m[91m 0:00:41  23[0m[91m7k[0m[91m 44 18.3M   44 8296k    0     0   256k      0 [0m[91m 0:01:13  0:00:3[0m[91m2  0:00:[0m[91m41[0m[91m  2[0m[91m39k[0m[91m 45 18.3M   45 8536k    0     0   256[0m[91mk      0  0:01:13 [0m[91m 0:00:33[0m[91m  [0m[91m0:00[0m[91m:40  2[0m[91m33k[0m[91m 46 18.3M   46 8712k    0     0   [0m[91m253k      0  0:0[0m[91m1:13[0m[91m  0:00:3[0m[91m4  0:00:39  21[0m[91m0k[0m[91m 47 18.3M   47 8904k    0     0   [0m[91m251k      0  0[0m[91m:01[0m[91m:14  0:00:35  0:00:39  204k[0m[91m 48 18.3M   48 9144k    0    [0m[91m 0   251k      0  0[0m[91m:01:14[0m[91m  0:[0m[91m00:36 [0m[91m 0[0m[91m:[0m[91m00:38[0m[91m  213k[0m[91m 49 18.3M   49 9336k    0     0   250k      0  0:01[0m[91m:15  0:00:37  0:00[0m[91m:38  20[0m[91m8k[0m[91m 51 18.3M   51 9576k    0     0   249k      [0m[91m0  0:01:15  0[0m[91m:00:[0m[91m38  0:0[0m[91m0:37  207k[0m[91m 52 18.3M   52 9832k    0     0   249k      0  0:01:15[0m[91m  0:00:39  0:00:36  220k[0m[91m 53 18.3M   53  9.8M    0     0   249k   [0m[91m   0  0:01:15  0:0[0m[91m0:40  0:00:35  2[0m[91m30k[0m[91m 55 18.3M   55 10.1M    0     [0m[91m0   250k      0  0:0[0m[91m1:14  0:00:41[0m[91m  0:00:33  242[0m[91mk[0m[91m 56 18.3M   56 10.4M    0     0   252k     [0m[91m 0  0:01:14[0m[91m  0[0m[91m:00[0m[91m:42  0:00:[0m[91m32  268k[0m[91m 57 18.3M   57 10.6M    0[0m[91m     0   25[0m[91m0k      0  0:0[0m[91m1:14  [0m[91m0:00[0m[91m:43  0:00:31  25[0m[91m9k[0m[91m 58 18.3M   58 10.7M    0     0   248k      0  0:01:15  0:00:44  0:00:3[0m[91m1  244k[0m[91m 59 18.3M   59 10.9M    0     0   247k [0m[91m     0  0:01:15  0:00:45  0:0[0m[91m0:30  23[0m[91m6k[0m[91m 61 18.3M   61 11.1M    0     0   247k      0  0:01:15[0m[91m  0:00:46  0:00:[0m[91m29  221k[0m[91m 62 18.3M   62 11.3M    0     0   246k      0  0:01:16[0m[91m  0:00:4[0m[91m7  0:00:29  1[0m[91m98k[0m[91m 63 18.3M   63 11.5M    0     0   245k      0  0:01:16 [0m[91m 0:00:48  0:0[0m[91m0:28[0m[91m  197k[0m[91m 64 18.3M   64 11.7M    0     0   244k     [0m[91m 0  0:[0m[91m01:16  0:00:49  0:0[0m[91m0:27 [0m[91m 20[0m[91m8k[0m[91m 65 18.3M   65 12.0M    0     0   244k      0  0:01:1[0m[91m6  0:00:50  0:00:26  211k[0m[91m 66 18.3M   66 12.2M    0     0   244k      0  0:01:16 [0m[91m 0:00:51  0:00:25  21[0m[91m4k[0m[91m 67 18.3M   67 12.3M    0     0   242k      0  0:01[0m[91m:17  0:00:52  0:00[0m[91m:25 [0m[91m 202k[0m[91m 68 18.3M   68 12.6M    0     0   242k      0  0:0[0m[91m1:17  0:00:53  0:00[0m[91m:24  213k[0m[91m 70 18.3M   70 12.8M    0     0   243k      0[0m[91m  0:01:17  0:00:5[0m[91m4  0:00:23 [0m[91m 227k[0m[91m 71 18.3M   71 13.1M    0     0   244k      0  0:01:16  0:00:55  0:00:21  2[0m[91m43k[0m[91m 73 18.3M   73 13.5M    0     0   246k      0  0:01:16  0:00:56  0:00:20  268k[0m[91m 75 18.3M   75 13.8M    0     0   247k      0  0:01:15  0:00:57  0:00:18  297k[0m[91m 76 18.3M   76 14.0M    0     0   245k      [0m[91m0  0:01:16  0:00:58  [0m[91m0:00:18  28[0m[91m1k[0m[91m 77 18.3M   77 14.1M    0   [0m[91m  0   [0m[91m243k      0  [0m[91m0:01:[0m[91m16  0:[0m[91m00[0m[91m:59  0:00:17  252k[0m[91m 78 18.3M   78 14.3M    0     0   243k      0  0:01:17  [0m[91m0:01:00  0:[0m[91m00:17[0m[91m  2[0m[91m33k[0m[91m 79 18.3M   79 14.5M    0     0   242k  [0m[91m    0  0:0[0m[91m1:17 [0m[91m 0:01:01  0:0[0m[91m0:16  20[0m[91m0k[0m[91m 80 18.3M   80 14.7M    0     0   241k      [0m[91m0[0m[91m  0:01:17  0:01:02[0m[91m  0:00:15 [0m[91m 1[0m[91m81k[0m[91m 81 18.3M   81 14.8M    0     0   240k   [0m[91m   0  0:01[0m[91m:18  0:0[0m[91m1:03  0:00:1[0m[91m5  176k[0m[91m 82 18.3M   82 15.0M    0     0   240k     [0m[91m 0  0:01[0m[91m:18  [0m[91m0:01:04  0[0m[91m:00:14  194k[0m[91m 83 18.3M   83 15.2M    0     0   23[0m[91m8k      0  0:[0m[91m01[0m[91m:1[0m[91m8  0:01:05  [0m[91m0:00:13  187[0m[91mk[0m[91m 83 18.3M   83 15.3M    0     0   237k      0  0[0m[91m:01:19  0[0m[91m:01:0[0m[91m6  [0m[91m0:00:13  173k[0m[91m 84 18.3M   84 15.5M    0     0   236k      0  0[0m[91m:01:19  0:01:0[0m[91m7  0:00:12  166k[0m[91m 85 18.3M   85 15.6M    0     0   234k      0  0:01:19  0:01:08  0:00:11  166k[0m[91m 86 18.3M   86 15.8M    0     0   233k      0  0:01:20  0:01:0[0m[91m9  0:0[0m[91m0:11  154k[0m[91m 87 18.3M   87 16.0M    0     0   233k      0  0:01:20  0:01:10  0:00:10  153k[0m[91m 87 18.3M   87 16.0M    0     0   23[0m[91m0k      0  0:01:21[0m[91m  0:01:11  0:00:10 [0m[91m 138k[0m[91m 88 18.3M   88 16.1M    0     0   228k      0  [0m[91m0:01:22  0:01:12  0:00:10[0m[91m  125k[0m[91m 88 18.3M   88 16.2M    0     0   226k     [0m[91m 0  0:01:22 [0m[91m 0:01:13  0[0m[91m:00:09  117k[0m[91m 89 18.3M   89 16.3M    0     0   225k      0  0:01:23  0:01:14  0:00:09  115k[0m[91m 90 18.3M   90 16.5M    0     0   225k      0  0:01:[0m[91m23  0:01:15[0m[91m  0[0m[91m:00[0m[91m:0[0m[91m8[0m[91m  115k[0m[91m 91 18.3M   91 16.6M    0     0   223k  [0m[91m    0  0:01:23  0:01:16  [0m[91m0:00:07 [0m[91m 129k[0m[91m 91 18.3M   91 16.7M    0     0   222k      [0m[91m0  0:01:24  0:01:17  0:[0m[91m00:07  127k[0m[91m 92 18.3M   92 16.9M    0     0   220k      0  0:01:24  0:01:[0m[91m18  0:00:06  132k[0m[91m 92 18.3M   92 17.0M    0     0   219k      0  0:01:25  0:01:19  0:00:06  127k[0m[91m 93 18.3M   93 17.1M    0     0   219k      0  0:01:25[0m[91m  0:01:20[0m[91m  0:00:05 [0m[91m 125k[0m[91m 94 18.3M   94 17.3M    0     0   218k      0  0:01:25  0:01:21  0:00:04  137k[0m[91m 95 18.3M   95 17.5M    0     0   218k      0  0:01:25  0:01:22  0:00:03  165k[0m[91m 97 18.3M   97 17.8M    0     0   218k      0  0:01:[0m[91m25  0:01:23[0m[91m  0:00[0m[91m:02  185k[0m[91m 98 18.3M   98 18.0M    0     0   219k   [0m[91m   0  0:01:25  [0m[91m0:[0m[91m01:[0m[91m24  0:00:01  217k[0m[91m100 18.3M  100 18.3M    0     0   220k      [0m[91m0  0:01:25  0:0[0m[91m1:25 -[0m[91m-:[0m[91m--:-- [0m[91m 245[0m[91mk
-[0mjetty-distribution-9.4.24.v20191120/
-jetty-distribution-9.4.24.v20191120/webapps/
-jetty-distribution-9.4.24.v20191120/bin/
-jetty-distribution-9.4.24.v20191120/resources/
-jetty-distribution-9.4.24.v20191120/demo-base/
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/ROOT/
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/ROOT/images/
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/css/
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/css/highlighter/
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/css/font-awesome/
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/js/
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/fonts/
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/test.d/
-jetty-distribution-9.4.24.v20191120/demo-base/resources/
-jetty-distribution-9.4.24.v20191120/demo-base/etc/
-jetty-distribution-9.4.24.v20191120/demo-base/lib/
-jetty-distribution-9.4.24.v20191120/demo-base/lib/ext/
-jetty-distribution-9.4.24.v20191120/demo-base/start.d/
-jetty-distribution-9.4.24.v20191120/etc/
-jetty-distribution-9.4.24.v20191120/etc/sessions/
-jetty-distribution-9.4.24.v20191120/etc/sessions/gcloud/
-jetty-distribution-9.4.24.v20191120/etc/sessions/file/
-jetty-distribution-9.4.24.v20191120/etc/sessions/jdbc/
-jetty-distribution-9.4.24.v20191120/etc/sessions/mongo/
-jetty-distribution-9.4.24.v20191120/etc/sessions/infinispan/
-jetty-distribution-9.4.24.v20191120/etc/sessions/session-data-cache/
-jetty-distribution-9.4.24.v20191120/etc/sessions/hazelcast/
-jetty-distribution-9.4.24.v20191120/etc/cdi/
-jetty-distribution-9.4.24.v20191120/logs/
-jetty-distribution-9.4.24.v20191120/lib/
-jetty-distribution-9.4.24.v20191120/lib/apache-jsp/
-jetty-distribution-9.4.24.v20191120/lib/websocket/
-jetty-distribution-9.4.24.v20191120/lib/mail/
-jetty-distribution-9.4.24.v20191120/lib/ext/
-jetty-distribution-9.4.24.v20191120/lib/fcgi/
-jetty-distribution-9.4.24.v20191120/lib/http2/
-jetty-distribution-9.4.24.v20191120/lib/apache-jstl/
-jetty-distribution-9.4.24.v20191120/lib/annotations/
-jetty-distribution-9.4.24.v20191120/lib/transactions/
-jetty-distribution-9.4.24.v20191120/lib/jaspi/
-jetty-distribution-9.4.24.v20191120/lib/spring/
-jetty-distribution-9.4.24.v20191120/lib/setuid/
-jetty-distribution-9.4.24.v20191120/modules/
-jetty-distribution-9.4.24.v20191120/modules/gcloud/
-jetty-distribution-9.4.24.v20191120/modules/jamon/
-jetty-distribution-9.4.24.v20191120/modules/ssl/
-jetty-distribution-9.4.24.v20191120/modules/global-webapp-common.d/
-jetty-distribution-9.4.24.v20191120/modules/logging-jetty/
-jetty-distribution-9.4.24.v20191120/modules/logging-jetty/resources/
-jetty-distribution-9.4.24.v20191120/modules/jul-slf4j/
-jetty-distribution-9.4.24.v20191120/modules/jul-slf4j/etc/
-jetty-distribution-9.4.24.v20191120/modules/jminix/
-jetty-distribution-9.4.24.v20191120/modules/logback-access/
-jetty-distribution-9.4.24.v20191120/modules/jolokia/
-jetty-distribution-9.4.24.v20191120/modules/openid/
-jetty-distribution-9.4.24.v20191120/modules/log4j-impl/
-jetty-distribution-9.4.24.v20191120/modules/log4j-impl/resources/
-jetty-distribution-9.4.24.v20191120/modules/sessions/
-jetty-distribution-9.4.24.v20191120/modules/sessions/jdbc/
-jetty-distribution-9.4.24.v20191120/modules/sessions/mongo/
-jetty-distribution-9.4.24.v20191120/modules/sessions/infinispan/
-jetty-distribution-9.4.24.v20191120/modules/sessions/infinispan/embedded/
-jetty-distribution-9.4.24.v20191120/modules/sessions/infinispan/remote/
-jetty-distribution-9.4.24.v20191120/modules/sessions/infinispan/remote/resources/
-jetty-distribution-9.4.24.v20191120/modules/sessions/session-data-cache/
-jetty-distribution-9.4.24.v20191120/modules/jul-impl/
-jetty-distribution-9.4.24.v20191120/modules/jul-impl/etc/
-jetty-distribution-9.4.24.v20191120/modules/logback-impl/
-jetty-distribution-9.4.24.v20191120/modules/logback-impl/resources/
-jetty-distribution-9.4.24.v20191120/modules/hawtio/
-jetty-distribution-9.4.24.v20191120/modules/conscrypt/
-jetty-distribution-9.4.24.v20191120/modules/inetaccess/
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/
-jetty-distribution-9.4.24.v20191120/modules/log4j2-impl/
-jetty-distribution-9.4.24.v20191120/modules/log4j2-impl/resources/
-jetty-distribution-9.4.24.v20191120/modules/slf4j-simple-impl/
-jetty-distribution-9.4.24.v20191120/modules/slf4j-simple-impl/resources/
-jetty-distribution-9.4.24.v20191120/webapps/README.TXT
-jetty-distribution-9.4.24.v20191120/start.ini
-jetty-distribution-9.4.24.v20191120/bin/jetty.sh
-jetty-distribution-9.4.24.v20191120/bin/jetty.service
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/async-rest.war
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/test-spec.xml
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/test.war
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/test-jndi.xml
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/test-jaas.war
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/test.xml
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/test-jndi.war
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/javadoc-proxy.war
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/test-spec.war
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/test-jaas.xml
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/ROOT/index.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/ROOT/images/webtide_logo.jpg
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/ROOT/images/jetty-header.jpg
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/ROOT/jetty.css
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/using-jetty-jndi.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jmx-chapter.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/releasing-jetty.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/configuring-sessions-gcloud.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/debugging-with-eclipse.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/quickstart-config-what.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/annotations.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jetty-classloading.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/http-client-cookie.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/embedding-jetty.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/http-client-api.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/configuring-sessions-infinispan.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/configuring-ssl.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/embedded-examples.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/contributing-documentation.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/hot-deployment.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jetty-jconsole.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jetty-dump-tool.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/qos-filter.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/configuring-connectors.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/index.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/preventing-memory-leaks.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/configuring-sessions-jdbc.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/header-filter.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/continuations-patterns.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/http2-configuring.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/sessions-usecases.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/resource-handler.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/configuring-sessions-file-system.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/framework-weld.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jetty-websocket-client-api.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/configuring-jsp.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jetty-admin-guide.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jetty-ref-guide.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/setting-form-size.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/alpn-chapter.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/upgrading-jetty.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jetty-env-xml.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/configuring-logging-modules.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/dos-filter.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/default-handler.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/using-annotations.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/css/docbook.css
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/css/highlighter/darkula.css
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/css/highlighter/github.css
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/css/highlighter/zenburn.css
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/css/highlighter/default.css
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/css/highlighter/googlecode.css
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/css/highlighter/foundation.css
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/css/font-awesome/font-awesome-ie7.min.css
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/css/font-awesome/font-awesome.css
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/css/font-awesome/font-awesome.min.css
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/css/font-awesome/font-awesome.css.map
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/continuations-using.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/configuring-sessions-hazelcast.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jetty-websocket-api-events.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jetty-maven-plugin.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/http-client-proxy.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/cloudfoundry.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/warning.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/modules-9.3-simplified.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/intellij_debug_view.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/basic-architecture-nested-handlers.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/intellij_select_debug.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/jetty-logo-shadow.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/intellij_new_remote_config.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/caution.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/favicon.ico
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/note.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/important.svg
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/jetty.gif
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/intellij_set_breakpoint.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/basic-architecture-patterns.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/jetty-high-level-architecture.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/basic-architecture-handlers.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/certificate-chain.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/Jetty_DeployManager_DefaultAppLifeCycleBindings.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/important.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/note.svg
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/modules-9.3-simplified.dot
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/caution.svg
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/jetty-logo-shadow.svg
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/windows-service-jetty.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/debug-eclipse-1.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/basic-architecture-web-application.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/warning.svg
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/debug-eclipse-2.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/debug-eclipse-3.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/jmc1.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/jmc3.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/SessionsHierarchy.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/jmc2.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/basic-architecture-servlet-handler.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/tip.svg
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/jetty-avatar.svg
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/jconsole3.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/jconsole2.jpg
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/Jetty_DeployManager_DeploymentManager_Roles.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/draft-ribbon.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/jetty-header-logo.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/jconsole1.jpg
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/tip.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/Jetty_DeployManager_AppLifeCycle-1.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/Jetty_Configuration_File_Relationships.png
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/images/jetty-logo.svg
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/start-jar.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jetty-websocket-api-annotations.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/ref-temporary-directories.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/configuring-specific-webapp-deployment.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/startup-modules.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/js/highlight.pack.js
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/quickstart-webapp.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jetty-xml-usage.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/platforms.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/automatic-webapp-deployment.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/error-handler.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/reference-section.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/advanced-contributing.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jetty-websocket-api-send-message.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/watchservice.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/setting-port80-access.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/quickstart-running-jetty.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/framework-metro.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/enable-remote-debugging.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/advanced-debugging.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jetty-ssl-distribution.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/startup-unix-service.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jndi.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/default-logging-with-stderrlog.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/ant-and-jetty.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/contributing-source-build.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/websocket-intro.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/deployment-architecture.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/architecture.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jetty-dev-guide.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/elastic-beanstalk.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/configuring-security.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/limit-load.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/quickstart-jetty-coordinates.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jelastic.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/runner.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/override-web-xml.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/debugging-with-intellij.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/quick-start-configure.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/moved-context-handler.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jetty-handlers.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jndi-datasource-examples.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/websocket-jetty.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/configuring-webapps.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/bugs.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/creating-custom-protocol.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/configuring-security-secure-passwords.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/static-content-deployment.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/quickstart-deploying-webapps.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/shutdown-handler.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/startup-classpath.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/debug-handler.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/http-client-transport.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/serving-webapp-from-particular-port.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/framework-jetty-osgi.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/configuring-logging.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jetty-web-xml-config.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/http2.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/custom-modules.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/proxy-servlet.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/startup-jpms.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/configuring-contexts.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jndi-configuration.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/troubleshooting-locked-files-on-windows.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jetty-maven-scanning.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/cross-origin-filter.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/startup-xml-config.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/configuring-sessions-mongo.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/session-configuration-housekeeper.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/session-management.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/using-annotations-embedded.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/balancer-servlet.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/configuring-deployment.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/ubuntu.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/session-configuration-sessioncache.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/fedora.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/statistics-handler.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/startup-base-and-home.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/startup-windows-service.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/serving-aliased-files.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/gzip-filter.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/what-jetty-version.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/high-load.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/configuring-fastcgi.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/webdefault-xml.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/frameworks.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/troubleshooting.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/http2-enabling.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jetty-jspc-maven-plugin.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/coding-standards.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/cgi-servlet.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jetty-websocket-api-session.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jndi-embedded.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/maven-and-jetty.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jetty-websocket-server-api.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/configuring-virtual-hosts.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/custom-error-pages.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/optimizing.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jetty-websocket-api-adapter.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/release-testing.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/continuations.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jetty-websocket-api-listener.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/quickstart-common-config.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/quick-start.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jaas-support.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/advanced-embedding.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/troubleshooting-slow-deployment.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/configuring-form-size.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/sessions-details.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/fastcgi.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/startup.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/http-client.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/session-configuration-memcachedsessiondatastore.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/configuring-sessions-memory.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/spnego-support.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jetty-javaee.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/configuring-jetty-request-logs.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jetty-config-guide.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/_enabling_websocket.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/fonts/fontawesome-webfont.svg
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/fonts/FontAwesome.otf
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/fonts/fontawesome-webfont.woff2
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/fonts/fontawesome-webfont.ttf
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/fonts/fontawesome-webfont.woff
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/fonts/fontawesome-webfont.eot
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/security-reports.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jetty-xml-config.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/security-reporting.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/http-client-authentication.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/introduction.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/example-logging-logback-centralized.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/ipaccess-handler.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/contributing-patches.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/http2-configuring-haproxy.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/rewrite-handler.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jetty-1xx-responses.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/quick-start-getting-started.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/advanced-extras.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/http2-configuring-push.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/ws-intro-api.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/doc/9.4.24.v20191120/jetty-jmx-annotations.html
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/README.TXT
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/example-moved.xml
-jetty-distribution-9.4.24.v20191120/demo-base/webapps/test.d/override-web.xml
-jetty-distribution-9.4.24.v20191120/demo-base/etc/test-realm.xml
-jetty-distribution-9.4.24.v20191120/demo-base/etc/keystore
-jetty-distribution-9.4.24.v20191120/demo-base/etc/login.properties
-jetty-distribution-9.4.24.v20191120/demo-base/etc/realm.properties
-jetty-distribution-9.4.24.v20191120/demo-base/etc/demo-rewrite-rules.xml
-jetty-distribution-9.4.24.v20191120/demo-base/etc/login.conf
-jetty-distribution-9.4.24.v20191120/demo-base/lib/ext/test-mock-resources-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/demo-base/start.d/jstl.ini
-jetty-distribution-9.4.24.v20191120/demo-base/start.d/client.ini
-jetty-distribution-9.4.24.v20191120/demo-base/start.d/ext.ini
-jetty-distribution-9.4.24.v20191120/demo-base/start.d/resources.ini
-jetty-distribution-9.4.24.v20191120/demo-base/start.d/demo.ini
-jetty-distribution-9.4.24.v20191120/demo-base/start.d/http.ini
-jetty-distribution-9.4.24.v20191120/demo-base/start.d/https.ini
-jetty-distribution-9.4.24.v20191120/demo-base/start.d/deploy.ini
-jetty-distribution-9.4.24.v20191120/demo-base/start.d/jndi.ini
-jetty-distribution-9.4.24.v20191120/demo-base/start.d/jsp.ini
-jetty-distribution-9.4.24.v20191120/demo-base/start.d/server.ini
-jetty-distribution-9.4.24.v20191120/demo-base/start.d/servlets.ini
-jetty-distribution-9.4.24.v20191120/demo-base/start.d/continuation.ini
-jetty-distribution-9.4.24.v20191120/demo-base/start.d/threadpool.ini
-jetty-distribution-9.4.24.v20191120/demo-base/start.d/annotations.ini
-jetty-distribution-9.4.24.v20191120/etc/jetty-debug.xml
-jetty-distribution-9.4.24.v20191120/etc/jdbcRealm.properties
-jetty-distribution-9.4.24.v20191120/etc/jetty-openid.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-stop.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-https.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-http2.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-http2c.xml
-jetty-distribution-9.4.24.v20191120/etc/rewrite-compactpath.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-deploy.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-plus.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-ssl.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-webapp.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-proxy-protocol-ssl.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-spring.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-proxy-protocol.xml
-jetty-distribution-9.4.24.v20191120/etc/home-base-warning.xml
-jetty-distribution-9.4.24.v20191120/etc/spnego.conf
-jetty-distribution-9.4.24.v20191120/etc/jetty-rewrite-customizer.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-started.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-debuglog.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-annotations.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-threadlimit.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-web-decorate.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-rewrite.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-jmx.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-bytebufferpool.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-connectionlimit.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-lowresources.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-ssl-context.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-threadpool.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-setuid.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-http.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-decorate.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-acceptratelimit.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-unixsocket-proxy-protocol.xml
-jetty-distribution-9.4.24.v20191120/etc/console-capture.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-requestlog.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-alpn.xml
-jetty-distribution-9.4.24.v20191120/etc/sessions/gcloud/session-store.xml
-jetty-distribution-9.4.24.v20191120/etc/sessions/file/session-store.xml
-jetty-distribution-9.4.24.v20191120/etc/sessions/id-manager.xml
-jetty-distribution-9.4.24.v20191120/etc/sessions/session-cache-hash.xml
-jetty-distribution-9.4.24.v20191120/etc/sessions/jdbc/session-store.xml
-jetty-distribution-9.4.24.v20191120/etc/sessions/jdbc/driver.xml
-jetty-distribution-9.4.24.v20191120/etc/sessions/jdbc/datasource.xml
-jetty-distribution-9.4.24.v20191120/etc/sessions/mongo/session-store-by-address.xml
-jetty-distribution-9.4.24.v20191120/etc/sessions/mongo/session-store-by-uri.xml
-jetty-distribution-9.4.24.v20191120/etc/sessions/infinispan/infinispan-common.xml
-jetty-distribution-9.4.24.v20191120/etc/sessions/infinispan/infinispan-remote-query.xml
-jetty-distribution-9.4.24.v20191120/etc/sessions/infinispan/infinispan-embedded.xml
-jetty-distribution-9.4.24.v20191120/etc/sessions/infinispan/infinispan-embedded-query.xml
-jetty-distribution-9.4.24.v20191120/etc/sessions/infinispan/infinispan-remote.xml
-jetty-distribution-9.4.24.v20191120/etc/sessions/session-data-cache/xmemcached.xml
-jetty-distribution-9.4.24.v20191120/etc/sessions/session-data-cache/session-caching-store.xml
-jetty-distribution-9.4.24.v20191120/etc/sessions/hazelcast/remote.xml
-jetty-distribution-9.4.24.v20191120/etc/sessions/hazelcast/default.xml
-jetty-distribution-9.4.24.v20191120/etc/sessions/session-cache-null.xml
-jetty-distribution-9.4.24.v20191120/etc/cdi/jetty-cdi.xml
-jetty-distribution-9.4.24.v20191120/etc/cdi/jetty-cdi2.xml
-jetty-distribution-9.4.24.v20191120/etc/cdi/jetty-web-cdi2.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-ipaccess.xml
-jetty-distribution-9.4.24.v20191120/etc/example-quickstart.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-http-forwarded.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-unixsocket-secure.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-unixsocket-http2c.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-unixsocket.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-unixsocket-forwarded.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-jaas.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-gzip.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-unixsocket-http.xml
-jetty-distribution-9.4.24.v20191120/etc/krb5.ini
-jetty-distribution-9.4.24.v20191120/etc/jetty-jmx-remote.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-proxy.xml
-jetty-distribution-9.4.24.v20191120/etc/README.spnego
-jetty-distribution-9.4.24.v20191120/etc/spnego.properties
-jetty-distribution-9.4.24.v20191120/etc/jetty-customrequestlog.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty.conf
-jetty-distribution-9.4.24.v20191120/etc/webdefault.xml
-jetty-distribution-9.4.24.v20191120/etc/jetty-stats.xml
-jetty-distribution-9.4.24.v20191120/logs/.donotdelete
-jetty-distribution-9.4.24.v20191120/notice.html
-jetty-distribution-9.4.24.v20191120/license-eplv10-aslv20.html
-jetty-distribution-9.4.24.v20191120/lib/jetty-schemas-3.1.jar
-jetty-distribution-9.4.24.v20191120/lib/apache-jsp/org.eclipse.jetty.apache-jsp-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/apache-jsp/org.mortbay.jasper.apache-el-8.5.40.jar
-jetty-distribution-9.4.24.v20191120/lib/apache-jsp/org.eclipse.jdt.ecj-3.17.0.jar
-jetty-distribution-9.4.24.v20191120/lib/apache-jsp/org.mortbay.jasper.apache-jsp-8.5.40.jar
-jetty-distribution-9.4.24.v20191120/lib/websocket/javax.websocket-api-1.0.jar
-jetty-distribution-9.4.24.v20191120/lib/websocket/javax-websocket-server-impl-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/websocket/websocket-server-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/websocket/javax-websocket-client-impl-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/websocket/websocket-servlet-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/websocket/websocket-api-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/websocket/websocket-common-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/websocket/websocket-client-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-cdi-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-gcloud-session-manager-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-unixsocket-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-plus-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-servlet-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-hazelcast-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-memcached-sessions-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-jndi-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/servlet-api-3.1.jar
-jetty-distribution-9.4.24.v20191120/lib/infinispan-embedded-query-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/mail/javax.mail.glassfish-1.4.1.v201005082020.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-security-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-quickstart-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/ext/.donotdelete
-jetty-distribution-9.4.24.v20191120/lib/jetty-openid-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/fcgi/fcgi-server-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/fcgi/fcgi-client-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-deploy-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-http-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-proxy-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/infinispan-common-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-xml-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-client-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-rewrite-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/infinispan-remote-query-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-webapp-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-alpn-conscrypt-server-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/http2/http2-common-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/http2/http2-hpack-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/http2/http2-server-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/apache-jstl/org.apache.taglibs.taglibs-standard-spec-1.2.5.jar
-jetty-distribution-9.4.24.v20191120/lib/apache-jstl/org.apache.taglibs.taglibs-standard-impl-1.2.5.jar
-jetty-distribution-9.4.24.v20191120/lib/annotations/javax.annotation-api-1.3.jar
-jetty-distribution-9.4.24.v20191120/lib/annotations/asm-7.2.jar
-jetty-distribution-9.4.24.v20191120/lib/annotations/asm-commons-7.2.jar
-jetty-distribution-9.4.24.v20191120/lib/annotations/asm-tree-7.2.jar
-jetty-distribution-9.4.24.v20191120/lib/annotations/asm-analysis-7.2.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-jmx-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/transactions/javax.transaction-api-1.3.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-alpn-openjdk8-server-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-alpn-server-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/alpn-api-1.1.3.v20160715.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-util-ajax-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-alpn-java-server-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-continuation-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-servlets-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-jaspi-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-jaas-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-server-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-util-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-nosql-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/jaspi/javax.security.auth.message-1.0.0.v201108011116.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-io-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/jetty-annotations-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/spring/jetty-spring-9.4.24.v20191120.jar
-jetty-distribution-9.4.24.v20191120/lib/setuid/jetty-setuid-java-1.0.3.jar
-jetty-distribution-9.4.24.v20191120/lib/setuid/libsetuid-osx.so
-jetty-distribution-9.4.24.v20191120/lib/setuid/libsetuid-linux.so
-jetty-distribution-9.4.24.v20191120/README.TXT
-jetty-distribution-9.4.24.v20191120/VERSION.txt
-jetty-distribution-9.4.24.v20191120/start.jar
-jetty-distribution-9.4.24.v20191120/modules/stats.mod
-jetty-distribution-9.4.24.v20191120/modules/session-store-gcloud.mod
-jetty-distribution-9.4.24.v20191120/modules/jolokia.mod
-jetty-distribution-9.4.24.v20191120/modules/console-capture.mod
-jetty-distribution-9.4.24.v20191120/modules/gcloud/index.yaml
-jetty-distribution-9.4.24.v20191120/modules/logging-jul.mod
-jetty-distribution-9.4.24.v20191120/modules/logging-jetty.mod
-jetty-distribution-9.4.24.v20191120/modules/logging-logback.mod
-jetty-distribution-9.4.24.v20191120/modules/jamon/jamon.xml
-jetty-distribution-9.4.24.v20191120/modules/alpn.mod
-jetty-distribution-9.4.24.v20191120/modules/ssl.mod
-jetty-distribution-9.4.24.v20191120/modules/apache-jsp.mod
-jetty-distribution-9.4.24.v20191120/modules/ssl/keystore
-jetty-distribution-9.4.24.v20191120/modules/cdi-decorate.mod
-jetty-distribution-9.4.24.v20191120/modules/customrequestlog.mod
-jetty-distribution-9.4.24.v20191120/modules/jmx-remote.mod
-jetty-distribution-9.4.24.v20191120/modules/jaas.mod
-jetty-distribution-9.4.24.v20191120/modules/gzip.mod
-jetty-distribution-9.4.24.v20191120/modules/infinispan-embedded-query.mod
-jetty-distribution-9.4.24.v20191120/modules/infinispan-remote.mod
-jetty-distribution-9.4.24.v20191120/modules/global-webapp-common.d/webapp-common.xml
-jetty-distribution-9.4.24.v20191120/modules/global-webapp-common.d/global-webapp-common.xml
-jetty-distribution-9.4.24.v20191120/modules/ext.mod
-jetty-distribution-9.4.24.v20191120/modules/proxy.mod
-jetty-distribution-9.4.24.v20191120/modules/unixsocket-forwarded.mod
-jetty-distribution-9.4.24.v20191120/modules/slf4j-log4j.mod
-jetty-distribution-9.4.24.v20191120/modules/log4j2-impl.mod
-jetty-distribution-9.4.24.v20191120/modules/session-store-jdbc.mod
-jetty-distribution-9.4.24.v20191120/modules/log4j2-api.mod
-jetty-distribution-9.4.24.v20191120/modules/cdi2.mod
-jetty-distribution-9.4.24.v20191120/modules/logging-jetty/resources/jetty-logging.properties
-jetty-distribution-9.4.24.v20191120/modules/quickstart.mod
-jetty-distribution-9.4.24.v20191120/modules/debuglog.mod
-jetty-distribution-9.4.24.v20191120/modules/jul-impl.mod
-jetty-distribution-9.4.24.v20191120/modules/resources.mod
-jetty-distribution-9.4.24.v20191120/modules/unixsocket-proxy-protocol.mod
-jetty-distribution-9.4.24.v20191120/modules/unixsocket-http.mod
-jetty-distribution-9.4.24.v20191120/modules/flight-recorder.mod
-jetty-distribution-9.4.24.v20191120/modules/jul-slf4j/etc/java-util-logging.properties
-jetty-distribution-9.4.24.v20191120/modules/session-store-hazelcast-embedded.mod
-jetty-distribution-9.4.24.v20191120/modules/log4j2-slf4j.mod
-jetty-distribution-9.4.24.v20191120/modules/gcloud-datastore.mod
-jetty-distribution-9.4.24.v20191120/modules/session-store-cache.mod
-jetty-distribution-9.4.24.v20191120/modules/security.mod
-jetty-distribution-9.4.24.v20191120/modules/unixsocket.mod
-jetty-distribution-9.4.24.v20191120/modules/logging-slf4j.mod
-jetty-distribution-9.4.24.v20191120/modules/session-store-file.mod
-jetty-distribution-9.4.24.v20191120/modules/jminix/jminix.xml
-jetty-distribution-9.4.24.v20191120/modules/requestlog.mod
-jetty-distribution-9.4.24.v20191120/modules/cdi.mod
-jetty-distribution-9.4.24.v20191120/modules/jmx.mod
-jetty-distribution-9.4.24.v20191120/modules/session-store-mongo.mod
-jetty-distribution-9.4.24.v20191120/modules/session-cache-null.mod
-jetty-distribution-9.4.24.v20191120/modules/logback-access/logback-access.xml
-jetty-distribution-9.4.24.v20191120/modules/logback-access/jetty-logback-access.xml
-jetty-distribution-9.4.24.v20191120/modules/http-forwarded.mod
-jetty-distribution-9.4.24.v20191120/modules/jstl.mod
-jetty-distribution-9.4.24.v20191120/modules/jolokia/jolokia.xml
-jetty-distribution-9.4.24.v20191120/modules/lowresources.mod
-jetty-distribution-9.4.24.v20191120/modules/client.mod
-jetty-distribution-9.4.24.v20191120/modules/global-webapp-common.mod
-jetty-distribution-9.4.24.v20191120/modules/decorate.mod
-jetty-distribution-9.4.24.v20191120/modules/servlets.mod
-jetty-distribution-9.4.24.v20191120/modules/slf4j-log4j2.mod
-jetty-distribution-9.4.24.v20191120/modules/plus.mod
-jetty-distribution-9.4.24.v20191120/modules/acceptratelimit.mod
-jetty-distribution-9.4.24.v20191120/modules/jamon.mod
-jetty-distribution-9.4.24.v20191120/modules/websocket.mod
-jetty-distribution-9.4.24.v20191120/modules/jaspi.mod
-jetty-distribution-9.4.24.v20191120/modules/continuation.mod
-jetty-distribution-9.4.24.v20191120/modules/fcgi.mod
-jetty-distribution-9.4.24.v20191120/modules/connectionlimit.mod
-jetty-distribution-9.4.24.v20191120/modules/jdbc.mod
-jetty-distribution-9.4.24.v20191120/modules/openid/openid-baseloginservice.xml
-jetty-distribution-9.4.24.v20191120/modules/logback-access.mod
-jetty-distribution-9.4.24.v20191120/modules/log4j-impl/resources/log4j.xml
-jetty-distribution-9.4.24.v20191120/modules/sessions/jdbc/datasource.mod
-jetty-distribution-9.4.24.v20191120/modules/sessions/jdbc/driver.mod
-jetty-distribution-9.4.24.v20191120/modules/sessions/mongo/uri.mod
-jetty-distribution-9.4.24.v20191120/modules/sessions/mongo/address.mod
-jetty-distribution-9.4.24.v20191120/modules/sessions/infinispan/infinispan-common.mod
-jetty-distribution-9.4.24.v20191120/modules/sessions/infinispan/embedded/infinispan-embedded-serverclasses.mod
-jetty-distribution-9.4.24.v20191120/modules/sessions/infinispan/embedded/infinispan.xml
-jetty-distribution-9.4.24.v20191120/modules/sessions/infinispan/embedded/infinispan-embedded-query-libs.mod
-jetty-distribution-9.4.24.v20191120/modules/sessions/infinispan/embedded/infinispan-embedded-libs.mod
-jetty-distribution-9.4.24.v20191120/modules/sessions/infinispan/remote/infinispan-remote-serverclasses.mod
-jetty-distribution-9.4.24.v20191120/modules/sessions/infinispan/remote/resources/hotrod-client.properties
-jetty-distribution-9.4.24.v20191120/modules/sessions/infinispan/remote/infinispan-remote-query-libs.mod
-jetty-distribution-9.4.24.v20191120/modules/sessions/infinispan/remote/other_proto_marshallers.xml
-jetty-distribution-9.4.24.v20191120/modules/sessions/infinispan/remote/infinispan-remote-libs.mod
-jetty-distribution-9.4.24.v20191120/modules/sessions/session-data-cache/xmemcached.mod
-jetty-distribution-9.4.24.v20191120/modules/threadpool.mod
-jetty-distribution-9.4.24.v20191120/modules/rewrite-compactpath.mod
-jetty-distribution-9.4.24.v20191120/modules/annotations.mod
-jetty-distribution-9.4.24.v20191120/modules/ipaccess.mod
-jetty-distribution-9.4.24.v20191120/modules/log4j-impl.mod
-jetty-distribution-9.4.24.v20191120/modules/deprecated.properties
-jetty-distribution-9.4.24.v20191120/modules/stop.mod
-jetty-distribution-9.4.24.v20191120/modules/transactions.mod
-jetty-distribution-9.4.24.v20191120/modules/jvm.mod
-jetty-distribution-9.4.24.v20191120/modules/.donotdelete
-jetty-distribution-9.4.24.v20191120/modules/jul-impl/etc/java-util-logging.properties
-jetty-distribution-9.4.24.v20191120/modules/unixsocket-secure.mod
-jetty-distribution-9.4.24.v20191120/modules/setuid.mod
-jetty-distribution-9.4.24.v20191120/modules/logback-impl/resources/logback.xml
-jetty-distribution-9.4.24.v20191120/modules/home-base-warning.mod
-jetty-distribution-9.4.24.v20191120/modules/hawtio.mod
-jetty-distribution-9.4.24.v20191120/modules/logback-impl.mod
-jetty-distribution-9.4.24.v20191120/modules/mail.mod
-jetty-distribution-9.4.24.v20191120/modules/hawtio/hawtio.xml
-jetty-distribution-9.4.24.v20191120/modules/server.mod
-jetty-distribution-9.4.24.v20191120/modules/conscrypt/conscrypt.xml
-jetty-distribution-9.4.24.v20191120/modules/infinispan-remote-query.mod
-jetty-distribution-9.4.24.v20191120/modules/session-store-infinispan-remote.mod
-jetty-distribution-9.4.24.v20191120/modules/sessions.mod
-jetty-distribution-9.4.24.v20191120/modules/cdi-spi.mod
-jetty-distribution-9.4.24.v20191120/modules/inetaccess/jetty-inetaccess.xml
-jetty-distribution-9.4.24.v20191120/modules/bytebufferpool.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_211.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-9.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-8.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_172.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_212.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_31.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_25.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_171.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_20.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_161.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_202.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_162.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_201.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_92.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_45.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_51.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_111.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_91.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_112.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_102.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_40.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_101.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_131.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_71.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_65.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_73.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_66.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_72.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_77.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_121.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_74.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_60.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_191.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_152.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-10.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-11.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_231.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_192.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_151.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-13.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-12.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_144.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_05.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_11.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_232.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_222.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_141.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_221.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-14.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl/alpn-1.8.0_181.mod
-jetty-distribution-9.4.24.v20191120/modules/unixsocket-http2c.mod
-jetty-distribution-9.4.24.v20191120/modules/jcl-slf4j.mod
-jetty-distribution-9.4.24.v20191120/modules/apache-jstl.mod
-jetty-distribution-9.4.24.v20191120/modules/http2c.mod
-jetty-distribution-9.4.24.v20191120/modules/gcloud.mod
-jetty-distribution-9.4.24.v20191120/modules/log4j2-impl/resources/log4j2.xml
-jetty-distribution-9.4.24.v20191120/modules/slf4j-simple-impl/resources/simplelogger.properties
-jetty-distribution-9.4.24.v20191120/modules/slf4j-logback.mod
-jetty-distribution-9.4.24.v20191120/modules/logging-log4j2.mod
-jetty-distribution-9.4.24.v20191120/modules/jndi.mod
-jetty-distribution-9.4.24.v20191120/modules/deploy.mod
-jetty-distribution-9.4.24.v20191120/modules/openid.mod
-jetty-distribution-9.4.24.v20191120/modules/jsp.mod
-jetty-distribution-9.4.24.v20191120/modules/servlet.mod
-jetty-distribution-9.4.24.v20191120/modules/rewrite.mod
-jetty-distribution-9.4.24.v20191120/modules/logging-log4j.mod
-jetty-distribution-9.4.24.v20191120/modules/rewrite-customizer.mod
-jetty-distribution-9.4.24.v20191120/modules/session-store-hazelcast-remote.mod
-jetty-distribution-9.4.24.v20191120/modules/threadlimit.mod
-jetty-distribution-9.4.24.v20191120/modules/infinispan-embedded.mod
-jetty-distribution-9.4.24.v20191120/modules/conscrypt.mod
-jetty-distribution-9.4.24.v20191120/modules/session-store-infinispan-embedded.mod
-jetty-distribution-9.4.24.v20191120/modules/slf4j-simple-impl.mod
-jetty-distribution-9.4.24.v20191120/modules/session-cache-hash.mod
-jetty-distribution-9.4.24.v20191120/modules/jul-slf4j.mod
-jetty-distribution-9.4.24.v20191120/modules/http.mod
-jetty-distribution-9.4.24.v20191120/modules/slf4j-api.mod
-jetty-distribution-9.4.24.v20191120/modules/https.mod
-jetty-distribution-9.4.24.v20191120/modules/http2.mod
-jetty-distribution-9.4.24.v20191120/modules/inetaccess.mod
-jetty-distribution-9.4.24.v20191120/modules/proxy-protocol-ssl.mod
-jetty-distribution-9.4.24.v20191120/modules/spring.mod
-jetty-distribution-9.4.24.v20191120/modules/slf4j-jul.mod
-jetty-distribution-9.4.24.v20191120/modules/webapp.mod
-jetty-distribution-9.4.24.v20191120/modules/alpn-impl.mod
-jetty-distribution-9.4.24.v20191120/modules/debug.mod
-jetty-distribution-9.4.24.v20191120/modules/jminix.mod
-jetty-distribution-9.4.24.v20191120/modules/proxy-protocol.mod
-Removing intermediate container c8bf76d9d5ac
+Step 26/36 : RUN cd ~ && curl -LO https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-distribution/9.4.24.v20191120/jetty-distribution-9.4.24.v20191120.tar.gz && tar xvf jetty-distribution-9.4.24.v20191120.tar.gz
+ ---> Using cache
  ---> c1646ef8227e
-Step 27/34 : COPY ideaIC-2019.2.4.tar.gz /home/kuraine/ideaIC-2019.2.4.tar.gz
- ---> a08a9498c0f0
-Step 28/34 : RUN cd ~ && tar -xzf ideaIC-2019.2.4.tar.gz && chown -R kuraine:kuraine idea-IC-192.7142.36
- ---> Running in e22c3aa80ef0
-Removing intermediate container e22c3aa80ef0
- ---> 82d0971344b2
-Step 29/34 : COPY eclipse-inst-linux64.tar.gz /home/kuraine/eclipse-inst-linux64.tar.gz
- ---> 0a95d9475519
-Step 30/34 : RUN cd ~ && tar xzf eclipse-inst-linux64.tar.gz
- ---> Running in acb1074dc819
-Removing intermediate container acb1074dc819
- ---> 14fa1e230498
-Step 31/34 : RUN echo 'alias idea="/home/kuraine/idea-IC-192.7142.36/bin/idea.sh >~/launch_idea.log 2>&1 &"' >> ~/.bashrc && echo 'export JAVA_HOME=/usr/local/src/jdk-13' >> ~/.bashrc && echo 'export CATALINA_HOME=$HOME/apache-tomcat-9.0.30' >> ~/.bashrc && echo 'export PATH=$JAVA_HOME/bin:$CATALINA_HOME/bin:$PATH' >> ~/.bashrc
- ---> Running in 61bc65a769e9
-Removing intermediate container 61bc65a769e9
- ---> b5959151582f
-Step 32/34 : EXPOSE 8080
- ---> Running in eb594412cbd0
-Removing intermediate container eb594412cbd0
- ---> 3180dd702282
-Step 33/34 : WORKDIR /home/kuraine
- ---> Running in 08ce86580cf6
-Removing intermediate container 08ce86580cf6
- ---> 84d8888b2b9f
-Step 34/34 : CMD ["/usr/sbin/init"]
- ---> Running in 10d7021c5bdd
-Removing intermediate container 10d7021c5bdd
- ---> 2d42cfc746fe
-Successfully built 2d42cfc746fe
+Step 27/36 : RUN cd ~ && curl -LO http://repo1.maven.org/maven2/org/glassfish/jersey/bundles/jaxrs-ri/2.29.1/jaxrs-ri-2.29.1.zip && unzip jaxrs-ri-2.29.1.zip
+ ---> Running in 6f399951188b
+[91m  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0[0m[91m  0 5857k    0 58884    0     0  62320      0  0:01[0m[91m:36 --:-[0m[91m-:--  0:01:36 [0m[91m62311[0m[91m  7 5857k    7  416k    0     0   209k      0  [0m[91m0:00:27 [0m[91m 0:00[0m[91m:01[0m[91m [0m[91m 0:00:26  209k[0m[91m 12 5857k   12  720k    0     0   244k      0  [0m[91m0:00:23  0:00:0[0m[91m2  [0m[91m0:[0m[91m00:21[0m[91m  24[0m[91m4k[0m[91m 17 5857k   17 1014k    0     0   257k      0  0:0[0m[91m0:22  0:00:03  0[0m[91m:0[0m[91m0:19  257k[0m[91m 21 5857k   21 1281k    0     0   258k      0 [0m[91m 0:00:22  0:[0m[91m00[0m[91m:0[0m[91m4  0:00:18  258k[0m[91m 27 5857k   27 1610k    0     0   270k   [0m[91m   0  0[0m[91m:00[0m[91m:2[0m[91m1 [0m[91m 0:[0m[91m00[0m[91m:05 [0m[91m 0:00:16  310k[0m[91m 33 5857k   33 1961k    0     0   282k      0  [0m[91m0:00:20  0:00:06  [0m[91m0:00:14  3[0m[91m11k[0m[91m 39 5857k   39 2333k    0     0   293k      [0m[91m0  0:[0m[91m00:19  0:00:07  0:00:12  322k[0m[91m 47 5857k   47 2795k    0     0   312k     [0m[91m 0  0:00:18  0:00:08  0:0[0m[91m0:10  356k[0m[91m 54 5857k   54 3184k    0     0   318k      0[0m[91m  0:00:18  0:00:0[0m[91m9  0:00:09  378k[0m[91m 59 5857k   59 3492k    0     0   317k     [0m[91m 0  0:00:18  0:00:10  0:00:[0m[91m08  372k[0m[91m 62 5857k   62 3663k    0     0   306k[0m[91m      0  [0m[91m0:00:19  0:00:11[0m[91m  0:[0m[91m00:08  340k[0m[91m 65 5857k   65 3844k    0     0   296k     [0m[91m 0  0:00:19  0[0m[91m:[0m[91m00:12 [0m[91m 0:00:07  301k[0m[91m 69 5857k   69 4060k    0     0   291[0m[91mk      0[0m[91m  0:[0m[91m00:20  0:00[0m[91m:13  0:00:07[0m[91m  2[0m[91m52k[0m[91m 73 5857k   73 4323k    0     0  [0m[91m 289[0m[91mk      0  0:00:20  0[0m[91m:00:14  0:00:06  229k[0m[91m 79 5857k   79 4663k    0     0[0m[91m   292k    [0m[91m  0  0[0m[91m:00:20  0:00:15 [0m[91m 0:00:05  236[0m[91mk[0m[91m 86 5857k   86 5078k    0 [0m[91m    0   299k      0  0[0m[91m:00:19  0:00[0m[91m:16 [0m[91m 0:0[0m[91m0:[0m[91m03  2[0m[91m82k[0m[91m 96 5857k   96 5650k    0     0   311k      [0m[91m0  0:00:18  0:00:18 --:-[0m[91m-:--  347k[0m[91m100 5857k  100 5857k    0     0   319k   [0m[91m   0  0:00:18  0:00:18 [0m[91m--:--:--  [0m[91m407k
+[0mArchive:  jaxrs-ri-2.29.1.zip
+   creating: jaxrs-ri/
+  inflating: jaxrs-ri/Jersey-LICENSE.md  
+  inflating: jaxrs-ri/NOTICE.md      
+   creating: jaxrs-ri/api/
+ extracting: jaxrs-ri/api/jakarta.ws.rs-api-2.1.6.jar  
+   creating: jaxrs-ri/lib/
+ extracting: jaxrs-ri/lib/jersey-hk2.jar  
+ extracting: jaxrs-ri/lib/jersey-common.jar  
+ extracting: jaxrs-ri/lib/jersey-media-jaxb.jar  
+ extracting: jaxrs-ri/lib/jersey-media-json-binding.jar  
+ extracting: jaxrs-ri/lib/jersey-client.jar  
+ extracting: jaxrs-ri/lib/jersey-server.jar  
+ extracting: jaxrs-ri/lib/jersey-container-servlet-core.jar  
+ extracting: jaxrs-ri/lib/jersey-container-servlet.jar  
+ extracting: jaxrs-ri/lib/jersey-media-sse.jar  
+   creating: jaxrs-ri/ext/
+ extracting: jaxrs-ri/ext/jakarta.inject-2.6.1.jar  
+ extracting: jaxrs-ri/ext/osgi-resource-locator-1.0.3.jar  
+ extracting: jaxrs-ri/ext/jakarta.json-1.1.5.jar  
+ extracting: jaxrs-ri/ext/yasson-1.0.3.jar  
+ extracting: jaxrs-ri/ext/jakarta.json.bind-api-1.0.2.jar  
+ extracting: jaxrs-ri/ext/jakarta.json-api-1.1.5.jar  
+ extracting: jaxrs-ri/ext/jakarta.xml.bind-api-2.3.2.jar  
+ extracting: jaxrs-ri/ext/jakarta.activation-api-1.2.1.jar  
+ extracting: jaxrs-ri/ext/jakarta.ws.rs-api-2.1.6-sources.jar  
+ extracting: jaxrs-ri/ext/jakarta.annotation-api-1.3.5.jar  
+ extracting: jaxrs-ri/ext/hk2-locator-2.6.1.jar  
+ extracting: jaxrs-ri/ext/aopalliance-repackaged-2.6.1.jar  
+ extracting: jaxrs-ri/ext/hk2-api-2.6.1.jar  
+ extracting: jaxrs-ri/ext/hk2-utils-2.6.1.jar  
+ extracting: jaxrs-ri/ext/javassist-3.25.0-GA.jar  
+ extracting: jaxrs-ri/ext/jakarta.validation-api-2.0.2.jar  
+ extracting: jaxrs-ri/ext/org.osgi.core-6.0.0.jar  
+ extracting: jaxrs-ri/ext/jakarta.servlet-api-4.0.3.jar  
+ extracting: jaxrs-ri/ext/jakarta.persistence-api-2.2.3.jar  
+Removing intermediate container 6f399951188b
+ ---> 2def71a1c5d9
+Step 28/36 : COPY ideaIC-2019.2.4.tar.gz /home/kuraine/ideaIC-2019.2.4.tar.gz
+ ---> dcfea62b5a5f
+Step 29/36 : RUN cd ~ && tar -xzf ideaIC-2019.2.4.tar.gz && chown -R kuraine:kuraine idea-IC-192.7142.36
+ ---> Running in af85fcede6e1
+Removing intermediate container af85fcede6e1
+ ---> bbbe001bff00
+Step 30/36 : COPY eclipse-inst-linux64.tar.gz /home/kuraine/eclipse-inst-linux64.tar.gz
+ ---> 44fd1a9943de
+Step 31/36 : RUN cd ~ && tar xzf eclipse-inst-linux64.tar.gz
+ ---> Running in 77709ad77e97
+Removing intermediate container 77709ad77e97
+ ---> b761fdc9d0e4
+Step 32/36 : RUN echo 'alias idea="/home/kuraine/idea-IC-192.7142.36/bin/idea.sh >~/launch_idea.log 2>&1 &"' >> ~/.bashrc && echo 'export JAVA_HOME=/usr/local/src/jdk-13' >> ~/.bashrc && echo 'export JETTY_HOME=~/jetty-distribution-9.4.24.v20191120' >> ~/.bashrc && echo 'export CATALINA_HOME=$HOME/apache-tomcat-9.0.30' >> ~/.bashrc && echo 'export PATH=$JAVA_HOME/bin:$CATALINA_HOME/bin:$JETTY_HOME/bin:$PATH' >> ~/.bashrc && echo 'alias ecli="~/eclipse/jee-2019-12/eclipse/eclipse 1>~/launch_eclipse.log 2>&1 &"' >> ~/.bashrc
+ ---> Running in 23465fcb29cd
+Removing intermediate container 23465fcb29cd
+ ---> 14cfc16eef0f
+Step 33/36 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/script_scratch.git
+ ---> Running in 98f2fb286fce
+Cloning into 'script_scratch'...
+Removing intermediate container 98f2fb286fce
+ ---> a3dfd886edd8
+Step 34/36 : EXPOSE 8080
+ ---> Running in fe93a12ead73
+Removing intermediate container fe93a12ead73
+ ---> 80976a39d85f
+Step 35/36 : WORKDIR /home/kuraine
+ ---> Running in 674731e52442
+Removing intermediate container 674731e52442
+ ---> eaef344473af
+Step 36/36 : CMD ["/usr/sbin/init"]
+ ---> Running in 7f64789c78d5
+Removing intermediate container 7f64789c78d5
+ ---> 4e1fe90e3a6a
+Successfully built 4e1fe90e3a6a
 Successfully tagged centos_java:latest
