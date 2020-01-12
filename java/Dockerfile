@@ -102,13 +102,19 @@ RUN cd ~ && tar -xzf ideaIC-2019.2.4.tar.gz && chown -R kuraine:kuraine idea-IC-
 COPY eclipse-inst-linux64.tar.gz /home/kuraine/eclipse-inst-linux64.tar.gz
 RUN cd ~ && tar xzf eclipse-inst-linux64.tar.gz
 
+#komodoインストール
+COPY Komodo-IDE-11.1.1-91089-linux-x86_64.tar.gz /home/kuraine/Komodo-IDE-11.1.1-91089-linux-x86_64.tar.gz
+RUN cd ~ && tar xzf Komodo-IDE-11.1.1-91089-linux-x86_64.tar.gz
+
 #alias設定
 RUN echo 'alias idea="/home/kuraine/idea-IC-192.7142.36/bin/idea.sh >~/launch_idea.log 2>&1 &"' >> ~/.bashrc && \
 echo 'export JAVA_HOME=/usr/local/src/jdk-13' >> ~/.bashrc && \
 echo 'export JETTY_HOME=~/jetty-distribution-9.4.24.v20191120' >> ~/.bashrc && \
+echo 'export KOMODO_HOME=~/Komodo-IDE-11' >> ~/.bashrc && \
 echo 'export CATALINA_HOME=$HOME/apache-tomcat-9.0.30' >> ~/.bashrc && \
-echo 'export PATH=$JAVA_HOME/bin:$CATALINA_HOME/bin:$JETTY_HOME/bin:$PATH' >> ~/.bashrc && \
-echo 'alias ecli="~/eclipse/jee-2019-12/eclipse/eclipse 1>~/launch_eclipse.log 2>&1 &"' >> ~/.bashrc 
+echo 'export PATH=$JAVA_HOME/bin:$CATALINA_HOME/bin:$JETTY_HOME/bin:$KOMODO_HOME/bin:$PATH' >> ~/.bashrc && \
+echo 'alias ecli="~/eclipse/jee-2019-12/eclipse/eclipse 1>~/launch_eclipse.log 2>&1 &"' >> ~/.bashrc && \
+echo 'alias komodo="komodo --verbose > ~/launch_komodo.log 2>&1 &"' >> ~/.bashrc
 
 RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/script_scratch.git
 

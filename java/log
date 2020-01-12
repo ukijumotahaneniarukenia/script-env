@@ -1,156 +1,122 @@
-Sending build context to Docker daemon    728MB
-Step 1/36 : FROM centos/systemd
+Sending build context to Docker daemon  816.2MB
+Step 1/38 : FROM centos/systemd
  ---> 05d3c1e2d0c1
-Step 2/36 : RUN groupadd -g 1001 kuraine && useradd -m -g kuraine -u 1001 kuraine && chsh -s /bin/bash kuraine && echo 'kuraine_pwd' | passwd --stdin kuraine && echo 'kuraine ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+Step 2/38 : RUN groupadd -g 1001 kuraine && useradd -m -g kuraine -u 1001 kuraine && chsh -s /bin/bash kuraine && echo 'kuraine_pwd' | passwd --stdin kuraine && echo 'kuraine ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
  ---> Using cache
  ---> ac683dd168ac
-Step 3/36 : RUN echo 'root_pwd' | passwd --stdin root
+Step 3/38 : RUN echo 'root_pwd' | passwd --stdin root
  ---> Using cache
  ---> b595ffd459dd
-Step 4/36 : RUN yum -y install epel-release
+Step 4/38 : RUN yum -y install epel-release
  ---> Using cache
  ---> 80a33b4f4b7d
-Step 5/36 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man moreutils lbzip2 which perl-Digest-SHA unzip
+Step 5/38 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man moreutils lbzip2 which perl-Digest-SHA unzip evince
  ---> Using cache
- ---> 4b0c28f92b7a
-Step 6/36 : RUN cd /usr/local/src && curl -LO https://download.java.net/java/GA/jdk13/5b8a42f3905b406298b72d750b6919f6/33/GPL/openjdk-13_linux-x64_bin.tar.gz && tar -zxvf openjdk-13_linux-x64_bin.tar.gz
+ ---> 7fa7922c6dba
+Step 6/38 : RUN cd /usr/local/src && curl -LO https://download.java.net/java/GA/jdk13/5b8a42f3905b406298b72d750b6919f6/33/GPL/openjdk-13_linux-x64_bin.tar.gz && tar -zxvf openjdk-13_linux-x64_bin.tar.gz
  ---> Using cache
- ---> c6ebbabf251f
-Step 7/36 : RUN yum -y reinstall glibc-common
+ ---> dca931981699
+Step 7/38 : RUN yum -y reinstall glibc-common
  ---> Using cache
- ---> ca4e3d2dde26
-Step 8/36 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
+ ---> 0c99ec0c51e0
+Step 8/38 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
  ---> Using cache
- ---> 9c8615f5c48d
-Step 9/36 : ENV LANG=ja_JP.UTF-8
+ ---> 1c230cf7d45c
+Step 9/38 : ENV LANG=ja_JP.UTF-8
  ---> Using cache
- ---> 6f4fa8402e47
-Step 10/36 : RUN rm -f /etc/localtime
+ ---> 5d3ca74f5ce9
+Step 10/38 : RUN rm -f /etc/localtime
  ---> Using cache
- ---> 2266fabfd164
-Step 11/36 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+ ---> 7c15ebf5a360
+Step 11/38 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
  ---> Using cache
- ---> 9afdb745f697
-Step 12/36 : RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps firefox
+ ---> 9932076b0267
+Step 12/38 : RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps firefox
  ---> Using cache
- ---> f84e38331250
-Step 13/36 : RUN yum groupinstall -y base "X Window System" --setopt=group_package_types=mandatory,default,optional
+ ---> ec167fa99874
+Step 13/38 : RUN yum groupinstall -y base "X Window System" --setopt=group_package_types=mandatory,default,optional
  ---> Using cache
- ---> 5aad93df94e5
-Step 14/36 : ENV DISPLAY=:0.0
+ ---> bd1de61f37e2
+Step 14/38 : ENV DISPLAY=:0.0
  ---> Using cache
- ---> d2c8a2b5ff73
-Step 15/36 : RUN yum install -y vlgothic-*
+ ---> 261a9e8a9867
+Step 15/38 : RUN yum install -y vlgothic-*
  ---> Using cache
- ---> 97485cf2072e
-Step 16/36 : RUN yum install -y PackageKit-gtk3-module
+ ---> 4fed34cd2065
+Step 16/38 : RUN yum install -y PackageKit-gtk3-module
  ---> Using cache
- ---> ee64251e73cf
-Step 17/36 : RUN yum install -y ibus-mozc
+ ---> 6057432b8e5f
+Step 17/38 : RUN yum install -y ibus-mozc
  ---> Using cache
- ---> 5fe790d9e7e0
-Step 18/36 : RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd /usr/local/src && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
+ ---> 9ab40d4575e9
+Step 18/38 : RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd /usr/local/src && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
  ---> Using cache
- ---> c459d9af5cc1
-Step 19/36 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> 135b178e4a45
+Step 19/38 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
  ---> Using cache
- ---> 69c784cf1b29
-Step 20/36 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> 8116ec70a2c0
+Step 20/38 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
  ---> Using cache
- ---> 0428cc2b3868
-Step 21/36 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+ ---> 4c6fd714de22
+Step 21/38 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
  ---> Using cache
- ---> 72e455cab58f
-Step 22/36 : USER kuraine
+ ---> 26db2ecc01a6
+Step 22/38 : USER kuraine
  ---> Using cache
- ---> 187b9c38829d
-Step 23/36 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> 18474c49513d
+Step 23/38 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
  ---> Using cache
- ---> 64bbbe1dd191
-Step 24/36 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> 5d73e8c2efc9
+Step 24/38 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
  ---> Using cache
- ---> 08aa8ef14bcf
-Step 25/36 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+ ---> ce2fdafb1002
+Step 25/38 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
  ---> Using cache
- ---> 1c308290fe0a
-Step 26/36 : RUN cd ~ && curl -LO https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-distribution/9.4.24.v20191120/jetty-distribution-9.4.24.v20191120.tar.gz && tar xvf jetty-distribution-9.4.24.v20191120.tar.gz
+ ---> d24052f4d601
+Step 26/38 : RUN cd ~ && curl -LO https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-distribution/9.4.24.v20191120/jetty-distribution-9.4.24.v20191120.tar.gz && tar xvf jetty-distribution-9.4.24.v20191120.tar.gz
  ---> Using cache
- ---> c1646ef8227e
-Step 27/36 : RUN cd ~ && curl -LO http://repo1.maven.org/maven2/org/glassfish/jersey/bundles/jaxrs-ri/2.29.1/jaxrs-ri-2.29.1.zip && unzip jaxrs-ri-2.29.1.zip
- ---> Running in 6f399951188b
-[91m  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0[0m[91m  0 5857k    0 58884    0     0  62320      0  0:01[0m[91m:36 --:-[0m[91m-:--  0:01:36 [0m[91m62311[0m[91m  7 5857k    7  416k    0     0   209k      0  [0m[91m0:00:27 [0m[91m 0:00[0m[91m:01[0m[91m [0m[91m 0:00:26  209k[0m[91m 12 5857k   12  720k    0     0   244k      0  [0m[91m0:00:23  0:00:0[0m[91m2  [0m[91m0:[0m[91m00:21[0m[91m  24[0m[91m4k[0m[91m 17 5857k   17 1014k    0     0   257k      0  0:0[0m[91m0:22  0:00:03  0[0m[91m:0[0m[91m0:19  257k[0m[91m 21 5857k   21 1281k    0     0   258k      0 [0m[91m 0:00:22  0:[0m[91m00[0m[91m:0[0m[91m4  0:00:18  258k[0m[91m 27 5857k   27 1610k    0     0   270k   [0m[91m   0  0[0m[91m:00[0m[91m:2[0m[91m1 [0m[91m 0:[0m[91m00[0m[91m:05 [0m[91m 0:00:16  310k[0m[91m 33 5857k   33 1961k    0     0   282k      0  [0m[91m0:00:20  0:00:06  [0m[91m0:00:14  3[0m[91m11k[0m[91m 39 5857k   39 2333k    0     0   293k      [0m[91m0  0:[0m[91m00:19  0:00:07  0:00:12  322k[0m[91m 47 5857k   47 2795k    0     0   312k     [0m[91m 0  0:00:18  0:00:08  0:0[0m[91m0:10  356k[0m[91m 54 5857k   54 3184k    0     0   318k      0[0m[91m  0:00:18  0:00:0[0m[91m9  0:00:09  378k[0m[91m 59 5857k   59 3492k    0     0   317k     [0m[91m 0  0:00:18  0:00:10  0:00:[0m[91m08  372k[0m[91m 62 5857k   62 3663k    0     0   306k[0m[91m      0  [0m[91m0:00:19  0:00:11[0m[91m  0:[0m[91m00:08  340k[0m[91m 65 5857k   65 3844k    0     0   296k     [0m[91m 0  0:00:19  0[0m[91m:[0m[91m00:12 [0m[91m 0:00:07  301k[0m[91m 69 5857k   69 4060k    0     0   291[0m[91mk      0[0m[91m  0:[0m[91m00:20  0:00[0m[91m:13  0:00:07[0m[91m  2[0m[91m52k[0m[91m 73 5857k   73 4323k    0     0  [0m[91m 289[0m[91mk      0  0:00:20  0[0m[91m:00:14  0:00:06  229k[0m[91m 79 5857k   79 4663k    0     0[0m[91m   292k    [0m[91m  0  0[0m[91m:00:20  0:00:15 [0m[91m 0:00:05  236[0m[91mk[0m[91m 86 5857k   86 5078k    0 [0m[91m    0   299k      0  0[0m[91m:00:19  0:00[0m[91m:16 [0m[91m 0:0[0m[91m0:[0m[91m03  2[0m[91m82k[0m[91m 96 5857k   96 5650k    0     0   311k      [0m[91m0  0:00:18  0:00:18 --:-[0m[91m-:--  347k[0m[91m100 5857k  100 5857k    0     0   319k   [0m[91m   0  0:00:18  0:00:18 [0m[91m--:--:--  [0m[91m407k
-[0mArchive:  jaxrs-ri-2.29.1.zip
-   creating: jaxrs-ri/
-  inflating: jaxrs-ri/Jersey-LICENSE.md  
-  inflating: jaxrs-ri/NOTICE.md      
-   creating: jaxrs-ri/api/
- extracting: jaxrs-ri/api/jakarta.ws.rs-api-2.1.6.jar  
-   creating: jaxrs-ri/lib/
- extracting: jaxrs-ri/lib/jersey-hk2.jar  
- extracting: jaxrs-ri/lib/jersey-common.jar  
- extracting: jaxrs-ri/lib/jersey-media-jaxb.jar  
- extracting: jaxrs-ri/lib/jersey-media-json-binding.jar  
- extracting: jaxrs-ri/lib/jersey-client.jar  
- extracting: jaxrs-ri/lib/jersey-server.jar  
- extracting: jaxrs-ri/lib/jersey-container-servlet-core.jar  
- extracting: jaxrs-ri/lib/jersey-container-servlet.jar  
- extracting: jaxrs-ri/lib/jersey-media-sse.jar  
-   creating: jaxrs-ri/ext/
- extracting: jaxrs-ri/ext/jakarta.inject-2.6.1.jar  
- extracting: jaxrs-ri/ext/osgi-resource-locator-1.0.3.jar  
- extracting: jaxrs-ri/ext/jakarta.json-1.1.5.jar  
- extracting: jaxrs-ri/ext/yasson-1.0.3.jar  
- extracting: jaxrs-ri/ext/jakarta.json.bind-api-1.0.2.jar  
- extracting: jaxrs-ri/ext/jakarta.json-api-1.1.5.jar  
- extracting: jaxrs-ri/ext/jakarta.xml.bind-api-2.3.2.jar  
- extracting: jaxrs-ri/ext/jakarta.activation-api-1.2.1.jar  
- extracting: jaxrs-ri/ext/jakarta.ws.rs-api-2.1.6-sources.jar  
- extracting: jaxrs-ri/ext/jakarta.annotation-api-1.3.5.jar  
- extracting: jaxrs-ri/ext/hk2-locator-2.6.1.jar  
- extracting: jaxrs-ri/ext/aopalliance-repackaged-2.6.1.jar  
- extracting: jaxrs-ri/ext/hk2-api-2.6.1.jar  
- extracting: jaxrs-ri/ext/hk2-utils-2.6.1.jar  
- extracting: jaxrs-ri/ext/javassist-3.25.0-GA.jar  
- extracting: jaxrs-ri/ext/jakarta.validation-api-2.0.2.jar  
- extracting: jaxrs-ri/ext/org.osgi.core-6.0.0.jar  
- extracting: jaxrs-ri/ext/jakarta.servlet-api-4.0.3.jar  
- extracting: jaxrs-ri/ext/jakarta.persistence-api-2.2.3.jar  
-Removing intermediate container 6f399951188b
- ---> 2def71a1c5d9
-Step 28/36 : COPY ideaIC-2019.2.4.tar.gz /home/kuraine/ideaIC-2019.2.4.tar.gz
- ---> dcfea62b5a5f
-Step 29/36 : RUN cd ~ && tar -xzf ideaIC-2019.2.4.tar.gz && chown -R kuraine:kuraine idea-IC-192.7142.36
- ---> Running in af85fcede6e1
-Removing intermediate container af85fcede6e1
- ---> bbbe001bff00
-Step 30/36 : COPY eclipse-inst-linux64.tar.gz /home/kuraine/eclipse-inst-linux64.tar.gz
- ---> 44fd1a9943de
-Step 31/36 : RUN cd ~ && tar xzf eclipse-inst-linux64.tar.gz
- ---> Running in 77709ad77e97
-Removing intermediate container 77709ad77e97
- ---> b761fdc9d0e4
-Step 32/36 : RUN echo 'alias idea="/home/kuraine/idea-IC-192.7142.36/bin/idea.sh >~/launch_idea.log 2>&1 &"' >> ~/.bashrc && echo 'export JAVA_HOME=/usr/local/src/jdk-13' >> ~/.bashrc && echo 'export JETTY_HOME=~/jetty-distribution-9.4.24.v20191120' >> ~/.bashrc && echo 'export CATALINA_HOME=$HOME/apache-tomcat-9.0.30' >> ~/.bashrc && echo 'export PATH=$JAVA_HOME/bin:$CATALINA_HOME/bin:$JETTY_HOME/bin:$PATH' >> ~/.bashrc && echo 'alias ecli="~/eclipse/jee-2019-12/eclipse/eclipse 1>~/launch_eclipse.log 2>&1 &"' >> ~/.bashrc
- ---> Running in 23465fcb29cd
-Removing intermediate container 23465fcb29cd
- ---> 14cfc16eef0f
-Step 33/36 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/script_scratch.git
- ---> Running in 98f2fb286fce
+ ---> a58d9dda149f
+Step 27/38 : RUN cd ~ && curl -LO http://repo1.maven.org/maven2/org/glassfish/jersey/bundles/jaxrs-ri/2.29.1/jaxrs-ri-2.29.1.zip && unzip jaxrs-ri-2.29.1.zip
+ ---> Using cache
+ ---> 4353a2aac74a
+Step 28/38 : COPY ideaIC-2019.2.4.tar.gz /home/kuraine/ideaIC-2019.2.4.tar.gz
+ ---> Using cache
+ ---> 081d8fc238f0
+Step 29/38 : RUN cd ~ && tar -xzf ideaIC-2019.2.4.tar.gz && chown -R kuraine:kuraine idea-IC-192.7142.36
+ ---> Using cache
+ ---> 76e4f3c0391d
+Step 30/38 : COPY eclipse-inst-linux64.tar.gz /home/kuraine/eclipse-inst-linux64.tar.gz
+ ---> Using cache
+ ---> 4540a0cc8604
+Step 31/38 : RUN cd ~ && tar xzf eclipse-inst-linux64.tar.gz
+ ---> Using cache
+ ---> db740c989ebd
+Step 32/38 : COPY Komodo-IDE-11.1.1-91089-linux-x86_64.tar.gz /home/kuraine/Komodo-IDE-11.1.1-91089-linux-x86_64.tar.gz
+ ---> Using cache
+ ---> 209eaa80e7bb
+Step 33/38 : RUN cd ~ && tar xzf Komodo-IDE-11.1.1-91089-linux-x86_64.tar.gz
+ ---> Using cache
+ ---> 012d5987d65b
+Step 34/38 : RUN echo 'alias idea="/home/kuraine/idea-IC-192.7142.36/bin/idea.sh >~/launch_idea.log 2>&1 &"' >> ~/.bashrc && echo 'export JAVA_HOME=/usr/local/src/jdk-13' >> ~/.bashrc && echo 'export JETTY_HOME=~/jetty-distribution-9.4.24.v20191120' >> ~/.bashrc && echo 'export KOMODO_HOME=~/Komodo-IDE-11' >> ~/.bashrc && echo 'export CATALINA_HOME=$HOME/apache-tomcat-9.0.30' >> ~/.bashrc && echo 'export PATH=$JAVA_HOME/bin:$CATALINA_HOME/bin:$JETTY_HOME/bin:$KOMODO_HOME/bin:$PATH' >> ~/.bashrc && echo 'alias ecli="~/eclipse/jee-2019-12/eclipse/eclipse 1>~/launch_eclipse.log 2>&1 &"' >> ~/.bashrc && echo 'alias komodo="komodo --verbose > ~/launch_komodo.log 2>&1 &"' >> ~/.bashrc
+ ---> Running in 0ecee4f5bda8
+Removing intermediate container 0ecee4f5bda8
+ ---> 136ffb378fe2
+Step 35/38 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/script_scratch.git
+ ---> Running in df71b3c935bd
 Cloning into 'script_scratch'...
-Removing intermediate container 98f2fb286fce
- ---> a3dfd886edd8
-Step 34/36 : EXPOSE 8080
- ---> Running in fe93a12ead73
-Removing intermediate container fe93a12ead73
- ---> 80976a39d85f
-Step 35/36 : WORKDIR /home/kuraine
- ---> Running in 674731e52442
-Removing intermediate container 674731e52442
- ---> eaef344473af
-Step 36/36 : CMD ["/usr/sbin/init"]
- ---> Running in 7f64789c78d5
-Removing intermediate container 7f64789c78d5
- ---> 4e1fe90e3a6a
-Successfully built 4e1fe90e3a6a
+Removing intermediate container df71b3c935bd
+ ---> dd8eab800634
+Step 36/38 : EXPOSE 8080
+ ---> Running in 6eb7a76450df
+Removing intermediate container 6eb7a76450df
+ ---> 11bc6f66767f
+Step 37/38 : WORKDIR /home/kuraine
+ ---> Running in cf99e855169b
+Removing intermediate container cf99e855169b
+ ---> 7269f7eda383
+Step 38/38 : CMD ["/usr/sbin/init"]
+ ---> Running in 24571d04668d
+Removing intermediate container 24571d04668d
+ ---> 6c9aac35e624
+Successfully built 6c9aac35e624
 Successfully tagged centos_java:latest
