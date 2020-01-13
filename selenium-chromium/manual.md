@@ -1,11 +1,11 @@
 # 参考文献
 
-https://sites.google.com/a/chromium.org/chromedriver/getting-started
-https://www.ytyng.com/blog/ubuntu-chromedriver/
-https://developers.google.com/web/updates/2017/04/headless-chrome?hl=ja
-https://dev.classmethod.jp/etc/chromium-ubuntu-headless/
-https://worklog.be/archives/3422
-https://vaaaaaanquish.hatenablog.com/entry/2017/06/06/194546
+https://sites.google.com/a/chromium.org/chromedriver/getting-started</br>
+https://www.ytyng.com/blog/ubuntu-chromedriver/</br>
+https://developers.google.com/web/updates/2017/04/headless-chrome?hl=ja</br>
+https://dev.classmethod.jp/etc/chromium-ubuntu-headless/</br>
+https://worklog.be/archives/3422</br>
+https://vaaaaaanquish.hatenablog.com/entry/2017/06/06/194546</br>
 
 # dockerイメージ作成
 
