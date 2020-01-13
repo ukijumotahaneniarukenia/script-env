@@ -12,7 +12,7 @@ postgresのソースコード
 https://www.postgresql.org/ftp/source/
 
 
-# Dockerfileよりイメージ作成
+# dockerイメージ作成
 ```
 time docker build -t centos_postgres . | tee log
 ```
@@ -29,7 +29,7 @@ docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
 
 # dockerコンテナ起動
 ```
-docker run --privileged --shm-size=8gb --name postgres -itd -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 5432:5432 -p 5050:5050 centos_postgres
+docker run --privileged --shm-size=8gb --name postgres -itd -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id centos_postgres
 ```
 
 # ブラウザから起動確認(pgadmin)
