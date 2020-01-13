@@ -9,13 +9,6 @@ https://jdk.java.net/13/
 Java Path
 http://devb.hatenablog.com/entry/20101203/1291391256
 
-# Dockerfileよりイメージ作成
-
-```
-time docker build -t centos_java . | tee log
-```
-
-
 # dockerイメージ作成
 
 ```

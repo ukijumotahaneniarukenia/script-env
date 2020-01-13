@@ -1,122 +1,184 @@
-Sending build context to Docker daemon  816.2MB
-Step 1/38 : FROM centos/systemd
+Sending build context to Docker daemon  898.7MB
+Step 1/41 : FROM centos/systemd
  ---> 05d3c1e2d0c1
-Step 2/38 : RUN groupadd -g 1001 kuraine && useradd -m -g kuraine -u 1001 kuraine && chsh -s /bin/bash kuraine && echo 'kuraine_pwd' | passwd --stdin kuraine && echo 'kuraine ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+Step 2/41 : RUN groupadd -g 1001 kuraine && useradd -m -g kuraine -u 1001 kuraine && chsh -s /bin/bash kuraine && echo 'kuraine_pwd' | passwd --stdin kuraine && echo 'kuraine ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
  ---> Using cache
  ---> ac683dd168ac
-Step 3/38 : RUN echo 'root_pwd' | passwd --stdin root
+Step 3/41 : RUN echo 'root_pwd' | passwd --stdin root
  ---> Using cache
  ---> b595ffd459dd
-Step 4/38 : RUN yum -y install epel-release
+Step 4/41 : RUN yum -y install epel-release
  ---> Using cache
  ---> 80a33b4f4b7d
-Step 5/38 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man moreutils lbzip2 which perl-Digest-SHA unzip evince
+Step 5/41 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man moreutils lbzip2 which perl-Digest-SHA unzip evince
  ---> Using cache
  ---> 7fa7922c6dba
-Step 6/38 : RUN cd /usr/local/src && curl -LO https://download.java.net/java/GA/jdk13/5b8a42f3905b406298b72d750b6919f6/33/GPL/openjdk-13_linux-x64_bin.tar.gz && tar -zxvf openjdk-13_linux-x64_bin.tar.gz
+Step 6/41 : RUN cd /usr/local/src && curl -LO https://download.java.net/java/GA/jdk13/5b8a42f3905b406298b72d750b6919f6/33/GPL/openjdk-13_linux-x64_bin.tar.gz && tar -zxvf openjdk-13_linux-x64_bin.tar.gz
  ---> Using cache
  ---> dca931981699
-Step 7/38 : RUN yum -y reinstall glibc-common
+Step 7/41 : RUN yum -y reinstall glibc-common
  ---> Using cache
  ---> 0c99ec0c51e0
-Step 8/38 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
+Step 8/41 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
  ---> Using cache
  ---> 1c230cf7d45c
-Step 9/38 : ENV LANG=ja_JP.UTF-8
+Step 9/41 : ENV LANG=ja_JP.UTF-8
  ---> Using cache
  ---> 5d3ca74f5ce9
-Step 10/38 : RUN rm -f /etc/localtime
+Step 10/41 : RUN rm -f /etc/localtime
  ---> Using cache
  ---> 7c15ebf5a360
-Step 11/38 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+Step 11/41 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
  ---> Using cache
  ---> 9932076b0267
-Step 12/38 : RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps firefox
+Step 12/41 : RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps firefox
  ---> Using cache
  ---> ec167fa99874
-Step 13/38 : RUN yum groupinstall -y base "X Window System" --setopt=group_package_types=mandatory,default,optional
+Step 13/41 : RUN yum groupinstall -y base "X Window System" --setopt=group_package_types=mandatory,default,optional
  ---> Using cache
  ---> bd1de61f37e2
-Step 14/38 : ENV DISPLAY=:0.0
+Step 14/41 : ENV DISPLAY=:0.0
  ---> Using cache
  ---> 261a9e8a9867
-Step 15/38 : RUN yum install -y vlgothic-*
+Step 15/41 : RUN yum install -y vlgothic-*
  ---> Using cache
  ---> 4fed34cd2065
-Step 16/38 : RUN yum install -y PackageKit-gtk3-module
+Step 16/41 : RUN yum install -y PackageKit-gtk3-module
  ---> Using cache
  ---> 6057432b8e5f
-Step 17/38 : RUN yum install -y ibus-mozc
+Step 17/41 : RUN yum install -y ibus-mozc
  ---> Using cache
  ---> 9ab40d4575e9
-Step 18/38 : RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd /usr/local/src && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
+Step 18/41 : RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd /usr/local/src && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
  ---> Using cache
  ---> 135b178e4a45
-Step 19/38 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+Step 19/41 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
  ---> Using cache
  ---> 8116ec70a2c0
-Step 20/38 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+Step 20/41 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
  ---> Using cache
  ---> 4c6fd714de22
-Step 21/38 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+Step 21/41 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
  ---> Using cache
  ---> 26db2ecc01a6
-Step 22/38 : USER kuraine
+Step 22/41 : USER kuraine
  ---> Using cache
  ---> 18474c49513d
-Step 23/38 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+Step 23/41 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
  ---> Using cache
  ---> 5d73e8c2efc9
-Step 24/38 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+Step 24/41 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
  ---> Using cache
  ---> ce2fdafb1002
-Step 25/38 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+Step 25/41 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
  ---> Using cache
  ---> d24052f4d601
-Step 26/38 : RUN cd ~ && curl -LO https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-distribution/9.4.24.v20191120/jetty-distribution-9.4.24.v20191120.tar.gz && tar xvf jetty-distribution-9.4.24.v20191120.tar.gz
+Step 26/41 : RUN cd ~ && curl -LO https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-distribution/9.4.24.v20191120/jetty-distribution-9.4.24.v20191120.tar.gz && tar xvf jetty-distribution-9.4.24.v20191120.tar.gz
  ---> Using cache
  ---> a58d9dda149f
-Step 27/38 : RUN cd ~ && curl -LO http://repo1.maven.org/maven2/org/glassfish/jersey/bundles/jaxrs-ri/2.29.1/jaxrs-ri-2.29.1.zip && unzip jaxrs-ri-2.29.1.zip
+Step 27/41 : RUN cd ~ && curl -LO http://repo1.maven.org/maven2/org/glassfish/jersey/bundles/jaxrs-ri/2.29.1/jaxrs-ri-2.29.1.zip && unzip jaxrs-ri-2.29.1.zip
  ---> Using cache
  ---> 4353a2aac74a
-Step 28/38 : COPY ideaIC-2019.2.4.tar.gz /home/kuraine/ideaIC-2019.2.4.tar.gz
+Step 28/41 : COPY ideaIC-2019.2.4.tar.gz /home/kuraine/ideaIC-2019.2.4.tar.gz
  ---> Using cache
  ---> 081d8fc238f0
-Step 29/38 : RUN cd ~ && tar -xzf ideaIC-2019.2.4.tar.gz && chown -R kuraine:kuraine idea-IC-192.7142.36
+Step 29/41 : RUN cd ~ && tar -xzf ideaIC-2019.2.4.tar.gz && chown -R kuraine:kuraine idea-IC-192.7142.36
  ---> Using cache
  ---> 76e4f3c0391d
-Step 30/38 : COPY eclipse-inst-linux64.tar.gz /home/kuraine/eclipse-inst-linux64.tar.gz
+Step 30/41 : COPY eclipse-inst-linux64.tar.gz /home/kuraine/eclipse-inst-linux64.tar.gz
  ---> Using cache
  ---> 4540a0cc8604
-Step 31/38 : RUN cd ~ && tar xzf eclipse-inst-linux64.tar.gz
+Step 31/41 : RUN cd ~ && tar xzf eclipse-inst-linux64.tar.gz
  ---> Using cache
  ---> db740c989ebd
-Step 32/38 : COPY Komodo-IDE-11.1.1-91089-linux-x86_64.tar.gz /home/kuraine/Komodo-IDE-11.1.1-91089-linux-x86_64.tar.gz
+Step 32/41 : COPY Komodo-IDE-11.1.1-91089-linux-x86_64.tar.gz /home/kuraine/Komodo-IDE-11.1.1-91089-linux-x86_64.tar.gz
  ---> Using cache
  ---> 209eaa80e7bb
-Step 33/38 : RUN cd ~ && tar xzf Komodo-IDE-11.1.1-91089-linux-x86_64.tar.gz
+Step 33/41 : RUN cd ~ && tar xzf Komodo-IDE-11.1.1-91089-linux-x86_64.tar.gz
  ---> Using cache
  ---> 012d5987d65b
-Step 34/38 : RUN echo 'alias idea="/home/kuraine/idea-IC-192.7142.36/bin/idea.sh >~/launch_idea.log 2>&1 &"' >> ~/.bashrc && echo 'export JAVA_HOME=/usr/local/src/jdk-13' >> ~/.bashrc && echo 'export JETTY_HOME=~/jetty-distribution-9.4.24.v20191120' >> ~/.bashrc && echo 'export KOMODO_HOME=~/Komodo-IDE-11' >> ~/.bashrc && echo 'export CATALINA_HOME=$HOME/apache-tomcat-9.0.30' >> ~/.bashrc && echo 'export PATH=$JAVA_HOME/bin:$CATALINA_HOME/bin:$JETTY_HOME/bin:$KOMODO_HOME/bin:$PATH' >> ~/.bashrc && echo 'alias ecli="~/eclipse/jee-2019-12/eclipse/eclipse 1>~/launch_eclipse.log 2>&1 &"' >> ~/.bashrc && echo 'alias komodo="komodo --verbose > ~/launch_komodo.log 2>&1 &"' >> ~/.bashrc
- ---> Running in 0ecee4f5bda8
-Removing intermediate container 0ecee4f5bda8
- ---> 136ffb378fe2
-Step 35/38 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/script_scratch.git
- ---> Running in df71b3c935bd
+Step 34/41 : RUN cd ~/Komodo-IDE-11.1.1-91089-linux-x86_64 && ./install.sh -I ~/Komodo-IDE-11
+ ---> Using cache
+ ---> c00771914970
+Step 35/41 : COPY code-1.41.1-1576681965.el7.x86_64.rpm /home/kuraine/code-1.41.1-1576681965.el7.x86_64.rpm
+ ---> c13a5bc786f2
+Step 36/41 : RUN cd ~ && sudo yum install -y code-1.41.1-1576681965.el7.x86_64.rpm
+ ---> Running in 65d7dfb848ce
+Loaded plugins: aliases, changelog, fastestmirror, kabi, langpacks, ovl,
+              : tmprepo, verify, versionlock
+Loading support for Red Hat kernel ABI
+Examining code-1.41.1-1576681965.el7.x86_64.rpm: code-1.41.1-1576681965.el7.x86_64
+Marking code-1.41.1-1576681965.el7.x86_64.rpm to be installed
+Resolving Dependencies
+--> Running transaction check
+---> Package code.x86_64 0:1.41.1-1576681965.el7 will be installed
+--> Processing Dependency: libXss.so.1()(64bit) for package: code-1.41.1-1576681965.el7.x86_64
+Loading mirror speeds from cached hostfile
+ * base: ftp-srv2.kddilabs.jp
+ * epel: ftp.iij.ad.jp
+ * extras: ftp-srv2.kddilabs.jp
+ * updates: ftp-srv2.kddilabs.jp
+--> Running transaction check
+---> Package libXScrnSaver.x86_64 0:1.2.2-6.1.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package  Arch   Version               Repository                          Size
+================================================================================
+Installing:
+ code     x86_64 1.41.1-1576681965.el7 /code-1.41.1-1576681965.el7.x86_64 229 M
+Installing for dependencies:
+ libXScrnSaver
+          x86_64 1.2.2-6.1.el7         base                                24 k
+
+Transaction Summary
+================================================================================
+Install  1 Package (+1 Dependent package)
+
+Total size: 229 M
+Total download size: 24 k
+Installed size: 229 M
+Downloading packages:
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : libXScrnSaver-1.2.2-6.1.el7.x86_64                           1/2 
+  Installing : code-1.41.1-1576681965.el7.x86_64                            2/2 
+  Verifying  : libXScrnSaver-1.2.2-6.1.el7.x86_64                           1/2 
+  Verifying  : code-1.41.1-1576681965.el7.x86_64                            2/2 
+
+Installed:
+  code.x86_64 0:1.41.1-1576681965.el7                                           
+
+Dependency Installed:
+  libXScrnSaver.x86_64 0:1.2.2-6.1.el7                                          
+
+Complete!
+Removing intermediate container 65d7dfb848ce
+ ---> ba22f8db63f0
+Step 37/41 : RUN echo 'alias idea="/home/kuraine/idea-IC-192.7142.36/bin/idea.sh >~/launch_idea.log 2>&1 &"' >> ~/.bashrc && echo 'export JAVA_HOME=/usr/local/src/jdk-13' >> ~/.bashrc && echo 'export JETTY_HOME=~/jetty-distribution-9.4.24.v20191120' >> ~/.bashrc && echo 'export KOMODO_HOME=~/Komodo-IDE-11' >> ~/.bashrc && echo 'export CATALINA_HOME=$HOME/apache-tomcat-9.0.30' >> ~/.bashrc && echo 'export PATH=$JAVA_HOME/bin:$CATALINA_HOME/bin:$JETTY_HOME/bin:$KOMODO_HOME/bin:$PATH' >> ~/.bashrc && echo 'alias ecli="~/eclipse/jee-2019-12/eclipse/eclipse 1>~/launch_eclipse.log 2>&1 &"' >> ~/.bashrc && echo 'alias komodo="komodo --verbose > ~/launch_komodo.log 2>&1 &"' >> ~/.bashrc
+ ---> Running in 50fb0413d73d
+Removing intermediate container 50fb0413d73d
+ ---> edce5082b8d2
+Step 38/41 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/script_scratch.git
+ ---> Running in b1f7cd559f61
 Cloning into 'script_scratch'...
-Removing intermediate container df71b3c935bd
- ---> dd8eab800634
-Step 36/38 : EXPOSE 8080
- ---> Running in 6eb7a76450df
-Removing intermediate container 6eb7a76450df
- ---> 11bc6f66767f
-Step 37/38 : WORKDIR /home/kuraine
- ---> Running in cf99e855169b
-Removing intermediate container cf99e855169b
- ---> 7269f7eda383
-Step 38/38 : CMD ["/usr/sbin/init"]
- ---> Running in 24571d04668d
-Removing intermediate container 24571d04668d
- ---> 6c9aac35e624
-Successfully built 6c9aac35e624
+Removing intermediate container b1f7cd559f61
+ ---> e10db02d82c1
+Step 39/41 : EXPOSE 8080
+ ---> Running in 9ee0fab5b8fc
+Removing intermediate container 9ee0fab5b8fc
+ ---> 66def0bc9488
+Step 40/41 : WORKDIR /home/kuraine
+ ---> Running in 3304a5362cb6
+Removing intermediate container 3304a5362cb6
+ ---> df1f42f35b7c
+Step 41/41 : CMD ["/usr/sbin/init"]
+ ---> Running in 7be47cb05d0f
+Removing intermediate container 7be47cb05d0f
+ ---> 86e9e55e0b29
+Successfully built 86e9e55e0b29
 Successfully tagged centos_java:latest

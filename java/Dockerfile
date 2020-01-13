@@ -105,6 +105,11 @@ RUN cd ~ && tar xzf eclipse-inst-linux64.tar.gz
 #komodoインストール
 COPY Komodo-IDE-11.1.1-91089-linux-x86_64.tar.gz /home/kuraine/Komodo-IDE-11.1.1-91089-linux-x86_64.tar.gz
 RUN cd ~ && tar xzf Komodo-IDE-11.1.1-91089-linux-x86_64.tar.gz
+RUN cd ~/Komodo-IDE-11.1.1-91089-linux-x86_64 && ./install.sh -I ~/Komodo-IDE-11
+
+#VScodeインストール
+COPY code-1.41.1-1576681965.el7.x86_64.rpm /home/kuraine/code-1.41.1-1576681965.el7.x86_64.rpm
+RUN cd ~ && sudo yum install -y code-1.41.1-1576681965.el7.x86_64.rpm
 
 #alias設定
 RUN echo 'alias idea="/home/kuraine/idea-IC-192.7142.36/bin/idea.sh >~/launch_idea.log 2>&1 &"' >> ~/.bashrc && \
