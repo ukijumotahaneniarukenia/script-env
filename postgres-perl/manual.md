@@ -4,7 +4,7 @@ https://www.postgresql.jp/document/11/html/plperl-funcs.html</br>
 
 # dockerイメージ作成
 ```
-time docker build -t centos_postgres . | tee log
+time docker build -t centos_postgres-perl . | tee log
 ```
 
 # dockerコンテナ削除
@@ -19,12 +19,12 @@ docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
 
 # dockerコンテナ起動
 ```
-docker run --privileged --shm-size=8gb --name postgres -itd -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id centos_postgres
+docker run --privileged --shm-size=8gb --name postgres-perl -itd -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id centos_postgres-perl
 ```
 
 # dockerコンテナ潜入
 ```
-docker exec --user postgres -it postgres /bin/bash
+docker exec --user postgres -it postgres-perl /bin/bash
 ```
 
 # データ格納ディレクトリの作成
