@@ -228,6 +228,12 @@ $find / -name "*Python.h*" 2>/dev/null
 
 これを実行後2系のヘッダファイルが追加される
 yum install -y python-devel
+
+python-develパッケージをインストールせずにヘッダファイルをコンパイルオプションに認識させることができれば、うまく行けそうな気がしている。
+
+postgresのコンパイルオプション頑張る。
+
+
 $find / -name "*Python.h*" 2>/dev/null
 /usr/include/python2.7/Python.h
 /usr/local/include/python3.7m/Python.h
