@@ -214,6 +214,10 @@ $tail launch_postgres.log
 2020-01-13 22:59:57.773 JST [4817] LOG:  database system is shut down
 ```
 
+いけたときように、pythonバージョン確認スクリプト
+
+https://note.nkmk.me/python-sys-platform-version-info/
+
 
 むずかしい
 ```
@@ -232,8 +236,17 @@ yum install -y python-devel
 python-develパッケージをインストールせずにヘッダファイルをコンパイルオプションに認識させることができれば、うまく行けそうな気がしている。
 
 postgresのコンパイルオプション頑張る。
+Gccの環境変数cpathにヘッダファイルが存在するディレクトリを指定する方法もあるらしい。パッケージインストする前に試してみる
 
+https://sekisuiseien.com/computer/10626/
 
+多分これで3系のヘッダファイルインストールできる。
+
+https://awesome-linus.com/2018/02/02/python-h-no-such-file-or-directory/
+
+https://stackoverflow.com/questions/21530577/fatal-error-python-h-no-such-file-or-directory
+
+オプション引数で指定したヘッダファイルを読み込んでくれるといいんだけど
 $find / -name "*Python.h*" 2>/dev/null
 /usr/include/python2.7/Python.h
 /usr/local/include/python3.7m/Python.h
@@ -423,5 +436,5 @@ $ldd /usr/local/lib/postgresql/plpython3.so
 ３系は難しいのかもしれない。
 [postgres💓4bb6195edf6f (水  1月 15 08:50:57) ~]$psql -U postgres -d testdb -c "CREATE EXTENSION plpython3u;"
 ERROR:  could not load library "/usr/local/lib/postgresql/plpython3.so": /usr/local/lib/postgresql/plpython3.so: undefined symbol: _Py_ZeroStruct
-
+これはPythonのバージョン問題で、ポスグレのコンパイルオプションで読み込んでくれたヘッダファイルが2系だったためとおもわれ
 ```
