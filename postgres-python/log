@@ -1,133 +1,43 @@
-Sending build context to Docker daemon  14.85kB
-Step 1/23 : FROM centos/systemd
- ---> 05d3c1e2d0c1
-Step 2/23 : RUN groupadd -g 1001 postgres && useradd -m -g postgres -u 1001 postgres && chsh -s /bin/bash postgres && echo 'postgres_pwd' | passwd --stdin postgres && echo 'postgres ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+Sending build context to Docker daemon   25.6kB
+Step 1/12 : FROM ubuntu:16.04
+ ---> c6a43cd4801e
+Step 2/12 : RUN apt-get update && apt-get -y upgrade && apt-get install -y vim gcc make && apt-get install -y libffi-dev curl build-essential libssl-dev zlib1g-dev libreadline6-dev
  ---> Using cache
- ---> 365c0c1b5465
-Step 3/23 : RUN echo 'root_pwd' | passwd --stdin root
+ ---> cf442b46ff6f
+Step 3/12 : RUN cd /usr/local/src && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && tar xvf Python-3.7.4.tgz && cd Python-3.7.4 && ./configure --enable-shared --with-ensurepip=install && make -j12 && make -j12 install
  ---> Using cache
- ---> 87ab395f9ab0
-Step 4/23 : RUN yum -y install epel-release
+ ---> 7961384a3922
+Step 4/12 : RUN echo 'export LD_LIBRARY_PATH=/usr/local/lib' >> ~/.bashrc && . ~/.bashrc
  ---> Using cache
- ---> 8405c677ea2c
-Step 5/23 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man moreutils lbzip2 which perl-Digest-SHA lbzip gcc-c++ libtool makeinfo file libffi-devel zlib-devel unzip autoconf gcc bison evince
+ ---> 2498a2b73dc0
+Step 5/12 : RUN echo '/usr/local/lib'>>/etc/ld.so.conf.d/local-ld.so.conf
  ---> Using cache
- ---> 947bdf5c6795
-Step 6/23 : RUN yum install -y sudo gcc git gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd ~ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
+ ---> b1cb5111db61
+Step 6/12 : RUN ldconfig
  ---> Using cache
- ---> f8c2ad9ef141
-Step 7/23 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> 02b06027f27c
+Step 7/12 : RUN cd /usr/local/src && curl -LO https://ftp.postgresql.org/pub/source/v12.0/postgresql-12.0.tar.gz && tar xvf postgresql-12.0.tar.gz && chown -R root:root postgresql-12.0 && cd postgresql-12.0 && ./configure --prefix=/usr/local --libdir=/usr/local/lib/postgresql --with-python && make -j12 && make -j12 install
  ---> Using cache
- ---> 6f410538507e
-Step 8/23 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
- ---> Using cache
- ---> 9ff3e1ee0f02
-Step 9/23 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
- ---> Using cache
- ---> 8eab7551b0e5
-Step 10/23 : RUN yum -y reinstall glibc-common
- ---> Using cache
- ---> feca36e25d28
-Step 11/23 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
- ---> Using cache
- ---> 44295470967a
-Step 12/23 : ENV LANG=ja_JP.UTF-8
- ---> Using cache
- ---> 662692f4be94
-Step 13/23 : RUN rm -f /etc/localtime
- ---> Using cache
- ---> e9c2e6b16f1d
-Step 14/23 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
- ---> Using cache
- ---> 3dd4557ef543
-Step 15/23 : RUN cd /usr/local/src && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && tar -zxvf Python-3.7.4.tgz && chown -R root:root Python-3.7.4 && cd Python-3.7.4 && ./configure --enable-shared --with-ensurepip=install && make -j12 && make -j12 install
- ---> Using cache
- ---> 62a44471e513
-Step 16/23 : RUN echo 'export LD_LIBRARY_PATH=/usr/local/lib' >>~/.bashrc && source ~/.bashrc
- ---> Using cache
- ---> ce407efe74bf
-Step 17/23 : USER postgres
- ---> Running in 732f257ea562
-Removing intermediate container 732f257ea562
- ---> 351f37ed6fbd
-Step 18/23 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
- ---> Running in 90fd0f6d08a3
-Cloning into '/home/postgres/.vim'...
-Removing intermediate container 90fd0f6d08a3
- ---> 74fc3c7c0b03
-Step 19/23 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
- ---> Running in 41b1e5a9e4be
-Cloning into '/home/postgres/tmp'...
-Removing intermediate container 41b1e5a9e4be
- ---> b880b78b63b4
-Step 20/23 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
- ---> Running in 850eb25175b6
-[91m  % Total    % Received % Xferd  Average Speed [0m[91m  Time    Time     Time  Current
-             [0m[91m      [0m[91m     [0m[91m     [0m[91m    [0m[91mDloa[0m[91md  Upload   Tot[0m[91mal   Spent [0m[91m   Left [0m[91m Speed
-[0m[91m  0 [0m[91m    [0m[91m0    0     0 [0m[91m   0     0   [0m[91m   0[0m[91m    [0m[91m  [0m[91m0 --[0m[91m:-[0m[91m-:--[0m[91m -[0m[91m-:--[0m[91m:-[0m[91m- --[0m[91m:[0m[91m--:--[0m[91m  [0m[91m   [0m[91m0[0m[91m100  2233  100  2233    0     0   4600      0 --[0m[91m:--:-- --:--:-- --:--:-[0m[91m-  [0m[91m4604
-[0mInstall to "/home/postgres/.vim/bundle/repos/github.com/Shougo/dein.vim"...
-
-git is /usr/bin/git
-
-Begin fetching dein...
-Cloning into '/home/postgres/.vim/bundle/repos/github.com/Shougo/dein.vim'...
-Done.
-
-Please add the following settings for dein to the top of your vimrc (Vim) or init.vim (NeoVim) file:
-
-
-"dein Scripts-----------------------------
-if &compatible
-  set nocompatible               " Be iMproved
-endif
-
-" Required:
-set runtimepath+=/home/postgres/.vim/bundle/repos/github.com/Shougo/dein.vim
-
-" Required:
-if dein#load_state('/home/postgres/.vim/bundle')
-  call dein#begin('/home/postgres/.vim/bundle')
-
-  " Let dein manage dein
-  " Required:
-  call dein#add('/home/postgres/.vim/bundle/repos/github.com/Shougo/dein.vim')
-
-  " Add or remove your plugins here like this:
-  "call dein#add('Shougo/neosnippet.vim')
-  "call dein#add('Shougo/neosnippet-snippets')
-
-  " Required:
-  call dein#end()
-  call dein#save_state()
-endif
-
-" Required:
-filetype plugin indent on
-syntax enable
-
-" If you want to install not installed plugins on startup.
-"if dein#check_install()
-"  call dein#install()
-"endif
-
-"End dein Scripts-------------------------
-
-
-Done.
-Complete setup dein!
-Removing intermediate container 850eb25175b6
- ---> baa9d825a463
-Step 21/23 : RUN echo 'export LD_LIBRARY_PATH=/usr/local/lib' >>~/.bashrc && source ~/.bashrc
- ---> Running in 3819fa6bc582
-Removing intermediate container 3819fa6bc582
- ---> 5404c8c582c2
-Step 22/23 : WORKDIR /home/postgres
- ---> Running in a3e840c226c0
-Removing intermediate container a3e840c226c0
- ---> bb57422aa352
-Step 23/23 : CMD ["/usr/sbin/init"]
- ---> Running in cefc6882a2cc
-Removing intermediate container cefc6882a2cc
- ---> 96d4e50f3768
-Successfully built 96d4e50f3768
+ ---> 1c41a932b07b
+Step 8/12 : RUN groupadd -g 1001 postgres && useradd -m -g postgres -u 1001 postgres && echo 'postgres:postgres_pwd' | chpasswd && echo 'postgres ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && chsh -s /bin/bash postgres
+ ---> Running in 7a86ddf4fbf3
+Removing intermediate container 7a86ddf4fbf3
+ ---> d86101963a95
+Step 9/12 : RUN echo 'root:root_pwd' | chpasswd
+ ---> Running in 2b3f456e5cd8
+Removing intermediate container 2b3f456e5cd8
+ ---> 01005fefb98c
+Step 10/12 : USER postgres
+ ---> Running in 9abcfe94f4d3
+Removing intermediate container 9abcfe94f4d3
+ ---> c8f460af1bef
+Step 11/12 : RUN echo 'export LD_LIBRARY_PATH=/usr/local/lib' >> ~/.bashrc && . ~/.bashrc
+ ---> Running in 784620b1fc8f
+Removing intermediate container 784620b1fc8f
+ ---> 151ea423dac7
+Step 12/12 : WORKDIR /home/postgres
+ ---> Running in f4860a1b9ffc
+Removing intermediate container f4860a1b9ffc
+ ---> 07f10c3676c5
+Successfully built 07f10c3676c5
 Successfully tagged centos_postgres-python:latest
