@@ -233,7 +233,11 @@ python-develパッケージをインストールせずにヘッダファイル�
 
 postgresのコンパイルオプション頑張る。
 
+多分これで3系のヘッダファイルインストールできる。
 
+https://stackoverflow.com/questions/21530577/fatal-error-python-h-no-such-file-or-directory
+
+オプション引数で指定したヘッダファイルを読み込んでくれるといいんだけど
 $find / -name "*Python.h*" 2>/dev/null
 /usr/include/python2.7/Python.h
 /usr/local/include/python3.7m/Python.h
