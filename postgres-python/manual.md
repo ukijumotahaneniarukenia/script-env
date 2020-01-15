@@ -235,6 +235,8 @@ postgresのコンパイルオプション頑張る。
 
 多分これで3系のヘッダファイルインストールできる。
 
+https://awesome-linus.com/2018/02/02/python-h-no-such-file-or-directory/
+
 https://stackoverflow.com/questions/21530577/fatal-error-python-h-no-such-file-or-directory
 
 オプション引数で指定したヘッダファイルを読み込んでくれるといいんだけど
