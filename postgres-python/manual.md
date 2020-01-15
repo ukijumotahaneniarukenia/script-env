@@ -427,5 +427,5 @@ $ldd /usr/local/lib/postgresql/plpython3.so
 ３系は難しいのかもしれない。
 [postgres💓4bb6195edf6f (水  1月 15 08:50:57) ~]$psql -U postgres -d testdb -c "CREATE EXTENSION plpython3u;"
 ERROR:  could not load library "/usr/local/lib/postgresql/plpython3.so": /usr/local/lib/postgresql/plpython3.so: undefined symbol: _Py_ZeroStruct
-
+これはPythonのバージョン問題で、ポスグレのコンパイルオプションで読み込んでくれたヘッダファイルが2系だったためとおもわれ
 ```
