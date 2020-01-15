@@ -214,6 +214,10 @@ $tail launch_postgres.log
 2020-01-13 22:59:57.773 JST [4817] LOG:  database system is shut down
 ```
 
+いけたときように、pythonバージョン確認スクリプト
+
+https://note.nkmk.me/python-sys-platform-version-info/
+
 
 むずかしい
 ```
