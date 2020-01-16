@@ -1,22 +1,22 @@
-Sending build context to Docker daemon  32.77kB
-Step 1/26 : FROM centos/systemd
+Sending build context to Docker daemon   42.5kB
+Step 1/28 : FROM centos/systemd
  ---> 05d3c1e2d0c1
-Step 2/26 : RUN groupadd -g 1001 postgres && useradd -m -g postgres -u 1001 postgres && chsh -s /bin/bash postgres && echo 'postgres_pwd' | passwd --stdin postgres && echo 'postgres ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
- ---> Running in 0e57107a2763
-Changing shell for postgres.
+Step 2/28 : RUN groupadd -g 1001 postgres && useradd -m -g postgres -u 1001 postgres && chsh -s /bin/bash postgres && echo 'postgres_pwd' | passwd --stdin postgres && echo 'postgres ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Running in 7842f03001ca
 [91mchsh: Shell not changed.
-[0mChanging password for user postgres.
+[0mChanging shell for postgres.
+Changing password for user postgres.
 passwd: all authentication tokens updated successfully.
-Removing intermediate container 0e57107a2763
- ---> 451d56cff933
-Step 3/26 : RUN echo 'root_pwd' | passwd --stdin root
- ---> Running in 613a92c50362
+Removing intermediate container 7842f03001ca
+ ---> bc65cabe370c
+Step 3/28 : RUN echo 'root_pwd' | passwd --stdin root
+ ---> Running in 130c29ca0753
 Changing password for user root.
 passwd: all authentication tokens updated successfully.
-Removing intermediate container 613a92c50362
- ---> cccf05a038b0
-Step 4/26 : RUN yum -y install epel-release
- ---> Running in e44290acfbb2
+Removing intermediate container 130c29ca0753
+ ---> 8cd4b08089f8
+Step 4/28 : RUN yum -y install epel-release
+ ---> Running in dc18bc5807f0
 Loaded plugins: fastestmirror, ovl
 Determining fastest mirrors
  * base: ftp-srv2.kddilabs.jp
@@ -61,10 +61,10 @@ Installed:
   epel-release.noarch 0:7-11                                                    
 
 Complete!
-Removing intermediate container e44290acfbb2
- ---> f411e9087996
-Step 5/26 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man moreutils lbzip2 which perl-Digest-SHA lbzip gcc-c++ libtool makeinfo file libffi-devel zlib-devel unzip autoconf gcc bison evince
- ---> Running in 15e45aea60ba
+Removing intermediate container dc18bc5807f0
+ ---> f66ee9f0598f
+Step 5/28 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man moreutils lbzip2 which perl-Digest-SHA lbzip gcc-c++ libtool makeinfo file libffi-devel zlib-devel unzip autoconf gcc bison evince
+ ---> Running in 93a5acca249f
 Loaded plugins: fastestmirror, ovl
 Loading mirror speeds from cached hostfile
  * base: ftp-srv2.kddilabs.jp
@@ -996,7 +996,7 @@ Delta RPMs disabled because /usr/bin/applydeltarpm not installed.
 [91mwarning: /var/cache/yum/x86_64/7/epel/packages/lbzip2-2.5-1.el7.x86_64.rpm: Header V3 RSA/SHA256 Signature, key ID 352c64e5: NOKEY
 [0mPublic key for lbzip2-2.5-1.el7.x86_64.rpm is not installed
 --------------------------------------------------------------------------------
-Total                                               35 MB/s | 178 MB  00:05     
+Total                                               14 MB/s | 178 MB  00:12     
 Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
 [91mImporting GPG key 0x352C64E5:
  Userid     : "Fedora EPEL (7) <epel@fedoraproject.org>"
@@ -1873,10 +1873,10 @@ Dependency Updated:
   readline.x86_64 0:6.2-11.el7            util-linux.x86_64 0:2.23.2-61.el7_7.1
 
 Complete!
-Removing intermediate container 15e45aea60ba
- ---> 88ffaca87749
-Step 6/26 : RUN yum install -y sudo gcc git gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd ~ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
- ---> Running in 316ce3deaf1a
+Removing intermediate container 93a5acca249f
+ ---> 3d0c9f27ae07
+Step 6/28 : RUN yum install -y sudo gcc git gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd ~ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
+ ---> Running in 9b86243fbf49
 Loaded plugins: fastestmirror, ovl
 Loading mirror speeds from cached hostfile
  * base: ftp-srv2.kddilabs.jp
@@ -2028,7 +2028,7 @@ Total download size: 17 M
 Downloading packages:
 Delta RPMs disabled because /usr/bin/applydeltarpm not installed.
 --------------------------------------------------------------------------------
-Total                                               19 MB/s |  17 MB  00:00     
+Total                                              7.2 MB/s |  17 MB  00:02     
 Running transaction check
 Running transaction test
 Transaction test succeeded
@@ -3122,111 +3122,109 @@ OLD_PO_FILE_INPUT=yes msgfmt -v -o en_GB.mo en_GB.po
 OLD_PO_FILE_INPUT=yes msgfmt -v -o eo.mo eo.po
 OLD_PO_FILE_INPUT=yes msgfmt -v -o es.mo es.po
 touch objects/.dirstamp
-OLD_PO_FILE_INPUT=yes msgfmt -v -o fi.mo fi.po
 [91m182 translated messages.
-[0mgcc -std=gnu99 -c -I.  -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/gui_gtk_gresources.o auto/gui_gtk_gresources.c
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o fi.mo fi.po
+gcc -std=gnu99 -c -I.  -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/gui_gtk_gresources.o auto/gui_gtk_gresources.c
 [91m1272 translated messages.
+[0m[91m1412 translated messages.
 [0mgcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/vterm_encoding.o libvterm/src/encoding.c
-[91m1412 translated messages.
-[0mgcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/vterm_keyboard.o libvterm/src/keyboard.c
+OLD_PO_FILE_INPUT=yes msgfmt -v -o fr.mo fr.po
 [91m1930 translated messages.
+[0mgcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/vterm_keyboard.o libvterm/src/keyboard.c
+[91m1963 translated messages.
 [0mgcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/vterm_mouse.o libvterm/src/mouse.c
 [91m2039 translated messages.
-[0m[91m1963 translated messages.
-[0mgcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/vterm_parser.o libvterm/src/parser.c
-OLD_PO_FILE_INPUT=yes msgfmt -v -o fr.mo fr.po
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o ga.mo ga.po
 [91m1702 translated messages.
 [0m[91m2040 translated messages.
-[0mgcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/vterm_pen.o libvterm/src/pen.c
-OLD_PO_FILE_INPUT=yes msgfmt -v -o ga.mo ga.po
-[91m1940 translated messages.
-[0mgcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/vterm_screen.o libvterm/src/screen.c
-[91m2039 translated messages.
-[0mgcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/vterm_state.o libvterm/src/state.c
-[91m1930 translated messages.
 [0mOLD_PO_FILE_INPUT=yes msgfmt -v -o it.mo it.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o ja.mo ja.po
+gcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/vterm_parser.o libvterm/src/parser.c
+[91m1940 translated messages.
+[0mgcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/vterm_pen.o libvterm/src/pen.c
+[91m2039 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o ja.mo ja.po
+[91m1930 translated messages[0m[91m.
+[0mgcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/vterm_screen.o libvterm/src/screen.c
 [91m2004 translated messages.
-[0mgcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/vterm_unicode.o libvterm/src/unicode.c
+[0mgcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/vterm_state.o libvterm/src/state.c
+gcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/vterm_unicode.o libvterm/src/unicode.c
 [91m2037 translated messages.
 [0mOLD_PO_FILE_INPUT=yes msgfmt -v -o ko.UTF-8.mo ko.UTF-8.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o ko.mo ko.po
+[91m1869 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o ko.mo ko.po
 gcc -std=gnu99 -c -I. -Ilibvterm/include -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -DINLINE="" -DVSNPRINTF=vim_vsnprintf -DIS_COMBINING_FUNCTION=utf_iscomposing_uint -DWCWIDTH_FUNCTION=utf_uint2cells -o objects/vterm_vterm.o libvterm/src/vterm.c
-OLD_PO_FILE_INPUT=yes msgfmt -v -o lv.mo lv.po
+[91m1869 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o lv.mo lv.po
+cp no.po nb.po
 [91m78 translated messages.
-[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o nb.mo nb.po
-[91m1869 translated messages.
 [0mOLD_PO_FILE_INPUT=yes msgfmt -v -o nl.mo nl.po
-[91m1869 translated messages.
-[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o no.mo no.po
-[91m1657 translated messages.
-[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o pl.mo pl.po
-[91m1657 translated messages.
-[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o pt_BR.mo pt_BR.po
+OLD_PO_FILE_INPUT=yes msgfmt -v -o no.mo no.po
+OLD_PO_FILE_INPUT=yes msgfmt -v -o pl.mo pl.po
+OLD_PO_FILE_INPUT=yes msgfmt -v -o pt_BR.mo pt_BR.po
 [91m1202 translated messages.
 [0mOLD_PO_FILE_INPUT=yes msgfmt -v -o ru.mo ru.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o sk.mo sk.po
+[91m1657 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o sk.mo sk.po
 [91m1860 translated messages.
 [0mOLD_PO_FILE_INPUT=yes msgfmt -v -o sr.mo sr.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o sv.mo sv.po
+[91m1936 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o sv.mo sv.po
 [91m1617 translated messages.
 [0mOLD_PO_FILE_INPUT=yes msgfmt -v -o tr.mo tr.po
-[91m1936 translated messages.
-[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o uk.mo uk.po
 [91m2040 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o uk.mo uk.po
+[91m1686 translated messages.
 [0mOLD_PO_FILE_INPUT=yes msgfmt -v -o vi.mo vi.po
 [91m2040 translated messages.
 [0mOLD_PO_FILE_INPUT=yes msgfmt -v -o zh_CN.UTF-8.mo zh_CN.UTF-8.po
-[91m1686 translated messages.
-[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o zh_CN.mo zh_CN.po
+OLD_PO_FILE_INPUT=yes msgfmt -v -o zh_CN.mo zh_CN.po
 [91m2038 translated messages.
 [0mOLD_PO_FILE_INPUT=yes msgfmt -v -o zh_TW.UTF-8.mo zh_TW.UTF-8.po
-[91m1623 translated messages, 3 fuzzy translations.
-[0m[91m1411 translated messages.
+[91m1411 translated messages.
 [0mOLD_PO_FILE_INPUT=yes msgfmt -v -o zh_TW.mo zh_TW.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o cs.cp1250.mo cs.cp1250.po
+[91m1963 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o cs.cp1250.mo cs.cp1250.po
 [91m1622 translated messages, 3 fuzzy translations.
-[0m[91m1963 translated messages.
 [0miconv -f utf-8 -t euc-jp ja.po | \
 	sed -e 's/charset=[uU][tT][fF]-8/charset=euc-jp/' -e 's/# Original translations/# Generated from ja.po, DO NOT EDIT/' > ja.euc-jp.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o ja.sjis.mo ja.sjis.po
+[91m1411 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o ja.sjis.mo ja.sjis.po
 [91m1411 translated messages.
 [0mrm -f pl.UTF-8.po
-[91m1411 translated messages.
+[91m1623 translated messages, 3 fuzzy translations.
 [0miconv -f iso-8859-2 -t utf-8 pl.po | \
 	sed -e 's/charset=ISO-8859-2/charset=UTF-8/' -e 's/# Original translations/# Generated from pl.po, DO NOT EDIT/' > pl.UTF-8.po
-rm -f pl.cp1250.po
-iconv -f iso-8859-2 -t cp1250 pl.po | \
-	sed -e 's/charset=ISO-8859-2/charset=cp1250/' -e 's/# Original translations/# Generated from pl.po, DO NOT EDIT/' > pl.cp1250.po
+OLD_PO_FILE_INPUT=yes msgfmt -v -o pl.cp1250.mo pl.cp1250.po
 [91m1272 translated messages.
 [0mrm -f ru.cp1251.po
 rm -f sk.cp1250.po
-rm -f uk.cp1251.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o zh_CN.cp936.mo zh_CN.cp936.po
-iconv -f iso-8859-2 -t cp1250 sk.po | \
-	sed -e 's/charset=ISO-8859-2/charset=cp1250/' -e 's/# Original translations/# Generated from sk.po, DO NOT EDIT/' > sk.cp1250.po
 iconv -f utf-8 -t cp1251 ru.po | \
 	sed -e 's/charset=[uU][tT][fF]-8/charset=cp1251/' -e 's/# Original translations/# Generated from ru.po, DO NOT EDIT/' > ru.cp1251.po
+iconv -f iso-8859-2 -t cp1250 sk.po | \
+	sed -e 's/charset=ISO-8859-2/charset=cp1250/' -e 's/# Original translations/# Generated from sk.po, DO NOT EDIT/' > sk.cp1250.po
+rm -f uk.cp1251.po
 iconv -f utf-8 -t cp1251 uk.po | \
 	sed -e 's/charset=[uU][tT][fF]-8/charset=cp1251/' -e 's/# Original translations/# Generated from uk.po, DO NOT EDIT/' > uk.cp1251.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o ja.euc-jp.mo ja.euc-jp.po
+OLD_PO_FILE_INPUT=yes msgfmt -v -o zh_CN.cp936.mo zh_CN.cp936.po
+[91m1860 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o nb.mo nb.po
 [91m2037 translated messages.
-[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o pl.UTF-8.mo pl.UTF-8.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o pl.cp1250.mo pl.cp1250.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o uk.cp1251.mo uk.cp1251.po
-OLD_PO_FILE_INPUT=yes msgfmt -v -o ru.cp1251.mo ru.cp1251.po
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o ja.euc-jp.mo ja.euc-jp.po
+OLD_PO_FILE_INPUT=yes msgfmt -v -o pl.UTF-8.mo pl.UTF-8.po
+OLD_PO_FILE_INPUT=yes msgfmt -v -o sk.cp1250.mo sk.cp1250.po
 [91m1623 translated messages, 3 fuzzy translations.
-[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o sk.cp1250.mo sk.cp1250.po
-[91m2037 translated messages.
-[0mecho af ca cs cs.cp1250 da de en_GB eo es fi fr ga it ja ja.euc-jp ja.sjis ko ko.UTF-8 lv nb nl no pl pl.UTF-8 pl.cp1250 pt_BR ru ru.cp1251 sk sk.cp1250 sr sv tr uk uk.cp1251 vi zh_CN zh_CN.UTF-8 zh_CN.cp936 zh_TW zh_TW.UTF-8  | tr " " "\n" |sed -e '/\./d' | sort > LINGUAS
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o ru.cp1251.mo ru.cp1251.po
+[91m1657 translated messages.
+[0m[91m2037 translated messages.
+[0mOLD_PO_FILE_INPUT=yes msgfmt -v -o uk.cp1251.mo uk.cp1251.po
 [91m1860 translated messages.
+[0mecho af ca cs cs.cp1250 da de en_GB eo es fi fr ga it ja ja.euc-jp ja.sjis ko ko.UTF-8 lv nb nl no pl pl.UTF-8 pl.cp1250 pt_BR ru ru.cp1251 sk sk.cp1250 sr sv tr uk uk.cp1251 vi zh_CN zh_CN.UTF-8 zh_CN.cp936 zh_TW zh_TW.UTF-8  | tr " " "\n" |sed -e '/\./d' | sort > LINGUAS
+echo af ca cs cs.cp1250 da de en_GB eo es fi fr ga it ja ja.euc-jp ja.sjis ko ko.UTF-8 lv nb nl no pl pl.UTF-8 pl.cp1250 pt_BR ru ru.cp1251 sk sk.cp1250 sr sv tr uk uk.cp1251 vi zh_CN zh_CN.UTF-8 zh_CN.cp936 zh_TW zh_TW.UTF-8  | tr " " "\n" |sed -e '/\./d' | sort > LINGUAS
+[91m1617 translated messages.
 [0mmsgfmt --desktop -d . --template gvim.desktop.in -o tmp_gvim.desktop
-[91m1860 translated messages.
-1617 translated messages.
-[0mecho af ca cs cs.cp1250 da de en_GB eo es fi fr ga it ja ja.euc-jp ja.sjis ko ko.UTF-8 lv nb nl no pl pl.UTF-8 pl.cp1250 pt_BR ru ru.cp1251 sk sk.cp1250 sr sv tr uk uk.cp1251 vi zh_CN zh_CN.UTF-8 zh_CN.cp936 zh_TW zh_TW.UTF-8  | tr " " "\n" |sed -e '/\./d' | sort > LINGUAS
-[91m2040 translated messages.
-[0mmsgfmt --desktop -d . --template vim.desktop.in -o tmp_vim.desktop
+msgfmt --desktop -d . --template vim.desktop.in -o tmp_vim.desktop
 [91m1963 translated messages.
+[0m[91m2040 translated messages.
 [0mmake[3]: Leaving directory `/root/vim/src/xxd'
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/arabic.o arabic.c
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/arglist.o arglist.c
@@ -3239,18 +3237,18 @@ gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/in
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/cindent.o cindent.c
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/cmdexpand.o cmdexpand.c
 rm -f LINGUAS
-if command -v desktop-file-validate; then desktop-file-validate tmp_gvim.desktop; fi
-mv tmp_gvim.desktop gvim.desktop
-gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/cmdhist.o cmdhist.c
-gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/crypt.o crypt.c
-gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/crypt_zip.o crypt_zip.c
-rm -f LINGUAS
 if command -v desktop-file-validate; then desktop-file-validate tmp_vim.desktop; fi
 mv tmp_vim.desktop vim.desktop
+gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/cmdhist.o cmdhist.c
+rm -f LINGUAS
+if command -v desktop-file-validate; then desktop-file-validate tmp_gvim.desktop; fi
+mv tmp_gvim.desktop gvim.desktop
 make[3]: Leaving directory `/root/vim/src/po'
 make[3]: Entering directory `/root/vim/src/po'
 make[3]: Nothing to be done for `converted'.
 make[3]: Leaving directory `/root/vim/src/po'
+gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/crypt.o crypt.c
+gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/crypt_zip.o crypt_zip.c
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/debugger.o debugger.c
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/dict.o dict.c
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/diff.o diff.c
@@ -3292,6 +3290,7 @@ gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/in
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/mbyte.o mbyte.c
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/normal.o normal.c
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/ops.o ops.c
+gcc -std=gnu99 -c -I.       -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/option.o option.c
 [91mmemline.c: In function 'adjust_text_props_for_delete':
 [0m[91mmemline.c:3504:12: warning: 'textlen' may be used uninitialized in this function [-Wmaybe-uninitialized]
      size_t textlen;
@@ -3302,8 +3301,7 @@ gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/in
 [0m[91mmemline.c:3542:6: warning: 'this_props_len' may be used uninitialized in this function [-Wmaybe-uninitialized]
       for (done_this = 0; done_this < this_props_len; done_this += sizeof(textprop_T))
       ^
-[0mgcc -std=gnu99 -c -I.       -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/option.o option.c
-gcc -std=gnu99 -c -I.       -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/optionstr.o optionstr.c
+[0mgcc -std=gnu99 -c -I.       -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/optionstr.o optionstr.c
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/os_unix.o os_unix.c
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/pathdef.o auto/pathdef.c
 gcc -std=gnu99 -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK  -pthread -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/uuid -I/usr/include/pixman-1 -I/usr/include/libdrm     -O2 -fno-strength-reduce -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1        -o objects/popupmenu.o popupmenu.c
@@ -3381,28 +3379,28 @@ cp vim /usr/local/bin
 /bin/sh install-sh -c -d /usr/local/share/vim/vim82/autoload/dist
 /bin/sh install-sh -c -d /usr/local/share/vim/vim82/autoload/xml
 strip /usr/local/bin/vim
-chmod 755 /usr/local/share/vim/vim82/syntax
-chmod 755 /usr/local/share/vim/vim82/colors
-chmod 755 /usr/local/share/vim/vim82/print
-chmod 755 /usr/local/share/vim/vim82/ftplugin
 chmod 755 /usr/local/share/vim
-chmod 755 /usr/local/share/vim/vim82/doc
-/bin/sh install-sh -c -d /usr/local/share/vim/vim82/plugin
-chmod 755 /usr/local/share/vim/vim82/indent
-/bin/sh install-sh -c -d /usr/local/share/vim/vim82/tutor
-/bin/sh install-sh -c -d /usr/local/share/vim/vim82/spell
-/bin/sh install-sh -c -d /usr/local/share/vim/vim82/compiler
+chmod 755 /usr/local/share/vim/vim82/print
 chmod 755 /usr/local/share/vim/vim82
+chmod 755 /usr/local/share/vim/vim82/colors
+chmod 755 /usr/local/bin/vim
+/bin/sh install-sh -c -d /usr/local/share/vim/vim82/plugin
+/bin/sh install-sh -c -d /usr/local/share/vim/vim82/tutor
+chmod 755 /usr/local/share/vim/vim82/syntax
+chmod 755 /usr/local/share/vim/vim82/ftplugin
+/bin/sh install-sh -c -d /usr/local/share/vim/vim82/spell
+chmod 755 /usr/local/share/vim/vim82/doc
+/bin/sh install-sh -c -d /usr/local/share/vim/vim82/compiler
 /bin/sh install-sh -c -d /usr/local/share/vim/vim82/macros
-/bin/sh install-sh -c -d /usr/local/share/vim/vim82/pack
-cd /usr/local/bin; ln -s vim gvim
+chmod 755 /usr/local/share/vim/vim82/indent
 chmod 755 /usr/local/share/vim/vim82/autoload
 chmod 755 /usr/local/share/vim/vim82/autoload/dist
-chmod 755 /usr/local/bin/vim
+/bin/sh install-sh -c -d /usr/local/share/vim/vim82/pack
+chmod 755 /usr/local/share/vim/vim82/autoload/xml
+cd /usr/local/bin; ln -s vim gvim
 cd /usr/local/bin; ln -s vim gview
 cd /usr/local/bin; ln -s vim rgvim
 cd /usr/local/bin; ln -s vim rgview
-chmod 755 /usr/local/share/vim/vim82/autoload/xml
 cd /usr/local/bin; ln -s vim evim
 cd /usr/local/bin; ln -s vim eview
 cd /usr/local/bin; ln -s vim gvimdiff
@@ -3414,21 +3412,14 @@ cd /usr/local/bin; ln -s vim vimdiff
 /bin/sh ./installml.sh install "yes" \
 	/usr/local/share/man/man1 vim vimdiff evim ex view rvim rview gvim gview rgvim rgview gvimdiff eview
 /bin/sh install-sh -c -d /usr/local/share/vim/vim82/tools
-chmod 755 /usr/local/share/vim/vim82/tutor
 /bin/sh ./installman.sh xxd /usr/local/share/man/da/man1 "-da" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-chmod 755 /usr/local/share/vim/vim82/spell
-chmod 755 /usr/local/share/vim/vim82/plugin
-chmod 755 /usr/local/share/vim/vim82/compiler
 /bin/sh install-sh -c -d /usr/local/share/vim/vim82/lang
-chmod 755 /usr/local/share/vim/vim82/macros
-creating /usr/local/share/man/da/man1
-chmod 755 /usr/local/share/vim/vim82/pack
 /bin/sh install-sh -c -d /usr/local/share/vim/vim82/keymap
 if test -n ""; then \
 	/bin/sh install-sh -c -d /usr/local/share/icons/hicolor/48x48/apps /usr/local/share/icons/locolor/32x32/apps \
 	/usr/local/share/icons/locolor/16x16/apps /usr/local/share/applications; \
 fi
-cp gvimtutor /usr/local/bin/gvimtutor
+creating /usr/local/share/man/da/man1
 if test -d /usr/local/share/icons/hicolor/48x48/apps -a -w /usr/local/share/icons/hicolor/48x48/apps \
 	-a ! -f /usr/local/share/icons/hicolor/48x48/apps/gvim.png; then \
    cp ../runtime/vim48x48.png /usr/local/share/icons/hicolor/48x48/apps/gvim.png; \
@@ -3438,29 +3429,32 @@ if test -d /usr/local/share/icons/hicolor/48x48/apps -a -w /usr/local/share/icon
 	/usr/bin/gtk-update-icon-cache -q /usr/local/share/icons/hicolor; \
    fi \
 fi
-chmod 755 /usr/local/bin/gvimtutor
-cp vimtutor /usr/local/bin/vimtutor
+chmod 755 /usr/local/share/vim/vim82/spell
+make[2]: Entering directory `/root/vim/src/po'
+make[2]: Nothing to be done for `first'.
+make[2]: Leaving directory `/root/vim/src/po'
+chmod 755 /usr/local/share/vim/vim82/tutor
+chmod 755 /usr/local/share/vim/vim82/plugin
 if test -d /usr/local/share/icons/locolor/32x32/apps -a -w /usr/local/share/icons/locolor/32x32/apps \
 	-a ! -f /usr/local/share/icons/locolor/32x32/apps/gvim.png; then \
    cp ../runtime/vim32x32.png /usr/local/share/icons/locolor/32x32/apps/gvim.png; \
 fi
-/bin/sh ./installman.sh install /usr/local/share/man/man1 "" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-cp -r ../runtime/macros/* /usr/local/share/vim/vim82/macros
-cp -r ../runtime/pack/* /usr/local/share/vim/vim82/pack
+cp gvimtutor /usr/local/bin/gvimtutor
+cp vimtutor /usr/local/bin/vimtutor
+chmod 755 /usr/local/share/vim/vim82/compiler
+chmod 755 /usr/local/share/vim/vim82/macros
+chmod 755 /usr/local/share/vim/vim82/pack
 cp ../runtime/tutor/README* ../runtime/tutor/tutor* /usr/local/share/vim/vim82/tutor
-make[2]: Entering directory `/root/vim/src/po'
-make[2]: Nothing to be done for `first'.
-make[2]: Leaving directory `/root/vim/src/po'
-chmod 755 /usr/local/bin/vimtutor
 if test -d /usr/local/share/icons/locolor/16x16/apps -a -w /usr/local/share/icons/locolor/16x16/apps \
 	-a ! -f /usr/local/share/icons/locolor/16x16/apps/gvim.png; then \
    cp ../runtime/vim16x16.png /usr/local/share/icons/locolor/16x16/apps/gvim.png; \
 fi
+chmod 755 /usr/local/bin/gvimtutor
+chmod 755 /usr/local/bin/vimtutor
 if test -f ../runtime/spell/en.latin1.spl; then \
   cp ../runtime/spell/*.spl ../runtime/spell/*.sug ../runtime/spell/*.vim /usr/local/share/vim/vim82/spell; \
   chmod 644 /usr/local/share/vim/vim82/spell/*.spl /usr/local/share/vim/vim82/spell/*.sug /usr/local/share/vim/vim82/spell/*.vim; \
 fi
-installing /usr/local/share/man/man1/vim.1
 if test -d /usr/local/share/applications -a -w /usr/local/share/applications; then \
    if test -f po/vim.desktop -a -f po/gvim.desktop; then \
 	cp po/vim.desktop po/gvim.desktop \
@@ -3474,44 +3468,50 @@ if test -d /usr/local/share/applications -a -w /usr/local/share/applications; th
       no -q /usr/local/share/applications; \
    fi \
 fi
-chmod 755 `find /usr/local/share/vim/vim82/pack -type d -print`
-chmod 755 `find /usr/local/share/vim/vim82/macros -type d -print`
+/bin/sh ./installman.sh install /usr/local/share/man/man1 "" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+cp -r ../runtime/macros/* /usr/local/share/vim/vim82/macros
+cp -r ../runtime/pack/* /usr/local/share/vim/vim82/pack
 make[2]: Entering directory `/root/vim/src/po'
 make[2]: Nothing to be done for `converted'.
 make[2]: Leaving directory `/root/vim/src/po'
-installing /usr/local/share/man/man1/vimtutor.1
+installing /usr/local/share/man/man1/vim.1
 chmod 755 /usr/local/share/vim/vim82/tools
-/bin/sh ./installman.sh xxd /usr/local/share/man/da.ISO8859-1/man1 "-da" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 chmod 755 /usr/local/share/vim/vim82/lang
-installing /usr/local/share/man/man1/vimdiff.1
 chmod 755 /usr/local/share/vim/vim82/keymap
+installing /usr/local/share/man/man1/vimtutor.1
+chmod 755 `find /usr/local/share/vim/vim82/macros -type d -print`
+chmod 755 `find /usr/local/share/vim/vim82/pack -type d -print`
 rm -f /usr/local/share/vim/vim82/tutor/*.info
-creating /usr/local/share/man/da.ISO8859-1/man1
-chmod 644 `find /usr/local/share/vim/vim82/macros -type f -print`
 /bin/sh ./installman.sh install /usr/local/share/man/da/man1 "-da" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/man1/vimdiff.1
+chmod 644 /usr/local/share/vim/vim82/tutor/*
+/bin/sh ./installman.sh xxd /usr/local/share/man/da.ISO8859-1/man1 "-da" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+chmod 644 `find /usr/local/share/vim/vim82/macros -type f -print`
+installing /usr/local/share/man/da/man1/vim.1
 installing /usr/local/share/man/man1/evim.1
 chmod 644 `find /usr/local/share/vim/vim82/pack -type f -print`
-chmod 644 /usr/local/share/vim/vim82/tutor/*
+creating /usr/local/share/man/da.ISO8859-1/man1
 cd ../runtime/doc; if test -z "" -a -f tags; then \
 	mv -f tags tags.dist; fi
-installing /usr/local/share/man/da/man1/vim.1
+installing /usr/local/share/man/da/man1/vimtutor.1
 chmod 755 /usr/local/share/vim/vim82/macros/less.sh
 cvs=`find /usr/local/share/vim/vim82/macros \( -name CVS -o -name AAPDIR -o -name "*.info" \) -print`; \
       if test -n "$cvs"; then \
 	 rm -rf $cvs; \
       fi
 generating help tags
-installing /usr/local/share/man/da/man1/vimtutor.1
 installing /usr/local/share/man/da/man1/vimdiff.1
-make[2]: Entering directory `/root/vim/runtime/doc'
-/bin/sh ./installman.sh xxd /usr/local/share/man/da.UTF-8/man1 "-da.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 /bin/sh ./installman.sh install /usr/local/share/man/da.ISO8859-1/man1 "-da" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+make[2]: Entering directory `/root/vim/runtime/doc'
 /usr/local/bin/vim
-creating /usr/local/share/man/da.UTF-8/man1
+creating /usr/local/share/man/da.ISO8859-1/man1
+/bin/sh ./installman.sh xxd /usr/local/share/man/da.UTF-8/man1 "-da.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 installing /usr/local/share/man/da.ISO8859-1/man1/vim.1
+creating /usr/local/share/man/da.UTF-8/man1
 installing /usr/local/share/man/da.ISO8859-1/man1/vimtutor.1
 installing /usr/local/share/man/da.ISO8859-1/man1/vimdiff.1
 /bin/sh ./installman.sh install /usr/local/share/man/da.UTF-8/man1 "-da.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+creating /usr/local/share/man/da.UTF-8/man1
 installing /usr/local/share/man/da.UTF-8/man1/vim.1
 /bin/sh ./installman.sh xxd /usr/local/share/man/de/man1 "-de" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 creating /usr/local/share/man/de/man1
@@ -3522,7 +3522,6 @@ creating /usr/local/share/man/de/man1
 /bin/sh ./installman.sh xxd /usr/local/share/man/de.ISO8859-1/man1 "-de" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 creating /usr/local/share/man/de.ISO8859-1/man1
 installing /usr/local/share/man/de/man1/vim.1
-/bin/sh ./installman.sh install /usr/local/share/man/de.ISO8859-1/man1 "-de" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 help tags updated
 make[2]: Leaving directory `/root/vim/runtime/doc'
 cd ../runtime/doc; \
@@ -3531,8 +3530,9 @@ cd ../runtime/doc; \
 	cp $files  /usr/local/share/vim/vim82/doc; \
 	cd /usr/local/share/vim/vim82/doc; \
 	chmod 644 $files
-installing /usr/local/share/man/de.ISO8859-1/man1/vim.1
+/bin/sh ./installman.sh install /usr/local/share/man/de.ISO8859-1/man1 "-de" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 /bin/sh ./installman.sh xxd /usr/local/share/man/de.UTF-8/man1 "-de.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/de.ISO8859-1/man1/vim.1
 creating /usr/local/share/man/de.UTF-8/man1
 /bin/sh ./installman.sh install /usr/local/share/man/de.UTF-8/man1 "-de.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 creating /usr/local/share/man/de.UTF-8/man1
@@ -3540,127 +3540,127 @@ creating /usr/local/share/man/de.UTF-8/man1
 creating /usr/local/share/man/fr/man1
 installing /usr/local/share/man/de.UTF-8/man1/vim.1
 cp  ../runtime/doc/*.pl /usr/local/share/vim/vim82/doc
-/bin/sh ./installman.sh install /usr/local/share/man/fr/man1 "-fr" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 chmod 755 /usr/local/share/vim/vim82/doc/*.pl
-creating /usr/local/share/man/fr/man1
+/bin/sh ./installman.sh install /usr/local/share/man/fr/man1 "-fr" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 cd ../runtime/doc; if test -f tags.dist; then mv -f tags.dist tags; fi
+creating /usr/local/share/man/fr/man1
 cp ../runtime/menu.vim /usr/local/share/vim/vim82/menu.vim
 chmod 644 /usr/local/share/vim/vim82/menu.vim
 cp ../runtime/synmenu.vim /usr/local/share/vim/vim82/synmenu.vim
-installing /usr/local/share/man/fr/man1/xxd.1
 chmod 644 /usr/local/share/vim/vim82/synmenu.vim
+installing /usr/local/share/man/fr/man1/xxd.1
 cp ../runtime/delmenu.vim /usr/local/share/vim/vim82/delmenu.vim
 chmod 644 /usr/local/share/vim/vim82/delmenu.vim
-/bin/sh ./installman.sh xxd /usr/local/share/man/fr.ISO8859-1/man1 "-fr" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 cp ../runtime/defaults.vim /usr/local/share/vim/vim82/defaults.vim
+/bin/sh ./installman.sh xxd /usr/local/share/man/fr.ISO8859-1/man1 "-fr" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 chmod 644 /usr/local/share/vim/vim82/defaults.vim
 cp ../runtime/evim.vim /usr/local/share/vim/vim82/evim.vim
-creating /usr/local/share/man/fr.ISO8859-1/man1
 chmod 644 /usr/local/share/vim/vim82/evim.vim
+creating /usr/local/share/man/fr.ISO8859-1/man1
 cp ../runtime/mswin.vim /usr/local/share/vim/vim82/mswin.vim
-installing /usr/local/share/man/fr/man1/vim.1
 chmod 644 /usr/local/share/vim/vim82/mswin.vim
 cp ../runtime/rgb.txt /usr/local/share/vim/vim82/rgb.txt
 chmod 644 /usr/local/share/vim/vim82/rgb.txt
+installing /usr/local/share/man/fr/man1/vim.1
 cp ../runtime/bugreport.vim /usr/local/share/vim/vim82/bugreport.vim
 chmod 644 /usr/local/share/vim/vim82/bugreport.vim
-installing /usr/local/share/man/fr/man1/vimtutor.1
 cp ../runtime/vimrc_example.vim /usr/local/share/vim/vim82
 chmod 644 /usr/local/share/vim/vim82/vimrc_example.vim
 cp ../runtime/gvimrc_example.vim /usr/local/share/vim/vim82
-installing /usr/local/share/man/fr/man1/vimdiff.1
+installing /usr/local/share/man/fr/man1/vimtutor.1
 chmod 644 /usr/local/share/vim/vim82/gvimrc_example.vim
 cp ../runtime/filetype.vim /usr/local/share/vim/vim82/filetype.vim
-installing /usr/local/share/man/fr/man1/evim.1
+installing /usr/local/share/man/fr/man1/vimdiff.1
 chmod 644 /usr/local/share/vim/vim82/filetype.vim
 cp ../runtime/ftoff.vim /usr/local/share/vim/vim82/ftoff.vim
 chmod 644 /usr/local/share/vim/vim82/ftoff.vim
-installing /usr/local/share/man/fr.ISO8859-1/man1/xxd.1
-/bin/sh ./installman.sh install /usr/local/share/man/fr.ISO8859-1/man1 "-fr" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/fr/man1/evim.1
 cp ../runtime/scripts.vim /usr/local/share/vim/vim82/scripts.vim
+installing /usr/local/share/man/fr.ISO8859-1/man1/xxd.1
 chmod 644 /usr/local/share/vim/vim82/scripts.vim
 cp ../runtime/ftplugin.vim /usr/local/share/vim/vim82/ftplugin.vim
-/bin/sh ./installman.sh xxd /usr/local/share/man/fr.UTF-8/man1 "-fr.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+/bin/sh ./installman.sh install /usr/local/share/man/fr.ISO8859-1/man1 "-fr" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 chmod 644 /usr/local/share/vim/vim82/ftplugin.vim
-installing /usr/local/share/man/fr.ISO8859-1/man1/vim.1
+/bin/sh ./installman.sh xxd /usr/local/share/man/fr.UTF-8/man1 "-fr.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 cp ../runtime/ftplugof.vim /usr/local/share/vim/vim82/ftplugof.vim
 chmod 644 /usr/local/share/vim/vim82/ftplugof.vim
-creating /usr/local/share/man/fr.UTF-8/man1
 cp ../runtime/indent.vim /usr/local/share/vim/vim82/indent.vim
+installing /usr/local/share/man/fr.ISO8859-1/man1/vim.1
+creating /usr/local/share/man/fr.UTF-8/man1
 chmod 644 /usr/local/share/vim/vim82/indent.vim
 cp ../runtime/indoff.vim /usr/local/share/vim/vim82/indoff.vim
-installing /usr/local/share/man/fr.ISO8859-1/man1/vimtutor.1
 chmod 644 /usr/local/share/vim/vim82/indoff.vim
 cp ../runtime/optwin.vim /usr/local/share/vim/vim82/optwin.vim
 chmod 644 /usr/local/share/vim/vim82/optwin.vim
-installing /usr/local/share/man/fr.ISO8859-1/man1/vimdiff.1
+installing /usr/local/share/man/fr.ISO8859-1/man1/vimtutor.1
 cd ../runtime/print; cp *.ps /usr/local/share/vim/vim82/print
+installing /usr/local/share/man/fr.ISO8859-1/man1/vimdiff.1
 installing /usr/local/share/man/fr.ISO8859-1/man1/evim.1
 cd /usr/local/share/vim/vim82/print; chmod 644 *.ps
 /bin/sh ./installman.sh install /usr/local/share/man/fr.UTF-8/man1 "-fr.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 cd ../runtime/colors; cp -r *.vim tools README.txt /usr/local/share/vim/vim82/colors
-installing /usr/local/share/man/fr.UTF-8/man1/vim.1
 installing /usr/local/share/man/fr.UTF-8/man1/xxd.1
-/bin/sh ./installman.sh xxd /usr/local/share/man/it/man1 "-it" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/fr.UTF-8/man1/vim.1
 cd /usr/local/share/vim/vim82/colors; chmod 755 tools
-installing /usr/local/share/man/fr.UTF-8/man1/vimtutor.1
-creating /usr/local/share/man/it/man1
+/bin/sh ./installman.sh xxd /usr/local/share/man/it/man1 "-it" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 cd /usr/local/share/vim/vim82/colors; chmod 644 *.vim README.txt tools/*.vim
-installing /usr/local/share/man/fr.UTF-8/man1/vimdiff.1
+creating /usr/local/share/man/it/man1
+installing /usr/local/share/man/fr.UTF-8/man1/vimtutor.1
 cd ../runtime/syntax; cp *.vim README.txt /usr/local/share/vim/vim82/syntax
+installing /usr/local/share/man/fr.UTF-8/man1/vimdiff.1
 installing /usr/local/share/man/fr.UTF-8/man1/evim.1
 /bin/sh ./installman.sh install /usr/local/share/man/it/man1 "-it" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 creating /usr/local/share/man/it/man1
 installing /usr/local/share/man/it/man1/xxd.1
-/bin/sh ./installman.sh xxd /usr/local/share/man/it.ISO8859-1/man1 "-it" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-creating /usr/local/share/man/it.ISO8859-1/man1
 installing /usr/local/share/man/it/man1/vim.1
+/bin/sh ./installman.sh xxd /usr/local/share/man/it.ISO8859-1/man1 "-it" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 installing /usr/local/share/man/it/man1/vimtutor.1
+creating /usr/local/share/man/it.ISO8859-1/man1
 installing /usr/local/share/man/it/man1/vimdiff.1
 installing /usr/local/share/man/it/man1/evim.1
-installing /usr/local/share/man/it.ISO8859-1/man1/xxd.1
 /bin/sh ./installman.sh install /usr/local/share/man/it.ISO8859-1/man1 "-it" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+creating /usr/local/share/man/it.ISO8859-1/man1
+installing /usr/local/share/man/it.ISO8859-1/man1/xxd.1
 /bin/sh ./installman.sh xxd /usr/local/share/man/it.UTF-8/man1 "-it.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-installing /usr/local/share/man/it.ISO8859-1/man1/vim.1
 creating /usr/local/share/man/it.UTF-8/man1
+installing /usr/local/share/man/it.ISO8859-1/man1/vim.1
+cd /usr/local/share/vim/vim82/syntax; chmod 644 *.vim README.txt
 installing /usr/local/share/man/it.ISO8859-1/man1/vimtutor.1
 installing /usr/local/share/man/it.ISO8859-1/man1/vimdiff.1
 installing /usr/local/share/man/it.ISO8859-1/man1/evim.1
-cd /usr/local/share/vim/vim82/syntax; chmod 644 *.vim README.txt
-/bin/sh ./installman.sh install /usr/local/share/man/it.UTF-8/man1 "-it.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 installing /usr/local/share/man/it.UTF-8/man1/xxd.1
-installing /usr/local/share/man/it.UTF-8/man1/vim.1
+/bin/sh ./installman.sh install /usr/local/share/man/it.UTF-8/man1 "-it.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 /bin/sh ./installman.sh xxd /usr/local/share/man/ja/man1 "-ja.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-installing /usr/local/share/man/it.UTF-8/man1/vimtutor.1
 cd ../runtime/indent; cp *.vim README.txt /usr/local/share/vim/vim82/indent
+installing /usr/local/share/man/it.UTF-8/man1/vim.1
 creating /usr/local/share/man/ja/man1
+installing /usr/local/share/man/it.UTF-8/man1/vimtutor.1
 installing /usr/local/share/man/it.UTF-8/man1/vimdiff.1
 installing /usr/local/share/man/it.UTF-8/man1/evim.1
-/bin/sh ./installman.sh install /usr/local/share/man/ja/man1 "-ja.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-creating /usr/local/share/man/ja/man1
 cd /usr/local/share/vim/vim82/indent; chmod 644 *.vim README.txt
-installing /usr/local/share/man/ja/man1/vim.1
-installing /usr/local/share/man/ja/man1/xxd.1
+/bin/sh ./installman.sh install /usr/local/share/man/ja/man1 "-ja.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 cd ../runtime/autoload; cp *.vim README.txt /usr/local/share/vim/vim82/autoload
+installing /usr/local/share/man/ja/man1/xxd.1
+installing /usr/local/share/man/ja/man1/vim.1
 /bin/sh ./installman.sh xxd /usr/local/share/man/pl/man1 "-pl" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 installing /usr/local/share/man/ja/man1/vimtutor.1
 creating /usr/local/share/man/pl/man1
-installing /usr/local/share/man/ja/man1/vimdiff.1
 cd /usr/local/share/vim/vim82/autoload; chmod 644 *.vim README.txt
-installing /usr/local/share/man/ja/man1/evim.1
+installing /usr/local/share/man/ja/man1/vimdiff.1
 cd ../runtime/autoload/dist; cp *.vim /usr/local/share/vim/vim82/autoload/dist
-/bin/sh ./installman.sh install /usr/local/share/man/pl/man1 "-pl" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/ja/man1/evim.1
 cd /usr/local/share/vim/vim82/autoload/dist; chmod 644 *.vim
-creating /usr/local/share/man/pl/man1
+/bin/sh ./installman.sh install /usr/local/share/man/pl/man1 "-pl" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 cd ../runtime/autoload/xml; cp *.vim /usr/local/share/vim/vim82/autoload/xml
-installing /usr/local/share/man/pl/man1/xxd.1
+creating /usr/local/share/man/pl/man1
 cd /usr/local/share/vim/vim82/autoload/xml; chmod 644 *.vim
-/bin/sh ./installman.sh xxd /usr/local/share/man/pl.ISO8859-2/man1 "-pl" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+installing /usr/local/share/man/pl/man1/xxd.1
 cd ../runtime/plugin; cp *.vim README.txt /usr/local/share/vim/vim82/plugin
+/bin/sh ./installman.sh xxd /usr/local/share/man/pl.ISO8859-2/man1 "-pl" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 creating /usr/local/share/man/pl.ISO8859-2/man1
 cd /usr/local/share/vim/vim82/plugin; chmod 644 *.vim README.txt
-installing /usr/local/share/man/pl/man1/vim.1
 cd ../runtime/ftplugin; cp *.vim README.txt logtalk.dict /usr/local/share/vim/vim82/ftplugin
+installing /usr/local/share/man/pl/man1/vim.1
 installing /usr/local/share/man/pl/man1/vimtutor.1
 installing /usr/local/share/man/pl/man1/vimdiff.1
 installing /usr/local/share/man/pl/man1/evim.1
@@ -3668,8 +3668,8 @@ installing /usr/local/share/man/pl.ISO8859-2/man1/xxd.1
 /bin/sh ./installman.sh install /usr/local/share/man/pl.ISO8859-2/man1 "-pl" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 /bin/sh ./installman.sh xxd /usr/local/share/man/pl.UTF-8/man1 "-pl.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 installing /usr/local/share/man/pl.ISO8859-2/man1/vim.1
-creating /usr/local/share/man/pl.UTF-8/man1
 cd /usr/local/share/vim/vim82/ftplugin; chmod 644 *.vim README.txt
+creating /usr/local/share/man/pl.UTF-8/man1
 installing /usr/local/share/man/pl.ISO8859-2/man1/vimtutor.1
 cd ../runtime/compiler; cp *.vim README.txt /usr/local/share/vim/vim82/compiler
 installing /usr/local/share/man/pl.ISO8859-2/man1/vimdiff.1
@@ -3685,60 +3685,61 @@ installing /usr/local/share/man/pl.UTF-8/man1/vimdiff.1
 installing /usr/local/share/man/pl.UTF-8/man1/evim.1
 /bin/sh ./installman.sh install /usr/local/share/man/ru.KOI8-R/man1 "-ru" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
 creating /usr/local/share/man/ru.KOI8-R/man1
+installing /usr/local/share/man/ru.KOI8-R/man1/vim.1
 installing /usr/local/share/man/ru.KOI8-R/man1/xxd.1
 /bin/sh ./installman.sh xxd /usr/local/share/man/ru.UTF-8/man1 "-ru.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-creating /usr/local/share/man/ru.UTF-8/man1
-installing /usr/local/share/man/ru.KOI8-R/man1/vim.1
 installing /usr/local/share/man/ru.KOI8-R/man1/vimtutor.1
+creating /usr/local/share/man/ru.UTF-8/man1
 installing /usr/local/share/man/ru.KOI8-R/man1/vimdiff.1
 installing /usr/local/share/man/ru.KOI8-R/man1/evim.1
-installing /usr/local/share/man/ru.UTF-8/man1/xxd.1
 /bin/sh ./installman.sh install /usr/local/share/man/ru.UTF-8/man1 "-ru.UTF-8" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
+creating /usr/local/share/man/ru.UTF-8/man1
+installing /usr/local/share/man/ru.UTF-8/man1/xxd.1
 if test -f /usr/local/bin/xxd; then \
   mv -f /usr/local/bin/xxd /usr/local/bin/xxd.rm; \
   rm -f /usr/local/bin/xxd.rm; \
 fi
 cp xxd/xxd /usr/local/bin
-installing /usr/local/share/man/ru.UTF-8/man1/vim.1
 strip /usr/local/bin/xxd
 chmod 755 /usr/local/bin/xxd
 /bin/sh ./installman.sh xxd /usr/local/share/man/man1 "" /usr/local/share/vim /usr/local/share/vim/vim82 /usr/local/share/vim ../runtime/doc 644 vim vimdiff evim
-installing /usr/local/share/man/ru.UTF-8/man1/vimtutor.1
+installing /usr/local/share/man/ru.UTF-8/man1/vim.1
 installing /usr/local/share/man/man1/xxd.1
-installing /usr/local/share/man/ru.UTF-8/man1/vimdiff.1
-installing /usr/local/share/man/ru.UTF-8/man1/evim.1
+installing /usr/local/share/man/ru.UTF-8/man1/vimtutor.1
 cp -r ../runtime/tools/* /usr/local/share/vim/vim82/tools
-/bin/sh ./installml.sh install "yes" \
-	/usr/local/share/man/da/man1 vim vimdiff evim ex view rvim rview gvim gview rgvim rgview gvimdiff eview
+installing /usr/local/share/man/ru.UTF-8/man1/vimdiff.1
 cvs=`find /usr/local/share/vim/vim82/tools \( -name CVS -o -name AAPDIR \) -print`; \
       if test -n "$cvs"; then \
 	 rm -rf $cvs; \
       fi
+installing /usr/local/share/man/ru.UTF-8/man1/evim.1
+/bin/sh ./installml.sh install "yes" \
+	/usr/local/share/man/da/man1 vim vimdiff evim ex view rvim rview gvim gview rgvim rgview gvimdiff eview
+chmod 644 /usr/local/share/vim/vim82/tools/*
+perlpath=`./which.sh perl` && sed -e "s+/usr/bin/perl+$perlpath+" ../runtime/tools/efm_perl.pl >/usr/local/share/vim/vim82/tools/efm_perl.pl
 creating link /usr/local/share/man/da/man1/ex.1
 creating link /usr/local/share/man/da/man1/view.1
-chmod 644 /usr/local/share/vim/vim82/tools/*
 creating link /usr/local/share/man/da/man1/rvim.1
 creating link /usr/local/share/man/da/man1/rview.1
 creating link /usr/local/share/man/da/man1/gvim.1
-perlpath=`./which.sh perl` && sed -e "s+/usr/bin/perl+$perlpath+" ../runtime/tools/efm_perl.pl >/usr/local/share/vim/vim82/tools/efm_perl.pl
+awkpath=`./which.sh nawk` && sed -e "s+/usr/bin/nawk+$awkpath+" ../runtime/tools/mve.awk >/usr/local/share/vim/vim82/tools/mve.awk; if test -z "$awkpath"; then \
+	awkpath=`./which.sh gawk` && sed -e "s+/usr/bin/nawk+$awkpath+" ../runtime/tools/mve.awk >/usr/local/share/vim/vim82/tools/mve.awk; if test -z "$awkpath"; then \
+	awkpath=`./which.sh awk` && sed -e "s+/usr/bin/nawk+$awkpath+" ../runtime/tools/mve.awk >/usr/local/share/vim/vim82/tools/mve.awk; fi; fi
 creating link /usr/local/share/man/da/man1/gview.1
 creating link /usr/local/share/man/da/man1/rgvim.1
 creating link /usr/local/share/man/da/man1/rgview.1
 creating link /usr/local/share/man/da/man1/gvimdiff.1
 /bin/sh ./installml.sh install "yes" \
 	/usr/local/share/man/da.ISO8859-1/man1 vim vimdiff evim ex view rvim rview gvim gview rgvim rgview gvimdiff eview
-awkpath=`./which.sh nawk` && sed -e "s+/usr/bin/nawk+$awkpath+" ../runtime/tools/mve.awk >/usr/local/share/vim/vim82/tools/mve.awk; if test -z "$awkpath"; then \
-	awkpath=`./which.sh gawk` && sed -e "s+/usr/bin/nawk+$awkpath+" ../runtime/tools/mve.awk >/usr/local/share/vim/vim82/tools/mve.awk; if test -z "$awkpath"; then \
-	awkpath=`./which.sh awk` && sed -e "s+/usr/bin/nawk+$awkpath+" ../runtime/tools/mve.awk >/usr/local/share/vim/vim82/tools/mve.awk; fi; fi
 creating link /usr/local/share/man/da.ISO8859-1/man1/ex.1
 creating link /usr/local/share/man/da.ISO8859-1/man1/view.1
+chmod 755 `grep -l "^#!" /usr/local/share/vim/vim82/tools/*`
 creating link /usr/local/share/man/da.ISO8859-1/man1/rvim.1
 creating link /usr/local/share/man/da.ISO8859-1/man1/rview.1
 creating link /usr/local/share/man/da.ISO8859-1/man1/gvim.1
 creating link /usr/local/share/man/da.ISO8859-1/man1/gview.1
 creating link /usr/local/share/man/da.ISO8859-1/man1/rgvim.1
 creating link /usr/local/share/man/da.ISO8859-1/man1/rgview.1
-chmod 755 `grep -l "^#!" /usr/local/share/vim/vim82/tools/*`
 creating link /usr/local/share/man/da.ISO8859-1/man1/gvimdiff.1
 /bin/sh ./installml.sh install "yes" \
 	/usr/local/share/man/da.UTF-8/man1 vim vimdiff evim ex view rvim rview gvim gview rgvim rgview gvimdiff eview
@@ -3956,23 +3957,23 @@ if test -d ../runtime/keymap; then \
    chmod 644 /usr/local/share/vim/vim82/keymap/README.txt /usr/local/share/vim/vim82/keymap/*.vim; \
 fi
 make[1]: Leaving directory `/root/vim/src'
-Removing intermediate container 316ce3deaf1a
- ---> 7ab5ccf505c4
-Step 7/26 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
- ---> Running in 8db94909564d
+Removing intermediate container 9b86243fbf49
+ ---> d546553378ec
+Step 7/28 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> Running in 9c3ec9b577dc
 Cloning into '/root/.vim'...
-Removing intermediate container 8db94909564d
- ---> ea251204d27a
-Step 8/26 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
- ---> Running in eb500301b464
+Removing intermediate container 9c3ec9b577dc
+ ---> effb7e825468
+Step 8/28 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> Running in cc7748f8a130
 Cloning into '/root/tmp'...
-Removing intermediate container eb500301b464
- ---> d5f7f2ca9c4a
-Step 9/26 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
- ---> Running in 7c861227a581
-[91m  % Total    % Received % Xfe[0m[91mrd  Average Speed   Ti[0m[91mme[0m[91m    Time    [0m[91m Time[0m[91m  Current
-  [0m[91m     [0m[91m    [0m[91m    [0m[91m    [0m[91m    [0m[91m  [0m[91m   [0m[91m    [0m[91m Dlo[0m[91mad[0m[91m  Up[0m[91mload   Total   Spent   [0m[91m Lef[0m[91mt  Spe[0m[91med
-[0m[91m  0    [0m[91m 0    0 [0m[91m    0 [0m[91m   0[0m[91m   [0m[91m  0 [0m[91m     0      [0m[91m0 --:-[0m[91m-:-- --:--:-- --:[0m[91m--:--     0[0m[91m100  2233  100  2233    0     0   5350     [0m[91m 0 --:[0m[91m--:[0m[91m--[0m[91m --:--:-- --:--:-[0m[91m-  535[0m[91m4[0m[91m
+Removing intermediate container cc7748f8a130
+ ---> aa9872009b3b
+Step 9/28 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+ ---> Running in 471c7df7a3f7
+[91m  % Total    % Received % Xferd  Average Speed  [0m[91m Time   [0m[91m Time     Time  C[0m[91murrent
+     [0m[91m               [0m[91m       [0m[91m   [0m[91m   [0m[91mDlo[0m[91mad  [0m[91mUp[0m[91mload[0m[91m   [0m[91mTot[0m[91mal [0m[91m  Spent [0m[91m   Left  Speed
+[0m[91m  0     0    0   [0m[91m  0    0     0 [0m[91m     0 [0m[91m    [0m[91m 0 -[0m[91m-:[0m[91m--:-[0m[91m- -[0m[91m-:-[0m[91m-:--[0m[91m -[0m[91m-:--:-[0m[91m-    [0m[91m 0[0m[91m100  2233  100  2233    0     0   5096      0 --:--:-[0m[91m- --:-[0m[91m-:-- --:[0m[91m--:-[0m[91m-  5098[0m[91m
 [0mInstall to "/root/.vim/bundle/repos/github.com/Shougo/dein.vim"...
 
 git is /usr/bin/git
@@ -4023,10 +4024,10 @@ syntax enable
 
 Done.
 Complete setup dein!
-Removing intermediate container 7c861227a581
- ---> c1c3dbb89426
-Step 10/26 : RUN yum -y reinstall glibc-common
- ---> Running in 1bc31f2dbbbb
+Removing intermediate container 471c7df7a3f7
+ ---> 724155aecb96
+Step 10/28 : RUN yum -y reinstall glibc-common
+ ---> Running in bcdaa406dcd5
 Loaded plugins: fastestmirror, ovl
 Loading mirror speeds from cached hostfile
  * base: ftp-srv2.kddilabs.jp
@@ -4064,10 +4065,10 @@ Installed:
   glibc-common.x86_64 0:2.17-292.el7                                            
 
 Complete!
-Removing intermediate container 1bc31f2dbbbb
- ---> a93cec4747ac
-Step 11/26 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
- ---> Running in 2e95a5935ab7
+Removing intermediate container bcdaa406dcd5
+ ---> 77ed203ec29d
+Step 11/28 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
+ ---> Running in eedd7ca7c216
 [91m/usr/share/i18n/locales/ja_JP:11: non-symbolic character value should not be used
 /usr/share/i18n/locales/ja_JP:12: non-symbolic character value should not be used
 /usr/share/i18n/locales/ja_JP:15: non-symbolic character value should not be used
@@ -4144,31 +4145,31 @@ LC_IDENTIFICATION: no identification for category `LC_MEASUREMENT'
 [0m[91mLC_CTYPE: table for class "jkanji": 3224 bytes
 [0m[91mLC_CTYPE: table for class "jdigit": 600 bytes
 LC_CTYPE: table for map "toupper": 16924 bytes
-[0m[91mLC_CTYPE: table for map "tolower": 15388 bytes
-LC_CTYPE: table for map "totitle": 16924 bytes
-LC_CTYPE: table for map "tojhira": 2584 bytes
-LC_CTYPE: table for map "tojkata": 3096 bytes
+LC_CTYPE: table for map "tolower": 15388 bytes
+[0m[91mLC_CTYPE: table for map "totitle": 16924 bytes
+[0m[91mLC_CTYPE: table for map "tojhira": 2584 bytes
+[0m[91mLC_CTYPE: table for map "tojkata": 3096 bytes
 [0m[91mLC_CTYPE: table for width: 26712 bytes
 [0m
-Removing intermediate container 2e95a5935ab7
- ---> 6f1258c6fbb8
-Step 12/26 : ENV LANG=ja_JP.UTF-8
- ---> Running in f40d928600fe
-Removing intermediate container f40d928600fe
- ---> d1bdc9a46d2d
-Step 13/26 : RUN rm -f /etc/localtime
- ---> Running in 680785b4154d
-Removing intermediate container 680785b4154d
- ---> 2aaf8e52c90f
-Step 14/26 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
- ---> Running in 885d37bde49c
-Removing intermediate container 885d37bde49c
- ---> d3f7c99d558a
-Step 15/26 : RUN cd /usr/local/src && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && tar -zxvf Python-3.7.4.tgz && chown -R root:root Python-3.7.4 && cd Python-3.7.4 && ./configure --enable-shared --with-ensurepip=install && make -j12 && make -j12 install
- ---> Running in 0466887c1735
-[91m  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-       [0m[91m                          Dload  Upload   [0m[91mTotal   Spent    Lef[0m[91mt  Speed
-  0  [0m[91m   0 [0m[91m   0  [0m[91m   0 [0m[91m   [0m[91m0    [0m[91m 0    [0m[91m  0[0m[91m     [0m[91m 0 [0m[91m--:--[0m[91m:-- --[0m[91m:--:-[0m[91m- -[0m[91m-[0m[91m:--:[0m[91m--  [0m[91m   0[0m[91m 25 [0m[91m21.9M   25 5728k    0     0  9786k [0m[91m   [0m[91m  0  0:00:02 -[0m[91m-:-[0m[91m-:-[0m[91m-  0:[0m[91m00:[0m[91m02 [0m[91m97[0m[91m74k[0m[91m100 21.9M  100 21.9M    0     0  14.7M   [0m[91m   0  0:00:01  0:0[0m[91m0:01 -[0m[91m-:[0m[91m--:-- [0m[91m14.7M
+Removing intermediate container eedd7ca7c216
+ ---> 3ea92ddf82f8
+Step 12/28 : ENV LANG=ja_JP.UTF-8
+ ---> Running in 78e99dcd309c
+Removing intermediate container 78e99dcd309c
+ ---> e15b088fd210
+Step 13/28 : RUN rm -f /etc/localtime
+ ---> Running in b2e4265fcdad
+Removing intermediate container b2e4265fcdad
+ ---> ad31b40b4070
+Step 14/28 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+ ---> Running in 59a1c9ed0a8f
+Removing intermediate container 59a1c9ed0a8f
+ ---> 9f91b2282e4b
+Step 15/28 : RUN cd /usr/local/src && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && tar -zxvf Python-3.7.4.tgz && chown -R root:root Python-3.7.4 && cd Python-3.7.4 && ./configure --enable-shared --with-ensurepip=install && make -j12 && make -j12 install
+ ---> Running in a50cc89a8047
+[91m  % Total    % Received % Xferd  [0m[91mAverage Speed   Time    Time     Time  [0m[91mCurrent
+                [0m[91m          [0m[91m  [0m[91m  [0m[91m   Dl[0m[91moad[0m[91m  Upl[0m[91moad   [0m[91mTo[0m[91mtal   [0m[91mSpent    L[0m[91meft  Sp[0m[91meed
+  [0m[91m0     0[0m[91m    [0m[91m0   [0m[91m  0 [0m[91m   0[0m[91m     0      [0m[91m0[0m[91m      0 --:--:-- --:[0m[91m--:--[0m[91m --:--:--     0[0m[91m 25 21.9M   25 5728k    0     0  6948k      0  [0m[91m0:00:03 --[0m[91m:--:--[0m[91m  [0m[91m0:00:03 6943k[0m[91m 71 21.9M   71 15.7M    0     0  8844k      0  0:00:02[0m[91m  0:00:01  0:00:01 8842[0m[91mk[0m[91m100 21.9M  100 21.9M    0     0  9266k      0  0[0m[91m:00:02  0:00:02 --:--:[0m[91m-- 9269[0m[91mk
 [0mPython-3.7.4/
 Python-3.7.4/Doc/
 Python-3.7.4/Doc/c-api/
@@ -9115,12 +9116,12 @@ gcc -pthread -c -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall 
 gcc -pthread -c -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall    -std=c99 -Wextra -Wno-unused-result -Wno-unused-parameter -Wno-missing-field-initializers -Werror=implicit-function-declaration   -I. -I./Include   -fPIC -DPy_BUILD_CORE -o Objects/obmalloc.o Objects/obmalloc.c
 gcc -pthread -c -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall    -std=c99 -Wextra -Wno-unused-result -Wno-unused-parameter -Wno-missing-field-initializers -Werror=implicit-function-declaration   -I. -I./Include   -fPIC -DPy_BUILD_CORE -o Objects/capsule.o Objects/capsule.c
 gcc -pthread -c -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall    -std=c99 -Wextra -Wno-unused-result -Wno-unused-parameter -Wno-missing-field-initializers -Werror=implicit-function-declaration   -I. -I./Include   -fPIC -DPy_BUILD_CORE -o Objects/rangeobject.o Objects/rangeobject.c
-gcc -pthread -c -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall    -std=c99 -Wextra -Wno-unused-result -Wno-unused-parameter -Wno-missing-field-initializers -Werror=implicit-function-declaration   -I. -I./Include   -fPIC -DPy_BUILD_CORE -o Objects/setobject.o Objects/setobject.c
-gcc -pthread -c -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall    -std=c99 -Wextra -Wno-unused-result -Wno-unused-parameter -Wno-missing-field-initializers -Werror=implicit-function-declaration   -I. -I./Include   -fPIC -DPy_BUILD_CORE -o Objects/sliceobject.o Objects/sliceobject.c
 [91mObjects/obmalloc.c:1357:1: warning: ‘no_sanitize_thread’ attribute directive ignored [-Wattributes]
  {
  ^
-[0mgcc -pthread -c -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall    -std=c99 -Wextra -Wno-unused-result -Wno-unused-parameter -Wno-missing-field-initializers -Werror=implicit-function-declaration   -I. -I./Include   -fPIC -DPy_BUILD_CORE -o Objects/structseq.o Objects/structseq.c
+[0mgcc -pthread -c -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall    -std=c99 -Wextra -Wno-unused-result -Wno-unused-parameter -Wno-missing-field-initializers -Werror=implicit-function-declaration   -I. -I./Include   -fPIC -DPy_BUILD_CORE -o Objects/setobject.o Objects/setobject.c
+gcc -pthread -c -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall    -std=c99 -Wextra -Wno-unused-result -Wno-unused-parameter -Wno-missing-field-initializers -Werror=implicit-function-declaration   -I. -I./Include   -fPIC -DPy_BUILD_CORE -o Objects/sliceobject.o Objects/sliceobject.c
+gcc -pthread -c -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall    -std=c99 -Wextra -Wno-unused-result -Wno-unused-parameter -Wno-missing-field-initializers -Werror=implicit-function-declaration   -I. -I./Include   -fPIC -DPy_BUILD_CORE -o Objects/structseq.o Objects/structseq.c
 gcc -pthread -c -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall    -std=c99 -Wextra -Wno-unused-result -Wno-unused-parameter -Wno-missing-field-initializers -Werror=implicit-function-declaration   -I. -I./Include   -fPIC -DPy_BUILD_CORE -o Objects/tupleobject.o Objects/tupleobject.c
 gcc -pthread -c -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall    -std=c99 -Wextra -Wno-unused-result -Wno-unused-parameter -Wno-missing-field-initializers -Werror=implicit-function-declaration   -I. -I./Include   -fPIC -DPy_BUILD_CORE -o Objects/typeobject.o Objects/typeobject.c
 gcc -pthread -c -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall    -std=c99 -Wextra -Wno-unused-result -Wno-unused-parameter -Wno-missing-field-initializers -Werror=implicit-function-declaration   -I. -I./Include   -fPIC -DPy_BUILD_CORE -o Objects/unicodeobject.o Objects/unicodeobject.c
@@ -9548,13 +9549,13 @@ Creating directory /usr/local/lib/python3.7
 	/usr/local/share/man/man1/python3.7.1
 LD_LIBRARY_PATH=/usr/local/src/Python-3.7.4 CC='gcc -pthread' LDSHARED='gcc -pthread -shared    ' OPT='-DNDEBUG -g -fwrapv -O3 -Wall' 	_TCLTK_INCLUDES='' _TCLTK_LIBS='' 	./python -E ./setup.py  build
 Creating directory /usr/local/lib/python3.7/lib-dynload
+rm -f /usr/local/share/man/man1/python3.1
 if test "3.7" != "3.7m"; then \
 	if test -f /usr/local/bin/python3.7 -o -h /usr/local/bin/python3.7; \
 	then rm -f /usr/local/bin/python3.7; \
 	fi; \
 	(cd /usr/local/bin; ln python3.7m python3.7); \
 fi
-rm -f /usr/local/share/man/man1/python3.1
 (cd /usr/local/share/man/man1; ln -s python3.7.1 python3.1)
 Creating directory /usr/local/include/python3.7m/internal
 if test -f libpython3.7m.so && test "no-framework" = "no-framework" ; then \
@@ -9582,13 +9583,13 @@ fi
 /usr/bin/install -c -m 644 ./Include/boolobject.h /usr/local/include/python3.7m
 /usr/bin/install -c -m 644 ./Include/bytearrayobject.h /usr/local/include/python3.7m
 /usr/bin/install -c -m 644 ./Include/bytes_methods.h /usr/local/include/python3.7m
-/usr/bin/install -c -m 644 ./Include/bytesobject.h /usr/local/include/python3.7m
 if test "x" != "x" ; then \
 	rm -f /usr/local/binpython3.7-32; \
 	lipo  \
 		-output /usr/local/bin/python3.7-32 \
 		/usr/local/bin/python3.7; \
 fi
+/usr/bin/install -c -m 644 ./Include/bytesobject.h /usr/local/include/python3.7m
 /usr/bin/install -c -m 644 ./Include/cellobject.h /usr/local/include/python3.7m
 if test ! -d /usr/local/lib/pkgconfig; then \
 	echo "Creating directory /usr/local/lib/pkgconfig"; \
@@ -9621,11 +9622,11 @@ rm -f /usr/local/bin/python3-config
 /usr/bin/install -c -m 644 ./Include/dtoa.h /usr/local/include/python3.7m
 /usr/bin/install -c -m 644 ./Include/dynamic_annotations.h /usr/local/include/python3.7m
 rm -f /usr/local/lib/pkgconfig/python3.pc
-(cd /usr/local/lib/pkgconfig; ln -s python-3.7.pc python3.pc)
 /usr/bin/install -c -m 644 ./Include/enumobject.h /usr/local/include/python3.7m
+(cd /usr/local/lib/pkgconfig; ln -s python-3.7.pc python3.pc)
 /usr/bin/install -c -m 644 ./Include/errcode.h /usr/local/include/python3.7m
-rm -f /usr/local/bin/idle3
 /usr/bin/install -c -m 644 ./Include/eval.h /usr/local/include/python3.7m
+rm -f /usr/local/bin/idle3
 (cd /usr/local/bin; ln -s idle3.7 idle3)
 /usr/bin/install -c -m 644 ./Include/fileobject.h /usr/local/include/python3.7m
 /usr/bin/install -c -m 644 ./Include/fileutils.h /usr/local/include/python3.7m
@@ -9638,9 +9639,9 @@ rm -f /usr/local/bin/2to3
 (cd /usr/local/bin; ln -s 2to3-3.7 2to3)
 /usr/bin/install -c -m 644 ./Include/genobject.h /usr/local/include/python3.7m
 /usr/bin/install -c -m 644 ./Include/graminit.h /usr/local/include/python3.7m
+/usr/bin/install -c -m 644 ./Include/grammar.h /usr/local/include/python3.7m
 rm -f /usr/local/bin/pyvenv
 (cd /usr/local/bin; ln -s pyvenv-3.7 pyvenv)
-/usr/bin/install -c -m 644 ./Include/grammar.h /usr/local/include/python3.7m
 /usr/bin/install -c -m 644 ./Include/import.h /usr/local/include/python3.7m
 /usr/bin/install -c -m 644 ./Include/intrcheck.h /usr/local/include/python3.7m
 if test "x" != "x" ; then \
@@ -9763,27 +9764,27 @@ Creating directory /usr/local/lib/python3.7/test/dtracedata
 Creating directory /usr/local/lib/python3.7/test/eintrdata
 Creating directory /usr/local/lib/python3.7/test/imghdrdata
 Creating directory /usr/local/lib/python3.7/test/libregrtest
-/usr/bin/install -c -m 644 Modules/config.c /usr/local/lib/python3.7/config-3.7m-x86_64-linux-gnu/config.c
-/usr/bin/install -c -m 644 Programs/python.o /usr/local/lib/python3.7/config-3.7m-x86_64-linux-gnu/python.o
 Creating directory /usr/local/lib/python3.7/test/subprocessdata
+/usr/bin/install -c -m 644 Modules/config.c /usr/local/lib/python3.7/config-3.7m-x86_64-linux-gnu/config.c
 Creating directory /usr/local/lib/python3.7/test/sndhdrdata
-/usr/bin/install -c -m 644 ./Modules/config.c.in /usr/local/lib/python3.7/config-3.7m-x86_64-linux-gnu/config.c.in
+/usr/bin/install -c -m 644 Programs/python.o /usr/local/lib/python3.7/config-3.7m-x86_64-linux-gnu/python.o
 Creating directory /usr/local/lib/python3.7/test/support
-/usr/bin/install -c -m 644 Makefile /usr/local/lib/python3.7/config-3.7m-x86_64-linux-gnu/Makefile
+/usr/bin/install -c -m 644 ./Modules/config.c.in /usr/local/lib/python3.7/config-3.7m-x86_64-linux-gnu/config.c.in
 Creating directory /usr/local/lib/python3.7/test/tracedmodules
+/usr/bin/install -c -m 644 Makefile /usr/local/lib/python3.7/config-3.7m-x86_64-linux-gnu/Makefile
+Creating directory /usr/local/lib/python3.7/test/encoded_modules
 /usr/bin/install -c -m 644 Modules/Setup /usr/local/lib/python3.7/config-3.7m-x86_64-linux-gnu/Setup
 /usr/bin/install -c -m 644 Modules/Setup.local /usr/local/lib/python3.7/config-3.7m-x86_64-linux-gnu/Setup.local
-Creating directory /usr/local/lib/python3.7/test/encoded_modules
-/usr/bin/install -c -m 644 Misc/python.pc /usr/local/lib/pkgconfig/python-3.7.pc
 Creating directory /usr/local/lib/python3.7/test/test_import
-/usr/bin/install -c ./Modules/makesetup /usr/local/lib/python3.7/config-3.7m-x86_64-linux-gnu/makesetup
+/usr/bin/install -c -m 644 Misc/python.pc /usr/local/lib/pkgconfig/python-3.7.pc
 Creating directory /usr/local/lib/python3.7/test/test_import/data
-/usr/bin/install -c ./install-sh /usr/local/lib/python3.7/config-3.7m-x86_64-linux-gnu/install-sh
+/usr/bin/install -c ./Modules/makesetup /usr/local/lib/python3.7/config-3.7m-x86_64-linux-gnu/makesetup
 Creating directory /usr/local/lib/python3.7/test/test_import/data/circular_imports
-/usr/bin/install -c python-config.py /usr/local/lib/python3.7/config-3.7m-x86_64-linux-gnu/python-config.py
+/usr/bin/install -c ./install-sh /usr/local/lib/python3.7/config-3.7m-x86_64-linux-gnu/install-sh
 Creating directory /usr/local/lib/python3.7/test/test_import/data/circular_imports/subpkg
-/usr/bin/install -c python-config /usr/local/bin/python3.7m-config
+/usr/bin/install -c python-config.py /usr/local/lib/python3.7/config-3.7m-x86_64-linux-gnu/python-config.py
 Creating directory /usr/local/lib/python3.7/test/test_import/data/package
+/usr/bin/install -c python-config /usr/local/bin/python3.7m-config
 Creating directory /usr/local/lib/python3.7/test/test_import/data/package2
 Creating directory /usr/local/lib/python3.7/importlib
 Creating directory /usr/local/lib/python3.7/test/test_importlib
@@ -9807,12 +9808,12 @@ Creating directory /usr/local/lib/python3.7/test/test_importlib/namespace_pkgs/m
 Creating directory /usr/local/lib/python3.7/test/test_importlib/namespace_pkgs/module_and_namespace_package/a_test
 Creating directory /usr/local/lib/python3.7/test/test_importlib/namespace_pkgs/not_a_namespace_pkg
 Creating directory /usr/local/lib/python3.7/test/test_importlib/namespace_pkgs/not_a_namespace_pkg/foo
-running install
 Creating directory /usr/local/lib/python3.7/test/test_importlib/namespace_pkgs/portion1
+Creating directory /usr/local/lib/python3.7/test/test_importlib/namespace_pkgs/portion1/foo
+running install
+Creating directory /usr/local/lib/python3.7/test/test_importlib/namespace_pkgs/portion2
 running build
 running build_ext
-Creating directory /usr/local/lib/python3.7/test/test_importlib/namespace_pkgs/portion1/foo
-Creating directory /usr/local/lib/python3.7/test/test_importlib/namespace_pkgs/portion2
 Creating directory /usr/local/lib/python3.7/test/test_importlib/namespace_pkgs/portion2/foo
 Creating directory /usr/local/lib/python3.7/test/test_importlib/namespace_pkgs/project1
 Creating directory /usr/local/lib/python3.7/test/test_importlib/namespace_pkgs/project1/parent
@@ -10028,6 +10029,21 @@ Creating directory /usr/local/lib/python3.7/pydoc_data
 /usr/bin/install -c -m 644 ./Lib/subprocess.py /usr/local/lib/python3.7
 /usr/bin/install -c -m 644 ./Lib/sunau.py /usr/local/lib/python3.7
 /usr/bin/install -c ./Lib/symbol.py /usr/local/lib/python3.7
+/usr/bin/install -c -m 644 ./Lib/symtable.py /usr/local/lib/python3.7
+/usr/bin/install -c -m 644 ./Lib/sysconfig.py /usr/local/lib/python3.7
+/usr/bin/install -c ./Lib/tabnanny.py /usr/local/lib/python3.7
+/usr/bin/install -c ./Lib/tarfile.py /usr/local/lib/python3.7
+/usr/bin/install -c -m 644 ./Lib/telnetlib.py /usr/local/lib/python3.7
+/usr/bin/install -c -m 644 ./Lib/tempfile.py /usr/local/lib/python3.7
+/usr/bin/install -c -m 644 ./Lib/textwrap.py /usr/local/lib/python3.7
+/usr/bin/install -c -m 644 ./Lib/this.py /usr/local/lib/python3.7
+/usr/bin/install -c -m 644 ./Lib/threading.py /usr/local/lib/python3.7
+/usr/bin/install -c ./Lib/timeit.py /usr/local/lib/python3.7
+/usr/bin/install -c -m 644 ./Lib/token.py /usr/local/lib/python3.7
+/usr/bin/install -c -m 644 ./Lib/tokenize.py /usr/local/lib/python3.7
+/usr/bin/install -c ./Lib/trace.py /usr/local/lib/python3.7
+/usr/bin/install -c -m 644 ./Lib/traceback.py /usr/local/lib/python3.7
+/usr/bin/install -c -m 644 ./Lib/tracemalloc.py /usr/local/lib/python3.7
 
 The following modules found by detect_modules() in setup.py, have been
 built by the Makefile instead, as configured by the Setup files:
@@ -10036,6 +10052,7 @@ time
 
 running build_scripts
 copying and adjusting /usr/local/src/Python-3.7.4/Tools/scripts/pydoc3 -> build/scripts-3.7
+/usr/bin/install -c -m 644 ./Lib/tty.py /usr/local/lib/python3.7
 copying and adjusting /usr/local/src/Python-3.7.4/Tools/scripts/idle3 -> build/scripts-3.7
 copying and adjusting /usr/local/src/Python-3.7.4/Tools/scripts/2to3 -> build/scripts-3.7
 copying and adjusting /usr/local/src/Python-3.7.4/Tools/scripts/pyvenv -> build/scripts-3.7
@@ -10048,98 +10065,97 @@ renaming build/scripts-3.7/idle3 to build/scripts-3.7/idle3.7
 renaming build/scripts-3.7/2to3 to build/scripts-3.7/2to3-3.7
 renaming build/scripts-3.7/pyvenv to build/scripts-3.7/pyvenv-3.7
 running install_lib
-/usr/bin/install -c -m 644 ./Lib/symtable.py /usr/local/lib/python3.7
 copying build/lib.linux-x86_64-3.7/_codecs_hk.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
+/usr/bin/install -c -m 644 ./Lib/turtle.py /usr/local/lib/python3.7
 copying build/lib.linux-x86_64-3.7/_opcode.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/audioop.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/_codecs_cn.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
-/usr/bin/install -c -m 644 ./Lib/sysconfig.py /usr/local/lib/python3.7
 copying build/lib.linux-x86_64-3.7/_heapq.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
+/usr/bin/install -c -m 644 ./Lib/types.py /usr/local/lib/python3.7
 copying build/lib.linux-x86_64-3.7/pyexpat.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
-/usr/bin/install -c ./Lib/tabnanny.py /usr/local/lib/python3.7
 copying build/lib.linux-x86_64-3.7/_testmultiphase.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
+/usr/bin/install -c -m 644 ./Lib/typing.py /usr/local/lib/python3.7
 copying build/lib.linux-x86_64-3.7/_curses_panel.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/_codecs_tw.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/_elementtree.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 creating /usr/local/lib/python3.7/lib-dynload/__pycache__
-/usr/bin/install -c ./Lib/tarfile.py /usr/local/lib/python3.7
+/usr/bin/install -c ./Lib/uu.py /usr/local/lib/python3.7
 copying build/lib.linux-x86_64-3.7/__pycache__/_sysconfigdata_m_linux_x86_64-linux-gnu.cpython-37.pyc -> /usr/local/lib/python3.7/lib-dynload/__pycache__
 copying build/lib.linux-x86_64-3.7/_codecs_kr.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/_pickle.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/resource.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
+/usr/bin/install -c -m 644 ./Lib/uuid.py /usr/local/lib/python3.7
 copying build/lib.linux-x86_64-3.7/_multiprocessing.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
-/usr/bin/install -c -m 644 ./Lib/telnetlib.py /usr/local/lib/python3.7
 copying build/lib.linux-x86_64-3.7/_multibytecodec.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/_random.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/syslog.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/_contextvars.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
+/usr/bin/install -c -m 644 ./Lib/warnings.py /usr/local/lib/python3.7
 copying build/lib.linux-x86_64-3.7/_sha1.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/_lzma.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
-/usr/bin/install -c -m 644 ./Lib/tempfile.py /usr/local/lib/python3.7
 copying build/lib.linux-x86_64-3.7/_ssl.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/grp.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
+/usr/bin/install -c -m 644 ./Lib/wave.py /usr/local/lib/python3.7
 copying build/lib.linux-x86_64-3.7/_blake2.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
-/usr/bin/install -c -m 644 ./Lib/textwrap.py /usr/local/lib/python3.7
 copying build/lib.linux-x86_64-3.7/_datetime.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
+/usr/bin/install -c -m 644 ./Lib/weakref.py /usr/local/lib/python3.7
 copying build/lib.linux-x86_64-3.7/_codecs_jp.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/_dbm.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/nis.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
-/usr/bin/install -c -m 644 ./Lib/this.py /usr/local/lib/python3.7
 copying build/lib.linux-x86_64-3.7/_json.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
+/usr/bin/install -c ./Lib/webbrowser.py /usr/local/lib/python3.7
 copying build/lib.linux-x86_64-3.7/_ctypes_test.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/_sha512.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/binascii.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/_sha3.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
-/usr/bin/install -c -m 644 ./Lib/threading.py /usr/local/lib/python3.7
+/usr/bin/install -c -m 644 ./Lib/xdrlib.py /usr/local/lib/python3.7
 copying build/lib.linux-x86_64-3.7/_testbuffer.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/_posixsubprocess.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/_sysconfigdata_m_linux_x86_64-linux-gnu.py -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/_sha256.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
-/usr/bin/install -c ./Lib/timeit.py /usr/local/lib/python3.7
 copying build/lib.linux-x86_64-3.7/select.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
+/usr/bin/install -c -m 644 ./Lib/zipapp.py /usr/local/lib/python3.7
 copying build/lib.linux-x86_64-3.7/_bz2.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/spwd.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/_lsprof.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/_gdbm.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/_asyncio.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
-/usr/bin/install -c -m 644 ./Lib/token.py /usr/local/lib/python3.7
+/usr/bin/install -c -m 644 ./Lib/zipfile.py /usr/local/lib/python3.7
 copying build/lib.linux-x86_64-3.7/termios.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/_md5.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/_curses.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/_queue.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/_testimportmultiple.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/math.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
-/usr/bin/install -c -m 644 ./Lib/tokenize.py /usr/local/lib/python3.7
 copying build/lib.linux-x86_64-3.7/_testcapi.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/parser.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/unicodedata.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
-/usr/bin/install -c ./Lib/trace.py /usr/local/lib/python3.7
 copying build/lib.linux-x86_64-3.7/cmath.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
+/usr/bin/install -c -m 644 ./Lib/tkinter/__init__.py /usr/local/lib/python3.7/tkinter
 copying build/lib.linux-x86_64-3.7/_hashlib.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
-/usr/bin/install -c -m 644 ./Lib/traceback.py /usr/local/lib/python3.7
 copying build/lib.linux-x86_64-3.7/_sqlite3.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/_struct.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/_decimal.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
-/usr/bin/install -c -m 644 ./Lib/tracemalloc.py /usr/local/lib/python3.7
-/usr/bin/install -c -m 644 ./Lib/tty.py /usr/local/lib/python3.7
+/usr/bin/install -c -m 644 ./Lib/tkinter/__main__.py /usr/local/lib/python3.7/tkinter
+/usr/bin/install -c -m 644 ./Lib/tkinter/colorchooser.py /usr/local/lib/python3.7/tkinter
 copying build/lib.linux-x86_64-3.7/array.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/_socket.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/readline.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
+/usr/bin/install -c -m 644 ./Lib/tkinter/commondialog.py /usr/local/lib/python3.7/tkinter
 copying build/lib.linux-x86_64-3.7/fcntl.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/_codecs_iso2022.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
-/usr/bin/install -c -m 644 ./Lib/turtle.py /usr/local/lib/python3.7
 copying build/lib.linux-x86_64-3.7/_csv.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/zlib.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/xxlimited.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/_ctypes.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
-/usr/bin/install -c -m 644 ./Lib/types.py /usr/local/lib/python3.7
+/usr/bin/install -c -m 644 ./Lib/tkinter/constants.py /usr/local/lib/python3.7/tkinter
 copying build/lib.linux-x86_64-3.7/mmap.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/_crypt.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/ossaudiodev.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/_uuid.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
+/usr/bin/install -c -m 644 ./Lib/tkinter/dialog.py /usr/local/lib/python3.7/tkinter
 copying build/lib.linux-x86_64-3.7/_xxtestfuzz.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 copying build/lib.linux-x86_64-3.7/_tkinter.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
-/usr/bin/install -c -m 644 ./Lib/typing.py /usr/local/lib/python3.7
 copying build/lib.linux-x86_64-3.7/_bisect.cpython-37m-x86_64-linux-gnu.so -> /usr/local/lib/python3.7/lib-dynload
 changing mode of /usr/local/lib/python3.7/lib-dynload/_codecs_hk.cpython-37m-x86_64-linux-gnu.so to 755
 changing mode of /usr/local/lib/python3.7/lib-dynload/_opcode.cpython-37m-x86_64-linux-gnu.so to 755
@@ -10153,6 +10169,7 @@ changing mode of /usr/local/lib/python3.7/lib-dynload/_codecs_tw.cpython-37m-x86
 changing mode of /usr/local/lib/python3.7/lib-dynload/_elementtree.cpython-37m-x86_64-linux-gnu.so to 755
 changing mode of /usr/local/lib/python3.7/lib-dynload/__pycache__/_sysconfigdata_m_linux_x86_64-linux-gnu.cpython-37.pyc to 644
 changing mode of /usr/local/lib/python3.7/lib-dynload/_codecs_kr.cpython-37m-x86_64-linux-gnu.so to 755
+/usr/bin/install -c -m 644 ./Lib/tkinter/dnd.py /usr/local/lib/python3.7/tkinter
 changing mode of /usr/local/lib/python3.7/lib-dynload/_pickle.cpython-37m-x86_64-linux-gnu.so to 755
 changing mode of /usr/local/lib/python3.7/lib-dynload/resource.cpython-37m-x86_64-linux-gnu.so to 755
 changing mode of /usr/local/lib/python3.7/lib-dynload/_multiprocessing.cpython-37m-x86_64-linux-gnu.so to 755
@@ -10186,7 +10203,6 @@ changing mode of /usr/local/lib/python3.7/lib-dynload/_gdbm.cpython-37m-x86_64-l
 changing mode of /usr/local/lib/python3.7/lib-dynload/_asyncio.cpython-37m-x86_64-linux-gnu.so to 755
 changing mode of /usr/local/lib/python3.7/lib-dynload/termios.cpython-37m-x86_64-linux-gnu.so to 755
 changing mode of /usr/local/lib/python3.7/lib-dynload/_md5.cpython-37m-x86_64-linux-gnu.so to 755
-/usr/bin/install -c ./Lib/uu.py /usr/local/lib/python3.7
 changing mode of /usr/local/lib/python3.7/lib-dynload/_curses.cpython-37m-x86_64-linux-gnu.so to 755
 changing mode of /usr/local/lib/python3.7/lib-dynload/_queue.cpython-37m-x86_64-linux-gnu.so to 755
 changing mode of /usr/local/lib/python3.7/lib-dynload/_testimportmultiple.cpython-37m-x86_64-linux-gnu.so to 755
@@ -10212,40 +10228,23 @@ changing mode of /usr/local/lib/python3.7/lib-dynload/mmap.cpython-37m-x86_64-li
 changing mode of /usr/local/lib/python3.7/lib-dynload/_crypt.cpython-37m-x86_64-linux-gnu.so to 755
 changing mode of /usr/local/lib/python3.7/lib-dynload/ossaudiodev.cpython-37m-x86_64-linux-gnu.so to 755
 changing mode of /usr/local/lib/python3.7/lib-dynload/_uuid.cpython-37m-x86_64-linux-gnu.so to 755
+/usr/bin/install -c -m 644 ./Lib/tkinter/filedialog.py /usr/local/lib/python3.7/tkinter
 changing mode of /usr/local/lib/python3.7/lib-dynload/_xxtestfuzz.cpython-37m-x86_64-linux-gnu.so to 755
 changing mode of /usr/local/lib/python3.7/lib-dynload/_tkinter.cpython-37m-x86_64-linux-gnu.so to 755
 changing mode of /usr/local/lib/python3.7/lib-dynload/_bisect.cpython-37m-x86_64-linux-gnu.so to 755
 changing mode of /usr/local/lib/python3.7/lib-dynload/ to 755
 changing mode of /usr/local/lib/python3.7/lib-dynload/__pycache__ to 755
 running install_scripts
-/usr/bin/install -c -m 644 ./Lib/uuid.py /usr/local/lib/python3.7
-/usr/bin/install -c -m 644 ./Lib/warnings.py /usr/local/lib/python3.7
+/usr/bin/install -c -m 644 ./Lib/tkinter/font.py /usr/local/lib/python3.7/tkinter
+/usr/bin/install -c -m 644 ./Lib/tkinter/messagebox.py /usr/local/lib/python3.7/tkinter
 copying build/scripts-3.7/pyvenv-3.7 -> /usr/local/bin
 copying build/scripts-3.7/idle3.7 -> /usr/local/bin
 copying build/scripts-3.7/2to3-3.7 -> /usr/local/bin
-/usr/bin/install -c -m 644 ./Lib/wave.py /usr/local/lib/python3.7
 copying build/scripts-3.7/pydoc3.7 -> /usr/local/bin
 changing mode of /usr/local/bin/pyvenv-3.7 to 755
 changing mode of /usr/local/bin/idle3.7 to 755
 changing mode of /usr/local/bin/2to3-3.7 to 755
 changing mode of /usr/local/bin/pydoc3.7 to 755
-/usr/bin/install -c -m 644 ./Lib/weakref.py /usr/local/lib/python3.7
-/usr/bin/install -c ./Lib/webbrowser.py /usr/local/lib/python3.7
-/usr/bin/install -c -m 644 ./Lib/xdrlib.py /usr/local/lib/python3.7
-/usr/bin/install -c -m 644 ./Lib/zipapp.py /usr/local/lib/python3.7
-/usr/bin/install -c -m 644 ./Lib/zipfile.py /usr/local/lib/python3.7
-/usr/bin/install -c -m 644 ./Lib/tkinter/__init__.py /usr/local/lib/python3.7/tkinter
-/usr/bin/install -c -m 644 ./Lib/tkinter/__main__.py /usr/local/lib/python3.7/tkinter
-/usr/bin/install -c -m 644 ./Lib/tkinter/colorchooser.py /usr/local/lib/python3.7/tkinter
-rm /usr/local/lib/python3.7/lib-dynload/_sysconfigdata_m_linux_x86_64-linux-gnu.py
-rm -r /usr/local/lib/python3.7/lib-dynload/__pycache__
-/usr/bin/install -c -m 644 ./Lib/tkinter/commondialog.py /usr/local/lib/python3.7/tkinter
-/usr/bin/install -c -m 644 ./Lib/tkinter/constants.py /usr/local/lib/python3.7/tkinter
-/usr/bin/install -c -m 644 ./Lib/tkinter/dialog.py /usr/local/lib/python3.7/tkinter
-/usr/bin/install -c -m 644 ./Lib/tkinter/dnd.py /usr/local/lib/python3.7/tkinter
-/usr/bin/install -c -m 644 ./Lib/tkinter/filedialog.py /usr/local/lib/python3.7/tkinter
-/usr/bin/install -c -m 644 ./Lib/tkinter/font.py /usr/local/lib/python3.7/tkinter
-/usr/bin/install -c -m 644 ./Lib/tkinter/messagebox.py /usr/local/lib/python3.7/tkinter
 /usr/bin/install -c -m 644 ./Lib/tkinter/scrolledtext.py /usr/local/lib/python3.7/tkinter
 /usr/bin/install -c -m 644 ./Lib/tkinter/simpledialog.py /usr/local/lib/python3.7/tkinter
 /usr/bin/install -c -m 644 ./Lib/tkinter/tix.py /usr/local/lib/python3.7/tkinter
@@ -10255,6 +10254,8 @@ rm -r /usr/local/lib/python3.7/lib-dynload/__pycache__
 /usr/bin/install -c -m 644 ./Lib/tkinter/test/runtktests.py /usr/local/lib/python3.7/tkinter/test
 /usr/bin/install -c -m 644 ./Lib/tkinter/test/support.py /usr/local/lib/python3.7/tkinter/test
 /usr/bin/install -c -m 644 ./Lib/tkinter/test/widget_tests.py /usr/local/lib/python3.7/tkinter/test
+rm /usr/local/lib/python3.7/lib-dynload/_sysconfigdata_m_linux_x86_64-linux-gnu.py
+rm -r /usr/local/lib/python3.7/lib-dynload/__pycache__
 /usr/bin/install -c -m 644 ./Lib/tkinter/test/test_tkinter/__init__.py /usr/local/lib/python3.7/tkinter/test/test_tkinter
 /usr/bin/install -c -m 644 ./Lib/tkinter/test/test_tkinter/test_font.py /usr/local/lib/python3.7/tkinter/test/test_tkinter
 /usr/bin/install -c -m 644 ./Lib/tkinter/test/test_tkinter/test_geometry_managers.py /usr/local/lib/python3.7/tkinter/test/test_tkinter
@@ -17312,27 +17313,65 @@ if test "xinstall" != "xno"  ; then \
 	LD_LIBRARY_PATH=/usr/local/src/Python-3.7.4 ./python -E -m ensurepip \
 		$ensurepip --root=/ ; \
 fi
-Looking in links: /tmp/tmp6_2ri2x2
+Looking in links: /tmp/tmpqxdnlu4n
 Collecting setuptools
 Collecting pip
 Installing collected packages: setuptools, pip
 Successfully installed pip-19.0.3 setuptools-40.8.0
-Removing intermediate container 0466887c1735
- ---> 61fdeee841f7
-Step 16/26 : RUN echo 'export LD_LIBRARY_PATH=/usr/local/lib' >>~/.bashrc && source ~/.bashrc
- ---> Running in c29485503fdf
-Removing intermediate container c29485503fdf
- ---> c734b7b15444
-Step 17/26 : RUN echo '/usr/local/lib'>>/etc/ld.so.conf.d/local-ld.so.conf
- ---> Running in 8ab753f3d6f6
-Removing intermediate container 8ab753f3d6f6
- ---> d45f40a83926
-Step 18/26 : RUN ldconfig
- ---> Running in 544cbdeed032
-Removing intermediate container 544cbdeed032
- ---> 32991954ef2d
-Step 19/26 : RUN yum install -y python-devel
- ---> Running in 4f234f5f62e0
+Removing intermediate container a50cc89a8047
+ ---> 54eefabcbd16
+Step 16/28 : RUN echo 'export LD_LIBRARY_PATH=/usr/local/lib' >>~/.bashrc && source ~/.bashrc
+ ---> Running in db2e025d43f5
+Removing intermediate container db2e025d43f5
+ ---> c1d98a6a4b4f
+Step 17/28 : RUN echo '/usr/local/lib'>>/etc/ld.so.conf.d/local-ld.so.conf
+ ---> Running in 9af77deace22
+Removing intermediate container 9af77deace22
+ ---> c6a360ee4a88
+Step 18/28 : RUN ldconfig
+ ---> Running in b0abe1c0202d
+Removing intermediate container b0abe1c0202d
+ ---> de0f09f0a269
+Step 19/28 : RUN yum -y install https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+ ---> Running in cf5ec81045f2
+Loaded plugins: fastestmirror, ovl
+Examining /var/tmp/yum-root-MVPLcN/pgdg-redhat-repo-latest.noarch.rpm: pgdg-redhat-repo-42.0-5.noarch
+Marking /var/tmp/yum-root-MVPLcN/pgdg-redhat-repo-latest.noarch.rpm to be installed
+Resolving Dependencies
+--> Running transaction check
+---> Package pgdg-redhat-repo.noarch 0:42.0-5 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package            Arch     Version    Repository                         Size
+================================================================================
+Installing:
+ pgdg-redhat-repo   noarch   42.0-5     /pgdg-redhat-repo-latest.noarch   7.5 k
+
+Transaction Summary
+================================================================================
+Install  1 Package
+
+Total size: 7.5 k
+Installed size: 7.5 k
+Downloading packages:
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : pgdg-redhat-repo-42.0-5.noarch                               1/1 
+  Verifying  : pgdg-redhat-repo-42.0-5.noarch                               1/1 
+
+Installed:
+  pgdg-redhat-repo.noarch 0:42.0-5                                              
+
+Complete!
+Removing intermediate container cf5ec81045f2
+ ---> 6e29efcad697
+Step 20/28 : RUN yum -y install postgresql12-server postgresql12-devel postgresql12-libs postgresql12-plpython3
+ ---> Running in bde0b1c6730e
 Loaded plugins: fastestmirror, ovl
 Loading mirror speeds from cached hostfile
  * base: ftp-srv2.kddilabs.jp
@@ -17341,101 +17380,153 @@ Loading mirror speeds from cached hostfile
  * updates: ftp-srv2.kddilabs.jp
 Resolving Dependencies
 --> Running transaction check
----> Package python-devel.x86_64 0:2.7.5-86.el7 will be installed
---> Processing Dependency: python(x86-64) = 2.7.5-86.el7 for package: python-devel-2.7.5-86.el7.x86_64
---> Processing Dependency: python2-rpm-macros > 3-30 for package: python-devel-2.7.5-86.el7.x86_64
---> Processing Dependency: python-rpm-macros > 3-30 for package: python-devel-2.7.5-86.el7.x86_64
+---> Package postgresql12-devel.x86_64 0:12.1-2PGDG.rhel7 will be installed
+--> Processing Dependency: postgresql12(x86-64) = 12.1-2PGDG.rhel7 for package: postgresql12-devel-12.1-2PGDG.rhel7.x86_64
+---> Package postgresql12-libs.x86_64 0:12.1-2PGDG.rhel7 will be installed
+---> Package postgresql12-plpython3.x86_64 0:12.1-2PGDG.rhel7 will be installed
+--> Processing Dependency: python3-libs for package: postgresql12-plpython3-12.1-2PGDG.rhel7.x86_64
+--> Processing Dependency: libpython3.6m.so.1.0()(64bit) for package: postgresql12-plpython3-12.1-2PGDG.rhel7.x86_64
+---> Package postgresql12-server.x86_64 0:12.1-2PGDG.rhel7 will be installed
 --> Running transaction check
----> Package python.x86_64 0:2.7.5-76.el7 will be updated
----> Package python.x86_64 0:2.7.5-86.el7 will be an update
---> Processing Dependency: python-libs(x86-64) = 2.7.5-86.el7 for package: python-2.7.5-86.el7.x86_64
----> Package python-rpm-macros.noarch 0:3-32.el7 will be installed
---> Processing Dependency: python-srpm-macros for package: python-rpm-macros-3-32.el7.noarch
----> Package python2-rpm-macros.noarch 0:3-32.el7 will be installed
+---> Package postgresql12.x86_64 0:12.1-2PGDG.rhel7 will be installed
+--> Processing Dependency: systemd-sysv for package: postgresql12-12.1-2PGDG.rhel7.x86_64
+---> Package python3-libs.x86_64 0:3.6.8-10.el7 will be installed
+--> Processing Dependency: python(abi) = 3.6 for package: python3-libs-3.6.8-10.el7.x86_64
+--> Processing Dependency: libtirpc.so.1()(64bit) for package: python3-libs-3.6.8-10.el7.x86_64
 --> Running transaction check
----> Package python-libs.x86_64 0:2.7.5-76.el7 will be updated
----> Package python-libs.x86_64 0:2.7.5-86.el7 will be an update
----> Package python-srpm-macros.noarch 0:3-32.el7 will be installed
+---> Package libtirpc.x86_64 0:0.2.4-0.16.el7 will be installed
+---> Package python3.x86_64 0:3.6.8-10.el7 will be installed
+--> Processing Dependency: python3-setuptools for package: python3-3.6.8-10.el7.x86_64
+--> Processing Dependency: python3-pip for package: python3-3.6.8-10.el7.x86_64
+---> Package systemd-sysv.x86_64 0:219-67.el7_7.2 will be installed
+--> Processing Dependency: systemd = 219-67.el7_7.2 for package: systemd-sysv-219-67.el7_7.2.x86_64
+--> Running transaction check
+---> Package python3-pip.noarch 0:9.0.3-5.el7 will be installed
+---> Package python3-setuptools.noarch 0:39.2.0-10.el7 will be installed
+---> Package systemd.x86_64 0:219-62.el7 will be updated
+---> Package systemd.x86_64 0:219-67.el7_7.2 will be an update
+--> Processing Dependency: systemd-libs = 219-67.el7_7.2 for package: systemd-219-67.el7_7.2.x86_64
+--> Running transaction check
+---> Package systemd-libs.x86_64 0:219-62.el7 will be updated
+---> Package systemd-libs.x86_64 0:219-67.el7_7.2 will be an update
 --> Finished Dependency Resolution
 
 Dependencies Resolved
 
 ================================================================================
- Package                   Arch          Version              Repository   Size
+ Package                    Arch       Version                Repository   Size
 ================================================================================
 Installing:
- python-devel              x86_64        2.7.5-86.el7         base        398 k
+ postgresql12-devel         x86_64     12.1-2PGDG.rhel7       pgdg12      2.4 M
+ postgresql12-libs          x86_64     12.1-2PGDG.rhel7       pgdg12      759 k
+ postgresql12-plpython3     x86_64     12.1-2PGDG.rhel7       pgdg12      236 k
+ postgresql12-server        x86_64     12.1-2PGDG.rhel7       pgdg12       13 M
 Installing for dependencies:
- python-rpm-macros         noarch        3-32.el7             base        8.8 k
- python-srpm-macros        noarch        3-32.el7             base        8.4 k
- python2-rpm-macros        noarch        3-32.el7             base        7.7 k
+ libtirpc                   x86_64     0.2.4-0.16.el7         base         89 k
+ postgresql12               x86_64     12.1-2PGDG.rhel7       pgdg12      2.7 M
+ python3                    x86_64     3.6.8-10.el7           base         69 k
+ python3-libs               x86_64     3.6.8-10.el7           base        7.0 M
+ python3-pip                noarch     9.0.3-5.el7            base        1.8 M
+ python3-setuptools         noarch     39.2.0-10.el7          base        629 k
+ systemd-sysv               x86_64     219-67.el7_7.2         updates      88 k
 Updating for dependencies:
- python                    x86_64        2.7.5-86.el7         base         95 k
- python-libs               x86_64        2.7.5-86.el7         base        5.6 M
+ systemd                    x86_64     219-67.el7_7.2         updates     5.1 M
+ systemd-libs               x86_64     219-67.el7_7.2         updates     411 k
 
 Transaction Summary
 ================================================================================
-Install  1 Package  (+3 Dependent packages)
+Install  4 Packages (+7 Dependent packages)
 Upgrade             ( 2 Dependent packages)
 
-Total download size: 6.2 M
+Total download size: 34 M
 Downloading packages:
 Delta RPMs disabled because /usr/bin/applydeltarpm not installed.
+[91mwarning: /var/cache/yum/x86_64/7/pgdg12/packages/postgresql12-12.1-2PGDG.rhel7.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 442df0f8: NOKEY
+[0mPublic key for postgresql12-12.1-2PGDG.rhel7.x86_64.rpm is not installed
 --------------------------------------------------------------------------------
-Total                                               11 MB/s | 6.2 MB  00:00     
-Running transaction check
+Total                                              2.1 MB/s |  34 MB  00:15     
+Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-PGDG
+[91mImporting GPG key 0x442DF0F8:
+ Userid     : "PostgreSQL RPM Building Project <pgsqlrpms-hackers@pgfoundry.org>"
+ Fingerprint: 68c9 e2b9 1a37 d136 fe74 d176 1f16 d2e1 442d f0f8
+ Package    : pgdg-redhat-repo-42.0-5.noarch (installed)
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-PGDG
+[0mRunning transaction check
 Running transaction test
 Transaction test succeeded
 Running transaction
-  Updating   : python-libs-2.7.5-86.el7.x86_64                              1/8 
-  Updating   : python-2.7.5-86.el7.x86_64                                   2/8 
-  Installing : python2-rpm-macros-3-32.el7.noarch                           3/8 
-  Installing : python-srpm-macros-3-32.el7.noarch                           4/8 
-  Installing : python-rpm-macros-3-32.el7.noarch                            5/8 
-  Installing : python-devel-2.7.5-86.el7.x86_64                             6/8 
-  Cleanup    : python-2.7.5-76.el7.x86_64                                   7/8 
-  Cleanup    : python-libs-2.7.5-76.el7.x86_64                              8/8 
-  Verifying  : python-libs-2.7.5-86.el7.x86_64                              1/8 
-  Verifying  : python-devel-2.7.5-86.el7.x86_64                             2/8 
-  Verifying  : python-2.7.5-86.el7.x86_64                                   3/8 
-  Verifying  : python-srpm-macros-3-32.el7.noarch                           4/8 
-  Verifying  : python2-rpm-macros-3-32.el7.noarch                           5/8 
-  Verifying  : python-rpm-macros-3-32.el7.noarch                            6/8 
-  Verifying  : python-2.7.5-76.el7.x86_64                                   7/8 
-  Verifying  : python-libs-2.7.5-76.el7.x86_64                              8/8 
+  Installing : postgresql12-libs-12.1-2PGDG.rhel7.x86_64                   1/15 
+  Updating   : systemd-libs-219-67.el7_7.2.x86_64                          2/15 
+  Updating   : systemd-219-67.el7_7.2.x86_64                               3/15 
+Failed to get D-Bus connection: Operation not permitted
+  Installing : systemd-sysv-219-67.el7_7.2.x86_64                          4/15 
+  Installing : postgresql12-12.1-2PGDG.rhel7.x86_64                        5/15 
+  Installing : postgresql12-server-12.1-2PGDG.rhel7.x86_64                 6/15 
+  Installing : libtirpc-0.2.4-0.16.el7.x86_64                              7/15 
+  Installing : python3-pip-9.0.3-5.el7.noarch                              8/15 
+  Installing : python3-setuptools-39.2.0-10.el7.noarch                     9/15 
+  Installing : python3-3.6.8-10.el7.x86_64                                10/15 
+  Installing : python3-libs-3.6.8-10.el7.x86_64                           11/15 
+  Installing : postgresql12-plpython3-12.1-2PGDG.rhel7.x86_64             12/15 
+  Installing : postgresql12-devel-12.1-2PGDG.rhel7.x86_64                 13/15 
+  Cleanup    : systemd-219-62.el7.x86_64                                  14/15 
+  Cleanup    : systemd-libs-219-62.el7.x86_64                             15/15 
+  Verifying  : libtirpc-0.2.4-0.16.el7.x86_64                              1/15 
+  Verifying  : postgresql12-libs-12.1-2PGDG.rhel7.x86_64                   2/15 
+  Verifying  : postgresql12-12.1-2PGDG.rhel7.x86_64                        3/15 
+  Verifying  : systemd-sysv-219-67.el7_7.2.x86_64                          4/15 
+  Verifying  : systemd-libs-219-67.el7_7.2.x86_64                          5/15 
+  Verifying  : python3-libs-3.6.8-10.el7.x86_64                            6/15 
+  Verifying  : postgresql12-server-12.1-2PGDG.rhel7.x86_64                 7/15 
+  Verifying  : postgresql12-devel-12.1-2PGDG.rhel7.x86_64                  8/15 
+  Verifying  : python3-pip-9.0.3-5.el7.noarch                              9/15 
+  Verifying  : python3-setuptools-39.2.0-10.el7.noarch                    10/15 
+  Verifying  : postgresql12-plpython3-12.1-2PGDG.rhel7.x86_64             11/15 
+  Verifying  : python3-3.6.8-10.el7.x86_64                                12/15 
+  Verifying  : systemd-219-67.el7_7.2.x86_64                              13/15 
+  Verifying  : systemd-libs-219-62.el7.x86_64                             14/15 
+  Verifying  : systemd-219-62.el7.x86_64                                  15/15 
 
 Installed:
-  python-devel.x86_64 0:2.7.5-86.el7                                            
+  postgresql12-devel.x86_64 0:12.1-2PGDG.rhel7                                  
+  postgresql12-libs.x86_64 0:12.1-2PGDG.rhel7                                   
+  postgresql12-plpython3.x86_64 0:12.1-2PGDG.rhel7                              
+  postgresql12-server.x86_64 0:12.1-2PGDG.rhel7                                 
 
 Dependency Installed:
-  python-rpm-macros.noarch 0:3-32.el7    python-srpm-macros.noarch 0:3-32.el7  
-  python2-rpm-macros.noarch 0:3-32.el7  
+  libtirpc.x86_64 0:0.2.4-0.16.el7                                              
+  postgresql12.x86_64 0:12.1-2PGDG.rhel7                                        
+  python3.x86_64 0:3.6.8-10.el7                                                 
+  python3-libs.x86_64 0:3.6.8-10.el7                                            
+  python3-pip.noarch 0:9.0.3-5.el7                                              
+  python3-setuptools.noarch 0:39.2.0-10.el7                                     
+  systemd-sysv.x86_64 0:219-67.el7_7.2                                          
 
 Dependency Updated:
-  python.x86_64 0:2.7.5-86.el7         python-libs.x86_64 0:2.7.5-86.el7        
+  systemd.x86_64 0:219-67.el7_7.2      systemd-libs.x86_64 0:219-67.el7_7.2     
 
 Complete!
-Removing intermediate container 4f234f5f62e0
- ---> 0347ed5a403d
-Step 20/26 : USER postgres
- ---> Running in 59b6a7aff58a
-Removing intermediate container 59b6a7aff58a
- ---> e8b10f759829
-Step 21/26 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
- ---> Running in 412ff69b2aaf
+Removing intermediate container bde0b1c6730e
+ ---> 7c8ac980ef38
+Step 21/28 : USER postgres
+ ---> Running in d693c89cf686
+Removing intermediate container d693c89cf686
+ ---> 7a0b6fbca52c
+Step 22/28 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> Running in b5ff030bde41
 Cloning into '/home/postgres/.vim'...
-Removing intermediate container 412ff69b2aaf
- ---> f1e8c834e2cc
-Step 22/26 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
- ---> Running in 46b81bf0a986
+Removing intermediate container b5ff030bde41
+ ---> 4af8788142cf
+Step 23/28 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> Running in 0043d6fd4788
 Cloning into '/home/postgres/tmp'...
-Removing intermediate container 46b81bf0a986
- ---> 6a1354961251
-Step 23/26 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
- ---> Running in 97a82dbc9dee
-[91m  % Total    % Received % Xferd  Aver[0m[91mage Speed   Time    Time     Time[0m[91m  Curr[0m[91ment
-  [0m[91m  [0m[91m   [0m[91m   [0m[91m [0m[91m   [0m[91m   [0m[91m     [0m[91m   [0m[91m   [0m[91m   [0m[91m  D[0m[91mloa[0m[91md  [0m[91mUpl[0m[91moad[0m[91m   [0m[91mTot[0m[91ma[0m[91ml  [0m[91m Sp[0m[91ment[0m[91m   [0m[91m Le[0m[91mft [0m[91m Sp[0m[91meed[0m[91m
-[0m[91m  0     0    0     0[0m[91m    0[0m[91m     [0m[91m0    [0m[91m [0m[91m 0   [0m[91m   0 --:-[0m[91m-:-- [0m[91m--:--:[0m[91m-- --:[0m[91m--:--   [0m[91m  0[0m[91m100  2233  100  2233    0     0  10657      0 --:--:-- --:--:-- --:--:-- 10684
+Removing intermediate container 0043d6fd4788
+ ---> 6c9a47b227a2
+Step 24/28 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+ ---> Running in 10dbf123e3be
+[91m  % Total    % Received % Xferd  Average Speed[0m[91m   Time    Time     Time [0m[91m Current
+         [0m[91m                        Dload  Upload   Total   Spent    Left[0m[91m  Speed
+[0m[91m  0     0    0     0    0     0      0      0 --:--:-- --:--:--[0m[91m --:--:--     0[0m[91m100  2233  100  2233    0     0  10850      0 --:--:-- --:--:-- --:--:-- 10892
 [0mInstall to "/home/postgres/.vim/bundle/repos/github.com/Shougo/dein.vim"...
 
 git is /usr/bin/git
@@ -17486,19 +17577,23 @@ syntax enable
 
 Done.
 Complete setup dein!
-Removing intermediate container 97a82dbc9dee
- ---> 3e3dd53b136c
-Step 24/26 : RUN echo 'export LD_LIBRARY_PATH=/usr/local/lib' >>~/.bashrc && source ~/.bashrc
- ---> Running in 5ce2e35a90ad
-Removing intermediate container 5ce2e35a90ad
- ---> 26ccccf1791f
-Step 25/26 : WORKDIR /home/postgres
- ---> Running in 492b63631eb2
-Removing intermediate container 492b63631eb2
- ---> dd2a86ece1f1
-Step 26/26 : CMD ["/usr/sbin/init"]
- ---> Running in 55c11b407536
-Removing intermediate container 55c11b407536
- ---> 6854a012ed7c
-Successfully built 6854a012ed7c
+Removing intermediate container 10dbf123e3be
+ ---> b3e352a7c1a2
+Step 25/28 : RUN echo 'export LD_LIBRARY_PATH=/usr/local/lib' >>~/.bashrc && source ~/.bashrc
+ ---> Running in f74df3d331ce
+Removing intermediate container f74df3d331ce
+ ---> bb54e1081aa8
+Step 26/28 : RUN echo 'export PATH=/usr/pgsql-12/bin:$PATH' >>~/.pgsql_profile && echo 'export PGDATA=/var/lib/pgsql/12/data'>>~/.pgsql_profile && source ~/.bashrc
+ ---> Running in 136b1ced43b1
+Removing intermediate container 136b1ced43b1
+ ---> 65a8f37da15b
+Step 27/28 : WORKDIR /home/postgres
+ ---> Running in 88bcfce23ebc
+Removing intermediate container 88bcfce23ebc
+ ---> 97e3629f675e
+Step 28/28 : CMD ["/usr/sbin/init"]
+ ---> Running in 917e3cc3eef8
+Removing intermediate container 917e3cc3eef8
+ ---> 8b72226ee364
+Successfully built 8b72226ee364
 Successfully tagged centos_postgres-python:latest

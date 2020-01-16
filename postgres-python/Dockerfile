@@ -66,7 +66,7 @@ source ~/.bashrc
 RUN echo '/usr/local/lib'>>/etc/ld.so.conf.d/local-ld.so.conf
 RUN ldconfig
 #python2系のヘッダファイルが追加される(postgresビルドに必要)
-RUN yum install -y python-devel
+#RUN yum install -y python-devel
 #postgresコマンドインストール
 #RUN cd /usr/local/src && curl -LO https://ftp.postgresql.org/pub/source/v12.0/postgresql-12.0.tar.gz && \
 #tar xvf postgresql-12.0.tar.gz && \
@@ -75,6 +75,11 @@ RUN yum install -y python-devel
 #./configure --prefix=/usr/local --with-includes=/usr/local/include/python3.7m --libdir=/usr/local/lib/postgresql --with-python && \
 #make -j12 && \
 #make -j12 install
+
+#レポジトリから配布されているソフトはできるのでそれにする
+#ソースビルドとの差分見極める
+RUN yum -y install https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+RUN yum -y install postgresql12-server postgresql12-devel postgresql12-libs postgresql12-plpython3
 
 USER postgres
 
@@ -96,6 +101,9 @@ sh installer.sh ~/.vim/bundle && rm -rf installer.sh
 
 #環境変数の設定
 RUN echo 'export LD_LIBRARY_PATH=/usr/local/lib' >>~/.bashrc && \
+source ~/.bashrc
+RUN echo 'export PATH=/usr/pgsql-12/bin:$PATH' >>~/.pgsql_profile && \
+echo 'export PGDATA=/var/lib/pgsql/12/data'>>~/.pgsql_profile && \
 source ~/.bashrc
 
 WORKDIR /home/postgres

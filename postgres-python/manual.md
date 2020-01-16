@@ -438,3 +438,188 @@ $ldd /usr/local/lib/postgresql/plpython3.so
 ERROR:  could not load library "/usr/local/lib/postgresql/plpython3.so": /usr/local/lib/postgresql/plpython3.so: undefined symbol: _Py_ZeroStruct
 これはPythonのバージョン問題で、ポスグレのコンパイルオプションで読み込んでくれたヘッダファイルが2系だったためとおもわれ
 ```
+
+
+```
+■ヘッダファイルの確認
+$find / -name "*Python.h*" 2>/dev/null
+/usr/include/python2.7/Python.h
+/usr/local/include/python3.7m/Python.h
+/usr/local/src/Python-3.7.4/Include/Python.h
+
+
+■libpythonダイナミックリンクファイルの確認
+$find / -name "*libpython*so*" 2>/dev/null
+/usr/local/lib/libpython3.7m.so
+/usr/local/lib/libpython3.7m.so.1.0
+/usr/local/lib/libpython3.so
+/usr/local/src/Python-3.7.4/libpython3.7m.so
+/usr/local/src/Python-3.7.4/libpython3.7m.so.1.0
+/usr/local/src/Python-3.7.4/libpython3.so
+/usr/lib64/python2.7/config/libpython2.7.so
+/usr/lib64/libpython2.7.so.1.0
+/usr/lib64/libpython2.7.so
+
+■plpythonダイナミックリンクファイルの確認
+
+$find / -name "*plpython*so*" 2>/dev/null
+/usr/local/lib/postgresql/plpython2.so
+/usr/local/src/postgresql-12.0/src/pl/plpython/plpython2.so
+
+$ldconfig -p | grep py
+	libpython3.7m.so.1.0 (libc6,x86-64) => /usr/local/lib/libpython3.7m.so.1.0
+	libpython3.7m.so (libc6,x86-64) => /usr/local/lib/libpython3.7m.so
+	libpython3.so (libc6,x86-64) => /usr/local/lib/libpython3.so
+	libpython2.7.so.1.0 (libc6,x86-64) => /lib64/libpython2.7.so.1.0
+	libpython2.7.so (libc6,x86-64) => /lib64/libpython2.7.so
+
+■plpython3のダイナミックリンクファイル作成
+cd /usr/local/src/postgresql-12.0/src/pl/plpython
+
+centosの方
+
+gcc -std=gnu99 -Wall -Wmissing-prototypes -Wpointer-arith -Wdeclaration-after-statement -Werror=vla -Wendif-labels -Wmissing-format-attribute -Wformat-security -fno-strict-aliasing -fwrapv -fexcess-precision=standard -O2 -fPIC -shared -o plpython3.so plpy_cursorobject.o plpy_elog.o plpy_exec.o plpy_main.o plpy_planobject.o plpy_plpymodule.o plpy_procedure.o plpy_resultobject.o plpy_spi.o plpy_subxactobject.o plpy_typeio.o plpy_util.o  -L../../../src/port -L../../../src/common    -Wl,--as-needed -Wl,-rpath,'/usr/local/lib',--enable-new-dtags  -L/usr/local/lib -lpython3.7m -lpthread -ldl  -lutil -lm
+
+ubuntuの方
+
+gcc -wall -wmissing-prototypes -wpointer-arith -wdeclaration-after-statement -werror=vla -wendif-labels -wmissing-format-attribute -wformat-security -fno-strict-aliasing -fwrapv -fexcess-precision=standard -o2 -fpic -shared -o plpython3.so plpy_cursorobject.o plpy_elog.o plpy_exec.o plpy_main.o plpy_planobject.o plpy_plpymodule.o plpy_procedure.o plpy_resultobject.o plpy_spi.o plpy_subxactobject.o plpy_typeio.o plpy_util.o  -l../../../src/port -l../../../src/common    -wl,--as-needed -wl,-rpath,'/usr/local/lib',--enable-new-dtags  -l/usr/local/lib -lpython3.7m -lcrypt -lpthread -ldl  -lutil -lm
+
+
+sudo /usr/bin/install -c -m 755  /usr/local/src/postgresql-12.0/src/pl/plpython/plpython3.so '/usr/local/lib/postgresql/plpython3.so'
+
+■リンクできているか確認
+[postgres♥f093f510d070 (木  1月 16 08:27:15) /usr/local/src/postgresql-12.0/src/pl/plpython]$ldd /usr/local/lib/postgresql/plpython2.so
+	linux-vdso.so.1 =>  (0x00007ffd4cefb000)
+	libpython2.7.so.1.0 => /usr/lib64/libpython2.7.so.1.0 (0x00007fe4b42db000)
+	libpthread.so.0 => /usr/lib64/libpthread.so.0 (0x00007fe4b40bf000)
+	libc.so.6 => /usr/lib64/libc.so.6 (0x00007fe4b3cf1000)
+	libdl.so.2 => /lib64/libdl.so.2 (0x00007fe4b3aed000)
+	libutil.so.1 => /lib64/libutil.so.1 (0x00007fe4b38ea000)
+	libm.so.6 => /lib64/libm.so.6 (0x00007fe4b35e8000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007fe4b48c7000)
+[postgres♥f093f510d070 (木  1月 16 08:27:28) /usr/local/src/postgresql-12.0/src/pl/plpython]$ldd /usr/local/lib/postgresql/plpython3.so
+	linux-vdso.so.1 =>  (0x00007ffcd1b83000)
+	libpython3.7m.so.1.0 => /usr/local/lib/libpython3.7m.so.1.0 (0x00007f1d996b6000)
+	libpthread.so.0 => /lib64/libpthread.so.0 (0x00007f1d9949a000)
+	libc.so.6 => /lib64/libc.so.6 (0x00007f1d990cc000)
+	libcrypt.so.1 => /lib64/libcrypt.so.1 (0x00007f1d98e95000)
+	libdl.so.2 => /lib64/libdl.so.2 (0x00007f1d98c91000)
+	libutil.so.1 => /lib64/libutil.so.1 (0x00007f1d98a8e000)
+	libm.so.6 => /lib64/libm.so.6 (0x00007f1d9878c000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007f1d99e39000)
+	libfreebl3.so => /lib64/libfreebl3.so (0x00007f1d98589000)
+
+■3系のファイルコピー
+find / -name "*plpython3u*" 2>/dev/null | grep -v contrib | xargs -I@ sudo cp @ /usr/local/share/postgresql/extension
+
+
+
+うまくいかないので、レポジトリから配布されているソフトでやってみる
+
+参考
+https://qiita.com/tom-sato/items/e1903cb974fb6c6d5664
+
+yum -y install https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+
+yum -y install postgresql12-server postgresql12-devel postgresql12-libs postgresql12-plpython3
+
+[root💛90199c44024a (木  1月 16 08:35:55) /home/postgres]$find / -name "*Python.h*" 2>/dev/null
+/usr/include/python2.7/Python.h
+/usr/local/include/python3.7m/Python.h
+/usr/local/src/Python-3.7.4/Include/Python.h
+[root💛90199c44024a (木  1月 16 08:36:12) /home/postgres]$find / -name "*libpython*so*" 2>/dev/null
+/usr/local/lib/libpython3.7m.so
+/usr/local/lib/libpython3.7m.so.1.0
+/usr/local/lib/libpython3.so
+/usr/local/src/Python-3.7.4/libpython3.7m.so
+/usr/local/src/Python-3.7.4/libpython3.7m.so.1.0
+/usr/local/src/Python-3.7.4/libpython3.so
+/usr/lib64/python2.7/config/libpython2.7.so
+/usr/lib64/libpython2.7.so.1.0
+/usr/lib64/libpython3.so
+/usr/lib64/libpython3.6m.so.1.0
+/usr/lib64/libpython2.7.so
+[root💛90199c44024a (木  1月 16 08:36:22) /home/postgres]$find / -name "*plpython*so*" 2>/dev/null
+/usr/pgsql-12/lib/hstore_plpython3.so
+/usr/pgsql-12/lib/ltree_plpython3.so
+/usr/pgsql-12/lib/jsonb_plpython3.so
+/usr/pgsql-12/lib/plpython3.so
+[root💛90199c44024a (木  1月 16 08:36:36) /home/postgres]$ldd /usr/pgsql-12/lib/plpython3.so
+	linux-vdso.so.1 =>  (0x00007ffe81d59000)
+	libpython3.6m.so.1.0 => /usr/lib64/libpython3.6m.so.1.0 (0x00007fb8516af000)
+	libpthread.so.0 => /usr/lib64/libpthread.so.0 (0x00007fb851493000)
+	libc.so.6 => /usr/lib64/libc.so.6 (0x00007fb8510c5000)
+	libdl.so.2 => /lib64/libdl.so.2 (0x00007fb850ec1000)
+	libutil.so.1 => /lib64/libutil.so.1 (0x00007fb850cbe000)
+	libm.so.6 => /lib64/libm.so.6 (0x00007fb8509bc000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007fb851df7000)
+
+[root💛90199c44024a (木  1月 16 08:36:44) /home/postgres]$ldconfig -p | grep py
+	libpython3.7m.so.1.0 (libc6,x86-64) => /usr/local/lib/libpython3.7m.so.1.0
+	libpython3.7m.so (libc6,x86-64) => /usr/local/lib/libpython3.7m.so
+	libpython3.6m.so.1.0 (libc6,x86-64) => /lib64/libpython3.6m.so.1.0
+	libpython3.so (libc6,x86-64) => /usr/local/lib/libpython3.so
+	libpython3.so (libc6,x86-64) => /lib64/libpython3.so
+	libpython2.7.so.1.0 (libc6,x86-64) => /lib64/libpython2.7.so.1.0
+	libpython2.7.so (libc6,x86-64) => /lib64/libpython2.7.so
+
+
+postgresユーザーで追加
+
+cat <<EOS >~/.pgsql_profile
+PATH=/usr/pgsql-12/bin:$PATH
+MANPATH=/usr/pgsql-12/share/man:$MANPATH
+PGDATA=/var/lib/pgsql/12/data
+export PATH MANPATH PGDATA
+EOS
+
+source ~/.pgsql_profile
+
+[postgres💛90199c44024a (木  1月 16 08:42:11) ~]$pg_ctl -D ~/pgdat -l ~/launch_postgres.log start
+waiting for server to start.... done
+server started
+[postgres💛90199c44024a (木  1月 16 08:42:34) ~]$psql -U postgres -c "create database testdb"
+CREATE DATABASE
+[postgres💛90199c44024a (木  1月 16 08:42:40) ~]$psql -U postgres -d testdb -c "SELECT * FROM pg_available_extensions;"
+       name        | default_version | installed_version |                  comment                  
+-------------------+-----------------+-------------------+-------------------------------------------
+ hstore_plpython3u | 1.0             |                   | transform between hstore and plpython3u
+ ltree_plpython3u  | 1.0             |                   | transform between ltree and plpython3u
+ plpgsql           | 1.0             | 1.0               | PL/pgSQL procedural language
+ plpython3u        | 1.0             |                   | PL/Python3U untrusted procedural language
+ jsonb_plpython3u  | 1.0             |                   | transform between jsonb and plpython3u
+(5 rows)
+
+[postgres💛90199c44024a (木  1月 16 08:42:48) ~]$psql -U postgres -d testdb -c "CREATE EXTENSION plpython3u;"
+CREATE EXTENSION
+[postgres💛90199c44024a (木  1月 16 08:42:59) ~]$psql -U postgres -d testdb -c "SELECT * FROM pg_available_extensions;"
+       name        | default_version | installed_version |                  comment                  
+-------------------+-----------------+-------------------+-------------------------------------------
+ hstore_plpython3u | 1.0             |                   | transform between hstore and plpython3u
+ ltree_plpython3u  | 1.0             |                   | transform between ltree and plpython3u
+ plpgsql           | 1.0             | 1.0               | PL/pgSQL procedural language
+ plpython3u        | 1.0             | 1.0               | PL/Python3U untrusted procedural language
+ jsonb_plpython3u  | 1.0             |                   | transform between jsonb and plpython3u
+(5 rows)
+
+[postgres💛90199c44024a (木  1月 16 08:43:04) ~]$psql -U postgres -d testdb
+psql (12.1)
+Type "help" for help.
+
+testdb=# create or replace function get_version()
+testdb-# returns text
+testdb-# as $$
+testdb$#   import sys
+testdb$#   return str(sys.version_info.major)+'.'+str(sys.version_info.minor)+'.'+str(sys.version_info.micro)
+testdb$# $$ language plpython3u;
+CREATE FUNCTION
+testdb=# select get_version();
+ get_version 
+-------------
+ 3.6.8
+(1 row)
+
+
+[postgres💖90199c44024a (木  1月 16 08:44:23) ~]$psql --version
+psql (PostgreSQL) 12.1
+```
