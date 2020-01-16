@@ -13,6 +13,88 @@ https://qiita.com/miyamotok0105/items/2baf80cf1c300503bf5d
 
 洗い替えの運用のみ
 
+パーティションの先頭番号から削除しないこと
+
+削除すると以下のように照合順序がおかしいことになる
+
+```
+[root💜centos (金  1月 17 07:42:25) /home/aine/script_env/java]$fdisk /dev/sda1
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+コマンド (m でヘルプ): p
+
+Disk /dev/sda1: 7758 MB, 7758955008 bytes, 15154209 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O サイズ (最小 / 推奨): 512 バイト / 512 バイト
+Disk label type: dos
+ディスク識別子: 0x6e697373
+
+パーティションテーブルに見えません
+おそらく間違ったデバイスを選択しています。
+
+デバイス ブート      始点        終点     ブロック   Id  システム
+/dev/sda1p2   ?  1917848077  2462285169   272218546+  73  不明
+/dev/sda1p3   ?  1818575915  2362751050   272087568   2b  不明
+/dev/sda1p4   ?  2844524554  2844579527       27487   61  SpeedStor
+
+パーティションテーブル項目がディスクの順序と一致しません
+
+コマンド (m でヘルプ): 
+```
+
+
+pコマンド
+
+dコマンド
+
+wコマンド
+
+```
+$fdisk /dev/sda1
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+コマンド (m でヘルプ): p
+
+Disk /dev/sda1: 7758 MB, 7758955008 bytes, 15154209 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O サイズ (最小 / 推奨): 512 バイト / 512 バイト
+Disk label type: dos
+ディスク識別子: 0x6e697373
+
+パーティションテーブルに見えません
+おそらく間違ったデバイスを選択しています。
+
+デバイス ブート      始点        終点     ブロック   Id  システム
+/dev/sda1p2   ?  1917848077  2462285169   272218546+  73  不明
+
+コマンド (m でヘルプ): 
+コマンド (m でヘルプ): d
+Selected partition 2
+Partition 2 is deleted
+
+コマンド (m でヘルプ): 
+コマンド (m でヘルプ): w
+パーティションテーブルは変更されました！
+
+ioctl() を呼び出してパーティションテーブルを再読込みします。
+
+WARNING: Re-reading the partition table failed with error 22: 無効な引数です.
+The kernel still uses the old table. The new table will be used at
+the next reboot or after you run partprobe(8) or kpartx(8)
+ディスクを同期しています。
+```
+
+
 # パーティション作成
 
 ```
