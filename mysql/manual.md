@@ -1,7 +1,18 @@
+# X環境インストール
+
+キー入力のプロンプトが鬱陶しいので、最小限入れた後は、docker潜入後、手打ち対応。
+以下のコマンドを実行
+```
+cd /usr/local/src && apt-get install -y ./code_1.41.1-1576681836_amd64.deb
+apt-get install -y fonts-vlgothic
+apt-get install -y packagekit-gtk3-module
+apt-get install -y chromium-browser
+```
+
 # dockerイメージ作成
 
 ```
-time docker build -t ubuntu_mysql . | tee log
+time docker build -t ubuntu_mysql . --build-arg user=$(whoami) --build-arg uid=$(cat /etc/passwd | grep $(whoami) | cut -d':' -f3) | tee log
 ```
 
 # dockerコンテナ削除
@@ -19,7 +30,7 @@ docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
 # dockerコンテナ起動
 
 ```
-docker run --privileged --shm-size=8gb --name ubuntu-mysql -itd -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-nix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 3306:3306 ubuntu_mysql
+docker run --privileged --shm-size=8gb --name ubuntu-mysql -itd -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 3306:3306 ubuntu_mysql
 ```
 
 # dockerコンテナ潜入
