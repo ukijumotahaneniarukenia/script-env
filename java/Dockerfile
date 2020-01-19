@@ -18,6 +18,11 @@ RUN cd /usr/local/src && \
 curl -LO https://download.java.net/java/GA/jdk13/5b8a42f3905b406298b72d750b6919f6/33/GPL/openjdk-13_linux-x64_bin.tar.gz && \
 tar -zxvf openjdk-13_linux-x64_bin.tar.gz
 
+#mavenコマンドインストール
+RUN cd /usr/local/src && \
+curl -LO http://ftp.yz.yamagata-u.ac.jp/pub/network/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz && \
+tar xvf apache-maven-3.6.3-bin.tar.gz
+
 #日本語環境と時刻合わせ
 RUN yum -y reinstall glibc-common
 RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
@@ -66,6 +71,30 @@ RUN mkdir -p ~/.vim/bundle && \
 cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
 sh installer.sh ~/.vim/bundle && rm -rf installer.sh
 
+#jetty
+RUN cd /usr/local/src && \
+curl -LO https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-distribution/9.4.24.v20191120/jetty-distribution-9.4.24.v20191120.tar.gz && \
+tar xvf jetty-distribution-9.4.24.v20191120.tar.gz
+
+#apache-tomcat
+RUN cd /usr/local/src && \
+curl -LO http://ftp.riken.jp/net/apache/tomcat/tomcat-9/v9.0.30/bin/apache-tomcat-9.0.30.tar.gz && \
+tar xvf apache-tomcat-9.0.30.tar.gz && \
+chmod -R 755 apache-tomcat-9.0.30
+
+#ideaインストール
+COPY ideaIC-2019.2.4.tar.gz /usr/local/src/ideaIC-2019.2.4.tar.gz
+RUN cd /usr/local/src && tar -xzf ideaIC-2019.2.4.tar.gz
+
+#VScodeインストール
+COPY code-1.41.1-1576681965.el7.x86_64.rpm /usr/local/src/code-1.41.1-1576681965.el7.x86_64.rpm
+RUN cd /usr/local/src && yum install -y code-1.41.1-1576681965.el7.x86_64.rpm
+
+#eclipse-stsインストール
+RUN cd /usr/local/src && curl -LO https://download.springsource.com/release/STS/3.9.11.RELEASE/dist/e4.14/spring-tool-suite-3.9.11.RELEASE-e4.14.0-linux-gtk-x86_64.tar.gz && \
+tar xvf spring-tool-suite-3.9.11.RELEASE-e4.14.0-linux-gtk-x86_64.tar.gz && \
+cd sts-bundle/sts-3.9.11.RELEASE
+
 USER kuraine
 
 #自身のvim環境をクローン
@@ -84,42 +113,15 @@ RUN mkdir -p ~/.vim/bundle && \
 cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
 sh installer.sh ~/.vim/bundle && rm -rf installer.sh
 
-#jetty
-RUN cd ~ && \
-curl -LO https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-distribution/9.4.24.v20191120/jetty-distribution-9.4.24.v20191120.tar.gz && \
-tar xvf jetty-distribution-9.4.24.v20191120.tar.gz
-
-#jersey
-RUN cd ~ && \
-curl -LO http://repo1.maven.org/maven2/org/glassfish/jersey/bundles/jaxrs-ri/2.29.1/jaxrs-ri-2.29.1.zip && \
-unzip jaxrs-ri-2.29.1.zip
-
-#ideaインストール
-COPY ideaIC-2019.2.4.tar.gz /home/kuraine/ideaIC-2019.2.4.tar.gz
-RUN cd ~ && tar -xzf ideaIC-2019.2.4.tar.gz && chown -R kuraine:kuraine idea-IC-192.7142.36
-
-#eclipseインストール
-COPY eclipse-inst-linux64.tar.gz /home/kuraine/eclipse-inst-linux64.tar.gz
-RUN cd ~ && tar xzf eclipse-inst-linux64.tar.gz
-
-#komodoインストール
-COPY Komodo-IDE-11.1.1-91089-linux-x86_64.tar.gz /home/kuraine/Komodo-IDE-11.1.1-91089-linux-x86_64.tar.gz
-RUN cd ~ && tar xzf Komodo-IDE-11.1.1-91089-linux-x86_64.tar.gz
-RUN cd ~/Komodo-IDE-11.1.1-91089-linux-x86_64 && ./install.sh -I ~/Komodo-IDE-11
-
-#VScodeインストール
-COPY code-1.41.1-1576681965.el7.x86_64.rpm /home/kuraine/code-1.41.1-1576681965.el7.x86_64.rpm
-RUN cd ~ && sudo yum install -y code-1.41.1-1576681965.el7.x86_64.rpm
-
 #alias設定
-RUN echo 'alias idea="/home/kuraine/idea-IC-192.7142.36/bin/idea.sh >~/launch_idea.log 2>&1 &"' >> ~/.bashrc && \
-echo 'export JAVA_HOME=/usr/local/src/jdk-13' >> ~/.bashrc && \
-echo 'export JETTY_HOME=~/jetty-distribution-9.4.24.v20191120' >> ~/.bashrc && \
-echo 'export KOMODO_HOME=~/Komodo-IDE-11' >> ~/.bashrc && \
-echo 'export CATALINA_HOME=$HOME/apache-tomcat-9.0.30' >> ~/.bashrc && \
-echo 'export PATH=$JAVA_HOME/bin:$CATALINA_HOME/bin:$JETTY_HOME/bin:$KOMODO_HOME/bin:$PATH' >> ~/.bashrc && \
-echo 'alias ecli="~/eclipse/jee-2019-12/eclipse/eclipse 1>~/launch_eclipse.log 2>&1 &"' >> ~/.bashrc && \
-echo 'alias komodo="komodo --verbose > ~/launch_komodo.log 2>&1 &"' >> ~/.bashrc
+RUN echo 'export JAVA_HOME=/usr/local/src/jdk-13' >> ~/.bashrc && \
+echo 'export JETTY_HOME=/usr/local/src/jetty-distribution-9.4.24.v20191120' >> ~/.bashrc && \
+echo 'export CATALINA_HOME=/usr/local/src/apache-tomcat-9.0.30' >> ~/.bashrc && \
+echo 'export STS_HOME=/usr/local/src/sts-bundle/sts-3.9.11.RELEASE'>>~/.bashrc && \
+echo 'export MAVEN_HOME=/usr/local/src/apache-maven-3.6.3'>>~/.bashrc && \
+echo 'export PATH=$JAVA_HOME/bin:$CATALINA_HOME/bin:$JETTY_HOME/bin:$STS_HOME:$MAVEN_HOME/bin:$PATH' >> ~/.bashrc && \
+echo 'alias idea="/home/kuraine/idea-IC-192.7142.36/bin/idea.sh >~/launch_idea.log 2>&1 &"' >> ~/.bashrc && \
+echo 'alias sts="$SPRING_HOME/STS 1>~/launch_sts.log 2>&1 &"'>>~/.bashrc
 
 RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/script_scratch.git
 
