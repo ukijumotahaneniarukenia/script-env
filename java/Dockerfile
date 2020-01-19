@@ -120,8 +120,8 @@ echo 'export CATALINA_HOME=/usr/local/src/apache-tomcat-9.0.30' >> ~/.bashrc && 
 echo 'export STS_HOME=/usr/local/src/sts-bundle/sts-3.9.11.RELEASE'>>~/.bashrc && \
 echo 'export MAVEN_HOME=/usr/local/src/apache-maven-3.6.3'>>~/.bashrc && \
 echo 'export PATH=$JAVA_HOME/bin:$CATALINA_HOME/bin:$JETTY_HOME/bin:$STS_HOME:$MAVEN_HOME/bin:$PATH' >> ~/.bashrc && \
-echo 'alias idea="/home/kuraine/idea-IC-192.7142.36/bin/idea.sh >~/launch_idea.log 2>&1 &"' >> ~/.bashrc && \
-echo 'alias sts="$SPRING_HOME/STS 1>~/launch_sts.log 2>&1 &"'>>~/.bashrc
+echo 'alias idea="/usr/local/src/idea-IC-192.7142.36/bin/idea.sh >~/launch_idea.log 2>&1 &"' >> ~/.bashrc && \
+echo 'alias sts="$STS_HOME/STS 1>~/launch_sts.log 2>&1 &"'>>~/.bashrc
 
 RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/script_scratch.git
 
