@@ -51,6 +51,10 @@ $apt-get install -y qttools5-dev-tools qttools5-dev
 
 このコマンド実行後、Xサーバー側のキーボード設定聞かれるが、以下のような感じで回答しておけばいい。
 
+54->4->17
+
+<details><summary>開く</summary><div>
+
 ```
 Configuring keyboard-configuration
 ----------------------------------
@@ -93,6 +97,24 @@ Not all listed keys are present on all keyboards.
 Method for toggling between national and Latin mode: 17
 ```
 
+</div></details>
+
+# pythonバージョン確認
+
+pip3アップグレード
+
+```
+$pip3 install --upgrade pip
+```
+
+pip3アップグレード後のバージョン
+
+```
+$pip3 -V
+pip 19.3.1 from /usr/local/lib/python3.7/site-packages/pip (python 3.7)
+$python3 --version
+Python 3.7.4
+```
 
 # pyqtライブラリいんすこ
 
@@ -103,6 +125,63 @@ https://askubuntu.com/questions/1009840/how-to-install-pyqt5 </br>
 https://tutorialmore.com/questions-972030.htm </br>
 
 rootユーザーで以下のコマンドを実行
+pip3アップグレードしていないとPyQt5ライブラリいんすこ時にエラーはく
+
+<details><summary>開く</summary><div>
+
+```
+root@fa0b6cdb54ee:/home/kuraine# pip3 install PyQt5
+Collecting PyQt5
+  Using cached https://files.pythonhosted.org/packages/3a/fb/eb51731f2dc7c22d8e1a63ba88fb702727b324c6352183a32f27f73b8116/PyQt5-5.14.1.tar.gz
+  Installing build dependencies ... done
+  Getting requirements to build wheel ... done
+    Preparing wheel metadata ... error
+    Complete output from command /usr/local/bin/python3.7 /usr/local/lib/python3.7/site-packages/pip/_vendor/pep517/_in_process.py prepare_metadata_for_build_wheel /tmp/tmp78mbfskl:
+    Querying qmake about your Qt installation...
+    /usr/bin/qmake -query
+    Traceback (most recent call last):
+      File "/usr/local/lib/python3.7/site-packages/pip/_vendor/pep517/_in_process.py", line 64, in prepare_metadata_for_build_wheel
+        hook = backend.prepare_metadata_for_build_wheel
+    AttributeError: module 'sipbuild.api' has no attribute 'prepare_metadata_for_build_wheel'
+    
+    During handling of the above exception, another exception occurred:
+    
+    Traceback (most recent call last):
+      File "/usr/local/lib/python3.7/site-packages/pip/_vendor/pep517/_in_process.py", line 207, in <module>
+        main()
+      File "/usr/local/lib/python3.7/site-packages/pip/_vendor/pep517/_in_process.py", line 197, in main
+        json_out['return_val'] = hook(**hook_input['kwargs'])
+      File "/usr/local/lib/python3.7/site-packages/pip/_vendor/pep517/_in_process.py", line 67, in prepare_metadata_for_build_wheel
+        config_settings)
+      File "/usr/local/lib/python3.7/site-packages/pip/_vendor/pep517/_in_process.py", line 95, in _get_wheel_metadata_from_wheel
+        whl_basename = backend.build_wheel(metadata_directory, config_settings)
+      File "/tmp/pip-build-env-98zs_83c/overlay/lib/python3.7/site-packages/sipbuild/api.py", line 51, in build_wheel
+        project = AbstractProject.bootstrap('pep517')
+      File "/tmp/pip-build-env-98zs_83c/overlay/lib/python3.7/site-packages/sipbuild/abstract_project.py", line 82, in bootstrap
+        project.setup(pyproject, tool, tool_description)
+      File "/tmp/pip-build-env-98zs_83c/overlay/lib/python3.7/site-packages/sipbuild/project.py", line 387, in setup
+        self.apply_user_defaults(tool)
+      File "project.py", line 62, in apply_user_defaults
+        super().apply_user_defaults(tool)
+      File "/tmp/pip-build-env-98zs_83c/overlay/lib/python3.7/site-packages/pyqtbuild/project.py", line 86, in apply_user_defaults
+        super().apply_user_defaults(tool)
+      File "/tmp/pip-build-env-98zs_83c/overlay/lib/python3.7/site-packages/sipbuild/project.py", line 202, in apply_user_defaults
+        self.builder.apply_user_defaults(tool)
+      File "/tmp/pip-build-env-98zs_83c/overlay/lib/python3.7/site-packages/pyqtbuild/builder.py", line 76, in apply_user_defaults
+        self._get_qt_configuration()
+      File "/tmp/pip-build-env-98zs_83c/overlay/lib/python3.7/site-packages/pyqtbuild/builder.py", line 431, in _get_qt_configuration
+        for line in project.read_command_pipe([self.qmake, '-query']):
+      File "/tmp/pip-build-env-98zs_83c/overlay/lib/python3.7/site-packages/sipbuild/project.py", line 350, in read_command_pipe
+        raise UserException("'{0}' failed returning {1}".format(cmd, rc))
+    sipbuild.exceptions.UserException
+    
+    ----------------------------------------
+Command "/usr/local/bin/python3.7 /usr/local/lib/python3.7/site-packages/pip/_vendor/pep517/_in_process.py prepare_metadata_for_build_wheel /tmp/tmp78mbfskl" failed with error code 1 in /tmp/pip-install-8go7fir6/PyQt5
+You are using pip version 19.0.3, however version 19.3.1 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+```
+
+</div></details>
 
 ```
 $apt-get install -y python3-qtpy pyqt5-dev pyqt5-dev-tools python3-pyqt5 libqt5widgets5 libqt5gui5 libqt5dbus5 libqt5network5 libqt5core5a
