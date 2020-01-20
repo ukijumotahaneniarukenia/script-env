@@ -34,9 +34,15 @@ docker run --privileged --shm-size=8gb --name ubuntu-pyqt -itd -v /etc/localtime
 docker exec -it ubuntu-pyqt /bin/bash
 ```
 
+# qt-designerコマンドいんすこ
+
+```
+$apt-get install -y qttools5-dev-tools qttools5-dev
+```
+
 # pyqtライブラリいんすこ
 
-pythonスクリプトからqtライブラリを使用できるように設定
+pythonスクリプトからqtライブラリを使用できるようになる
 
 以下を参考
 https://askubuntu.com/questions/1009840/how-to-install-pyqt5 </br>
@@ -50,8 +56,7 @@ $pip3 install SIP
 $pip3 install PyQt5
 ```
 
-以下のコマンドでpyqt5関連のライブラリパッケージの名前を検討つけられる
-
+また、以下のコマンドでpyqt5関連のライブラリパッケージの名前を検討つけられる
 ```
 $apt-cache search pyqt5 | nl
 ```
@@ -63,13 +68,11 @@ $apt-cache search pyqt5 | nl
 https://pythonbasics.org/qt-designer-python/
 
 普通に起動すると動かないが、以下のコマンドを実行したあとだと動いた
-
 ```
 $strip --remove-section=.note.ABI-tag /usr/lib/x86_64-linux-gnu/libQt5Core.so.5
 ```
 
-単体起動するときは以下のコマンドを実行
-これはqtでプレイした結果をホームディレクトリの直下のワークスペースディレクトリに保存する
+以下のコマンドはqtでプレイした結果をホームディレクトリの直下のワークスペースディレクトリに保存する
 ```
 ( mkdir -p $HOME/qt-wrksp && export XDG_RUNTIME_DIR=$HOME/qt-wrksp && cd /usr/lib/x86_64-linux-gnu/qt5/bin && ./designer 1>~/launch_qt_designer.log 2>&1 </dev/null & )
 ```
