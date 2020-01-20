@@ -49,6 +49,51 @@ $tail ~/launch_pycharm.log
 $apt-get install -y qttools5-dev-tools qttools5-dev
 ```
 
+このコマンド実行後、Xサーバー側のキーボード設定聞かれるが、以下のような感じで回答しておけばいい。
+
+```
+Configuring keyboard-configuration
+----------------------------------
+
+The layout of keyboards varies per country, with some countries having multiple common layouts. Please select the country of origin for the keyboard of this computer.
+
+  1. Afghani                   18. Chinese                 35. Filipino                                   52. Irish                          69. Montenegrin               86. Swedish
+  2. Albanian                  19. Croatian                36. Finnish                                    53. Italian                        70. Nepali                    87. Switzerland
+  3. Amharic                   20. Czech                   37. French                                     54. Japanese                       71. Norwegian                 88. Taiwanese
+  4. Arabic                    21. Danish                  38. French (Canada)                            55. Japanese (PC-98)               72. Persian                   89. Tajik
+  5. Arabic (Morocco)          22. Dhivehi                 39. French (Democratic Republic of the Congo)  56. Kazakh                         73. Polish                    90. Thai
+  6. Arabic (Syria)            23. Dutch                   40. French (Guinea)                            57. Khmer (Cambodia)               74. Portuguese                91. Tswana
+  7. Armenian                  24. Dzongkha                41. French (Togo)                              58. Korean                         75. Portuguese (Brazil)       92. Turkish
+  8. Azerbaijani               25. English (Australian)    42. Georgian                                   59. Kyrgyz                         76. Romanian                  93. Turkmen
+  9. Bambara                   26. English (Cameroon)      43. German                                     60. Lao                            77. Russian                   94. Ukrainian
+  10. Bangla                   27. English (Ghana)         44. German (Austria)                           61. Latvian                        78. Serbian                   95. Urdu (Pakistan)
+  11. Belarusian               28. English (Nigeria)       45. Greek                                      62. Lithuanian                     79. Sinhala (phonetic)        96. Uzbek
+  12. Belgian                  29. English (South Africa)  46. Hebrew                                     63. Macedonian                     80. Slovak                    97. Vietnamese
+  13. Berber (Algeria, Latin)  30. English (UK)            47. Hungarian                                  64. Malay (Jawi, Arabic Keyboard)  81. Slovenian                 98. Wolof
+  14. Bosnian                  31. English (US)            48. Icelandic                                  65. Maltese                        82. Spanish
+  15. Braille                  32. Esperanto               49. Indian                                     66. Maori                          83. Spanish (Latin American)
+  16. Bulgarian                33. Estonian                50. Indonesian (Jawi)                          67. Moldavian                      84. Swahili (Kenya)
+  17. Burmese                  34. Faroese                 51. Iraqi                                      68. Mongolian                      85. Swahili (Tanzania)
+Country of origin for the keyboard: 54
+
+Please select the layout matching the keyboard for this machine.
+
+  1. Japanese  2. Japanese - Japanese (Dvorak)  3. Japanese - Japanese (Kana 86)  4. Japanese - Japanese (Kana)  5. Japanese - Japanese (Macintosh)  6. Japanese - Japanese (OADG 109A)
+Keyboard layout: 4
+
+You will need a way to toggle the keyboard between the national layout and the standard Latin layout.
+
+Right Alt or Caps Lock keys are often chosen for ergonomic reasons (in the latter case, use the combination Shift+Caps Lock for normal Caps toggle). Alt+Shift is also a popular combination; it will however lose
+its usual behavior in Emacs and other programs that use it for specific needs.
+
+Not all listed keys are present on all keyboards.
+
+  1. Caps Lock          3. Right Control  5. Right Logo key  7. Alt+Shift      9. Control+Alt     11. Left Control+Left Shift  13. Left Control  15. Left Logo key    17. No toggling
+  2. Right Alt (AltGr)  4. Right Shift    6. Menu key        8. Control+Shift  10. Alt+Caps Lock  12. Left Alt                 14. Left Shift    16. Scroll Lock key
+Method for toggling between national and Latin mode: 17
+```
+
+
 # pyqtライブラリいんすこ
 
 pythonスクリプトからqtライブラリを使用できるようになる
