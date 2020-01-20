@@ -30,9 +30,6 @@ cd Python-3.7.4 && \
 make -j12 && \
 make -j12 install
 
-#qt-designerコマンドいんすこ
-RUN apt-get install -y qttools5-dev-tools qttools5-dev
-
 #ユーザー作成
 RUN groupadd -g 1001 kuraine && \
 useradd -m -g kuraine -u 1001 kuraine && \
@@ -53,12 +50,12 @@ RUN cd /usr/local/src && tar xvf pycharm-community-2019.3.1.tar.gz
 
 #環境変数の設定
 RUN echo 'alias pyc="bash /usr/local/src/pycharm-community-2019.3.1/bin/pycharm.sh 1>~/launch_pycharm.log 2>&1 &"' >>~/.bashrc && \
-echo 'alias qtd=( mkdir -p $HOME/qt-wrksp && export XDG_RUNTIME_DIR=$HOME/qt-wrksp && cd /usr/lib/x86_64-linux-gnu/qt5/bin && ./designer 1>~/launch_qt_designer.log 2>&1 </dev/null & )' >>~/.bashrc
+echo 'alias qtd="( mkdir -p $HOME/qt-wrksp && export XDG_RUNTIME_DIR=$HOME/qt-wrksp && cd /usr/lib/x86_64-linux-gnu/qt5/bin && ./designer 1>~/launch_qt_designer.log 2>&1 </dev/null & )"' >>~/.bashrc
 
 USER kuraine
 
 #環境変数の設定
 RUN echo 'alias pyc="bash /usr/local/src/pycharm-community-2019.3.1/bin/pycharm.sh 1>~/launch_pycharm.log 2>&1 &"' >>~/.bashrc && \
-echo 'alias qtd=( mkdir -p $HOME/qt-wrksp && export XDG_RUNTIME_DIR=$HOME/qt-wrksp && cd /usr/lib/x86_64-linux-gnu/qt5/bin && ./designer 1>~/launch_qt_designer.log 2>&1 </dev/null & )' >>~/.bashrc
+echo 'alias qtd="( mkdir -p $HOME/qt-wrksp && export XDG_RUNTIME_DIR=$HOME/qt-wrksp && cd /usr/lib/x86_64-linux-gnu/qt5/bin && ./designer 1>~/launch_qt_designer.log 2>&1 </dev/null & )"' >>~/.bashrc
 
 WORKDIR /home/kuraine
