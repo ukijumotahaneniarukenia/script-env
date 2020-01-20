@@ -210,6 +210,10 @@ $strip --remove-section=.note.ABI-tag /usr/lib/x86_64-linux-gnu/libQt5Core.so.5
 ( mkdir -p $HOME/qt-wrksp && export XDG_RUNTIME_DIR=$HOME/qt-wrksp && cd /usr/lib/x86_64-linux-gnu/qt5/bin && ./designer 1>~/launch_qt_designer.log 2>&1 </dev/null & )
 ```
 
+![](./31.png)
+![](./32.png)
+
+
 プロセス確認
 
 ./designerコマンドが起動されている
