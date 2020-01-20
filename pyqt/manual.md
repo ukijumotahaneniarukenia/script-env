@@ -34,6 +34,15 @@ docker run --privileged --shm-size=8gb --name ubuntu-pyqt -itd -v /etc/localtime
 docker exec -it ubuntu-pyqt /bin/bash
 ```
 
+# pycharm起動
+
+```
+$ pyc
+[1] 16
+$tail ~/launch_pycharm.log
+```
+
+
 # qt-designerコマンドいんすこ
 
 ```
