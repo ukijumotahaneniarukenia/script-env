@@ -1,5 +1,12 @@
 # script_scratch
 
+# wsl内でシンボリックリンクを貼る
+
+コマンドソフトウェアによっては参照できない場合があるので、
+ホームディレクトリと近くに仕込んでおく。
+
+https://kledgeb.blogspot.com/2017/01/wsl-70-bashwindows.html
+
 # 参考文献
 docker install
 [インストール手順公式HP](https://docs.docker.com/install/linux/docker-ce/centos/)
