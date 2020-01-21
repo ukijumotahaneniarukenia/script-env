@@ -360,6 +360,12 @@ https://downloads.mysql.com/docs/world_x-db.zip
 ![](./48.png)
 
 
+# ベンチを使ってリバエン
+
+https://ti-tomo-knowledge.hatenablog.com/entry/2018/05/21/082211
+
+
+
 # build.gradleファイル作成
 
 ```
