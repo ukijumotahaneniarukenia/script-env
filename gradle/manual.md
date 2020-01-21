@@ -168,7 +168,23 @@ docker exec -it ubuntu-gradle-doma /bin/bash
 
 ```
 $cd /opt && curl -o mysql.deb https://repo.mysql.com/mysql-apt-config_0.8.14-1_all.deb
+```
+
+聞かれたらOKを選択する
+```
 $cd /opt && dpkg -i mysql.deb
+```
+
+ログ
+```
+$cd /opt && dpkg -i mysql.deb
+以前に未選択のパッケージ mysql-apt-config を選択しています。
+(データベースを読み込んでいます ... 現在 60827 個のファイルとディレクトリがインストールされています。)
+mysql.deb を展開する準備をしています ...
+mysql-apt-config (0.8.14-1) を展開しています...
+mysql-apt-config (0.8.14-1) を設定しています ...
+Warning: apt-key should not be used in scripts (called from postinst maintainerscript of the package mysql-apt-config)
+OK
 ```
 
 ■mysqlインストール
