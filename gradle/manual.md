@@ -104,20 +104,33 @@ shared-mime-info (1.10-1) のトリガを処理しています ...
 
 # Mysql WorkBench起動
 
+プロセス起動
 ```
-
+$myb
+[1] 11103
 ```
 
 ログ確認
-
 ```
-
+$tail launch_mysql-bench.log 
+Found /lib/x86_64-linux-gnu/libproj.so.13
 ```
 
 プロセス確認
-
 ```
-
+$ ps aux
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+kuraine      1  0.0  0.0   4208  1984 pts/0    Ss+  01:15   0:00 /bin/bash
+kuraine  11096  0.0  0.0   5372  2320 pts/1    Ss   01:33   0:00 /bin/bash
+kuraine  11103  0.0  0.0   5108  1764 pts/1    S    01:33   0:00 /bin/bash /usr/bin/mysql-workbench
+kuraine  11138  0.0  0.0   3832   808 pts/1    S    01:33   0:00 /bin/sh /usr/bin/catchsegv /usr/bin/mysql-workbench-bin
+kuraine  11140  7.0  0.3 514156 101880 pts/1   SLl  01:33   0:01 /usr/bin/mysql-workbench-bin
+kuraine  11145  0.0  0.0   8080   844 pts/1    S    01:33   0:00 dbus-launch --autolaunch=bc74deaa9e044c079ed6fc963d084157 --binary-syntax --close-stderr
+kuraine  11146  0.0  0.0   8284  1532 ?        Ss   01:33   0:00 /usr/bin/dbus-daemon --syslog-only --fork --print-pid 5 --print-address 7 --session
+kuraine  11161  1.5  0.1 1641212 42720 ?       SLl  01:33   0:00 /usr/bin/gnome-software --gapplication-service
+kuraine  11167  0.0  0.0 235616  5100 ?        SLl  01:33   0:00 /usr/bin/gnome-keyring-daemon --start --foreground --components=secrets
+kuraine  11177  0.0  0.0 157020  3236 ?        Sl   01:33   0:00 /usr/lib/dconf/dconf-service
+kuraine  11197  0.0  0.0   7008  1560 pts/1    R+   01:33   0:00 ps aux
 ```
 
 # dockerイメージ作成
