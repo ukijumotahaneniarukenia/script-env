@@ -38,14 +38,20 @@ RUN cd /usr/local/src && unzip gradle-6.1-all.zip
 RUN echo 'export JAVA_HOME=/usr/local/src/jdk-13' >> ~/.bashrc && \
 echo 'export MAVEN_HOME=/usr/local/src/apache-maven-3.6.3'>>~/.bashrc && \
 echo 'export GRADLE_HOME=/usr/local/src/gradle-6.1'>>~/.bashrc && \
-echo 'export PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$GRADLE_HOME/bin:$PATH' >> ~/.bashrc
+echo 'export PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$GRADLE_HOME/bin:$PATH' >> ~/.bashrc && \
+echo 'alias myb="mysql-workbench 1>~/launch_mysql-bench.log 2>&1 &"' >>~/.bashrc
 
 #X環境インストール
 RUN apt-get install -y xterm
 #XクライアントがXサーバーにGUI転送出来るように、転送先のIPを指定する
 ENV DISPLAY=:0.0
 
+#mysql workbenchいんすこ
+ENV NO_AT_BRIDGE=1
 COPY mysql-workbench-community_8.0.19-1ubuntu19.10_amd64.deb /usr/local/src/mysql-workbench-community_8.0.19-1ubuntu19.10_amd64.deb
+
+#日本語環境と時刻合わせ
+ENV LANG=ja_JP.UTF-8
 
 USER kuraine
 
@@ -53,6 +59,7 @@ USER kuraine
 RUN echo 'export JAVA_HOME=/usr/local/src/jdk-13' >> ~/.bashrc && \
 echo 'export MAVEN_HOME=/usr/local/src/apache-maven-3.6.3'>>~/.bashrc && \
 echo 'export GRADLE_HOME=/usr/local/src/gradle-6.1'>>~/.bashrc && \
-echo 'export PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$GRADLE_HOME/bin:$PATH' >> ~/.bashrc
+echo 'export PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$GRADLE_HOME/bin:$PATH' >> ~/.bashrc && \
+echo 'alias myb="mysql-workbench 1>~/launch_mysql-bench.log 2>&1 &"' >>~/.bashrc
 
 WORKDIR /home/kuraine

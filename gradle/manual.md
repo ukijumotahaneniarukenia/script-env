@@ -16,6 +16,41 @@ https://doma.readthedocs.io/en/stable/config/</br>
 
 https://kunst1080.hatenablog.com/entry/2016/07/17/181256
 
+# Mysql WorkBenchいんすこ
+
+
+対話入力があれなので、コンテナ潜入後、優しく実行
+
+rootユーザーで実行
+```
+$apt-get -y install language-pack-ja-base language-pack-ja ibus-mozc
+$locale-gen ja_JP.UTF-8
+```
+
+rootユーザーで実行
+```
+$apt-get install -y libquazip5-dev libsigc++-2.0-dev libpcrecpp0v5 libmysqlclient21 libgtk2.0-dev libglibmm-2.4-dev libatkmm-1.6-dev libxml2-dev libsecret-1-dev libpangocairo-1.0-0 libgdk-pixbuf2.0-dev libcairo2-dev libgtk-3-dev libgtkmm-3.0-dev python2.7-dev libquazip5-dev libzip5 packagekit-gtk3-module canberra-gtk* libproj-dev proj-bin
+$cd /usr/local/src && dpkg -i mysql-workbench-community_8.0.19-1ubuntu19.10_amd64.deb
+```
+
+
+# Mysql WorkBench起動
+
+```
+
+```
+
+ログ確認
+
+```
+
+```
+
+プロセス確認
+
+```
+
+```
 
 # dockerイメージ作成
 
@@ -38,7 +73,7 @@ docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
 # dockerコンテナ起動
 
 ```
-docker run --privileged --shm-size=12gb --name ubuntu-gradle-doma -itd -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id ubuntu_gradle-doma
+docker run --privileged --shm-size=12gb --name ubuntu-gradle-doma -itd -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -v /etc/localtime:/etc/localtime:ro ubuntu_gradle-doma
 ```
 
 # dockerコンテナ潜入
