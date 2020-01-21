@@ -299,7 +299,7 @@ mysql -uuser01 -pMysql3306 -Dtestdb
 
 
 ```
-$cd ~ && $ curl -LO https://downloads.mysql.com/docs/sakila-db.zip && unzip sakila-db.zip
+$cd ~ &&  curl -LO https://downloads.mysql.com/docs/sakila-db.zip && unzip sakila-db.zip
 $cd sakila-db
 $ls
 sakila-data.sql  sakila-schema.sql  sakila.mwb
