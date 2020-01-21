@@ -18,8 +18,9 @@ https://kunst1080.hatenablog.com/entry/2016/07/17/181256
 
 # Mysql WorkBenchいんすこ
 
-
 対話入力があれなので、コンテナ潜入後、優しく実行
+
+ロケール問題解消しておくと、ベンチ起動時のログがいい感じになるので、次のロケール設定時の前に日本語パックのインストールを実行しておきたい
 
 rootユーザーで実行
 ```
@@ -27,6 +28,8 @@ $apt-get -y install language-pack-ja-base language-pack-ja ibus-mozc
 ```
 
 いろいろきかれるがこんな感じで回答
+
+98->4
 
 ```
 キーボードのレイアウトは国によって異なり、いくつかの国では複数の一般的レイアウトがあります。このコンピュータのキーボードが由来する国を選択し
@@ -65,7 +68,7 @@ $apt-get -y install language-pack-ja-base language-pack-ja ibus-mozc
 $locale-gen ja_JP.UTF-8
 ```
 
-出力
+設定後
 ```
 root@fd8b87b82555:/home/kuraine# locale-gen ja_JP.UTF-8
 Generating locales (this might take a while)...
@@ -73,10 +76,29 @@ Generating locales (this might take a while)...
 Generation complete.
 ```
 
+ベンチいんすこ要件としていくつかパッケージをインストールしておく
+
 rootユーザーで実行
 ```
-$apt-get install -y libquazip5-dev libsigc++-2.0-dev libpcrecpp0v5 libmysqlclient21 libgtk2.0-dev libglibmm-2.4-dev libatkmm-1.6-dev libxml2-dev libsecret-1-dev libpangocairo-1.0-0 libgdk-pixbuf2.0-dev libcairo2-dev libgtk-3-dev libgtkmm-3.0-dev python2.7-dev libquazip5-dev libzip5 packagekit-gtk3-module canberra-gtk* libproj-dev proj-bin
+$apt-get install -y libquazip5-dev libsigc++-2.0-dev libpcrecpp0v5 libmysqlclient21 libgtk2.0-dev libglibmm-2.4-dev libatkmm-1.6-dev libxml2-dev libsecret-1-dev libpangocairo-1.0-0 libgdk-pixbuf2.0-dev libcairo2-dev libgtk-3-dev libgtkmm-3.0-dev python2.7-dev libquazip5-dev libzip5 packagekit-gtk3-module canberra-gtk* libproj-dev proj-bin````
+```
+
+ベンチいんすこ
+```
 $cd /usr/local/src && dpkg -i mysql-workbench-community_8.0.19-1ubuntu19.10_amd64.deb
+```
+
+いんすこ時のログ
+```
+以前に未選択のパッケージ mysql-workbench-community を選択しています。
+(データベースを読み込んでいます ... 現在 59536 個のファイルとディレクトリがインストールされています。)
+mysql-workbench-community_8.0.19-1ubuntu19.10_amd64.deb を展開する準備をしています ...
+mysql-workbench-community (8.0.19-1ubuntu19.10) を展開しています...
+mysql-workbench-community (8.0.19-1ubuntu19.10) を設定しています ...
+desktop-file-utils (0.24-1ubuntu1) のトリガを処理しています ...
+mime-support (3.63ubuntu1) のトリガを処理しています ...
+hicolor-icon-theme (0.17-2) のトリガを処理しています ...
+shared-mime-info (1.10-1) のトリガを処理しています ...
 ```
 
 
