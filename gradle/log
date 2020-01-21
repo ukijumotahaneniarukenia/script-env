@@ -1,0 +1,58 @@
+Sending build context to Docker daemon  189.2MB
+Step 1/18 : FROM ubuntu:19.10
+ ---> dcbcfdcd50bb
+Step 2/18 : RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list
+ ---> Using cache
+ ---> d6cdaa7d1c08
+Step 3/18 : RUN apt-get update && apt-get upgrade -y
+ ---> Using cache
+ ---> a5598df2193f
+Step 4/18 : RUN apt-get install -y vim gcc make lsb-release wget gnupg sudo && apt-get install -y libffi-dev curl build-essential libssl-dev zlib1g-dev libreadline6-dev && apt-get install -y libncurses5-dev libgdbm-dev libnss3-dev libreadline-dev wget libgl1-mesa-dev
+ ---> Using cache
+ ---> 30698287e999
+Step 5/18 : RUN groupadd -g 1001 kuraine && useradd -m -g kuraine -u 1001 kuraine && echo 'kuraine:kuraine_pwd' | chpasswd && echo 'kuraine ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && chsh -s /bin/bash kuraine
+ ---> Using cache
+ ---> 7dc8544e4766
+Step 6/18 : RUN echo 'root:root_pwd' | chpasswd
+ ---> Using cache
+ ---> 8189ed598e87
+Step 7/18 : RUN cd /usr/local/src && curl -LO https://download.java.net/java/GA/jdk13/5b8a42f3905b406298b72d750b6919f6/33/GPL/openjdk-13_linux-x64_bin.tar.gz && tar -zxvf openjdk-13_linux-x64_bin.tar.gz
+ ---> Using cache
+ ---> 5920999c74d0
+Step 8/18 : RUN cd /usr/local/src && curl -LO http://ftp.yz.yamagata-u.ac.jp/pub/network/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz && tar xvf apache-maven-3.6.3-bin.tar.gz
+ ---> Using cache
+ ---> 5be2d30dfdb2
+Step 9/18 : RUN apt-get install -y unzip
+ ---> Using cache
+ ---> 9394314f54d7
+Step 10/18 : COPY gradle-6.1-all.zip /usr/local/src/gradle-6.1-all.zip
+ ---> Using cache
+ ---> 8e610430287f
+Step 11/18 : RUN cd /usr/local/src && unzip gradle-6.1-all.zip
+ ---> Using cache
+ ---> 8e9adf347b95
+Step 12/18 : RUN echo 'export JAVA_HOME=/usr/local/src/jdk-13' >> ~/.bashrc && echo 'export MAVEN_HOME=/usr/local/src/apache-maven-3.6.3'>>~/.bashrc && echo 'export GRADLE_HOME=/usr/local/src/gradle-6.1'>>~/.bashrc && echo 'export PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$GRADLE_HOME/bin:$PATH' >> ~/.bashrc
+ ---> Using cache
+ ---> c032b0f75b57
+Step 13/18 : RUN apt-get install -y xterm
+ ---> Using cache
+ ---> a79ff38198fd
+Step 14/18 : ENV DISPLAY=:0.0
+ ---> Using cache
+ ---> 70da663b1563
+Step 15/18 : COPY mysql-workbench-community_8.0.19-1ubuntu19.10_amd64.deb /usr/local/src/mysql-workbench-community_8.0.19-1ubuntu19.10_amd64.deb
+ ---> a345ad4b2f2d
+Step 16/18 : USER kuraine
+ ---> Running in 4bdcdca0cb57
+Removing intermediate container 4bdcdca0cb57
+ ---> 8c3749af7ce5
+Step 17/18 : RUN echo 'export JAVA_HOME=/usr/local/src/jdk-13' >> ~/.bashrc && echo 'export MAVEN_HOME=/usr/local/src/apache-maven-3.6.3'>>~/.bashrc && echo 'export GRADLE_HOME=/usr/local/src/gradle-6.1'>>~/.bashrc && echo 'export PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$GRADLE_HOME/bin:$PATH' >> ~/.bashrc
+ ---> Running in 188dde985691
+Removing intermediate container 188dde985691
+ ---> 98d55cf4ad26
+Step 18/18 : WORKDIR /home/kuraine
+ ---> Running in 2c34d41f3353
+Removing intermediate container 2c34d41f3353
+ ---> 0d5b31c5f9a1
+Successfully built 0d5b31c5f9a1
+Successfully tagged ubuntu_gradle-doma:latest
