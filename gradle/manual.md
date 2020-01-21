@@ -348,6 +348,17 @@ https://downloads.mysql.com/docs/world.sql.zip
 https://downloads.mysql.com/docs/world_x-db.zip
 ```
 
+# ベンチ接続
+
+![](./41.png)
+![](./42.png)
+![](./43.png)
+![](./44.png)
+![](./45.png)
+![](./46.png)
+![](./47.png)
+![](./48.png)
+
 
 # build.gradleファイル作成
 
