@@ -89,7 +89,7 @@ sh installer.sh ~/.vim/bundle && rm -rf installer.sh
 #parallelコマンド install
 RUN cd ~ && yum install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && \
 tar jxf parallel-latest.tar.bz2 && \
-cd parallel-20190922 && \
+cd parallel-20191022 && \
 ./configure && \
 make -j12 && \
 make -j12 install
