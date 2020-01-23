@@ -5,6 +5,9 @@ https://qiita.com/tutuz/items/d055114c0ad29d5cfb59
 Windowsの拡張機能を流用する
 https://www.kkaneko.jp/pro/javaintro/cdt.html
 
+Windowsのsdkはここからダウンロード
+
+https://developer.microsoft.com/ja-jp/windows/downloads/windows-10-sdk
 
 # 参考文献
 https://code.visualstudio.com/#alt-downloads
