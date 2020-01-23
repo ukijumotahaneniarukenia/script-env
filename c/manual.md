@@ -1,3 +1,10 @@
+# vim-lspにするまではここら辺の開発環境がいいかな
+
+https://qiita.com/tutuz/items/d055114c0ad29d5cfb59
+
+
+
+
 # 参考文献
 https://code.visualstudio.com/#alt-downloads
 https://qiita.com/kusanoiskuzuno/items/c323446f2707f9950ebb
