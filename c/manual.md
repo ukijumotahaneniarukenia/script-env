@@ -1,5 +1,15 @@
 # vim-lspにするまではここら辺の開発環境がいいかな
 
+ビルド周りの概念整理
+
+https://kamino.hatenablog.com/entry/c%2B%2B-principle-of-build-library
+
+外部ライブラリの導入
+https://qiita.com/Gaccho/items/23686ffacce0adc1e854
+
+
+
+
 https://qiita.com/tutuz/items/d055114c0ad29d5cfb59
 
 Windowsの拡張機能を流用する
