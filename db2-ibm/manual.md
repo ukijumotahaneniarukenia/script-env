@@ -1,6 +1,6 @@
 # 参考文献
 
-***db2のセットアップマニュアル
+db2のセットアップマニュアル
 https://www.ibm.com/support/producthub/db2/docs/content/SSEPGG_11.5.0/com.ibm.db2.luw.qb.server.doc/doc/t0008875.html </br>
 
 
