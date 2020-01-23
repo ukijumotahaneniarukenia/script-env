@@ -3,6 +3,9 @@
 
 https://www.msys2.org/
 
+https://qiita.com/Ted-HM/items/9a60f6fcf74bbd79a904
+
+https://qiita.com/Ted-HM/items/4f2feb9fdacb6c72083c
 
 # vim-lspにするまではここら辺の開発環境がいいかな
 C言語のライブラリディレクトリ
