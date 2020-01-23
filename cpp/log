@@ -1,0 +1,89 @@
+Sending build context to Docker daemon  51.38MB
+Step 1/28 : FROM centos/systemd
+ ---> 05d3c1e2d0c1
+Step 2/28 : RUN groupadd -g 1001 mysql && useradd -m -g mysql -u 1001 mysql && chsh -s /bin/bash mysql && echo 'mysql_pwd' | passwd --stdin mysql && echo 'mysql ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Using cache
+ ---> fe9efeae5bdd
+Step 3/28 : RUN echo 'root_pwd' | passwd --stdin root
+ ---> Using cache
+ ---> 72f7d8c289bb
+Step 4/28 : RUN yum -y install epel-release
+ ---> Using cache
+ ---> 312b01c55578
+Step 5/28 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man moreutils lbzip2 which perl-Digest-SHA lbzip gcc-c++ libtool makeinfo file libffi-devel zlib-devel unzip autoconf gcc bison evince
+ ---> Using cache
+ ---> ad618dadc229
+Step 6/28 : RUN yum -y reinstall glibc-common
+ ---> Using cache
+ ---> 9dad656f1776
+Step 7/28 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
+ ---> Using cache
+ ---> b83589cd5afd
+Step 8/28 : ENV LANG=ja_JP.UTF-8
+ ---> Using cache
+ ---> c48743443fd3
+Step 9/28 : RUN rm -f /etc/localtime
+ ---> Using cache
+ ---> 03f68732c343
+Step 10/28 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+ ---> Using cache
+ ---> bb47860be40a
+Step 11/28 : RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd ~ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
+ ---> Using cache
+ ---> c28c7d3e7cd6
+Step 12/28 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> Using cache
+ ---> 041faf640edb
+Step 13/28 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> Using cache
+ ---> aa8fffa54636
+Step 14/28 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+ ---> Using cache
+ ---> aa9149219201
+Step 15/28 : RUN cd /usr/local/src && curl -LO https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm && yum localinstall -y mysql80-community-release-el7-3.noarch.rpm && yum-config-manager --disable mysql57-community && yum-config-manager --enable mysql80-community && yum install -y mysql-community-server
+ ---> Using cache
+ ---> 9fa608a7f409
+Step 16/28 : RUN { echo log_timestamps=SYSTEM;       echo skip-character-set-client-handshake;       echo character-set-server=utf8mb4;       echo explicit_defaults_for_timestamp=ON;     } >> /etc/my.cnf
+ ---> Using cache
+ ---> 4bc547d9034a
+Step 17/28 : RUN cd /usr/local/src && curl -LO https://download.java.net/java/GA/jdk13/5b8a42f3905b406298b72d750b6919f6/33/GPL/openjdk-13_linux-x64_bin.tar.gz && tar -zxvf openjdk-13_linux-x64_bin.tar.gz
+ ---> Using cache
+ ---> a3b52b2cfce6
+Step 18/28 : COPY eclipse-inst-linux64.tar.gz /usr/local/src/eclipse-inst-linux64.tar.gz
+ ---> Using cache
+ ---> 84bc438fb195
+Step 19/28 : RUN cd /usr/local/src && tar xvf eclipse-inst-linux64.tar.gz
+ ---> Using cache
+ ---> 010e37bc86eb
+Step 20/28 : RUN echo 'export JAVA_HOME=/usr/local/src/jdk-13' >> ~/.bashrc && echo 'export PATH=$PATH:$JAVA_HOME/bin' >> ~/.bashrc
+ ---> Using cache
+ ---> a2b32113a5ea
+Step 21/28 : ENV DISPLAY=:0.0
+ ---> Using cache
+ ---> 1737f750e837
+Step 22/28 : USER mysql
+ ---> Using cache
+ ---> 8428d5a45196
+Step 23/28 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> Using cache
+ ---> 717cd363994b
+Step 24/28 : RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> Using cache
+ ---> 1811de5c796e
+Step 25/28 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+ ---> Using cache
+ ---> ee81f95d17b9
+Step 26/28 : RUN echo 'export JAVA_HOME=/usr/local/src/jdk-13' >> ~/.bashrc && echo 'export PATH=$PATH:$JAVA_HOME/bin' >> ~/.bashrc && echo 'alias ec="~/eclipse/cpp-2019-12/eclipse/eclipse 1>~/launch_eclipse.log 2>&1 &"' >>~/.bashrc
+ ---> Running in 13826e7f1d41
+Removing intermediate container 13826e7f1d41
+ ---> e062f0c57b50
+Step 27/28 : EXPOSE 3306
+ ---> Running in 30ae6f7a620f
+Removing intermediate container 30ae6f7a620f
+ ---> b320ae23a5dd
+Step 28/28 : WORKDIR /home/mysql
+ ---> Running in 657ea54f0098
+Removing intermediate container 657ea54f0098
+ ---> f2dec3d4bfed
+Successfully built f2dec3d4bfed
+Successfully tagged centos_c-cpp:latest
