@@ -11,17 +11,17 @@ https://blog.idcf.jp/entry/elasticsearch1
 
 # dockerイメージ作成
 ```
-time docker build -t centos_fluentd . | tee log
+time docker build -t centos_fluentd-nginx . | tee log
 ```
 
 # dockerコンテナ起動
 ```
-docker run --privileged -itd --name fluentd -p 58787:8787 -p 8080:80 centos_fluentd /sbin/init
+docker run --privileged -itd --name fluentd-nginx -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 8080:80 centos_fluentd-nginx
 ```
 
 # dockerコンテナ潜入
 ```
-docker exec -it fluentd /bin/bash
+docker exec -it fluentd-nginx /bin/bash
 ```
 
 # サービス起動
