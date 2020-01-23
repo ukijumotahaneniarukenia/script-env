@@ -1,3 +1,7 @@
+# 機械学習はこのサイト導入に良さげ
+
+https://www.kkaneko.jp/dblab/index.html
+
 # 参考文献
 https://www.jetbrains.com/pycharm/download/#section=linux
 この記事おもろい
