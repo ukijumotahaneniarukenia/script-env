@@ -15,11 +15,11 @@ RUN yum install -y fcitx ibus
 #guiアプリインストール
 #事前にダウンロードしておき、dockerコンテナにコピー。
 #https://www.oracle.com/tools/downloads/sqldev-v192-downloads.html
-COPY sqldeveloper-19.2.0.206.2117.noarch.rpm /root/sqldeveloper-19.2.0.206.2117.noarch.rpm
+COPY sqldeveloper-19.2.1.247.2212.noarch.rpm /root/sqldeveloper-19.2.1.247.2212.noarch.rpm
 #https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
-COPY jdk-8u221-linux-x64.rpm /root/jdk-8u221-linux-x64.rpm
-RUN cd ~ && rpm -ivh jdk-8u221-linux-x64.rpm
-RUN cd ~ && rpm -ivh sqldeveloper-19.2.0.206.2117.noarch.rpm
+COPY jdk-8u231-linux-x64.rpm /root/jdk-8u231-linux-x64.rpm
+RUN cd ~ && rpm -ivh jdk-8u231-linux-x64.rpm
+RUN cd ~ && rpm -ivh sqldeveloper-19.2.1.247.2212.noarch.rpm
 
 #pre installはユーザー作成とかフォルダとかパッケージとかをまとめていんすこしている
 #main installでpreinstall実施チェックしているから、とりま実行しておくのがよい
@@ -204,8 +204,8 @@ echo "alias sqldev=\"echo /usr/java/jdk1.8.0_221-amd64 | sudo /opt/sqldeveloper/
 #jdk必要。java製なので。
 RUN java -version
 #事前にダウンロードしておき、dockerコンテナにコピー。
-COPY sqlcl-19.2.1.206.1649.zip /home/oracle/sqlcl-19.2.1.206.1649.zip
-RUN cd ~ && unzip sqlcl-19.2.1.206.1649.zip
+#COPY sqlcl-19.2.1.206.1649.zip /home/oracle/sqlcl-19.2.1.206.1649.zip
+#RUN cd ~ && unzip sqlcl-19.2.1.206.1649.zip
 
 #最後はrootに戻す
 USER root 
