@@ -27,9 +27,32 @@ docker exec -it ubuntu-wine /bin/bash
 ```
 
 # ビルド
-ソースコードからビルドは相当ヒマじゃないとむりや。。。
-
 https://wiki.winehq.org/Building_Wine
+
+```
+■もっとハンディなやり方
+
+http://ubuntuhandbook.org/index.php/2020/01/install-wine-5-0-stable-ubuntu-18-04-19-10/
+
+apt install -y wget gnupg gnupg2 gnupg1
+
+dpkg --add-architecture i386
+
+cd /opt && wget -nc https://dl.winehq.org/wine-builds/winehq.key; apt-key add winehq.key
+
+apt install -y software-properties-common
+
+apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ eoan main'
+
+add-apt-repository ppa:cybermax-dexter/sdl2-backport
+
+apt update
+
+apt install -y --install-recommends winehq-stable
+
+root@b0c532b7e1cd:/opt# /usr/bin/wine --version
+wine-5.0
+```
 
 
 レポから提供されている物を利用
