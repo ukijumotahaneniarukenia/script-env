@@ -12,6 +12,10 @@ while read tgt;do
   cat $tgt | grep -E 'fail|FAIL|Fail|unable to prepare context' #異常終了ログの抽出
 done < <(ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | xargs -n1 -I@ echo ~/script_env/@/log) >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
 
+#作成されたコンテナイメージを追記
+docker images | head -n1 >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
+docker images | grep -E $(ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | xargs | tr ' ' '|') >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
+
 #コンテナ作成に失敗したdockerイメージを削除
 #後処理
 docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi
