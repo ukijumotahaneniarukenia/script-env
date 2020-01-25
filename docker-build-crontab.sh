@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source docker-build-parallel.sh &
+bash ~/script_env/docker-build-parallel.sh &
 
 wait $!
 
