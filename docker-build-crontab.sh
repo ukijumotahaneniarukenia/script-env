@@ -2,9 +2,7 @@
 
 BUILD_START=$(date '+%s')
 
-bash ~/script_env/docker-build-parallel.sh &
-
-wait $!
+bash ~/script_env/docker-build-parallel.sh
 
 #gitignore整備
 ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | xargs -I@ echo cp ~/script_env/.gitignore ~/script_env/@/.gitignore | sh
@@ -18,4 +16,4 @@ BUILD_END=$(date '+%s')
 
 BUILD_ELAPSED=$(expr $BUILD_END - $BUILD_START)
 
-echo $BUILD_ELAPSED
+echo $BUILD_ELAPSED seconds.

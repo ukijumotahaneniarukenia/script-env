@@ -1,29 +1,14 @@
-# crontabコマンドで実行するスクリプトを作成
+# docker-build-crontab.shファイルの作成
 
-フォルダ名はos名_ソフト名にしようかな。任意で末尾に使用するエディタ（複数）。デフォルトエディタはvim。
+crontabコマンドで実行するスクリプト。
 
-script__envフォルダ配下をビルド対象に
+フォルダ名はos名_ソフト名にしようかな。
 
-```
-ls -l | grep -P '^d' | awk '{print $9}' | xargs -I@ bash -c 'echo "cd ~/script_env/@ && time docker build --no-cache -t @ . | tee log"'
-```
+任意で末尾に使用するエディタ（複数）。デフォルトエディタはvim。
 
-```
-#!/bin/bash
+script__envフォルダ配下をビルド対象にする。
 
-cd ~/script_env/apache
-time docker build --no-cache -t centos_apache . | tee log
-
-#gitignore整備
-ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | xargs -I@ echo cp ~/script_env/.gitignore ~/script_env/@/.gitignore | sh
-
-cd ~/script_env
-git add .gitignore
-git add --all *
-git commit -m "環境構築"
-```
-
-作成後、実行スクリプトに実行権限を与える。所有者のみ実行できるように設定。
+作成後、実行権限を与える。所有者のみ実行できるように設定。
 
 ```
 $ls -l /home/aine/script_env/docker-build-crontab.sh
