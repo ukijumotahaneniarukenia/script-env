@@ -2,9 +2,9 @@
 
 crontabコマンドで実行するスクリプト。
 
-フォルダ名はos名_ソフト名にしようかな。
+フォルダ名
 
-任意で末尾に使用するエディタ（複数）。デフォルトエディタはvim。
+os名-_ソフト名-エディタ名
 
 script__envフォルダ配下をビルド対象にする。
 
@@ -22,22 +22,36 @@ $ls -l /home/aine/script_env/docker-build-crontab.sh
 
 # crontabで定期実行スクリプト作成
 
-以下のコマンドでvim起動
+http://dqn.sakusakutto.jp/2012/06/cron_crontab9.html </br>
+https://zenpou.hatenadiary.org/entry/20080715/1216133151 </br>
+https://qiita.com/mazgi/items/15e1fe7e130584343810 </br>
+
+バックアップとってから
 ```
-$crontab-e
+$crontab -l>~/script_env/docker-build-crontab
+```
+
+編集
+```
+$vi ~/script_env/docker-build-crontab
+```
+
+反映
+```
+crontab < ~/script_env/docker-build-crontab
 ```
 
 以下を記載
 
-毎日16時12分に起動する例。 </br>
+毎日0時44分に起動する例。 </br>
 
 https://qiita.com/onomame/items/71646c5517a39bcd01cc </br>
 
 ```
-12 16 * * * /home/aine/script_env/docker-build-crontab.sh 1>~/docker-build-log/docker-build-$(date +\%Y-\%m-\%d_\%H-\%M-\%S).stdout.log 2>~/docker-build-log/docker-build-$(date +\%Y-\%m-\%d_\%H-\%M-\%S).stderr.log
+44 0 * * * /home/aine/script_env/docker-build-crontab.sh 1>~/docker-build-log/docker-build-$(date +\%Y-\%m-\%d_\%H-\%M-\%S).stdout.log 2>~/docker-build-log/docker-build-$(date +\%Y-\%m-\%d_\%H-\%M-\%S).stderr.log
 ```
 
-定期実行スクリプト確認
+確認
 
 ```
 $crontab -l
@@ -67,7 +81,7 @@ $sudo less /var/log/cron
 定期的にOS換えるかもしれないので。今は手動pushでいいか。
 http://tm.root-n.com/unix:command:git:cron_git_push
 
-# プロセスをころす
+# 強制終了
 
 ```
 su root
