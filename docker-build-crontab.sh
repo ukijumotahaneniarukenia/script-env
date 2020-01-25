@@ -4,12 +4,13 @@ BUILD_START=$(date '+%s')
 
 bash ~/script_env/docker-build-parallel.sh &
 
+#psコマンドで検索できるように少しまつ
 sleep 10
 
 printf "waiting for docker build proccess.\n"
 while $(ps aux | grep 'docker build' | grep -vq 'grep')
 do
-  printf "💩"
+  #printf "💩"
   sleep 1
 done
 
@@ -24,5 +25,9 @@ BUILD_END=$(date '+%s')
 
 BUILD_ELAPSED=$(expr $BUILD_END - $BUILD_START)
 
+echo
+
 printf "\ndocker build process has done.\n"
-echo $(($BUILD_ELAPSED-10)) seconds.
+
+#すこし待った分差し引く
+echo elapsed time $(($BUILD_ELAPSED-10)) seconds.

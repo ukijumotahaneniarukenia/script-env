@@ -2,34 +2,34 @@ Sending build context to Docker daemon  9.728kB
 Step 1/23 : FROM ubuntu:19.10
  ---> dcbcfdcd50bb
 Step 2/23 : RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list
- ---> Running in ee9f861ed35b
-Removing intermediate container ee9f861ed35b
- ---> b383b25688f2
+ ---> Running in 078bef158369
+Removing intermediate container 078bef158369
+ ---> 58b6086fbfcb
 Step 3/23 : RUN apt-get update
- ---> Running in 0086645f4c0a
+ ---> Running in 923ed941f299
 Get:1 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan InRelease [255 kB]
 Get:2 http://security.ubuntu.com/ubuntu eoan-security InRelease [97.5 kB]
 Get:3 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates InRelease [97.5 kB]
-Get:4 http://security.ubuntu.com/ubuntu eoan-security/restricted amd64 Packages [9471 B]
-Get:5 http://security.ubuntu.com/ubuntu eoan-security/main amd64 Packages [154 kB]
-Get:6 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-backports InRelease [88.8 kB]
-Get:7 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/restricted amd64 Packages [22.7 kB]
-Get:8 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/multiverse amd64 Packages [188 kB]
-Get:9 http://security.ubuntu.com/ubuntu eoan-security/universe amd64 Packages [66.8 kB]
-Get:10 http://security.ubuntu.com/ubuntu eoan-security/multiverse amd64 Packages [1075 B]
-Get:11 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/universe amd64 Packages [11.6 MB]
-Get:12 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 Packages [1277 kB]
-Get:13 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 Packages [240 kB]
-Get:14 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/universe amd64 Packages [110 kB]
-Get:15 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/restricted amd64 Packages [9471 B]
-Get:16 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/multiverse amd64 Packages [1075 B]
+Get:4 http://security.ubuntu.com/ubuntu eoan-security/universe amd64 Packages [66.8 kB]
+Get:5 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-backports InRelease [88.8 kB]
+Get:6 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/universe amd64 Packages [11.6 MB]
+Get:7 http://security.ubuntu.com/ubuntu eoan-security/multiverse amd64 Packages [1075 B]
+Get:8 http://security.ubuntu.com/ubuntu eoan-security/restricted amd64 Packages [9471 B]
+Get:9 http://security.ubuntu.com/ubuntu eoan-security/main amd64 Packages [154 kB]
+Get:10 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 Packages [1277 kB]
+Get:11 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/restricted amd64 Packages [22.7 kB]
+Get:12 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/multiverse amd64 Packages [188 kB]
+Get:13 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/restricted amd64 Packages [9471 B]
+Get:14 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 Packages [240 kB]
+Get:15 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/multiverse amd64 Packages [1075 B]
+Get:16 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/universe amd64 Packages [110 kB]
 Get:17 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-backports/universe amd64 Packages [3071 B]
-Fetched 14.2 MB in 55s (258 kB/s)
+Fetched 14.2 MB in 22s (633 kB/s)
 Reading package lists...
-Removing intermediate container 0086645f4c0a
- ---> b6731a400238
+Removing intermediate container 923ed941f299
+ ---> 8b0179d1a053
 Step 4/23 : RUN apt install -y tzdata && ln -fsr /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
- ---> Running in 3527db179db1
+ ---> Running in 2a39575466a1
 [91m
 WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
 
@@ -43,7 +43,7 @@ Need to get 208 kB of archives.
 After this operation, 3534 kB of additional disk space will be used.
 Get:1 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 tzdata all 2019c-3 [208 kB]
 [91mdebconf: delaying package configuration, since apt-utils is not installed
-[0mFetched 208 kB in 1s (261 kB/s)
+[0mFetched 208 kB in 1s (351 kB/s)
 Selecting previously unselected package tzdata.
 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4100 files and directories currently installed.)
 Preparing to unpack .../tzdata_2019c-3_all.deb ...
@@ -69,16 +69,16 @@ Geographic area:
 Use of uninitialized value $_[1] in join or string at /usr/share/perl5/Debconf/DbDriver/Stack.pm line 111.
 
 Current default time zone: '/UTC'
-Local time is now:      Sat Jan 25 15:25:01 UTC 2020.
-Universal Time is now:  Sat Jan 25 15:25:01 UTC 2020.
+Local time is now:      Sat Jan 25 15:44:28 UTC 2020.
+Universal Time is now:  Sat Jan 25 15:44:28 UTC 2020.
 Run 'dpkg-reconfigure tzdata' if you wish to change it.
 
 Use of uninitialized value $val in substitution (s///) at /usr/share/perl5/Debconf/Format/822.pm line 83, <GEN6> line 4.
 Use of uninitialized value $val in concatenation (.) or string at /usr/share/perl5/Debconf/Format/822.pm line 84, <GEN6> line 4.
-Removing intermediate container 3527db179db1
- ---> 96e8f1955ad0
+Removing intermediate container 2a39575466a1
+ ---> 70e352c8841f
 Step 5/23 : RUN apt-get install -y locales && locale-gen ja_JP.UTF-8 && echo 'export LANG=ja_JP.UTF-8' >> /etc/profile.d/99-locale-ja.sh
- ---> Running in ed5338f4a5b7
+ ---> Running in 599bcff38adb
 Reading package lists...
 Building dependency tree...
 Reading state information...
@@ -88,8 +88,244 @@ The following NEW packages will be installed:
 Need to get 3870 kB of archives.
 After this operation, 17.6 MB of additional disk space will be used.
 Get:1 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 locales all 2.30-0ubuntu2 [3870 kB]
-sh: 2 行: 30618 Terminated              docker build --no-cache -t ubuntu-19-10-vim .
+[91mdebconf: delaying package configuration, since apt-utils is not installed
+[0mFetched 3870 kB in 6s (642 kB/s)
+Selecting previously unselected package locales.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6000 files and directories currently installed.)
+Preparing to unpack .../locales_2.30-0ubuntu2_all.deb ...
+Unpacking locales (2.30-0ubuntu2) ...
+Setting up locales (2.30-0ubuntu2) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.28.1 /usr/local/share/perl/5.28.1 /usr/lib/x86_64-linux-gnu/perl5/5.28 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl/5.28 /usr/share/perl/5.28 /usr/local/lib/site_perl /usr/lib/x86_64-linux-gnu/perl-base) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Generating locales (this might take a while)...
+Generation complete.
+Generating locales (this might take a while)...
+  ja_JP.UTF-8... done
+Generation complete.
+Removing intermediate container 599bcff38adb
+ ---> 3dbc1acb1f8f
+Step 6/23 : RUN apt-get install -y git gcc autoconf automake make lua5.3 luajit liblua5.3-0 liblua5.3-dev libperl-dev libpython-dev python-dev python3-dev tcl tcl-dev ruby-dev perl5*-dev
+ ---> Running in 7a36e80c0e35
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  autotools-dev binutils binutils-common binutils-x86-64-linux-gnu
+  build-essential ca-certificates cpp cpp-9 dbus dh-python dirmngr dmidecode
+  dpkg-dev fakeroot file fontconfig fontconfig-config fonts-dejavu-core
+  fonts-droid-fallback fonts-lato fonts-noto-mono fonts-sil-gentium
+  fonts-sil-gentium-basic freeglut3 g++ g++-9 games-tasks gcc-9 ghostscript
+  git-man gnupg gnupg-l10n gnupg-utils gpg gpg-agent gpg-wks-client
+  gpg-wks-server gpgconf gpgsm gsfonts imagemagick-6-common javascript-common
+  krb5-locales laptop-detect less libalgorithm-diff-perl
+  libalgorithm-diff-xs-perl libalgorithm-merge-perl libalien-sdl-perl
+  libapparmor1 libasan5 libasn1-8-heimdal libasound2 libasound2-data
+  libassuan0 libasyncns0 libatomic1 libavahi-client3 libavahi-common-data
+  libavahi-common3 libbinutils libbsd0 libc-dev-bin libc6-dev libcaca0
+  libcapture-tiny-perl libcc1-0 libcgi-fast-perl libcgi-pm-perl
+  libclass-inspector-perl libcups2 libcupsfilters1 libcupsimage2
+  libcurl3-gnutls libdatrie1 libdbus-1-3 libdpkg-perl libdrm-amdgpu1
+  libdrm-common libdrm-intel1 libdrm-nouveau2 libdrm-radeon1 libdrm2 libedit2
+  libelf1 libencode-locale-perl liberror-perl libexpat1 libexpat1-dev
+  libfakeroot libfcgi-perl libfftw3-double3 libfile-fcntllock-perl
+  libfile-sharedir-perl libfile-which-perl libflac8 libfluidsynth1
+  libfontconfig1 libfreetype6 libfribidi0 libgcc-9-dev libgdbm-compat4
+  libgdbm6 libgif7 libgl1 libgl1-mesa-dri libgl1-mesa-glx libglapi-mesa
+  libglib2.0-0 libglib2.0-data libglu1-mesa libglvnd0 libglx-mesa0 libglx0
+  libgmp-dev libgmpxx4ldbl libgomp1 libgraphite2-3 libgs9 libgs9-common
+  libgssapi-krb5-2 libgssapi3-heimdal libharfbuzz0b libhcrypto4-heimdal
+  libheimbase1-heimdal libheimntlm0-heimdal libhtml-parser-perl
+  libhtml-tagset-perl libhttp-date-perl libhttp-message-perl
+  libhx509-5-heimdal libicu63 libidn11 libijs-0.35 libimage-magick-perl
+  libimage-magick-q16-perl libimager-perl libinline-c-perl
+  libinline-files-perl libinline-perl libio-html-perl libisl21 libitm1
+  libjack-jackd2-0 libjbig0 libjbig2dec0 libjpeg-turbo8 libjpeg8 libjs-jquery
+  libk5crypto3 libkeyutils1 libkrb5-26-heimdal libkrb5-3 libkrb5support0
+  libksba8 liblcms2-2 libldap-2.4-2 libldap-common libllvm9
+  liblocale-gettext-perl liblqr-1-0 liblsan0 libltdl-dev libltdl7
+  libluajit-5.1-2 libluajit-5.1-common liblwp-mediatypes-perl libmad0
+  libmagic-mgc libmagic1 libmagickcore-6.q16-6 libmikmod3 libmpc3 libmpdec2
+  libmpfr6 libncurses-dev libnghttp2-14 libnpth0 libogg0 libois-1.3.0v5
+  libois-perl libopenal-data libopenal1 libopengl-perl libpango-1.0-0
+  libpangoft2-1.0-0 libpaper-utils libpaper1 libparse-recdescent-perl
+  libpciaccess0 libpegex-perl libperl5.28 libpng16-16 libpsl5 libpulse0
+  libpython-stdlib libpython2-dev libpython2-stdlib libpython2.7
+  libpython2.7-dev libpython2.7-minimal libpython2.7-stdlib libpython3-dev
+  libpython3-stdlib libpython3.7 libpython3.7-dev libpython3.7-minimal
+  libpython3.7-stdlib libquadmath0 libreadline-dev libreadline8
+  libroken18-heimdal librtmp1 libruby2.5 libsamplerate0 libsasl2-2
+  libsasl2-modules libsasl2-modules-db libsdl-gfx1.2-5 libsdl-image1.2
+  libsdl-mixer1.2 libsdl-pango1 libsdl-perl libsdl-ttf2.0-0 libsdl1.2debian
+  libsdl2-2.0-0 libsensors-config libsensors5 libsigsegv2 libslang2
+  libsndfile1 libsndio7.0 libsqlite3-0 libssh-4 libssl1.1 libstdc++-9-dev
+  libsvg-perl libtcl8.6 libthai-data libthai0 libtie-simple-perl libtiff5
+  libtimedate-perl libtool libtool-bin libtsan0 libubsan1 liburi-perl
+  libvorbis0a libvorbisenc2 libvorbisfile3 libwayland-client0
+  libwayland-cursor0 libwayland-egl1 libwebp6 libwebpmux3 libwind0-heimdal
+  libwrap0 libx11-6 libx11-data libx11-xcb1 libxau6 libxcb-dri2-0
+  libxcb-dri3-0 libxcb-glx0 libxcb-present0 libxcb-sync1 libxcb1 libxcursor1
+  libxdamage1 libxdmcp6 libxext6 libxfixes3 libxi6 libxinerama1 libxkbcommon0
+  libxml2 libxmuu1 libxrandr2 libxrender1 libxshmfence1 libxss1 libxxf86vm1
+  libyaml-0-2 linux-libc-dev m4 manpages manpages-dev mime-support netbase
+  openssh-client openssl patch perl perl-modules-5.28 pinentry-curses
+  pkg-config poppler-data publicsuffix python python-minimal python2
+  python2-dev python2-minimal python2.7 python2.7-dev python2.7-minimal
+  python3 python3-distutils python3-lib2to3 python3-minimal python3.7
+  python3.7-dev python3.7-minimal rake readline-common ruby ruby-did-you-mean
+  ruby-minitest ruby-net-telnet ruby-power-assert ruby-test-unit ruby-xmlrpc
+  ruby2.5 ruby2.5-dev ruby2.5-doc rubygems-integration shared-mime-info
+  tasksel tasksel-data tcl8.6 tcl8.6-dev timgm6mb-soundfont ucf unzip
+  x11-common xauth xdg-user-dirs xkb-data xz-utils zip zlib1g-dev
+Suggested packages:
+  autoconf-archive gnu-standards autoconf-doc gettext binutils-doc cpp-doc
+  gcc-9-locales default-dbus-session-bus | dbus-session-bus dbus-user-session
+  libpam-systemd pinentry-gnome3 tor debian-keyring fonts-noto g++-multilib
+  g++-9-multilib gcc-9-doc libstdc++6-9-dbg frozen-bubble pangzero
+  pkg-perl-tools gcc-multilib flex bison gdb gcc-doc gcc-9-multilib
+  libgcc1-dbg libgomp1-dbg libitm1-dbg libatomic1-dbg libasan5-dbg
+  liblsan0-dbg libtsan0-dbg libubsan1-dbg libquadmath0-dbg ghostscript-x
+  gettext-base git-daemon-run | git-daemon-sysvinit git-doc git-el git-email
+  git-gui gitk gitweb git-cvs git-mediawiki git-svn parcimonie xloadimage
+  scdaemon apache2 | lighttpd | httpd libasound2-plugins alsa-utils glibc-doc
+  cups-common bzr libfftw3-bin libfftw3-dev gdbm-l10n gmp-doc libgmp10-doc
+  libmpfr-dev krb5-doc krb5-user libdata-dump-perl imagemagick-doc jackd2
+  liblcms2-utils libtool-doc libmagickcore-6.q16-6-extra ncurses-doc
+  libportaudio2 pciutils pulseaudio readline-doc libsasl2-modules-gssapi-mit
+  | libsasl2-modules-gssapi-heimdal libsasl2-modules-ldap libsasl2-modules-otp
+  libsasl2-modules-sql fonts-freefont-ttf lm-sensors sndiod libstdc++-9-doc
+  gfortran | fortran95-compiler gcj-jdk libwww-perl m4-doc make-doc
+  man-browser keychain libpam-ssh monkeysphere ssh-askpass ed diffutils-doc
+  perl-doc libterm-readline-gnu-perl | libterm-readline-perl-perl
+  libb-debug-perl liblocale-codes-perl pinentry-doc poppler-utils
+  fonts-japanese-mincho | fonts-ipafont-mincho fonts-japanese-gothic
+  | fonts-ipafont-gothic fonts-arphic-ukai fonts-arphic-uming fonts-nanum
+  python-doc python-tk python2-doc python2.7-doc binfmt-support python3-doc
+  python3-tk python3-venv python3.7-venv python3.7-doc ri bundler tcl-doc
+  tcl-tclreadline tcl8.6-doc fluid-soundfont-gm fluidsynth timidity musescore
+The following NEW packages will be installed:
+  autoconf automake autotools-dev binutils binutils-common
+  binutils-x86-64-linux-gnu build-essential ca-certificates cpp cpp-9 dbus
+  dh-python dirmngr dmidecode dpkg-dev fakeroot file fontconfig
+  fontconfig-config fonts-dejavu-core fonts-droid-fallback fonts-lato
+  fonts-noto-mono fonts-sil-gentium fonts-sil-gentium-basic freeglut3 g++
+  g++-9 games-perl-dev games-tasks gcc gcc-9 ghostscript git git-man gnupg
+  gnupg-l10n gnupg-utils gpg gpg-agent gpg-wks-client gpg-wks-server gpgconf
+  gpgsm gsfonts imagemagick-6-common javascript-common krb5-locales
+  laptop-detect less libalgorithm-diff-perl libalgorithm-diff-xs-perl
+  libalgorithm-merge-perl libalien-sdl-perl libapparmor1 libasan5
+  libasn1-8-heimdal libasound2 libasound2-data libassuan0 libasyncns0
+  libatomic1 libavahi-client3 libavahi-common-data libavahi-common3
+  libbinutils libbsd0 libc-dev-bin libc6-dev libcaca0 libcapture-tiny-perl
+  libcc1-0 libcgi-fast-perl libcgi-pm-perl libclass-inspector-perl libcups2
+  libcupsfilters1 libcupsimage2 libcurl3-gnutls libdatrie1 libdbus-1-3
+  libdpkg-perl libdrm-amdgpu1 libdrm-common libdrm-intel1 libdrm-nouveau2
+  libdrm-radeon1 libdrm2 libedit2 libelf1 libencode-locale-perl liberror-perl
+  libexpat1 libexpat1-dev libfakeroot libfcgi-perl libfftw3-double3
+  libfile-fcntllock-perl libfile-sharedir-perl libfile-which-perl libflac8
+  libfluidsynth1 libfontconfig1 libfreetype6 libfribidi0 libgcc-9-dev
+  libgdbm-compat4 libgdbm6 libgif7 libgl1 libgl1-mesa-dri libgl1-mesa-glx
+  libglapi-mesa libglib2.0-0 libglib2.0-data libglu1-mesa libglvnd0
+  libglx-mesa0 libglx0 libgmp-dev libgmpxx4ldbl libgomp1 libgraphite2-3 libgs9
+  libgs9-common libgssapi-krb5-2 libgssapi3-heimdal libharfbuzz0b
+  libhcrypto4-heimdal libheimbase1-heimdal libheimntlm0-heimdal
+  libhtml-parser-perl libhtml-tagset-perl libhttp-date-perl
+  libhttp-message-perl libhx509-5-heimdal libicu63 libidn11 libijs-0.35
+  libimage-magick-perl libimage-magick-q16-perl libimager-perl
+  libinline-c-perl libinline-files-perl libinline-perl libio-html-perl
+  libisl21 libitm1 libjack-jackd2-0 libjbig0 libjbig2dec0 libjpeg-turbo8
+  libjpeg8 libjs-jquery libk5crypto3 libkeyutils1 libkrb5-26-heimdal libkrb5-3
+  libkrb5support0 libksba8 liblcms2-2 libldap-2.4-2 libldap-common libllvm9
+  liblocale-gettext-perl liblqr-1-0 liblsan0 libltdl-dev libltdl7 liblua5.3-0
+  liblua5.3-dev libluajit-5.1-2 libluajit-5.1-common liblwp-mediatypes-perl
+  libmad0 libmagic-mgc libmagic1 libmagickcore-6.q16-6 libmikmod3 libmpc3
+  libmpdec2 libmpfr6 libncurses-dev libnghttp2-14 libnpth0 libogg0
+  libois-1.3.0v5 libois-perl libopenal-data libopenal1 libopengl-perl
+  libpango-1.0-0 libpangoft2-1.0-0 libpaper-utils libpaper1
+  libparse-recdescent-perl libpciaccess0 libpegex-perl libperl-dev libperl5.28
+  libpng16-16 libpsl5 libpulse0 libpython-dev libpython-stdlib libpython2-dev
+  libpython2-stdlib libpython2.7 libpython2.7-dev libpython2.7-minimal
+  libpython2.7-stdlib libpython3-dev libpython3-stdlib libpython3.7
+  libpython3.7-dev libpython3.7-minimal libpython3.7-stdlib libquadmath0
+  libreadline-dev libreadline8 libroken18-heimdal librtmp1 libruby2.5
+  libsamplerate0 libsasl2-2 libsasl2-modules libsasl2-modules-db
+  libsdl-gfx1.2-5 libsdl-image1.2 libsdl-mixer1.2 libsdl-pango1 libsdl-perl
+  libsdl-ttf2.0-0 libsdl1.2debian libsdl2-2.0-0 libsensors-config libsensors5
+  libsigsegv2 libslang2 libsndfile1 libsndio7.0 libsqlite3-0 libssh-4
+  libssl1.1 libstdc++-9-dev libsvg-perl libtcl8.6 libthai-data libthai0
+  libtie-simple-perl libtiff5 libtimedate-perl libtool libtool-bin libtsan0
+  libubsan1 liburi-perl libvorbis0a libvorbisenc2 libvorbisfile3
+  libwayland-client0 libwayland-cursor0 libwayland-egl1 libwebp6 libwebpmux3
+  libwind0-heimdal libwrap0 libx11-6 libx11-data libx11-xcb1 libxau6
+  libxcb-dri2-0 libxcb-dri3-0 libxcb-glx0 libxcb-present0 libxcb-sync1 libxcb1
+  libxcursor1 libxdamage1 libxdmcp6 libxext6 libxfixes3 libxi6 libxinerama1
+  libxkbcommon0 libxml2 libxmuu1 libxrandr2 libxrender1 libxshmfence1 libxss1
+  libxxf86vm1 libyaml-0-2 linux-libc-dev lua5.3 luajit m4 make manpages
+  manpages-dev mime-support netbase openssh-client openssl patch perl
+  perl-modules-5.28 pinentry-curses pkg-config poppler-data publicsuffix
+  python python-dev python-minimal python2 python2-dev python2-minimal
+  python2.7 python2.7-dev python2.7-minimal python3 python3-dev
+  python3-distutils python3-lib2to3 python3-minimal python3.7 python3.7-dev
+  python3.7-minimal rake readline-common ruby ruby-dev ruby-did-you-mean
+  ruby-minitest ruby-net-telnet ruby-power-assert ruby-test-unit ruby-xmlrpc
+  ruby2.5 ruby2.5-dev ruby2.5-doc rubygems-integration shared-mime-info
+  tasksel tasksel-data tcl tcl-dev tcl8.6 tcl8.6-dev timgm6mb-soundfont ucf
+  unzip x11-common xauth xdg-user-dirs xkb-data xz-utils zip zlib1g-dev
+0 upgraded, 359 newly installed, 0 to remove and 14 not upgraded.
+Need to get 174 MB of archives.
+After this operation, 951 MB of additional disk space will be used.
+Get:1 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 liblocale-gettext-perl amd64 1.07-3build3 [16.4 kB]
+Get:2 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libssl1.1 amd64 1.1.1c-1ubuntu4 [1314 kB]
+Get:3 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 libpython3.7-minimal amd64 3.7.5-2~19.10 [546 kB]
+Get:4 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libexpat1 amd64 2.2.7-2 [73.8 kB]
+Get:5 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 python3.7-minimal amd64 3.7.5-2~19.10 [1766 kB]
+Get:6 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 python3-minimal amd64 3.7.5-1 [23.3 kB]
+Get:7 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 mime-support all 3.63ubuntu1 [30.8 kB]
+Get:8 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libmpdec2 amd64 2.4.2-2 [84.1 kB]
+Get:9 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 readline-common all 8.0-3 [53.5 kB]
+Get:10 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libreadline8 amd64 8.0-3 [130 kB]
+Get:11 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 libsqlite3-0 amd64 3.29.0-2ubuntu0.1 [537 kB]
+Get:12 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 libpython3.7-stdlib amd64 3.7.5-2~19.10 [1731 kB]
+Get:13 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 python3.7 amd64 3.7.5-2~19.10 [301 kB]
+Get:14 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libpython3-stdlib amd64 3.7.5-1 [6848 B]
+Get:15 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 python3 amd64 3.7.5-1 [47.2 kB]
+Get:16 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 fonts-droid-fallback all 1:6.0.1r16-1.1 [1805 kB]
+Get:17 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 fonts-lato all 2.0-2 [2698 kB]
+Get:18 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 perl-modules-5.28 all 5.28.1-6build1 [2812 kB]
+Get:19 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libgdbm6 amd64 1.18.1-5 [27.4 kB]
+Get:20 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libgdbm-compat4 amd64 1.18.1-5 [6244 B]
+Get:21 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libperl5.28 amd64 5.28.1-6build1 [3818 kB]
+Get:22 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 perl amd64 5.28.1-6build1 [204 kB]
+Get:23 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 imagemagick-6-common all 8:6.9.10.23+dfsg-2.1ubuntu3.1 [61.2 kB]
+Get:24 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libgomp1 amd64 9.2.1-9ubuntu2 [89.3 kB]
+Get:25 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libfftw3-double3 amd64 3.3.8-2 [727 kB]
+Get:26 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libpng16-16 amd64 1.6.37-1 [179 kB]
+Get:27 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libfreetype6 amd64 2.9.1-4 [335 kB]
+Get:28 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 ucf all 3.0038+nmu1 [51.6 kB]
+Get:29 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 fonts-dejavu-core all 2.37-1 [1041 kB]
+Get:30 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 fontconfig-config all 2.13.1-2ubuntu2 [28.9 kB]
+Get:31 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libfontconfig1 amd64 2.13.1-2ubuntu2 [114 kB]
+Get:32 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libjbig0 amd64 2.1-3.1build1 [26.7 kB]
+Get:33 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libjpeg-turbo8 amd64 2.0.3-0ubuntu1 [118 kB]
+Get:34 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libjpeg8 amd64 8c-2ubuntu8 [2194 B]
+Get:35 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 liblcms2-2 amd64 2.9-4 [140 kB]
+Get:36 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libglib2.0-0 amd64 2.62.1-1 [1264 kB]
+Get:37 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 liblqr-1-0 amd64 0.4.2-2.1 [27.7 kB]
+Get:38 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libltdl7 amd64 2.4.6-11 [38.3 kB]
+Get:39 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libwebp6 amd64 0.6.1-2 [185 kB]
+Get:40 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libtiff5 amd64 4.0.10+git191003-1 [162 kB]
+Get:41 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libwebpmux3 amd64 0.6.1-2 [19.6 kB]
+Get:42 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libxau6 amd64 1:1.0.9-0ubuntu1 [7488 B]
+Get:43 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libbsd0 amd64 0.10.0-1 [45.4 kB]
+Get:44 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libxdmcp6 amd64 1:1.1.3-0ubuntu1 [10.6 kB]
+Get:45 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libxcb1 amd64 1.13.1-2 [45.2 kB]
+Get:46 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libx11-data all 2:1.6.8-1 [113 kB]
+Get:47 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libx11-6 amd64 2:1.6.8-1 [573 kB]
+sh: 2 行:  2352 Terminated              docker build --no-cache -t ubuntu-19-10-vim .
 
-real	1m8.455s
-user	0m0.023s
-sys	0m0.037s
+real	1m13.913s
+user	0m0.036s
+sys	0m0.045s
