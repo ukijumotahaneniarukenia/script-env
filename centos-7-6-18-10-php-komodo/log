@@ -2,3 +2,66 @@ Sending build context to Docker daemon  1.086MB
 Step 1/66 : FROM centos:7.6.1810
  ---> f1cb7c7d58b7
 Step 2/66 : RUN groupadd -g 1001 rstudio
+ ---> Running in 94b5ed553ec3
+Removing intermediate container 94b5ed553ec3
+ ---> 75ac948d3051
+Step 3/66 : RUN useradd -m -g rstudio -u 1001 rstudio
+ ---> Running in 2201df899202
+Removing intermediate container 2201df899202
+ ---> 0bf60a178c25
+Step 4/66 : RUN chsh -s /bin/bash rstudio
+ ---> Running in 2a86da10856a
+[91mchsh: Shell not changed.
+[0mChanging shell for rstudio.
+Removing intermediate container 2a86da10856a
+ ---> 81b354eb3365
+Step 5/66 : RUN groupadd -g 1002 php
+ ---> Running in ff10c996d692
+Removing intermediate container ff10c996d692
+ ---> e28ccff50fb5
+Step 6/66 : RUN useradd -m -g php -u 1002 php
+ ---> Running in 9c733a0928e7
+Removing intermediate container 9c733a0928e7
+ ---> 0f5bd9cede38
+Step 7/66 : RUN chsh -s /bin/bash php
+ ---> Running in a84ec00783f0
+[91mchsh: Shell not changed.
+[0mChanging shell for php.
+Removing intermediate container a84ec00783f0
+ ---> eb4bfa0b9434
+Step 8/66 : RUN echo 'root_pwd' | passwd --stdin root
+ ---> Running in 74a29584f057
+Changing password for user root.
+passwd: all authentication tokens updated successfully.
+Removing intermediate container 74a29584f057
+ ---> ca96cf95cb19
+Step 9/66 : RUN echo 'rstudio_pwd' | passwd --stdin rstudio
+ ---> Running in 292668a074eb
+Changing password for user rstudio.
+passwd: all authentication tokens updated successfully.
+Removing intermediate container 292668a074eb
+ ---> 081f947b924a
+Step 10/66 : RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Running in 2a1648d79805
+Removing intermediate container 2a1648d79805
+ ---> f0efc21254a0
+Step 11/66 : RUN echo 'php_pwd' | passwd --stdin php
+ ---> Running in 2cf20f5093f1
+Changing password for user php.
+passwd: all authentication tokens updated successfully.
+Removing intermediate container 2cf20f5093f1
+ ---> 4d623528faef
+Step 12/66 : RUN echo 'php ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Running in b7d94aafceea
+Removing intermediate container b7d94aafceea
+ ---> 930498dae81a
+Step 13/66 : RUN yum install -y epel-release
+ ---> Running in 6392ef447c0d
+Loaded plugins: fastestmirror, ovl
+Determining fastest mirrors
+ * base: ftp-srv2.kddilabs.jp
+ * extras: ftp-srv2.kddilabs.jp
+ * updates: ftp-srv2.kddilabs.jp
+[91mhttp://ftp.tsukuba.wide.ad.jp/Linux/centos/7.7.1908/os/x86_64/repodata/04efe80d41ea3d94d36294f7107709d1c8f70db11e152d6ef562da344748581a-primary.sqlite.bz2: [Errno 14] curl#18 - "transfer closed with 5456893 bytes remaining to read"
+[0m[91mTrying other mirror.
+[0m

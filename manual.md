@@ -81,3 +81,11 @@ $sudo less /var/log/cron
 秘密鍵をなくさない保証があれば、自動pushやりたいが、
 定期的にOS換えるかもしれないので。今は手動pushでいいか。
 http://tm.root-n.com/unix:command:git:cron_git_push
+
+# プロセスをころす
+
+```
+su root
+
+ps aux  | grep 'docker build' | awk '{print $2}' | xargs kill
+```

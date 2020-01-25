@@ -2,3 +2,9 @@ Sending build context to Docker daemon  95.23kB
 Step 1/4 : FROM centos/systemd
  ---> 05d3c1e2d0c1
 Step 2/4 : RUN yum -y install httpd; yum clean all; systemctl enable httpd.service
+ ---> Running in 31557438a4e6
+Loaded plugins: fastestmirror, ovl
+Determining fastest mirrors
+ * base: ty1.mirror.newmediaexpress.com
+ * extras: ty1.mirror.newmediaexpress.com
+ * updates: ty1.mirror.newmediaexpress.com

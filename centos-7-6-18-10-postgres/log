@@ -1,1 +1,24 @@
 Sending build context to Docker daemon  749.1kB
+Step 1/22 : FROM centos/systemd
+ ---> 05d3c1e2d0c1
+Step 2/22 : RUN groupadd -g 1001 postgres && useradd -m -g postgres -u 1001 postgres && chsh -s /bin/bash postgres && echo 'postgres_pwd' | passwd --stdin postgres && echo 'postgres ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Running in 6839a64e7af9
+[91mchsh: Shell not changed.
+[0mChanging shell for postgres.
+Changing password for user postgres.
+passwd: all authentication tokens updated successfully.
+Removing intermediate container 6839a64e7af9
+ ---> 075ced367bd4
+Step 3/22 : RUN echo 'root_pwd' | passwd --stdin root
+ ---> Running in a3d7e6ed997f
+Changing password for user root.
+passwd: all authentication tokens updated successfully.
+Removing intermediate container a3d7e6ed997f
+ ---> 57f2612dfa61
+Step 4/22 : RUN yum -y install epel-release
+ ---> Running in 423728c639c0
+Loaded plugins: fastestmirror, ovl
+Determining fastest mirrors
+ * base: ty1.mirror.newmediaexpress.com
+ * extras: ty1.mirror.newmediaexpress.com
+ * updates: ty1.mirror.newmediaexpress.com

@@ -1,1 +1,84 @@
 Sending build context to Docker daemon   16.9kB
+Step 1/69 : FROM centos:7.6.1810
+ ---> f1cb7c7d58b7
+Step 2/69 : RUN groupadd -g 1001 rstudio
+ ---> Running in b5164497bf21
+Removing intermediate container b5164497bf21
+ ---> 2f31a6509ecb
+Step 3/69 : RUN useradd -m -g rstudio -u 1001 rstudio
+ ---> Running in f199f2189f33
+Removing intermediate container f199f2189f33
+ ---> 357c728472c6
+Step 4/69 : RUN groupadd -g 1002 sqlite
+ ---> Running in d7169abdf096
+Removing intermediate container d7169abdf096
+ ---> 4acb0733a1fe
+Step 5/69 : RUN useradd -m -g sqlite -u 1002 sqlite
+ ---> Running in c39d1ea02a0a
+Removing intermediate container c39d1ea02a0a
+ ---> 7d74c8fe3f11
+Step 6/69 : RUN adduser postgres
+ ---> Running in 8cf3b08e55cd
+Removing intermediate container 8cf3b08e55cd
+ ---> 96f16de1b282
+Step 7/69 : RUN chsh -s /bin/bash rstudio
+ ---> Running in 2ef989546333
+[91mchsh: Shell not changed.
+[0mChanging shell for rstudio.
+Removing intermediate container 2ef989546333
+ ---> 82092f508bec
+Step 8/69 : RUN chsh -s /bin/bash postgres
+ ---> Running in eed9b8473923
+Changing shell for postgres.
+[91mchsh: Shell not changed.
+[0mRemoving intermediate container eed9b8473923
+ ---> c8a648503121
+Step 9/69 : RUN chsh -s /bin/bash sqlite
+ ---> Running in f3f84a767804
+Changing shell for sqlite.
+[91mchsh: Shell not changed.
+[0mRemoving intermediate container f3f84a767804
+ ---> 4187139ce36a
+Step 10/69 : RUN echo 'root_pwd' | passwd --stdin root
+ ---> Running in 56aefb678151
+Changing password for user root.
+passwd: all authentication tokens updated successfully.
+Removing intermediate container 56aefb678151
+ ---> 7065488f8718
+Step 11/69 : RUN echo 'rstudio_pwd' | passwd --stdin rstudio
+ ---> Running in 253e94d6d864
+Changing password for user rstudio.
+passwd: all authentication tokens updated successfully.
+Removing intermediate container 253e94d6d864
+ ---> 47fa7ad4cdcf
+Step 12/69 : RUN echo 'postgres_pwd' | passwd --stdin postgres
+ ---> Running in 9b2f05c74720
+Changing password for user postgres.
+passwd: all authentication tokens updated successfully.
+Removing intermediate container 9b2f05c74720
+ ---> 2861b6db8829
+Step 13/69 : RUN echo 'sqlite_pwd' | passwd --stdin sqlite
+ ---> Running in 68905e9bde25
+Changing password for user sqlite.
+passwd: all authentication tokens updated successfully.
+Removing intermediate container 68905e9bde25
+ ---> 7d0772365521
+Step 14/69 : RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Running in 6f701d70c060
+Removing intermediate container 6f701d70c060
+ ---> eae0029ce288
+Step 15/69 : RUN echo 'postgres ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Running in eb0a026e38a0
+Removing intermediate container eb0a026e38a0
+ ---> 1013f2d4ad28
+Step 16/69 : RUN echo 'sqlite ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Running in 6937654e26dc
+Removing intermediate container 6937654e26dc
+ ---> 4d5c6c9ea856
+Step 17/69 : RUN yum -y install epel-release
+ ---> Running in df3dab056a42
+Loaded plugins: fastestmirror, ovl
+Determining fastest mirrors
+ * base: ftp-srv2.kddilabs.jp
+ * extras: ftp-srv2.kddilabs.jp
+ * updates: ftp-srv2.kddilabs.jp

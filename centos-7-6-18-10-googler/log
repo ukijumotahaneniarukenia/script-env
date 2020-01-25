@@ -2,3 +2,23 @@ Sending build context to Docker daemon  7.168kB
 Step 1/23 : FROM centos/systemd
  ---> 05d3c1e2d0c1
 Step 2/23 : RUN groupadd -g 1001 kuraine && useradd -m -g kuraine -u 1001 kuraine && chsh -s /bin/bash kuraine && echo 'kuraine_pwd' | passwd --stdin kuraine && echo 'kuraine ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Running in 630817de5634
+Changing shell for kuraine.
+[91mchsh: Shell not changed.
+[0mChanging password for user kuraine.
+passwd: all authentication tokens updated successfully.
+Removing intermediate container 630817de5634
+ ---> f659fee82d8c
+Step 3/23 : RUN echo 'root_pwd' | passwd --stdin root
+ ---> Running in c5505bdbe285
+Changing password for user root.
+passwd: all authentication tokens updated successfully.
+Removing intermediate container c5505bdbe285
+ ---> 72758788a82e
+Step 4/23 : RUN yum -y install epel-release
+ ---> Running in 1c495db90ff1
+Loaded plugins: fastestmirror, ovl
+Determining fastest mirrors
+ * base: ty1.mirror.newmediaexpress.com
+ * extras: ty1.mirror.newmediaexpress.com
+ * updates: ty1.mirror.newmediaexpress.com

@@ -2,3 +2,9 @@ Sending build context to Docker daemon  771.1kB
 Step 1/72 : FROM centos:7.6.1810
  ---> f1cb7c7d58b7
 Step 2/72 : RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps
+ ---> Running in 395d5e32be39
+Loaded plugins: fastestmirror, ovl
+Determining fastest mirrors
+ * base: ty1.mirror.newmediaexpress.com
+ * extras: ty1.mirror.newmediaexpress.com
+ * updates: ty1.mirror.newmediaexpress.com

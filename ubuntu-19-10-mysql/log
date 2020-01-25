@@ -1,0 +1,15 @@
+Sending build context to Docker daemon  605.2kB
+Step 1/8 : FROM ubuntu:19.10
+ ---> dcbcfdcd50bb
+Step 2/8 : RUN apt-get update
+ ---> Running in 1d2c6de56e01
+Get:1 http://archive.ubuntu.com/ubuntu eoan InRelease [255 kB]
+Get:2 http://security.ubuntu.com/ubuntu eoan-security InRelease [97.5 kB]
+Get:3 http://archive.ubuntu.com/ubuntu eoan-updates InRelease [97.5 kB]
+Get:4 http://archive.ubuntu.com/ubuntu eoan-backports InRelease [88.8 kB]
+Get:5 http://security.ubuntu.com/ubuntu eoan-security/multiverse amd64 Packages [1075 B]
+Get:6 http://security.ubuntu.com/ubuntu eoan-security/universe amd64 Packages [66.8 kB]
+Get:7 http://archive.ubuntu.com/ubuntu eoan/restricted amd64 Packages [22.7 kB]
+Get:8 http://archive.ubuntu.com/ubuntu eoan/universe amd64 Packages [11.6 MB]
+Get:9 http://security.ubuntu.com/ubuntu eoan-security/restricted amd64 Packages [9471 B]
+Get:10 http://security.ubuntu.com/ubuntu eoan-security/main amd64 Packages [154 kB]

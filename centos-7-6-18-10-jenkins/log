@@ -1,1 +1,23 @@
 Sending build context to Docker daemon  6.241MB
+Step 1/64 : FROM centos:latest
+ ---> 470671670cac
+Step 2/64 : RUN groupadd -g 1001 rstudio
+ ---> Running in 49491266c0bb
+Removing intermediate container 49491266c0bb
+ ---> 290c3436c04e
+Step 3/64 : RUN useradd -m -g rstudio -u 1001 rstudio
+ ---> Running in 86c79ef6ab2c
+Removing intermediate container 86c79ef6ab2c
+ ---> daa5c92f23a2
+Step 4/64 : RUN groupadd -g 1002 jenkins
+ ---> Running in 3b4405e4a8b6
+Removing intermediate container 3b4405e4a8b6
+ ---> 93cff78f62b3
+Step 5/64 : RUN useradd -m -g jenkins -u 1002 jenkins
+ ---> Running in 8572743aa130
+Removing intermediate container 8572743aa130
+ ---> d2ce4692ea27
+Step 6/64 : RUN chsh -s /bin/bash jenkins
+ ---> Running in e082bb1f10b4
+[91m/bin/sh: chsh: command not found
+[0mThe command '/bin/sh -c chsh -s /bin/bash jenkins' returned a non-zero code: 127

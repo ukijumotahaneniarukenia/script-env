@@ -1,1 +1,32 @@
 Sending build context to Docker daemon   42.5kB
+Step 1/32 : FROM centos/systemd
+ ---> 05d3c1e2d0c1
+Step 2/32 : RUN groupadd -g 1001 rstudio && useradd -m -g rstudio -u 1001 rstudio && chsh -s /bin/bash rstudio && echo 'rstudio_pwd' | passwd --stdin rstudio && echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Running in 6bb799ecf9a7
+[91mchsh: Shell not changed.
+[0mChanging shell for rstudio.
+Changing password for user rstudio.
+passwd: all authentication tokens updated successfully.
+Removing intermediate container 6bb799ecf9a7
+ ---> cf9af38fcb7b
+Step 3/32 : RUN groupadd -g 1002 shiny && useradd -m -g shiny -u 1002 shiny && chsh -s /bin/bash shiny && echo 'shiny_pwd' | passwd --stdin shiny && echo 'shiny ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Running in a2e90ada45e5
+[91mchsh: Shell not changed.
+[0mChanging shell for shiny.
+Changing password for user shiny.
+passwd: all authentication tokens updated successfully.
+Removing intermediate container a2e90ada45e5
+ ---> 643f4dfee2df
+Step 4/32 : RUN echo 'root_pwd' | passwd --stdin root
+ ---> Running in 8aab845874e1
+Changing password for user root.
+passwd: all authentication tokens updated successfully.
+Removing intermediate container 8aab845874e1
+ ---> 87f0ece30aef
+Step 5/32 : RUN yum install -y initscripts
+ ---> Running in 88b5cd14c868
+Loaded plugins: fastestmirror, ovl
+Determining fastest mirrors
+ * base: ty1.mirror.newmediaexpress.com
+ * extras: ty1.mirror.newmediaexpress.com
+ * updates: ty1.mirror.newmediaexpress.com

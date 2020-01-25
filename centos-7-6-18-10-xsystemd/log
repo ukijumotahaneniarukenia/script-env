@@ -1,1 +1,10 @@
 Sending build context to Docker daemon  5.632kB
+Step 1/9 : FROM centos/systemd
+ ---> 05d3c1e2d0c1
+Step 2/9 : RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps firefox
+ ---> Running in df7f5fac426d
+Loaded plugins: fastestmirror, ovl
+Determining fastest mirrors
+ * base: ftp-srv2.kddilabs.jp
+ * extras: ftp-srv2.kddilabs.jp
+ * updates: ftp-srv2.kddilabs.jp

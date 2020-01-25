@@ -1,1 +1,16 @@
 Sending build context to Docker daemon  10.75kB
+Step 1/12 : FROM ubuntu:16.04
+ ---> c6a43cd4801e
+Step 2/12 : RUN apt-get update && apt-get -y upgrade && apt-get install -y vim gcc make && apt-get install -y libffi-dev curl build-essential libssl-dev zlib1g-dev libreadline6-dev
+ ---> Running in d384ceb72781
+Get:1 http://archive.ubuntu.com/ubuntu xenial InRelease [247 kB]
+Get:2 http://security.ubuntu.com/ubuntu xenial-security InRelease [109 kB]
+Get:3 http://security.ubuntu.com/ubuntu xenial-security/main amd64 Packages [1036 kB]
+Get:4 http://archive.ubuntu.com/ubuntu xenial-updates InRelease [109 kB]
+Get:5 http://archive.ubuntu.com/ubuntu xenial-backports InRelease [107 kB]
+Get:6 http://archive.ubuntu.com/ubuntu xenial/main amd64 Packages [1558 kB]
+Get:7 http://security.ubuntu.com/ubuntu xenial-security/restricted amd64 Packages [12.7 kB]
+Get:8 http://security.ubuntu.com/ubuntu xenial-security/universe amd64 Packages [606 kB]
+Get:9 http://security.ubuntu.com/ubuntu xenial-security/multiverse amd64 Packages [6282 B]
+Get:10 http://archive.ubuntu.com/ubuntu xenial/restricted amd64 Packages [14.1 kB]
+Get:11 http://archive.ubuntu.com/ubuntu xenial/universe amd64 Packages [9827 kB]

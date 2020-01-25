@@ -1,1 +1,24 @@
 Sending build context to Docker daemon  29.18kB
+Step 1/23 : FROM centos/systemd
+ ---> 05d3c1e2d0c1
+Step 2/23 : RUN groupadd -g 1001 kuraine && useradd -m -g kuraine -u 1001 kuraine && chsh -s /bin/bash kuraine && echo 'kuraine_pwd' | passwd --stdin kuraine && echo 'kuraine ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Running in 2c9469d92fab
+Changing shell for kuraine.
+[91mchsh: Shell not changed.
+[0mChanging password for user kuraine.
+passwd: all authentication tokens updated successfully.
+Removing intermediate container 2c9469d92fab
+ ---> 4857299a718a
+Step 3/23 : RUN echo 'root_pwd' | passwd --stdin root
+ ---> Running in 0e3fa0f5d8b1
+Changing password for user root.
+passwd: all authentication tokens updated successfully.
+Removing intermediate container 0e3fa0f5d8b1
+ ---> 70e6961f38cc
+Step 4/23 : RUN yum install -y epel-release
+ ---> Running in 0c174c828ba1
+Loaded plugins: fastestmirror, ovl
+Determining fastest mirrors
+ * base: ftp.iij.ad.jp
+ * extras: ftp.iij.ad.jp
+ * updates: ftp.iij.ad.jp

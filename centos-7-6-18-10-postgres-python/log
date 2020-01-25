@@ -1,1 +1,27 @@
 Sending build context to Docker daemon  35.33kB
+Step 1/28 : FROM centos/systemd
+ ---> 05d3c1e2d0c1
+Step 2/28 : RUN groupadd -g 1001 postgres && useradd -m -g postgres -u 1001 postgres && chsh -s /bin/bash postgres && echo 'postgres_pwd' | passwd --stdin postgres && echo 'postgres ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Running in 2e47bd95db2d
+Changing shell for postgres.
+[91mchsh: Shell not changed.
+[0mChanging password for user postgres.
+passwd: all authentication tokens updated successfully.
+Removing intermediate container 2e47bd95db2d
+ ---> f83e8f7d3b98
+Step 3/28 : RUN echo 'root_pwd' | passwd --stdin root
+ ---> Running in 7c9fdc8a6224
+Changing password for user root.
+passwd: all authentication tokens updated successfully.
+Removing intermediate container 7c9fdc8a6224
+ ---> 5eb1a2aa58e3
+Step 4/28 : RUN yum -y install epel-release
+ ---> Running in f7dff64551b5
+Loaded plugins: fastestmirror, ovl
+Determining fastest mirrors
+ * base: ty1.mirror.newmediaexpress.com
+ * extras: ty1.mirror.newmediaexpress.com
+ * updates: ty1.mirror.newmediaexpress.com
+[91mhttp://ty1.mirror.newmediaexpress.com/centos/7.7.1908/updates/x86_64/repodata/bb42a9e94c516a24e7be9a609f1ad4874b09d90b7ed7bfbd77c5e783e49b9f03-primary.sqlite.bz2: [Errno 12] Timeout on http://ty1.mirror.newmediaexpress.com/centos/7.7.1908/updates/x86_64/repodata/bb42a9e94c516a24e7be9a609f1ad4874b09d90b7ed7bfbd77c5e783e49b9f03-primary.sqlite.bz2: (28, 'Operation too slow. Less than 1000 bytes/sec transferred the last 30 seconds')
+[0m[91mTrying other mirror.
+[0m
