@@ -31,5 +31,8 @@ printf "\ndocker build process has done.\n"
 
 git status
 
+echo SUMMARY
 #すこし待った分差し引く
 echo elapsed time $(($BUILD_ELAPSED-10)) seconds.
+#この行以降に詳細ログを追記されていく
+echo DETAILS

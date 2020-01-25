@@ -59,8 +59,10 @@ $crontab -l
 
 実行ログ格納ディレクトリ作成
 
+各コンテナログから集計した結果を格納
+
 ```
-$mkdir -p ~/docker-build-log
+$mkdir -p ~/script_env/docker-build-log
 ```
 
 # プロセス確認
