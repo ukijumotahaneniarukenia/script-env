@@ -2,43 +2,39 @@ Sending build context to Docker daemon  293.4kB
 Step 1/4 : FROM ubuntu:19.10
  ---> dcbcfdcd50bb
 Step 2/4 : RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list
- ---> Running in ed9fb5de2246
-Removing intermediate container ed9fb5de2246
- ---> 96d1346e9294
+ ---> Running in 00459ef871eb
+Removing intermediate container 00459ef871eb
+ ---> 97d966531b65
 Step 3/4 : RUN apt-get update
- ---> Running in bd1955df4e53
+ ---> Running in eb1be2fa6b35
 Get:1 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan InRelease [255 kB]
 Get:2 http://security.ubuntu.com/ubuntu eoan-security InRelease [97.5 kB]
-Get:3 http://security.ubuntu.com/ubuntu eoan-security/main amd64 Packages [154 kB]
-Get:4 http://security.ubuntu.com/ubuntu eoan-security/universe amd64 Packages [66.8 kB]
-Get:5 http://security.ubuntu.com/ubuntu eoan-security/restricted amd64 Packages [9471 B]
-Get:6 http://security.ubuntu.com/ubuntu eoan-security/multiverse amd64 Packages [1075 B]
-Get:7 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates InRelease [97.5 kB]
-Get:8 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-backports InRelease [88.8 kB]
-Get:9 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/restricted amd64 Packages [22.7 kB]
-Get:10 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/universe amd64 Packages [11.6 MB]
-Ign:10 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/universe amd64 Packages
-Get:11 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 Packages [1277 kB]
-sh: 43 行: 26924 Terminated              docker build --no-cache -t ubuntu-19-10-wine .
-
-real	2m25.412s
-user	0m0.046s
-sys	0m0.025s
-.jp/pub/Linux/ubuntu eoan-updates/universe amd64 Packages [110 kB]
+Get:3 http://security.ubuntu.com/ubuntu eoan-security/universe amd64 Packages [66.8 kB]
+Get:4 http://security.ubuntu.com/ubuntu eoan-security/main amd64 Packages [154 kB]
+Get:5 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates InRelease [97.5 kB]
+Get:6 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-backports InRelease [88.8 kB]
+Get:7 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/restricted amd64 Packages [22.7 kB]
+Get:8 http://security.ubuntu.com/ubuntu eoan-security/restricted amd64 Packages [9471 B]
+Get:9 http://security.ubuntu.com/ubuntu eoan-security/multiverse amd64 Packages [1075 B]
+Get:10 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/multiverse amd64 Packages [188 kB]
+Get:11 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/universe amd64 Packages [11.6 MB]
+Get:12 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 Packages [1277 kB]
+Get:13 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/multiverse amd64 Packages [1075 B]
+Get:14 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 Packages [240 kB]
 Get:15 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/restricted amd64 Packages [9471 B]
-Get:16 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 Packages [240 kB]
+Get:16 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/universe amd64 Packages [110 kB]
 Get:17 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-backports/universe amd64 Packages [3071 B]
-Fetched 14.2 MB in 2min 8s (111 kB/s)
+Fetched 14.2 MB in 1min 48s (132 kB/s)
 Reading package lists...
-Removing intermediate container 0806bea534ca
- ---> e59a525a5b84
+Removing intermediate container eb1be2fa6b35
+ ---> 2567799b6666
 Step 4/4 : ENV DISPLAY=:0.0
- ---> Running in 31e9c45e3615
-Removing intermediate container 31e9c45e3615
- ---> c10ff2227f8d
-Successfully built c10ff2227f8d
+ ---> Running in 921ea34633f8
+Removing intermediate container 921ea34633f8
+ ---> 0e4672171477
+Successfully built 0e4672171477
 Successfully tagged ubuntu-19-10-wine:latest
 
-real	2m20.757s
-user	0m0.045s
-sys	0m0.027s
+real	2m1.799s
+user	0m0.048s
+sys	0m0.031s

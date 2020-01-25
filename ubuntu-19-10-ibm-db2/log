@@ -2,19 +2,118 @@ Sending build context to Docker daemon   5.12kB
 Step 1/4 : FROM ubuntu:19.10
  ---> dcbcfdcd50bb
 Step 2/4 : RUN apt-get update && apt-get upgrade -y
- ---> Running in 47fbdab0657a
+ ---> Running in 8c898c53a835
 Get:1 http://security.ubuntu.com/ubuntu eoan-security InRelease [97.5 kB]
 Get:2 http://archive.ubuntu.com/ubuntu eoan InRelease [255 kB]
-Get:3 http://security.ubuntu.com/ubuntu eoan-security/universe amd64 Packages [66.8 kB]
-Get:4 http://security.ubuntu.com/ubuntu eoan-security/restricted amd64 Packages [9471 B]
-Get:5 http://security.ubuntu.com/ubuntu eoan-security/main amd64 Packages [154 kB]
-Get:6 http://security.ubuntu.com/ubuntu eoan-security/multiverse amd64 Packages [1075 B]
-Get:7 http://archive.ubuntu.com/ubuntu eoan-updates InRelease [97.5 kB]
+Get:3 http://security.ubuntu.com/ubuntu eoan-security/multiverse amd64 Packages [1075 B]
+Get:4 http://security.ubuntu.com/ubuntu eoan-security/main amd64 Packages [154 kB]
+Get:5 http://security.ubuntu.com/ubuntu eoan-security/restricted amd64 Packages [9471 B]
+Get:6 http://archive.ubuntu.com/ubuntu eoan-updates InRelease [97.5 kB]
+Get:7 http://security.ubuntu.com/ubuntu eoan-security/universe amd64 Packages [66.8 kB]
 Get:8 http://archive.ubuntu.com/ubuntu eoan-backports InRelease [88.8 kB]
-Get:9 http://archive.ubuntu.com/ubuntu eoan/multiverse amd64 Packages [188 kB]
+Get:9 http://archive.ubuntu.com/ubuntu eoan/main amd64 Packages [1277 kB]
 Get:10 http://archive.ubuntu.com/ubuntu eoan/universe amd64 Packages [11.6 MB]
-sh: 38 行: 26831 Terminated              docker build --no-cache -t ubuntu-19-10-ibm-db2 .
+Get:11 http://archive.ubuntu.com/ubuntu eoan/multiverse amd64 Packages [188 kB]
+Get:12 http://archive.ubuntu.com/ubuntu eoan/restricted amd64 Packages [22.7 kB]
+Get:13 http://archive.ubuntu.com/ubuntu eoan-updates/main amd64 Packages [240 kB]
+Get:14 http://archive.ubuntu.com/ubuntu eoan-updates/restricted amd64 Packages [9471 B]
+Get:15 http://archive.ubuntu.com/ubuntu eoan-updates/universe amd64 Packages [110 kB]
+Get:16 http://archive.ubuntu.com/ubuntu eoan-updates/multiverse amd64 Packages [1075 B]
+Get:17 http://archive.ubuntu.com/ubuntu eoan-backports/universe amd64 Packages [3071 B]
+Fetched 14.2 MB in 1min 7s (213 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+The following packages will be upgraded:
+  bsdutils e2fsprogs fdisk libblkid1 libcom-err2 libext2fs2 libfdisk1
+  libmount1 libsmartcols1 libss2 libuuid1 logsave mount util-linux
+14 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+Need to get 2639 kB of archives.
+After this operation, 1024 B of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu eoan-updates/main amd64 bsdutils amd64 1:2.34-0.1ubuntu2.1 [63.8 kB]
+Get:2 http://archive.ubuntu.com/ubuntu eoan-updates/main amd64 libblkid1 amd64 2.34-0.1ubuntu2.1 [137 kB]
+Get:3 http://archive.ubuntu.com/ubuntu eoan-updates/main amd64 libuuid1 amd64 2.34-0.1ubuntu2.1 [20.6 kB]
+Get:4 http://archive.ubuntu.com/ubuntu eoan-updates/main amd64 libfdisk1 amd64 2.34-0.1ubuntu2.1 [175 kB]
+Get:5 http://archive.ubuntu.com/ubuntu eoan-updates/main amd64 libmount1 amd64 2.34-0.1ubuntu2.1 [149 kB]
+Get:6 http://archive.ubuntu.com/ubuntu eoan-updates/main amd64 libsmartcols1 amd64 2.34-0.1ubuntu2.1 [101 kB]
+Get:7 http://archive.ubuntu.com/ubuntu eoan-updates/main amd64 fdisk amd64 2.34-0.1ubuntu2.1 [119 kB]
+Get:8 http://archive.ubuntu.com/ubuntu eoan-updates/main amd64 util-linux amd64 2.34-0.1ubuntu2.1 [1021 kB]
+Get:9 http://archive.ubuntu.com/ubuntu eoan-updates/main amd64 logsave amd64 1.45.3-4ubuntu2.1 [9828 B]
+Get:10 http://archive.ubuntu.com/ubuntu eoan-updates/main amd64 libext2fs2 amd64 1.45.3-4ubuntu2.1 [181 kB]
+Get:11 http://archive.ubuntu.com/ubuntu eoan-updates/main amd64 e2fsprogs amd64 1.45.3-4ubuntu2.1 [526 kB]
+Get:12 http://archive.ubuntu.com/ubuntu eoan-updates/main amd64 mount amd64 2.34-0.1ubuntu2.1 [115 kB]
+Get:13 http://archive.ubuntu.com/ubuntu eoan-updates/main amd64 libcom-err2 amd64 1.45.3-4ubuntu2.1 [9164 B]
+Get:14 http://archive.ubuntu.com/ubuntu eoan-updates/main amd64 libss2 amd64 1.45.3-4ubuntu2.1 [11.3 kB]
+[91mdebconf: delaying package configuration, since apt-utils is not installed
+[0mFetched 2639 kB in 15s (174 kB/s)
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4100 files and directories currently installed.)
+Preparing to unpack .../bsdutils_1%3a2.34-0.1ubuntu2.1_amd64.deb ...
+Unpacking bsdutils (1:2.34-0.1ubuntu2.1) over (1:2.34-0.1ubuntu2) ...
+Setting up bsdutils (1:2.34-0.1ubuntu2.1) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4100 files and directories currently installed.)
+Preparing to unpack .../libblkid1_2.34-0.1ubuntu2.1_amd64.deb ...
+Unpacking libblkid1:amd64 (2.34-0.1ubuntu2.1) over (2.34-0.1ubuntu2) ...
+Setting up libblkid1:amd64 (2.34-0.1ubuntu2.1) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4100 files and directories currently installed.)
+Preparing to unpack .../libuuid1_2.34-0.1ubuntu2.1_amd64.deb ...
+Unpacking libuuid1:amd64 (2.34-0.1ubuntu2.1) over (2.34-0.1ubuntu2) ...
+Setting up libuuid1:amd64 (2.34-0.1ubuntu2.1) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4100 files and directories currently installed.)
+Preparing to unpack .../libfdisk1_2.34-0.1ubuntu2.1_amd64.deb ...
+Unpacking libfdisk1:amd64 (2.34-0.1ubuntu2.1) over (2.34-0.1ubuntu2) ...
+Setting up libfdisk1:amd64 (2.34-0.1ubuntu2.1) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4100 files and directories currently installed.)
+Preparing to unpack .../libmount1_2.34-0.1ubuntu2.1_amd64.deb ...
+Unpacking libmount1:amd64 (2.34-0.1ubuntu2.1) over (2.34-0.1ubuntu2) ...
+Setting up libmount1:amd64 (2.34-0.1ubuntu2.1) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4100 files and directories currently installed.)
+Preparing to unpack .../libsmartcols1_2.34-0.1ubuntu2.1_amd64.deb ...
+Unpacking libsmartcols1:amd64 (2.34-0.1ubuntu2.1) over (2.34-0.1ubuntu2) ...
+Setting up libsmartcols1:amd64 (2.34-0.1ubuntu2.1) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4100 files and directories currently installed.)
+Preparing to unpack .../fdisk_2.34-0.1ubuntu2.1_amd64.deb ...
+Unpacking fdisk (2.34-0.1ubuntu2.1) over (2.34-0.1ubuntu2) ...
+Setting up fdisk (2.34-0.1ubuntu2.1) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4100 files and directories currently installed.)
+Preparing to unpack .../util-linux_2.34-0.1ubuntu2.1_amd64.deb ...
+Unpacking util-linux (2.34-0.1ubuntu2.1) over (2.34-0.1ubuntu2) ...
+Setting up util-linux (2.34-0.1ubuntu2.1) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4100 files and directories currently installed.)
+Preparing to unpack .../logsave_1.45.3-4ubuntu2.1_amd64.deb ...
+Unpacking logsave (1.45.3-4ubuntu2.1) over (1.45.3-4ubuntu2) ...
+Preparing to unpack .../libext2fs2_1.45.3-4ubuntu2.1_amd64.deb ...
+Unpacking libext2fs2:amd64 (1.45.3-4ubuntu2.1) over (1.45.3-4ubuntu2) ...
+Setting up libext2fs2:amd64 (1.45.3-4ubuntu2.1) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4100 files and directories currently installed.)
+Preparing to unpack .../e2fsprogs_1.45.3-4ubuntu2.1_amd64.deb ...
+Unpacking e2fsprogs (1.45.3-4ubuntu2.1) over (1.45.3-4ubuntu2) ...
+Preparing to unpack .../mount_2.34-0.1ubuntu2.1_amd64.deb ...
+Unpacking mount (2.34-0.1ubuntu2.1) over (2.34-0.1ubuntu2) ...
+Preparing to unpack .../libcom-err2_1.45.3-4ubuntu2.1_amd64.deb ...
+Unpacking libcom-err2:amd64 (1.45.3-4ubuntu2.1) over (1.45.3-4ubuntu2) ...
+Preparing to unpack .../libss2_1.45.3-4ubuntu2.1_amd64.deb ...
+Unpacking libss2:amd64 (1.45.3-4ubuntu2.1) over (1.45.3-4ubuntu2) ...
+Setting up libcom-err2:amd64 (1.45.3-4ubuntu2.1) ...
+Setting up libss2:amd64 (1.45.3-4ubuntu2.1) ...
+Setting up logsave (1.45.3-4ubuntu2.1) ...
+Setting up mount (2.34-0.1ubuntu2.1) ...
+Setting up e2fsprogs (1.45.3-4ubuntu2.1) ...
+Processing triggers for libc-bin (2.30-0ubuntu2) ...
+Removing intermediate container 8c898c53a835
+ ---> fc2f9ac2b11f
+Step 3/4 : RUN groupadd -g 1001 mysql && useradd -m -g mysql -u 1001 mysql && echo 'mysql:mysql_pwd' | chpasswd && echo 'mysql ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && chsh -s /bin/bash mysql
+ ---> Running in 3e9e63064fa3
+Removing intermediate container 3e9e63064fa3
+ ---> 43059ebd151d
+Step 4/4 : RUN echo 'root:root_pwd' | chpasswd
+ ---> Running in 3b036edee52d
+Removing intermediate container 3b036edee52d
+ ---> f9fba8c04f46
+Successfully built f9fba8c04f46
+Successfully tagged ubuntu-19-10-ibm-db2:latest
 
-real	2m25.468s
-user	0m0.040s
-sys	0m0.024s
+real	1m44.139s
+user	0m0.054s
+sys	0m0.034s
