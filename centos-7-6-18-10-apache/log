@@ -1,5 +1,4 @@
 Sending build context to Docker daemon  338.4kB
-Step 1/1 : FROM centos:7.6.1810
+Step 1/18 : FROM centos:7.6.1810
  ---> f1cb7c7d58b7
-Successfully built f1cb7c7d58b7
-Successfully tagged centos_apache:latest
+Step 2/18 : RUN groupadd -g 1001 kuraine && useradd -m -g kuraine -u 1001 kuraine && chsh -s /bin/bash kuraine && echo 'kuraine_pwd' | passwd --stdin kuraine && echo 'kuraine ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers

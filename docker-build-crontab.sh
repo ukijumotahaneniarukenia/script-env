@@ -1,6 +1,8 @@
 #!/bin/bash
 
-source docker_build_parallel.sh
+./docker_build_parallel.sh
+
+wait $!
 
 #gitignore整備
 ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | xargs -I@ echo cp ~/script_env/.gitignore ~/script_env/@/.gitignore | sh
