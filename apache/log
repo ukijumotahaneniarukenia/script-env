@@ -1,4 +1,4 @@
-Sending build context to Docker daemon  3.223MB
+Sending build context to Docker daemon  593.9kB
 Step 1/1 : FROM centos:7.6.1810
  ---> f1cb7c7d58b7
 Successfully built f1cb7c7d58b7
