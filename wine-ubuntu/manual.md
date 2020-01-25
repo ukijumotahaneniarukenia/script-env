@@ -26,14 +26,12 @@ time docker build -t ubuntu-wine . | tee log
 docker exec -it ubuntu-wine /bin/bash
 ```
 
-# ビルド
-https://wiki.winehq.org/Building_Wine
+# wineのインストール
+https://wiki.winehq.org/Building_Wine </br>
+
+http://ubuntuhandbook.org/index.php/2020/01/install-wine-5-0-stable-ubuntu-18-04-19-10/ </br>
 
 ```
-■もっとハンディなやり方
-
-http://ubuntuhandbook.org/index.php/2020/01/install-wine-5-0-stable-ubuntu-18-04-19-10/
-
 apt install -y wget gnupg gnupg2 gnupg1
 
 dpkg --add-architecture i386
@@ -49,18 +47,19 @@ add-apt-repository ppa:cybermax-dexter/sdl2-backport
 apt update
 
 apt install -y --install-recommends winehq-stable
+```
 
-root@b0c532b7e1cd:/opt# /usr/bin/wine --version
+動作確認
+```
+$wine --version
 wine-5.0
 ```
 
-
-レポから提供されている物を利用
+レポから提供されている物を利用する場合
 
 ```
 apt install -y wine64
 ```
-
 
 winアプリいんすこ
 
@@ -77,3 +76,20 @@ wine WinMergeU.exe 1>~/launch_win_app.log 2>&1 &
 ```
 
 ![](./1.png)
+
+
+文字化け対策
+
+日本語フォントをいれる
+
+```
+cd /opt
+
+apt install -y zenity
+
+wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks
+
+chmod +x winetricks
+
+winetricks
+```
