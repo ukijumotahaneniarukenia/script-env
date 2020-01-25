@@ -1,18 +1,1 @@
 Sending build context to Docker daemon  9.728kB
-Step 1/23 : FROM ubuntu:19.10
- ---> dcbcfdcd50bb
-Step 2/23 : RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list
- ---> Running in 30298c33be2a
-Removing intermediate container 30298c33be2a
- ---> 0000f48922b1
-Step 3/23 : RUN apt-get update
- ---> Running in c2d482baf2c1
-Get:1 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan InRelease [255 kB]
-Get:2 http://security.ubuntu.com/ubuntu eoan-security InRelease [97.5 kB]
-Get:3 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates InRelease [97.5 kB]
-Get:4 http://security.ubuntu.com/ubuntu eoan-security/universe amd64 Packages [66.8 kB]
-Get:5 http://security.ubuntu.com/ubuntu eoan-security/multiverse amd64 Packages [1075 B]
-Get:6 http://security.ubuntu.com/ubuntu eoan-security/main amd64 Packages [154 kB]
-Get:7 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-backports InRelease [88.8 kB]
-Get:8 http://security.ubuntu.com/ubuntu eoan-security/restricted amd64 Packages [9471 B]
-Get:9 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/universe amd64 Packages [11.6 MB]
