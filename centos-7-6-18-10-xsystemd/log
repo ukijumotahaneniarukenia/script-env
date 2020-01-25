@@ -1,0 +1,232 @@
+Sending build context to Docker daemon  4.608kB
+Step 1/9 : FROM centos/systemd
+ ---> 05d3c1e2d0c1
+Step 2/9 : RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps firefox
+ ---> Using cache
+ ---> bbb025d9d121
+Step 3/9 : RUN yum groupinstall -y base "X Window System" --setopt=group_package_types=mandatory,default,optional
+ ---> Using cache
+ ---> 1086d8c65d71
+Step 4/9 : ENV DISPLAY=:0.0
+ ---> Using cache
+ ---> bc9524213b5b
+Step 5/9 : RUN yum install -y vlgothic-*
+ ---> Using cache
+ ---> 33f852b82ec2
+Step 6/9 : RUN yum install -y PackageKit-gtk3-module
+ ---> Using cache
+ ---> 38b2781a430f
+Step 7/9 : RUN yum install -y epel-release
+ ---> Running in bb14d61509f4
+Loaded plugins: aliases, changelog, fastestmirror, kabi, langpacks, ovl,
+              : tmprepo, verify, versionlock
+Loading support for Red Hat kernel ABI
+Loading mirror speeds from cached hostfile
+ * base: ty1.mirror.newmediaexpress.com
+ * extras: ty1.mirror.newmediaexpress.com
+ * updates: ty1.mirror.newmediaexpress.com
+Resolving Dependencies
+--> Running transaction check
+---> Package epel-release.noarch 0:7-11 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package                Arch             Version         Repository        Size
+================================================================================
+Installing:
+ epel-release           noarch           7-11            extras            15 k
+
+Transaction Summary
+================================================================================
+Install  1 Package
+
+Total download size: 15 k
+Installed size: 24 k
+Downloading packages:
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : epel-release-7-11.noarch                                     1/1 
+  Verifying  : epel-release-7-11.noarch                                     1/1 
+
+Installed:
+  epel-release.noarch 0:7-11                                                    
+
+Complete!
+Removing intermediate container bb14d61509f4
+ ---> 092fd070225d
+Step 8/9 : RUN yum install -y ibus-mozc
+ ---> Running in 837e4adfd37e
+Loaded plugins: aliases, changelog, fastestmirror, kabi, langpacks, ovl,
+              : tmprepo, verify, versionlock
+Loading support for Red Hat kernel ABI
+Loading mirror speeds from cached hostfile
+ * base: ty1.mirror.newmediaexpress.com
+ * epel: ftp.riken.jp
+ * extras: ty1.mirror.newmediaexpress.com
+ * updates: ty1.mirror.newmediaexpress.com
+Resolving Dependencies
+--> Running transaction check
+---> Package ibus-mozc.x86_64 0:2.17.2322.102-1.el7 will be installed
+--> Processing Dependency: mozc(x86-64) = 2.17.2322.102-1.el7 for package: ibus-mozc-2.17.2322.102-1.el7.x86_64
+--> Processing Dependency: ibus(x86-64) >= 1.5.4 for package: ibus-mozc-2.17.2322.102-1.el7.x86_64
+--> Processing Dependency: libibus-1.0.so.5()(64bit) for package: ibus-mozc-2.17.2322.102-1.el7.x86_64
+--> Running transaction check
+---> Package ibus.x86_64 0:1.5.17-5.el7 will be installed
+--> Processing Dependency: ibus-setup = 1.5.17-5.el7 for package: ibus-1.5.17-5.el7.x86_64
+--> Processing Dependency: ibus-gtk3(x86-64) = 1.5.17-5.el7 for package: ibus-1.5.17-5.el7.x86_64
+--> Processing Dependency: ibus-gtk2(x86-64) = 1.5.17-5.el7 for package: ibus-1.5.17-5.el7.x86_64
+--> Processing Dependency: dbus-x11 for package: ibus-1.5.17-5.el7.x86_64
+---> Package ibus-libs.x86_64 0:1.5.17-5.el7 will be installed
+---> Package mozc.x86_64 0:2.17.2322.102-1.el7 will be installed
+--> Processing Dependency: xemacs-filesystem >= 21.5 for package: mozc-2.17.2322.102-1.el7.x86_64
+--> Processing Dependency: zinnia-tomoe-ja for package: mozc-2.17.2322.102-1.el7.x86_64
+--> Processing Dependency: libQtCore.so.4()(64bit) for package: mozc-2.17.2322.102-1.el7.x86_64
+--> Processing Dependency: libQtGui.so.4()(64bit) for package: mozc-2.17.2322.102-1.el7.x86_64
+--> Processing Dependency: libzinnia.so.0()(64bit) for package: mozc-2.17.2322.102-1.el7.x86_64
+--> Running transaction check
+---> Package dbus-x11.x86_64 1:1.10.24-13.el7_6 will be installed
+--> Processing Dependency: dbus = 1:1.10.24-13.el7_6 for package: 1:dbus-x11-1.10.24-13.el7_6.x86_64
+---> Package ibus-gtk2.x86_64 0:1.5.17-5.el7 will be installed
+---> Package ibus-gtk3.x86_64 0:1.5.17-5.el7 will be installed
+---> Package ibus-setup.noarch 0:1.5.17-5.el7 will be installed
+---> Package qt.x86_64 1:4.8.7-3.el7_6 will be installed
+--> Processing Dependency: qt-settings for package: 1:qt-4.8.7-3.el7_6.x86_64
+---> Package qt-x11.x86_64 1:4.8.7-3.el7_6 will be installed
+--> Processing Dependency: libmng.so.1()(64bit) for package: 1:qt-x11-4.8.7-3.el7_6.x86_64
+---> Package xemacs-filesystem.noarch 0:21.5.34-8.20140605hgacf1c26e3019.el7 will be installed
+---> Package zinnia.x86_64 0:0.06-22.el7 will be installed
+---> Package zinnia-tomoe-ja.x86_64 0:0.06-22.el7 will be installed
+--> Running transaction check
+---> Package dbus.x86_64 1:1.10.24-12.el7 will be updated
+---> Package dbus.x86_64 1:1.10.24-13.el7_6 will be an update
+--> Processing Dependency: dbus-libs(x86-64) = 1:1.10.24-13.el7_6 for package: 1:dbus-1.10.24-13.el7_6.x86_64
+---> Package libmng.x86_64 0:1.0.10-14.el7 will be installed
+---> Package qt-settings.noarch 0:19-23.10.el7.centos will be installed
+--> Running transaction check
+---> Package dbus-libs.x86_64 1:1.10.24-12.el7 will be updated
+---> Package dbus-libs.x86_64 1:1.10.24-13.el7_6 will be an update
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package           Arch   Version                                 Repository
+                                                                           Size
+================================================================================
+Installing:
+ ibus-mozc         x86_64 2.17.2322.102-1.el7                     epel    420 k
+Installing for dependencies:
+ dbus-x11          x86_64 1:1.10.24-13.el7_6                      base     48 k
+ ibus              x86_64 1.5.17-5.el7                            base    4.8 M
+ ibus-gtk2         x86_64 1.5.17-5.el7                            base     44 k
+ ibus-gtk3         x86_64 1.5.17-5.el7                            base     45 k
+ ibus-libs         x86_64 1.5.17-5.el7                            base    227 k
+ ibus-setup        noarch 1.5.17-5.el7                            base     80 k
+ libmng            x86_64 1.0.10-14.el7                           base    171 k
+ mozc              x86_64 2.17.2322.102-1.el7                     epel     16 M
+ qt                x86_64 1:4.8.7-3.el7_6                         base    4.6 M
+ qt-settings       noarch 19-23.10.el7.centos                     updates  18 k
+ qt-x11            x86_64 1:4.8.7-3.el7_6                         base     13 M
+ xemacs-filesystem noarch 21.5.34-8.20140605hgacf1c26e3019.el7    epel     16 k
+ zinnia            x86_64 0.06-22.el7                             epel     64 k
+ zinnia-tomoe-ja   x86_64 0.06-22.el7                             epel     12 M
+Updating for dependencies:
+ dbus              x86_64 1:1.10.24-13.el7_6                      base    245 k
+ dbus-libs         x86_64 1:1.10.24-13.el7_6                      base    169 k
+
+Transaction Summary
+================================================================================
+Install  1 Package  (+14 Dependent packages)
+Upgrade             (  2 Dependent packages)
+
+Total download size: 51 M
+Downloading packages:
+No Presto metadata available for base
+[91mwarning: /var/cache/yum/x86_64/7/epel/packages/ibus-mozc-2.17.2322.102-1.el7.x86_64.rpm: Header V3 RSA/SHA256 Signature, key ID 352c64e5: NOKEY
+[0mPublic key for ibus-mozc-2.17.2322.102-1.el7.x86_64.rpm is not installed
+--------------------------------------------------------------------------------
+Total                                               12 MB/s |  51 MB  00:04     
+Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+[91mImporting GPG key 0x352C64E5:
+ Userid     : "Fedora EPEL (7) <epel@fedoraproject.org>"
+ Fingerprint: 91e9 7d7c 4a5e 96f1 7f3e 888f 6a2f aea2 352c 64e5
+ Package    : epel-release-7-11.noarch (@extras)
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+[0mRunning transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Updating   : 1:dbus-libs-1.10.24-13.el7_6.x86_64                         1/19 
+  Updating   : 1:dbus-1.10.24-13.el7_6.x86_64                              2/19 
+  Installing : ibus-libs-1.5.17-5.el7.x86_64                               3/19 
+  Installing : zinnia-0.06-22.el7.x86_64                                   4/19 
+  Installing : zinnia-tomoe-ja-0.06-22.el7.x86_64                          5/19 
+  Installing : 1:dbus-x11-1.10.24-13.el7_6.x86_64                          6/19 
+  Installing : ibus-gtk2-1.5.17-5.el7.x86_64                               7/19 
+  Installing : ibus-setup-1.5.17-5.el7.noarch                              8/19 
+  Installing : ibus-gtk3-1.5.17-5.el7.x86_64                               9/19 
+  Installing : ibus-1.5.17-5.el7.x86_64                                   10/19 
+  Installing : libmng-1.0.10-14.el7.x86_64                                11/19 
+  Installing : xemacs-filesystem-21.5.34-8.20140605hgacf1c26e3019.el7.n   12/19 
+  Installing : qt-settings-19-23.10.el7.centos.noarch                     13/19 
+  Installing : 1:qt-4.8.7-3.el7_6.x86_64                                  14/19 
+  Installing : 1:qt-x11-4.8.7-3.el7_6.x86_64                              15/19 
+  Installing : mozc-2.17.2322.102-1.el7.x86_64                            16/19 
+  Installing : ibus-mozc-2.17.2322.102-1.el7.x86_64                       17/19 
+  Cleanup    : 1:dbus-1.10.24-12.el7.x86_64                               18/19 
+  Cleanup    : 1:dbus-libs-1.10.24-12.el7.x86_64                          19/19 
+  Verifying  : qt-settings-19-23.10.el7.centos.noarch                      1/19 
+  Verifying  : 1:qt-4.8.7-3.el7_6.x86_64                                   2/19 
+  Verifying  : 1:dbus-x11-1.10.24-13.el7_6.x86_64                          3/19 
+  Verifying  : xemacs-filesystem-21.5.34-8.20140605hgacf1c26e3019.el7.n    4/19 
+  Verifying  : 1:dbus-libs-1.10.24-13.el7_6.x86_64                         5/19 
+  Verifying  : ibus-mozc-2.17.2322.102-1.el7.x86_64                        6/19 
+  Verifying  : 1:qt-x11-4.8.7-3.el7_6.x86_64                               7/19 
+  Verifying  : ibus-1.5.17-5.el7.x86_64                                    8/19 
+  Verifying  : 1:dbus-1.10.24-13.el7_6.x86_64                              9/19 
+  Verifying  : ibus-libs-1.5.17-5.el7.x86_64                              10/19 
+  Verifying  : ibus-gtk2-1.5.17-5.el7.x86_64                              11/19 
+  Verifying  : zinnia-tomoe-ja-0.06-22.el7.x86_64                         12/19 
+  Verifying  : zinnia-0.06-22.el7.x86_64                                  13/19 
+  Verifying  : ibus-setup-1.5.17-5.el7.noarch                             14/19 
+  Verifying  : mozc-2.17.2322.102-1.el7.x86_64                            15/19 
+  Verifying  : libmng-1.0.10-14.el7.x86_64                                16/19 
+  Verifying  : ibus-gtk3-1.5.17-5.el7.x86_64                              17/19 
+  Verifying  : 1:dbus-libs-1.10.24-12.el7.x86_64                          18/19 
+  Verifying  : 1:dbus-1.10.24-12.el7.x86_64                               19/19 
+
+Installed:
+  ibus-mozc.x86_64 0:2.17.2322.102-1.el7                                        
+
+Dependency Installed:
+  dbus-x11.x86_64 1:1.10.24-13.el7_6                                            
+  ibus.x86_64 0:1.5.17-5.el7                                                    
+  ibus-gtk2.x86_64 0:1.5.17-5.el7                                               
+  ibus-gtk3.x86_64 0:1.5.17-5.el7                                               
+  ibus-libs.x86_64 0:1.5.17-5.el7                                               
+  ibus-setup.noarch 0:1.5.17-5.el7                                              
+  libmng.x86_64 0:1.0.10-14.el7                                                 
+  mozc.x86_64 0:2.17.2322.102-1.el7                                             
+  qt.x86_64 1:4.8.7-3.el7_6                                                     
+  qt-settings.noarch 0:19-23.10.el7.centos                                      
+  qt-x11.x86_64 1:4.8.7-3.el7_6                                                 
+  xemacs-filesystem.noarch 0:21.5.34-8.20140605hgacf1c26e3019.el7               
+  zinnia.x86_64 0:0.06-22.el7                                                   
+  zinnia-tomoe-ja.x86_64 0:0.06-22.el7                                          
+
+Dependency Updated:
+  dbus.x86_64 1:1.10.24-13.el7_6       dbus-libs.x86_64 1:1.10.24-13.el7_6      
+
+Complete!
+Removing intermediate container 837e4adfd37e
+ ---> d0b2f5c2bb4c
+Step 9/9 : CMD ["/usr/sbin/init"]
+ ---> Running in d72f6054f96c
+Removing intermediate container d72f6054f96c
+ ---> 5b5b7fbb740e
+Successfully built 5b5b7fbb740e
+Successfully tagged centos_xsystemd:latest
