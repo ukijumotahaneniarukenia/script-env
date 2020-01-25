@@ -13,8 +13,13 @@ while read tgt;do
 done < <(ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | xargs -n1 -I@ echo ~/script_env/@/log) >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
 
 #作成されたコンテナイメージを追記
+echo SUCCESS DOCKER BUILD IMAGE
 docker images | head -n1 >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
-docker images | grep -E $(ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | xargs | tr ' ' '|') >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
+ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -E $(docker images | tail -n+1 | grep -P '(-[0-9]{1,}){2,}-' | awk '{print $1}'|xargs|tr ' ' '|')>>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
+
+#作成されなかったコンテナイメージを追記
+echo FAIL DOCKER BUILD IMAGE
+ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -vE $(docker images | tail -n+1 | grep -P '(-[0-9]{1,}){2,}-' | awk '{print $1}'|xargs|tr ' ' '|')>>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
 
 #コンテナ作成に失敗したdockerイメージを削除
 #後処理
