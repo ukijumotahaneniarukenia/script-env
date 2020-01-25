@@ -56,3 +56,17 @@ make -j12 && \
 make -j12 install && \
 ln -fsr /usr/local/bin/vim /usr/bin/vi
 ```
+
+
+# 各言語ごとにプラグインを設定
+
+python環境
+```
+pip3 install python-language-server
+```
+
+c-cpp環境
+http://kutimoti.hatenablog.com/entry/2018/05/20/110732
+```
+apt install -y llvm clang clang-tools
+```
