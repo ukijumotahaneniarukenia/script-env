@@ -9,7 +9,7 @@ while read tgt;do
   cat $tgt | grep -Po 'Step [0-9]{1,}/[0-9]{1,}' | tail -n1 #Step数の抽出
   cat $tgt | grep -E 'success|SUCCESS|Success' #正常終了ログの抽出
   cat $tgt | grep -E '\s[0-9]{1,}m[0-9]{1,}\.[0-9]{3}s' #経過時間の抽出
-  cat $tgt | grep -E 'fail|FAIL|Fail' #異常終了ログの抽出
+  cat $tgt | grep -E 'fail|FAIL|Fail|unable to prepare context' #異常終了ログの抽出
 done < <(ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | xargs -n1 -I@ echo ~/script_env/@/log) >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
 
 #コンテナ作成に失敗したdockerイメージを削除
