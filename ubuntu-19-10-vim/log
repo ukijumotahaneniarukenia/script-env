@@ -1,1 +1,95 @@
 Sending build context to Docker daemon  9.728kB
+Step 1/23 : FROM ubuntu:19.10
+ ---> dcbcfdcd50bb
+Step 2/23 : RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list
+ ---> Running in ee9f861ed35b
+Removing intermediate container ee9f861ed35b
+ ---> b383b25688f2
+Step 3/23 : RUN apt-get update
+ ---> Running in 0086645f4c0a
+Get:1 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan InRelease [255 kB]
+Get:2 http://security.ubuntu.com/ubuntu eoan-security InRelease [97.5 kB]
+Get:3 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates InRelease [97.5 kB]
+Get:4 http://security.ubuntu.com/ubuntu eoan-security/restricted amd64 Packages [9471 B]
+Get:5 http://security.ubuntu.com/ubuntu eoan-security/main amd64 Packages [154 kB]
+Get:6 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-backports InRelease [88.8 kB]
+Get:7 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/restricted amd64 Packages [22.7 kB]
+Get:8 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/multiverse amd64 Packages [188 kB]
+Get:9 http://security.ubuntu.com/ubuntu eoan-security/universe amd64 Packages [66.8 kB]
+Get:10 http://security.ubuntu.com/ubuntu eoan-security/multiverse amd64 Packages [1075 B]
+Get:11 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/universe amd64 Packages [11.6 MB]
+Get:12 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 Packages [1277 kB]
+Get:13 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 Packages [240 kB]
+Get:14 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/universe amd64 Packages [110 kB]
+Get:15 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/restricted amd64 Packages [9471 B]
+Get:16 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/multiverse amd64 Packages [1075 B]
+Get:17 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-backports/universe amd64 Packages [3071 B]
+Fetched 14.2 MB in 55s (258 kB/s)
+Reading package lists...
+Removing intermediate container 0086645f4c0a
+ ---> b6731a400238
+Step 4/23 : RUN apt install -y tzdata && ln -fsr /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+ ---> Running in 3527db179db1
+[91m
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+[0mReading package lists...
+Building dependency tree...
+Reading state information...
+The following NEW packages will be installed:
+  tzdata
+0 upgraded, 1 newly installed, 0 to remove and 14 not upgraded.
+Need to get 208 kB of archives.
+After this operation, 3534 kB of additional disk space will be used.
+Get:1 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 tzdata all 2019c-3 [208 kB]
+[91mdebconf: delaying package configuration, since apt-utils is not installed
+[0mFetched 208 kB in 1s (261 kB/s)
+Selecting previously unselected package tzdata.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4100 files and directories currently installed.)
+Preparing to unpack .../tzdata_2019c-3_all.deb ...
+Unpacking tzdata (2019c-3) ...
+Setting up tzdata (2019c-3) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.28.1 /usr/local/share/perl/5.28.1 /usr/lib/x86_64-linux-gnu/perl5/5.28 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl/5.28 /usr/share/perl/5.28 /usr/local/lib/site_perl /usr/lib/x86_64-linux-gnu/perl-base) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Configuring tzdata
+------------------
+
+Please select the geographic area in which you live. Subsequent configuration
+questions will narrow this down by presenting a list of cities, representing
+the time zones in which they are located.
+
+  1. Africa      4. Australia  7. Atlantic  10. Pacific  13. Etc
+  2. America     5. Arctic     8. Europe    11. SystemV
+  3. Antarctica  6. Asia       9. Indian    12. US
+Geographic area: 
+Use of uninitialized value $_[1] in join or string at /usr/share/perl5/Debconf/DbDriver/Stack.pm line 111.
+
+Current default time zone: '/UTC'
+Local time is now:      Sat Jan 25 15:25:01 UTC 2020.
+Universal Time is now:  Sat Jan 25 15:25:01 UTC 2020.
+Run 'dpkg-reconfigure tzdata' if you wish to change it.
+
+Use of uninitialized value $val in substitution (s///) at /usr/share/perl5/Debconf/Format/822.pm line 83, <GEN6> line 4.
+Use of uninitialized value $val in concatenation (.) or string at /usr/share/perl5/Debconf/Format/822.pm line 84, <GEN6> line 4.
+Removing intermediate container 3527db179db1
+ ---> 96e8f1955ad0
+Step 5/23 : RUN apt-get install -y locales && locale-gen ja_JP.UTF-8 && echo 'export LANG=ja_JP.UTF-8' >> /etc/profile.d/99-locale-ja.sh
+ ---> Running in ed5338f4a5b7
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following NEW packages will be installed:
+  locales
+0 upgraded, 1 newly installed, 0 to remove and 14 not upgraded.
+Need to get 3870 kB of archives.
+After this operation, 17.6 MB of additional disk space will be used.
+Get:1 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 locales all 2.30-0ubuntu2 [3870 kB]
+sh: 2 行: 30618 Terminated              docker build --no-cache -t ubuntu-19-10-vim .
+
+real	1m8.455s
+user	0m0.023s
+sys	0m0.037s
