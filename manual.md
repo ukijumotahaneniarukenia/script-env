@@ -1,6 +1,12 @@
 # crontabコマンドで実行するスクリプトを作成
 
-フォルダ名はos名_ソフト名にしようかな
+フォルダ名はos名_ソフト名にしようかな。任意で末尾に使用するエディタ（複数）。デフォルトエディタはvim。
+
+script__envフォルダ配下をビルド対象に
+
+```
+ls -l | grep -P '^d' | awk '{print $9}' | xargs -I@ bash -c 'echo "cd ~/script_env/@ && time docker build --no-cache -t @ . | tee log"'
+```
 
 ```
 #!/bin/bash

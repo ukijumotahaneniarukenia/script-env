@@ -1,7 +1,6 @@
 #!/bin/bash
 
-cd ~/script_env/apache
-time docker build --no-cache -t centos_apache . | tee log
+source docker_build_parallel.sh
 
 #gitignore整備
 ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | xargs -I@ echo cp ~/script_env/.gitignore ~/script_env/@/.gitignore | sh
