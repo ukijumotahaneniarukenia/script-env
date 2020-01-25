@@ -20,3 +20,48 @@ cd vim && \
 make -j12 && \
 make -j12 install && \
 ln -fsr /usr/local/bin/vim /usr/bin/vi
+
+#日本語環境
+RUN apt-get install -y locales && locale-gen ja_JP.UTF-8 && echo 'export LANG=ja_JP.UTF-8' >> /etc/profile.d/99-locale-ja.sh
+
+#vimインストール
+RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+
+#dotfileインストール
+RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
+cd ~/tmp && \
+mv rc/.[^.]* ~ && \
+rm -rf ~/tmp
+
+#ライブラリ管理dein.vimインストール
+RUN apt install -y curl && \
+mkdir -p ~/.vim/bundle && \
+cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
+cd ~ && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+
+#ユーザー作成
+RUN groupadd -g 1001 kuraine && \
+useradd -m -g kuraine -u 1001 kuraine && \
+echo 'kuraine:kuraine_pwd' | chpasswd && \
+echo 'kuraine ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
+chsh -s /bin/bash kuraine
+
+RUN echo 'root:root_pwd' | chpasswd
+
+USER kuraine
+
+#vimインストール
+RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+
+#dotfileインストール
+RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
+cd ~/tmp && \
+mv rc/.[^.]* ~ && \
+rm -rf ~/tmp
+
+#ライブラリ管理dein.vimインストール
+RUN mkdir -p ~/.vim/bundle && \
+cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
+cd ~ && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+
+WORKDIR /home/kuraine
