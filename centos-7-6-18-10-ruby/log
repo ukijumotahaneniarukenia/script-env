@@ -1,1 +1,5 @@
 unable to prepare context: unable to evaluate symlinks in Dockerfile path: lstat /home/aine/script_env/centos-7-6-18-10-ruby/Dockerfile: no such file or directory
+
+real	0m0.202s
+user	0m0.045s
+sys	0m0.020s

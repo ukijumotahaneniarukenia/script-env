@@ -2,39 +2,88 @@ Sending build context to Docker daemon  13.31kB
 Step 1/30 : FROM centos/systemd
  ---> 05d3c1e2d0c1
 Step 2/30 : RUN groupadd -g 1001 kuraine && useradd -m -g kuraine -u 1001 kuraine && chsh -s /bin/bash kuraine && echo 'kuraine_pwd' | passwd --stdin kuraine && echo 'kuraine ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
- ---> Running in e8df0e394156
+ ---> Running in d8ad07952dfd
 [91mchsh: Shell not changed.
 [0mChanging shell for kuraine.
 Changing password for user kuraine.
 passwd: all authentication tokens updated successfully.
-Removing intermediate container e8df0e394156
- ---> b00946f3ce2b
+Removing intermediate container d8ad07952dfd
+ ---> 94b15981c107
 Step 3/30 : RUN groupadd -g 1002 td-agent && useradd -m -g td-agent -u 1002 td-agent && chsh -s /bin/bash td-agent && echo 'td-agent_pwd' | passwd --stdin td-agent && echo 'td-agent ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
- ---> Running in e220ad3f816c
+ ---> Running in 85750c9cd82a
+Changing shell for td-agent.
 [91mchsh: Shell not changed.
-[0mChanging shell for td-agent.
-Changing password for user td-agent.
+[0mChanging password for user td-agent.
 passwd: all authentication tokens updated successfully.
-Removing intermediate container e220ad3f816c
- ---> d135944c211f
+Removing intermediate container 85750c9cd82a
+ ---> f4005bf05ad9
 Step 4/30 : RUN groupadd -g 1003 nginx && useradd -m -g nginx -u 1003 nginx && chsh -s /bin/bash nginx && echo 'nginx_pwd' | passwd --stdin nginx && echo 'nginx ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
- ---> Running in 4ba18d3f53b3
-Changing shell for nginx.
-[91mchsh: Shell not changed.
-[0mChanging password for user nginx.
+ ---> Running in bb7cbc1b9f22
+[91mchsh: [0m[91mShell not changed.
+[0mChanging shell for nginx.
+Changing password for user nginx.
 passwd: all authentication tokens updated successfully.
-Removing intermediate container 4ba18d3f53b3
- ---> 2e4ed57c828c
+Removing intermediate container bb7cbc1b9f22
+ ---> bdaf8829534b
 Step 5/30 : RUN echo 'root_pwd' | passwd --stdin root
- ---> Running in 117edc93e79d
+ ---> Running in 383ebd8a3192
 Changing password for user root.
 passwd: all authentication tokens updated successfully.
-Removing intermediate container 117edc93e79d
- ---> 34d1648a7915
+Removing intermediate container 383ebd8a3192
+ ---> ac1fb52d9854
 Step 6/30 : RUN yum install -y epel-release
- ---> Running in ffcfacbcd318
+ ---> Running in e2044f765ac7
 Loaded plugins: fastestmirror, ovl
 Determining fastest mirrors
- * base: ftp-srv2.kddilabs.jp
- * extras: ftp-srv2.kddilabs.jp
- * updates: ftp-srv2.kddilabs.jp
+ * base: ftp.iij.ad.jp
+ * extras: ftp.iij.ad.jp
+ * updates: ftp.iij.ad.jp
+[91mhttp://ftp-srv2.kddilabs.jp/Linux/packages/CentOS/7.7.1908/os/x86_64/repodata/04efe80d41ea3d94d36294f7107709d1c8f70db11e152d6ef562da344748581a-primary.sqlite.bz2: [Errno 12] Timeout on http://ftp-srv2.kddilabs.jp/Linux/packages/CentOS/7.7.1908/os/x86_64/repodata/04efe80d41ea3d94d36294f7107709d1c8f70db11e152d6ef562da344748581a-primary.sqlite.bz2: (28, 'Operation too slow. Less than 1000 bytes/sec transferred the last 30 seconds')
+[0m[91mTrying other mirror.
+[0msh: 6 行: 26310 Terminated              docker build --no-cache -t centos-7-6-18-10-fluentd .
+
+real	2m25.705s
+user	0m0.035s
+sys	0m0.049s
+=====================================
+Install  1 Package
+
+Total download size: 15 k
+Installed size: 24 k
+Downloading packages:
+[91mwarning: /var/cache/yum/x86_64/7/extras/packages/epel-release-7-11.noarch.rpm: Header V3 RSA/SHA256 Signature, key ID f4a80eb5: NOKEY
+[0mPublic key for epel-release-7-11.noarch.rpm is not installed
+Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+[91mImporting GPG key 0xF4A80EB5:
+ Userid     : "CentOS-7 Key (CentOS 7 Official Signing Key) <security@centos.org>"
+ Fingerprint: 6341 ab27 53d7 8a78 a7c2 7bb1 24c6 a8a7 f4a8 0eb5
+ Package    : centos-release-7-6.1810.2.el7.centos.x86_64 (@CentOS)
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+[0mRunning transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : epel-release-7-11.noarch                                     1/1 
+  Verifying  : epel-release-7-11.noarch                                     1/1 
+
+Installed:
+  epel-release.noarch 0:7-11                                                    
+
+Complete!
+Removing intermediate container fc40408ca3c0
+ ---> dbddd839fb39
+Step 7/30 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man
+ ---> Running in 70404a682477
+Loaded plugins: fastestmirror, ovl
+Loading mirror speeds from cached hostfile
+ * base: ty1.mirror.newmediaexpress.com
+ * epel: ftp.iij.ad.jp
+ * extras: ty1.mirror.newmediaexpress.com
+ * updates: ty1.mirror.newmediaexpress.com
+[91mhttp://www.ftp.ne.jp/Linux/distributions/fedora/epel/7/x86_64/repodata/bee4cd9340eae93a6fba0e942d11e5d0b4d46896bd072537d875b6994cbf46f0-primary.sqlite.bz2: [Errno 12] Timeout on http://ftp-srv2.kddilabs.jp/Linux/distributions/fedora/epel/7/x86_64/repodata/bee4cd9340eae93a6fba0e942d11e5d0b4d46896bd072537d875b6994cbf46f0-primary.sqlite.bz2: (28, 'Operation too slow. Less than 1000 bytes/sec transferred the last 30 seconds')
+[0m[91mTrying other mirror.
+[0msh: 6 行:  6872 Terminated              docker build --no-cache -t centos-7-6-18-10-fluentd .
+
+real	4m25.852s
+user	0m0.074s
+sys	0m0.036s

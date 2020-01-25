@@ -1,1 +1,5 @@
 unable to prepare context: unable to evaluate symlinks in Dockerfile path: lstat /home/aine/script_env/centos-7-7-19-08-usb-rsync/Dockerfile: no such file or directory
+
+real	0m0.194s
+user	0m0.046s
+sys	0m0.024s

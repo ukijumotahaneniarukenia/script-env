@@ -2,39 +2,51 @@ Sending build context to Docker daemon  18.43kB
 Step 1/70 : FROM centos:7.6.1810
  ---> f1cb7c7d58b7
 Step 2/70 : RUN groupadd -g 1001 kuraine && useradd -m -g kuraine -u 1001 kuraine && chsh -s /bin/bash kuraine && echo 'kuraine_pwd' | passwd --stdin kuraine && echo 'kuraine ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
- ---> Running in 962b1513cce1
+ ---> Running in c6ae4b1d49ac
+Changing shell for kuraine.
 [91mchsh: Shell not changed.
-[0mChanging shell for kuraine.
-Changing password for user kuraine.
+[0mChanging password for user kuraine.
 passwd: all authentication tokens updated successfully.
-Removing intermediate container 962b1513cce1
- ---> 9c100b30c77f
+Removing intermediate container c6ae4b1d49ac
+ ---> 1595ec4511cf
 Step 3/70 : RUN groupadd -g 991 elasticsearch && useradd -m -g elasticsearch -u 994 elasticsearch && chsh -s /bin/bash elasticsearch && echo 'elasticsearch_pwd' | passwd --stdin elasticsearch && echo 'elasticsearch ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
- ---> Running in c991fae6a50b
+ ---> Running in f93859b436a2
 [91mchsh: Shell not changed.
 [0mChanging shell for elasticsearch.
 Changing password for user elasticsearch.
 passwd: all authentication tokens updated successfully.
-Removing intermediate container c991fae6a50b
- ---> 04561548c080
+Removing intermediate container f93859b436a2
+ ---> 3d513c887b2e
 Step 4/70 : RUN groupadd -g 990 kibana && useradd -m -g kibana -u 993 kibana && chsh -s /bin/bash kibana && echo 'kibana_pwd' | passwd --stdin kibana && echo 'kibana ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
- ---> Running in 835c29e9146f
-Changing shell for kibana.
+ ---> Running in 0966908c1bda
 [91mchsh: Shell not changed.
-[0mChanging password for user kibana.
+[0mChanging shell for kibana.
+Changing password for user kibana.
 passwd: all authentication tokens updated successfully.
-Removing intermediate container 835c29e9146f
- ---> 5c62df9034c7
+Removing intermediate container 0966908c1bda
+ ---> 8b80689284a4
 Step 5/70 : RUN echo 'root_pwd' | passwd --stdin root
- ---> Running in 839f535b96b4
+ ---> Running in 281dd0fa1f26
 Changing password for user root.
 passwd: all authentication tokens updated successfully.
-Removing intermediate container 839f535b96b4
- ---> 9e6c834391c1
+Removing intermediate container 281dd0fa1f26
+ ---> 3bd35d49d21d
 Step 6/70 : RUN yum -y install epel-release
- ---> Running in cd3b606eaa6c
+ ---> Running in f9418afbea25
 Loaded plugins: fastestmirror, ovl
 Determining fastest mirrors
- * base: ftp-srv2.kddilabs.jp
- * extras: ftp-srv2.kddilabs.jp
- * updates: ftp-srv2.kddilabs.jp
+ * base: ftp.iij.ad.jp
+ * extras: ftp.iij.ad.jp
+ * updates: ftp.iij.ad.jp
+sh: 15 行: 26422 Terminated              docker build --no-cache -t centos-7-6-18-10-node .
+
+real	2m25.687s
+user	0m0.044s
+sys	0m0.027s
+ad4874b09d90b7ed7bfbd77c5e783e49b9f03-primary.sqlite.bz2: [Errno 12] Timeout on http://ftp-srv2.kddilabs.jp/Linux/packages/CentOS/7.7.1908/updates/x86_64/repodata/bb42a9e94c516a24e7be9a609f1ad4874b09d90b7ed7bfbd77c5e783e49b9f03-primary.sqlite.bz2: (28, 'Operation too slow. Less than 1000 bytes/sec transferred the last 30 seconds')
+[0m[91mTrying other mirror.
+[0msh: 14 行:  6901 Terminated              docker build --no-cache -t centos-7-6-18-10-node .
+
+real	4m25.835s
+user	0m0.056s
+sys	0m0.046s

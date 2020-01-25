@@ -2,11 +2,11 @@ Sending build context to Docker daemon  422.4kB
 Step 1/16 : FROM ubuntu:19.10
  ---> dcbcfdcd50bb
 Step 2/16 : RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list
- ---> Running in f74ed17c9b41
-Removing intermediate container f74ed17c9b41
- ---> e9a08c539ba8
+ ---> Running in e62bc0e7c376
+Removing intermediate container e62bc0e7c376
+ ---> e26c9a024aef
 Step 3/16 : RUN apt-get update && apt-get upgrade -y
- ---> Running in 8b3b34f353e0
+ ---> Running in 0d386220f8f4
 Get:1 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan InRelease [255 kB]
 Get:2 http://security.ubuntu.com/ubuntu eoan-security InRelease [97.5 kB]
 Get:3 http://security.ubuntu.com/ubuntu eoan-security/multiverse amd64 Packages [1075 B]
@@ -16,4 +16,18 @@ Get:6 http://security.ubuntu.com/ubuntu eoan-security/main amd64 Packages [154 k
 Get:7 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates InRelease [97.5 kB]
 Get:8 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-backports InRelease [88.8 kB]
 Get:9 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/restricted amd64 Packages [22.7 kB]
-Get:10 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/universe amd64 Packages [11.6 MB]
+Get:10 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/universe amd64 Packages [11.6 MB]Gsh: 40 行: 26898 Terminated              docker build --no-cache -t ubuntu-19-10-pyqt-pycharm .
+
+real	2m25.421s
+user	0m0.042s
+sys	0m0.023s
+ted amd64 Packages [22.7 kB]
+Get:13 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/restricted amd64 Packages [9471 B]
+Get:14 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/universe amd64 Packages [110 kB]
+Get:15 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/multiverse amd64 Packages [1075 B]
+Get:16 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 Packages [240 kB]
+sh: 40 行:  7401 Terminated              docker build --no-cache -t ubuntu-19-10-pyqt-pycharm .
+
+real	4m25.555s
+user	0m0.051s
+sys	0m0.026s

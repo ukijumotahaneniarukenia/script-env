@@ -2,9 +2,56 @@ Sending build context to Docker daemon  95.23kB
 Step 1/4 : FROM centos/systemd
  ---> 05d3c1e2d0c1
 Step 2/4 : RUN yum -y install httpd; yum clean all; systemctl enable httpd.service
- ---> Running in 31557438a4e6
+ ---> Running in f7b4c183498b
 Loaded plugins: fastestmirror, ovl
 Determining fastest mirrors
  * base: ty1.mirror.newmediaexpress.com
- * extras: ty1.mirror.newmediaexpress.com
- * updates: ty1.mirror.newmediaexpress.com
+ * extras: ty1.mirror.newmediaexprResolving Dependencies
+--> Running transaction checsh: 30 行: 26646 Terminated              docker build --no-cache -t centos-7-6-18-10-systemd .
+
+real	2m25.561s
+user	0m0.052s
+sys	0m0.023s
+e: httpd-2.4.6-90.el7.centos.x86_64
+--> Processing Dependency: system-logos >= 7.92.1-1 for package: httpd-2.4.6-90.el7.centos.x86_64
+--> Processing Dependency: /etc/mime.types for package: httpd-2.4.6-90.el7.centos.x86_64
+--> Processing Dependency: libaprutil-1.so.0()(64bit) for package: httpd-2.4.6-90.el7.centos.x86_64
+--> Processing Dependency: libapr-1.so.0()(64bit) for package: httpd-2.4.6-90.el7.centos.x86_64
+--> Running transaction check
+---> Package apr.x86_64 0:1.4.8-5.el7 will be installed
+---> Package apr-util.x86_64 0:1.5.2-6.el7 will be installed
+---> Package centos-logos.noarch 0:70.0.6-3.el7.centos will be installed
+---> Package httpd-tools.x86_64 0:2.4.6-90.el7.centos will be installed
+---> Package mailcap.noarch 0:2.1.41-2.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package             Arch          Version                    Repository   Size
+================================================================================
+Installing:
+ httpd               x86_64        2.4.6-90.el7.centos        base        2.7 M
+Installing for dependencies:
+ apr                 x86_64        1.4.8-5.el7                base        103 k
+ apr-util            x86_64        1.5.2-6.el7                base         92 k
+ centos-logos        noarch        70.0.6-3.el7.centos        base         21 M
+ httpd-tools         x86_64        2.4.6-90.el7.centos        base         91 k
+ mailcap             noarch        2.1.41-2.el7               base         31 k
+
+Transaction Summary
+================================================================================
+Install  1 Package (+5 Dependent packages)
+
+Total download size: 24 M
+Installed size: 31 M
+Downloading packages:
+[91mwarning: /var/cache/yum/x86_64/7/base/packages/apr-1.4.8-5.el7.x86_64.rpm: Header V3 RSA/SHA256 Signature, key ID f4a80eb5: NOKEY
+[0mPublic key for apr-1.4.8-5.el7.x86_64.rpm is not installed
+[91mhttp://ftp.tsukuba.wide.ad.jp/Linux/centos/7.7.1908/os/x86_64/Packages/centos-logos-70.0.6-3.el7.centos.noarch.rpm: [Errno 14] curl#18 - "transfer closed with 21180125 bytes remaining to read"
+[0m[91mTrying other mirror.
+[0msh: 32 行:  7198 Terminated              docker build --no-cache -t centos-7-6-18-10-systemd .
+
+real	4m25.682s
+user	0m0.059s
+sys	0m0.036s

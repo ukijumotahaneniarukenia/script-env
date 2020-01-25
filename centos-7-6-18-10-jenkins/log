@@ -2,22 +2,26 @@ Sending build context to Docker daemon  6.241MB
 Step 1/64 : FROM centos:latest
  ---> 470671670cac
 Step 2/64 : RUN groupadd -g 1001 rstudio
- ---> Running in 49491266c0bb
-Removing intermediate container 49491266c0bb
- ---> 290c3436c04e
+ ---> Running in 866c9946b3f4
+Removing intermediate container 866c9946b3f4
+ ---> d572c49a20e4
 Step 3/64 : RUN useradd -m -g rstudio -u 1001 rstudio
- ---> Running in 86c79ef6ab2c
-Removing intermediate container 86c79ef6ab2c
- ---> daa5c92f23a2
+ ---> Running in 01e5b5857c00
+Removing intermediate container 01e5b5857c00
+ ---> a862d603295a
 Step 4/64 : RUN groupadd -g 1002 jenkins
- ---> Running in 3b4405e4a8b6
-Removing intermediate container 3b4405e4a8b6
- ---> 93cff78f62b3
+ ---> Running in ca35b1483a21
+Removing intermediate container ca35b1483a21
+ ---> 9f1faa5f11a4
 Step 5/64 : RUN useradd -m -g jenkins -u 1002 jenkins
- ---> Running in 8572743aa130
-Removing intermediate container 8572743aa130
- ---> d2ce4692ea27
+ ---> Running in cd30acc4ccdb
+Removing intermediate container cd30acc4ccdb
+ ---> 5fe4127f8d31
 Step 6/64 : RUN chsh -s /bin/bash jenkins
- ---> Running in e082bb1f10b4
+ ---> Running in 08068c4110a0
 [91m/bin/sh: chsh: command not found
 [0mThe command '/bin/sh -c chsh -s /bin/bash jenkins' returned a non-zero code: 127
+
+real	0m19.402s
+user	0m0.046s
+sys	0m0.032s
