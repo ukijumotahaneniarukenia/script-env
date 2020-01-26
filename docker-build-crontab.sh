@@ -40,12 +40,12 @@ for ((RETRY_ROUND_CNT=1;RETRY_ROUND_CNT<=$RETRY_MX_CNT;RETRY_ROUND_CNT++));do
 
   BUILD_START=$(date '+%s')
 
-  printf "starting docker retry $RETRY_ROUND_CNT round build proccess.\n"
-  printf "waiting for docker retry $RETRY_ROUND_CNT round all build proccess done.\n"
+  printf "starting docker retry $(printf '%02g' $RETRY_ROUND_CNT) round build proccess.\n"
+  printf "waiting for docker retry $(printf '%02g' $RETRY_ROUND_CNT) round all build proccess done.\n"
 
   #初回ビルドに失敗したイメージに関してはリカバリ時間を短縮するために、到達可能なStepまでのキャッシュを作成しておく
   #リトライログ用にRETRY_ROUND_CNTを引数に渡す
-  bash ~/script_env/docker-build-parallel-retry.sh $RETRY_ROUND_CNT &
+  bash ~/script_env/docker-build-parallel-retry.sh $(printf '%02g' $RETRY_ROUND_CNT) &
 
   #psコマンドで検索できるように少しまつ
   sleep 10
@@ -61,7 +61,7 @@ for ((RETRY_ROUND_CNT=1;RETRY_ROUND_CNT<=$RETRY_MX_CNT;RETRY_ROUND_CNT++));do
   #すこし待った分差し引く
   BUILD_ELAPSED=$(expr $BUILD_END - $BUILD_START - 10)
 
-  printf "docker retry $RETRY_ROUND_CNT round build process has done.ending docker retry $RETRY_ROUND_CNT round build proccess.elapsed time[%s(seconds)]\n" $BUILD_ELAPSED
+  printf "docker retry $(printf '%02g' $RETRY_ROUND_CNT) round build process has done.ending docker retry $(printf '%02g' $RETRY_ROUND_CNT) round build proccess.elapsed time[%s(seconds)]\n" $BUILD_ELAPSED
 done
 
 git add .gitignore
