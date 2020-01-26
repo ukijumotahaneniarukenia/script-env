@@ -16,8 +16,8 @@ bash ~/script_env/docker-build-parallel.sh &
 #psコマンドで検索できるように少しまつ
 sleep 10
 
-printf "starting docker build non-retry proccess.\n"
-printf "waiting for docker build proccess done.\n"
+printf "starting docker init build proccess.\n"
+printf "waiting for docker init build proccess done.\n"
 while $(ps aux | grep 'docker build' | grep -vq 'grep')
 do
   #printf "💩"
@@ -29,7 +29,7 @@ BUILD_END=$(date '+%s')
 #すこし待った分差し引く
 BUILD_ELAPSED=$(expr $BUILD_END - $BUILD_START - 10)
 
-printf "docker build non-retry process has done.ending docker build non-retry proccess.elapsed time[%s(seconds)]\n" $BUILD_ELAPSED
+printf "docker init build process has done.ending docker init build proccess.elapsed time[%s(seconds)]\n" $BUILD_ELAPSED
 
 echo
 
@@ -41,8 +41,8 @@ bash ~/script_env/docker-build-parallel-retry.sh &
 #psコマンドで検索できるように少しまつ
 sleep 10
 
-printf "starting docker build retry proccess.\n"
-printf "waiting for docker build retry proccess done.\n"
+printf "starting docker retry build proccess.\n"
+printf "waiting for docker retry build proccess done.\n"
 while $(ps aux | grep 'docker build' | grep -vq 'grep')
 do
   #printf "💩"
@@ -54,7 +54,7 @@ BUILD_END=$(date '+%s')
 #すこし待った分差し引く
 BUILD_ELAPSED=$(expr $BUILD_END - $BUILD_START - 10)
 
-printf "docker build retry process has done.ending docker build retry proccess.elapsed time[%s(seconds)]\n" $BUILD_ELAPSED
+printf "docker retry build process has done.ending docker retry build proccess.elapsed time[%s(seconds)]\n" $BUILD_ELAPSED
 
 git add .gitignore
 git add --all * 1>/dev/null 2>&1
