@@ -5,7 +5,7 @@ echo SUMMARY
 RETRY_MX_CNT=10
 
 #gitignore整備
-ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | xargs -I@ echo cp ~/script_env/.gitignore ~/script_env/@/.gitignore | sh
+ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log | xargs -I@ echo cp ~/script_env/.gitignore ~/script_env/@/.gitignore | sh
 
 #作業ディレクトリに移動
 cd ~/script_env
