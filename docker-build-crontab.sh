@@ -36,7 +36,7 @@ printf "docker init build process has done.ending docker init build proccess.ela
 
 echo
 
-for ((RETRY_ROUND_CNT=1;i<$RETRY_MX_CNT;RETRY_ROUND_CNT++));do
+for ((RETRY_ROUND_CNT=1;RETRY_ROUND_CNT<$RETRY_MX_CNT;RETRY_ROUND_CNT++));do
 
   BUILD_START=$(date '+%s')
 

@@ -1,0 +1,23 @@
+Sending build context to Docker daemon  2.512MB
+Step 1/16 : FROM ubuntu:19.10
+ ---> dcbcfdcd50bb
+Step 2/16 : RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list
+ ---> Using cache
+ ---> 4a1254a09018
+Step 3/16 : RUN apt-get update && apt-get upgrade -y
+ ---> Using cache
+ ---> 754101c9611a
+Step 4/16 : RUN apt-get install -y vim gcc make lsb-release wget gnupg sudo && apt-get install -y libffi-dev curl build-essential libssl-dev zlib1g-dev libreadline6-dev && apt-get install -y libncurses5-dev libgdbm-dev libnss3-dev libreadline-dev wget libgl1-mesa-dev
+ ---> Using cache
+ ---> 163290507579
+Step 5/16 : RUN cd /usr/local/src && curl -LO https://prdownloads.sourceforge.net/tcl/tcl8.6.10-src.tar.gz && tar xvf tcl8.6.10-src.tar.gz && cd tcl8.6.10 && cd unix && export CFLAGS=-DTCL_UTF_MAX=6 && export MAKEFLAGS=-j5 && ./configure --prefix=/usr/local --enable-threads --enable-shared --enable-symbols --enable-64bit --enable-langinfo --enable-man-symlinks && make -j12 && make -j12 install
+ ---> Running in 637dade7f2a7
+[91m  % Total    % Received % Xf[0m[91merd  Average Speed   Time[0m[91m   [0m[91m Time     Time [0m[91m Current[0m[91m
+                 [0m[91m        [0m[91m    [0m[91m    [0m[91mDload [0m[91m Upl[0m[91moad [0m[91m  Tota[0m[91ml   Sp[0m[91men[0m[91mt    Left [0m[91m Speed[0m[91m
+  0 [0m[91m    0    0     0[0m[91m    [0m[91m0   [0m[91m  [0m[91m0   [0m[91m   0[0m[91m    [0m[91m  [0m[91m0 [0m[91m--:-[0m[91m-:--[0m[91m --:[0m[91m--[0m[91m:-[0m[91m- --[0m[91m:--:[0m[91m--[0m[91m [0m[91m    [0m[91m0[0m[91m  0     0    0     0    0     0      0  [0m[91m    0 --:--:--[0m[91m --:[0m[91m--:-- --:--:--     0[0m[91m100   366  100   366    0     0    697      [0m[91m0 --:--:-- -[0m[91m-:[0m[91m--:-- --:--:--   695
+[0m[91m100   335  100   335    0     0    320      [0m[91m0  0:00:[0m[91m01  0[0m[91m:0[0m[91m0:0[0m[91m1 --[0m[91m:--[0m[91m:--   320
+[0m[91m  0 9906k    0 98304    0     0  62336     [0m[91m 0  0:02:42  0:00:01  0:0[0m[91m2:41 62[0m[91m336[0m[91m  3 9906k    3  336k    0     0   144k     [0m[91m 0  0:01:08  0:00:02  0:01:06  317k[0m[91m 28 9906k   28 2832k    0     0   84[0m[91m8k      0  0:00:11  0:00:03 [0m[91m 0:0[0m[91m0:08 1[0m[91m554k[0m[91m 52 9906k   52 5216k    0     0  1205k      0  0:00:0[0m[91m8  0:0[0m[91m0:04  0:00:0[0m[91m4 1861k[0m[91m 64 9906k   64 6[0m[91m384k    0     0  119[0m[91m5k      0  0:0[0m[91m0:08  0:00:[0m[91m05  0:00:[0m[91m03 1671k[0m[91m 71 9906k   71 7104k    0     0  1121k      0  0:[0m[91m00:08  0:00:06[0m[91m  0:00:02 1473k[0m[91m 78 9906k   78 7760k    0     0  1058k      0  [0m[91m0:00:09  0:00:[0m[91m07[0m[91m  0:00:02 1484k[0m[91m 8[0m[91m7 9906k   87 8688k    0     [0m[91m0  1042k      0  0:00[0m[91m:09  0:00:08  0[0m[91m:00:01[0m[91m 1172k[0msh: 2 行:  4374 Terminated              docker build -t ubuntu-19-10-pyqt-pycharm .
+
+real	0m9.746s
+user	0m0.028s
+sys	0m0.025s
