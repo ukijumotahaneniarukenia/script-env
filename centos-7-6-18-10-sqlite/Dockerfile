@@ -48,6 +48,9 @@ RUN mkdir -p ~/.vim/bundle && \
 cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
 sh installer.sh ~/.vim/bundle && rm -rf installer.sh
 
+#環境変数の設定
+RUN echo 'export LD_LIBRARY_PATH=/usr/local/lib' >>~/.bashrc
+
 USER kuraine
 
 #自身のvim環境をクローン
@@ -65,6 +68,9 @@ rm -rf ~/tmp
 RUN mkdir -p ~/.vim/bundle && \
 cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
 sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+
+#環境変数の設定
+RUN echo 'export LD_LIBRARY_PATH=/usr/local/lib' >>~/.bashrc
 
 WORKDIR /home/kuraine
 
