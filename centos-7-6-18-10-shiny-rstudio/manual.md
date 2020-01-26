@@ -114,16 +114,16 @@ shinyユーザーで実行
 ```
 $ls -l /opt/shiny-server/bin/shiny-server
 -rwxr-xr-x. 1 root root 25343  9月 12  2018 /opt/shiny-server/bin/shiny-server
-$/opt/shiny-server/bin/shiny-server 1>~/launch_shiny-server.log 2>&1 &
+$/opt/shiny-server/bin/shiny-server 1>~/launch-shiny-server.log 2>&1 &
 [1] 1075
 ```
 
 ログ確認
 ```
-$ls -l ~/launch_shiny-server.log
--rw-rw-r--. 1 shiny shiny 280  1月 26 12:26 /home/shiny/launch_shiny-server.log
+$ls -l ~/launch-shiny-server.log
+-rw-rw-r--. 1 shiny shiny 280  1月 26 12:26 /home/shiny/launch-shiny-server.log
 
-$tail ~/launch_shiny-server.log
+$tail ~/launch-shiny-server.log
 [2020-01-26T12:26:19.834] [INFO] shiny-server - Shiny Server v1.5.9.923 (Node.js v8.11.3)
 [2020-01-26T12:26:19.835] [INFO] shiny-server - Using config file "/etc/shiny-server/shiny-server.conf"
 [2020-01-26T12:26:19.863] [INFO] shiny-server - Starting listener on http://[::]:3838
