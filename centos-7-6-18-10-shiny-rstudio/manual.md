@@ -191,16 +191,6 @@ drwxr-xr-x. 1 shiny shiny 4096  1月 26 09:12 shiny-server
 time docker build -t centos-7-6-18-10-shiny-rstudio . | tee log
 ```
 
-# dockerコンテナ削除
-```
-docker ps -qa | xargs -I@ bash -c 'docker stop @ && docker rm @'
-```
-
-# dockerイメージ削除
-```
-docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
-```
-
 # dockerコンテナ作成
 ```
 docker run --privileged --shm-size=8gb -v /sys/fs/cgroup:/sys/fs/cgroup:ro -itd -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 8787:8787 -p 3838:3838 --name centos-7-6-18-10-shiny-rstudio -itd centos-7-6-18-10-shiny-rstudio
