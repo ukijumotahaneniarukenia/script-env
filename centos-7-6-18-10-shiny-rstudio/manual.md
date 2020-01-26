@@ -151,6 +151,10 @@ COMMAND    PID  USER   FD   TYPE   DEVICE SIZE/OFF NODE NAME
 shiny-ser 1075 shiny   10u  IPv6 16273522      0t0  TCP *:sos (LISTEN)
 ```
 
+ブラウザからアクセス
+
+http://192.168.1.109:3838/
+
 shiny-serverプロセス停止
 
 ```
@@ -175,39 +179,11 @@ shiny-serverのレンダラでうまく行っていないときは以下の情�
 https://github.com/rocker-org/shiny/issues/49 </br>
 
 ```
-$ll /var/lib/
-total 72
-drwxr-xr-x. 1 root root 4096  1月  5 15:56 alternatives
-drwxr-xr-x. 2 root root 4096 11月  3  2018 dbus
-drwxr-xr-x. 2 root root 4096  4月 11  2018 games
-drwxr-xr-x. 2 root root 4096 11月  3  2018 initramfs
-drwx------. 2 root root 4096 12月  5  2018 machines
-drwxr-xr-x. 2 root root 4096  4月 11  2018 misc
-drwxr-xr-x. 1 root root 4096 12月  5  2018 rpm
-drwxr-xr-x. 1 root root 4096  1月  5 16:00 rpm-state
-drwxr-xr-x. 5 root root 4096  1月  5 15:47 rstudio-server
-drwxr-xr-x. 2 root root 4096  1月  5 15:47 shiny-server
-drwxr-xr-x. 4 root root 4096  1月  5 15:42 stateless
-drwxr-xr-x. 1 root root 4096 10月 19 01:48 systemd
-drwxr-xr-x. 3 root root 4096  1月  5 15:57 texmf
-drwxr-xr-x. 1 root root 4096  1月  5 16:10 yum
+$ls -l /var/lib | grep shiny-server
+drwxr-xr-x. 2 root root 4096  1月 26 09:12 shiny-server
 $sudo chown shiny:shiny /var/lib/shiny-server
-$ll /var/lib/
-total 72
-drwxr-xr-x. 1 root  root  4096  1月  5 15:56 alternatives
-drwxr-xr-x. 2 root  root  4096 11月  3  2018 dbus
-drwxr-xr-x. 2 root  root  4096  4月 11  2018 games
-drwxr-xr-x. 2 root  root  4096 11月  3  2018 initramfs
-drwx------. 2 root  root  4096 12月  5  2018 machines
-drwxr-xr-x. 2 root  root  4096  4月 11  2018 misc
-drwxr-xr-x. 1 root  root  4096 12月  5  2018 rpm
-drwxr-xr-x. 1 root  root  4096  1月  5 16:00 rpm-state
-drwxr-xr-x. 5 root  root  4096  1月  5 15:47 rstudio-server
-drwxr-xr-x. 1 shiny shiny 4096  1月  5 15:47 shiny-server
-drwxr-xr-x. 4 root  root  4096  1月  5 15:42 stateless
-drwxr-xr-x. 1 root  root  4096 10月 19 01:48 systemd
-drwxr-xr-x. 3 root  root  4096  1月  5 15:57 texmf
-drwxr-xr-x. 1 root  root  4096  1月  5 16:10 yum
+$ls -l /var/lib | grep shiny-server
+drwxr-xr-x. 1 shiny shiny 4096  1月 26 09:12 shiny-server
 ```
 
 # dockerイメージ作成
