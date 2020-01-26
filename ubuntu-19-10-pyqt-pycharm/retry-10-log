@@ -1,4 +1,4 @@
-Sending build context to Docker daemon  472.6kB
+Sending build context to Docker daemon  541.2kB
 Step 1/16 : FROM ubuntu:19.10
  ---> dcbcfdcd50bb
 Step 2/16 : RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list
@@ -8,7 +8,7 @@ Step 3/16 : RUN apt-get update && apt-get upgrade -y
  ---> Using cache
  ---> ac15c76dcec0
 Step 4/16 : RUN apt-get install -y vim gcc make lsb-release wget gnupg sudo && apt-get install -y libffi-dev curl build-essential libssl-dev zlib1g-dev libreadline6-dev && apt-get install -y libncurses5-dev libgdbm-dev libnss3-dev libreadline-dev wget libgl1-mesa-dev
- ---> Running in c3d706eca08e
+ ---> Running in f3eb7903df04
 Reading package lists...
 Building dependency tree...
 Reading state information...
@@ -93,8 +93,8 @@ Get:34 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libisl21 amd64 0.
 Get:35 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libmpfr6 amd64 4.0.2-1 [240 kB]
 Get:36 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libmpc3 amd64 1.1.0-1 [40.8 kB]
 Get:37 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 cpp-9 amd64 9.2.1-9ubuntu2 [8957 kB]
-sh: 2 行: 15394 Terminated              docker build -t ubuntu-19-10-pyqt-pycharm .
+sh: 2 行: 19129 Terminated              docker build -t ubuntu-19-10-pyqt-pycharm .
 
-real	0m18.747s
-user	0m0.026s
-sys	0m0.023s
+real	0m13.616s
+user	0m0.025s
+sys	0m0.025s

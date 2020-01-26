@@ -1,23 +1,130 @@
-Sending build context to Docker daemon  1.514MB
+Sending build context to Docker daemon  452.6kB
 Step 1/16 : FROM ubuntu:19.10
  ---> dcbcfdcd50bb
 Step 2/16 : RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list
  ---> Using cache
- ---> 4a1254a09018
+ ---> 7260c1d2bc3c
 Step 3/16 : RUN apt-get update && apt-get upgrade -y
  ---> Using cache
- ---> 754101c9611a
+ ---> ac15c76dcec0
 Step 4/16 : RUN apt-get install -y vim gcc make lsb-release wget gnupg sudo && apt-get install -y libffi-dev curl build-essential libssl-dev zlib1g-dev libreadline6-dev && apt-get install -y libncurses5-dev libgdbm-dev libnss3-dev libreadline-dev wget libgl1-mesa-dev
- ---> Using cache
- ---> 163290507579
-Step 5/16 : RUN cd /usr/local/src && curl -LO https://prdownloads.sourceforge.net/tcl/tcl8.6.10-src.tar.gz && tar xvf tcl8.6.10-src.tar.gz && cd tcl8.6.10 && cd unix && export CFLAGS=-DTCL_UTF_MAX=6 && export MAKEFLAGS=-j5 && ./configure --prefix=/usr/local --enable-threads --enable-shared --enable-symbols --enable-64bit --enable-langinfo --enable-man-symlinks && make -j12 && make -j12 install
- ---> Running in 82a3a4c83483
-[91m  % Total    % Received % Xferd  Average Speed   [0m[91mTime  [0m[91m  Time[0m[91m  [0m[91m   Time  Cur[0m[91mrent[0m[91m
-                [0m[91m                [0m[91m Dloa[0m[91md  [0m[91mUp[0m[91mload  [0m[91m Total   [0m[91mSpent    Lef[0m[91mt  Speed
-[0m[91m  0[0m[91m     [0m[91m0  [0m[91m  [0m[91m0     [0m[91m0 [0m[91m   [0m[91m0  [0m[91m   0 [0m[91m   [0m[91m  0   [0m[91m  [0m[91m 0 [0m[91m--:--[0m[91m:--[0m[91m --:-[0m[91m-:-[0m[91m- -[0m[91m-:-[0m[91m-:-- [0m[91m   [0m[91m 0[0m[91m  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0[0m[91m100   366  100   366    0     0    611      0 --:--:-- --:-[0m[91m-:-- --:--:--  [0m[91m 611
-[0m[91m100   335  100   335    0     0    302     [0m[91m 0  0:00:01  0:00:01 [0m[91m--:--:--   302
-[0m[91m  0 9906k    0 98304    0     0  76680   [0m[91m   0  0:02:1[0m[91m2  0:00:01  0:[0m[91m02:11 766[0m[91m80[0m[91m  1 9906k    1  160k    0     0  72017      0  0:0[0m[91m2:20  0:00:02  [0m[91m0:02:18 65[0m[91m997[0m[91m  4 9906k    4  400k    0     0   111k      0  0:01:28  0:00:03  0:01:25  132k[0m[91m  7 9906k    7  784k    0     0   182k    [0m[91m  0  0:00[0m[91m:54  0:00:04  0:00:50  228k[0m[91m 18 9906k   18 1840k    0     0   348k      0  0:[0m[91m00:28  0:00:05  0:00:23  435k[0m[91m 24 9906k   24 2448k    0     0   389k  [0m[91m    0  0:00:25  0:00:06[0m[91m  0:00[0m[91m:19  469k[0m[91m 28 9906k   28 2864k    0     0   392k      0  0:[0m[91m00:25  0:00:0[0m[91m7  0[0m[91m:00:18  538k[0m[91m 33 9906k   33 3328k    0     0   401k     [0m[91m 0  0:00:24  0:00:08  0:0[0m[91m0:16  622k[0m[91m 38 9906k   38 3808k    0  [0m[91m   0   410k      0  0:00:24  [0m[91m0:00:09  0:00[0m[91m:15  606k[0m[91m 42 9906k   42 4224k    0     0   410k      0  0:00:24  0:00:1[0m[91m0  0:00:14 [0m[91m 476k[0m[91m 46 9906k   46 4576k    0     0   405k      0  0:00:24  0:[0m[91m00:11  0:00:13  426k[0m[91m 50 9906k   50 5040k    0     0   410k      0  0:00:24  0:00:12[0m[91m  0:00:12  436[0m[91mk[0m[91m 55 9906k   55 5472k    0     0   412k      0  0:00:24  0:00:13  0:00:1[0m[91m1  429k[0m[91m 57 9906k   57 5728k    0     0   401k      0  0:00:24  0:00:14  0:00:[0m[91m10  383k[0msh: 2 行: 19583 Terminated              docker build -t ubuntu-19-10-pyqt-pycharm .
+ ---> Running in 34330b473d49
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  binutils binutils-common binutils-x86-64-linux-gnu ca-certificates cpp cpp-9
+  dirmngr distro-info-data file gcc-9 gnupg-l10n gnupg-utils gpg gpg-agent
+  gpg-wks-client gpg-wks-server gpgconf gpgsm libasan5 libasn1-8-heimdal
+  libassuan0 libatomic1 libbinutils libc-dev-bin libc6-dev libcc1-0 libexpat1
+  libgcc-9-dev libgomp1 libgpm2 libgssapi3-heimdal libhcrypto4-heimdal
+  libheimbase1-heimdal libheimntlm0-heimdal libhx509-5-heimdal libisl21
+  libitm1 libkrb5-26-heimdal libksba8 libldap-2.4-2 libldap-common liblsan0
+  libmagic-mgc libmagic1 libmpc3 libmpdec2 libmpfr6 libnpth0 libpsl5
+  libpython3-stdlib libpython3.7 libpython3.7-minimal libpython3.7-stdlib
+  libquadmath0 libreadline8 libroken18-heimdal libsasl2-2 libsasl2-modules
+  libsasl2-modules-db libsqlite3-0 libssl1.1 libtsan0 libubsan1
+  libwind0-heimdal linux-libc-dev manpages manpages-dev mime-support openssl
+  pinentry-curses publicsuffix python3 python3-minimal python3.7
+  python3.7-minimal readline-common vim-common vim-runtime xxd xz-utils
+Suggested packages:
+  binutils-doc cpp-doc gcc-9-locales dbus-user-session libpam-systemd
+  pinentry-gnome3 tor gcc-multilib autoconf automake libtool flex bison gdb
+  gcc-doc gcc-9-multilib gcc-9-doc libgcc1-dbg libgomp1-dbg libitm1-dbg
+  libatomic1-dbg libasan5-dbg liblsan0-dbg libtsan0-dbg libubsan1-dbg
+  libquadmath0-dbg parcimonie xloadimage scdaemon glibc-doc gpm
+  libsasl2-modules-gssapi-mit | libsasl2-modules-gssapi-heimdal
+  libsasl2-modules-ldap libsasl2-modules-otp libsasl2-modules-sql make-doc
+  man-browser pinentry-doc python3-doc python3-tk python3-venv python3.7-venv
+  python3.7-doc binfmt-support readline-doc ctags vim-doc vim-scripts
+The following NEW packages will be installed:
+  binutils binutils-common binutils-x86-64-linux-gnu ca-certificates cpp cpp-9
+  dirmngr distro-info-data file gcc gcc-9 gnupg gnupg-l10n gnupg-utils gpg
+  gpg-agent gpg-wks-client gpg-wks-server gpgconf gpgsm libasan5
+  libasn1-8-heimdal libassuan0 libatomic1 libbinutils libc-dev-bin libc6-dev
+  libcc1-0 libexpat1 libgcc-9-dev libgomp1 libgpm2 libgssapi3-heimdal
+  libhcrypto4-heimdal libheimbase1-heimdal libheimntlm0-heimdal
+  libhx509-5-heimdal libisl21 libitm1 libkrb5-26-heimdal libksba8
+  libldap-2.4-2 libldap-common liblsan0 libmagic-mgc libmagic1 libmpc3
+  libmpdec2 libmpfr6 libnpth0 libpsl5 libpython3-stdlib libpython3.7
+  libpython3.7-minimal libpython3.7-stdlib libquadmath0 libreadline8
+  libroken18-heimdal libsasl2-2 libsasl2-modules libsasl2-modules-db
+  libsqlite3-0 libssl1.1 libtsan0 libubsan1 libwind0-heimdal linux-libc-dev
+  lsb-release make manpages manpages-dev mime-support openssl pinentry-curses
+  publicsuffix python3 python3-minimal python3.7 python3.7-minimal
+  readline-common sudo vim vim-common vim-runtime wget xxd xz-utils
+0 upgraded, 87 newly installed, 0 to remove and 0 not upgraded.
+Need to get 53.9 MB of archives.
+After this operation, 219 MB of additional disk space will be used.
+Get:1 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libssl1.1 amd64 1.1.1c-1ubuntu4 [1314 kB]
+Get:2 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 libpython3.7-minimal amd64 3.7.5-2~19.10 [546 kB]
+Get:3 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libexpat1 amd64 2.2.7-2 [73.8 kB]
+Get:4 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 python3.7-minimal amd64 3.7.5-2~19.10 [1766 kB]
+Get:5 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 python3-minimal amd64 3.7.5-1 [23.3 kB]
+Get:6 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 mime-support all 3.63ubuntu1 [30.8 kB]
+Get:7 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libmpdec2 amd64 2.4.2-2 [84.1 kB]
+Get:8 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 readline-common all 8.0-3 [53.5 kB]
+Get:9 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libreadline8 amd64 8.0-3 [130 kB]
+Get:10 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 libsqlite3-0 amd64 3.29.0-2ubuntu0.1 [537 kB]
+Get:11 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 libpython3.7-stdlib amd64 3.7.5-2~19.10 [1731 kB]
+Get:12 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 python3.7 amd64 3.7.5-2~19.10 [301 kB]
+Get:13 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libpython3-stdlib amd64 3.7.5-1 [6848 B]
+Get:14 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 python3 amd64 3.7.5-1 [47.2 kB]
+Get:15 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 openssl amd64 1.1.1c-1ubuntu4 [619 kB]
+Get:16 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 ca-certificates all 20190110 [146 kB]
+Get:17 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 distro-info-data all 0.40ubuntu3 [4616 B]
+Get:18 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 libmagic-mgc amd64 1:5.37-5ubuntu0.1 [210 kB]
+Get:19 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 libmagic1 amd64 1:5.37-5ubuntu0.1 [75.4 kB]
+Get:20 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 file amd64 1:5.37-5ubuntu0.1 [23.2 kB]
+Get:21 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 lsb-release all 11.0.1ubuntu1 [10.8 kB]
+Get:22 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 sudo amd64 1.8.27-1ubuntu4 [502 kB]
+Get:23 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 xxd amd64 2:8.1.0875-5ubuntu2 [49.5 kB]
+Get:24 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 vim-common all 2:8.1.0875-5ubuntu2 [84.1 kB]
+Get:25 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 xz-utils amd64 5.2.4-1 [82.5 kB]
+Get:26 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libpsl5 amd64 0.20.2-2 [50.0 kB]
+Get:27 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 manpages all 5.02-1 [1297 kB]
+Get:28 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 publicsuffix all 20190723.1836-1 [110 kB]
+Get:29 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 wget amd64 1.20.3-1ubuntu1 [349 kB]
+Get:30 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 binutils-common amd64 2.33-2ubuntu1.2 [203 kB]
+Get:31 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 libbinutils amd64 2.33-2ubuntu1.2 [475 kB]
+Get:32 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 binutils-x86-64-linux-gnu amd64 2.33-2ubuntu1.2 [1639 kB]
+Get:33 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 binutils amd64 2.33-2ubuntu1.2 [3400 B]
+Get:34 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libisl21 amd64 0.21-2 [576 kB]
+Get:35 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libmpfr6 amd64 4.0.2-1 [240 kB]
+Get:36 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libmpc3 amd64 1.1.0-1 [40.8 kB]
+Get:37 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 cpp-9 amd64 9.2.1-9ubuntu2 [8957 kB]
+Get:38 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 cpp amd64 4:9.2.1-3.1ubuntu1 [27.6 kB]
+Get:39 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libassuan0 amd64 2.5.3-7ubuntu1 [35.6 kB]
+Get:40 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 gpgconf amd64 2.2.12-1ubuntu3 [123 kB]
+Get:41 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libksba8 amd64 1.3.5-2 [92.6 kB]
+Get:42 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libroken18-heimdal amd64 7.5.0+dfsg-3build1 [41.8 kB]
+Get:43 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libasn1-8-heimdal amd64 7.5.0+dfsg-3build1 [181 kB]
+Get:44 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libheimbase1-heimdal amd64 7.5.0+dfsg-3build1 [29.7 kB]
+Get:45 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libhcrypto4-heimdal amd64 7.5.0+dfsg-3build1 [87.2 kB]
+Get:46 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libwind0-heimdal amd64 7.5.0+dfsg-3build1 [47.9 kB]
+Get:47 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libhx509-5-heimdal amd64 7.5.0+dfsg-3build1 [107 kB]
+Get:48 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libkrb5-26-heimdal amd64 7.5.0+dfsg-3build1 [206 kB]
+Get:49 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libheimntlm0-heimdal amd64 7.5.0+dfsg-3build1 [15.0 kB]
+Get:50 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libgssapi3-heimdal amd64 7.5.0+dfsg-3build1 [96.0 kB]
+Get:51 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libsasl2-modules-db amd64 2.1.27+dfsg-1build3 [14.6 kB]
+Get:52 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libsasl2-2 amd64 2.1.27+dfsg-1build3 [49.4 kB]
+Get:53 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libldap-common all 2.4.48+dfsg-1ubuntu1 [17.3 kB]
+Get:54 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libldap-2.4-2 amd64 2.4.48+dfsg-1ubuntu1 [155 kB]
+Get:55 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libnpth0 amd64 1.6-1 [7736 B]
+Get:56 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 dirmngr amd64 2.2.12-1ubuntu3 [324 kB]
+Get:57 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libcc1-0 amd64 9.2.1-9ubuntu2 [49.1 kB]
+Get:58 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libgomp1 amd64 9.2.1-9ubuntu2 [89.3 kB]
+Get:59 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libitm1 amd64 9.2.1-9ubuntu2 [28.2 kB]
+Get:60 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libatomic1 amd64 9.2.1-9ubuntu2 [9220 B]
+Get:61 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libasan5 amd64 9.2.1-9ubuntu2 [395 kB]
+Get:62 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 liblsan0 amd64 9.2.1-9ubuntu2 [139 kB]
+Get:63 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libtsan0 amd64 9.2.1-9ubuntu2 [301 kB]
+Get:64 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libubsan1 amd64 9.2.1-9ubuntu2 [130 kB]
+Get:65 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libquadmath0 amd64 9.2.1-9ubuntu2 [146 kB]
+Get:66 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libgcc-9-dev amd64 9.2.1-9ubuntu2 [2359 kB]
+Get:67 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 gcc-9 amd64 9.2.1-9ubuntu2 [9763 kB]
+sh: 2 行: 14564 Terminated              docker build -t ubuntu-19-10-pyqt-pycharm .
 
-real	0m15.657s
-user	0m0.032s
-sys	0m0.018s
+real	0m18.236s
+user	0m0.033s
+sys	0m0.032s
