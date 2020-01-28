@@ -64,10 +64,4 @@ for ((RETRY_ROUND_CNT=1;RETRY_ROUND_CNT<=$RETRY_MX_CNT;RETRY_ROUND_CNT++));do
   printf "docker retry $(printf '%02g' $RETRY_ROUND_CNT) round build process has done.ending docker retry $(printf '%02g' $RETRY_ROUND_CNT) round build proccess.elapsed time[%s(seconds)]\n" $BUILD_ELAPSED
 done
 
-git add .gitignore
-git add --all *
-git commit -m "環境構築"
-
-git status
-
 echo DETAILS #この行以降に詳細ログを追記されていく
