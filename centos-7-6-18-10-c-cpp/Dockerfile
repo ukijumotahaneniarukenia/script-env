@@ -64,9 +64,9 @@ RUN cd /usr/local/src && \
 curl -LO https://download.java.net/java/GA/jdk13/5b8a42f3905b406298b72d750b6919f6/33/GPL/openjdk-13_linux-x64_bin.tar.gz && \
 tar -zxvf openjdk-13_linux-x64_bin.tar.gz
 
-#eclipseインストール
-COPY eclipse-inst-linux64.tar.gz /usr/local/src/eclipse-inst-linux64.tar.gz
-RUN cd /usr/local/src && tar xvf eclipse-inst-linux64.tar.gz
+#VScodeいんすこ
+COPY code-1.41.1-1576681965.el7.x86_64.rpm /usr/local/src/code-1.41.1-1576681965.el7.x86_64.rpm
+RUN cd /usr/local/src && yum install -y code-1.41.1-1576681965.el7.x86_64.rpm
 
 #環境変数の設定
 RUN echo 'export JAVA_HOME=/usr/local/src/jdk-13' >> ~/.bashrc && \
@@ -95,8 +95,7 @@ sh installer.sh ~/.vim/bundle && rm -rf installer.sh
 
 #環境変数の設定
 RUN echo 'export JAVA_HOME=/usr/local/src/jdk-13' >> ~/.bashrc && \
-echo 'export PATH=$PATH:$JAVA_HOME/bin' >> ~/.bashrc && \
-echo 'alias ec="~/eclipse/cpp-2019-12/eclipse/eclipse 1>~/launch_eclipse.log 2>&1 &"' >>~/.bashrc
+echo 'export PATH=$PATH:$JAVA_HOME/bin' >> ~/.bashrc
 
 #mysqlサービス外部公開ポート
 EXPOSE 3306
