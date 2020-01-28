@@ -37,3 +37,6 @@ ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -vE $(docker images 
 #コンテナ作成に失敗したdockerイメージを削除
 #後処理
 docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
+
+#コンテナ起動に失敗したdockerコンテナを削除
+docker ps -a | awk '{print $1,$2}' | tail -n+2 | grep -vE $(ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log|xargs|tr ' ' '|') | awk '{print $1}' | xargs -I@ bash -c 'docker stop @ && docker rm @'
