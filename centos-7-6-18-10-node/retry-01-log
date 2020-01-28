@@ -1,0 +1,1433 @@
+Sending build context to Docker daemon  1.025MB
+Step 1/70 : FROM centos:7.6.1810
+ ---> f1cb7c7d58b7
+Step 2/70 : RUN groupadd -g 1001 kuraine && useradd -m -g kuraine -u 1001 kuraine && chsh -s /bin/bash kuraine && echo 'kuraine_pwd' | passwd --stdin kuraine && echo 'kuraine ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Using cache
+ ---> da5918f8e3d1
+Step 3/70 : RUN groupadd -g 991 elasticsearch && useradd -m -g elasticsearch -u 994 elasticsearch && chsh -s /bin/bash elasticsearch && echo 'elasticsearch_pwd' | passwd --stdin elasticsearch && echo 'elasticsearch ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Running in 872451d3a440
+[91mchsh: Shell not changed.
+[0mChanging shell for elasticsearch.
+Changing password for user elasticsearch.
+passwd: all authentication tokens updated successfully.
+Removing intermediate container 872451d3a440
+ ---> 82f7a74da4c3
+Step 4/70 : RUN groupadd -g 990 kibana && useradd -m -g kibana -u 993 kibana && chsh -s /bin/bash kibana && echo 'kibana_pwd' | passwd --stdin kibana && echo 'kibana ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Running in 85e8f9177caf
+[91mchsh: Shell not changed.
+[0mChanging shell for kibana.
+Changing password for user kibana.
+passwd: all authentication tokens updated successfully.
+Removing intermediate container 85e8f9177caf
+ ---> 5d78730871a5
+Step 5/70 : RUN echo 'root_pwd' | passwd --stdin root
+ ---> Running in 9e01a72808da
+Changing password for user root.
+passwd: all authentication tokens updated successfully.
+Removing intermediate container 9e01a72808da
+ ---> 77407be0ad38
+Step 6/70 : RUN yum -y install epel-release
+ ---> Running in c36417718faf
+Loaded plugins: fastestmirror, ovl
+Determining fastest mirrors
+ * base: ftp-srv2.kddilabs.jp
+ * extras: ftp-srv2.kddilabs.jp
+ * updates: ftp-srv2.kddilabs.jp
+[91mhttp://ftp-srv2.kddilabs.jp/Linux/packages/CentOS/7.7.1908/updates/x86_64/repodata/bb42a9e94c516a24e7be9a609f1ad4874b09d90b7ed7bfbd77c5e783e49b9f03-primary.sqlite.bz2: [Errno 12] Timeout on http://ftp-srv2.kddilabs.jp/Linux/packages/CentOS/7.7.1908/updates/x86_64/repodata/bb42a9e94c516a24e7be9a609f1ad4874b09d90b7ed7bfbd77c5e783e49b9f03-primary.sqlite.bz2: (28, 'Operation too slow. Less than 1000 bytes/sec transferred the last 30 seconds')
+[0m[91mTrying other mirror.
+[0mResolving Dependencies
+--> Running transaction check
+---> Package epel-release.noarch 0:7-11 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package                Arch             Version         Repository        Size
+================================================================================
+Installing:
+ epel-release           noarch           7-11            extras            15 k
+
+Transaction Summary
+================================================================================
+Install  1 Package
+
+Total download size: 15 k
+Installed size: 24 k
+Downloading packages:
+[91mwarning: /var/cache/yum/x86_64/7/extras/packages/epel-release-7-11.noarch.rpm: Header V3 RSA/SHA256 Signature, key ID f4a80eb5: NOKEY
+[0mPublic key for epel-release-7-11.noarch.rpm is not installed
+Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+[91mImporting GPG key 0xF4A80EB5:
+ Userid     : "CentOS-7 Key (CentOS 7 Official Signing Key) <security@centos.org>"
+ Fingerprint: 6341 ab27 53d7 8a78 a7c2 7bb1 24c6 a8a7 f4a8 0eb5
+ Package    : centos-release-7-6.1810.2.el7.centos.x86_64 (@CentOS)
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+[0mRunning transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : epel-release-7-11.noarch                                     1/1 
+  Verifying  : epel-release-7-11.noarch                                     1/1 
+
+Installed:
+  epel-release.noarch 0:7-11                                                    
+
+Complete!
+Removing intermediate container c36417718faf
+ ---> 78da7ab35a05
+Step 7/70 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man moreutils lbzip2 which perl-Digest-SHA
+ ---> Running in 260478e195ee
+Loaded plugins: fastestmirror, ovl
+Loading mirror speeds from cached hostfile
+ * base: ftp-srv2.kddilabs.jp
+ * epel: ftp.iij.ad.jp
+ * extras: ftp-srv2.kddilabs.jp
+ * updates: ftp-srv2.kddilabs.jp
+No package libssl-dev available.
+No package libbz2-dev available.
+No package libreadline-dev available.
+No package libsqlite3-dev available.
+No package libffi-devpandoc available.
+Package iputils-20160308-10.el7.x86_64 already installed and latest version
+Resolving Dependencies
+--> Running transaction check
+---> Package bind-utils.x86_64 32:9.11.4-9.P2.el7 will be installed
+--> Processing Dependency: bind-libs-lite(x86-64) = 32:9.11.4-9.P2.el7 for package: 32:bind-utils-9.11.4-9.P2.el7.x86_64
+--> Processing Dependency: bind-libs(x86-64) = 32:9.11.4-9.P2.el7 for package: 32:bind-utils-9.11.4-9.P2.el7.x86_64
+--> Processing Dependency: liblwres.so.160()(64bit) for package: 32:bind-utils-9.11.4-9.P2.el7.x86_64
+--> Processing Dependency: libisccfg.so.160()(64bit) for package: 32:bind-utils-9.11.4-9.P2.el7.x86_64
+--> Processing Dependency: libisc.so.169()(64bit) for package: 32:bind-utils-9.11.4-9.P2.el7.x86_64
+--> Processing Dependency: libirs.so.160()(64bit) for package: 32:bind-utils-9.11.4-9.P2.el7.x86_64
+--> Processing Dependency: libdns.so.1102()(64bit) for package: 32:bind-utils-9.11.4-9.P2.el7.x86_64
+--> Processing Dependency: libbind9.so.160()(64bit) for package: 32:bind-utils-9.11.4-9.P2.el7.x86_64
+--> Processing Dependency: libGeoIP.so.1()(64bit) for package: 32:bind-utils-9.11.4-9.P2.el7.x86_64
+---> Package bzip2-devel.x86_64 0:1.0.6-13.el7 will be installed
+---> Package expect.x86_64 0:5.45-14.el7_1 will be installed
+--> Processing Dependency: libtcl8.5.so()(64bit) for package: expect-5.45-14.el7_1.x86_64
+---> Package gcc.x86_64 0:4.8.5-39.el7 will be installed
+--> Processing Dependency: libgomp = 4.8.5-39.el7 for package: gcc-4.8.5-39.el7.x86_64
+--> Processing Dependency: cpp = 4.8.5-39.el7 for package: gcc-4.8.5-39.el7.x86_64
+--> Processing Dependency: libgcc >= 4.8.5-39.el7 for package: gcc-4.8.5-39.el7.x86_64
+--> Processing Dependency: glibc-devel >= 2.2.90-12 for package: gcc-4.8.5-39.el7.x86_64
+--> Processing Dependency: libmpfr.so.4()(64bit) for package: gcc-4.8.5-39.el7.x86_64
+--> Processing Dependency: libmpc.so.3()(64bit) for package: gcc-4.8.5-39.el7.x86_64
+--> Processing Dependency: libgomp.so.1()(64bit) for package: gcc-4.8.5-39.el7.x86_64
+---> Package gdbm-devel.x86_64 0:1.10-8.el7 will be installed
+---> Package git.x86_64 0:1.8.3.1-21.el7_7 will be installed
+--> Processing Dependency: perl-Git = 1.8.3.1-21.el7_7 for package: git-1.8.3.1-21.el7_7.x86_64
+--> Processing Dependency: perl >= 5.008 for package: git-1.8.3.1-21.el7_7.x86_64
+--> Processing Dependency: rsync for package: git-1.8.3.1-21.el7_7.x86_64
+--> Processing Dependency: perl(warnings) for package: git-1.8.3.1-21.el7_7.x86_64
+--> Processing Dependency: perl(vars) for package: git-1.8.3.1-21.el7_7.x86_64
+--> Processing Dependency: perl(strict) for package: git-1.8.3.1-21.el7_7.x86_64
+--> Processing Dependency: perl(lib) for package: git-1.8.3.1-21.el7_7.x86_64
+--> Processing Dependency: perl(Term::ReadKey) for package: git-1.8.3.1-21.el7_7.x86_64
+--> Processing Dependency: perl(Git) for package: git-1.8.3.1-21.el7_7.x86_64
+--> Processing Dependency: perl(Getopt::Long) for package: git-1.8.3.1-21.el7_7.x86_64
+--> Processing Dependency: perl(File::stat) for package: git-1.8.3.1-21.el7_7.x86_64
+--> Processing Dependency: perl(File::Temp) for package: git-1.8.3.1-21.el7_7.x86_64
+--> Processing Dependency: perl(File::Spec) for package: git-1.8.3.1-21.el7_7.x86_64
+--> Processing Dependency: perl(File::Path) for package: git-1.8.3.1-21.el7_7.x86_64
+--> Processing Dependency: perl(File::Find) for package: git-1.8.3.1-21.el7_7.x86_64
+--> Processing Dependency: perl(File::Copy) for package: git-1.8.3.1-21.el7_7.x86_64
+--> Processing Dependency: perl(File::Basename) for package: git-1.8.3.1-21.el7_7.x86_64
+--> Processing Dependency: perl(Exporter) for package: git-1.8.3.1-21.el7_7.x86_64
+--> Processing Dependency: perl(Error) for package: git-1.8.3.1-21.el7_7.x86_64
+--> Processing Dependency: less for package: git-1.8.3.1-21.el7_7.x86_64
+--> Processing Dependency: /usr/bin/perl for package: git-1.8.3.1-21.el7_7.x86_64
+---> Package iproute.x86_64 0:4.11.0-25.el7_7.2 will be installed
+--> Processing Dependency: libmnl.so.0(LIBMNL_1.0)(64bit) for package: iproute-4.11.0-25.el7_7.2.x86_64
+--> Processing Dependency: libxtables.so.10()(64bit) for package: iproute-4.11.0-25.el7_7.2.x86_64
+--> Processing Dependency: libmnl.so.0()(64bit) for package: iproute-4.11.0-25.el7_7.2.x86_64
+---> Package lbzip2.x86_64 0:2.5-1.el7 will be installed
+---> Package libffi-devel.x86_64 0:3.0.13-18.el7 will be installed
+---> Package libuuid-devel.x86_64 0:2.23.2-61.el7_7.1 will be installed
+--> Processing Dependency: libuuid = 2.23.2-61.el7_7.1 for package: libuuid-devel-2.23.2-61.el7_7.1.x86_64
+---> Package lsof.x86_64 0:4.87-6.el7 will be installed
+---> Package make.x86_64 1:3.82-24.el7 will be installed
+---> Package man-db.x86_64 0:2.6.3-11.el7 will be installed
+--> Processing Dependency: groff-base for package: man-db-2.6.3-11.el7.x86_64
+--> Processing Dependency: libpipeline.so.1()(64bit) for package: man-db-2.6.3-11.el7.x86_64
+---> Package moreutils.x86_64 0:0.49-2.el7 will be installed
+--> Processing Dependency: perl(IPC::Run) for package: moreutils-0.49-2.el7.x86_64
+--> Processing Dependency: perl-Time-Duration for package: moreutils-0.49-2.el7.x86_64
+--> Processing Dependency: perl-TimeDate for package: moreutils-0.49-2.el7.x86_64
+---> Package ncurses-devel.x86_64 0:5.9-14.20130511.el7_4 will be installed
+---> Package net-tools.x86_64 0:2.0-0.25.20131004git.el7 will be installed
+---> Package nkf.x86_64 1:2.1.3-5.el7 will be installed
+---> Package openssh-clients.x86_64 0:7.4p1-21.el7 will be installed
+--> Processing Dependency: openssh = 7.4p1-21.el7 for package: openssh-clients-7.4p1-21.el7.x86_64
+--> Processing Dependency: fipscheck-lib(x86-64) >= 1.3.0 for package: openssh-clients-7.4p1-21.el7.x86_64
+--> Processing Dependency: libfipscheck.so.1()(64bit) for package: openssh-clients-7.4p1-21.el7.x86_64
+--> Processing Dependency: libedit.so.0()(64bit) for package: openssh-clients-7.4p1-21.el7.x86_64
+---> Package openssh-server.x86_64 0:7.4p1-21.el7 will be installed
+--> Processing Dependency: libwrap.so.0()(64bit) for package: openssh-server-7.4p1-21.el7.x86_64
+---> Package openssl.x86_64 1:1.0.2k-19.el7 will be installed
+--> Processing Dependency: openssl-libs(x86-64) = 1:1.0.2k-19.el7 for package: 1:openssl-1.0.2k-19.el7.x86_64
+---> Package openssl-devel.x86_64 1:1.0.2k-19.el7 will be installed
+--> Processing Dependency: krb5-devel(x86-64) for package: 1:openssl-devel-1.0.2k-19.el7.x86_64
+---> Package parallel.noarch 0:20160222-1.el7 will be installed
+---> Package perl-Digest-SHA.x86_64 1:5.85-4.el7 will be installed
+--> Processing Dependency: perl(Digest::base) for package: 1:perl-Digest-SHA-5.85-4.el7.x86_64
+--> Processing Dependency: perl(Carp) for package: 1:perl-Digest-SHA-5.85-4.el7.x86_64
+---> Package psmisc.x86_64 0:22.20-16.el7 will be installed
+---> Package readline-devel.x86_64 0:6.2-11.el7 will be installed
+--> Processing Dependency: readline = 6.2-11.el7 for package: readline-devel-6.2-11.el7.x86_64
+---> Package sqlite-devel.x86_64 0:3.7.17-8.el7 will be installed
+---> Package sudo.x86_64 0:1.8.23-4.el7_7.1 will be installed
+---> Package tk-devel.x86_64 1:8.5.13-6.el7 will be installed
+--> Processing Dependency: tk = 1:8.5.13-6.el7 for package: 1:tk-devel-8.5.13-6.el7.x86_64
+--> Processing Dependency: tcl-devel = 1:8.5.13 for package: 1:tk-devel-8.5.13-6.el7.x86_64
+--> Processing Dependency: libXft-devel for package: 1:tk-devel-8.5.13-6.el7.x86_64
+--> Processing Dependency: libX11-devel for package: 1:tk-devel-8.5.13-6.el7.x86_64
+---> Package traceroute.x86_64 3:2.0.22-2.el7 will be installed
+---> Package tree.x86_64 0:1.6.0-10.el7 will be installed
+---> Package which.x86_64 0:2.20-7.el7 will be installed
+---> Package xz-devel.x86_64 0:5.2.2-1.el7 will be installed
+---> Package zlib-devel.x86_64 0:1.2.7-18.el7 will be installed
+--> Running transaction check
+---> Package GeoIP.x86_64 0:1.5.0-14.el7 will be installed
+--> Processing Dependency: geoipupdate for package: GeoIP-1.5.0-14.el7.x86_64
+---> Package bind-libs.x86_64 32:9.11.4-9.P2.el7 will be installed
+--> Processing Dependency: bind-license = 32:9.11.4-9.P2.el7 for package: 32:bind-libs-9.11.4-9.P2.el7.x86_64
+---> Package bind-libs-lite.x86_64 32:9.11.4-9.P2.el7 will be installed
+---> Package cpp.x86_64 0:4.8.5-39.el7 will be installed
+---> Package fipscheck-lib.x86_64 0:1.4.1-6.el7 will be installed
+--> Processing Dependency: /usr/bin/fipscheck for package: fipscheck-lib-1.4.1-6.el7.x86_64
+---> Package glibc-devel.x86_64 0:2.17-292.el7 will be installed
+--> Processing Dependency: glibc-headers = 2.17-292.el7 for package: glibc-devel-2.17-292.el7.x86_64
+--> Processing Dependency: glibc = 2.17-292.el7 for package: glibc-devel-2.17-292.el7.x86_64
+--> Processing Dependency: glibc-headers for package: glibc-devel-2.17-292.el7.x86_64
+---> Package groff-base.x86_64 0:1.22.2-8.el7 will be installed
+---> Package iptables.x86_64 0:1.4.21-33.el7 will be installed
+--> Processing Dependency: libnfnetlink.so.0()(64bit) for package: iptables-1.4.21-33.el7.x86_64
+--> Processing Dependency: libnetfilter_conntrack.so.3()(64bit) for package: iptables-1.4.21-33.el7.x86_64
+---> Package krb5-devel.x86_64 0:1.15.1-37.el7_7.2 will be installed
+--> Processing Dependency: libkadm5(x86-64) = 1.15.1-37.el7_7.2 for package: krb5-devel-1.15.1-37.el7_7.2.x86_64
+--> Processing Dependency: krb5-libs(x86-64) = 1.15.1-37.el7_7.2 for package: krb5-devel-1.15.1-37.el7_7.2.x86_64
+--> Processing Dependency: libverto-devel for package: krb5-devel-1.15.1-37.el7_7.2.x86_64
+--> Processing Dependency: libselinux-devel for package: krb5-devel-1.15.1-37.el7_7.2.x86_64
+--> Processing Dependency: libcom_err-devel for package: krb5-devel-1.15.1-37.el7_7.2.x86_64
+--> Processing Dependency: keyutils-libs-devel for package: krb5-devel-1.15.1-37.el7_7.2.x86_64
+---> Package less.x86_64 0:458-9.el7 will be installed
+---> Package libX11-devel.x86_64 0:1.6.7-2.el7 will be installed
+--> Processing Dependency: libX11 = 1.6.7-2.el7 for package: libX11-devel-1.6.7-2.el7.x86_64
+--> Processing Dependency: pkgconfig(xcb) >= 1.11.1 for package: libX11-devel-1.6.7-2.el7.x86_64
+--> Processing Dependency: pkgconfig(xproto) for package: libX11-devel-1.6.7-2.el7.x86_64
+--> Processing Dependency: pkgconfig(xcb) for package: libX11-devel-1.6.7-2.el7.x86_64
+--> Processing Dependency: pkgconfig(kbproto) for package: libX11-devel-1.6.7-2.el7.x86_64
+--> Processing Dependency: libX11.so.6()(64bit) for package: libX11-devel-1.6.7-2.el7.x86_64
+--> Processing Dependency: libX11-xcb.so.1()(64bit) for package: libX11-devel-1.6.7-2.el7.x86_64
+---> Package libXft-devel.x86_64 0:2.3.2-2.el7 will be installed
+--> Processing Dependency: libXft = 2.3.2-2.el7 for package: libXft-devel-2.3.2-2.el7.x86_64
+--> Processing Dependency: pkgconfig(xrender) for package: libXft-devel-2.3.2-2.el7.x86_64
+--> Processing Dependency: pkgconfig(freetype2) for package: libXft-devel-2.3.2-2.el7.x86_64
+--> Processing Dependency: pkgconfig(fontconfig) for package: libXft-devel-2.3.2-2.el7.x86_64
+--> Processing Dependency: libXft.so.2()(64bit) for package: libXft-devel-2.3.2-2.el7.x86_64
+---> Package libedit.x86_64 0:3.0-12.20121213cvs.el7 will be installed
+---> Package libgcc.x86_64 0:4.8.5-36.el7 will be updated
+---> Package libgcc.x86_64 0:4.8.5-39.el7 will be an update
+---> Package libgomp.x86_64 0:4.8.5-39.el7 will be installed
+---> Package libmnl.x86_64 0:1.0.3-7.el7 will be installed
+---> Package libmpc.x86_64 0:1.0.1-3.el7 will be installed
+---> Package libpipeline.x86_64 0:1.2.3-3.el7 will be installed
+---> Package libuuid.x86_64 0:2.23.2-59.el7 will be updated
+--> Processing Dependency: libuuid = 2.23.2-59.el7 for package: libmount-2.23.2-59.el7.x86_64
+--> Processing Dependency: libuuid = 2.23.2-59.el7 for package: libblkid-2.23.2-59.el7.x86_64
+--> Processing Dependency: libuuid = 2.23.2-59.el7 for package: util-linux-2.23.2-59.el7.x86_64
+---> Package libuuid.x86_64 0:2.23.2-61.el7_7.1 will be an update
+---> Package mpfr.x86_64 0:3.1.1-4.el7 will be installed
+---> Package openssh.x86_64 0:7.4p1-21.el7 will be installed
+---> Package openssl-libs.x86_64 1:1.0.2k-16.el7 will be updated
+---> Package openssl-libs.x86_64 1:1.0.2k-19.el7 will be an update
+---> Package perl.x86_64 4:5.16.3-294.el7_6 will be installed
+--> Processing Dependency: perl-libs = 4:5.16.3-294.el7_6 for package: 4:perl-5.16.3-294.el7_6.x86_64
+--> Processing Dependency: perl(Socket) >= 1.3 for package: 4:perl-5.16.3-294.el7_6.x86_64
+--> Processing Dependency: perl(Scalar::Util) >= 1.10 for package: 4:perl-5.16.3-294.el7_6.x86_64
+--> Processing Dependency: perl-macros for package: 4:perl-5.16.3-294.el7_6.x86_64
+--> Processing Dependency: perl-libs for package: 4:perl-5.16.3-294.el7_6.x86_64
+--> Processing Dependency: perl(threads::shared) for package: 4:perl-5.16.3-294.el7_6.x86_64
+--> Processing Dependency: perl(threads) for package: 4:perl-5.16.3-294.el7_6.x86_64
+--> Processing Dependency: perl(constant) for package: 4:perl-5.16.3-294.el7_6.x86_64
+--> Processing Dependency: perl(Time::Local) for package: 4:perl-5.16.3-294.el7_6.x86_64
+--> Processing Dependency: perl(Time::HiRes) for package: 4:perl-5.16.3-294.el7_6.x86_64
+--> Processing Dependency: perl(Storable) for package: 4:perl-5.16.3-294.el7_6.x86_64
+--> Processing Dependency: perl(Socket) for package: 4:perl-5.16.3-294.el7_6.x86_64
+--> Processing Dependency: perl(Scalar::Util) for package: 4:perl-5.16.3-294.el7_6.x86_64
+--> Processing Dependency: perl(Pod::Simple::XHTML) for package: 4:perl-5.16.3-294.el7_6.x86_64
+--> Processing Dependency: perl(Pod::Simple::Search) for package: 4:perl-5.16.3-294.el7_6.x86_64
+--> Processing Dependency: perl(Filter::Util::Call) for package: 4:perl-5.16.3-294.el7_6.x86_64
+--> Processing Dependency: libperl.so()(64bit) for package: 4:perl-5.16.3-294.el7_6.x86_64
+---> Package perl-Carp.noarch 0:1.26-244.el7 will be installed
+---> Package perl-Digest.noarch 0:1.17-245.el7 will be installed
+---> Package perl-Error.noarch 1:0.17020-2.el7 will be installed
+---> Package perl-Exporter.noarch 0:5.68-3.el7 will be installed
+---> Package perl-File-Path.noarch 0:2.09-2.el7 will be installed
+---> Package perl-File-Temp.noarch 0:0.23.01-3.el7 will be installed
+---> Package perl-Getopt-Long.noarch 0:2.40-3.el7 will be installed
+--> Processing Dependency: perl(Pod::Usage) >= 1.14 for package: perl-Getopt-Long-2.40-3.el7.noarch
+--> Processing Dependency: perl(Text::ParseWords) for package: perl-Getopt-Long-2.40-3.el7.noarch
+---> Package perl-Git.noarch 0:1.8.3.1-21.el7_7 will be installed
+---> Package perl-IPC-Run.noarch 0:0.92-2.el7 will be installed
+--> Processing Dependency: perl(IO::Pty) >= 1.08 for package: perl-IPC-Run-0.92-2.el7.noarch
+---> Package perl-PathTools.x86_64 0:3.40-5.el7 will be installed
+---> Package perl-TermReadKey.x86_64 0:2.30-20.el7 will be installed
+---> Package perl-Time-Duration.noarch 0:1.06-17.el7 will be installed
+---> Package perl-TimeDate.noarch 1:2.30-2.el7 will be installed
+---> Package readline.x86_64 0:6.2-10.el7 will be updated
+---> Package readline.x86_64 0:6.2-11.el7 will be an update
+---> Package rsync.x86_64 0:3.1.2-6.el7_6.1 will be installed
+---> Package tcl.x86_64 1:8.5.13-8.el7 will be installed
+---> Package tcl-devel.x86_64 1:8.5.13-8.el7 will be installed
+---> Package tcp_wrappers-libs.x86_64 0:7.6-77.el7 will be installed
+---> Package tk.x86_64 1:8.5.13-6.el7 will be installed
+--> Processing Dependency: libfreetype.so.6()(64bit) for package: 1:tk-8.5.13-6.el7.x86_64
+--> Running transaction check
+---> Package bind-license.noarch 32:9.9.4-72.el7 will be updated
+---> Package bind-license.noarch 32:9.11.4-9.P2.el7 will be an update
+---> Package fipscheck.x86_64 0:1.4.1-6.el7 will be installed
+---> Package fontconfig-devel.x86_64 0:2.13.0-4.3.el7 will be installed
+--> Processing Dependency: fontconfig(x86-64) = 2.13.0-4.3.el7 for package: fontconfig-devel-2.13.0-4.3.el7.x86_64
+--> Processing Dependency: pkgconfig(expat) for package: fontconfig-devel-2.13.0-4.3.el7.x86_64
+--> Processing Dependency: gettext for package: fontconfig-devel-2.13.0-4.3.el7.x86_64
+--> Processing Dependency: libfontconfig.so.1()(64bit) for package: fontconfig-devel-2.13.0-4.3.el7.x86_64
+---> Package freetype.x86_64 0:2.8-14.el7 will be installed
+--> Processing Dependency: libpng15.so.15(PNG15_0)(64bit) for package: freetype-2.8-14.el7.x86_64
+--> Processing Dependency: libpng15.so.15()(64bit) for package: freetype-2.8-14.el7.x86_64
+---> Package freetype-devel.x86_64 0:2.8-14.el7 will be installed
+--> Processing Dependency: pkgconfig(libpng) for package: freetype-devel-2.8-14.el7.x86_64
+---> Package geoipupdate.x86_64 0:2.5.0-1.el7 will be installed
+---> Package glibc.x86_64 0:2.17-260.el7 will be updated
+--> Processing Dependency: glibc = 2.17-260.el7 for package: glibc-common-2.17-260.el7.x86_64
+---> Package glibc.x86_64 0:2.17-292.el7 will be an update
+---> Package glibc-headers.x86_64 0:2.17-292.el7 will be installed
+--> Processing Dependency: kernel-headers >= 2.2.1 for package: glibc-headers-2.17-292.el7.x86_64
+--> Processing Dependency: kernel-headers for package: glibc-headers-2.17-292.el7.x86_64
+---> Package keyutils-libs-devel.x86_64 0:1.5.8-3.el7 will be installed
+---> Package krb5-libs.x86_64 0:1.15.1-34.el7 will be updated
+---> Package krb5-libs.x86_64 0:1.15.1-37.el7_7.2 will be an update
+---> Package libX11.x86_64 0:1.6.7-2.el7 will be installed
+--> Processing Dependency: libX11-common >= 1.6.7-2.el7 for package: libX11-1.6.7-2.el7.x86_64
+--> Processing Dependency: libxcb.so.1()(64bit) for package: libX11-1.6.7-2.el7.x86_64
+---> Package libXft.x86_64 0:2.3.2-2.el7 will be installed
+--> Processing Dependency: libXrender.so.1()(64bit) for package: libXft-2.3.2-2.el7.x86_64
+---> Package libXrender-devel.x86_64 0:0.9.10-1.el7 will be installed
+---> Package libblkid.x86_64 0:2.23.2-59.el7 will be updated
+---> Package libblkid.x86_64 0:2.23.2-61.el7_7.1 will be an update
+---> Package libcom_err-devel.x86_64 0:1.42.9-16.el7 will be installed
+--> Processing Dependency: libcom_err(x86-64) = 1.42.9-16.el7 for package: libcom_err-devel-1.42.9-16.el7.x86_64
+---> Package libkadm5.x86_64 0:1.15.1-37.el7_7.2 will be installed
+---> Package libmount.x86_64 0:2.23.2-59.el7 will be updated
+---> Package libmount.x86_64 0:2.23.2-61.el7_7.1 will be an update
+---> Package libnetfilter_conntrack.x86_64 0:1.0.6-1.el7_3 will be installed
+---> Package libnfnetlink.x86_64 0:1.0.1-4.el7 will be installed
+---> Package libselinux-devel.x86_64 0:2.5-14.1.el7 will be installed
+--> Processing Dependency: libsepol-devel(x86-64) >= 2.5-10 for package: libselinux-devel-2.5-14.1.el7.x86_64
+--> Processing Dependency: pkgconfig(libsepol) for package: libselinux-devel-2.5-14.1.el7.x86_64
+--> Processing Dependency: pkgconfig(libpcre) for package: libselinux-devel-2.5-14.1.el7.x86_64
+---> Package libverto-devel.x86_64 0:0.2.5-4.el7 will be installed
+---> Package libxcb-devel.x86_64 0:1.13-1.el7 will be installed
+--> Processing Dependency: pkgconfig(xau) >= 0.99.2 for package: libxcb-devel-1.13-1.el7.x86_64
+---> Package perl-Filter.x86_64 0:1.49-3.el7 will be installed
+---> Package perl-IO-Tty.x86_64 0:1.10-11.el7 will be installed
+---> Package perl-Pod-Simple.noarch 1:3.28-4.el7 will be installed
+--> Processing Dependency: perl(Pod::Escapes) >= 1.04 for package: 1:perl-Pod-Simple-3.28-4.el7.noarch
+--> Processing Dependency: perl(Encode) for package: 1:perl-Pod-Simple-3.28-4.el7.noarch
+---> Package perl-Pod-Usage.noarch 0:1.63-3.el7 will be installed
+--> Processing Dependency: perl(Pod::Text) >= 3.15 for package: perl-Pod-Usage-1.63-3.el7.noarch
+--> Processing Dependency: perl-Pod-Perldoc for package: perl-Pod-Usage-1.63-3.el7.noarch
+---> Package perl-Scalar-List-Utils.x86_64 0:1.27-248.el7 will be installed
+---> Package perl-Socket.x86_64 0:2.010-4.el7 will be installed
+---> Package perl-Storable.x86_64 0:2.45-3.el7 will be installed
+---> Package perl-Text-ParseWords.noarch 0:3.29-4.el7 will be installed
+---> Package perl-Time-HiRes.x86_64 4:1.9725-3.el7 will be installed
+---> Package perl-Time-Local.noarch 0:1.2300-2.el7 will be installed
+---> Package perl-constant.noarch 0:1.27-2.el7 will be installed
+---> Package perl-libs.x86_64 4:5.16.3-294.el7_6 will be installed
+---> Package perl-macros.x86_64 4:5.16.3-294.el7_6 will be installed
+---> Package perl-threads.x86_64 0:1.87-4.el7 will be installed
+---> Package perl-threads-shared.x86_64 0:1.43-6.el7 will be installed
+---> Package util-linux.x86_64 0:2.23.2-59.el7 will be updated
+---> Package util-linux.x86_64 0:2.23.2-61.el7_7.1 will be an update
+--> Processing Dependency: libsmartcols = 2.23.2-61.el7_7.1 for package: util-linux-2.23.2-61.el7_7.1.x86_64
+---> Package xorg-x11-proto-devel.noarch 0:2018.4-1.el7 will be installed
+--> Running transaction check
+---> Package expat-devel.x86_64 0:2.1.0-10.el7_3 will be installed
+---> Package fontconfig.x86_64 0:2.13.0-4.3.el7 will be installed
+--> Processing Dependency: fontpackages-filesystem for package: fontconfig-2.13.0-4.3.el7.x86_64
+--> Processing Dependency: dejavu-sans-fonts for package: fontconfig-2.13.0-4.3.el7.x86_64
+---> Package gettext.x86_64 0:0.19.8.1-2.el7 will be installed
+--> Processing Dependency: gettext-libs(x86-64) = 0.19.8.1-2.el7 for package: gettext-0.19.8.1-2.el7.x86_64
+--> Processing Dependency: libunistring.so.0()(64bit) for package: gettext-0.19.8.1-2.el7.x86_64
+--> Processing Dependency: libgettextsrc-0.19.8.1.so()(64bit) for package: gettext-0.19.8.1-2.el7.x86_64
+--> Processing Dependency: libgettextlib-0.19.8.1.so()(64bit) for package: gettext-0.19.8.1-2.el7.x86_64
+--> Processing Dependency: libcroco-0.6.so.3()(64bit) for package: gettext-0.19.8.1-2.el7.x86_64
+---> Package glibc-common.x86_64 0:2.17-260.el7 will be updated
+---> Package glibc-common.x86_64 0:2.17-292.el7 will be an update
+---> Package kernel-headers.x86_64 0:3.10.0-1062.9.1.el7 will be installed
+---> Package libX11-common.noarch 0:1.6.7-2.el7 will be installed
+---> Package libXau-devel.x86_64 0:1.0.8-2.1.el7 will be installed
+--> Processing Dependency: libXau = 1.0.8-2.1.el7 for package: libXau-devel-1.0.8-2.1.el7.x86_64
+--> Processing Dependency: libXau.so.6()(64bit) for package: libXau-devel-1.0.8-2.1.el7.x86_64
+---> Package libXrender.x86_64 0:0.9.10-1.el7 will be installed
+---> Package libcom_err.x86_64 0:1.42.9-13.el7 will be updated
+---> Package libcom_err.x86_64 0:1.42.9-16.el7 will be an update
+---> Package libpng.x86_64 2:1.5.13-7.el7_2 will be installed
+---> Package libpng-devel.x86_64 2:1.5.13-7.el7_2 will be installed
+---> Package libsepol-devel.x86_64 0:2.5-10.el7 will be installed
+---> Package libsmartcols.x86_64 0:2.23.2-59.el7 will be updated
+---> Package libsmartcols.x86_64 0:2.23.2-61.el7_7.1 will be an update
+---> Package libxcb.x86_64 0:1.13-1.el7 will be installed
+---> Package pcre-devel.x86_64 0:8.32-17.el7 will be installed
+---> Package perl-Encode.x86_64 0:2.51-7.el7 will be installed
+---> Package perl-Pod-Escapes.noarch 1:1.04-294.el7_6 will be installed
+---> Package perl-Pod-Perldoc.noarch 0:3.20-4.el7 will be installed
+--> Processing Dependency: perl(parent) for package: perl-Pod-Perldoc-3.20-4.el7.noarch
+--> Processing Dependency: perl(HTTP::Tiny) for package: perl-Pod-Perldoc-3.20-4.el7.noarch
+---> Package perl-podlators.noarch 0:2.5.1-3.el7 will be installed
+--> Running transaction check
+---> Package dejavu-sans-fonts.noarch 0:2.33-6.el7 will be installed
+--> Processing Dependency: dejavu-fonts-common = 2.33-6.el7 for package: dejavu-sans-fonts-2.33-6.el7.noarch
+---> Package fontpackages-filesystem.noarch 0:1.44-8.el7 will be installed
+---> Package gettext-libs.x86_64 0:0.19.8.1-2.el7 will be installed
+---> Package libXau.x86_64 0:1.0.8-2.1.el7 will be installed
+---> Package libcroco.x86_64 0:0.6.12-4.el7 will be installed
+---> Package libunistring.x86_64 0:0.9.3-9.el7 will be installed
+---> Package perl-HTTP-Tiny.noarch 0:0.033-3.el7 will be installed
+---> Package perl-parent.noarch 1:0.225-244.el7 will be installed
+--> Running transaction check
+---> Package dejavu-fonts-common.noarch 0:2.33-6.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package                   Arch     Version                     Repository
+                                                                           Size
+================================================================================
+Installing:
+ bind-utils                x86_64   32:9.11.4-9.P2.el7          base      258 k
+ bzip2-devel               x86_64   1.0.6-13.el7                base      218 k
+ expect                    x86_64   5.45-14.el7_1               base      262 k
+ gcc                       x86_64   4.8.5-39.el7                base       16 M
+ gdbm-devel                x86_64   1.10-8.el7                  base       47 k
+ git                       x86_64   1.8.3.1-21.el7_7            updates   4.4 M
+ iproute                   x86_64   4.11.0-25.el7_7.2           updates   803 k
+ lbzip2                    x86_64   2.5-1.el7                   epel       90 k
+ libffi-devel              x86_64   3.0.13-18.el7               base       23 k
+ libuuid-devel             x86_64   2.23.2-61.el7_7.1           updates    92 k
+ lsof                      x86_64   4.87-6.el7                  base      331 k
+ make                      x86_64   1:3.82-24.el7               base      421 k
+ man-db                    x86_64   2.6.3-11.el7                base      832 k
+ moreutils                 x86_64   0.49-2.el7                  epel       76 k
+ ncurses-devel             x86_64   5.9-14.20130511.el7_4       base      712 k
+ net-tools                 x86_64   2.0-0.25.20131004git.el7    base      306 k
+ nkf                       x86_64   1:2.1.3-5.el7               epel      135 k
+ openssh-clients           x86_64   7.4p1-21.el7                base      655 k
+ openssh-server            x86_64   7.4p1-21.el7                base      459 k
+ openssl                   x86_64   1:1.0.2k-19.el7             base      493 k
+ openssl-devel             x86_64   1:1.0.2k-19.el7             base      1.5 M
+ parallel                  noarch   20160222-1.el7              epel      951 k
+ perl-Digest-SHA           x86_64   1:5.85-4.el7                base       58 k
+ psmisc                    x86_64   22.20-16.el7                base      141 k
+ readline-devel            x86_64   6.2-11.el7                  base      139 k
+ sqlite-devel              x86_64   3.7.17-8.el7                base      104 k
+ sudo                      x86_64   1.8.23-4.el7_7.1            updates   841 k
+ tk-devel                  x86_64   1:8.5.13-6.el7              base      488 k
+ traceroute                x86_64   3:2.0.22-2.el7              base       59 k
+ tree                      x86_64   1.6.0-10.el7                base       46 k
+ which                     x86_64   2.20-7.el7                  base       41 k
+ xz-devel                  x86_64   5.2.2-1.el7                 base       46 k
+ zlib-devel                x86_64   1.2.7-18.el7                base       50 k
+Installing for dependencies:
+ GeoIP                     x86_64   1.5.0-14.el7                base      1.5 M
+ bind-libs                 x86_64   32:9.11.4-9.P2.el7          base      154 k
+ bind-libs-lite            x86_64   32:9.11.4-9.P2.el7          base      1.1 M
+ cpp                       x86_64   4.8.5-39.el7                base      5.9 M
+ dejavu-fonts-common       noarch   2.33-6.el7                  base       64 k
+ dejavu-sans-fonts         noarch   2.33-6.el7                  base      1.4 M
+ expat-devel               x86_64   2.1.0-10.el7_3              base       57 k
+ fipscheck                 x86_64   1.4.1-6.el7                 base       21 k
+ fipscheck-lib             x86_64   1.4.1-6.el7                 base       11 k
+ fontconfig                x86_64   2.13.0-4.3.el7              base      254 k
+ fontconfig-devel          x86_64   2.13.0-4.3.el7              base      138 k
+ fontpackages-filesystem   noarch   1.44-8.el7                  base      9.9 k
+ freetype                  x86_64   2.8-14.el7                  base      380 k
+ freetype-devel            x86_64   2.8-14.el7                  base      447 k
+ geoipupdate               x86_64   2.5.0-1.el7                 base       35 k
+ gettext                   x86_64   0.19.8.1-2.el7              base      1.0 M
+ gettext-libs              x86_64   0.19.8.1-2.el7              base      501 k
+ glibc-devel               x86_64   2.17-292.el7                base      1.1 M
+ glibc-headers             x86_64   2.17-292.el7                base      687 k
+ groff-base                x86_64   1.22.2-8.el7                base      942 k
+ iptables                  x86_64   1.4.21-33.el7               base      433 k
+ kernel-headers            x86_64   3.10.0-1062.9.1.el7         updates   8.7 M
+ keyutils-libs-devel       x86_64   1.5.8-3.el7                 base       37 k
+ krb5-devel                x86_64   1.15.1-37.el7_7.2           updates   272 k
+ less                      x86_64   458-9.el7                   base      120 k
+ libX11                    x86_64   1.6.7-2.el7                 base      607 k
+ libX11-common             noarch   1.6.7-2.el7                 base      164 k
+ libX11-devel              x86_64   1.6.7-2.el7                 base      981 k
+ libXau                    x86_64   1.0.8-2.1.el7               base       29 k
+ libXau-devel              x86_64   1.0.8-2.1.el7               base       14 k
+ libXft                    x86_64   2.3.2-2.el7                 base       58 k
+ libXft-devel              x86_64   2.3.2-2.el7                 base       19 k
+ libXrender                x86_64   0.9.10-1.el7                base       26 k
+ libXrender-devel          x86_64   0.9.10-1.el7                base       17 k
+ libcom_err-devel          x86_64   1.42.9-16.el7               base       32 k
+ libcroco                  x86_64   0.6.12-4.el7                base      105 k
+ libedit                   x86_64   3.0-12.20121213cvs.el7      base       92 k
+ libgomp                   x86_64   4.8.5-39.el7                base      158 k
+ libkadm5                  x86_64   1.15.1-37.el7_7.2           updates   178 k
+ libmnl                    x86_64   1.0.3-7.el7                 base       23 k
+ libmpc                    x86_64   1.0.1-3.el7                 base       51 k
+ libnetfilter_conntrack    x86_64   1.0.6-1.el7_3               base       55 k
+ libnfnetlink              x86_64   1.0.1-4.el7                 base       26 k
+ libpipeline               x86_64   1.2.3-3.el7                 base       53 k
+ libpng                    x86_64   2:1.5.13-7.el7_2            base      213 k
+ libpng-devel              x86_64   2:1.5.13-7.el7_2            base      122 k
+ libselinux-devel          x86_64   2.5-14.1.el7                base      187 k
+ libsepol-devel            x86_64   2.5-10.el7                  base       77 k
+ libunistring              x86_64   0.9.3-9.el7                 base      293 k
+ libverto-devel            x86_64   0.2.5-4.el7                 base       12 k
+ libxcb                    x86_64   1.13-1.el7                  base      214 k
+ libxcb-devel              x86_64   1.13-1.el7                  base      1.1 M
+ mpfr                      x86_64   3.1.1-4.el7                 base      203 k
+ openssh                   x86_64   7.4p1-21.el7                base      510 k
+ pcre-devel                x86_64   8.32-17.el7                 base      480 k
+ perl                      x86_64   4:5.16.3-294.el7_6          base      8.0 M
+ perl-Carp                 noarch   1.26-244.el7                base       19 k
+ perl-Digest               noarch   1.17-245.el7                base       23 k
+ perl-Encode               x86_64   2.51-7.el7                  base      1.5 M
+ perl-Error                noarch   1:0.17020-2.el7             base       32 k
+ perl-Exporter             noarch   5.68-3.el7                  base       28 k
+ perl-File-Path            noarch   2.09-2.el7                  base       26 k
+ perl-File-Temp            noarch   0.23.01-3.el7               base       56 k
+ perl-Filter               x86_64   1.49-3.el7                  base       76 k
+ perl-Getopt-Long          noarch   2.40-3.el7                  base       56 k
+ perl-Git                  noarch   1.8.3.1-21.el7_7            updates    55 k
+ perl-HTTP-Tiny            noarch   0.033-3.el7                 base       38 k
+ perl-IO-Tty               x86_64   1.10-11.el7                 base       42 k
+ perl-IPC-Run              noarch   0.92-2.el7                  base      122 k
+ perl-PathTools            x86_64   3.40-5.el7                  base       82 k
+ perl-Pod-Escapes          noarch   1:1.04-294.el7_6            base       51 k
+ perl-Pod-Perldoc          noarch   3.20-4.el7                  base       87 k
+ perl-Pod-Simple           noarch   1:3.28-4.el7                base      216 k
+ perl-Pod-Usage            noarch   1.63-3.el7                  base       27 k
+ perl-Scalar-List-Utils    x86_64   1.27-248.el7                base       36 k
+ perl-Socket               x86_64   2.010-4.el7                 base       49 k
+ perl-Storable             x86_64   2.45-3.el7                  base       77 k
+ perl-TermReadKey          x86_64   2.30-20.el7                 base       31 k
+ perl-Text-ParseWords      noarch   3.29-4.el7                  base       14 k
+ perl-Time-Duration        noarch   1.06-17.el7                 epel       17 k
+ perl-Time-HiRes           x86_64   4:1.9725-3.el7              base       45 k
+ perl-Time-Local           noarch   1.2300-2.el7                base       24 k
+ perl-TimeDate             noarch   1:2.30-2.el7                base       52 k
+ perl-constant             noarch   1.27-2.el7                  base       19 k
+ perl-libs                 x86_64   4:5.16.3-294.el7_6          base      688 k
+ perl-macros               x86_64   4:5.16.3-294.el7_6          base       44 k
+ perl-parent               noarch   1:0.225-244.el7             base       12 k
+ perl-podlators            noarch   2.5.1-3.el7                 base      112 k
+ perl-threads              x86_64   1.87-4.el7                  base       49 k
+ perl-threads-shared       x86_64   1.43-6.el7                  base       39 k
+ rsync                     x86_64   3.1.2-6.el7_6.1             base      404 k
+ tcl                       x86_64   1:8.5.13-8.el7              base      1.9 M
+ tcl-devel                 x86_64   1:8.5.13-8.el7              base      165 k
+ tcp_wrappers-libs         x86_64   7.6-77.el7                  base       66 k
+ tk                        x86_64   1:8.5.13-6.el7              base      1.4 M
+ xorg-x11-proto-devel      noarch   2018.4-1.el7                base      280 k
+Updating for dependencies:
+ bind-license              noarch   32:9.11.4-9.P2.el7          base       88 k
+ glibc                     x86_64   2.17-292.el7                base      3.6 M
+ glibc-common              x86_64   2.17-292.el7                base       11 M
+ krb5-libs                 x86_64   1.15.1-37.el7_7.2           updates   805 k
+ libblkid                  x86_64   2.23.2-61.el7_7.1           updates   181 k
+ libcom_err                x86_64   1.42.9-16.el7               base       41 k
+ libgcc                    x86_64   4.8.5-39.el7                base      102 k
+ libmount                  x86_64   2.23.2-61.el7_7.1           updates   183 k
+ libsmartcols              x86_64   2.23.2-61.el7_7.1           updates   141 k
+ libuuid                   x86_64   2.23.2-61.el7_7.1           updates    83 k
+ openssl-libs              x86_64   1:1.0.2k-19.el7             base      1.2 M
+ readline                  x86_64   6.2-11.el7                  base      193 k
+ util-linux                x86_64   2.23.2-61.el7_7.1           updates   2.0 M
+
+Transaction Summary
+================================================================================
+Install  33 Packages (+96 Dependent packages)
+Upgrade              ( 13 Dependent packages)
+
+Total download size: 98 M
+Downloading packages:
+Delta RPMs disabled because /usr/bin/applydeltarpm not installed.
+[91mhttp://ftp.tsukuba.wide.ad.jp/Linux/centos/7.7.1908/os/x86_64/Packages/GeoIP-1.5.0-14.el7.x86_64.rpm: [Errno 14] curl#18 - "transfer closed with 650515 bytes remaining to read"
+[0m[91mTrying other mirror.
+[0m[91mwarning: /var/cache/yum/x86_64/7/epel/packages/lbzip2-2.5-1.el7.x86_64.rpm: Header V3 RSA/SHA256 Signature, key ID 352c64e5: NOKEY
+[0mPublic key for lbzip2-2.5-1.el7.x86_64.rpm is not installed
+--------------------------------------------------------------------------------
+Total                                              448 kB/s |  98 MB  03:44     
+Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+[91mImporting GPG key 0x352C64E5:
+ Userid     : "Fedora EPEL (7) <epel@fedoraproject.org>"
+ Fingerprint: 91e9 7d7c 4a5e 96f1 7f3e 888f 6a2f aea2 352c 64e5
+ Package    : epel-release-7-11.noarch (@extras)
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+[0mRunning transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Updating   : libgcc-4.8.5-39.el7.x86_64                                 1/155 
+  Updating   : glibc-2.17-292.el7.x86_64                                  2/155 
+warning: /etc/nsswitch.conf created as /etc/nsswitch.conf.rpmnew
+  Updating   : glibc-common-2.17-292.el7.x86_64                           3/155 
+  Updating   : libcom_err-1.42.9-16.el7.x86_64                            4/155 
+  Updating   : 1:openssl-libs-1.0.2k-19.el7.x86_64                        5/155 
+  Updating   : krb5-libs-1.15.1-37.el7_7.2.x86_64                         6/155 
+  Updating   : libuuid-2.23.2-61.el7_7.1.x86_64                           7/155 
+  Installing : xorg-x11-proto-devel-2018.4-1.el7.noarch                   8/155 
+  Installing : groff-base-1.22.2-8.el7.x86_64                             9/155 
+  Installing : 1:tcl-8.5.13-8.el7.x86_64                                 10/155 
+  Installing : libgomp-4.8.5-39.el7.x86_64                               11/155 
+  Installing : mpfr-3.1.1-4.el7.x86_64                                   12/155 
+  Installing : zlib-devel-1.2.7-18.el7.x86_64                            13/155 
+  Installing : libmpc-1.0.1-3.el7.x86_64                                 14/155 
+  Installing : less-458-9.el7.x86_64                                     15/155 
+  Updating   : libblkid-2.23.2-61.el7_7.1.x86_64                         16/155 
+  Installing : 2:libpng-1.5.13-7.el7_2.x86_64                            17/155 
+  Installing : freetype-2.8-14.el7.x86_64                                18/155 
+  Installing : libnfnetlink-1.0.1-4.el7.x86_64                           19/155 
+  Installing : libXau-1.0.8-2.1.el7.x86_64                               20/155 
+  Installing : libxcb-1.13-1.el7.x86_64                                  21/155 
+  Installing : libmnl-1.0.3-7.el7.x86_64                                 22/155 
+  Installing : libunistring-0.9.3-9.el7.x86_64                           23/155 
+  Installing : libcroco-0.6.12-4.el7.x86_64                              24/155 
+  Installing : fontpackages-filesystem-1.44-8.el7.noarch                 25/155 
+  Updating   : 32:bind-license-9.11.4-9.P2.el7.noarch                    26/155 
+  Installing : dejavu-fonts-common-2.33-6.el7.noarch                     27/155 
+  Installing : dejavu-sans-fonts-2.33-6.el7.noarch                       28/155 
+  Installing : fontconfig-2.13.0-4.3.el7.x86_64                          29/155 
+  Installing : gettext-libs-0.19.8.1-2.el7.x86_64                        30/155 
+  Installing : gettext-0.19.8.1-2.el7.x86_64                             31/155 
+install-info: No such file or directory for /usr/share/info/gettext.info.gz
+  Installing : libnetfilter_conntrack-1.0.6-1.el7_3.x86_64               32/155 
+  Installing : iptables-1.4.21-33.el7.x86_64                             33/155 
+  Installing : libXau-devel-1.0.8-2.1.el7.x86_64                         34/155 
+  Installing : libxcb-devel-1.13-1.el7.x86_64                            35/155 
+  Installing : 2:libpng-devel-1.5.13-7.el7_2.x86_64                      36/155 
+  Installing : freetype-devel-2.8-14.el7.x86_64                          37/155 
+  Updating   : libmount-2.23.2-61.el7_7.1.x86_64                         38/155 
+  Installing : cpp-4.8.5-39.el7.x86_64                                   39/155 
+  Installing : 1:tcl-devel-8.5.13-8.el7.x86_64                           40/155 
+  Installing : 1:perl-parent-0.225-244.el7.noarch                        41/155 
+  Installing : perl-HTTP-Tiny-0.033-3.el7.noarch                         42/155 
+  Installing : perl-podlators-2.5.1-3.el7.noarch                         43/155 
+  Installing : perl-Pod-Perldoc-3.20-4.el7.noarch                        44/155 
+  Installing : 1:perl-Pod-Escapes-1.04-294.el7_6.noarch                  45/155 
+  Installing : perl-Text-ParseWords-3.29-4.el7.noarch                    46/155 
+  Installing : perl-Encode-2.51-7.el7.x86_64                             47/155 
+  Installing : perl-Pod-Usage-1.63-3.el7.noarch                          48/155 
+  Installing : 4:perl-libs-5.16.3-294.el7_6.x86_64                       49/155 
+  Installing : perl-Socket-2.010-4.el7.x86_64                            50/155 
+  Installing : perl-Storable-2.45-3.el7.x86_64                           51/155 
+  Installing : 4:perl-Time-HiRes-1.9725-3.el7.x86_64                     52/155 
+  Installing : perl-threads-1.87-4.el7.x86_64                            53/155 
+  Installing : perl-Carp-1.26-244.el7.noarch                             54/155 
+  Installing : perl-Filter-1.49-3.el7.x86_64                             55/155 
+  Installing : perl-Exporter-5.68-3.el7.noarch                           56/155 
+  Installing : perl-constant-1.27-2.el7.noarch                           57/155 
+  Installing : 4:perl-macros-5.16.3-294.el7_6.x86_64                     58/155 
+  Installing : perl-threads-shared-1.43-6.el7.x86_64                     59/155 
+  Installing : perl-File-Temp-0.23.01-3.el7.noarch                       60/155 
+  Installing : perl-File-Path-2.09-2.el7.noarch                          61/155 
+  Installing : perl-PathTools-3.40-5.el7.x86_64                          62/155 
+  Installing : perl-Scalar-List-Utils-1.27-248.el7.x86_64                63/155 
+  Installing : perl-Time-Local-1.2300-2.el7.noarch                       64/155 
+  Installing : 1:perl-Pod-Simple-3.28-4.el7.noarch                       65/155 
+  Installing : perl-Getopt-Long-2.40-3.el7.noarch                        66/155 
+  Installing : 4:perl-5.16.3-294.el7_6.x86_64                            67/155 
+  Installing : 1:perl-Error-0.17020-2.el7.noarch                         68/155 
+  Installing : perl-TermReadKey-2.30-20.el7.x86_64                       69/155 
+  Installing : perl-Digest-1.17-245.el7.noarch                           70/155 
+  Installing : perl-IO-Tty-1.10-11.el7.x86_64                            71/155 
+  Installing : perl-IPC-Run-0.92-2.el7.noarch                            72/155 
+  Installing : 1:perl-TimeDate-2.30-2.el7.noarch                         73/155 
+  Installing : perl-Time-Duration-1.06-17.el7.noarch                     74/155 
+  Installing : libuuid-devel-2.23.2-61.el7_7.1.x86_64                    75/155 
+  Installing : libkadm5-1.15.1-37.el7_7.2.x86_64                         76/155 
+  Installing : fipscheck-1.4.1-6.el7.x86_64                              77/155 
+  Installing : fipscheck-lib-1.4.1-6.el7.x86_64                          78/155 
+  Installing : libcom_err-devel-1.42.9-16.el7.x86_64                     79/155 
+  Updating   : readline-6.2-11.el7.x86_64                                80/155 
+  Installing : libedit-3.0-12.20121213cvs.el7.x86_64                     81/155 
+  Installing : geoipupdate-2.5.0-1.el7.x86_64                            82/155 
+  Installing : GeoIP-1.5.0-14.el7.x86_64                                 83/155 
+  Installing : 32:bind-libs-lite-9.11.4-9.P2.el7.x86_64                  84/155 
+  Installing : 32:bind-libs-9.11.4-9.P2.el7.x86_64                       85/155 
+  Installing : 1:make-3.82-24.el7.x86_64                                 86/155 
+  Installing : tcp_wrappers-libs-7.6-77.el7.x86_64                       87/155 
+  Installing : libpipeline-1.2.3-3.el7.x86_64                            88/155 
+  Installing : rsync-3.1.2-6.el7_6.1.x86_64                              89/155 
+  Updating   : libsmartcols-2.23.2-61.el7_7.1.x86_64                     90/155 
+  Updating   : util-linux-2.23.2-61.el7_7.1.x86_64                       91/155 
+  Installing : openssh-7.4p1-21.el7.x86_64                               92/155 
+  Installing : openssh-clients-7.4p1-21.el7.x86_64                       93/155 
+  Installing : perl-Git-1.8.3.1-21.el7_7.noarch                          94/155 
+  Installing : git-1.8.3.1-21.el7_7.x86_64                               95/155 
+  Installing : libX11-common-1.6.7-2.el7.noarch                          96/155 
+  Installing : libX11-1.6.7-2.el7.x86_64                                 97/155 
+  Installing : libXrender-0.9.10-1.el7.x86_64                            98/155 
+  Installing : libXft-2.3.2-2.el7.x86_64                                 99/155 
+  Installing : libX11-devel-1.6.7-2.el7.x86_64                          100/155 
+  Installing : libXrender-devel-0.9.10-1.el7.x86_64                     101/155 
+  Installing : 1:tk-8.5.13-6.el7.x86_64                                 102/155 
+  Installing : expat-devel-2.1.0-10.el7_3.x86_64                        103/155 
+  Installing : fontconfig-devel-2.13.0-4.3.el7.x86_64                   104/155 
+  Installing : libXft-devel-2.3.2-2.el7.x86_64                          105/155 
+  Installing : ncurses-devel-5.9-14.20130511.el7_4.x86_64               106/155 
+  Installing : libverto-devel-0.2.5-4.el7.x86_64                        107/155 
+  Installing : keyutils-libs-devel-1.5.8-3.el7.x86_64                   108/155 
+  Installing : pcre-devel-8.32-17.el7.x86_64                            109/155 
+  Installing : kernel-headers-3.10.0-1062.9.1.el7.x86_64                110/155 
+  Installing : glibc-headers-2.17-292.el7.x86_64                        111/155 
+  Installing : glibc-devel-2.17-292.el7.x86_64                          112/155 
+  Installing : libsepol-devel-2.5-10.el7.x86_64                         113/155 
+  Installing : libselinux-devel-2.5-14.1.el7.x86_64                     114/155 
+  Installing : krb5-devel-1.15.1-37.el7_7.2.x86_64                      115/155 
+  Installing : 1:openssl-devel-1.0.2k-19.el7.x86_64                     116/155 
+  Installing : gcc-4.8.5-39.el7.x86_64                                  117/155 
+  Installing : readline-devel-6.2-11.el7.x86_64                         118/155 
+  Installing : 1:tk-devel-8.5.13-6.el7.x86_64                           119/155 
+  Installing : openssh-server-7.4p1-21.el7.x86_64                       120/155 
+  Installing : man-db-2.6.3-11.el7.x86_64                               121/155 
+  Installing : 1:openssl-1.0.2k-19.el7.x86_64                           122/155 
+  Installing : 32:bind-utils-9.11.4-9.P2.el7.x86_64                     123/155 
+  Installing : moreutils-0.49-2.el7.x86_64                              124/155 
+  Installing : 1:perl-Digest-SHA-5.85-4.el7.x86_64                      125/155 
+  Installing : parallel-20160222-1.el7.noarch                           126/155 
+  Installing : iproute-4.11.0-25.el7_7.2.x86_64                         127/155 
+  Installing : expect-5.45-14.el7_1.x86_64                              128/155 
+  Installing : sudo-1.8.23-4.el7_7.1.x86_64                             129/155 
+warning: /etc/sudoers created as /etc/sudoers.rpmnew
+  Installing : which-2.20-7.el7.x86_64                                  130/155 
+install-info: No such file or directory for /usr/share/info/which.info.gz
+  Installing : lbzip2-2.5-1.el7.x86_64                                  131/155 
+  Installing : tree-1.6.0-10.el7.x86_64                                 132/155 
+  Installing : 1:nkf-2.1.3-5.el7.x86_64                                 133/155 
+  Installing : lsof-4.87-6.el7.x86_64                                   134/155 
+  Installing : 3:traceroute-2.0.22-2.el7.x86_64                         135/155 
+  Installing : net-tools-2.0-0.25.20131004git.el7.x86_64                136/155 
+  Installing : psmisc-22.20-16.el7.x86_64                               137/155 
+  Installing : libffi-devel-3.0.13-18.el7.x86_64                        138/155 
+install-info: No such file or directory for /usr/share/info/libffi.info.gz
+warning: %post(libffi-devel-3.0.13-18.el7.x86_64) scriptlet failed, exit status 1
+[91mNon-fatal POSTIN scriptlet failure in rpm package libffi-devel-3.0.13-18.el7.x86_64
+[0m  Installing : xz-devel-5.2.2-1.el7.x86_64                              139/155 
+  Installing : sqlite-devel-3.7.17-8.el7.x86_64                         140/155 
+  Installing : gdbm-devel-1.10-8.el7.x86_64                             141/155 
+install-info: No such file or directory for /usr/share/info/gdbm.info.gz
+  Installing : bzip2-devel-1.0.6-13.el7.x86_64                          142/155 
+  Cleanup    : util-linux-2.23.2-59.el7.x86_64                          143/155 
+  Cleanup    : libmount-2.23.2-59.el7.x86_64                            144/155 
+  Cleanup    : krb5-libs-1.15.1-34.el7.x86_64                           145/155 
+  Cleanup    : 1:openssl-libs-1.0.2k-16.el7.x86_64                      146/155 
+  Cleanup    : libblkid-2.23.2-59.el7.x86_64                            147/155 
+  Cleanup    : libuuid-2.23.2-59.el7.x86_64                             148/155 
+  Cleanup    : libcom_err-1.42.9-13.el7.x86_64                          149/155 
+  Cleanup    : libsmartcols-2.23.2-59.el7.x86_64                        150/155 
+  Cleanup    : readline-6.2-10.el7.x86_64                               151/155 
+  Cleanup    : 32:bind-license-9.9.4-72.el7.noarch                      152/155 
+  Cleanup    : glibc-common-2.17-260.el7.x86_64                         153/155 
+  Cleanup    : glibc-2.17-260.el7.x86_64                                154/155 
+  Cleanup    : libgcc-4.8.5-36.el7.x86_64                               155/155 
+  Verifying  : fipscheck-lib-1.4.1-6.el7.x86_64                           1/155 
+  Verifying  : perl-HTTP-Tiny-0.033-3.el7.noarch                          2/155 
+  Verifying  : sudo-1.8.23-4.el7_7.1.x86_64                               3/155 
+  Verifying  : perl-Git-1.8.3.1-21.el7_7.noarch                           4/155 
+  Verifying  : 2:libpng-1.5.13-7.el7_2.x86_64                             5/155 
+  Verifying  : gcc-4.8.5-39.el7.x86_64                                    6/155 
+  Verifying  : bzip2-devel-1.0.6-13.el7.x86_64                            7/155 
+  Verifying  : libsepol-devel-2.5-10.el7.x86_64                           8/155 
+  Verifying  : readline-6.2-11.el7.x86_64                                 9/155 
+  Verifying  : perl-TermReadKey-2.30-20.el7.x86_64                       10/155 
+  Verifying  : zlib-devel-1.2.7-18.el7.x86_64                            11/155 
+  Verifying  : which-2.20-7.el7.x86_64                                   12/155 
+  Verifying  : groff-base-1.22.2-8.el7.x86_64                            13/155 
+  Verifying  : perl-File-Temp-0.23.01-3.el7.noarch                       14/155 
+  Verifying  : kernel-headers-3.10.0-1062.9.1.el7.x86_64                 15/155 
+  Verifying  : 1:tk-8.5.13-6.el7.x86_64                                  16/155 
+  Verifying  : libX11-1.6.7-2.el7.x86_64                                 17/155 
+  Verifying  : glibc-common-2.17-292.el7.x86_64                          18/155 
+  Verifying  : openssh-server-7.4p1-21.el7.x86_64                        19/155 
+  Verifying  : perl-Socket-2.010-4.el7.x86_64                            20/155 
+  Verifying  : libXrender-devel-0.9.10-1.el7.x86_64                      21/155 
+  Verifying  : fipscheck-1.4.1-6.el7.x86_64                              22/155 
+  Verifying  : perl-Storable-2.45-3.el7.x86_64                           23/155 
+  Verifying  : dejavu-sans-fonts-2.33-6.el7.noarch                       24/155 
+  Verifying  : libuuid-devel-2.23.2-61.el7_7.1.x86_64                    25/155 
+  Verifying  : 32:bind-libs-lite-9.11.4-9.P2.el7.x86_64                  26/155 
+  Verifying  : 1:openssl-libs-1.0.2k-19.el7.x86_64                       27/155 
+  Verifying  : libnfnetlink-1.0.1-4.el7.x86_64                           28/155 
+  Verifying  : pcre-devel-8.32-17.el7.x86_64                             29/155 
+  Verifying  : libXau-1.0.8-2.1.el7.x86_64                               30/155 
+  Verifying  : perl-File-Path-2.09-2.el7.noarch                          31/155 
+  Verifying  : 1:perl-Digest-SHA-5.85-4.el7.x86_64                       32/155 
+  Verifying  : libedit-3.0-12.20121213cvs.el7.x86_64                     33/155 
+  Verifying  : git-1.8.3.1-21.el7_7.x86_64                               34/155 
+  Verifying  : libXrender-0.9.10-1.el7.x86_64                            35/155 
+  Verifying  : perl-Text-ParseWords-3.29-4.el7.noarch                    36/155 
+  Verifying  : 32:bind-libs-9.11.4-9.P2.el7.x86_64                       37/155 
+  Verifying  : 1:perl-parent-0.225-244.el7.noarch                        38/155 
+  Verifying  : libXau-devel-1.0.8-2.1.el7.x86_64                         39/155 
+  Verifying  : keyutils-libs-devel-1.5.8-3.el7.x86_64                    40/155 
+  Verifying  : lbzip2-2.5-1.el7.x86_64                                   41/155 
+  Verifying  : geoipupdate-2.5.0-1.el7.x86_64                            42/155 
+  Verifying  : 4:perl-Time-HiRes-1.9725-3.el7.x86_64                     43/155 
+  Verifying  : freetype-2.8-14.el7.x86_64                                44/155 
+  Verifying  : iptables-1.4.21-33.el7.x86_64                             45/155 
+  Verifying  : GeoIP-1.5.0-14.el7.x86_64                                 46/155 
+  Verifying  : iproute-4.11.0-25.el7_7.2.x86_64                          47/155 
+  Verifying  : 4:perl-libs-5.16.3-294.el7_6.x86_64                       48/155 
+  Verifying  : tree-1.6.0-10.el7.x86_64                                  49/155 
+  Verifying  : libselinux-devel-2.5-14.1.el7.x86_64                      50/155 
+  Verifying  : libuuid-2.23.2-61.el7_7.1.x86_64                          51/155 
+  Verifying  : 1:make-3.82-24.el7.x86_64                                 52/155 
+  Verifying  : libmount-2.23.2-61.el7_7.1.x86_64                         53/155 
+  Verifying  : openssh-clients-7.4p1-21.el7.x86_64                       54/155 
+  Verifying  : 32:bind-license-9.11.4-9.P2.el7.noarch                    55/155 
+  Verifying  : 1:openssl-1.0.2k-19.el7.x86_64                            56/155 
+  Verifying  : libmpc-1.0.1-3.el7.x86_64                                 57/155 
+  Verifying  : 32:bind-utils-9.11.4-9.P2.el7.x86_64                      58/155 
+  Verifying  : perl-Pod-Usage-1.63-3.el7.noarch                          59/155 
+  Verifying  : glibc-devel-2.17-292.el7.x86_64                           60/155 
+  Verifying  : libblkid-2.23.2-61.el7_7.1.x86_64                         61/155 
+  Verifying  : libverto-devel-0.2.5-4.el7.x86_64                         62/155 
+  Verifying  : perl-threads-1.87-4.el7.x86_64                            63/155 
+  Verifying  : perl-Getopt-Long-2.40-3.el7.noarch                        64/155 
+  Verifying  : cpp-4.8.5-39.el7.x86_64                                   65/155 
+  Verifying  : perl-Digest-1.17-245.el7.noarch                           66/155 
+  Verifying  : glibc-headers-2.17-292.el7.x86_64                         67/155 
+  Verifying  : libXft-devel-2.3.2-2.el7.x86_64                           68/155 
+  Verifying  : 1:tcl-8.5.13-8.el7.x86_64                                 69/155 
+  Verifying  : fontconfig-2.13.0-4.3.el7.x86_64                          70/155 
+  Verifying  : libmnl-1.0.3-7.el7.x86_64                                 71/155 
+  Verifying  : perl-threads-shared-1.43-6.el7.x86_64                     72/155 
+  Verifying  : libcom_err-devel-1.42.9-16.el7.x86_64                     73/155 
+  Verifying  : 1:perl-Pod-Escapes-1.04-294.el7_6.noarch                  74/155 
+  Verifying  : xorg-x11-proto-devel-2018.4-1.el7.noarch                  75/155 
+  Verifying  : libunistring-0.9.3-9.el7.x86_64                           76/155 
+  Verifying  : tcp_wrappers-libs-7.6-77.el7.x86_64                       77/155 
+  Verifying  : gdbm-devel-1.10-8.el7.x86_64                              78/155 
+  Verifying  : fontpackages-filesystem-1.44-8.el7.noarch                 79/155 
+  Verifying  : gettext-libs-0.19.8.1-2.el7.x86_64                        80/155 
+  Verifying  : util-linux-2.23.2-61.el7_7.1.x86_64                       81/155 
+  Verifying  : 2:libpng-devel-1.5.13-7.el7_2.x86_64                      82/155 
+  Verifying  : fontconfig-devel-2.13.0-4.3.el7.x86_64                    83/155 
+  Verifying  : libcroco-0.6.12-4.el7.x86_64                              84/155 
+  Verifying  : moreutils-0.49-2.el7.x86_64                               85/155 
+  Verifying  : ncurses-devel-5.9-14.20130511.el7_4.x86_64                86/155 
+  Verifying  : libgomp-4.8.5-39.el7.x86_64                               87/155 
+  Verifying  : freetype-devel-2.8-14.el7.x86_64                          88/155 
+  Verifying  : 1:nkf-2.1.3-5.el7.x86_64                                  89/155 
+  Verifying  : 4:perl-5.16.3-294.el7_6.x86_64                            90/155 
+  Verifying  : perl-Encode-2.51-7.el7.x86_64                             91/155 
+  Verifying  : perl-Carp-1.26-244.el7.noarch                             92/155 
+  Verifying  : libpipeline-1.2.3-3.el7.x86_64                            93/155 
+  Verifying  : sqlite-devel-3.7.17-8.el7.x86_64                          94/155 
+  Verifying  : 1:openssl-devel-1.0.2k-19.el7.x86_64                      95/155 
+  Verifying  : perl-IO-Tty-1.10-11.el7.x86_64                            96/155 
+  Verifying  : xz-devel-5.2.2-1.el7.x86_64                               97/155 
+  Verifying  : perl-Pod-Perldoc-3.20-4.el7.noarch                        98/155 
+  Verifying  : 1:perl-TimeDate-2.30-2.el7.noarch                         99/155 
+  Verifying  : mpfr-3.1.1-4.el7.x86_64                                  100/155 
+  Verifying  : expect-5.45-14.el7_1.x86_64                              101/155 
+  Verifying  : libkadm5-1.15.1-37.el7_7.2.x86_64                        102/155 
+  Verifying  : perl-Filter-1.49-3.el7.x86_64                            103/155 
+  Verifying  : parallel-20160222-1.el7.noarch                           104/155 
+  Verifying  : perl-Time-Duration-1.06-17.el7.noarch                    105/155 
+  Verifying  : 1:tcl-devel-8.5.13-8.el7.x86_64                          106/155 
+  Verifying  : less-458-9.el7.x86_64                                    107/155 
+  Verifying  : krb5-devel-1.15.1-37.el7_7.2.x86_64                      108/155 
+  Verifying  : gettext-0.19.8.1-2.el7.x86_64                            109/155 
+  Verifying  : lsof-4.87-6.el7.x86_64                                   110/155 
+  Verifying  : perl-Exporter-5.68-3.el7.noarch                          111/155 
+  Verifying  : perl-constant-1.27-2.el7.noarch                          112/155 
+  Verifying  : perl-PathTools-3.40-5.el7.x86_64                         113/155 
+  Verifying  : libnetfilter_conntrack-1.0.6-1.el7_3.x86_64              114/155 
+  Verifying  : rsync-3.1.2-6.el7_6.1.x86_64                             115/155 
+  Verifying  : openssh-7.4p1-21.el7.x86_64                              116/155 
+  Verifying  : expat-devel-2.1.0-10.el7_3.x86_64                        117/155 
+  Verifying  : libffi-devel-3.0.13-18.el7.x86_64                        118/155 
+  Verifying  : 3:traceroute-2.0.22-2.el7.x86_64                         119/155 
+  Verifying  : dejavu-fonts-common-2.33-6.el7.noarch                    120/155 
+  Verifying  : net-tools-2.0-0.25.20131004git.el7.x86_64                121/155 
+  Verifying  : 1:perl-Pod-Simple-3.28-4.el7.noarch                      122/155 
+  Verifying  : libgcc-4.8.5-39.el7.x86_64                               123/155 
+  Verifying  : 1:tk-devel-8.5.13-6.el7.x86_64                           124/155 
+  Verifying  : libX11-common-1.6.7-2.el7.noarch                         125/155 
+  Verifying  : libxcb-1.13-1.el7.x86_64                                 126/155 
+  Verifying  : libXft-2.3.2-2.el7.x86_64                                127/155 
+  Verifying  : man-db-2.6.3-11.el7.x86_64                               128/155 
+  Verifying  : 4:perl-macros-5.16.3-294.el7_6.x86_64                    129/155 
+  Verifying  : psmisc-22.20-16.el7.x86_64                               130/155 
+  Verifying  : krb5-libs-1.15.1-37.el7_7.2.x86_64                       131/155 
+  Verifying  : perl-IPC-Run-0.92-2.el7.noarch                           132/155 
+  Verifying  : 1:perl-Error-0.17020-2.el7.noarch                        133/155 
+  Verifying  : perl-Scalar-List-Utils-1.27-248.el7.x86_64               134/155 
+  Verifying  : libcom_err-1.42.9-16.el7.x86_64                          135/155 
+  Verifying  : glibc-2.17-292.el7.x86_64                                136/155 
+  Verifying  : readline-devel-6.2-11.el7.x86_64                         137/155 
+  Verifying  : libxcb-devel-1.13-1.el7.x86_64                           138/155 
+  Verifying  : perl-podlators-2.5.1-3.el7.noarch                        139/155 
+  Verifying  : libsmartcols-2.23.2-61.el7_7.1.x86_64                    140/155 
+  Verifying  : libX11-devel-1.6.7-2.el7.x86_64                          141/155 
+  Verifying  : perl-Time-Local-1.2300-2.el7.noarch                      142/155 
+  Verifying  : libgcc-4.8.5-36.el7.x86_64                               143/155 
+  Verifying  : libsmartcols-2.23.2-59.el7.x86_64                        144/155 
+  Verifying  : glibc-common-2.17-260.el7.x86_64                         145/155 
+  Verifying  : krb5-libs-1.15.1-34.el7.x86_64                           146/155 
+  Verifying  : readline-6.2-10.el7.x86_64                               147/155 
+  Verifying  : libuuid-2.23.2-59.el7.x86_64                             148/155 
+  Verifying  : util-linux-2.23.2-59.el7.x86_64                          149/155 
+  Verifying  : libblkid-2.23.2-59.el7.x86_64                            150/155 
+  Verifying  : glibc-2.17-260.el7.x86_64                                151/155 
+  Verifying  : libmount-2.23.2-59.el7.x86_64                            152/155 
+  Verifying  : 32:bind-license-9.9.4-72.el7.noarch                      153/155 
+  Verifying  : 1:openssl-libs-1.0.2k-16.el7.x86_64                      154/155 
+  Verifying  : libcom_err-1.42.9-13.el7.x86_64                          155/155 
+
+Installed:
+  bind-utils.x86_64 32:9.11.4-9.P2.el7                                          
+  bzip2-devel.x86_64 0:1.0.6-13.el7                                             
+  expect.x86_64 0:5.45-14.el7_1                                                 
+  gcc.x86_64 0:4.8.5-39.el7                                                     
+  gdbm-devel.x86_64 0:1.10-8.el7                                                
+  git.x86_64 0:1.8.3.1-21.el7_7                                                 
+  iproute.x86_64 0:4.11.0-25.el7_7.2                                            
+  lbzip2.x86_64 0:2.5-1.el7                                                     
+  libffi-devel.x86_64 0:3.0.13-18.el7                                           
+  libuuid-devel.x86_64 0:2.23.2-61.el7_7.1                                      
+  lsof.x86_64 0:4.87-6.el7                                                      
+  make.x86_64 1:3.82-24.el7                                                     
+  man-db.x86_64 0:2.6.3-11.el7                                                  
+  moreutils.x86_64 0:0.49-2.el7                                                 
+  ncurses-devel.x86_64 0:5.9-14.20130511.el7_4                                  
+  net-tools.x86_64 0:2.0-0.25.20131004git.el7                                   
+  nkf.x86_64 1:2.1.3-5.el7                                                      
+  openssh-clients.x86_64 0:7.4p1-21.el7                                         
+  openssh-server.x86_64 0:7.4p1-21.el7                                          
+  openssl.x86_64 1:1.0.2k-19.el7                                                
+  openssl-devel.x86_64 1:1.0.2k-19.el7                                          
+  parallel.noarch 0:20160222-1.el7                                              
+  perl-Digest-SHA.x86_64 1:5.85-4.el7                                           
+  psmisc.x86_64 0:22.20-16.el7                                                  
+  readline-devel.x86_64 0:6.2-11.el7                                            
+  sqlite-devel.x86_64 0:3.7.17-8.el7                                            
+  sudo.x86_64 0:1.8.23-4.el7_7.1                                                
+  tk-devel.x86_64 1:8.5.13-6.el7                                                
+  traceroute.x86_64 3:2.0.22-2.el7                                              
+  tree.x86_64 0:1.6.0-10.el7                                                    
+  which.x86_64 0:2.20-7.el7                                                     
+  xz-devel.x86_64 0:5.2.2-1.el7                                                 
+  zlib-devel.x86_64 0:1.2.7-18.el7                                              
+
+Dependency Installed:
+  GeoIP.x86_64 0:1.5.0-14.el7                                                   
+  bind-libs.x86_64 32:9.11.4-9.P2.el7                                           
+  bind-libs-lite.x86_64 32:9.11.4-9.P2.el7                                      
+  cpp.x86_64 0:4.8.5-39.el7                                                     
+  dejavu-fonts-common.noarch 0:2.33-6.el7                                       
+  dejavu-sans-fonts.noarch 0:2.33-6.el7                                         
+  expat-devel.x86_64 0:2.1.0-10.el7_3                                           
+  fipscheck.x86_64 0:1.4.1-6.el7                                                
+  fipscheck-lib.x86_64 0:1.4.1-6.el7                                            
+  fontconfig.x86_64 0:2.13.0-4.3.el7                                            
+  fontconfig-devel.x86_64 0:2.13.0-4.3.el7                                      
+  fontpackages-filesystem.noarch 0:1.44-8.el7                                   
+  freetype.x86_64 0:2.8-14.el7                                                  
+  freetype-devel.x86_64 0:2.8-14.el7                                            
+  geoipupdate.x86_64 0:2.5.0-1.el7                                              
+  gettext.x86_64 0:0.19.8.1-2.el7                                               
+  gettext-libs.x86_64 0:0.19.8.1-2.el7                                          
+  glibc-devel.x86_64 0:2.17-292.el7                                             
+  glibc-headers.x86_64 0:2.17-292.el7                                           
+  groff-base.x86_64 0:1.22.2-8.el7                                              
+  iptables.x86_64 0:1.4.21-33.el7                                               
+  kernel-headers.x86_64 0:3.10.0-1062.9.1.el7                                   
+  keyutils-libs-devel.x86_64 0:1.5.8-3.el7                                      
+  krb5-devel.x86_64 0:1.15.1-37.el7_7.2                                         
+  less.x86_64 0:458-9.el7                                                       
+  libX11.x86_64 0:1.6.7-2.el7                                                   
+  libX11-common.noarch 0:1.6.7-2.el7                                            
+  libX11-devel.x86_64 0:1.6.7-2.el7                                             
+  libXau.x86_64 0:1.0.8-2.1.el7                                                 
+  libXau-devel.x86_64 0:1.0.8-2.1.el7                                           
+  libXft.x86_64 0:2.3.2-2.el7                                                   
+  libXft-devel.x86_64 0:2.3.2-2.el7                                             
+  libXrender.x86_64 0:0.9.10-1.el7                                              
+  libXrender-devel.x86_64 0:0.9.10-1.el7                                        
+  libcom_err-devel.x86_64 0:1.42.9-16.el7                                       
+  libcroco.x86_64 0:0.6.12-4.el7                                                
+  libedit.x86_64 0:3.0-12.20121213cvs.el7                                       
+  libgomp.x86_64 0:4.8.5-39.el7                                                 
+  libkadm5.x86_64 0:1.15.1-37.el7_7.2                                           
+  libmnl.x86_64 0:1.0.3-7.el7                                                   
+  libmpc.x86_64 0:1.0.1-3.el7                                                   
+  libnetfilter_conntrack.x86_64 0:1.0.6-1.el7_3                                 
+  libnfnetlink.x86_64 0:1.0.1-4.el7                                             
+  libpipeline.x86_64 0:1.2.3-3.el7                                              
+  libpng.x86_64 2:1.5.13-7.el7_2                                                
+  libpng-devel.x86_64 2:1.5.13-7.el7_2                                          
+  libselinux-devel.x86_64 0:2.5-14.1.el7                                        
+  libsepol-devel.x86_64 0:2.5-10.el7                                            
+  libunistring.x86_64 0:0.9.3-9.el7                                             
+  libverto-devel.x86_64 0:0.2.5-4.el7                                           
+  libxcb.x86_64 0:1.13-1.el7                                                    
+  libxcb-devel.x86_64 0:1.13-1.el7                                              
+  mpfr.x86_64 0:3.1.1-4.el7                                                     
+  openssh.x86_64 0:7.4p1-21.el7                                                 
+  pcre-devel.x86_64 0:8.32-17.el7                                               
+  perl.x86_64 4:5.16.3-294.el7_6                                                
+  perl-Carp.noarch 0:1.26-244.el7                                               
+  perl-Digest.noarch 0:1.17-245.el7                                             
+  perl-Encode.x86_64 0:2.51-7.el7                                               
+  perl-Error.noarch 1:0.17020-2.el7                                             
+  perl-Exporter.noarch 0:5.68-3.el7                                             
+  perl-File-Path.noarch 0:2.09-2.el7                                            
+  perl-File-Temp.noarch 0:0.23.01-3.el7                                         
+  perl-Filter.x86_64 0:1.49-3.el7                                               
+  perl-Getopt-Long.noarch 0:2.40-3.el7                                          
+  perl-Git.noarch 0:1.8.3.1-21.el7_7                                            
+  perl-HTTP-Tiny.noarch 0:0.033-3.el7                                           
+  perl-IO-Tty.x86_64 0:1.10-11.el7                                              
+  perl-IPC-Run.noarch 0:0.92-2.el7                                              
+  perl-PathTools.x86_64 0:3.40-5.el7                                            
+  perl-Pod-Escapes.noarch 1:1.04-294.el7_6                                      
+  perl-Pod-Perldoc.noarch 0:3.20-4.el7                                          
+  perl-Pod-Simple.noarch 1:3.28-4.el7                                           
+  perl-Pod-Usage.noarch 0:1.63-3.el7                                            
+  perl-Scalar-List-Utils.x86_64 0:1.27-248.el7                                  
+  perl-Socket.x86_64 0:2.010-4.el7                                              
+  perl-Storable.x86_64 0:2.45-3.el7                                             
+  perl-TermReadKey.x86_64 0:2.30-20.el7                                         
+  perl-Text-ParseWords.noarch 0:3.29-4.el7                                      
+  perl-Time-Duration.noarch 0:1.06-17.el7                                       
+  perl-Time-HiRes.x86_64 4:1.9725-3.el7                                         
+  perl-Time-Local.noarch 0:1.2300-2.el7                                         
+  perl-TimeDate.noarch 1:2.30-2.el7                                             
+  perl-constant.noarch 0:1.27-2.el7                                             
+  perl-libs.x86_64 4:5.16.3-294.el7_6                                           
+  perl-macros.x86_64 4:5.16.3-294.el7_6                                         
+  perl-parent.noarch 1:0.225-244.el7                                            
+  perl-podlators.noarch 0:2.5.1-3.el7                                           
+  perl-threads.x86_64 0:1.87-4.el7                                              
+  perl-threads-shared.x86_64 0:1.43-6.el7                                       
+  rsync.x86_64 0:3.1.2-6.el7_6.1                                                
+  tcl.x86_64 1:8.5.13-8.el7                                                     
+  tcl-devel.x86_64 1:8.5.13-8.el7                                               
+  tcp_wrappers-libs.x86_64 0:7.6-77.el7                                         
+  tk.x86_64 1:8.5.13-6.el7                                                      
+  xorg-x11-proto-devel.noarch 0:2018.4-1.el7                                    
+
+Dependency Updated:
+  bind-license.noarch 32:9.11.4-9.P2.el7   glibc.x86_64 0:2.17-292.el7          
+  glibc-common.x86_64 0:2.17-292.el7       krb5-libs.x86_64 0:1.15.1-37.el7_7.2 
+  libblkid.x86_64 0:2.23.2-61.el7_7.1      libcom_err.x86_64 0:1.42.9-16.el7    
+  libgcc.x86_64 0:4.8.5-39.el7             libmount.x86_64 0:2.23.2-61.el7_7.1  
+  libsmartcols.x86_64 0:2.23.2-61.el7_7.1  libuuid.x86_64 0:2.23.2-61.el7_7.1   
+  openssl-libs.x86_64 1:1.0.2k-19.el7      readline.x86_64 0:6.2-11.el7         
+  util-linux.x86_64 0:2.23.2-61.el7_7.1   
+
+Complete!
+Removing intermediate container 260478e195ee
+ ---> 8d597d7c1501
+Step 8/70 : RUN yum install -y httpd
+ ---> Running in 98055629d5f5
+Loaded plugins: fastestmirror, ovl
+Loading mirror speeds from cached hostfile
+ * base: ftp-srv2.kddilabs.jp
+ * epel: ftp.iij.ad.jp
+ * extras: ftp-srv2.kddilabs.jp
+ * updates: ftp-srv2.kddilabs.jp
+Resolving Dependencies
+--> Running transaction check
+---> Package httpd.x86_64 0:2.4.6-90.el7.centos will be installed
+--> Processing Dependency: httpd-tools = 2.4.6-90.el7.centos for package: httpd-2.4.6-90.el7.centos.x86_64
+--> Processing Dependency: system-logos >= 7.92.1-1 for package: httpd-2.4.6-90.el7.centos.x86_64
+--> Processing Dependency: /etc/mime.types for package: httpd-2.4.6-90.el7.centos.x86_64
+--> Processing Dependency: libaprutil-1.so.0()(64bit) for package: httpd-2.4.6-90.el7.centos.x86_64
+--> Processing Dependency: libapr-1.so.0()(64bit) for package: httpd-2.4.6-90.el7.centos.x86_64
+--> Running transaction check
+---> Package apr.x86_64 0:1.4.8-5.el7 will be installed
+---> Package apr-util.x86_64 0:1.5.2-6.el7 will be installed
+---> Package centos-logos.noarch 0:70.0.6-3.el7.centos will be installed
+---> Package httpd-tools.x86_64 0:2.4.6-90.el7.centos will be installed
+---> Package mailcap.noarch 0:2.1.41-2.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package             Arch          Version                    Repository   Size
+================================================================================
+Installing:
+ httpd               x86_64        2.4.6-90.el7.centos        base        2.7 M
+Installing for dependencies:
+ apr                 x86_64        1.4.8-5.el7                base        103 k
+ apr-util            x86_64        1.5.2-6.el7                base         92 k
+ centos-logos        noarch        70.0.6-3.el7.centos        base         21 M
+ httpd-tools         x86_64        2.4.6-90.el7.centos        base         91 k
+ mailcap             noarch        2.1.41-2.el7               base         31 k
+
+Transaction Summary
+================================================================================
+Install  1 Package (+5 Dependent packages)
+
+Total download size: 24 M
+Installed size: 31 M
+Downloading packages:
+--------------------------------------------------------------------------------
+Total                                              203 kB/s |  24 MB  02:02     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : apr-1.4.8-5.el7.x86_64                                       1/6 
+  Installing : apr-util-1.5.2-6.el7.x86_64                                  2/6 
+  Installing : httpd-tools-2.4.6-90.el7.centos.x86_64                       3/6 
+  Installing : centos-logos-70.0.6-3.el7.centos.noarch                      4/6 
+  Installing : mailcap-2.1.41-2.el7.noarch                                  5/6 
+  Installing : httpd-2.4.6-90.el7.centos.x86_64                             6/6 
+  Verifying  : mailcap-2.1.41-2.el7.noarch                                  1/6 
+  Verifying  : httpd-tools-2.4.6-90.el7.centos.x86_64                       2/6 
+  Verifying  : apr-util-1.5.2-6.el7.x86_64                                  3/6 
+  Verifying  : httpd-2.4.6-90.el7.centos.x86_64                             4/6 
+  Verifying  : apr-1.4.8-5.el7.x86_64                                       5/6 
+  Verifying  : centos-logos-70.0.6-3.el7.centos.noarch                      6/6 
+
+Installed:
+  httpd.x86_64 0:2.4.6-90.el7.centos                                            
+
+Dependency Installed:
+  apr.x86_64 0:1.4.8-5.el7                                                      
+  apr-util.x86_64 0:1.5.2-6.el7                                                 
+  centos-logos.noarch 0:70.0.6-3.el7.centos                                     
+  httpd-tools.x86_64 0:2.4.6-90.el7.centos                                      
+  mailcap.noarch 0:2.1.41-2.el7                                                 
+
+Complete!
+Removing intermediate container 98055629d5f5
+ ---> 4422a79c2cf1
+Step 9/70 : RUN yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm && yum -y install --enablerepo=remi,remi-php73 php php-devel php-mbstring php-pdo php-gd php-xml php-mcrypt
+ ---> Running in 3ed5b63fda1e
+Loaded plugins: fastestmirror, ovl
+Examining /var/tmp/yum-root-oRaihm/remi-release-7.rpm: remi-release-7.7-1.el7.remi.noarch
+Marking /var/tmp/yum-root-oRaihm/remi-release-7.rpm to be installed
+Resolving Dependencies
+--> Running transaction check
+---> Package remi-release.noarch 0:7.7-1.el7.remi will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package           Arch        Version               Repository            Size
+================================================================================
+Installing:
+ remi-release      noarch      7.7-1.el7.remi        /remi-release-7       23 k
+
+Transaction Summary
+================================================================================
+Install  1 Package
+
+Total size: 23 k
+Installed size: 23 k
+Downloading packages:
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : remi-release-7.7-1.el7.remi.noarch                           1/1 
+  Verifying  : remi-release-7.7-1.el7.remi.noarch                           1/1 
+
+Installed:
+  remi-release.noarch 0:7.7-1.el7.remi                                          
+
+Complete!
+Loaded plugins: fastestmirror, ovl
+Loading mirror speeds from cached hostfile
+ * base: ftp-srv2.kddilabs.jp
+ * epel: ftp.iij.ad.jp
+ * extras: ftp-srv2.kddilabs.jp
+ * remi: ftp.riken.jp
+ * remi-php73: ftp.riken.jp
+ * remi-safe: ftp.riken.jp
+ * updates: ftp-srv2.kddilabs.jp
+Package php-mcrypt is obsoleted by php-pecl-mcrypt, trying to install php-pecl-mcrypt-1.0.3-1.el7.remi.7.3.x86_64 instead
+Resolving Dependencies
+--> Running transaction check
+---> Package php.x86_64 0:7.3.14-1.el7.remi will be installed
+--> Processing Dependency: php-cli(x86-64) = 7.3.14-1.el7.remi for package: php-7.3.14-1.el7.remi.x86_64
+--> Processing Dependency: php-common(x86-64) = 7.3.14-1.el7.remi for package: php-7.3.14-1.el7.remi.x86_64
+--> Processing Dependency: libargon2.so.0()(64bit) for package: php-7.3.14-1.el7.remi.x86_64
+---> Package php-devel.x86_64 0:7.3.14-1.el7.remi will be installed
+--> Processing Dependency: autoconf for package: php-devel-7.3.14-1.el7.remi.x86_64
+--> Processing Dependency: automake for package: php-devel-7.3.14-1.el7.remi.x86_64
+--> Processing Dependency: gcc-c++ for package: php-devel-7.3.14-1.el7.remi.x86_64
+--> Processing Dependency: libargon2-devel(x86-64) for package: php-devel-7.3.14-1.el7.remi.x86_64
+--> Processing Dependency: libedit-devel(x86-64) for package: php-devel-7.3.14-1.el7.remi.x86_64
+--> Processing Dependency: libtool for package: php-devel-7.3.14-1.el7.remi.x86_64
+--> Processing Dependency: libxml2-devel(x86-64) for package: php-devel-7.3.14-1.el7.remi.x86_64
+---> Package php-gd.x86_64 0:7.3.14-1.el7.remi will be installed
+--> Processing Dependency: gd-last(x86-64) >= 2.1.1 for package: php-gd-7.3.14-1.el7.remi.x86_64
+--> Processing Dependency: libXpm.so.4()(64bit) for package: php-gd-7.3.14-1.el7.remi.x86_64
+--> Processing Dependency: libgd.so.3()(64bit) for package: php-gd-7.3.14-1.el7.remi.x86_64
+--> Processing Dependency: libjpeg.so.62()(64bit) for package: php-gd-7.3.14-1.el7.remi.x86_64
+---> Package php-mbstring.x86_64 0:7.3.14-1.el7.remi will be installed
+--> Processing Dependency: libonig.so.5()(64bit) for package: php-mbstring-7.3.14-1.el7.remi.x86_64
+---> Package php-pdo.x86_64 0:7.3.14-1.el7.remi will be installed
+---> Package php-pecl-mcrypt.x86_64 0:1.0.3-1.el7.remi.7.3 will be installed
+--> Processing Dependency: libmcrypt.so.4()(64bit) for package: php-pecl-mcrypt-1.0.3-1.el7.remi.7.3.x86_64
+---> Package php-xml.x86_64 0:7.3.14-1.el7.remi will be installed
+--> Processing Dependency: libxslt.so.1(LIBXML2_1.0.11)(64bit) for package: php-xml-7.3.14-1.el7.remi.x86_64
+--> Processing Dependency: libxslt.so.1(LIBXML2_1.0.13)(64bit) for package: php-xml-7.3.14-1.el7.remi.x86_64
+--> Processing Dependency: libxslt.so.1(LIBXML2_1.0.18)(64bit) for package: php-xml-7.3.14-1.el7.remi.x86_64
+--> Processing Dependency: libxslt.so.1(LIBXML2_1.0.22)(64bit) for package: php-xml-7.3.14-1.el7.remi.x86_64
+--> Processing Dependency: libxslt.so.1(LIBXML2_1.0.24)(64bit) for package: php-xml-7.3.14-1.el7.remi.x86_64
+--> Processing Dependency: libexslt.so.0()(64bit) for package: php-xml-7.3.14-1.el7.remi.x86_64
+--> Processing Dependency: libxslt.so.1()(64bit) for package: php-xml-7.3.14-1.el7.remi.x86_64
+--> Running transaction check
+---> Package autoconf.noarch 0:2.69-11.el7 will be installed
+--> Processing Dependency: m4 >= 1.4.14 for package: autoconf-2.69-11.el7.noarch
+--> Processing Dependency: perl(Data::Dumper) for package: autoconf-2.69-11.el7.noarch
+---> Package automake.noarch 0:1.13.4-3.el7 will be installed
+--> Processing Dependency: perl(Thread::Queue) for package: automake-1.13.4-3.el7.noarch
+--> Processing Dependency: perl(TAP::Parser) for package: automake-1.13.4-3.el7.noarch
+---> Package gcc-c++.x86_64 0:4.8.5-39.el7 will be installed
+--> Processing Dependency: libstdc++-devel = 4.8.5-39.el7 for package: gcc-c++-4.8.5-39.el7.x86_64
+--> Processing Dependency: libstdc++ = 4.8.5-39.el7 for package: gcc-c++-4.8.5-39.el7.x86_64
+---> Package gd-last.x86_64 0:2.2.5-10.el7.remi will be installed
+--> Processing Dependency: libtiff.so.5(LIBTIFF_4.0)(64bit) for package: gd-last-2.2.5-10.el7.remi.x86_64
+--> Processing Dependency: libtiff.so.5()(64bit) for package: gd-last-2.2.5-10.el7.remi.x86_64
+--> Processing Dependency: libwebp.so.7()(64bit) for package: gd-last-2.2.5-10.el7.remi.x86_64
+---> Package libXpm.x86_64 0:3.5.12-1.el7 will be installed
+---> Package libargon2.x86_64 0:20161029-3.el7 will be installed
+---> Package libargon2-devel.x86_64 0:20161029-3.el7 will be installed
+---> Package libedit-devel.x86_64 0:3.0-12.20121213cvs.el7 will be installed
+---> Package libjpeg-turbo.x86_64 0:1.2.90-8.el7 will be installed
+---> Package libmcrypt.x86_64 0:2.5.8-13.el7 will be installed
+---> Package libtool.x86_64 0:2.4.2-22.el7_3 will be installed
+---> Package libxml2-devel.x86_64 0:2.9.1-6.el7_2.3 will be installed
+---> Package libxslt.x86_64 0:1.1.28-5.el7 will be installed
+---> Package oniguruma5.x86_64 0:6.9.4-1.el7.remi will be installed
+---> Package php-cli.x86_64 0:7.3.14-1.el7.remi will be installed
+---> Package php-common.x86_64 0:7.3.14-1.el7.remi will be installed
+--> Processing Dependency: php-json(x86-64) = 7.3.14-1.el7.remi for package: php-common-7.3.14-1.el7.remi.x86_64
+--> Running transaction check
+---> Package libstdc++.x86_64 0:4.8.5-36.el7 will be updated
+---> Package libstdc++.x86_64 0:4.8.5-39.el7 will be an update
+---> Package libstdc++-devel.x86_64 0:4.8.5-39.el7 will be installed
+---> Package libtiff.x86_64 0:4.0.3-32.el7 will be installed
+--> Processing Dependency: libjbig.so.2.0()(64bit) for package: libtiff-4.0.3-32.el7.x86_64
+---> Package libwebp7.x86_64 0:1.0.3-1.el7.remi will be installed
+---> Package m4.x86_64 0:1.4.16-10.el7 will be installed
+---> Package perl-Data-Dumper.x86_64 0:2.145-3.el7 will be installed
+---> Package perl-Test-Harness.noarch 0:3.28-3.el7 will be installed
+---> Package perl-Thread-Queue.noarch 0:3.02-2.el7 will be installed
+---> Package php-json.x86_64 0:7.3.14-1.el7.remi will be installed
+--> Running transaction check
+---> Package jbigkit-libs.x86_64 0:2.0-11.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package              Arch      Version                     Repository     Size
+================================================================================
+Installing:
+ php                  x86_64    7.3.14-1.el7.remi           remi-php73    3.2 M
+ php-devel            x86_64    7.3.14-1.el7.remi           remi-php73    1.2 M
+ php-gd               x86_64    7.3.14-1.el7.remi           remi-php73     81 k
+ php-mbstring         x86_64    7.3.14-1.el7.remi           remi-php73    511 k
+ php-pdo              x86_64    7.3.14-1.el7.remi           remi-php73    128 k
+ php-pecl-mcrypt      x86_64    1.0.3-1.el7.remi.7.3        remi-php73     30 k
+ php-xml              x86_64    7.3.14-1.el7.remi           remi-php73    208 k
+Installing for dependencies:
+ autoconf             noarch    2.69-11.el7                 base          701 k
+ automake             noarch    1.13.4-3.el7                base          679 k
+ gcc-c++              x86_64    4.8.5-39.el7                base          7.2 M
+ gd-last              x86_64    2.2.5-10.el7.remi           remi          134 k
+ jbigkit-libs         x86_64    2.0-11.el7                  base           46 k
+ libXpm               x86_64    3.5.12-1.el7                base           55 k
+ libargon2            x86_64    20161029-3.el7              epel           23 k
+ libargon2-devel      x86_64    20161029-3.el7              epel           13 k
+ libedit-devel        x86_64    3.0-12.20121213cvs.el7      base           32 k
+ libjpeg-turbo        x86_64    1.2.90-8.el7                base          135 k
+ libmcrypt            x86_64    2.5.8-13.el7                epel           99 k
+ libstdc++-devel      x86_64    4.8.5-39.el7                base          1.5 M
+ libtiff              x86_64    4.0.3-32.el7                base          171 k
+ libtool              x86_64    2.4.2-22.el7_3              base          588 k
+ libwebp7             x86_64    1.0.3-1.el7.remi            remi          266 k
+ libxml2-devel        x86_64    2.9.1-6.el7_2.3             base          1.0 M
+ libxslt              x86_64    1.1.28-5.el7                base          242 k
+ m4                   x86_64    1.4.16-10.el7               base          256 k
+ oniguruma5           x86_64    6.9.4-1.el7.remi            remi          197 k
+ perl-Data-Dumper     x86_64    2.145-3.el7                 base           47 k
+ perl-Test-Harness    noarch    3.28-3.el7                  base          302 k
+ perl-Thread-Queue    noarch    3.02-2.el7                  base           17 k
+ php-cli              x86_64    7.3.14-1.el7.remi           remi-php73    4.9 M
+ php-common           x86_64    7.3.14-1.el7.remi           remi-php73    1.1 M
+ php-json             x86_64    7.3.14-1.el7.remi           remi-php73     66 k
+Updating for dependencies:
+ libstdc++            x86_64    4.8.5-39.el7                base          305 k
+
+Transaction Summary
+================================================================================
+Install  7 Packages (+25 Dependent packages)
+Upgrade             (  1 Dependent package)
+
+Total download size: 25 M
+Downloading packages:
+Delta RPMs disabled because /usr/bin/applydeltarpm not installed.
+[91mwarning: /var/cache/yum/x86_64/7/remi/packages/libwebp7-1.0.3-1.el7.remi.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 00f97f56: NOKEY
+[0mPublic key for libwebp7-1.0.3-1.el7.remi.x86_64.rpm is not installed
+Public key for php-gd-7.3.14-1.el7.remi.x86_64.rpm is not installed
+[91mhttp://mirror.team-cymru.com/remi/enterprise/7/php73/x86_64/php-cli-7.3.14-1.el7.remi.x86_64.rpm: [Errno 12] Timeout on http://mirror.team-cymru.com/remi/enterprise/7/php73/x86_64/php-cli-7.3.14-1.el7.remi.x86_64.rpm: (28, 'Operation too slow. Less than 1000 bytes/sec transferred the last 30 seconds')
+[0m[91mTrying other mirror.
+[0m--------------------------------------------------------------------------------
+Total                                              148 kB/s |  25 MB  02:55     
+Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-remi
+[91mImporting GPG key 0x00F97F56:
+ Userid     : "Remi Collet <RPMS@FamilleCollet.com>"
+ Fingerprint: 1ee0 4cce 88a4 ae4a a29a 5df5 004e 6f47 00f9 7f56
+ Package    : remi-release-7.7-1.el7.remi.noarch (installed)
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-remi
+[0mRunning transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : php-json-7.3.14-1.el7.remi.x86_64                           1/34 
+  Installing : php-common-7.3.14-1.el7.remi.x86_64                         2/34 
+  Updating   : libstdc++-4.8.5-39.el7.x86_64                               3/34 
+  Installing : libjpeg-turbo-1.2.90-8.el7.x86_64                           4/34 
+  Installing : libargon2-20161029-3.el7.x86_64                             5/34 
+  Installing : php-cli-7.3.14-1.el7.remi.x86_64                            6/34 
+  Installing : libXpm-3.5.12-1.el7.x86_64                                  7/34 
+  Installing : libargon2-devel-20161029-3.el7.x86_64                       8/34 
+  Installing : libstdc++-devel-4.8.5-39.el7.x86_64                         9/34 
+  Installing : gcc-c++-4.8.5-39.el7.x86_64                                10/34 
+  Installing : libwebp7-1.0.3-1.el7.remi.x86_64                           11/34 
+  Installing : libedit-devel-3.0-12.20121213cvs.el7.x86_64                12/34 
+  Installing : jbigkit-libs-2.0-11.el7.x86_64                             13/34 
+  Installing : libtiff-4.0.3-32.el7.x86_64                                14/34 
+  Installing : gd-last-2.2.5-10.el7.remi.x86_64                           15/34 
+  Installing : libxslt-1.1.28-5.el7.x86_64                                16/34 
+  Installing : perl-Data-Dumper-2.145-3.el7.x86_64                        17/34 
+  Installing : perl-Thread-Queue-3.02-2.el7.noarch                        18/34 
+  Installing : perl-Test-Harness-3.28-3.el7.noarch                        19/34 
+  Installing : libmcrypt-2.5.8-13.el7.x86_64                              20/34 
+  Installing : m4-1.4.16-10.el7.x86_64                                    21/34 
+  Installing : autoconf-2.69-11.el7.noarch                                22/34 
+install-info: No such file or directory for /usr/share/info/autoconf.info
+  Installing : automake-1.13.4-3.el7.noarch                               23/34 
+install-info: No such file or directory for /usr/share/info/automake.info.gz
+  Installing : libtool-2.4.2-22.el7_3.x86_64                              24/34 
+install-info: No such file or directory for /usr/share/info/libtool.info.gz
+  Installing : oniguruma5-6.9.4-1.el7.remi.x86_64                         25/34 
+  Installing : libxml2-devel-2.9.1-6.el7_2.3.x86_64                       26/34 
+  Installing : php-devel-7.3.14-1.el7.remi.x86_64                         27/34 
+  Installing : php-mbstring-7.3.14-1.el7.remi.x86_64                      28/34 
+  Installing : php-pecl-mcrypt-1.0.3-1.el7.remi.7.3.x86_64                29/34 
+  Installing : php-xml-7.3.14-1.el7.remi.x86_64                           30/34 
+  Installing : php-gd-7.3.14-1.el7.remi.x86_64                            31/34 
+  Installing : php-7.3.14-1.el7.remi.x86_64                               32/34 
+  Installing : php-pdo-7.3.14-1.el7.remi.x86_64                           33/34 
+  Cleanup    : libstdc++-4.8.5-36.el7.x86_64                              34/34 
+  Verifying  : libxml2-devel-2.9.1-6.el7_2.3.x86_64                        1/34 
+  Verifying  : php-pecl-mcrypt-1.0.3-1.el7.remi.7.3.x86_64                 2/34 
+  Verifying  : php-mbstring-7.3.14-1.el7.remi.x86_64                       3/34 
+  Verifying  : php-devel-7.3.14-1.el7.remi.x86_64                          4/34 
+  Verifying  : automake-1.13.4-3.el7.noarch                                5/34 
+  Verifying  : oniguruma5-6.9.4-1.el7.remi.x86_64                          6/34 
+  Verifying  : libargon2-20161029-3.el7.x86_64                             7/34 
+  Verifying  : m4-1.4.16-10.el7.x86_64                                     8/34 
+  Verifying  : libmcrypt-2.5.8-13.el7.x86_64                               9/34 
+  Verifying  : libstdc++-4.8.5-39.el7.x86_64                              10/34 
+  Verifying  : gd-last-2.2.5-10.el7.remi.x86_64                           11/34 
+  Verifying  : libargon2-devel-20161029-3.el7.x86_64                      12/34 
+  Verifying  : php-gd-7.3.14-1.el7.remi.x86_64                            13/34 
+  Verifying  : perl-Test-Harness-3.28-3.el7.noarch                        14/34 
+  Verifying  : perl-Thread-Queue-3.02-2.el7.noarch                        15/34 
+  Verifying  : libstdc++-devel-4.8.5-39.el7.x86_64                        16/34 
+  Verifying  : libtool-2.4.2-22.el7_3.x86_64                              17/34 
+  Verifying  : libXpm-3.5.12-1.el7.x86_64                                 18/34 
+  Verifying  : php-pdo-7.3.14-1.el7.remi.x86_64                           19/34 
+  Verifying  : php-common-7.3.14-1.el7.remi.x86_64                        20/34 
+  Verifying  : perl-Data-Dumper-2.145-3.el7.x86_64                        21/34 
+  Verifying  : php-7.3.14-1.el7.remi.x86_64                               22/34 
+  Verifying  : gcc-c++-4.8.5-39.el7.x86_64                                23/34 
+  Verifying  : php-cli-7.3.14-1.el7.remi.x86_64                           24/34 
+  Verifying  : libxslt-1.1.28-5.el7.x86_64                                25/34 
+  Verifying  : jbigkit-libs-2.0-11.el7.x86_64                             26/34 
+  Verifying  : autoconf-2.69-11.el7.noarch                                27/34 
+  Verifying  : libtiff-4.0.3-32.el7.x86_64                                28/34 
+  Verifying  : libedit-devel-3.0-12.20121213cvs.el7.x86_64                29/34 
+  Verifying  : libjpeg-turbo-1.2.90-8.el7.x86_64                          30/34 
+  Verifying  : php-xml-7.3.14-1.el7.remi.x86_64                           31/34 
+  Verifying  : libwebp7-1.0.3-1.el7.remi.x86_64                           32/34 
+  Verifying  : php-json-7.3.14-1.el7.remi.x86_64                          33/34 
+  Verifying  : libstdc++-4.8.5-36.el7.x86_64                              34/34 
+
+Installed:
+  php.x86_64 0:7.3.14-1.el7.remi                                                
+  php-devel.x86_64 0:7.3.14-1.el7.remi                                          
+  php-gd.x86_64 0:7.3.14-1.el7.remi                                             
+  php-mbstring.x86_64 0:7.3.14-1.el7.remi                                       
+  php-pdo.x86_64 0:7.3.14-1.el7.remi                                            
+  php-pecl-mcrypt.x86_64 0:1.0.3-1.el7.remi.7.3                                 
+  php-xml.x86_64 0:7.3.14-1.el7.remi                                            
+
+Dependency Installed:
+  autoconf.noarch 0:2.69-11.el7                                                 
+  automake.noarch 0:1.13.4-3.el7                                                
+  gcc-c++.x86_64 0:4.8.5-39.el7                                                 
+  gd-last.x86_64 0:2.2.5-10.el7.remi                                            
+  jbigkit-libs.x86_64 0:2.0-11.el7                                              
+  libXpm.x86_64 0:3.5.12-1.el7                                                  
+  libargon2.x86_64 0:20161029-3.el7                                             
+  libargon2-devel.x86_64 0:20161029-3.el7                                       
+  libedit-devel.x86_64 0:3.0-12.20121213cvs.el7                                 
+  libjpeg-turbo.x86_64 0:1.2.90-8.el7                                           
+  libmcrypt.x86_64 0:2.5.8-13.el7                                               
+  libstdc++-devel.x86_64 0:4.8.5-39.el7                                         
+  libtiff.x86_64 0:4.0.3-32.el7                                                 
+  libtool.x86_64 0:2.4.2-22.el7_3                                               
+  libwebp7.x86_64 0:1.0.3-1.el7.remi                                            
+  libxml2-devel.x86_64 0:2.9.1-6.el7_2.3                                        
+  libxslt.x86_64 0:1.1.28-5.el7                                                 
+  m4.x86_64 0:1.4.16-10.el7                                                     
+  oniguruma5.x86_64 0:6.9.4-1.el7.remi                                          
+  perl-Data-Dumper.x86_64 0:2.145-3.el7                                         
+  perl-Test-Harness.noarch 0:3.28-3.el7                                         
+  perl-Thread-Queue.noarch 0:3.02-2.el7                                         
+  php-cli.x86_64 0:7.3.14-1.el7.remi                                            
+  php-common.x86_64 0:7.3.14-1.el7.remi                                         
+  php-json.x86_64 0:7.3.14-1.el7.remi                                           
+
+Dependency Updated:
+  libstdc++.x86_64 0:4.8.5-39.el7                                               
+
+Complete!
+Removing intermediate container 3ed5b63fda1e
+ ---> 8e6e44fb4e7a
+Step 10/70 : RUN cd /var/www/html && curl -LO https://github.com/vrana/adminer/releases/download/v4.7.5/adminer-4.7.5.php && mv adminer-4.7.5.php adminer.php && chown -R apache:apache /var/www/html/adminer.php
+ ---> Running in 83bf4e746ba8
+[91m  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+   [0m[91m               [0m[91m               Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0[0m[91m100   605    0   605    0     0   1039      0 --:--:-- --:--:-- --:--:--  1041
+[0m[91m  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0[0m[91m  0     0    0     0    0     0      0      0 --:-[0m[91m-:--  0:00:02 --:--:[0m[91m--     0[0m[91m  0     0    0     0    0     0      0      0 --:--:--  0:00:[0m[91m03 --:--:--     0[0m[91m  0  477k    0     0    0     0      0      0 --:--:--  0:00:04 --:--:--     0[0m[91m  0  477k    0     0    0     0      0      0 --:--:--  0:00:05 --:--:--     0[0m[91m  3  477k    3 16360    0     0   2[0m[91m666      0 [0m[91m 0:03:03  0:00:06  0:02:[0m[91m57  3776[0m[91m  3  477k    3 16973    0     0   2316      0  0:03:31  0:00:07  0:03:[0m[91m24  3668[0m[91m  3  477k    3 16973    0     0   2122      0  0:03:50  0:00:07  0:03:43  3630[0m[91m  7  477k    7 34381    0     0   3644      0  0:02:14[0m[91m  0:00:09[0m[91m  0:02[0m[91m:05  [0m[91m644[0m[91m9[0m[91m 10  477k   10 51789    0     0   5170      0  0:01:34  0:00:10  0:01:24 10558[0m[91m 10  477k   10 51789 [0m[91m   0   [0m[91m  0   4613      0  0:01:46  0[0m[91m:00:11  0:01:[0m[91m35  [0m[91m6960[0m[91m 10  477k   10 51789    0     0   4167      0  0:01[0m[91m:57  0:00:12  0:01:4[0m[91m5  6[0m[91m829[0m[91m 10  477k   10 51789    0     0   3883      [0m[91m0  0:02:0[0m[91m5  0:0[0m[91m0:13  0:01:52  [0m[91m6521[0m[91m 14  477k [0m[91m [0m[91m 14 69197[0m[91m    0[0m[91m [0m[91m    0[0m[91m   47[0m[91m61      0  [0m[91m0:01:42  0[0m[91m:00:14  0:0[0m[91m1[0m[91m:28  6828[0m[91m 14  477k   14 69197    0     0[0m[91m   [0m[91m4487      0  0:01:48  0:00:15  0:01:[0m[91m33  3223[0m[91m 14  477k   14 69197    0     0  [0m[91m 4266      0  0:01:5[0m[91m4  0:00:16  0:01:38  3487[0m[91m 14  477k   14 69197    0     0   4065      0 [0m[91m 0:02:00  0:[0m[91m00:17  0:01:43  3790[0m[91m 17  477k   17 86605    0     0[0m[91m   4657      0  0:01:45  0:00:18 [0m[91m 0:01:27  6620[0m[91m 17  477k   17 86605    0     0   4543      0  0:[0m[91m01:47  0:00:19  0:01:28  [0m[91m3844[0m[91m 17  477k   17 86605    0     0   4326      0  0:01:53  0:00:20  0:01:33  3784[0m[91m 24  477k   24  117k    0     0   5729      0  0:01:25  0:00:21  0:[0m[91m01:04 10679[0m[91m 28  477k   28  135k    0     0   6298      0  0:01:17  0:00:22  0:00:55 13870[0m[91m 31  477k   31  152k    0     0   6796      0  0:01[0m[91m:11  0:00:22  0[0m[91m:00:49 15854[0m[91m 31  477k   31 [0m[91m 152k    0     0   [0m[91m651[0m[91m2  [0m[91m    0 [0m[91m 0[0m[91m:01[0m[91m:15[0m[91m  0[0m[91m:00[0m[91m:23  0:00:52 14121[0m[91m 35  477k   35  169k    0     0   6946      0  0[0m[91m:01:10  0:00:24  0:[0m[91m00:46 17474[0m[91m 39  477k   39  186k    0     0   7350  [0m[91m    0  0:01:06  0[0m[91m:[0m[91m00:25  0:00:[0m[91m41 14187[0m[91m 42  477k   42  203k    0     0   7451      0  0:01:05  0:00:27  0:[0m[91m00:38 11730[0m[91m 42  477k   42  203k    0     0   7242      0  0:01:07  0:00:28  0:00:39 [0m[91m 9013[0m[91m 42  477k   42  203k    0     0[0m[91m   7145      0  0:01:0[0m[91m8  0:[0m[91m00:29 [0m[91m 0[0m[91m:00[0m[91m:39 10074[0m[91m 42  477k   42  203k    0     0   6908      0  0:01:10[0m[91m  0:00:30  0:00:[0m[91m40  6726[0m[91m 42  477k   42  203k    0     0   6686      0  0:01:[0m[91m13  0:00:31  0:00:42  3357[0m[91m 42  477k   42  203k    [0m[91m0     0   6478 [0m[91m     0  0:01:1[0m[91m5  0:00:32  0:00:43     0[0m[91m 46  477k   46  [0m[91m220k    0     0   6791      0  0:01:12 [0m[91m 0:00:3[0m[91m3  0:00:39[0m[91m  38[0m[91m88[0m[91m 46  477k   46  220k   [0m[91m 0     0   6592    [0m[91m  0  0:01:14  0:00:34  0:[0m[91m00:[0m[91m40  3422[0m[91m 46  477k   46  220k    0     0   6405      0 [0m[91m 0:01:16  0:0[0m[91m0:35  0:00:41 [0m[91m 3422[0m[91m 46  477k   46  220k    0     0   6228[0m[91m      0  0:01:1[0m[91m8  0:0[0m[91m0:[0m[91m36 [0m[91m 0:00:42  34[0m[91m22[0m[91m 46  477k   46  220k    0     0   6061  [0m[91m    0  0:01:20[0m[91m  0:00:[0m[91m37  0:[0m[91m00:43  3422[0m[91m 46  477k   46  220k    0     0   5902  [0m[91m    0  0:01:2[0m[91m2  0[0m[91m:00:38  [0m[91m0:00:44   [0m[91m  0[0m[91m 46  477k   46[0m[91m  220k    0     0   57[0m[91m53      [0m[91m0  [0m[91m0[0m[91m:0[0m[91m1[0m[91m:25  0:00[0m[91m:39  0:00:46  [0m[91m  [0m[91m 0[0m[91m 46  477k   46  220k    0     0   56[0m[91m09      [0m[91m0  0:01:27 [0m[91m 0:00:4[0m[91m0  0:00[0m[91m:47    [0m[91m 0[0m[91m 46  477k   46  220k    0     [0m[91m0   5473[0m[91m   [0m[91m   0  [0m[91m0:01:29  [0m[91m0:00:41 [0m[91m 0:00:48     0[0m[91m 46  477k   46  220k    0  [0m[91m   0   [0m[91m5344      [0m[91m0  0[0m[91m:01:31  0:00:4[0m[91m2  0:00:49     0[0m[91m 46  477k   46  220k    0   [0m[91m  0   [0m[91m5220[0m[91m      0  0:0[0m[91m1:33  [0m[91m0:[0m[91m00[0m[91m:43 [0m[91m 0[0m[91m:0[0m[91m0:50  [0m[91m   0[0m[91m 46  477k   46  220k  [0m[91m  0     0   51[0m[91m02      0  0:[0m[91m01:35 [0m[91m 0:00:44[0m[91m  0:00:51  [0m[91m   0[0m[91m 46  477k   46  220k    0  [0m[91m   0   4989      [0m[91m0  0:0[0m[91m1:38[0m[91m  0:00:45  0:0[0m[91m0:53  [0m[91m   0[0m[91m 46  477k   46  220k    0     0  [0m[91m 4881   [0m[91m   0  [0m[91m0:01:40  0:00:46  0:0[0m[91m0:54    [0m[91m 0[0m[91m 46  477k   46  220k    0     0 [0m[91m  4800      [0m[91m0 [0m[91m 0:01:41 [0m[91m 0:00:4[0m[91m7  0[0m[91m:00:54     0[0m[91m 46  477k   46  220k    0     0   4700      0  0:01:44  0:00:48  0:00:56     0[0m[91m 46  477k   46  220k    0     0   4586     [0m[91m 0  0:[0m[91m01:46[0m[91m [0m[91m 0:[0m[91m00[0m[91m:4[0m[91m9  0:00:57[0m[91m     0[0m[91m 46  477k   46  220k    0     0   4508     [0m[91m 0  0:01:48  0:00:50  0:00:58  [0m[91m   0[0m[91m 46  477k   46  22[0m[91m0k    0     0   4386 [0m[91m [0m[91m   [0m[91m 0  0:[0m[91m01[0m[91m:[0m[91m51 [0m[91m 0[0m[91m:00:51  0:01:00     0[0m[91m 46  477k   46  220k    0     0   4336    [0m[91m  0  0:[0m[91m01:52 [0m[91m 0[0m[91m:00[0m[91m:5[0m[91m2  [0m[91m0:[0m[91m01:0[0m[91m0 [0m[91m  [0m[91m  [0m[91m0[0m[91m 46  477k   46  220k    0     0   4[0m[91m250      0  [0m[91m0[0m[91m:01:55  0:00:53  0:01:02     0[0m[91m 46  477k   46  220k    0     0   415[0m[91m6      0  0:01:57  0:00:54 [0m[91m 0:01:03 [0m[91m  [0m[91m  0[0m[91m 46  477k   46  220k    0     0   4098      0  0[0m[91m:01:59  0:00:55  0:01:04     0[0m[91m 46  477k   46  220k    0     0   4015      0 [0m[91m 0:02:01  0[0m[91m:0[0m[91m0:5[0m[91m6  0:01:05  [0m[91m   0[0m[91m 46  477k   46  220k    0     0   3961      0  0:02:[0m[91m03  0:00:57  0:0[0m[91m1:06     0[0m[91m 49  477k   49  236k    0     0   4148      0  0:01:5[0m[91m7  0:00:[0m[91m58  0:00:59  3120[0m[91m 49  477k   49  236k    0     0   4067      0  0[0m[91m:02:00[0m[91m  0:00:5[0m[91m9  0[0m[91m:01[0m[91m:01  3142[0m[91m 49  477k   49  237k[0m[91m    0     0   40[0m[91m47      0  0:02:00  0:01:00 [0m[91m 0:0[0m[91m1:00  [0m[91m3486[0m[91m 49  477k   49  237k    0     0   3971      0  0:02:03  0:01:01  0:01:02  3478[0m[91m 49  477k   49  237k    0     0   3910      0  0:02:05  0:01[0m[91m:02  0:01:03  3349[0m[91m 49  477k   49  237k    0     0   3850      0  0:02:07  0:01:03  0:0[0m[91m1:04   218[0m[91m 49  477k   49  237k    0     0   3792  [0m[91m    0  0:02:08  0:01:04  0:[0m[91m01:04   22[0m[91m7[0m[91m 49  477k   49  237k    0     0   3723      0  0:02:11  0:01:05  0:01:06     0[0m[91m 49  477k   49  237k    0     0   3666  [0m[91m    0  0:02[0m[91m:13  0[0m[91m:0[0m[91m1:0[0m[91m6  0[0m[91m:01:07     0[0m[91m 49  477k   49  237k    0     0   3623      0  0[0m[91m:02:14  0[0m[91m:01:07  [0m[91m0:[0m[91m01:[0m[91m07     [0m[91m0[0m[91m 49  477k   49  237k    0     0   3571      0 [0m[91m 0:02:16  0:01:08  0:01[0m[91m:08     0[0m[91m 49  477k   49  237k    0     0   3499      0  0:0[0m[91m2:19  0:01[0m[91m:09  0:0[0m[91m1:10[0m[91m  [0m[91m   [0m[91m0[0m[91m 49  477k   49  237k    [0m[91m0     0   34[0m[91m59      0[0m[91m  0:[0m[91m02[0m[91m:21 [0m[91m 0:[0m[91m01:10  0:01:11     0[0m[91m 49  477k   49  237k    0     0   3417  [0m[91m    0  0:02[0m[91m:23[0m[91m  0:[0m[91m01:11[0m[91m  0[0m[91m:01[0m[91m:12[0m[91m   [0m[91m  [0m[91m0[0m[91m 49  477k   49  237k    0     0   3370      0  0[0m[91m:02:25  0:[0m[91m01:1[0m[91m2 [0m[91m 0:0[0m[91m1:1[0m[91m3     0[0m[91m 53  477k   5[0m[91m3 [0m[91m 253k    0     0   3549   [0m[91m   0  0:02:17 [0m[91m 0:0[0m[91m1:13 [0m[91m 0:01:04 [0m[91m 3249[0m[91m 53  477k   [0m[91m53  254k    0[0m[91m     0   3[0m[91m51[0m[91m6      0  0:02:1[0m[91m9  0:[0m[91m01[0m[91m:1[0m[91m4  [0m[91m0:01:05[0m[91m  [0m[91m3763[0m[91m 53  477k   53  254k    0     0   3460      [0m[91m0  0:02:21[0m[91m  [0m[91m0:[0m[91m01[0m[91m:15  0:0[0m[91m1:06  [0m[91m347[0m[91m0[0m[91m 53  477k   53  254k    0     0   3413      0 [0m[91m 0:02:23  0[0m[91m:[0m[91m01:16  0:01:07  3360[0m[91m 53  477k   53  254k    0     0   3360      0  0:0[0m[91m2:25  0:01:17  0:0[0m[91m1:08  3220[0m[91m 53  477k   53  254k    0     0   334[0m[91m1[0m[91m      0  0:0[0m[91m2:26  0:01:18 [0m[91m 0[0m[91m:01[0m[91m:08   215[0m[91m 53  477k   53  254k    0     0   3290      0  [0m[91m0:02:28  0:01:19  0[0m[91m:01:09    [0m[91m 0[0m[91m 53  477k   53  25[0m[91m4k    0     0   3241      0  [0m[91m0:02:30[0m[91m  0:0[0m[91m1:20  0:01[0m[91m:10    [0m[91m 0[0m[91m 53  477k   53  254k [0m[91m   0     0   3214[0m[91m      0  0:0[0m[91m2:32  0:01:21  0[0m[91m:01:1[0m[91m1     0[0m[91m 53  477k   53  254k    0     0 [0m[91m  3167      0  [0m[91m0:02:34 [0m[91m 0:01:22[0m[91m [0m[91m 0:01:12  [0m[91m   [0m[91m0[0m[91m 53  477k   53  254k    0     0   3127      0[0m[91m  0:02:36 [0m[91m 0:01:23  [0m[91m0:01[0m[91m:1[0m[91m3     [0m[91m0[0m[91m 53  477k   53  254k [0m[91m   0     0[0m[91m   30[0m[91m97      0  0:02:37  [0m[91m0:01:24 [0m[91m 0:01[0m[91m:1[0m[91m3 [0m[91m  [0m[91m  0[0m[91m 53  477k   53  2[0m[91m54k    0     0   3061      0  0:02:39  0[0m[91m:01:2[0m[91m5 [0m[91m 0:01:[0m[91m14[0m[91m  [0m[91m   0[0m[91m 53  477k   53  254k    0     0   3025      [0m[91m0  0:02:41  0:01:26 [0m[91m 0:01:1[0m[91m5     0[0m[91m 53  477k   53  254k    0     0   2990      0 [0m[91m 0:02:43  0:01[0m[91m:27  0:01:16  [0m[91m   0[0m[91m 53  477k   53  254k    0     0   2945    [0m[91m  0  0:02:46  0:01[0m[91m:28  0:01:18  [0m[91m   0[0m[91m 53  477k   53  254k[0m[91m   [0m[91m 0     0 [0m[91m  2[0m[91m924      0  0:02:47 [0m[91m 0:01:29  0:01[0m[91m:18   [0m[91m  0[0m[91m 53  477k   53  254k    0 [0m[91m    0   2891      0  0:02[0m[91m:49  0:0[0m[91m1:30  0:01:19     0[0m[91m 53  477k   53  254k    0     0   2851[0m[91m      0  0:[0m[91m02:5[0m[91m1  0[0m[91m:0[0m[91m1:3[0m[91m1[0m[91m  0[0m[91m:0[0m[91m1[0m[91m:2[0m[91m0 [0m[91m   [0m[91m 0[0m[91m 53  477k   53  254k[0m[91m    0     0 [0m[91m  2818   [0m[91m   0  0:02:53  0:01:32  0:01:21    [0m[91m 0[0m[91m 53  477k   53  254k    0    [0m[91m 0   2801      0  [0m[91m0:02:54  0:[0m[91m01:[0m[91m33  0:01:21    [0m[91m 0[0m[91m 53  477k   53  254k    0     0   2754      0  0:[0m[91m02:57  0:01:34  0:01:2[0m[91m3     0[0m[91m 53  477k   53  254k    0    [0m[91m 0   2743      0  0:0[0m[91m2:58  0:0[0m[91m1:35 [0m[91m 0:01:23[0m[91m     0[0m[91m 53  477k   53  254k    0     0   2714      0 [0m[91m 0:03:00  [0m[91m0:01:36 [0m[91m 0:01:24     0[0m[91m 53  477k   53  254k    0     0   2684      0  0[0m[91m:03:02  0:01:[0m[91m37 [0m[91m [0m[91m0:0[0m[91m1:25  [0m[91m  [0m[91m 0[0m[91m 53  477k   53  254k    0     0   2651      0  0:03:04  0:01:38  0:01:26[0m[91m     0[0m[91m 53  477k   53  254k    0     0   2617      0  0:03[0m[91m:06  0:01:3[0m[91m9  0:01[0m[91m:27 [0m[91m  [0m[91m [0m[91m 0[0m[91m 53  477k   53  254k   [0m[91m 0   [0m[91m  0  [0m[91m 2[0m[91m601   [0m[91m   [0m[91m0 [0m[91m 0[0m[91m:0[0m[91m3:0[0m[91m8 [0m[91m 0[0m[91m:0[0m[91m1:[0m[91m40 [0m[91m 0:01:28     [0m[91m0[0m[91m 53  477k   53  254k    0     0   2570      0  0:0[0m[91m3:10  0:01:41  0:0[0m[91m1:29    [0m[91m 0[0m[91m 53  477k   53  254k    0     [0m[91m0   2554  [0m[91m    0  0:03:1[0m[91m1  [0m[91m0:0[0m[91m1:4[0m[91m2  0[0m[91m:01[0m[91m:29[0m[91m   [0m[91m  0[0m[91m 53  477k   53  254k    0 [0m[91m    0   2529      0  0:03:13[0m[91m  0:01:43 [0m[91m 0:01[0m[91m:30     0[0m[91m 53  477k   53  254k    0     0   2499      0  0:03:15  0:01:44  0:01:31     0[0m[91m 53  477k   53  254k    0     0   2481      0  0:03:17  0:01:45  0:01:32     0[0m[91m 53  477k   53  254k    0     0   2458      0  [0m[91m0:03:18  0:01:46  0[0m[91m:0[0m[91m1:32     0[0m[91m 56  477k   56  270k    0     0   2587      0  0:0[0m[91m3:09  0:[0m[91m01:47  0[0m[91m:01:22  3257[0m[91m 56  477k   56  271k    0     0   2574  [0m[91m    0  0:03:10  0:[0m[91m01:48  0[0m[91m:01:22[0m[91m  3[0m[91m487[0m[91m 56  477k   56  271k    0     0   2550      0  0:03:11  0:01:[0m[91m49  0:01:22  3657[0m[91m 56  477k   56  271k    0     0   2527      0 [0m[91m 0:03:13  0:01:5[0m[91m0  0:01[0m[91m:23  34[0m[91m82[0m[91m 56  477k   56  271k    0     0   24[0m[91m95      0  0:[0m[91m03:16 [0m[91m 0:01:51  [0m[91m0:01[0m[91m:[0m[91m25[0m[91m  [0m[91m32[0m[91m20[0m[91m 56  477k   56  271k    0     0   2477      0  0:03:17  0:01:52  0:01:25   202[0m[91m 56  477k   56  271k    0     0   2460      0  0:03:18  [0m[91m0:01:53  0:[0m[91m01:[0m[91m25[0m[91m     0[0m[91m 56  477k   56  271k    0     0   2438      0  0:03:20  0:01:54  0:01:2[0m[91m6   [0m[91m  0[0m[91m 56  477k   56  271k    0     0   2417  [0m[91m    0  0:03:22  0:01:55  0:01:[0m[91m27     0[0m[91m 56  477k   56  271k    0     0   2397      0  0:03:24  0:01:55  0:01:29     0[0m[91m 56  477k   56  271k    0     0   2377      0  0:03:25  0:01:56  0:01:29[0m[91m     0[0m[91m 56  477k   56  271k    0     0   2337      0  0:03:29  0:01:58  0:01:31     0[0m[91m 56  477k   56  271k    0     0   2317      0  0:03:31  0:01:59  0:01:32     0[0m[91m 56  477k   56  271k    0     0   2298      0  0:03:32  0:02:00  0:01:32     0[0m[91m 56  477k   56  271k    0     0   2279      0  0:03:34  0:02:01  0:0[0m[91m1:33     0[0m[91m 56  477k   56  271k    0     0   2261      0  0:0[0m[91m3:36  0:02:02  0[0m[91m:01:34[0m[91m     0[0m[91m 56  477k   56  271k    0     0   2243      0  0:03:38  0:02:03  0:01:35     0[0m[91m 56  477k   56  271k    0     0   2225      0  0:03:39  0:02:04  0:01:35   [0m[91m  0[0m[91m 56  477k   56  271k    0     0   2207      0  0:03:41  0:02:05  0:01:36     0[0m[91m 56  477k   56  271k    0     0   2189      0  0:03:43  0:02:06  0:01:37     0[0m[91m 56  477k   56  271k    0     0   2172      0  0:03:45  0:02:07  0:01:38 [0m[91m    0[0m[91m 56  477k   56  271k    0     0   2155      0  0:03:46  0:02:08  0:01:38     [0m[91m0[0m[91m 56  477k   56  271k    0     0   2139      0  0:03:48  0:02:09  0:01:39     0[0m[91m 56  477k   56  271k    0     0   2123      0  0:03:50  0:02:[0m[91m10  0:01[0m[91m:40   [0m[91m  [0m[91m0[0m[91m 56  477k   56  271k    0     0   2106      0  0:03:52[0m[91m  0:02:11  0:01:41 [0m[91m    0[0m[91m 56  477k   56  271k    0     0   2091      0  0:03:53  0:02:12  0:01:41     0[0m[91m 56  477k   56  271k    0     0   2075      0  0:03:55  0:02:[0m[91m13  0:01:42     0[0m[91m 56  477k   56  271k    0     0   2060      0  0:03:57  0:02:14  0:01:43     0[0m[91m 56  477k   56  271k    0     0   2044      0[0m[91m  0:03:59  0:02:15  0:01:4[0m[91m4   [0m[91m  [0m[91m0[0m[91m 56  477k   56  271k    0     0   2029      0  0:0[0m[91m4:01  0:02:[0m[91m16  0:[0m[91m01:45[0m[91m     0[0m[91m 56  477k   56  271k    0     0   2015      0  0:04:02  0:02:17  0:01:45     0[0m[91m 56  477k   56  271k    0     0   2000      0  0:04:04  0:02:18  0:01:46    [0m[91m 0[0m[91m 56  477k   56  271k    0     0   1986      0  0:04:06  0:02:19  0:01:47     0[0m[91m 56  477k   56  271k    0     0   1972      0  0:04:08  0:02:20  0:01:48     0[0m[91m 56  477k   56  271k    0     0   1958      0  0:04[0m[91m:09  0:02:21  0:01[0m[91m:48     0[0m[91m 56  477k   56  271k    0     0   1944      0  0:04:11  0:02:23  0:01:48     0[0m[91m 56  477k   56  271k    0     0   1931      0  0:04:13  0:02:24  0:01:49     0[0m[91m 56  477k   56  271k    0     0   1917      0  0:04:15  0:02:25  0:01:50     0[0m[91m 56  477k   56  271k    0     0   1904      0  0:04:16  0:02:26  0:01:50     0[0m[91m 56  477k   56  271k    0     0   1891   [0m[91m   0  0:04:18  0:02:27  0:01:[0m[91m51  [0m[91m   0[0m[91m 56  477k   56  271k    0     0   1878[0m[91m      0  0:04:2[0m[91m0  0:[0m[91m02:[0m[91m28 [0m[91m 0:[0m[91m01:[0m[91m52 [0m[91m   [0m[91m 0[0m[91m 56  477k   56  271k    0     0   1866      0  0:04:22  0:02:29  0:01:53   [0m[91m  0[0m[91m 56  477k   56  271k    0     0   1853      0  0:04:23  0:02:30  0:01:53    [0m[91m 0[0m[91m 56  477k   56  271k    0     0   1841      0  [0m[91m0:04:25  0:02[0m[91m:31 [0m[91m 0:01:54     0[0m[91m 56  477k   56  271k    0     0   1829      0  0:04:[0m[91m27  0:02:32  0[0m[91m:01:55 [0m[91m    0[0m[91m 56  477k   56  271k    0     0  [0m[91m 1817     [0m[91m 0  [0m[91m0:[0m[91m04[0m[91m:2[0m[91m9 [0m[91m 0[0m[91m:0[0m[91m2:[0m[91m33[0m[91m  0:01:56[0m[91m     0[0m[91m 56  477k   56  271k    0    [0m[91m 0   1805    [0m[91m  0  0:04[0m[91m:30  0:02:[0m[91m34  [0m[91m0:01[0m[91m:56  [0m[91m   0[0m[91m 56  477k   56  271k    0     0   179[0m[91m3      0 [0m[91m 0[0m[91m:04:[0m[91m32 [0m[91m 0[0m[91m:0[0m[91m2:35  0:01[0m[91m:57     0[0m[91m 56  477k   56  271k    0     [0m[91m0   1782    [0m[91m  0  0:04:[0m[91m34  [0m[91m0:02:36  0:01:58 [0m[91m    0[0m[91m 56  477k   56  271k    0     0   1770      0  0:04:36  0:02:37  0:01:59     0[0m[91m 56  477k   56  271k    0     0   1759      0  0:04:38  0:02:38  0:02:00 [0m[91m    0[0m[91m 56  477k   56  271k    0     0   1748      0  0:04:39  0:02:39  0:02:00     0[0m[91m 56  477k   56  271k    0     0   1737      0  0:04:41  0:02:40  0:02:01     0[0m[91m 56  477k   56  271k    0     0   1726      0  0:04:43  0:02:41  0:02:02     0[0m[91m 56  477k   56  271k    0     0   1716      0  0:04:45  0:02:42  0:02:03     0[0m[91m 56  477k   56  271k    0     0   1705      0  0:04:46  0:02:43  0:02:03  [0m[91m   0[0m[91m 56  477k   56  271k    0     0   1695      0  0:04:48  0:02:4[0m[91m4  0:02:04  [0m[91m   [0m[91m0[0m[91m 56  477k   56  271k    0     0   1685      0  0:04:50  0:02:45  0:02:05     0[0m[91m 56  477k   56  271k    0     0   1674      0  0:0[0m[91m4:52  0:02:46  0:02:06     [0m[91m0[0m[91m 56  477k   56  271k    0     0   1664      0  0:04:53  0:02:47  0:02:06  [0m[91m   0[0m[91m 56  477k   56  271k    0     0   1654      0  0:04:55  0:02:48  0:02:07     0[0m[91m 56  477k   56  271k    0     0   1645      0  0:04:57  0:02:49  0:02:08     0[0m[91m 56  477k   56  271k    0     0   1635      0  0:04:59  0:02:50  0:02:09 [0m[91m    0[0m[91m 56  477k   56  271k    0     0   1625      0  0:05:00  0:02:51  0:02:09 [0m[91m    0[0m[91m 56  477k   56  271k    0     0   1616      0  0:05:02  0[0m[91m:02:52  0:02:10   [0m[91m  [0m[91m0[0m[91m 56  477k   56  271k    0     0   1607      0  0:05:04  0:02:53  0:02:11     0[0m[91m 56  477k   56  271k    0     0   1597    [0m[91m  0  0:05:06  0:02:54  0:02:[0m[91m12    [0m[91m 0[0m[91m 56  477k   56  271k    0     0   1588      0  0:05:07  0:[0m[91m02:55  0:02:12     0[0m[91m 56  477k   56  271k    0     0   1579      0  0:05:09  0:02:56  0:02:13     0[0m[91m 56  477k   56  271k    0     0   1570      0  0:05:11  0:02:57  0:02:14     0[0m[91m 56  477k   56  271k    0     0   1561      0  0:05:13  0:02:58  0:02:15     0[0m[91m 56  477k   56  271k    0     0   1553      0  0:05:14  0:02:59  0:02:15     0[0m[91m 56  477k   56  271k    0     0   1544      0  0:05:[0m[91m16  0:03:00  0:[0m[91m02:16    [0m[91m 0[0m[91m 56  477k   56  271k    0     0   1535      0  0:05:18  0:03:01[0m[91m  0:02:17     0[0m[91m 56  477k   56  271k    0     0   1527      0  0:05:20  0:03:02  0:02:18     0[0m[91m 56  477k   56  271k    0     0   1519      0  0:05:21  0:03:03  0[0m[91m:02:18     0[0m[91m 56  477k   56  271k    0     0   1510      0  0:05:23  0:03:04  0:02:19     0[0m[91m 56  477k   56  271k    0     0   1502    [0m[91m  0  0:05:25  0:03:05 [0m[91m 0[0m[91m:02:[0m[91m20[0m[91m  [0m[91m   0[0m[91m 56  477k   56  271k    0     0   1494     [0m[91m 0  0:05:27  0:0[0m[91m3:06  [0m[91m0:02:[0m[91m21  [0m[91m   0[0m[91m 56  477k   56  271k    0     0   1486      0  0:05:29  0:03:07  0:02:22     0[0m[91m 56  477k   56  271k    0     0   1478      0  0:05:30  0:03:08  0:02:22     0[0m[91m 56  477k   56  271k    0     0   1470      0  0:05:32  0:03:09  0:02:23     0[0m[91m 56  477k   56  271k    0     0   1463      0  0:05:34  0:03:10  0:02:24     0[0m[91m 56  477k   56  271k    0     0   1455      0  0:05:36  0:03:11  0:02:25     0[0m[91m 56  477k   56  271k    0     0   1447      0  0:05:37  0:03:12  [0m[91m0:02:25     0[0m[91m 56  477k   56  271k    0     0   1440      0  0:05:39  0:03:1[0m[91m3  0:02:26     0[0m[91m 56  477k   56  271k    0     0   1432      0  0:05:41  0:0[0m[91m3:14  0:02:27 [0m[91m   [0m[91m 0[0m[91m 56  477k   56  271k    0     0   1425   [0m[91m   0  0:05:43  0:03:15  0:0[0m[91m2:28  [0m[91m   0[0m[91m 56  477k   56  271k    0     0   1418      0  0:05:44  0:03:16  0:02:28     0[0m[91m 56  477k   56  271k    0     0   1411      0  0:05:46  0:03:1[0m[91m7  0:02:29     0[0m[91m 56  477k   56  271k    0     0   1404      0  0:05:48  0:03:18  0:02:30     0[0m[91m 56  477k   56  271k    0     0   1396      0  [0m[91m0:05:50  0:03:19  0:02:[0m[91m31     0[0m[91m 56  477k   56  271k    0     0   1389      0  0:0[0m[91m5:52  0:03:20  0[0m[91m:02:32 [0m[91m    [0m[91m0[0m[91m 56  477k   56  271k    0     0   1383      0  0:05:53  0:03:21  0:02:32     0[0m[91m 56  477k   56  271k    0     0   1376      0  0:05:55  0:03:22[0m[91m  0:02:33     0[0m[91m 56  477k   56  271k    0     0   1369      0  0[0m[91m:05:57  0:03:23  0:[0m[91m02:34    [0m[91m 0[0m[91m 56  477k   56  271k    0     0   1362      0 [0m[91m 0:05:59  0:03[0m[91m:24  0:02:3[0m[91m5    [0m[91m 0[0m[91m 56  477k   56  271k    0     0   1356      0  0:06:00  0:03:25  0:02:35     0[0m[91m 56  477k   56  271k    0     0   1349      [0m[91m0  0:06:02  0:03:26  0:02:36  [0m[91m   0[0m[91m 56  477k   56  271k    0     0   1342      0  0:06:04  0:03:27  0:02:37     0[0m[91m 56  477k   56  271k    0     0   1336      0  0:06:06  0:03:28  0:02:[0m[91m38     0[0m[91m 56  477k   56  271k    0     0   1330      0  0:06:07  0:03:29  0:02:38     0[0m[91m 56  477k   56  271k    0     0   1323 [0m[91m     0  0:06:09  0:03:30  0:02:39     [0m[91m0[0m[91m 56  477k   56  271k    0     0   1317      0  0:06:11  0:03:31  0:02:40     0[0m[91m 56  477k   56  271k    0     0   1311      0  0:06:13  0:03:32  0:02:41     0[0m[91m 56  477k   56  271k    0     0   1305      0  0:06:14  0:03:33  0:02:41 [0m[91m    0[0m[91m 56  477k   56  271k    0     0   1298      0  0:06:[0m[91m16  0:03:34  0:02:42     [0m[91m0[0m[91m 56  477k   56  271k    0     0   1292      0  0:06:18  0:03:[0m[91m35  0:02:43     0[0m[91m 56  477k   56  271k    0     0   1286      0  0:06:20  0:03:36  0:02:44     0[0m[91m 56  477k   56  271k    0     0   1280      0  0:06:22  0:03:37  0:02:45     0[0m[91m 56  477k   56  271k    0     0   1275      0  0:06:23  0:0[0m[91m3:38  0:02:45   [0m[91m  0[0m[91m 56  477k   56  271k    0     0   1269      0[0m[91m  0:06:25  0:03:39  [0m[91m0:02:46    [0m[91m 0[0m[91m 56  477k   56  271k    0     0   1263      0  0:06:27 [0m[91m 0:03:40[0m[91m  0:0[0m[91m2:[0m[91m47[0m[91m  [0m[91m   0[0m[91m 56  477k   56  271k    0     0   1257      0  0:06:29[0m[91m  0:03:41  [0m[91m0:[0m[91m02:4[0m[91m8 [0m[91m  [0m[91m  0[0m[91m 56  477k   56  271k    0     0   1252      0  0:06:30  0:03:42  0:02:48     0[0m[91m 56  477k   56  271k    0     0   1246      0  0:06:32  0:03:43  0:02[0m[91m:49     0[0m[91m 56  477k   56  271k    0     0   1240      0  0:06:34  0:03:44  0:02:50     0[0m[91m 56  477k   56  271k    0     0   1235      0  0:06:36  0:03:45  0:02:[0m[91m51     0[0m[91m 56  477k   56  271k    0     0   1229      0  0:06:37  0:03:46  0:02:51     0[0m[91m 56  477k   56  271k    0     0   1224      0  0:0[0m[91m6:39  0:03:47  0:02:52    [0m[91m 0[0m[91m 56  477k   56  271k    0     0   1219      0  0:06:41  [0m[91m0:03:48  0:02:53  [0m[91m   0[0m[91m 56  477k   56  271k    0     0   1213      0  0:06:43  0:03:49  0:02:54     0[0m[91m 56  477k   56  271k    0     0   1208      0  0:06:44  0:03:50  0:02:54     0[0m[91m 56  477k   56  271k    0     0   1203      0  0:06:46  0:03:51  0:02:55     0[0m[91m 56  477k   56  271k    0     0   1198      0  0:06:48  0:03:52  0:02:56     0[0m[91m 56  477k   56  271k    0     0   1192      0  0:06:50  0:03:53  0:02:57     0[0m[91m 56  477k   56  271k    0     0   1187      0  0:06:52  0:03:54  0:02:58     0[0m[91m 56  477k   56  271k    0     0   1182      0  0:06:53  0:03:55  0:02:58     0[0m[91m 56  477k   56  271k    0     [0m[91m0   1177      0  [0m[91m0:06:[0m[91m55[0m[91m  [0m[91m0:0[0m[91m3:56[0m[91m  [0m[91m0:[0m[91m02:59[0m[91m  [0m[91m [0m[91m  0[0m[91m 56  477k   56  271k    0     0   1172      0  0:06:57  0:03[0m[91m:57  0:03:00     0[0m[91m 56  477k   56  271k    0     0   1167      0  0:06:59  0:03:58  0:03:01     0[0m[91m 56  477k   56  271k    0     0   1163      0  0:07:00  0:03:59  0:03:01     0[0m[91m 56  477k   56  271k    0     0   1158      0  0:07:02  0:04:00  0:03:02     0[0m[91m 56  477k   56  271k    0     0   1153      0  0:07:04  0:04:01  0:03:03     0[0m[91m 56  477k   56  271k    0     0   1148      0  0:07:06  0:04:02  0:03:04     0[0m[91m 56  477k   56  271k    0     0   1143      0  0:[0m[91m07:07  0:04:03  0:03[0m[91m:04    [0m[91m 0[0m[91m 56  477k   56  271k    0     0   1139      0  0:07:09  0:04:04  0:03:05     0[0m[91m 56  477k   56  271k    0     0   1134      0  0:07:11  0:04:[0m[91m05  0:03:06     0[0m[91m 56  477k   56  271k    0     0   1129      [0m[91m0  0:07:13  0:04:0[0m[91m6 [0m[91m 0[0m[91m:0[0m[91m3:07[0m[91m     0[0m[91m 56  477k   56  271k    0     0   1125      0  0[0m[91m:07:14  0:04:07  0:03:07  [0m[91m   0[0m[91m 56  477k   56  271k    0     0   1120      0  0:07:16  0:04:08  0:03:08     0[0m[91m 56  477k   56  271k    0     0   1116      0  0:0[0m[91m7:18  0:04:09  0:03:09     0[0m[91m 56  477k   56  271k    0     0   1111      0  0:07:20  0:04:10  0:03:10     0[0m[91m 56  477k   56  271k    0     0   1107      0  0:07[0m[91m:21  0:04:11  [0m[91m0:03:10  [0m[91m   0[0m[91m 56  477k   56  271k    0     0   1102      0  0:07:23  0:04:12  0:03:[0m[91m11     0[0m[91m 56  477k   56  271k    0     0   1098      0  0[0m[91m:07:25  0:04:13  0:03:12     0[0m[91m 56  477k   56  271k    0     0   1094 [0m[91m     0  0:07:27  0:04:14 [0m[91m 0:03:13    [0m[91m 0[0m[91m 56  477k   56  271k    0     0   1090      0  0:07:28  0:04:15  0:03:13     0[0m[91m 56  477k   56  271k    0     0   1085      0  0:07:30  0:04:16  0:03:14 [0m[91m    0[0m[91m 56  477k   56  271k    0     0   1081      0  0:07:32  0:04:17  0:03:15  [0m[91m   0[0m[91m 56  477k   56  271k    0     0   1077   [0m[91m   0  0:07:34 [0m[91m 0:0[0m[91m4:1[0m[91m8  0[0m[91m:03:16     0[0m[91m 56  477k   56  271k    0     0   1073      0  0:07:35  0:04:19  0:03:16     0[0m[91m 56  477k   56  271k    0     0   1069      0  0[0m[91m:07:37  0:04:20  0:03:17   [0m[91m  0[0m[91m 56  477k   56  271k    0     0   1064      0[0m[91m  0:07:39  0:04:[0m[91m21  0:03:1[0m[91m8   [0m[91m  [0m[91m0[0m[91m 56  477k   56  271k    0     0   1060      0  0:07:41  0:04:[0m[91m22  0:03:19     0[0m[91m 56  477k   56  271k    0     0   1056      0  0:07:43  0:04:23[0m[91m  0:03:20     0[0m[91m 56  477k   56  271k    0     0   1[0m[91m052      0  0:07:44  0:[0m[91m04[0m[91m:[0m[91m24[0m[91m  [0m[91m0:[0m[91m0[0m[91m3:[0m[91m20[0m[91m  [0m[91m  [0m[91m 0[0m[91m 56  477k   56  271k    0     0   1048      0  0:07:46  0:04:25  0:03:21     0[0m[91m 56  477k   56  271k    0     0   1044      0  0:07:48  0:[0m[91m04:26  0:03:22 [0m[91m    0[0m[91m 56  477k   56  271k    0     0   1040      0  0:0[0m[91m7:50  0:04:27  0:03:23  [0m[91m   0[0m[91m 56  477k   56  271k    0     0   1037      0  0:0[0m[91m7:51  0:04:28  0:03[0m[91m:23     [0m[91m0[0m[91m 56  477k   56  271k    0     0  [0m[91m 1033      0  0:07:53  0[0m[91m:04:29 [0m[91m 0:03:24    [0m[91m 0[0m[91m 56  477k   56  271k    0     0   1029      0  0:07:55  [0m[91m0:04:30  0:03:25     0[0m[91m 56  477k   56  [0m[91m27[0m[91m1k    0     0   1025  [0m[91m    0 [0m[91m 0:07:57  0:04:31 [0m[91m [0m[91m0[0m[91m:[0m[91m0[0m[91m3[0m[91m:[0m[91m2[0m[91m6[0m[91m [0m[91m [0m[91m [0m[91m [0m[91m [0m[91m0[0m[91m [0m[91m56[0m[91m [0m[91m [0m[91m47[0m[91m7[0m[91mk[0m[91m [0m[91m [0m[91m [0m[91m5[0m[91m6[0m[91m [0m[91m 2[0m[91m7[0m[91m1[0m[91mk[0m[91m [0m[91m [0m[91m  [0m[91m0[0m[91m [0m[91m [0m[91m [0m[91m [0m[91m [0m[91m0[0m[91m [0m[91m  [0m[91m1[0m[91m0[0m[91m21[0m[91m [0m[91m [0m[91m [0m[91m [0m[91m [0m[91m [0m[91m0[0m[91m [0m[91m [0m[91m0[0m[91m:[0m[91m0[0m[91m7[0m[91m:[0m[91m5[0m[91m9[0m[91m [0m[91m [0m[91m0[0m[91m:[0m[91m0[0m[91m4[0m[91m:[0m[91m3[0m[91m2[0m[91m [0m[91m [0m[91m0[0m[91m:[0m[91m0[0m[91m3[0m[91m:[0m[91m2[0m[91m7[0m[91m [0m[91m [0m[91m [0m[91m [0m[91m [0m[91m0[0m[91m 5[0m[91m6  4[0m[91m7[0m[91m7[0m[91mk[0m[91m [0m[91m [0m[91m 5[0m[91m6[0m[91m [0m[91m [0m[91m2[0m[91m7[0m[91m1[0m[91mk[0m[91m  [0m[91m [0m[91m [0m[91m0 [0m[91m [0m[91m [0m[91m [0m[91m [0m[91m0[0m[91m [0m[91m  [0m[91m1[0m[91m0[0m[91m1[0m[91m8[0m[91m [0m[91m  [0m[91m [0m[91m [0m[91m [0m[91m0[0m[91m [0m[91m [0m[91m0[0m[91m:[0m[91m0[0m[91m8[0m[91m:[0m[91m0[0m[91m0 [0m[91m [0m[91m0[0m[91m:[0m[91m0[0m[91m4[0m[91m:[0m[91m3[0m[91m3[0m[91m [0m[91m [0m[91m0[0m[91m:[0m[91m0[0m[91m3[0m[91m:[0m[91m2[0m[91m7[0m[91m [0m[91m [0m[91m [0m[91m [0m[91m [0m[91m0[0m[91m 5[0m[91m6  4[0m[91m7[0m[91m7[0m[91mk[0m[91m [0m[91m [0m[91m [0m[91m5[0m[91m6[0m[91m [0m[91m [0m[91m2[0m[91m7[0m[91m1[0m[91mk[0m[91m [0m[91m [0m[91m [0m[91m [0m[91m0[0m[91m  [0m[91m [0m[91m [0m[91m [0m[91m0[0m[91m [0m[91m [0m[91m [0m[91m10[0m[91m1[0m[91m4[0m[91m [0m[91m  [0m[91m [0m[91m [0m[91m [0m[91m0[0m[91m [0m[91m [0m[91m0[0m[91m:[0m[91m0[0m[91m8[0m[91m:[0m[91m0[0m[91m2[0m[91m [0m[91m [0m[91m0[0m[91m:[0m[91m0[0m[91m4[0m[91m:3[0m[91m4[0m[91m [0m[91m [0m[91m0[0m[91m:[0m[91m0[0m[91m3[0m[91m:[0m[91m2[0m[91m8[0m[91m [0m[91m [0m[91m [0m[91m [0m[91m [0m[91m0[0m[91m 5[0m[91m6  4[0m[91m7[0m[91m7[0m[91mk[0m[91m  [0m[91m [0m[91m5[0m[91m6[0m[91m [0m[91m [0m[91m27[0m[91m1k[0m[91m [0m[91m [0m[91m [0m[91m [0m[91m0[0m[91m [0m[91m  [0m[91m [0m[91m [0m[91m0[0m[91m [0m[91m [0m[91m [0m[91m1[0m[91m0[0m[91m1[0m[91m0 [0m[91m [0m[91m [0m[91m [0m[91m [0m[91m [0m[91m0[0m[91m [0m[91m [0m[91m0[0m[91m:[0m[91m0[0m[91m8[0m[91m:[0m[91m0[0m[91m4 [0m[91m 0[0m[91m:[0m[91m0[0m[91m4[0m[91m:[0m[91m3[0m[91m5[0m[91m [0m[91m [0m[91m0[0m[91m:0[0m[91m3[0m[91m:[0m[91m2[0m[91m9[0m[91m [0m[91m [0m[91m [0m[91m [0m[91m 0[0m[91m 56  477k   56  271k    0     0   1007      0  0:08:05  0:04:36  0:03:29     0[0m[91m 56  477k   56  271k    0     0   1003 [0m[91m     0  0:08:07  0:[0m[91m04:37 [0m[91m 0:03:[0m[91m30   [0m[91m  0[0m[91m 56  477k   56  271k    0     0    999      0  0:08:09  0:04:38  0:03:31   [0m[91m  0[0m[91m 56  477k   5[0m[91m6  271k    0     0    996      0  0:08:11  0:04:39  0:03:32     0[0m[91m 56  477k   56  271k    0     0    992      0  0:08:13  0:04:40  0:03:33     0[0m[91m 56  477k   56  271k    0     0    989      0  0:08:14  0:04:41  0:03[0m[91m:33     0[0m[91m 56  477k   56  271k    0     0    985      0  0:08:16  0:04:42  0:03:3[0m[91m4     0[0m[91m 56  477k   56  271k    0     0    982      0  0:08:18  0:04:43  0:0[0m[91m3:35     0[0m[91m 56  477k   56  271k    0     0    978      0  0:08:20 [0m[91m 0:04:44  0:03:36     0[0m[91m 56  477k   56 [0m[91m 271k    0     0    975      0  0:08:21  0:04:45  0:03:36     0[0m[91m 56  477k   56  271k    0     0    971      0  0:08:23  0:04:46  0:03:3[0m[91m7     0[0m[91m 56  477k   56 [0m[91m 271k    0     0    968      0  0:08:25  0:04:47  0:03:38     0[0m[91m 56[0m[91m  477k   56  271k    0     0[0m[91m    965[0m[91m      0  0:08:26  0:04:48[0m[91m [0m[91m 0:03[0m[91m:[0m[91m38 [0m[91m    0[0m[91m 56[0m[91m  477k   56  271k    0     0 [0m[91m   [0m[91m961      0  0:08:28  0:04:49  0:03:39   [0m[91m  0[0m[91m 56  477k   56  271k [0m[91m   0     0    958      0  0:08:30  0:04:50  0:03:40     0[0m[91m 56  477k   56 [0m[91m 271k    0     0    955      0  0:08:32  0:04:51  0:03:41     0[0m[91m 56  477k   56  271k    0     0    951      0  0:08:34  0:04:52  0:03:42     0[0m[91m 56  477k[0m[91m   56  271k    0     0    948      0  0:[0m[91m08:35 [0m[91m 0:04:53  0:03:42     0[0m[91m 56  477k   56  271k    0     0    945      0  0:08:37  0[0m[91m:04:54  0:03:43     0[0m[91m 56  477k   56  271k    0     0    942      0[0m[91m  0:08:39  0:04:55  0:03:44     0[0m[91m 56  477k   56  271k    0     0    93[0m[91m8      0  0:08:41 [0m[91m 0:04[0m[91m:56  0:[0m[91m03:45     0[0m[91m 56  477k   56  271k    0     0    935      0  0:08:4[0m[91m3  0:04:57  0:03:46     0[0m[91m 56  477k   56  271k    0     0 [0m[91m   932      0  0:08:44  0:04:58  [0m[91m0:03:46     0[0m[91m 56  477k   56  271k    0     0    929      0  0:08:46  0:04:59  0:03:47     0[0m[91m 56  477k   56  271k    0     0    926      0  0:08:48  0:05:0[0m[91m0  0:03:48     0[0m[91m 56  477k   56  271k    0     0    923    [0m[91m  0  0:08:49  0:[0m[91m05[0m[91m:0[0m[91m1  0[0m[91m:03:48   [0m[91m  0[0m[91m 56  477k   56  271k    [0m[91m0     0    920     [0m[91m 0  0:0[0m[91m8:51  0:05:02[0m[91m  0:03[0m[91m:49  [0m[91m   0[0m[91m 56  477k   56  271k    0     0    917      0[0m[91m  0:08:53  0:05:03  0:[0m[91m03:50 [0m[91m  [0m[91m  0[0m[91m 56  477k   56  271k    0     0    914      0  0:08:55  0:05:04  0:03:51     0[0m[91m 56  477k   56  271k    0     0    911      0  [0m[91m0:08:56  0:05:05  0:03:51     0[0m[91m 56  477k   56  271k    0    [0m[91m 0    908      0  0:08:58  0[0m[91m:05:06[0m[91m  0[0m[91m:03:[0m[91m52  [0m[91m   0[0m[91m 56  477k   56  271k    0     0    905      0  0:09:00  0:05:07  0:03:53     0[0m[91m 56  477k   56  271k    0     0    902    [0m[91m  0  0:09:02  0:05:08  [0m[91m0:03:54     0[0m[91m 56  477k   56  271k    0     0    899      0  0:09:04  0:05:09  0:03:55  [0m[91m   0[0m[91m 56  477k   56  271k    0     0    896     [0m[91m 0  0:09:05  0:05:10  0:03[0m[91m:55   [0m[91m  0[0m[91m 56  477k   56  271k    0     0    893      0  0:09:07  [0m[91m0:05:11  0:03:56[0m[91m   [0m[91m  [0m[91m0[0m[91m 56  477k   56  271k    0     0    890      0  0:09:09  0:05:1[0m[91m2  0:03:[0m[91m57    [0m[91m 0[0m[91m 56  477k   56  271k    0     0    887      0  0:09:11  0:05:13  0:03:58     0[0m[91m 56  477k   56  271k    0     0    885      0  0:09:12  0:05:14  0:03[0m[91m:58     0[0m[91m 56  477k   56  271k    0     0    882      0  0:09:14  0:05:15  0:03:59     0[0m[91m 56  477k   56  271k    0     0    879      0  0:09:16  0:05:16  0:04:00     0[0m[91m 56  477k   56  271k    0     0    876      0  0:09:18  0:05:17  0:04:01  [0m[91m   0[0m[91m 56  477k   56  271k    0     0    873      0  0:09:20  0:05:18  0:04:02     0[0m[91m 56  477k   56  271k    0     0    871      0  0:09:21  0:05:19  0:04:02     0[0m[91m 56  477k   56  271k    0     0    8[0m[91m68      0  0:09:23  0:05:20[0m[91m  0:04:03   [0m[91m  0[0m[91m 56  477k   56  271k    0     0    865      0  0:09:25  0:05:21  0:04:04    [0m[91m 0[0m[91m 56  477k   56  271k    0     0    863      0  0:09:26  0:05:22  0:04:04     0[0m[91m 56  477k   56  271k    0     0    860      0  0:09:28  0:05:23  0:04:05     0[0m[91m 56  477k   56  271k    0     0    857      0  0:09:30  0:05:24  0:04:06     0[0m[91m 56  477k   56  271k    0     0    855      0  0:09:32  0:05:25  0:04:07     0[0m[91m 56  477k   56  271k    0     0    852      0  0:09:34  0:05[0m[91m:26  0:04:08     0[0m[91m 56  477k   56  271k    0     0    849      0  0:09:36  0:05:27  0:04[0m[91m:09     0[0m[91m 56  477k   56  271k    0     0    847      0  [0m[91m0:09:37  0:05:28  [0m[91m0:04:09 [0m[91m    0[0m[91m 56  477k   56  271k    0     0    844      0  0:09:39  0:05:29  0:04:10     0[0m[91m 56  477k   56  271k    0     0    842      0  0:09:40  0:05:30  0:04:10     0[0m[91m 56  477k   56  271k    0     0    839      0  0:09:42  0:05:31  0:04:11  [0m[91m   0[0m[91m 56  477k   56  271k    0     0    837      0  0:09:44  0:05:32  0:04:12     0[0m[91m 56  477k   56  271k    0     0    834[0m[91m      0  0:0[0m[91m9:46  [0m[91m0:05[0m[91m:33 [0m[91m 0:0[0m[91m4[0m[91m:13 [0m[91m  [0m[91m  [0m[91m0[0m[91m 56  477k   56  271k    0     0    832      [0m[91m0  0:09:47[0m[91m  0:05:34[0m[91m  0:04[0m[91m:13 [0m[91m  [0m[91m  0[0m[91m 56  477k   56  271k    0     0    829      0  0:09:49  0:05:35  0:[0m[91m04:14     0[0m[91m 56  477k   56  271k    0     0    827      0  0:09:51  0:05:36  0:04:15     0[0m[91m 56  477k   56  271k    0     0    824      0  0:09:53  0:05:37  0:04:16     0[0m[91m 56  477k   56  271k    0     0    822      0  0:09:54  0:05:38  0:04:16     0[0m[91m 56  477k   56  271k    0     0    819      0  0:09:57  0:05:39  0:04:18     0[0m[91m 56  477k   56  271k    0     0    817      0  0:09:58  0:05:40  0:04:18     0[0m[91m 56  477k   56  271k    0     0    814   [0m[91m   0  0:10:00  0:05:4[0m[91m1  0:04:19[0m[91m     0[0m[91m 56  477k   56  271k    0     0    812      0  0:10:02  0:05:42  0:04:20     0[0m[91m 56  477k   56  271k    0     0    810      0  0:10:03  0:05:43  0:04:20     0[0m[91m 56  477k   56  271k    0     0    807      0  0:10:06  0:05:44  0:04:22     0[0m[91m 56  477k   56  271k    0     0    805     [0m[91m 0  0:10[0m[91m:07  [0m[91m0:05:45  0:04:22     [0m[91m0[0m[91m 56  477k   56  271k    0     0    803      0  0:10:09  0:05:46  0:04:23  [0m[91m   0[0m[91m 56  477k   56  271k    0     0    800      0  0:10:11  0:05:47  0:04:24     0[0m[91m 56  477k   56  271k    0     0    798      [0m[91m0  0:10:12  0:[0m[91m05:48[0m[91m  0[0m[91m:04:24     0[0m[91m 56  477k   56  271k    0     0    796      0  0:10:14  0:05:49  0:04:25  [0m[91m   0[0m[91m 56  477k   56  271k    0     0    794      0  [0m[91m0:10:15  0[0m[91m:0[0m[91m5:50  [0m[91m0:0[0m[91m4:2[0m[91m5    [0m[91m 0[0m[91m 56  477k   56  271k    0     0    791      0  0:10:18  0:05:51  0:04:27     0[0m[91m 56  477k   56  271k    0     0    789      0[0m[91m  0:10:19  0:05:52  0:0[0m[91m4:27 [0m[91m    [0m[91m0[0m[91m 56  477k   56  271k    0     0    787      0  0:10:21  0:05:53  0:04:28     0[0m[91m 56  477k   56  271k    0     0    785      0  0:10:23  0:05:54  0:04:29     0[0m[91m 56  477k   56  271k    0     0    782      0  0:10:25  0:05:55  0:04:30     0[0m[91m 56  477k   56  271k    0     0    780      0  0:10:27  0[0m[91m:05:[0m[91m56  0:04:[0m[91m31     0[0m[91m 56  477k   56  271k    0     0    778      0  0:10:28  0:05:5[0m[91m7  0:04:31     0[0m[91m 56  477k   56  271k    0     0    776      0  0:10:30  0:05:58  0:04:32  [0m[91m   0[0m[91m 56  477k   56  271k    0     0    77[0m[91m4      0  0:10:31  0:05:[0m[91m59  0:[0m[91m04:32  [0m[91m   0[0m[91m 56  477k   56  271k    0     0    77[0m[91m1      0 [0m[91m [0m[91m0:10:[0m[91m34 [0m[91m 0:06:00  0:[0m[91m04:34   [0m[91m  0[0m[91m 56  477k   56  271k    0     0    769      0  0:10:35  0:06:01  0:04:34     0[0m[91m 56  477k   56  271k    0     0    767      0  0:10:3[0m[91m7  0:06:02  0:04:3[0m[91m5   [0m[91m  0[0m[91m 56  477k   56  271k    0     0    765      0  0:10:39  0:06:03  0:04:[0m[91m36     0[0m[91m 56  477k   56  271k    0     0    [0m[91m763      0  0:10:4[0m[91m0  0[0m[91m:06:04  0:04:3[0m[91m6     0[0m[91m 56  477k   56  271k    0     0    761      0  [0m[91m0:10:42  0:06[0m[91m:05  0[0m[91m:0[0m[91m4:[0m[91m37     0[0m[91m 56  477k   56  271k    0     0    759      0  0:10:44  0:06:06[0m[91m  0:04:38     0[0m[91m 56  477k   56  271k    0     0    757      0 [0m[91m 0:10:46  0:06:07  0:04:39 [0m[91m    0[0m[91m 56  477k   56  271k    0     0    755      0  0:10:47 [0m[91m 0:06:08  0:04:39     0[0m[91m 56  477k   56  271k    0     0    753      0  0:10:49  0:06:09  0:04:40     0[0m[91m 56  477k   56  271k    0     0    751      0  0:10:51  0:06:10  0:04:41     [0m[91m0[0m[91m 56  477k   56  271k    0     0    749      0  0:10:52  0:06:11  0:04:41     0[0m[91m 56  477k   56  271k    0     0    747      0  0:10:54  0:06:12  0:[0m[91m04:42    [0m[91m 0[0m[91m 56  477k   56  271k    0     0    745      0  0:10:56  0:06:13  0:04:43 [0m[91m    0[0m[91m 56  477k   56  271k    0     0    743      0  0:10:58  0:06:14  0:04:[0m[91m44     0[0m[91m 56  477k   56  271k    0     0    741      0  0:11:00  0:06:15  0:04:45     0[0m[91m 56  477k   56  271k    0     0    739      0  0:11:01  0:06:16  0:04:45     0[0m[91m 56  477k   56  271k    0     0    737      0  0:11:03  0:06:17  0:04:46     0[0m[91m 56  477k   56  271k    0     0    735     [0m[91m 0  0:11:05  0:06:18 [0m[91m 0:04:47   [0m[91m  0[0m[91m 56  477k   56  271k    0     0    733      0  0:11:07  0:06:19  0:04:48     0[0m[91m 56  477k   56  271k    0     0    731      0  0:11:09  0:06:20  0:04:49     0[0m[91m 56  477k   56  271k    0     0    729      0  0:11:[0m[91m10  0:06:21[0m[91m  0[0m[91m:[0m[91m04[0m[91m:[0m[91m49     [0m[91m0[0m[91m 56  477k   56  271k    0     0    727      0  0:11:12  0:[0m[91m06:22  0:04:50     [0m[91m0[0m[91m 56  477k   56  271k    0    [0m[91m 0    725      0  0:11:14  0:[0m[91m06:[0m[91m23  [0m[91m0:04:51 [0m[91m    0[0m[91m 56  477k   56  271k    0     0    723      0  0:11:16  0:06:24  0:04:52     0[0m[91m 56  477k   56  271k    0     0    721      0  0:11:18  0:06:25  0:[0m[91m04:53     0[0m[91m 56  477k   56  271k    0     0    719      0  0:11:20  0:06:26  0:04:54     0[0m[91m 56  477k   56  271k    0     0    718      0  0:11:21  0:06:27  0:04:54  [0m[91m   0[0m[91m 56  477k   56  271k    0     0    716   [0m[91m   0  0:11:23  0:06:28  0:04:5[0m[91m5     0[0m[91m 56  477k   56  271k    0     0    714      0  0:11:24  0:06:29  0:04:55     0[0m[91m 56  477k   56  271k    0     0    712      0  0:11:26  0:06:30  0:04:56   [0m[91m  0[0m[91m 56  477k   56  271k    0     0    710      0  0:11:28  0:06:31  0:04:57     0[0m[91m 56  477k   56  271k    0     0    708      0  0:11:30  0:06:32  0:04:58     0[0m[91m 56  477k   56  271k    0     0    707      0  0:11:31  0:06:33  0:04:58     0[0m[91m 56  477k   56  271k    0     0    705      0  0:11:33  0:06:34  0:04:59     0[0m[91m 56  477k   56  271k    0     0    703      0  0:11:35  0:06:35  0:05:00     0[0m[91m 56  477k   56  271k    0     0    701      0  0:11:37  0:06:36  0:05:01     0[0m[91m 56  477k   56  271k    0     0    699      0  0:11:39  0:06:37  0:05:02     0[0m[91m 56  477k   56  271k    0     0    698      0  0:11:40  0:06:38  0:05:02[0m[91m     0[0m[91m 56  477k   56  271k    0     0    696      0  0:11:42  0:06:39  0:05:03     0[0m[91m 56  477k   56  271k    0     0    694      0  0:11:44  0:06:40  0:05:04     0[0m[91m 56  477k   56  271k    0     0    693      0  0:[0m[91m11:45  0:06:41  0:[0m[91m05:04  [0m[91m   0[0m[91m 56  477k   56  271k    0     0    691      0  0:11:47  0:06:42  0:05:05     0[0m[91m 56  477k   56  271k    0     0    689      0  0:11:49  0:06:43[0m[91m  0:05:06     0[0m[91m 56  477k   56  271k    0     0    687   [0m[91m   0  0:11:[0m[91m51  0:06:[0m[91m44  0:05[0m[91m:07    [0m[91m 0[0m[91m 56  477k   56  271k    0     0    686      0  0:11:52  0:06[0m[91m:45  0:05:07 [0m[91m    0[0m[91m 56  477k   56  271k    0     0    684      0  0:11:55  0:06:46  0:05:09     0[0m[91m 56  477k   56  271k    0     0    68[0m[91m2      0  0:11:57  [0m[91m0:06:47  0[0m[91m:05:10[0m[91m     0[0m[91m 56  477k   56  271k    0     0    681      0[0m[91m  0:11:58  0:06[0m[91m:48  [0m[91m0:05:10[0m[91m   [0m[91m  0[0m[91m 56  477k   56  271k    0     0    679    [0m[91m  0  0:12:00[0m[91m  0:0[0m[91m6:49[0m[91m [0m[91m 0[0m[91m:05[0m[91m:11     0[0m[91m 56  477k   56  271k    0     0    677      0  0:12:02  0:06:50  0:05:12     0[0m[91m 56  477k   56  271k    0     0    676      0  0[0m[91m:12:03  0:06[0m[91m:51  0:05:12[0m[91m     0[0m[91m 56  477k   56  271k    0     0    674      0  0:12:05  0:06:52  0:05:13     0[0m[91m 56  477k   56  271k    0   [0m[91m  0    672    [0m[91m  0  0[0m[91m:12:[0m[91m07  [0m[91m0:06:53  0:05:1[0m[91m4     0[0m[91m 56  477k   56  271k    0     0    67[0m[91m1      0  0:12:08 [0m[91m 0:06:54  0:05:14  [0m[91m   0[0m[91m 56  477k   56  271k    0     0    669      0  0:12:11  0:[0m[91m06:55  0:05:[0m[91m16   [0m[91m  [0m[91m0[0m[91m 56  477k   56  271k    0     0    668      0  0:12:12  0:06:56  0:05:16     0[0m[91m 56  477k   56  271k    0     0    666      0  0:12:14  0:[0m[91m06:57  0:05[0m[91m:17     0[0m[91m 56  477k   56  271k    0     0    664      0  0:12:16  0:06:58  0:05:18     0[0m[91m 56  477k   56  271k    0     0    663      0  [0m[91m0:12:17 [0m[91m 0:0[0m[91m6:[0m[91m59[0m[91m  [0m[91m0:05[0m[91m:18   [0m[91m  0[0m[91m 56  477k   56  271k    0     0    661      0  0:[0m[91m12:19  0:07:00[0m[91m  0:0[0m[91m5:[0m[91m19[0m[91m     0[0m[91m 56  477k   56  271k    0     0    660      0  0:12:21  0:07:01  0:05:20     0[0m[91m 56  477k   56  271k    0     0    660      0  0:12:21  0:07:01  0:05:20     0
+[0m[91mcurl: (56) TCP connection reset by peer
+[0mThe command '/bin/sh -c cd /var/www/html && curl -LO https://github.com/vrana/adminer/releases/download/v4.7.5/adminer-4.7.5.php && mv adminer-4.7.5.php adminer.php && chown -R apache:apache /var/www/html/adminer.php' returned a non-zero code: 56
+
+real	24m55.759s
+user	0m0.209s
+sys	0m0.139s

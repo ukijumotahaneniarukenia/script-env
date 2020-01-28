@@ -1,0 +1,254 @@
+Sending build context to Docker daemon  1.425MB
+Step 1/20 : FROM ubuntu:19.10
+ ---> dcbcfdcd50bb
+Step 2/20 : RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list
+ ---> Using cache
+ ---> 7c1b0a52db96
+Step 3/20 : RUN apt-get update && apt-get upgrade -y
+ ---> Running in 86d754c3e9a0
+Get:1 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan InRelease [255 kB]
+Get:2 http://security.ubuntu.com/ubuntu eoan-security InRelease [97.5 kB]
+Get:3 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates InRelease [97.5 kB]
+Get:4 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-backports InRelease [88.8 kB]
+Get:5 http://security.ubuntu.com/ubuntu eoan-security/multiverse amd64 Packages [1075 B]
+Get:6 http://security.ubuntu.com/ubuntu eoan-security/main amd64 Packages [160 kB]
+Get:7 http://security.ubuntu.com/ubuntu eoan-security/universe amd64 Packages [67.4 kB]
+Get:8 http://security.ubuntu.com/ubuntu eoan-security/restricted amd64 Packages [11.0 kB]
+Get:9 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/multiverse amd64 Packages [188 kB]
+Get:10 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/restricted amd64 Packages [22.7 kB]
+Get:11 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/universe amd64 Packages [11.6 MB]
+Get:12 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 Packages [1277 kB]
+Get:13 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/universe amd64 Packages [110 kB]
+Get:14 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/restricted amd64 Packages [11.0 kB]
+Get:15 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/multiverse amd64 Packages [1075 B]
+Get:16 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 Packages [244 kB]
+Get:17 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-backports/universe amd64 Packages [3071 B]
+Fetched 14.2 MB in 4min 17s (55.5 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+The following packages will be upgraded:
+  bsdutils e2fsprogs fdisk libblkid1 libcom-err2 libext2fs2 libfdisk1
+  libmount1 libsmartcols1 libss2 libuuid1 logsave mount util-linux
+14 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+Need to get 2639 kB of archives.
+After this operation, 1024 B of additional disk space will be used.
+Get:1 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 bsdutils amd64 1:2.34-0.1ubuntu2.1 [63.8 kB]
+Get:2 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 libblkid1 amd64 2.34-0.1ubuntu2.1 [137 kB]
+Get:3 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 libuuid1 amd64 2.34-0.1ubuntu2.1 [20.6 kB]
+Get:4 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 libfdisk1 amd64 2.34-0.1ubuntu2.1 [175 kB]
+Get:5 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 libmount1 amd64 2.34-0.1ubuntu2.1 [149 kB]
+Get:6 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 libsmartcols1 amd64 2.34-0.1ubuntu2.1 [101 kB]
+Get:7 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 fdisk amd64 2.34-0.1ubuntu2.1 [119 kB]
+Get:8 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 util-linux amd64 2.34-0.1ubuntu2.1 [1021 kB]
+Get:9 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 logsave amd64 1.45.3-4ubuntu2.1 [9828 B]
+Get:10 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 libext2fs2 amd64 1.45.3-4ubuntu2.1 [181 kB]
+Get:11 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 e2fsprogs amd64 1.45.3-4ubuntu2.1 [526 kB]
+Get:12 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 mount amd64 2.34-0.1ubuntu2.1 [115 kB]
+Get:13 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 libcom-err2 amd64 1.45.3-4ubuntu2.1 [9164 B]
+Get:14 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 libss2 amd64 1.45.3-4ubuntu2.1 [11.3 kB]
+[91mdebconf: delaying package configuration, since apt-utils is not installed
+[0mFetched 2639 kB in 37s (72.3 kB/s)
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4100 files and directories currently installed.)
+Preparing to unpack .../bsdutils_1%3a2.34-0.1ubuntu2.1_amd64.deb ...
+Unpacking bsdutils (1:2.34-0.1ubuntu2.1) over (1:2.34-0.1ubuntu2) ...
+Setting up bsdutils (1:2.34-0.1ubuntu2.1) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4100 files and directories currently installed.)
+Preparing to unpack .../libblkid1_2.34-0.1ubuntu2.1_amd64.deb ...
+Unpacking libblkid1:amd64 (2.34-0.1ubuntu2.1) over (2.34-0.1ubuntu2) ...
+Setting up libblkid1:amd64 (2.34-0.1ubuntu2.1) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4100 files and directories currently installed.)
+Preparing to unpack .../libuuid1_2.34-0.1ubuntu2.1_amd64.deb ...
+Unpacking libuuid1:amd64 (2.34-0.1ubuntu2.1) over (2.34-0.1ubuntu2) ...
+Setting up libuuid1:amd64 (2.34-0.1ubuntu2.1) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4100 files and directories currently installed.)
+Preparing to unpack .../libfdisk1_2.34-0.1ubuntu2.1_amd64.deb ...
+Unpacking libfdisk1:amd64 (2.34-0.1ubuntu2.1) over (2.34-0.1ubuntu2) ...
+Setting up libfdisk1:amd64 (2.34-0.1ubuntu2.1) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4100 files and directories currently installed.)
+Preparing to unpack .../libmount1_2.34-0.1ubuntu2.1_amd64.deb ...
+Unpacking libmount1:amd64 (2.34-0.1ubuntu2.1) over (2.34-0.1ubuntu2) ...
+Setting up libmount1:amd64 (2.34-0.1ubuntu2.1) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4100 files and directories currently installed.)
+Preparing to unpack .../libsmartcols1_2.34-0.1ubuntu2.1_amd64.deb ...
+Unpacking libsmartcols1:amd64 (2.34-0.1ubuntu2.1) over (2.34-0.1ubuntu2) ...
+Setting up libsmartcols1:amd64 (2.34-0.1ubuntu2.1) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4100 files and directories currently installed.)
+Preparing to unpack .../fdisk_2.34-0.1ubuntu2.1_amd64.deb ...
+Unpacking fdisk (2.34-0.1ubuntu2.1) over (2.34-0.1ubuntu2) ...
+Setting up fdisk (2.34-0.1ubuntu2.1) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4100 files and directories currently installed.)
+Preparing to unpack .../util-linux_2.34-0.1ubuntu2.1_amd64.deb ...
+Unpacking util-linux (2.34-0.1ubuntu2.1) over (2.34-0.1ubuntu2) ...
+Setting up util-linux (2.34-0.1ubuntu2.1) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4100 files and directories currently installed.)
+Preparing to unpack .../logsave_1.45.3-4ubuntu2.1_amd64.deb ...
+Unpacking logsave (1.45.3-4ubuntu2.1) over (1.45.3-4ubuntu2) ...
+Preparing to unpack .../libext2fs2_1.45.3-4ubuntu2.1_amd64.deb ...
+Unpacking libext2fs2:amd64 (1.45.3-4ubuntu2.1) over (1.45.3-4ubuntu2) ...
+Setting up libext2fs2:amd64 (1.45.3-4ubuntu2.1) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4100 files and directories currently installed.)
+Preparing to unpack .../e2fsprogs_1.45.3-4ubuntu2.1_amd64.deb ...
+Unpacking e2fsprogs (1.45.3-4ubuntu2.1) over (1.45.3-4ubuntu2) ...
+Preparing to unpack .../mount_2.34-0.1ubuntu2.1_amd64.deb ...
+Unpacking mount (2.34-0.1ubuntu2.1) over (2.34-0.1ubuntu2) ...
+Preparing to unpack .../libcom-err2_1.45.3-4ubuntu2.1_amd64.deb ...
+Unpacking libcom-err2:amd64 (1.45.3-4ubuntu2.1) over (1.45.3-4ubuntu2) ...
+Preparing to unpack .../libss2_1.45.3-4ubuntu2.1_amd64.deb ...
+Unpacking libss2:amd64 (1.45.3-4ubuntu2.1) over (1.45.3-4ubuntu2) ...
+Setting up libcom-err2:amd64 (1.45.3-4ubuntu2.1) ...
+Setting up libss2:amd64 (1.45.3-4ubuntu2.1) ...
+Setting up logsave (1.45.3-4ubuntu2.1) ...
+Setting up mount (2.34-0.1ubuntu2.1) ...
+Setting up e2fsprogs (1.45.3-4ubuntu2.1) ...
+Processing triggers for libc-bin (2.30-0ubuntu2) ...
+Removing intermediate container 86d754c3e9a0
+ ---> 29cd5a195f78
+Step 4/20 : RUN apt-get install -y vim gcc make lsb-release wget gnupg sudo && apt-get install -y libffi-dev curl build-essential libssl-dev zlib1g-dev libreadline6-dev && apt-get install -y libncurses5-dev libgdbm-dev libnss3-dev libreadline-dev wget libgl1-mesa-dev
+ ---> Running in 631ccada6682
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  binutils binutils-common binutils-x86-64-linux-gnu ca-certificates cpp cpp-9
+  dirmngr distro-info-data file gcc-9 gnupg-l10n gnupg-utils gpg gpg-agent
+  gpg-wks-client gpg-wks-server gpgconf gpgsm libasan5 libasn1-8-heimdal
+  libassuan0 libatomic1 libbinutils libc-dev-bin libc6-dev libcc1-0 libexpat1
+  libgcc-9-dev libgomp1 libgpm2 libgssapi3-heimdal libhcrypto4-heimdal
+  libheimbase1-heimdal libheimntlm0-heimdal libhx509-5-heimdal libisl21
+  libitm1 libkrb5-26-heimdal libksba8 libldap-2.4-2 libldap-common liblsan0
+  libmagic-mgc libmagic1 libmpc3 libmpdec2 libmpfr6 libnpth0 libpsl5
+  libpython3-stdlib libpython3.7 libpython3.7-minimal libpython3.7-stdlib
+  libquadmath0 libreadline8 libroken18-heimdal libsasl2-2 libsasl2-modules
+  libsasl2-modules-db libsqlite3-0 libssl1.1 libtsan0 libubsan1
+  libwind0-heimdal linux-libc-dev manpages manpages-dev mime-support openssl
+  pinentry-curses publicsuffix python3 python3-minimal python3.7
+  python3.7-minimal readline-common vim-common vim-runtime xxd xz-utils
+Suggested packages:
+  binutils-doc cpp-doc gcc-9-locales dbus-user-session libpam-systemd
+  pinentry-gnome3 tor gcc-multilib autoconf automake libtool flex bison gdb
+  gcc-doc gcc-9-multilib gcc-9-doc libgcc1-dbg libgomp1-dbg libitm1-dbg
+  libatomic1-dbg libasan5-dbg liblsan0-dbg libtsan0-dbg libubsan1-dbg
+  libquadmath0-dbg parcimonie xloadimage scdaemon glibc-doc gpm
+  libsasl2-modules-gssapi-mit | libsasl2-modules-gssapi-heimdal
+  libsasl2-modules-ldap libsasl2-modules-otp libsasl2-modules-sql make-doc
+  man-browser pinentry-doc python3-doc python3-tk python3-venv python3.7-venv
+  python3.7-doc binfmt-support readline-doc ctags vim-doc vim-scripts
+The following NEW packages will be installed:
+  binutils binutils-common binutils-x86-64-linux-gnu ca-certificates cpp cpp-9
+  dirmngr distro-info-data file gcc gcc-9 gnupg gnupg-l10n gnupg-utils gpg
+  gpg-agent gpg-wks-client gpg-wks-server gpgconf gpgsm libasan5
+  libasn1-8-heimdal libassuan0 libatomic1 libbinutils libc-dev-bin libc6-dev
+  libcc1-0 libexpat1 libgcc-9-dev libgomp1 libgpm2 libgssapi3-heimdal
+  libhcrypto4-heimdal libheimbase1-heimdal libheimntlm0-heimdal
+  libhx509-5-heimdal libisl21 libitm1 libkrb5-26-heimdal libksba8
+  libldap-2.4-2 libldap-common liblsan0 libmagic-mgc libmagic1 libmpc3
+  libmpdec2 libmpfr6 libnpth0 libpsl5 libpython3-stdlib libpython3.7
+  libpython3.7-minimal libpython3.7-stdlib libquadmath0 libreadline8
+  libroken18-heimdal libsasl2-2 libsasl2-modules libsasl2-modules-db
+  libsqlite3-0 libssl1.1 libtsan0 libubsan1 libwind0-heimdal linux-libc-dev
+  lsb-release make manpages manpages-dev mime-support openssl pinentry-curses
+  publicsuffix python3 python3-minimal python3.7 python3.7-minimal
+  readline-common sudo vim vim-common vim-runtime wget xxd xz-utils
+0 upgraded, 87 newly installed, 0 to remove and 0 not upgraded.
+Need to get 53.9 MB of archives.
+After this operation, 219 MB of additional disk space will be used.
+Get:1 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libssl1.1 amd64 1.1.1c-1ubuntu4 [1314 kB]
+Get:2 http://security.ubuntu.com/ubuntu eoan-security/main amd64 libsasl2-modules-db amd64 2.1.27+dfsg-1ubuntu0.1 [14.7 kB]
+Get:3 http://security.ubuntu.com/ubuntu eoan-security/main amd64 libsasl2-2 amd64 2.1.27+dfsg-1ubuntu0.1 [49.4 kB]
+Get:4 http://security.ubuntu.com/ubuntu eoan-security/main amd64 libsasl2-modules amd64 2.1.27+dfsg-1ubuntu0.1 [48.9 kB]
+Get:5 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 libpython3.7-minimal amd64 3.7.5-2~19.10 [546 kB]
+Get:6 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libexpat1 amd64 2.2.7-2 [73.8 kB]
+Get:7 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 python3.7-minimal amd64 3.7.5-2~19.10 [1766 kB]
+Get:8 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 python3-minimal amd64 3.7.5-1 [23.3 kB]
+Get:9 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 mime-support all 3.63ubuntu1 [30.8 kB]
+Get:10 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libmpdec2 amd64 2.4.2-2 [84.1 kB]
+Get:11 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 readline-common all 8.0-3 [53.5 kB]
+Get:12 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libreadline8 amd64 8.0-3 [130 kB]
+Get:13 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 libsqlite3-0 amd64 3.29.0-2ubuntu0.1 [537 kB]
+Get:14 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 libpython3.7-stdlib amd64 3.7.5-2~19.10 [1731 kB]
+Get:15 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 python3.7 amd64 3.7.5-2~19.10 [301 kB]
+Get:16 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libpython3-stdlib amd64 3.7.5-1 [6848 B]
+Get:17 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 python3 amd64 3.7.5-1 [47.2 kB]
+Get:18 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 openssl amd64 1.1.1c-1ubuntu4 [619 kB]
+Get:19 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 ca-certificates all 20190110 [146 kB]
+Get:20 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 distro-info-data all 0.40ubuntu3 [4616 B]
+Get:21 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 libmagic-mgc amd64 1:5.37-5ubuntu0.1 [210 kB]
+Get:22 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 libmagic1 amd64 1:5.37-5ubuntu0.1 [75.4 kB]
+Get:23 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 file amd64 1:5.37-5ubuntu0.1 [23.2 kB]
+Get:24 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 lsb-release all 11.0.1ubuntu1 [10.8 kB]
+Get:25 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 sudo amd64 1.8.27-1ubuntu4 [502 kB]
+Get:26 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 xxd amd64 2:8.1.0875-5ubuntu2 [49.5 kB]
+Get:27 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 vim-common all 2:8.1.0875-5ubuntu2 [84.1 kB]
+Get:28 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 xz-utils amd64 5.2.4-1 [82.5 kB]
+Get:29 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libpsl5 amd64 0.20.2-2 [50.0 kB]
+Get:30 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 manpages all 5.02-1 [1297 kB]
+Err:30 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 manpages all 5.02-1
+  Connection failed [IP: 150.65.7.130 80]
+Get:31 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 publicsuffix all 20190723.1836-1 [110 kB]
+Get:32 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 wget amd64 1.20.3-1ubuntu1 [349 kB]
+Get:33 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 binutils-common amd64 2.33-2ubuntu1.2 [203 kB]
+Get:34 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 libbinutils amd64 2.33-2ubuntu1.2 [475 kB]
+Get:35 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 binutils-x86-64-linux-gnu amd64 2.33-2ubuntu1.2 [1639 kB]
+Get:36 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 binutils amd64 2.33-2ubuntu1.2 [3400 B]
+Get:37 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libisl21 amd64 0.21-2 [576 kB]
+Get:38 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libmpfr6 amd64 4.0.2-1 [240 kB]
+Get:39 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libmpc3 amd64 1.1.0-1 [40.8 kB]
+Get:40 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 cpp-9 amd64 9.2.1-9ubuntu2 [8957 kB]
+Get:41 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 cpp amd64 4:9.2.1-3.1ubuntu1 [27.6 kB]
+Get:42 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libassuan0 amd64 2.5.3-7ubuntu1 [35.6 kB]
+Get:43 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 gpgconf amd64 2.2.12-1ubuntu3 [123 kB]
+Get:44 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libksba8 amd64 1.3.5-2 [92.6 kB]
+Get:45 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libroken18-heimdal amd64 7.5.0+dfsg-3build1 [41.8 kB]
+Get:46 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libasn1-8-heimdal amd64 7.5.0+dfsg-3build1 [181 kB]
+Get:47 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libheimbase1-heimdal amd64 7.5.0+dfsg-3build1 [29.7 kB]
+Get:48 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libhcrypto4-heimdal amd64 7.5.0+dfsg-3build1 [87.2 kB]
+Get:49 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libwind0-heimdal amd64 7.5.0+dfsg-3build1 [47.9 kB]
+Get:50 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libhx509-5-heimdal amd64 7.5.0+dfsg-3build1 [107 kB]
+Get:51 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libkrb5-26-heimdal amd64 7.5.0+dfsg-3build1 [206 kB]
+Get:52 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libheimntlm0-heimdal amd64 7.5.0+dfsg-3build1 [15.0 kB]
+Get:53 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libgssapi3-heimdal amd64 7.5.0+dfsg-3build1 [96.0 kB]
+Get:54 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libldap-common all 2.4.48+dfsg-1ubuntu1 [17.3 kB]
+Get:55 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libldap-2.4-2 amd64 2.4.48+dfsg-1ubuntu1 [155 kB]
+Get:56 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libnpth0 amd64 1.6-1 [7736 B]
+Get:57 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 dirmngr amd64 2.2.12-1ubuntu3 [324 kB]
+Get:58 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libcc1-0 amd64 9.2.1-9ubuntu2 [49.1 kB]
+Get:59 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libgomp1 amd64 9.2.1-9ubuntu2 [89.3 kB]
+Get:60 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libitm1 amd64 9.2.1-9ubuntu2 [28.2 kB]
+Get:61 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libatomic1 amd64 9.2.1-9ubuntu2 [9220 B]
+Get:62 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libasan5 amd64 9.2.1-9ubuntu2 [395 kB]
+Get:63 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 liblsan0 amd64 9.2.1-9ubuntu2 [139 kB]
+Get:64 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libtsan0 amd64 9.2.1-9ubuntu2 [301 kB]
+Get:65 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libubsan1 amd64 9.2.1-9ubuntu2 [130 kB]
+Get:66 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libquadmath0 amd64 9.2.1-9ubuntu2 [146 kB]
+Get:67 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libgcc-9-dev amd64 9.2.1-9ubuntu2 [2359 kB]
+Get:68 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 gcc-9 amd64 9.2.1-9ubuntu2 [9763 kB]
+Get:69 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 gcc amd64 4:9.2.1-3.1ubuntu1 [5216 B]
+Get:70 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 gnupg-l10n all 2.2.12-1ubuntu3 [48.9 kB]
+Get:71 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 gnupg-utils amd64 2.2.12-1ubuntu3 [472 kB]
+Get:72 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 gpg amd64 2.2.12-1ubuntu3 [475 kB]
+Get:73 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 pinentry-curses amd64 1.1.0-3 [36.4 kB]
+Get:74 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 gpg-agent amd64 2.2.12-1ubuntu3 [229 kB]
+Get:75 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 gpg-wks-client amd64 2.2.12-1ubuntu3 [96.0 kB]
+Get:76 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 gpg-wks-server amd64 2.2.12-1ubuntu3 [89.2 kB]
+Get:77 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 gpgsm amd64 2.2.12-1ubuntu3 [215 kB]
+Get:78 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 gnupg all 2.2.12-1ubuntu3 [252 kB]
+Get:79 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libc-dev-bin amd64 2.30-0ubuntu2 [71.6 kB]
+Get:80 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 linux-libc-dev amd64 5.3.0-29.31 [1105 kB]
+Get:81 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libc6-dev amd64 2.30-0ubuntu2 [2548 kB]
+Get:82 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 libgpm2 amd64 1.20.7-5 [15.1 kB]
+Get:83 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan-updates/main amd64 libpython3.7 amd64 3.7.5-2~19.10 [1483 kB]
+Get:84 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 make amd64 4.2.1-1.2 [162 kB]
+Get:85 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 manpages-dev all 5.02-1 [2250 kB]
+Get:86 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 vim-runtime all 2:8.1.0875-5ubuntu2 [5669 kB]
+Get:87 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan/main amd64 vim amd64 2:8.1.0875-5ubuntu2 [1209 kB]
+[91mE[0mFetched 52.6 MB in 9min 39s (90.9 kB/s)
+[91m: Failed to fetch http://ftp.jaist.ac.jp/pub/Linux/ubuntu/pool/main/m/manpages/manpages_5.02-1_all.deb  Connection failed [IP: 150.65.7.130 80]
+E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
+[0mThe command '/bin/sh -c apt-get install -y vim gcc make lsb-release wget gnupg sudo && apt-get install -y libffi-dev curl build-essential libssl-dev zlib1g-dev libreadline6-dev && apt-get install -y libncurses5-dev libgdbm-dev libnss3-dev libreadline-dev wget libgl1-mesa-dev' returned a non-zero code: 100
+
+real	14m41.949s
+user	0m0.122s
+sys	0m0.048s

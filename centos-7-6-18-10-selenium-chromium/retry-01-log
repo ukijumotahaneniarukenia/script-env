@@ -1,0 +1,72 @@
+Sending build context to Docker daemon  1.718MB
+Step 1/34 : FROM centos/systemd
+ ---> 05d3c1e2d0c1
+Step 2/34 : RUN groupadd -g 1001 kuraine && useradd -m -g kuraine -u 1001 kuraine && chsh -s /bin/bash kuraine && echo 'kuraine_pwd' | passwd --stdin kuraine && echo 'kuraine ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Using cache
+ ---> 56583a5702f0
+Step 3/34 : RUN echo 'root_pwd' | passwd --stdin root
+ ---> Using cache
+ ---> 0f3341fdfe46
+Step 4/34 : RUN yum -y install epel-release
+ ---> Using cache
+ ---> 29cb903bcb45
+Step 5/34 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man moreutils lbzip2 which perl-Digest-SHA lbzip gcc-c++ libtool makeinfo file libffi-devel zlib-devel unzip autoconf gcc bison evince
+ ---> Using cache
+ ---> e5ae89b8be3c
+Step 6/34 : RUN yum -y reinstall glibc-common
+ ---> Using cache
+ ---> 4c719a886701
+Step 7/34 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
+ ---> Using cache
+ ---> e8461559aedd
+Step 8/34 : ENV LANG=ja_JP.UTF-8
+ ---> Using cache
+ ---> 98f0306f485e
+Step 9/34 : RUN rm -f /etc/localtime
+ ---> Using cache
+ ---> 3c45ad04cda3
+Step 10/34 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+ ---> Using cache
+ ---> d6f1ed6c8c26
+Step 11/34 : RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps firefox pango.x86_64 libXcomposite.x86_64 libXcursor.x86_64 libXdamage.x86_64 libXext.x86_64 libXi.x86_64 libXtst.x86_64 cups-libs.x86_64 libXScrnSaver.x86_64 libXrandr.x86_64 GConf2.x86_64 alsa-lib.x86_64 atk.x86_64 gtk3.x86_64 ipa-gothic-fonts xorg-x11-fonts-100dpi xorg-x11-fonts-75dpi xorg-x11-utils xorg-x11-fonts-cyrillic xorg-x11-fonts-Type1 xorg-x11-fonts-misc
+ ---> Using cache
+ ---> 7963e1af68a9
+Step 12/34 : RUN yum groupinstall -y base "X Window System" --setopt=group_package_types=mandatory,default,optional
+ ---> Using cache
+ ---> 0b149e67d63d
+Step 13/34 : ENV DISPLAY=:0.0
+ ---> Using cache
+ ---> 5e87caa77b58
+Step 14/34 : RUN yum install -y vlgothic-*
+ ---> Using cache
+ ---> 1046ebf5dcd5
+Step 15/34 : RUN yum install -y PackageKit-gtk3-module
+ ---> Using cache
+ ---> 1b60ccef0b3f
+Step 16/34 : RUN yum install -y ibus-mozc
+ ---> Using cache
+ ---> b23e04d1bb8b
+Step 17/34 : RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd /usr/local/src && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
+ ---> Using cache
+ ---> d292006b9fb5
+Step 18/34 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> Using cache
+ ---> 5903d134cda1
+Step 19/34 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> Using cache
+ ---> 00c559ed328a
+Step 20/34 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+ ---> Using cache
+ ---> 2ad8cf3ce959
+Step 21/34 : RUN cd /usr/local/src && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && tar -zxvf Python-3.7.4.tgz && chown -R root:root Python-3.7.4 && cd Python-3.7.4 && ./configure --enable-shared --with-ensurepip=install && make -j12 && make -j12 install
+ ---> Using cache
+ ---> 3f8a8d4aa7f7
+Step 22/34 : RUN cd /usr/local/src && curl -LO https://download.java.net/java/GA/jdk13/5b8a42f3905b406298b72d750b6919f6/33/GPL/openjdk-13_linux-x64_bin.tar.gz && tar -zxvf openjdk-13_linux-x64_bin.tar.gz
+ ---> Using cache
+ ---> de1871054bd9
+Step 23/34 : COPY code-1.41.1-1576681965.el7.x86_64.rpm /usr/local/src/code-1.41.1-1576681965.el7.x86_64.rpm
+COPY failed: stat /var/lib/docker/tmp/docker-builder388445745/code-1.41.1-1576681965.el7.x86_64.rpm: no such file or directory
+
+real	0m0.190s
+user	0m0.030s
+sys	0m0.032s

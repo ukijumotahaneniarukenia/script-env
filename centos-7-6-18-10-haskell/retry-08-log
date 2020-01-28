@@ -1,0 +1,5 @@
+unable to prepare context: unable to evaluate symlinks in Dockerfile path: lstat /home/aine/script_env/centos-7-6-18-10-haskell/Dockerfile: no such file or directory
+
+real	0m0.113s
+user	0m0.031s
+sys	0m0.033s

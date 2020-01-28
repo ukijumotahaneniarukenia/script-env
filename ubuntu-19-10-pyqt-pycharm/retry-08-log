@@ -1,0 +1,36 @@
+Sending build context to Docker daemon  2.014MB
+Step 1/16 : FROM ubuntu:19.10
+ ---> dcbcfdcd50bb
+Step 2/16 : RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list
+ ---> Using cache
+ ---> 7c1b0a52db96
+Step 3/16 : RUN apt-get update && apt-get upgrade -y
+ ---> Using cache
+ ---> 8d0bdee01d29
+Step 4/16 : RUN apt-get install -y vim gcc make lsb-release wget gnupg sudo && apt-get install -y libffi-dev curl build-essential libssl-dev zlib1g-dev libreadline6-dev && apt-get install -y libncurses5-dev libgdbm-dev libnss3-dev libreadline-dev wget libgl1-mesa-dev
+ ---> Using cache
+ ---> df85ba8bea1b
+Step 5/16 : RUN cd /usr/local/src && curl -LO https://prdownloads.sourceforge.net/tcl/tcl8.6.10-src.tar.gz && tar xvf tcl8.6.10-src.tar.gz && cd tcl8.6.10 && cd unix && export CFLAGS=-DTCL_UTF_MAX=6 && export MAKEFLAGS=-j5 && ./configure --prefix=/usr/local --enable-threads --enable-shared --enable-symbols --enable-64bit --enable-langinfo --enable-man-symlinks && make -j12 && make -j12 install
+ ---> Using cache
+ ---> 14453596c807
+Step 6/16 : RUN cd /usr/local/src && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && tar -zxvf Python-3.7.4.tgz && cd Python-3.7.4 && ./configure && make -j12 && make -j12 install
+ ---> Using cache
+ ---> d638db34a2e4
+Step 7/16 : RUN groupadd -g 1001 kuraine && useradd -m -g kuraine -u 1001 kuraine && echo 'kuraine:kuraine_pwd' | chpasswd && echo 'kuraine ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && chsh -s /bin/bash kuraine
+ ---> Using cache
+ ---> e3c238597c23
+Step 8/16 : RUN echo 'root:root_pwd' | chpasswd
+ ---> Using cache
+ ---> 045a80ab1af2
+Step 9/16 : RUN apt-get install -y xterm
+ ---> Using cache
+ ---> 4ff4e97a8aec
+Step 10/16 : ENV DISPLAY=:0.0
+ ---> Using cache
+ ---> 937ddc307c2a
+Step 11/16 : COPY pycharm-community-2019.3.1.tar.gz  /usr/local/src/pycharm-community-2019.3.1.tar.gz
+COPY failed: stat /var/lib/docker/tmp/docker-builder970468293/pycharm-community-2019.3.1.tar.gz: no such file or directory
+
+real	0m0.277s
+user	0m0.049s
+sys	0m0.030s

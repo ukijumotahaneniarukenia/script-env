@@ -1,0 +1,27 @@
+Sending build context to Docker daemon  691.2kB
+Step 1/8 : FROM ubuntu:19.10
+ ---> dcbcfdcd50bb
+Step 2/8 : RUN apt-get update
+ ---> Using cache
+ ---> d6e48d6f5b0c
+Step 3/8 : RUN apt-get install -y vim gcc make lsb-release wget gnupg sudo && apt-get install -y libffi-dev curl build-essential libssl-dev zlib1g-dev libreadline6-dev
+ ---> Using cache
+ ---> a3ab5ced1d5f
+Step 4/8 : RUN groupadd -g 1001 mysql && useradd -m -g mysql -u 1001 mysql && echo 'mysql:mysql_pwd' | chpasswd && echo 'mysql ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && chsh -s /bin/bash mysql
+ ---> Using cache
+ ---> 3c5e3696c57c
+Step 5/8 : RUN echo 'root:root_pwd' | chpasswd
+ ---> Using cache
+ ---> 73e96d28e0c0
+Step 6/8 : RUN apt-get install -y xterm
+ ---> Using cache
+ ---> 387133032316
+Step 7/8 : ENV DISPLAY=:0.0
+ ---> Using cache
+ ---> b5a569605a84
+Step 8/8 : COPY code_1.41.1-1576681836_amd64.deb /usr/local/src/code_1.41.1-1576681836_amd64.deb
+COPY failed: stat /var/lib/docker/tmp/docker-builder422579972/code_1.41.1-1576681836_amd64.deb: no such file or directory
+
+real	0m0.380s
+user	0m0.041s
+sys	0m0.030s

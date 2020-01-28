@@ -1,0 +1,16 @@
+Sending build context to Docker daemon  2.029MB
+Step 1/57 : FROM centos:latest
+ ---> 470671670cac
+Step 2/57 : RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps
+ ---> Running in 9e97931b55a7
+CentOS-8 - AppStream                             25 kB/s | 6.0 MB     04:01    
+CentOS-8 - Base                                 634 kB/s | 4.0 MB     00:06    
+CentOS-8 - Extras                               2.2 kB/s | 2.1 kB     00:00    
+No match for argument: xeyes
+No match for argument: xorg-x11-apps
+[91mError: Unable to find a match: xeyes xorg-x11-apps
+[0mThe command '/bin/sh -c yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps' returned a non-zero code: 1
+
+real	4m14.657s
+user	0m0.066s
+sys	0m0.033s

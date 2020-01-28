@@ -1,0 +1,189 @@
+Sending build context to Docker daemon  12.88MB
+Step 1/70 : FROM centos:7.6.1810
+ ---> f1cb7c7d58b7
+Step 2/70 : RUN groupadd -g 1001 kuraine && useradd -m -g kuraine -u 1001 kuraine && chsh -s /bin/bash kuraine && echo 'kuraine_pwd' | passwd --stdin kuraine && echo 'kuraine ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Using cache
+ ---> da5918f8e3d1
+Step 3/70 : RUN groupadd -g 991 elasticsearch && useradd -m -g elasticsearch -u 994 elasticsearch && chsh -s /bin/bash elasticsearch && echo 'elasticsearch_pwd' | passwd --stdin elasticsearch && echo 'elasticsearch ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Using cache
+ ---> 82f7a74da4c3
+Step 4/70 : RUN groupadd -g 990 kibana && useradd -m -g kibana -u 993 kibana && chsh -s /bin/bash kibana && echo 'kibana_pwd' | passwd --stdin kibana && echo 'kibana ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Using cache
+ ---> 5d78730871a5
+Step 5/70 : RUN echo 'root_pwd' | passwd --stdin root
+ ---> Using cache
+ ---> 77407be0ad38
+Step 6/70 : RUN yum -y install epel-release
+ ---> Using cache
+ ---> 78da7ab35a05
+Step 7/70 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man moreutils lbzip2 which perl-Digest-SHA
+ ---> Using cache
+ ---> 8d597d7c1501
+Step 8/70 : RUN yum install -y httpd
+ ---> Using cache
+ ---> 4422a79c2cf1
+Step 9/70 : RUN yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm && yum -y install --enablerepo=remi,remi-php73 php php-devel php-mbstring php-pdo php-gd php-xml php-mcrypt
+ ---> Using cache
+ ---> 8e6e44fb4e7a
+Step 10/70 : RUN cd /var/www/html && curl -LO https://github.com/vrana/adminer/releases/download/v4.7.5/adminer-4.7.5.php && mv adminer-4.7.5.php adminer.php && chown -R apache:apache /var/www/html/adminer.php
+ ---> Using cache
+ ---> 2c3c1a589d91
+Step 11/70 : RUN cd ~ && mkdir ~/go1.4 && mkdir ~/tmp && curl -LO https://dl.google.com/go/go1.4.3.linux-amd64.tar.gz && tar xvf go1.4.3.linux-amd64.tar.gz -C ~/tmp/ && mv ~/tmp/go/* ~/go1.4 && rm -rf ~/tmp
+ ---> Using cache
+ ---> 66eac525a2d1
+Step 12/70 : RUN cd ~ && rm -rf ~/tmp && mkdir ~/tmp && curl -LO https://dl.google.com/go/go1.13.5.linux-amd64.tar.gz && cd ~ && tar xvf go1.13.5.linux-amd64.tar.gz -C ~/tmp/ && cd ~/tmp/go/src/ && ./all.bash && mv /root/tmp/go /usr/local/bin/go1.13
+ ---> Using cache
+ ---> 33838849c45f
+Step 13/70 : RUN cd /usr/local/src && curl -LO https://download.java.net/java/GA/jdk13.0.1/cec27d702aa74d5a8630c65ae61e4305/9/GPL/openjdk-13.0.1_linux-x64_bin.tar.gz && tar xvf openjdk-13*_bin.tar.gz && ln -fsr /usr/local/src/jdk-13.0.1/bin/javac /usr/local/bin/javac && ln -fsr /usr/local/src/jdk-13.0.1/bin/java /usr/local/bin/java && ln -fsr /usr/local/src/jdk-13.0.1/bin/jshell /usr/local/bin/jshell && ln -fsr /usr/local/src/jdk-13.0.1/bin/jar /usr/local/bin/jar
+ ---> Using cache
+ ---> 4b6bfd188f94
+Step 14/70 : RUN cd /usr/local/src && curl -LO https://ftp.gnu.org/pub/gnu/findutils/findutils-4.7.0.tar.xz && tar xvf findutils-4.7.0.tar.xz && cd findutils-4.7.0 && ./configure && make -j12 && make -j12 install
+ ---> Using cache
+ ---> e04b16d7d770
+Step 15/70 : RUN yum install -y lbzip gcc-c++ libtool makeinfo file && cd /usr/local/src && curl -LO http://ftp.tsukuba.wide.ad.jp/software/gcc/releases/gcc-7.5.0/gcc-7.5.0.tar.gz && tar xvf gcc-7.5.0.tar.gz && cd gcc-7.5.0 && ./contrib/download_prerequisites && ./configure --enable-languages=c,c++ --prefix=/usr/local --disable-bootstrap --disable-multilib && make -j12 && make -j12 install
+ ---> Using cache
+ ---> 23c0f9f409ef
+Step 16/70 : RUN curl -sL https://rpm.nodesource.com/setup_12.x | bash - &&  yum install -y nodejs &&  yum install -y gcc-c++ make &&  curl -sL https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo &&  yum install -y yarn
+ ---> Using cache
+ ---> a708ede8d069
+Step 17/70 : RUN yum install -y libtool && cd /usr/local/src && git clone https://github.com/kkos/oniguruma.git && cd oniguruma && autoreconf -vfi && ./configure --prefix=/usr/local --enable-shared && make -j12 && make -j12 install
+ ---> Using cache
+ ---> d647cc3f67b2
+Step 18/70 : RUN cd /usr/local/src && curl -LO https://github.com/stedolan/jq/releases/download/jq-1.6/jq-1.6.tar.gz && tar xvf jq-1.6.tar.gz && cd jq-1.6 && ./configure && make -j12 && make -j12 install
+ ---> Using cache
+ ---> 1d11a2225c12
+Step 19/70 : RUN cd /usr/local/src && curl -LO https://www.sqlite.org/2019/sqlite-autoconf-3300000.tar.gz && tar xvf sqlite-autoconf-3300000.tar.gz && cd sqlite-autoconf-3300000 && ./configure --prefix=/usr/local --enable-readline && make -j12 && make -j12 install
+ ---> Using cache
+ ---> 9dfa5c85a38e
+Step 20/70 : RUN cd /usr/local/src && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && tar -zxvf Python-3.7.4.tgz && chown -R root:root Python-3.7.4 && cd Python-3.7.4 && ./configure --enable-shared --with-ensurepip=install && make -j12 && make -j12 install
+ ---> Using cache
+ ---> 2fdceed150de
+Step 21/70 : RUN cd /usr/local/src && curl -LO https://github.com/tomnomnom/gron/releases/download/v0.6.0/gron-linux-amd64-0.6.0.tgz && tar xvf gron-linux-amd64-0.6.0.tgz -C /usr/local/bin
+ ---> Using cache
+ ---> 4140a51b0c47
+Step 22/70 : RUN cd /usr/local/src && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && cd Open-usp-Tukubai && make -j12 install
+ ---> Using cache
+ ---> 864f81f7c65a
+Step 23/70 : RUN cd /usr/local/src && curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && tar -zxvf gawk-5.0.0.tar.gz && cd gawk-5.0.0 && ./configure && make -j12 && make -j12 install
+ ---> Using cache
+ ---> e7fb2451c33e
+Step 24/70 : RUN cd /usr/local/src && curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && tar -zxvf bash-5.0.tar.gz && cd bash-5.0 && ./configure && make -j12 && make -j12 install
+ ---> Using cache
+ ---> 5a10babdb88c
+Step 25/70 : RUN cd /usr/local/src && curl -LO https://github.com/noborus/trdsql/releases/download/v0.7.3/trdsql_v0.7.3_linux_amd64.zip && yum install -y unzip && unzip trdsql_v0.7.3_linux_amd64.zip && cd trdsql_v0.7.3_linux_amd64 && cp /usr/local/src/trdsql_v0.7.3_linux_amd64/trdsql /usr/local/bin/trdsql
+ ---> Using cache
+ ---> 2bd6d30a4d25
+Step 26/70 : RUN yum install -y gcc autoconf && yum install -y curl-devel expat-devel gettext-devel openssl-devel perl-devel zlib-devel perl-ExtUtils-MakeMaker && yum install -y asciidoc xmlto docbook2X && ln -fns /usr/bin/db2x_docbook2texi /usr/bin/docbook2x-texi && cd /usr/local/src && curl -LkvOf https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.24.1.tar.gz && tar xvf git-2.24.1.tar.gz && cd git-2.24.1/ && make -j12 prefix=/usr/local all && make -j12 prefix=/usr/local install
+ ---> Using cache
+ ---> 3a898627245e
+Step 27/70 : RUN yum install -y bison && git clone https://github.com/ruby/ruby.git && cd ruby && autoconf && yum install -y ruby && ./configure --prefix=/usr/local --enable-shared && make -j12 && make -j12 install
+ ---> Using cache
+ ---> 6a2fa9755aee
+Step 28/70 : RUN cd /usr/local/src && curl -LO http://ftp.gnu.org/gnu/sed/sed-4.7.tar.xz && tar xvf sed-4.7.tar.xz && cd sed-4.7 && ./configure --prefix=/usr/local && make -j12 && make -j12 install
+ ---> Using cache
+ ---> c8b322bc186a
+Step 29/70 : RUN yum install -y sudo gcc git gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd ~ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
+ ---> Using cache
+ ---> c10c1ea588a3
+Step 30/70 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> Using cache
+ ---> 1db6e6ec5343
+Step 31/70 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> Using cache
+ ---> 8ccbeb502af7
+Step 32/70 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+ ---> Using cache
+ ---> 48c4c6c5ae97
+Step 33/70 : RUN echo 'export GOROOT=/usr/local/bin/go1.13'>>~/.bashrc && echo 'export PATH=$PATH:$GOROOT/bin'>>~/.bashrc && echo 'export LD_LIBRARY_PATH=/usr/local/lib' >> ~/.bashrc && source ~/.bashrc
+ ---> Using cache
+ ---> 32722019c3e8
+Step 34/70 : RUN yum -y reinstall glibc-common
+ ---> Using cache
+ ---> 7a32163e214e
+Step 35/70 : RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
+ ---> Using cache
+ ---> 68f3ca5e51c8
+Step 36/70 : ENV LANG=ja_JP.UTF-8
+ ---> Using cache
+ ---> 1cfc77186606
+Step 37/70 : RUN rm -f /etc/localtime
+ ---> Using cache
+ ---> 8254ec410c84
+Step 38/70 : RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+ ---> Using cache
+ ---> b7d12b582855
+Step 39/70 : RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps firefox
+ ---> Using cache
+ ---> 45211dbe4c51
+Step 40/70 : RUN yum groupinstall -y base "X Window System" --setopt=group_package_types=mandatory,default,optional
+ ---> Using cache
+ ---> 2934d3e680f3
+Step 41/70 : ENV DISPLAY=:0.0
+ ---> Using cache
+ ---> 7b758448530e
+Step 42/70 : RUN yum install -y vlgothic-*
+ ---> Using cache
+ ---> 0043ba2d9300
+Step 43/70 : RUN yum install -y PackageKit-gtk3-module
+ ---> Using cache
+ ---> 4753c176b3f1
+Step 44/70 : RUN yum install -y ibus-mozc
+ ---> Using cache
+ ---> 84bf4de48bee
+Step 45/70 : RUN cd /usr/local/src && curl -LO https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.5.1-x86_64.rpm && yum install -y elasticsearch-7.5.1-x86_64.rpm
+ ---> Using cache
+ ---> d60e9e10612c
+Step 46/70 : RUN cd /usr/local/src && curl -LO https://artifacts.elastic.co/downloads/kibana/kibana-7.5.1-x86_64.rpm && yum install -y kibana-7.5.1-x86_64.rpm
+ ---> Using cache
+ ---> 7629bbffce32
+Step 47/70 : RUN sed -i 's;#server.port: 5601;server.port: 5601;' /etc/kibana/kibana.yml
+ ---> Using cache
+ ---> 5dae7384fbc5
+Step 48/70 : RUN ( IP=$(ifconfig eth0 | grep inet | sed -E 's;\s{1,}; ;' | cut -d" " -f 3) && sed -i "s;#server.host: \"localhost\";server.host: \"$IP\";" /etc/kibana/kibana.yml )
+ ---> Using cache
+ ---> 96215fb1d145
+Step 49/70 : USER elasticsearch
+ ---> Using cache
+ ---> c88cdec06fc4
+Step 50/70 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> Using cache
+ ---> 01353bc233d8
+Step 51/70 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> Using cache
+ ---> 71bf3acc4c05
+Step 52/70 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+ ---> Using cache
+ ---> 5c0072fb13c2
+Step 53/70 : USER kibana
+ ---> Using cache
+ ---> c0582ad6d6c4
+Step 54/70 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> Using cache
+ ---> cf72239aee3e
+Step 55/70 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> Using cache
+ ---> afe7525e86d3
+Step 56/70 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+ ---> Using cache
+ ---> 430e17c3122c
+Step 57/70 : USER kuraine
+ ---> Using cache
+ ---> 785c4d28a9cd
+Step 58/70 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+ ---> Using cache
+ ---> 64faef8dcfde
+Step 59/70 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
+ ---> Using cache
+ ---> 5b7075bc0f96
+Step 60/70 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+ ---> Using cache
+ ---> 02af1d399936
+Step 61/70 : RUN echo 'export GOROOT=/usr/local/bin/go1.13'>>~/.bashrc && echo 'export PATH=$PATH:$GOROOT/bin'>>~/.bashrc && echo 'export LD_LIBRARY_PATH=/usr/local/lib' >> ~/.bashrc && echo 'alias idea="/home/kuraine/idea-IC-192.7142.36/bin/idea.sh >~/launch_idea.log 2>&1 &"' >> ~/.bashrc && source ~/.bashrc
+ ---> Using cache
+ ---> 5f0bd8cabccf
+Step 62/70 : COPY code-1.41.1-1576681965.el7.x86_64.rpm /home/kuraine/code-1.41.1-1576681965.el7.x86_64.rpm
+COPY failed: stat /var/lib/docker/tmp/docker-builder374358697/code-1.41.1-1576681965.el7.x86_64.rpm: no such file or directory
+
+real	0m0.246s
+user	0m0.032s
+sys	0m0.036s
