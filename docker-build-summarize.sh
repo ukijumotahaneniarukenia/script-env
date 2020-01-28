@@ -5,6 +5,8 @@ BUILD_STDOUT_LOG=$(ls -l ~/script_env/docker-build-log | grep -P '^-' | awk '{pr
 #その日の標準エラー出力ログファイル名を取得
 BUILD_STDERR_LOG=$(ls -l ~/script_env/docker-build-log | grep -P '^-' | awk '{print $9}' | grep "$(date +%Y-%m-%d)" | grep stderr)
 
+echo 'DETAILS' >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG #HEADERを追記
+
 #各コンテナごとにその日の初回ビルド詳細ログを追記
 while read tgt;do
   echo $tgt >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG #対象コンテナを追記
@@ -25,6 +27,8 @@ while read tgt;do
   cat $tgt | grep -E 'fail|FAIL|Fail|unable to prepare context' >>~/script_env/docker-build-log/$BUILD_STDERR_LOG  #異常終了ログの抽出
 done < <(find ~/script_env -type f -name "*retry*" | grep log | sort)
 
+echo 'SUMMARY' >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG #HEADERを追記
+
 ##作成されたコンテナイメージを追記
 echo SUCCESS DOCKER BUILD IMAGE >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
 docker images | head -n1 >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
@@ -40,3 +44,10 @@ docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
 
 #コンテナ起動に失敗したdockerコンテナを削除
 docker ps -a | awk '{print $1,$2}' | tail -n+2 | grep -vE $(ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log|xargs|tr ' ' '|') | awk '{print $1}' | xargs -I@ bash -c 'docker stop @ && docker rm @'
+
+#あとは手動で確認し、コミット
+git add .gitignore
+git add --all *
+git commit -m "環境構築"
+
+git status
