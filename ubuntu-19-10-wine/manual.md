@@ -42,6 +42,7 @@ apt install -y software-properties-common
 
 apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ eoan main'
 
+#以下のコマンドを実行した時、Enter入力を求められる
 add-apt-repository ppa:cybermax-dexter/sdl2-backport
 
 apt update
