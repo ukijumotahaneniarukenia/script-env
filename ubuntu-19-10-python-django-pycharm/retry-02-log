@@ -1,5 +1,0 @@
-unable to prepare context: unable to evaluate symlinks in Dockerfile path: lstat /home/aine/script_env/ubuntu-19-10-python-django-pycharm/Dockerfile: no such file or directory
-
-real	0m0.097s
-user	0m0.020s
-sys	0m0.034s

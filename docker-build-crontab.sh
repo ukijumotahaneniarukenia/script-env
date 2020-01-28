@@ -2,7 +2,7 @@
 
 echo SUMMARY
 
-RETRY_MX_CNT=10
+RETRY_MX_CNT=2
 
 #gitignore整備
 ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log | xargs -I@ echo cp ~/script_env/.gitignore ~/script_env/@/.gitignore | sh
@@ -65,8 +65,8 @@ for ((RETRY_ROUND_CNT=1;RETRY_ROUND_CNT<=$RETRY_MX_CNT;RETRY_ROUND_CNT++));do
 done
 
 git add .gitignore
-git add --all * 1>/dev/null 2>&1
-git commit -m "環境構築" 1>/dev/null 2>&1
+git add --all *
+git commit -m "環境構築"
 
 git status
 

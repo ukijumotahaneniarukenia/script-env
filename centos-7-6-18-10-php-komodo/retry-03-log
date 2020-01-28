@@ -1,123 +1,0 @@
-Sending build context to Docker daemon  3.139MB
-Step 1/66 : FROM centos:7.6.1810
- ---> f1cb7c7d58b7
-Step 2/66 : RUN groupadd -g 1001 rstudio
- ---> Using cache
- ---> 499d2de30443
-Step 3/66 : RUN useradd -m -g rstudio -u 1001 rstudio
- ---> Using cache
- ---> baf3e1b42d4a
-Step 4/66 : RUN chsh -s /bin/bash rstudio
- ---> Using cache
- ---> ac2b68f804d4
-Step 5/66 : RUN groupadd -g 1002 php
- ---> Using cache
- ---> a607f62ac24d
-Step 6/66 : RUN useradd -m -g php -u 1002 php
- ---> Using cache
- ---> 7205b4009c3c
-Step 7/66 : RUN chsh -s /bin/bash php
- ---> Using cache
- ---> d31ae15bb409
-Step 8/66 : RUN echo 'root_pwd' | passwd --stdin root
- ---> Using cache
- ---> 8bbd132caefc
-Step 9/66 : RUN echo 'rstudio_pwd' | passwd --stdin rstudio
- ---> Using cache
- ---> 4dcb3e3a0d07
-Step 10/66 : RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
- ---> Using cache
- ---> 6ea2b9095968
-Step 11/66 : RUN echo 'php_pwd' | passwd --stdin php
- ---> Using cache
- ---> 485d33222f4a
-Step 12/66 : RUN echo 'php ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
- ---> Using cache
- ---> 89daf4e2c82a
-Step 13/66 : RUN yum install -y epel-release
- ---> Using cache
- ---> 25db44a81206
-Step 14/66 : RUN yum install -y R
- ---> Using cache
- ---> db7b3e156fec
-Step 15/66 : RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man file
- ---> Using cache
- ---> 699ffbf0150a
-Step 16/66 : RUN yum install -y which perl-App-cpanminus wxGTK-devel perl-ExtUtils-Embed perl-File-HomeDir perl-Term-ReadLine-Gnu wxGTK3 cpan
- ---> Using cache
- ---> f38bdcd3cf31
-Step 17/66 : RUN cd ~ && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && cd Open-usp-Tukubai && make -j12 install
- ---> Using cache
- ---> 0a1a6f55f907
-Step 18/66 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && tar -zxvf gawk-5.0.0.tar.gz && cd gawk-5.0.0 && ./configure && make -j12 && make -j12 install
- ---> Using cache
- ---> 7f7684ee6833
-Step 19/66 : RUN cd ~ && curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && tar -zxvf bash-5.0.tar.gz && cd bash-5.0 && ./configure && make -j12 && make -j12 install
- ---> Using cache
- ---> 9a7c407c79a4
-Step 20/66 : RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && cd ~ && git clone https://github.com/vim/vim.git && cd vim && ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && make -j12 distclean && make -j12 && make -j12 install && ln -fsr /usr/local/bin/vim /usr/bin/vim && ln -fsr /usr/local/bin/vim /usr/bin/vi
- ---> Using cache
- ---> 8f57e112538f
-Step 21/66 : RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
- ---> Using cache
- ---> b9684f433f8d
-Step 22/66 : RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && cd ~/tmp && mv rc/.[^.]* ~ && rm -rf ~/tmp
- ---> Using cache
- ---> e14e08221a31
-Step 23/66 : RUN mkdir -p ~/.vim/bundle && cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
- ---> Using cache
- ---> eac802cc8c1f
-Step 24/66 : RUN cd ~ && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && tar -zxvf Python-3.7.4.tgz && cd Python-3.7.4 && ./configure && make -j12 && make -j12 install
- ---> Using cache
- ---> d23cdb4f83be
-Step 25/66 : RUN cd ~ && curl -LO https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz && tar -xzf perl-5.30.0.tar.gz && cd perl-5.30.0 && ./Configure -des -Dprefix=/usr/local/ && make -j12 && make -j12 install
- ---> Using cache
- ---> d97afb584a31
-Step 26/66 : RUN cd ~ && yum install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && tar jxf parallel-latest.tar.bz2 && cd parallel-20190922 && ./configure && make -j12 && make -j12 install
- ---> Running in fa3a51321d41
-Loaded plugins: fastestmirror, ovl
-Loading mirror speeds from cached hostfile
- * base: ftp.iij.ad.jp
- * epel: www.ftp.ne.jp
- * extras: ftp.iij.ad.jp
- * updates: ftp.iij.ad.jp
-Resolving Dependencies
---> Running transaction check
----> Package bzip2.x86_64 0:1.0.6-13.el7 will be installed
---> Finished Dependency Resolution
-
-Dependencies Resolved
-
-================================================================================
- Package         Arch             Version                  Repository      Size
-================================================================================
-Installing:
- bzip2           x86_64           1.0.6-13.el7             base            52 k
-
-Transaction Summary
-================================================================================
-Install  1 Package
-
-Total download size: 52 k
-Installed size: 82 k
-Downloading packages:
-Running transaction check
-Running transaction test
-Transaction test succeeded
-Running transaction
-  Installing : bzip2-1.0.6-13.el7.x86_64                                    1/1 
-  Verifying  : bzip2-1.0.6-13.el7.x86_64                                    1/1 
-
-Installed:
-  bzip2.x86_64 0:1.0.6-13.el7                                                   
-
-Complete!
-[91m  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload [0m[91m Upload   Total   Spe[0m[91mn[0m[91mt   [0m[91m Left  Speed
-[0m[91m  0     0 [0m[91m   0     0    [0m[91m0     0      0     [0m[91m [0m[91m0 --[0m[91m:-[0m[91m-[0m[91m:-- --:-[0m[91m-:-- --:--:--   [0m[91m  0[0m[91m  0     0    0     0    0    [0m[91m 0      0      0 --:--:-- --[0m[91m:--:-- --:--:[0m[91m--     0[0m[91m  3 1939[0m[91mk    3 69553    0     0  62684    [0m[91m  0  0:[0m[91m00:31  0[0m[91m:00:01 [0m[91m 0:00:30 62[0m[91m660[0m[91m 11 1939k   11  226k    0     0   106k      0 [0m[91m 0:00:18  [0m[91m0:00[0m[91m:02  0:00:16  106k[0m[91m 21 1939k   21  408k    0     0   129k      0  0[0m[91m:00:14  0:00:03  0:[0m[91m0[0m[91m0:1[0m[91m1  129k[0m[91m 33 1939k   33  653k    0     0  [0m[91m 161k      0  0:00:12 [0m[91m 0:00:04  0:00:0[0m[91m8  161k[0m[91m 44 1939k   44  867k    0     0   17[0m[91m2k      0  [0m[91m0:00:11  0:00:05 [0m[91m 0:00:06[0m[91m  17[0m[91m3k[0m[91m 58 1939k   58 1131k    0   [0m[91m  0   186k     [0m[91m 0  0:[0m[91m00:1[0m[91m0 [0m[91m 0[0m[91m:0[0m[91m0:06  0:00:04  [0m[91m215k[0m[91m 67 1939k   67 1304k    0     0   18[0m[91m4k      0  0:00:10  0:[0m[91m00:07  0:00:[0m[91m03  217k[0m[91m 76 1939k   76 1486k    0     0  [0m[91m 183k      0[0m[91m  0:00:10 [0m[91m 0:00:08  0:00:02  217k[0m[91m 84 1939k   84 1640k    0     0[0m[91m   181k      0[0m[91m  0:00:10  [0m[91m0:00:09  0:[0m[91m00:0[0m[91m1 [0m[91m 1[0m[91m97[0m[91mk[0m[91m 93 1939k   93 1812k    0     0   178k  [0m[91m    0  0:00:10  0[0m[91m:00:10 --:-[0m[91m-:[0m[91m--[0m[91m  [0m[91m18[0m[91m4k[0m[91m100 1939k  100 1939k    0     [0m[91m0   178k      0  0:[0m[91m00:10  0[0m[91m:00[0m[91m:1[0m[91m0 --:--:--  168k[0m[91m
-[0m[91m/bin/sh: line 0: cd: parallel-20190922: No such file or directory
-[0mThe command '/bin/sh -c cd ~ && yum install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && tar jxf parallel-latest.tar.bz2 && cd parallel-20190922 && ./configure && make -j12 && make -j12 install' returned a non-zero code: 1
-
-real	0m16.999s
-user	0m0.031s
-sys	0m0.040s
