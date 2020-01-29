@@ -32,5 +32,6 @@ cp -r ../opentype-svg/util .
 cp -r ../opentype-svg/imgs .
 cp -r ../opentype-svg/fonts .
 sed -i 's;addSVGtable.py;~/.fonts/source-han-code-jp-2.011/addSVGtable.py;g' commands.sh
+sed -i 's;for wt in ExtraLight Light Normal Regular Medium Bold Heavy;for wt in ExtraLight Light Normal Medium Bold Heavy;g' commands.sh
 ./commands.sh
 ```
