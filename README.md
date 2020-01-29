@@ -1,5 +1,10 @@
 # script_scratch
 
+
+# x環境のdockerでvisualboxインスコしてみる
+
+https://www.kkaneko.jp/tools/virtualbox/virtualboxlinux.html
+
 # wsl内でシンボリックリンクを貼る
 
 コマンドソフトウェアによっては参照できない場合があるので、
