@@ -18,8 +18,8 @@ docker exec -it centos-7-6-18-10-c-cpp /bin/bash
 
 # フォントインストール
 
-https://manabu.github.io/font-1/
-https://ics.media/entry/7010/
+- https://manabu.github.io/font-1/
+- https://ics.media/entry/7010/
 
 ```
 mkdir -p ~/.fonts
