@@ -37,4 +37,13 @@ cp -r ../opentype-svg/fonts .
 sed -i 's;addSVGtable.py;~/.fonts/source-han-code-jp-2.011/addSVGtable.py;g' commands.sh
 sed -i 's;for wt in ExtraLight Light Normal Regular Medium Bold Heavy;for wt in ExtraLight Light Normal Medium Bold Heavy;g' commands.sh
 ./commands.sh
+find ~/.fonts/source-han-code-jp-2.011 -name "*otf" | xargs -I@ cp @ ~/.fonts
+fc-cache -fv
 ```
+
+vscode開いて日本語フォルダやファイルが表示されていることを確認
+```
+code
+```
+
+![](./90.png)
