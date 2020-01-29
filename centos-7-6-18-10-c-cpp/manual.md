@@ -18,6 +18,9 @@ docker exec -it centos-7-6-18-10-c-cpp /bin/bash
 
 # フォントインストール
 
+https://manabu.github.io/font-1/
+https://ics.media/entry/7010/
+
 ```
 mkdir -p ~/.fonts
 cd ~/.fonts && curl -LO https://github.com/adobe-fonts/source-han-code-jp/archive/2.011.zip
