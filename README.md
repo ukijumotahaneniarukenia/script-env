@@ -5,6 +5,10 @@
 
 https://www.kkaneko.jp/tools/virtualbox/virtualboxlinux.html
 
+
+Arch linuxをインスこする
+https://qiita.com/tomi_sheep/items/ddd9c7b0f0f7c774a222
+
 # wsl内でシンボリックリンクを貼る
 
 コマンドソフトウェアによっては参照できない場合があるので、
