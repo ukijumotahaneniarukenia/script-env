@@ -16,17 +16,20 @@ docker run --shm-size=8gb --name centos-7-6-18-10-c-cpp -itd -v /etc/localtime:/
 docker exec -it centos-7-6-18-10-c-cpp /bin/bash
 ```
 
-# eclipseでc-cpp開発環境
+# フォントインストール
 
-初回起動のみ
-一般ユーザーで実行
 ```
-$cd /usr/local/src/eclipse-installer/
-$./eclipse-inst 1>~/installer_eclipse.log 2>&1 &
-```
-
-２回目以降
-一般ユーザーで実行
-```
-$ec
+mkdir -p ~/.fonts
+cd ~/.fonts && curl -LO https://github.com/adobe-fonts/source-han-code-jp/archive/2.011.zip
+unzip 2.011.zip
+cd ~/.fonts && git clone https://github.com/adobe-type-tools/opentype-svg.git
+cd source-han-code-jp-2.011
+python3 -m venv afdko_env
+source afdko_env/bin/activate
+pip3 install afdko
+cp ../opentype-svg/*.py .
+cp -r ../opentype-svg/util .
+cp -r ../opentype-svg/imgs .
+cp -r ../opentype-svg/fonts .
+sed -i 's;addSVGtable.py;~/.fonts/source-han-code-jp-2.011/addsvgtable.py;g' commands.sh
 ```

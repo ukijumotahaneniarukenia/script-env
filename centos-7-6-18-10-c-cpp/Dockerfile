@@ -64,13 +64,23 @@ RUN cd /usr/local/src && \
 curl -LO https://download.java.net/java/GA/jdk13/5b8a42f3905b406298b72d750b6919f6/33/GPL/openjdk-13_linux-x64_bin.tar.gz && \
 tar -zxvf openjdk-13_linux-x64_bin.tar.gz
 
-#VScodeいんすこ
-COPY code-1.41.1-1576681965.el7.x86_64.rpm /usr/local/src/code-1.41.1-1576681965.el7.x86_64.rpm
-RUN cd /usr/local/src && yum install -y code-1.41.1-1576681965.el7.x86_64.rpm
+#pythonコマンドインストール
+RUN cd /usr/local/src && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && \
+tar -zxvf Python-3.7.4.tgz && \
+chown -R root:root Python-3.7.4 && \
+cd Python-3.7.4 && \
+./configure --enable-shared --with-ensurepip=install && \
+make -j12 && \
+make -j12 install
 
 #環境変数の設定
 RUN echo 'export JAVA_HOME=/usr/local/src/jdk-13' >> ~/.bashrc && \
+echo 'export LD_LIBRARY_PATH=/usr/local/lib' >> ~/.bashrc && \
 echo 'export PATH=$PATH:$JAVA_HOME/bin' >> ~/.bashrc
+
+#VScodeいんすこ
+COPY code-1.41.1-1576681965.el7.x86_64.rpm /usr/local/src/code-1.41.1-1576681965.el7.x86_64.rpm
+RUN cd /usr/local/src && yum install -y code-1.41.1-1576681965.el7.x86_64.rpm
 
 #XクライアントがXサーバーにGUI転送出来るように、転送先のIPを指定する
 ENV DISPLAY=:0.0
@@ -95,6 +105,7 @@ sh installer.sh ~/.vim/bundle && rm -rf installer.sh
 
 #環境変数の設定
 RUN echo 'export JAVA_HOME=/usr/local/src/jdk-13' >> ~/.bashrc && \
+echo 'export LD_LIBRARY_PATH=/usr/local/lib' >> ~/.bashrc && \
 echo 'export PATH=$PATH:$JAVA_HOME/bin' >> ~/.bashrc
 
 #mysqlサービス外部公開ポート
