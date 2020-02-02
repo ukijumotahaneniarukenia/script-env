@@ -1,2 +1,0 @@
-- https://qiita.com/zaki-lknr/items/b89c35d90df96a000256
-- https://qiita.com/homines22/items/2730d26e932554b6fb58
