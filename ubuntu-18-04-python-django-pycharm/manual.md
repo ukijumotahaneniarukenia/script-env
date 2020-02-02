@@ -134,3 +134,11 @@ nyango
 ```
 
 - http://localhost:8000/
+
+
+- ピクチャをリネームしてカレントディレクトリに持ってくる
+
+```
+$cd ~/script_env/ubuntu-18-04-python-django-pycharm
+$find /home/aine/Pictures -maxdepth 1 -type f | sort -k3,4 | awk '{print "mv \x27"$0"\x27 "NR".png"}'
+```
