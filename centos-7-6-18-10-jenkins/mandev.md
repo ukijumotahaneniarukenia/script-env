@@ -1,3 +1,33 @@
+
+# 参考文献
+- https://casualdevelopers.com/tech-tips/how-to-install-and-use-jenkins-on-docker-for-nodejs/
+- https://jenkins.io/download/
+- https://pkg.jenkins.io/redhat/
+- https://wiki.jenkins.io/display/JENKINS/Installing+Jenkins+on+Red+Hat+distributions
+- https://unix.stackexchange.com/questions/9314/no-such-file-or-directory-etc-init-d-functions
+- http://arasio.hatenablog.com/entry/2016/10/07/005055
+- https://casualdevelopers.com/tech-tips/how-to-install-and-use-jenkins-on-docker-for-nodejs/#Jenkins-3
+- https://casualdevelopers.com/tech-tips/how-to-install-and-use-jenkins-on-docker-for-nodejs/
+- http://tech-blog.rakus.co.jp/entry/2018/03/05/094238#%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89
+- https://github.com/ryo-ohnishi/node_express_nginx
+- https://qiita.com/ryo-ohnishi/items/b54e649b14b51694ef77
+- https://qiita.com/ryo-ohnishi/items/3653f7583c8591eef333
+
+# dockerイメージ作成
+```
+time docker build -t centos_centos-7-6-18-10-jenkins . | tee log
+```
+
+# dockerコンテナ起動
+```
+docker run --privileged -itd --name centos-7-6-18-10-jenkins -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 8080:8080 centos-7-6-18-10-jenkins
+```
+
+# dockerコンテナ潜入
+```
+docker exec -it centos-7-6-18-10-jenkins /bin/bash
+```
+
 # 自動ビルド対象のレポジトリ作成
 ![](./1.png)
 ![](./2.png)
@@ -312,32 +342,3 @@ drwxr-xr-x. 2 jenkins jenkins 4096 Sep 16 14:44 usage
 ![](./45.png)
 
 # レポジトリにコミットをトリガにしてビルド実行
-
-
-
-# dockerコンテナ作成
-```
-docker run --privileged --shm-size=8gb --name centos-7-6-18-10-jenkins -itd -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 13000:3000 -p 280:80 -p 18080:8080 centos-7-6-18-10-jenkins /sbin/init
-```
-
-# dockerコンテナ潜入
-```
-docker exec -it centos-7-6-18-10-jenkin /bin/bash
-```
-
-# 参考文献
-https://casualdevelopers.com/tech-tips/how-to-install-and-use-jenkins-on-docker-for-nodejs/
-https://jenkins.io/download/
-https://pkg.jenkins.io/redhat/
-https://wiki.jenkins.io/display/JENKINS/Installing+Jenkins+on+Red+Hat+distributions
-https://unix.stackexchange.com/questions/9314/no-such-file-or-directory-etc-init-d-functions
-http://arasio.hatenablog.com/entry/2016/10/07/005055
-
-# nodeアプリ参考文献
-https://casualdevelopers.com/tech-tips/how-to-install-and-use-jenkins-on-docker-for-nodejs/#Jenkins-3
-https://casualdevelopers.com/tech-tips/how-to-install-and-use-jenkins-on-docker-for-nodejs/
-http://tech-blog.rakus.co.jp/entry/2018/03/05/094238#%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89
-https://github.com/ryo-ohnishi/node_express_nginx
-https://qiita.com/ryo-ohnishi/items/b54e649b14b51694ef77
-https://qiita.com/ryo-ohnishi/items/3653f7583c8591eef333
-

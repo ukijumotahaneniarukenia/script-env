@@ -36,8 +36,8 @@ RUN apt install -y xterm
 ENV DISPLAY=:0.0
 
 #swiftインストール
-RUN apt install -y clang libicu-dev && \
-cd /usr/local/src && \
+RUN apt install -y clang libicu-dev
+RUN cd /usr/local/src && \
 curl -LO https://swift.org/builds/development/ubuntu1804/swift-DEVELOPMENT-SNAPSHOT-2020-01-31-a/swift-DEVELOPMENT-SNAPSHOT-2020-01-31-a-ubuntu18.04.tar.gz && \
 tar xvf swift-DEVELOPMENT-SNAPSHOT-2020-01-31-a-ubuntu18.04.tar.gz
 
