@@ -1,3 +1,7 @@
+# 参考文献
+
+- https://jenkins.io/doc/tutorials/
+
 # jenkinsプロセス起動
 
 - warファイルのパスを確認
@@ -45,7 +49,7 @@ java    831 jenkins  142u  IPv4 12406050      0t0  TCP *:8080 (LISTEN)
 
 - ブラウザアクセス
 
-- http://192.168.1.109:8080
+  - http://192.168.1.109:8080
 
 |key|value|
 |:-:|:-:|
@@ -72,195 +76,18 @@ $git commit -m "first commit"
 $git remote add origin https://github.com/ukijumotahaneniarukenia/sandbox2.git
 $git push -u origin master
 ```
-ブラウザをリフレッシュ後
-![](./4.png)
 
 # 自動ビルド対象のレポジトリをクローン
-dockerコンテナ内の作業ディレクトリにおいて以下のコマンドを実行
-```
-[rstudio@3f2d79d4d6af ~]$ ls
-[rstudio@3f2d79d4d6af ~]$ git clone https://github.com/ukijumotahaneniarukenia/sandbox2.git
-Cloning into 'sandbox2'...
-remote: Enumerating objects: 3, done.
-remote: Counting objects: 100% (3/3), done.
-remote: Total 3 (delta 0), reused 3 (delta 0), pack-reused 0
-Unpacking objects: 100% (3/3), done.
-[rstudio@3f2d79d4d6af ~]$ ls
-sandbox2
-[rstudio@3f2d79d4d6af ~]$ cd sandbox2/
-[rstudio@3f2d79d4d6af sandbox2]$ ls
-README.md
-```
 
-# 作業用ディレクトリでの成果物を自動ビルド対象のレポジトリにコミット
-```
-[rstudio@0118397ab4ba sandbox2]$ mkdir {src,test,usage}
-[rstudio@0118397ab4ba sandbox2]$ tree
-.
-├── README.md
-├── src
-├── test
-└── usage
+# jenkinsにプラグインをインストール
+- テスト対象の言語に応じてプラグインをインストールする
 
-3 directories, 1 file
-[rstudio@0118397ab4ba sandbox2]$ tree
-.
-├── README.md
-├── src
-│   └── utils.js
-├── test
-│   └── utils.js
-└── usage
-    └── index.js
-
-3 directories, 4 files
-[rstudio@0118397ab4ba sandbox2]$ cat src/utils.js
-const math = {
-  add: (x, y) => x + y,
-  subtract: (x, y) => x - y
-};
-
-module.exports = { math };
-[rstudio@0118397ab4ba sandbox2]$ cat test/utils.js
-const { math } = require('../src/utils')
-
-describe('utils test', () => {
-  describe('math test', () => {
-    test('should be 3 when adding 1 and 2', () => {
-      expect(math.add(1, 2)).toBe(3);
-    });
-
-    test('should be -1 when subtracting 2 from 1', () => {
-      expect(math.subtract(1, 2)).toBe(-1);
-    });
-  });
-});
-[rstudio@0118397ab4ba sandbox2]$ cat usage/index.js
-const { math } = require('../src/utils');
-
-console.log(`Next year is ${math.add(2018, 1)}.`);
-console.log(`${math.subtract(2020, 2018)} years until Tokyo Olympic.`);
-[rstudio@0118397ab4ba sandbox2]$ cat nodejs.groovy
-job('NodeJS_TestJob_01') {
-    scm {
-        git('https://github.com/ukijumotahaneniarukenia/sandbox2.git') {  node ->
-            node / gitConfigName('ukijumotahaneniarukenia')
-            node / gitConfigEmail('mrchildrenkh1008@gmail.com')
-        }
-    }
-    triggers {
-        scm('H/5 * * * *')
-    }
-    wrappers {
-        nodejs('nodejs_test')
-    }
-    steps {
-        shell("npm install")
-        shell("npm test")
-    }
-}
-[rstudio@0118397ab4ba sandbox2]$ tree
-.
-├── nodejs.groovy
-├── README.md
-├── src
-│   └── utils.js
-├── test
-│   └── utils.js
-└── usage
-    └── index.js
-
-3 directories, 5 files
-[rstudio@0118397ab4ba sandbox2]$ ll
-total 20
--rw-rw-r--. 1 rstudio rstudio  433 Sep 16 14:07 nodejs.groovy
--rw-rw-r--. 1 rstudio rstudio   11 Sep 16 13:54 README.md
-drwxrwxr-x. 2 rstudio rstudio 4096 Sep 16 13:58 src
-drwxrwxr-x. 2 rstudio rstudio 4096 Sep 16 13:58 test
-drwxrwxr-x. 2 rstudio rstudio 4096 Sep 16 13:59 usage
-[rstudio@0118397ab4ba sandbox2]$ git add .
-[rstudio@0118397ab4ba sandbox2]$ git commit -m "成果物"
-
-*** Please tell me who you are.
-
-Run
-
-  git config --global user.email "you@example.com"
-  git config --global user.name "Your Name"
-
-to set your account's default identity.
-Omit --global to set the identity only in this repository.
-
-fatal: empty ident name (for <rstudio@0118397ab4ba.(none)>) not allowed
-[rstudio@0118397ab4ba sandbox2]$ git config --global user.email "mrchildrenkh1008@gmail.com"
-[rstudio@0118397ab4ba sandbox2]$ git config --global user.name "ukijumotahaneniarukenia"
-[rstudio@0118397ab4ba sandbox2]$ git commit -m "成果物"
-[master 74d1ea0] 成果物
- 4 files changed, 41 insertions(+)
- create mode 100644 nodejs.groovy
- create mode 100644 src/utils.js
- create mode 100644 test/utils.js
- create mode 100644 usage/index.js
-[rstudio@0118397ab4ba sandbox2]$ git push -u origin master
-Username for 'https://github.com': ukijumotahaneniarukenia
-Password for 'https://ukijumotahaneniarukenia@github.com':
-Counting objects: 10, done.
-Delta compression using up to 12 threads.
-Compressing objects: 100% (6/6), done.
-Writing objects: 100% (9/9), 1.14 KiB | 0 bytes/s, done.
-Total 9 (delta 0), reused 0 (delta 0)
-To https://github.com/ukijumotahaneniarukenia/sandbox2.git
-   7d7662f..74d1ea0  master -> master
-Branch master set up to track remote branch master from origin.
-
-```
-
-# dockerコンテナ潜入後、初期パスワードを確認
-```
-[root@e0f1e2a88da2 /]# cat /var/lib/jenkins/secrets/initialAdminPassword
-3d6bf8c990be4c2492c4d2b1806431c0
-```
-
-# ブラウザよりjenkins起動確認
-```
-http://192.168.1.109:18080
-```
-
-# jenkins初期設定
-![](./6.png)
-![](./7.png)
-![](./8.png)
-![](./9.png)
-![](./10.png)
-![](./11.png)
-![](./12.png)
-
-# jenkinsにNodejsファイル実行プラグインをインストール
-テスト対象の言語に応じてプラグインをインストールする
-![](./13.png)
-![](./14.png)
-![](./15.png)
-![](./16.png)
-![](./17.png)
-![](./18.png)
-
-# NodeJsプラグインを有効化する
-![](./27.png)
-![](./28.png)
-![](./29.png)
+# プラグインの有効化
 
 # jenkinsにDSLファイル実行プラグインをインストール
 DSLファイルは自動実行するためのjenkinsに対する指示書。groovyの言語仕様で記載。
-![](./19.png)
-![](./20.png)
-![](./21.png)
 
 # jenkinsにテストジョブを登録
-![](./22.png)
-![](./23.png)
-![](./24.png)
-![](./25.png)
-![](./26.png)
 
 # jenkinsユーザーがDSLファイルを実行できるように許可する
 In-Process Script Approvalは5分ほど待つと表示されると思ったが、
@@ -268,11 +95,6 @@ In-Process Script Approvalは5分ほど待つと表示されると思ったが�
 
 # jenkinsからテストジョブを実行
 認証許可せず、実行するとテストは失敗する
-![](./30.png)
-![](./31.png)
-![](./32.png)
-![](./33.png)
-
 
 # サーバ上のファイルでの実行ログ
 workspace配下にクローンしてきて実行しているぽい
@@ -328,21 +150,9 @@ drwxr-xr-x. 2 jenkins jenkins 4096 Sep 16 14:44 usage
 ```
 
 # DSLスクリプト実行許可付与
-![](./34.png)
-![](./35.png)
 
 # 実行許可付与後、ビルド実行
-![](./36.png)
-![](./37.png)
-![](./38.png)
-![](./39.png)
 
 # DSLファイルの記載内容がjenkinsに反映されているか確認
-![](./40.png)
-![](./41.png)
-![](./42.png)
-![](./43.png)
-![](./44.png)
-![](./45.png)
 
 # レポジトリにコミットをトリガにしてビルド実行
