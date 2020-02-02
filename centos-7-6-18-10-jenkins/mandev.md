@@ -1,5 +1,7 @@
 # 参考文献
 
+- https://jenkins.io/doc/pipeline/tour/getting-started/
+
 - https://jenkins.io/doc/tutorials/
 
 # jenkinsプロセス起動

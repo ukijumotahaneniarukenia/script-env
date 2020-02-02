@@ -15,8 +15,8 @@ RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurse
 
 #javaコマンドインストール
 RUN cd /usr/local/src && \
-curl -LO https://download.java.net/java/GA/jdk13/5b8a42f3905b406298b72d750b6919f6/33/GPL/openjdk-13_linux-x64_bin.tar.gz && \
-tar -zxvf openjdk-13_linux-x64_bin.tar.gz
+curl -LO https://download.java.net/openjdk/jdk11/ri/openjdk-11+28_linux-x64_bin.tar.gz && \
+tar xvf openjdk-11+28_linux-x64_bin.tar.gz
 
 #jenkinsいんすこ
 RUN yum install -y initscripts wget && \
@@ -63,7 +63,7 @@ RUN yum install -y xterm
 
 #環境変数の設定
 RUN echo 'export LD_LIBRARY_PATH=/usr/local/lib' >> ~/.bashrc && \
-echo 'export JAVA_HOME=/usr/local/src/jdk-13' >> ~/.bashrc && \
+echo 'export JAVA_HOME=/usr/local/src/jdk-11' >> ~/.bashrc && \
 echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.bashrc
 
 USER jenkins
@@ -84,7 +84,7 @@ sh installer.sh ~/.vim/bundle && rm -rf installer.sh
 
 #環境変数の設定
 RUN echo 'export LD_LIBRARY_PATH=/usr/local/lib' >> ~/.bashrc && \
-echo 'export JAVA_HOME=/usr/local/src/jdk-13' >> ~/.bashrc && \
+echo 'export JAVA_HOME=/usr/local/src/jdk-11' >> ~/.bashrc && \
 echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.bashrc
 
 #jenkinsサービス外部公開ポート
