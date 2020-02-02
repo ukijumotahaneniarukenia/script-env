@@ -1,72 +1,73 @@
+# jenkinsプロセス起動
 
-# 参考文献
-- https://casualdevelopers.com/tech-tips/how-to-install-and-use-jenkins-on-docker-for-nodejs/
-- https://jenkins.io/download/
-- https://pkg.jenkins.io/redhat/
-- https://wiki.jenkins.io/display/JENKINS/Installing+Jenkins+on+Red+Hat+distributions
-- https://unix.stackexchange.com/questions/9314/no-such-file-or-directory-etc-init-d-functions
-- http://arasio.hatenablog.com/entry/2016/10/07/005055
-- https://casualdevelopers.com/tech-tips/how-to-install-and-use-jenkins-on-docker-for-nodejs/#Jenkins-3
-- https://casualdevelopers.com/tech-tips/how-to-install-and-use-jenkins-on-docker-for-nodejs/
-- http://tech-blog.rakus.co.jp/entry/2018/03/05/094238#%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89
-- https://github.com/ryo-ohnishi/node_express_nginx
-- https://qiita.com/ryo-ohnishi/items/b54e649b14b51694ef77
-- https://qiita.com/ryo-ohnishi/items/3653f7583c8591eef333
+- warファイルのパスを確認
 
-# dockerイメージ作成
 ```
-time docker build -t centos_centos-7-6-18-10-jenkins . | tee log
+$find / -name "jenkins.war" 2>/dev/null
+/usr/lib/jenkins/jenkins.war
 ```
 
-# dockerコンテナ起動
 ```
-docker run --privileged -itd --name centos-7-6-18-10-jenkins -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 8080:8080 centos-7-6-18-10-jenkins
+$java -jar /usr/lib/jenkins/jenkins.war 1>~/launch-jenkins.log 2>&1 &
+[1] 831
 ```
 
-# dockerコンテナ潜入
+- プロセス確認
+
 ```
-docker exec -it centos-7-6-18-10-jenkins /bin/bash
+$ps aux
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+jenkins      1  0.0  0.0  42696  1284 pts/0    Ss+  19:06   0:00 /usr/sbin/init
+jenkins    831 54.4 10.1 15279740 3323272 ?    Sl   20:07   0:28 java -jar /usr/lib/jenkins/jenkins.war
+jenkins    938  0.0  0.0  14380  2020 pts/2    Ss   20:07   0:00 /bin/bash
+jenkins    955  0.0  0.0  54304  1852 pts/2    R+   20:08   0:00 ps aux
 ```
+
+- ログ確認
+
+```
+$tail -f ~/launch-jenkins.log
+```
+
+- イニシャルパスワード確認
+
+```
+$grep -B2 initialAdminPassword ~/launch-jenkins.log | head -n1
+```
+
+- 待受ポート確認
+
+```
+$lsof -P -i:8080
+COMMAND PID    USER   FD   TYPE   DEVICE SIZE/OFF NODE NAME
+java    831 jenkins  142u  IPv4 12406050      0t0  TCP *:8080 (LISTEN)
+```
+
+- ブラウザアクセス
+
+- http://192.168.1.109:8080
+
+|key|value|
+|:-:|:-:|
+|ユーザー名|jenkins|
+|パスワード|jenkins_pwd|
+
 
 # 自動ビルド対象のレポジトリ作成
-![](./1.png)
-![](./2.png)
-![](./3.png)
-dockerコンテナ内の作業ディレクトリにおいて以下のコマンドを実行
+
+- dockerコンテナ内の作業ディレクトリにおいてンドを実行
+
+  - githubのマイページより実施
+
 ```
-[rstudio@79ace1891861 ~]$ echo "# sandbox2" >> README.md
-[rstudio@79ace1891861 ~]$ git init
-Initialized empty Git repository in /home/rstudio/.git/
-[rstudio@79ace1891861 ~]$ git add README.md
-[rstudio@79ace1891861 ~]$ git commit -m "first commit"
-
-*** Please tell me who you are.
-
-Run
-
-  git config --global user.email "you@example.com"
-  git config --global user.name "Your Name"
-
-to set your account's default identity.
-Omit --global to set the identity only in this repository.
-
-fatal: empty ident name (for <rstudio@79ace1891861.(none)>) not allowed
-[rstudio@79ace1891861 ~]$ git config --global user.email "mrchildrenkh1008@gmail.com"
-[rstudio@79ace1891861 ~]$ git config --global user.name "ukijumotahaneniarukenia"
-[rstudio@79ace1891861 ~]$ git commit -m "first commit"
-[master (root-commit) 7d7662f] first commit
- 1 file changed, 1 insertion(+)
- create mode 100644 README.md
-[rstudio@79ace1891861 ~]$ git remote add origin https://github.com/ukijumotahaneniarukenia/sandbox2.git
-[rstudio@79ace1891861 ~]$ git push -u origin master
-Username for 'https://github.com': ukijumotahaneniarukenia
-Password for 'https://ukijumotahaneniarukenia@github.com':
-Counting objects: 3, done.
-Writing objects: 100% (3/3), 233 bytes | 0 bytes/s, done.
-Total 3 (delta 0), reused 0 (delta 0)
-To https://github.com/ukijumotahaneniarukenia/sandbox2.git
- * [new branch]      master -> master
-Branch master set up to track remote branch master from origin.
+$git config --global user.email "mrchildrenkh1008@gmail.com"
+$git config --global user.name "ukijumotahaneniarukenia"
+$echo "# sandbox2" >> README.md
+$git init
+$git add README.md
+$git commit -m "first commit"
+$git remote add origin https://github.com/ukijumotahaneniarukenia/sandbox2.git
+$git push -u origin master
 ```
 ブラウザをリフレッシュ後
 ![](./4.png)
