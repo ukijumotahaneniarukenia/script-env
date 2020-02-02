@@ -1,24 +1,11 @@
 # script_scratch
 
-
-# x環境のdockerでvisualboxインスコしてみる
-
-https://www.kkaneko.jp/tools/virtualbox/virtualboxlinux.html
-
-
-Arch linuxをインスこする
-https://qiita.com/tomi_sheep/items/ddd9c7b0f0f7c774a222
-
-# wsl内でシンボリックリンクを貼る
-
-コマンドソフトウェアによっては参照できない場合があるので、
-ホームディレクトリと近くに仕込んでおく。
-
-https://kledgeb.blogspot.com/2017/01/wsl-70-bashwindows.html
-
 # 参考文献
 docker install
 [インストール手順公式HP](https://docs.docker.com/install/linux/docker-ce/centos/)
+
+より簡単にいんすこできるようになった
+- https://github.com/docker/docker-install
 
 # dockerホスト環境
 ```
