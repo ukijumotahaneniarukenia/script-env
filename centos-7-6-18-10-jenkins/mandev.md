@@ -51,6 +51,9 @@ java    831 jenkins  142u  IPv4 12406050      0t0  TCP *:8080 (LISTEN)
 |:-:|:-:|
 |ユーザー名|jenkins|
 |パスワード|jenkins_pwd|
+|パスワードの確認|jenkins_pwd|
+|フルネーム|ukijumotahaneniarukenia|
+|メールアドレス|mrchildrenkh1008@gmail.com|
 
 
 # 自動ビルド対象のレポジトリ作成
