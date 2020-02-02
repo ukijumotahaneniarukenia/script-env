@@ -56,6 +56,16 @@ Installing collected packages: pytz, sqlparse, asgiref, django
 Successfully installed asgiref-3.2.3 django-3.0.2 pytz-2019.3 sqlparse-0.3.0
 ```
 
+# pycharm設定
+
+![](./1.png)
+![](./2.png)
+![](./3.png)
+![](./4.png)
+![](./5.png)
+![](./6.png)
+![](./7.png)
+
 # django-adminコマンドによるプロジェクト作成
 
 javaでいうmavenコマンドやgradleコマンド的なやつであろう
@@ -68,3 +78,59 @@ $find / -name "*django*" 2>/dev/null |& grep bin
 /usr/local/lib/python3.7/site-packages/django/bin/django-admin.py
 /usr/local/lib/python3.7/site-packages/django/bin/__pycache__/django-admin.cpython-37.pyc
 ```
+
+```
+$mkdir -p nyango
+$cd nyango
+$django-admin startproject django_app .
+$cd -
+$tree nyango
+nyango
+├── django_app
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+└── manage.py
+```
+
+```
+$cd nyango
+$python3 manage.py startapp nyanbo
+```
+```
+$cd nyango
+$python3 manage.py runserver 0.0.0.0:8000 1>~/nyango/launch-django.log 2>&1 &
+[1] 94
+```
+
+```
+$tree nyango
+nyango
+├── db.sqlite3
+├── django_app
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   ├── __init__.cpython-37.pyc
+│   │   ├── settings.cpython-37.pyc
+│   │   ├── urls.cpython-37.pyc
+│   │   └── wsgi.cpython-37.pyc
+│   ├── asgi.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── launch-django.log
+├── manage.py
+└── nyanbo
+    ├── __init__.py
+    ├── admin.py
+    ├── apps.py
+    ├── migrations
+    │   └── __init__.py
+    ├── models.py
+    ├── tests.py
+    └── views.py
+```
+
+- http://localhost:8000/
