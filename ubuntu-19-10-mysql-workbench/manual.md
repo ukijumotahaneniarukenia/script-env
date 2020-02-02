@@ -249,6 +249,11 @@ mysql> select factorial(6);
 
 # MysqlWorkBench
 
+```
+mysql@151a03d725de:~$myb
+[1] 1037
+```
+
 ![](./1.png)
 ![](./2.png)
 ![](./3.png)
