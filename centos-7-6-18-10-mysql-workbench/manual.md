@@ -1,3 +1,7 @@
+# Mysql自動化
+
+- https://docs.openstack.org/liberty/ja/install-guide-ubuntu/debconf/debconf-concepts.html
+
 # dockerイメージ作成
 
 ```
