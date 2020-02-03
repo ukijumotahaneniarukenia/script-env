@@ -2,6 +2,8 @@
 
 - https://qiita.com/ryuichi1208/items/1c08523b0ef34d05026f
 
+- https://qiita.com/sky_jokerxx/items/2a264a0194a5cbc7bd12
+
 # gitlabのインストール
 
 - https://about.gitlab.com/install/
