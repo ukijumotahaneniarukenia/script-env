@@ -1,5 +1,12 @@
 使いやすいので、もうちょういあしたねばる
 
+- https://www.google.co.jp/amp/s/marunouchi-tech.i-studio.co.jp/3715/%3famp=1
+
+- https://qiita.com/ynott/items/1ff698868ef85e50f5a1
+
+
+
+
 ```
 dockerコンテナにいんすこ
 
