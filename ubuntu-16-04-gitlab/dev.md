@@ -1,3 +1,5 @@
+使いやすいので、もうちょういあしたねばる
+
 ```
 dockerコンテナにいんすこ
 
@@ -9,48 +11,6 @@ $curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/s
 $apt install -y gitlab-runner
 $systemctl enable gitlab-runner
 $systemctl start gitlab-runner
-
-
-[root🧡centos (月  2月 03 23:22:49) ~]$gitlab-runner register
-Runtime platform                                    arch=amd64 os=linux pid=10295 revision=003fe500 version=12.7.1
-Running in system-mode.                            
-                                                   
-Please enter the gitlab-ci coordinator URL (e.g. https://gitlab.com/):
-http://localhost:9010/
-Please enter the gitlab-ci token for this runner:
-sp9UxovhRr5vsqE3BHiv
-Please enter the gitlab-ci description for this runner:
-[centos]: test
-Please enter the gitlab-ci tags for this runner (comma separated):
-test,test
-Registering runner... succeeded                     runner=sp9Uxovh
-Please enter the executor: shell, docker+machine, custom, docker, docker-ssh, parallels, ssh, virtualbox, docker-ssh+machine, kubernetes:
-docker
-Please enter the default Docker image (e.g. ruby:2.6):
-ubuntu-18-04-gitlab:latest
-Runner registered successfully. Feel free to start it, but if it's running already the config should be automatically reloaded! 
-
-
-[root🧡centos (月  2月 03 23:26:33) ~]$systemctl restart gitlab-runner
-
-
-aine@centos ~/script_env/ubuntu-16-04-gitlab$grep exec doc.md 
-docker exec -it ubuntu-18-04-gitlab /bin/bash
-aine@centos ~/script_env/ubuntu-16-04-gitlab$docker exec -it ubuntu-18-04-gitlab /bin/bash
-root@c716a392ebaf:/# cd ~
-root@c716a392ebaf:~# ls
-first-project
-root@c716a392ebaf:~# cd first-project/
-root@c716a392ebaf:~/first-project# ll
-total 20
-drwxr-xr-x. 3 root root 4096  2月  3 21:33 ./
-drwx------. 1 root root 4096  2月  3 21:35 ../
-drwxr-xr-x. 7 root root 4096  2月  3 21:33 .git/
--rw-r--r--. 1 root root    0  2月  3 21:33 README.md
-
-
-
-
 
 
 root@c716a392ebaf:~/first-project# ll
