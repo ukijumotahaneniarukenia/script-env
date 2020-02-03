@@ -38,12 +38,12 @@ ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -E $(docker images |
 echo FAIL DOCKER BUILD IMAGE >>~/script_env/docker-build-log/$BUILD_STDERR_LOG
 ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -vE $(docker images | tail -n+1 | grep -P '(-[0-9]{1,}){2,}-' | awk '{print $1}'|xargs|tr ' ' '|')>>~/script_env/docker-build-log/$BUILD_STDERR_LOG
 
-#コンテナ作成に失敗したdockerイメージを削除
 #後処理
-docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
-
 #コンテナ起動に失敗したdockerコンテナを削除
 docker ps -a | awk '{print $1,$2}' | tail -n+2 | grep -vE $(ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log|xargs|tr ' ' '|') | awk '{print $1}' | xargs -I@ bash -c 'docker stop @ && docker rm @'
+
+#コンテナ作成に失敗したdockerイメージを削除
+docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
 
 #あとは手動で確認し、コミット
 git add .gitignore

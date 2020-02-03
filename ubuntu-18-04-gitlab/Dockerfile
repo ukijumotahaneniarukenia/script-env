@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM gitlab/gitlab-ce:latest
 
 #レポジトリを日本サーバーの一つに変更
 RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list
@@ -8,7 +8,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt update && apt upgrade -y
 
-RUN apt install -y systemd
+RUN apt install -y systemd apt-utils
 
 #タイムゾーンの設定（この設定は最初にもってくる。対話入力避けるため。）
 RUN apt install -y tzdata && ln -fsr /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
@@ -16,9 +16,9 @@ RUN apt install -y tzdata && ln -fsr /usr/share/zoneinfo/Asia/Tokyo /etc/localti
 RUN apt install -y locales && locale-gen ja_JP.UTF-8 && echo 'export LANG=ja_JP.UTF-8' >> /etc/profile.d/99-locale-ja.sh
 ENV LANG=ja_JP.UTF-8
 
-#gitlabイントール
-RUN apt-get install -y curl openssh-server ca-certificates
-RUN export DEBIAN_FRONTEND=noninteractive && apt-get install -y postfix
-RUN curl -Ss https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | bash
-RUN apt install -y gitlab-ce
-RUN gitlab-ctl reconfigure
+#gitlab環境変数の設定
+ENV GITLAB_OMNIBUS_CONFIG="external_url 'http://localhost:9010';gitlab_rails['gitlab_shell_ssh_port'] = 2022;"
+
+#gitlabサービス外部公開ポート
+EXPOSE 9010
+EXPOSE 2022

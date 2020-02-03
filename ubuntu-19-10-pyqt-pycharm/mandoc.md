@@ -14,8 +14,17 @@ docker exec -it ubuntu-19-10-pyqt-pycharm /bin/bash
 ```
 
 # dockerコンテナ削除
+
+- ALL削除
+
 ```
 docker ps -qa | xargs -I@ bash -c 'docker stop @ && docker rm @'
+```
+
+- Exit削除
+
+```
+docker ps -a | grep Exit | awk '{print $1}' | xargs -I@ bash -c 'docker stop @ && docker rm @'
 ```
 
 # dockerイメージ削除

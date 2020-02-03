@@ -14,8 +14,17 @@ docker exec -it centos-7-6-18-10-jupyter /bin/bash
 ```
 
 # dockerコンテナ削除
+
+- ALL削除
+
 ```
 docker ps -qa | xargs -I@ bash -c 'docker stop @ && docker rm @'
+```
+
+- Exit削除
+
+```
+docker ps -a | grep Exit | awk '{print $1}' | xargs -I@ bash -c 'docker stop @ && docker rm @'
 ```
 
 # dockerイメージ削除
