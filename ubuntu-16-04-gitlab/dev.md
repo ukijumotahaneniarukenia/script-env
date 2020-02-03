@@ -4,7 +4,7 @@
 
 - https://qiita.com/ynott/items/1ff698868ef85e50f5a1
 
-
+- https://dev.classmethod.jp/ci/gitlab-runner-ci-cd-1/
 
 
 ```
