@@ -6,6 +6,7 @@
 
 - https://dev.classmethod.jp/ci/gitlab-runner-ci-cd-1/
 
+- https://ngyuki.hatenablog.com/entry/2017/07/07/093326
 
 ```
 dockerコンテナにいんすこ
