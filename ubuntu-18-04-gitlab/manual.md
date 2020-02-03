@@ -45,6 +45,7 @@ docker exec -it ubuntu-18-04-gitlab /bin/bash
 
 - rootユーザー
 - 一般ユーザー
+
 |ユーザー名|パスワード|
 |:-:|:-:|
 |root|root_pwd|
