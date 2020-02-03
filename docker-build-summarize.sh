@@ -45,6 +45,9 @@ docker ps -a | awk '{print $1,$2}' | tail -n+2 | grep -vE $(ls -l ~/script_env |
 #コンテナ作成に失敗したdockerイメージを削除
 docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
 
+#ディレクトリにないが、イメージとして作成されてしまっているものを削除（フォルダをリネームした場合とか。同期取るようにする。）
+docker images | awk '{print $1}' | grep -P '(?:centos|ubuntu)-' | grep -vE $(ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | xargs | tr ' ' '|') | xargs docker rmi
+
 #Exitedしたコンテナ削除
 docker ps -a | grep Exited | awk '{print $1}' | xargs -I@ docker rm @
 
