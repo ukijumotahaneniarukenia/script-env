@@ -86,13 +86,17 @@ Branch master set up to track remote branch master from origin.
 ```
 
 
-# mandoc.md
+# doc.md
 
 - dockerコンテナ操作を記載
 
-# mandev.md
+# dev.md
 
 - 開発マニュアルを記載
+
+# env.md
+
+- コンテナ個別の環境を記載
 
 # docker-build-crontab.shファイルの作成
 
@@ -100,7 +104,7 @@ crontabコマンドで実行するスクリプト。
 
 フォルダ名
 
-os名-ソフト名-エディタ名
+os名-ソフト名(単一ないしは複数)-エディタ名
 
 script_envフォルダ配下をビルド対象にする。
 
@@ -177,7 +181,7 @@ $sudo less /var/log/cron
 
 秘密鍵をなくさない保証があれば、自動pushやりたいが、
 定期的にOS換えるかもしれないので。今は手動pushでいいか。
-http://tm.root-n.com/unix:command:git:cron_git_push
+- http://tm.root-n.com/unix:command:git:cron_git_push
 
 # 強制終了
 
