@@ -45,6 +45,9 @@ docker ps -a | awk '{print $1,$2}' | tail -n+2 | grep -vE $(ls -l ~/script_env |
 #コンテナ作成に失敗したdockerイメージを削除
 docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
 
+#Exitedしたコンテナ削除
+docker ps -a | grep Exited | awk '{print $1}' | xargs -I@ docker rm @
+
 #あとは手動で確認し、コミット
 git add .gitignore
 git add --all *

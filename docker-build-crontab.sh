@@ -6,8 +6,8 @@ RETRY_MX_CNT=2
 ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log | xargs -I@ echo cp ~/script_env/.gitignore ~/script_env/@/.gitignore | sh
 
 #mandoc.md配備
-ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log | xargs -I@ echo cp ~/script_env/mandoc.md ~/script_env/@/mandoc.md | sh
-ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log | xargs -I@ echo "sed -i 's;XXX;@;g' ~/script_env/@/mandoc.md" | sh
+ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log | xargs -I@ echo cp ~/script_env/doc.md ~/script_env/@/doc.md | sh
+ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log | xargs -I@ echo "sed -i 's;XXX;@;g' ~/script_env/@/doc.md" | sh
 
 #作業ディレクトリに移動
 cd ~/script_env
