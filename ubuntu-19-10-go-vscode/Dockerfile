@@ -17,6 +17,8 @@ echo 'kuraine:kuraine_pwd' | chpasswd && \
 echo 'kuraine ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
 chsh -s /bin/bash kuraine
 
+RUN echo 'root:root_pwd' | chpasswd
+
 #タイムゾーンの設定（この設定は最初にもってくる。対話入力避けるため。）
 RUN apt install -y tzdata && ln -fsr /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 #日本語環境
@@ -59,7 +61,9 @@ cd /usr/local/src && tar xvf go1.13.5.linux-amd64.tar.gz && \
 cd go/src && export GOROOT_BOOTSTRAP=/usr/local/src/go1.4 && ./all.bash
 
 #環境変数の設定
-RUN echo 'export LD_LIBRARY_PATH=/usr/local/lib' >> ~/.bashrc
+RUN echo 'export LD_LIBRARY_PATH=/usr/local/lib' >> ~/.bashrc && \
+echo 'export GOROOT=/usr/local/src/go'>>~/.bashrc && \
+echo 'export PATH=$GOROOT/bin:$PATH'>>~/.bashrc
 
 USER kuraine
 
@@ -76,6 +80,8 @@ cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/instal
 cd ~ && sh installer.sh ~/.vim/bundle && rm -rf installer.sh
 
 #環境変数
-RUN echo 'export LD_LIBRARY_PATH=/usr/local/lib' >> ~/.bashrc && . ~/.bashrc
+RUN echo 'export LD_LIBRARY_PATH=/usr/local/lib' >> ~/.bashrc && \
+echo 'export GOROOT=/usr/local/src/go'>>~/.bashrc && \
+echo 'export PATH=$GOROOT/bin:$PATH'>>~/.bashrc
 
 WORKDIR /home/kuraine
