@@ -1,2 +1,0 @@
-FROM ibmcom/db2
-
