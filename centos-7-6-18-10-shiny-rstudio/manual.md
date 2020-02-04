@@ -1,3 +1,7 @@
+# mapply関数
+
+- https://sudori.info/stat/stat_mapply_clusterMap.html
+
 # メタプログラミング
 
 - http://chiral.hatenablog.com/entry/20121210/1355065348
