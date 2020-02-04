@@ -1,6 +1,10 @@
 #!/bin/bash
 
+#普通はMakefileとかなんとかymlファイルとか使うんかな？？よくわからん。
+
 pre-process(){
+  exec 1>~/script_env/docker-build-log/docker-build-$(date +\%Y-\%m-\%d_\%H-\%M-\%S).stdout.log
+  exec 2>~/script_env/docker-build-log/docker-build-$(date +\%Y-\%m-\%d_\%H-\%M-\%S).stderr.log
   #gitignore整備
   ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log | xargs -I@ echo cp ~/script_env/.gitignore ~/script_env/@/.gitignore | sh
   #doc.md配備
@@ -9,23 +13,49 @@ pre-process(){
 }
 
 post-process(){
-  #コンテナ起動に失敗したdockerコンテナを削除
-  docker ps -a | awk '{print $1,$2}' | tail -n+2 | grep -vE $(ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log|xargs|tr ' ' '|') | awk '{print $1}' | xargs -I@ bash -c 'docker stop @ && docker rm @'
+  post-process-clean
+  post-process-summary
+}
+
+post-process-clean(){
+  #コンテナ起動に失敗したコンテナを削除
+  docker ps -a | awk '{print $1,$2}' | tail -n+2 | grep -vE $(ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log |xargs|tr ' ' '|') | awk '{print $1}' | xargs -I@ bash -c 'docker stop @ && docker rm @' 1>/dev/null 2>&1
 
   #コンテナ作成に失敗したdockerイメージを削除
-  docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
+  docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @ 1>/dev/null 2>&1
 
   #ディレクトリにないが、イメージとして作成されてしまっているものを削除（フォルダをリネームした場合とか。同期取るようにする。）
-  docker images | awk '{print $1}' | grep -P '(?:centos|ubuntu)-' | grep -vE $(ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | xargs | tr ' ' '|') | xargs docker rmi
+  docker images | awk '{print $1}' | grep -P '(?:centos|ubuntu)-' | grep -vE $(ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | xargs | tr ' ' '|') | xargs docker rmi 1>/dev/null 2>&1
 
   #Exitedしたコンテナ削除
-  docker ps -a | grep Exited | awk '{print $1}' | xargs -I@ docker rm @
+  docker ps -a | grep Exited | awk '{print $1}' | xargs -I@ docker rm @ 1>/dev/null 2>&1
+}
 
-  echo 'イメージは作成されていたが、日付が本日以内でないもの' >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG #Dockerfileでこけている
-  docker images | head -n1 >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG #HEADERを追記
-  docker images | grep -vP 'hours|weeks|months' | grep -P '(?:-[0-9]){1,}' #DETAILを追記
+post-process-summary(){
+  TGT_BUILD_IMAGE_EXPECT_CNT=$(ls -l ~/script_env | grep -P '^d' | grep -v docker-build-log | wc -l )
+  TGT_BUILD_IMAGE_ACTUAL_CNT=$(find ~/script_env -name "log" | grep -v config | xargs -I@ bash -c 'printf "%s " @ && date -r @' | keta | sort -k6 | nl | grep "$(date | awk '{print $1,$2,$3,$4}')" | wc -l )
+  {
+    echo "ビルド対象予定数は$TGT_BUILD_IMAGE_EXPECT_CNT件でした"; \
+    echo "ビルド対象実績数は$TGT_BUILD_IMAGE_ACTUAL_CNT件でした"; \
+  } >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
 
-  #あとは手動で確認し、コミットする
+  {
+    echo 'イメージは作成されていたが、日付が本日以内でないもの'; \
+    docker images | head -n1; \
+    docker images | grep -P '(?:-[0-9]){1,}' | grep -P 'days|weeks|months|years'; \
+    docker images | grep -P '(?:-[0-9]){1,}' | grep -P 'hours' | awk '$4 !~ /[2-9][5-9]/ {print}'; \
+  } >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
+
+  {
+    echo 'イメージは作成されていたが、日付が本日以内であるもの'; \
+    docker images | grep -P '(?:-[0-9]){1,}' | grep -P 'hours' | awk '$4 !~ /[2-9][5-9]/ {print}'; \
+  } >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
+
+  {
+    echo 'dockerイメージ作成されていない'; \
+    ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -vE $(docker images | tail -n+1 | grep -P '(-[0-9]{1,}){2,}-' | awk '{print $1}'|xargs|tr ' ' '|'); \
+  } >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
+
 }
 
 non-retry(){
