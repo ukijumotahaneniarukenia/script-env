@@ -57,7 +57,7 @@ post-process-logger(){
   } >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
 }
 
-non-retry(){
+nonretry(){
   #開始時刻控える
   BUILD_START=$(date '+%s')
 
@@ -125,7 +125,7 @@ pre-process-logger(){
   BUILD_STDERR_LOG=$(ls -l ~/script_env/docker-build-log | grep -P '^-' | awk '{print $9}' | grep "$(date +%Y-%m-%d)" | grep stderr)
 }
 
-non-retry-logger-detail-stdout(){
+nonretry-logger-detail-stdout(){
   #各コンテナごとにその日の初回ビルド詳細ログを追記
   while read tgt;do
     LAST_STEP="$(cat $tgt |grep -Po 'Step [0-9]{1,}/[0-9]{1,}' | tail -n1)" #Step数の抽出
@@ -138,7 +138,7 @@ non-retry-logger-detail-stdout(){
   done < <(ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | xargs -n1 -I@ echo ~/script_env/@/log | grep -v 'docker-build-log')
 }
 
-non-retry-logger-detail-stderr(){
+nonretry-logger-detail-stderr(){
   #各コンテナごとにその日の初回ビルド詳細ログを追記
   while read tgt;do
     LAST_STEP="$(cat $tgt |grep -Po 'Step [0-9]{1,}/[0-9]{1,}' | tail -n1)" #Step数の抽出
@@ -177,11 +177,11 @@ retry-logger-detail-stderr(){
   done < <(find ~/script_env -type f -name "*retry*" | grep log | sort)
 }
 
-non-retry-process(){
+nonretry-process(){
   pre-process-logger
-  non-retry
-  non-retry-logger-detail-stdout
-  non-retry-logger-detail-stderr
+  nonretry
+  nonretry-logger-detail-stdout
+  nonretry-logger-detail-stderr
   post-process-logger
 }
 
@@ -195,7 +195,7 @@ retry-process(){
 
 main(){
   pre-process
-  [ -z "$@" ] && non-retry-process
+  [ -z "$@" ] && nonretry-process
   [ -z "$@" ] || retry-process "$@"
   post-process
 }
