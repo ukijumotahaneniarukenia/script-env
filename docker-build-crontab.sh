@@ -128,10 +128,12 @@ pre-process-logger(){
 non-retry-logger-detail-stdout(){
   #各コンテナごとにその日の初回ビルド詳細ログを追記
   while read tgt;do
+    LAST_STEP="$(cat $tgt |grep -Po 'Step [0-9]{1,}/[0-9]{1,}' | tail -n1)" #Step数の抽出
+    ELAPSED_TIME="$(cat $tgt | grep -P '\s[0-9]{1,}m[0-9]{1,}\.[0-9]{3}s' | xargs;)" #経過時間の抽出
     {
-      echo $tgt;\ #対象コンテナを追記
-      cat $tgt | grep -Po 'Step [0-9]{1,}/[0-9]{1,}' | tail -n1;\ #Step数の抽出
-      cat $tgt | grep -P '\s[0-9]{1,}m[0-9]{1,}\.[0-9]{3}s' | xargs;\ #経過時間の抽出
+      echo -ne $tgt;\ #対象コンテナを追記
+      [ -z "$LAST_STEP" ] && printf "\t%s\n" "$ELAPSED_TIME";\
+      [ -z "$LAST_STEP" ] || printf "\t%s\t%s\n" "$LAST_STEP" "$ELAPSED_TIME";\
     } >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
   done < <(ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | xargs -n1 -I@ echo ~/script_env/@/log | grep -v 'docker-build-log')
 }
@@ -139,10 +141,12 @@ non-retry-logger-detail-stdout(){
 non-retry-logger-detail-stderr(){
   #各コンテナごとにその日の初回ビルド詳細ログを追記
   while read tgt;do
+    LAST_STEP="$(cat $tgt |grep -Po 'Step [0-9]{1,}/[0-9]{1,}' | tail -n1)" #Step数の抽出
+    ELAPSED_TIME="$(cat $tgt | grep -P '\s[0-9]{1,}m[0-9]{1,}\.[0-9]{3}s' | xargs;)" #経過時間の抽出
     {
-      echo $tgt  #対象コンテナを追記
-      cat $tgt | grep -Po 'Step [0-9]{1,}/[0-9]{1,}' | tail -n1;\ #Step数の抽出
-      cat $tgt | grep -P '\s[0-9]{1,}m[0-9]{1,}\.[0-9]{3}s' | xargs;\ #経過時間の抽出
+      echo -ne $tgt;\ #対象コンテナを追記
+      [ -z "$LAST_STEP" ] && printf "\t%s\n" "$ELAPSED_TIME";\
+      [ -z "$LAST_STEP" ] || printf "\t%s\t%s\n" "$LAST_STEP" "$ELAPSED_TIME";\
     } >>~/script_env/docker-build-log/$BUILD_STDERR_LOG
   done < <(ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | xargs -n1 -I@ echo ~/script_env/@/log | grep -v 'docker-build-log')
 }
@@ -150,10 +154,12 @@ non-retry-logger-detail-stderr(){
 retry-logger-detail-stdout(){
   #各コンテナごとにその日のリトライビルド詳細ログを追記
   while read tgt;do
+    LAST_STEP="$(cat $tgt |grep -Po 'Step [0-9]{1,}/[0-9]{1,}' | tail -n1)" #Step数の抽出
+    ELAPSED_TIME="$(cat $tgt | grep -P '\s[0-9]{1,}m[0-9]{1,}\.[0-9]{3}s' | xargs;)" #経過時間の抽出
     {
-      echo $tgt;\ #対象コンテナを追記
-      cat $tgt | grep -Po 'Step [0-9]{1,}/[0-9]{1,}' | tail -n1;\ #Step数の抽出
-      cat $tgt | grep -P '\s[0-9]{1,}m[0-9]{1,}\.[0-9]{3}s' | xargs;\ #経過時間の抽出
+      echo -ne $tgt;\ #対象コンテナを追記
+      [ -z "$LAST_STEP" ] && printf "\t%s\n" "$ELAPSED_TIME";\
+      [ -z "$LAST_STEP" ] || printf "\t%s\t%s\n" "$LAST_STEP" "$ELAPSED_TIME";\
     } >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
   done < <(find ~/script_env -type f -name "*retry*" | grep log | sort)
 }
@@ -161,10 +167,12 @@ retry-logger-detail-stdout(){
 retry-logger-detail-stderr(){
   #各コンテナごとにその日のリトライビルド詳細ログを追記
   while read tgt;do
+    LAST_STEP="$(cat $tgt |grep -Po 'Step [0-9]{1,}/[0-9]{1,}' | tail -n1)" #Step数の抽出
+    ELAPSED_TIME="$(cat $tgt | grep -P '\s[0-9]{1,}m[0-9]{1,}\.[0-9]{3}s' | xargs;)" #経過時間の抽出
     {
-      echo $tgt  #対象コンテナを追記
-      cat $tgt | grep -Po 'Step [0-9]{1,}/[0-9]{1,}' | tail -n1;\ #Step数の抽出
-      cat $tgt | grep -P '\s[0-9]{1,}m[0-9]{1,}\.[0-9]{3}s' | xargs;\ #経過時間の抽出
+      echo -ne $tgt;\ #対象コンテナを追記
+      [ -z "$LAST_STEP" ] && printf "\t%s\n" "$ELAPSED_TIME";\
+      [ -z "$LAST_STEP" ] || printf "\t%s\t%s\n" "$LAST_STEP" "$ELAPSED_TIME";\
     } >>~/script_env/docker-build-log/$BUILD_STDERR_LOG
   done < <(find ~/script_env -type f -name "*retry*" | grep log | sort)
 }
