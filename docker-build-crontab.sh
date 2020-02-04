@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#普通はMakefileとかなんとかymlファイルとか使うんかな？？よくわからん。
-
 pre-process(){
   exec 1>~/script_env/docker-build-log/docker-build-$(date +\%Y-\%m-\%d_\%H-\%M-\%S).stdout.log
   exec 2>~/script_env/docker-build-log/docker-build-$(date +\%Y-\%m-\%d_\%H-\%M-\%S).stderr.log
@@ -55,6 +53,15 @@ post-process-summary(){
     echo 'dockerイメージ作成されていない'; \
     ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -vE $(docker images | tail -n+1 | grep -P '(-[0-9]{1,}){2,}-' | awk '{print $1}'|xargs|tr ' ' '|'); \
   } >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
+
+
+  ##作成されたコンテナイメージを追記
+  echo SUCCESS DOCKER BUILD IMAGE >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
+  docker images | head -n1 >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
+  ls -l ~/script_env | grep -P '^d' | grep -v docker-build-log | awk '{print $9}' | grep -E $(docker images | tail -n+1 | grep -P '(-[0-9]{1,}){2,}-' | awk '{print $1}'|xargs|tr ' ' '|')>>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
+  #作成されなかったコンテナイメージを追記
+  echo FAIL DOCKER BUILD IMAGE >>~/script_env/docker-build-log/$BUILD_STDERR_LOG
+  ls -l ~/script_env | grep -P '^d' | grep -v docker-build-log | awk '{print $9}' | grep -vE $(docker images | tail -n+1 | grep -P '(-[0-9]{1,}){2,}-' | awk '{print $1}'|xargs|tr ' ' '|')>>~/script_env/docker-build-log/$BUILD_STDERR_LOG
 
 }
 
@@ -124,72 +131,44 @@ pre-process-logger(){
   BUILD_STDERR_LOG=$(ls -l ~/script_env/docker-build-log | grep -P '^-' | awk '{print $9}' | grep "$(date +%Y-%m-%d)" | grep stderr)
 }
 
-non-retry-logger-stdout(){
-
-  pre-process-logger
-
+non-retry-logger-detail-stdout(){
   #各コンテナごとにその日の初回ビルド詳細ログを追記
   while read tgt;do
-    echo $tgt >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG #対象コンテナを追記
-    cat $tgt | grep -Po 'Step [0-9]{1,}/[0-9]{1,}' | tail -n1 >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG #Step数の抽出
-    cat $tgt | grep -E '\s[0-9]{1,}m[0-9]{1,}\.[0-9]{3}s' | xargs  >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG  #経過時間の抽出
+    {
+      echo $tgt;\ #対象コンテナを追記
+      cat $tgt | grep -Po 'Step [0-9]{1,}/[0-9]{1,}' | tail -n1;\ #Step数の抽出
+      cat $tgt | grep -P '\s[0-9]{1,}m[0-9]{1,}\.[0-9]{3}s' | xargs;\ #経過時間の抽出
+    } >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
   done < <(ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | xargs -n1 -I@ echo ~/script_env/@/log | grep -v 'docker-build-log')
-
-  ##作成されたコンテナイメージを追記
-  echo SUCCESS DOCKER BUILD IMAGE >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
-  docker images | head -n1 >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
-  ls -l ~/script_env | grep -P '^d' | grep -v docker-build-log | awk '{print $9}' | grep -E $(docker images | tail -n+1 | grep -P '(-[0-9]{1,}){2,}-' | awk '{print $1}'|xargs|tr ' ' '|')>>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
 }
 
-non-retry-logger-stderr(){
-
-  pre-process-logger
-
+non-retry-logger-detail-stderr(){
   #各コンテナごとにその日の初回ビルド詳細ログを追記
   while read tgt;do
-    echo $tgt >>~/script_env/docker-build-log/$BUILD_STDERR_LOG #対象コンテナを追記
-    cat $tgt | grep -Po 'Step [0-9]{1,}/[0-9]{1,}' | tail -n1 >>~/script_env/docker-build-log/$BUILD_STDERR_LOG #Step数の抽出
-    cat $tgt | grep -E '\s[0-9]{1,}m[0-9]{1,}\.[0-9]{3}s' | xargs >>~/script_env/docker-build-log/$BUILD_STDERR_LOG  #経過時間の抽出
+    {
+      echo $tgt  #対象コンテナを追記
+      cat $tgt | grep -Po 'Step [0-9]{1,}/[0-9]{1,}' | tail -n1;\ #Step数の抽出
+      cat $tgt | grep -P '\s[0-9]{1,}m[0-9]{1,}\.[0-9]{3}s' | xargs;\ #経過時間の抽出
+    } >>~/script_env/docker-build-log/$BUILD_STDERR_LOG
   done < <(ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | xargs -n1 -I@ echo ~/script_env/@/log | grep -v 'docker-build-log')
-
-  #作成されなかったコンテナイメージを追記
-  echo FAIL DOCKER BUILD IMAGE >>~/script_env/docker-build-log/$BUILD_STDERR_LOG
-  ls -l ~/script_env | grep -P '^d' | grep -v docker-build-log | awk '{print $9}' | grep -vE $(docker images | tail -n+1 | grep -P '(-[0-9]{1,}){2,}-' | awk '{print $1}'|xargs|tr ' ' '|')>>~/script_env/docker-build-log/$BUILD_STDERR_LOG
-
 }
 
-retry-logger-stdout(){
-
-  pre-process-logger
-
+retry-logger-detail-stdout(){
   #各コンテナごとにその日のリトライビルド詳細ログを追記
   while read tgt;do
     echo $tgt >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG #対象コンテナを追記
     cat $tgt | grep -Po 'Step [0-9]{1,}/[0-9]{1,}' | tail -n1 >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG #Step数の抽出
     cat $tgt | grep -E '\s[0-9]{1,}m[0-9]{1,}\.[0-9]{3}s' | xargs  >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG  #経過時間の抽出
   done < <(find ~/script_env -type f -name "*retry*" | grep log | sort)
-
-  ##作成されたコンテナイメージを追記
-  echo SUCCESS DOCKER BUILD IMAGE >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
-  docker images | head -n1 >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
-  ls -l ~/script_env | grep -P '^d' | grep -v docker-build-log | awk '{print $9}' | grep -E $(docker images | tail -n+1 | grep -P '(-[0-9]{1,}){2,}-' | awk '{print $1}'|xargs|tr ' ' '|')>>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
 }
 
-retry-logger-stderr(){
-
-  pre-process-logger
-
+retry-logger-detail-stderr(){
   #各コンテナごとにその日のリトライビルド詳細ログを追記
   while read tgt;do
     echo $tgt >>~/script_env/docker-build-log/$BUILD_STDERR_LOG #対象コンテナを追記
     cat $tgt | grep -Po 'Step [0-9]{1,}/[0-9]{1,}' | tail -n1 >>~/script_env/docker-build-log/$BUILD_STDERR_LOG #Step数の抽出
     cat $tgt | grep -E '\s[0-9]{1,}m[0-9]{1,}\.[0-9]{3}s' | xargs  >>~/script_env/docker-build-log/$BUILD_STDERR_LOG  #経過時間の抽出
   done < <(find ~/script_env -type f -name "*retry*" | grep log | sort)
-
-  #作成されなかったコンテナイメージを追記
-  echo FAIL DOCKER BUILD IMAGE >>~/script_env/docker-build-log/$BUILD_STDERR_LOG
-  ls -l ~/script_env | grep -P '^d' | grep -v docker-build-log | awk '{print $9}' | grep -vE $(docker images | tail -n+1 | grep -P '(-[0-9]{1,}){2,}-' | awk '{print $1}'|xargs|tr ' ' '|')>>~/script_env/docker-build-log/$BUILD_STDERR_LOG
-
 }
 
 non-retry-process(){
