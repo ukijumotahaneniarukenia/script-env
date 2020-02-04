@@ -51,6 +51,10 @@ docker images | awk '{print $1}' | grep -P '(?:centos|ubuntu)-' | grep -vE $(ls 
 #Exitedしたコンテナ削除
 docker ps -a | grep Exited | awk '{print $1}' | xargs -I@ docker rm @
 
+echo 'イメージは作成されていたが、日付が本日以内でないもの' >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG #Dockerfileでこけている
+docker images | head -n1 >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG #HEADERを追記
+docker images | grep -vP 'hours|weeks|months' | grep -P '(?:-[0-9]){1,}' #DETAILを追記
+
 #あとは手動で確認し、コミット
 git add .gitignore
 git add --all *

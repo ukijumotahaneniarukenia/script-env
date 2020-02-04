@@ -155,3 +155,68 @@ $git log --name-status>a
 $grep -P 'docker-build-parallel-retry.sh|Date' a
 $grep -n -C10 -P 'Sun Feb 2 09:56:27' a
 ```
+
+
+一旦適当にまとめた。変わるかも。
+
+```
+1.ビルド対象ディレクトリ数分の本日付ビルドlogファイルが存在している
+	1-1.dockerイメージ作成されている
+		1-1-1.作成時刻が本日以内である→ビルド成功
+		1-1-1.作成時刻が本日以内でない→Dockerfileの修正が必要
+	1-2.dockerイメージ作成されていない→Dockerfileの修正が必要
+2.ビルド対象ディレクトリ数分の本日付ビルドlogファイルが存在していない→ビルドが動いていないので、起動スクリプトの見直し、起動時刻の見直し
+```
+
+- 1.ビルド対象ディレクトリ数分の本日付ビルドlogファイルが存在している
+
+
+この件数と
+```
+$cd ~/script_env
+$find . -name "log" | grep -v config | xargs -I@ bash -c 'printf "%s " @ && date -r @' | keta | sort -k6 | nl | grep "$(date | awk '{print $1,$2,$3,$4}')" | wc -l
+```
+この件数が同じ
+```
+$cd ~/script_env
+$ls -l | grep -P '^d' | grep -v docker-build-log | wc -l
+```
+
+- 1-1.dockerイメージ作成されている
+
+```
+$docker images | grep -P '(?:-[0-9]){1,}' | nl
+```
+
+- 1-1-1.作成時刻が本日以内である→ビルド成功
+
+```
+$docker images | grep -P '(?:-[0-9]){1,}' | grep -P 'hours' | awk '$4 !~ /[2-9][5-9]/ {print}'
+```
+
+
+- 1-1-1.作成時刻が本日以内でない→Dockerfileの修正が必要
+
+```
+$docker images | grep -P '(?:-[0-9]){1,}' | grep -P 'days|weeks|months|years'
+$docker images | grep -P '(?:-[0-9]){1,}' | grep -P 'hours' | awk '$4 ~ /[2-9][5-9]/ {print}'
+```
+
+- 1-2.dockerイメージ作成されていない→Dockerfileの修正が必要
+
+```
+$ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -vE $(docker images | tail -n+1 | grep -P '(-[0-9]{1,}){2,}-' | awk '{print $1}'|xargs|tr ' ' '|')
+```
+
+- 2.ビルド対象ディレクトリ数分の本日付ビルドlogファイルが存在していない→ビルドが動いていないので、起動スクリプトの見直し、起動時刻の見直し
+この件数と
+```
+$cd ~/script_env
+$find . -name "log" | grep -v config | xargs -I@ bash -c 'printf "%s " @ && date -r @' | keta | sort -k6 | nl | grep "$(date | awk '{print $1,$2,$3,$4}')" | wc -l
+```
+この件数が異なる
+```
+$cd ~/script_env
+$ls -l | grep -P '^d' | grep -v docker-build-log | wc -l
+```
+
