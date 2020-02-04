@@ -1,0 +1,121 @@
+FROM centos/systemd
+
+#ユーザー作成
+RUN groupadd -g 1001 kuraine && \
+useradd -m -g kuraine -u 1001 kuraine && \
+chsh -s /bin/bash kuraine && \
+echo 'kuraine_pwd' | passwd --stdin kuraine && \
+echo 'kuraine ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+RUN groupadd -g 1002 td-agent && \
+useradd -m -g td-agent -u 1002 td-agent && \
+chsh -s /bin/bash td-agent && \
+echo 'td-agent_pwd' | passwd --stdin td-agent && \
+echo 'td-agent ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+RUN groupadd -g 1003 nginx && \
+useradd -m -g nginx -u 1003 nginx && \
+chsh -s /bin/bash nginx && \
+echo 'nginx_pwd' | passwd --stdin nginx && \
+echo 'nginx ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+RUN echo 'root_pwd' | passwd --stdin root
+
+#各種コマンドインストール
+RUN yum install -y epel-release 
+RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man
+
+#日本語環境と時刻合わせ
+RUN yum -y reinstall glibc-common
+RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
+ENV LANG=ja_JP.UTF-8
+RUN rm -f /etc/localtime
+RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+
+#vimも最新
+RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && \
+cd ~ && git clone https://github.com/vim/vim.git && \
+cd vim && \
+./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && \
+make -j12 distclean && \
+make -j12 && \
+make -j12 install && \
+ln -fsr /usr/local/bin/vim /usr/bin/vim && \
+ln -fsr /usr/local/bin/vim /usr/bin/vi
+
+#自身のvim環境をクローン
+RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+
+#自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
+RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
+cd ~/tmp && \
+#移動したいdotfileをchoiceしてHOMEディレクトリへ
+mv rc/.[^.]* ~ && \
+#用が済んだらリム
+rm -rf ~/tmp
+
+#vim plugin manager
+RUN mkdir -p ~/.vim/bundle && \
+cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
+sh installer.sh ~/.vim/bundle
+
+#nginxインストール
+RUN { echo "[nginx]";\
+      echo "name=nginx repo";\
+      echo "baseurl=https://nginx.org/packages/centos/7/x86_64/";\
+      echo "gpgcheck=0";\
+      echo "enabled=1";\
+    } >> /etc/yum.repos.d/nginx.repo
+RUN yum install -y nginx
+
+#fluentdインストール
+RUN { echo "[treasuredata]";\
+      echo "name=TreasureData";\
+      echo "baseurl=http://packages.treasuredata.com/3/redhat/7/x86_64";\
+      echo "gpgcheck=1";\
+      echo "gpgkey=https://packages.treasuredata.com/GPG-KEY-td-agent";\
+    } >> /etc/yum.repos.d/td.repo
+RUN yum install -y td-agent
+
+#実行ユーザをnginxに変更
+USER nginx
+
+#自身のvim環境をクローン
+RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+
+#自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
+RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
+cd ~/tmp && \
+#移動したいdotfileをchoiceしてHOMEディレクトリへ
+mv rc/.[^.]* ~ && \
+#用が済んだらリム
+rm -rf ~/tmp
+
+#vim plugin manager
+RUN mkdir -p ~/.vim/bundle && \
+cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
+sh installer.sh ~/.vim/bundle
+
+#実行ユーザをtd-agentに変更
+USER td-agent
+
+#自身のvim環境をクローン
+RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+
+#自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
+RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
+cd ~/tmp && \
+#移動したいdotfileをchoiceしてHOMEディレクトリへ
+mv rc/.[^.]* ~ && \
+#用が済んだらリム
+rm -rf ~/tmp
+
+#vim plugin manager
+RUN mkdir -p ~/.vim/bundle && \
+cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
+sh installer.sh ~/.vim/bundle
+
+#nginxサービス外部公開ポート
+EXPOSE 80
+
+CMD ["/usr/sbin/init"]
