@@ -37,3 +37,9 @@ log
 /dist/*
 /target/*
 /.idea/*
+
+#ibm個別対応
+/backup/*
+/config/*
+/data/*
+/logs/*

@@ -143,3 +143,15 @@ tmpfs           4080384      23  4080361     1% /run/user/1000
 一旦これで様子見。
 
 dockerイメージの容量削減は楽しみにとっておく。
+
+
+# まちがって必要なファイル消した
+
+- ブラウザでコミットハッシュ先頭7桁でHISTORYをたどって復元
+
+```
+$cd ~/script_env
+$git log --name-status>a
+$grep -P 'docker-build-parallel-retry.sh|Date' a
+$grep -n -C10 -P 'Sun Feb 2 09:56:27' a
+```

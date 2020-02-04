@@ -1,16 +1,16 @@
 # dockerイメージ作成
 ```
-time docker build -t ubuntu-18-04-gitlab . | tee log
+time docker build -t ubuntu-16-04-gitlab . | tee log
 ```
 
 # dockerコンテナ起動
 ```
-docker run --privileged --shm-size=8gb -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 8080:8080 --name ubuntu-18-04-gitlab -itd ubuntu-18-04-gitlab
+docker run --privileged --shm-size=8gb -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 8080:8080 --name ubuntu-16-04-gitlab -itd ubuntu-16-04-gitlab
 ```
 
 # dockerコンテナ潜入
 ```
-docker exec -it ubuntu-18-04-gitlab /bin/bash
+docker exec -it ubuntu-16-04-gitlab /bin/bash
 ```
 
 # dockerコンテナ削除
