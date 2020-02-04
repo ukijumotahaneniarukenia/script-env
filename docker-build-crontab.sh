@@ -163,7 +163,7 @@ retry-logger-detail-stdout(){
     {
       echo -ne $tgt; #対象コンテナを追記
       [ $STEP_CNT -eq $DONE_CNT ] && printf "\t%s\n" "$ELAPSED_TIME";
-    } >>~/script_env/docker-build-log/$BUILD_STDERR_LOG
+    } >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
   done < <(find ~/script_env -type f -name "*retry*" | grep log | sort)
 }
 
