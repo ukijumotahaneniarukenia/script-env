@@ -32,11 +32,11 @@ echo 'SUMMARY' >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG #HEADERを追�
 ##作成されたコンテナイメージを追記
 echo SUCCESS DOCKER BUILD IMAGE >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
 docker images | head -n1 >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
-ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -E $(docker images | tail -n+1 | grep -P '(-[0-9]{1,}){2,}-' | awk '{print $1}'|xargs|tr ' ' '|')>>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
+ls -l ~/script_env | grep -P '^d' | grep -v docker-build-log | awk '{print $9}' | grep -E $(docker images | tail -n+1 | grep -P '(-[0-9]{1,}){2,}-' | awk '{print $1}'|xargs|tr ' ' '|')>>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
 
 #作成されなかったコンテナイメージを追記
 echo FAIL DOCKER BUILD IMAGE >>~/script_env/docker-build-log/$BUILD_STDERR_LOG
-ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -vE $(docker images | tail -n+1 | grep -P '(-[0-9]{1,}){2,}-' | awk '{print $1}'|xargs|tr ' ' '|')>>~/script_env/docker-build-log/$BUILD_STDERR_LOG
+ls -l ~/script_env | grep -P '^d' | grep -v docker-build-log | awk '{print $9}' | grep -vE $(docker images | tail -n+1 | grep -P '(-[0-9]{1,}){2,}-' | awk '{print $1}'|xargs|tr ' ' '|')>>~/script_env/docker-build-log/$BUILD_STDERR_LOG
 
 #後処理
 #コンテナ起動に失敗したdockerコンテナを削除
@@ -55,9 +55,4 @@ echo 'イメージは作成されていたが、日付が本日以内でない�
 docker images | head -n1 >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG #HEADERを追記
 docker images | grep -vP 'hours|weeks|months' | grep -P '(?:-[0-9]){1,}' #DETAILを追記
 
-#あとは手動で確認し、コミット
-git add .gitignore
-git add --all *
-git commit -m "環境構築"
-
-git status
+#あとは手動で確認し、コミットする
