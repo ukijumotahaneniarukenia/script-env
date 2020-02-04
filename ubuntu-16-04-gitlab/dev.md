@@ -10,6 +10,9 @@
 
 - http://nyameji.hatenablog.com/entry/2018/02/18/181445
 
+メール送信📩
+- https://www.google.com/amp/s/www.yokoweb.net/2016/09/04/ubuntu-gitlab-mail/%3Famp%3D1
+
 
 ```
 dockerコンテナにいんすこ

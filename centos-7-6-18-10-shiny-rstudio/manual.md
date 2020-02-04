@@ -1,3 +1,11 @@
+# mapply関数
+
+- https://sudori.info/stat/stat_mapply_clusterMap.html
+
+# メタプログラミング
+
+- http://chiral.hatenablog.com/entry/20121210/1355065348
+
 # RパッケージのinstallログからANTICONFを見つけて設定ファイルを見直す
 ```
 Rscript install_packages.R | tee pack_inst_log
