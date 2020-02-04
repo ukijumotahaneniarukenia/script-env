@@ -14,3 +14,8 @@
 # 開発環境
 
 - https://qiita.com/masakurapa/items/fb61b5fc07393059fb28
+
+
+# トラシュー
+
+- https://qiita.com/mumoshu/items/0d2f2a13c6e9fc8da2a4
