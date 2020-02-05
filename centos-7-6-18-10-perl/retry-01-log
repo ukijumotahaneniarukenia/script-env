@@ -1,0 +1,18 @@
+Sending build context to Docker daemon  5.673MB
+Step 1/29 : FROM centos/systemd
+ ---> 05d3c1e2d0c1
+Step 2/29 : RUN groupadd -g 1001 kuraine && useradd -m -g kuraine -u 1001 kuraine && chsh -s /bin/bash kuraine && echo 'kuraine_pwd' | passwd --stdin kuraine && echo 'kuraine ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Using cache
+ ---> 0bb40b9839de
+Step 3/29 : RUN yum -y install epel-release
+ ---> Running in 877f7aa7094c
+Loaded plugins: fastestmirror, ovl
+Determining fastest mirrors
+ * base: ftp.iij.ad.jp
+ * extras: ftp.iij.ad.jp
+ * updates: ftp.iij.ad.jp
+sh: 6 行: 25596 Terminated              docker build -t centos-7-6-18-10-perl .
+
+real	0m4.746s
+user	0m0.030s
+sys	0m0.041s

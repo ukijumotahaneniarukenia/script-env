@@ -1,0 +1,10 @@
+Sending build context to Docker daemon  2.031MB
+Step 1/57 : FROM centos:latest
+ ---> 470671670cac
+Step 2/57 : RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps
+ ---> Running in 4a0d1a201757
+sh: 8 行: 25599 Terminated              docker build -t centos-7-6-18-10-python .
+
+real	0m4.745s
+user	0m0.037s
+sys	0m0.030s

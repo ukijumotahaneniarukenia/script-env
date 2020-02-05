@@ -1,0 +1,20 @@
+Sending build context to Docker daemon  3.066MB
+Step 1/66 : FROM centos:7.6.1810
+ ---> f1cb7c7d58b7
+Step 2/66 : RUN groupadd -g 1001 rstudio
+ ---> Running in 3336004b6f72
+Removing intermediate container 3336004b6f72
+ ---> d5460cc76dab
+Step 3/66 : RUN useradd -m -g rstudio -u 1001 rstudio
+ ---> Running in a861586075ba
+Removing intermediate container a861586075ba
+ ---> f41b9128bc28
+Step 4/66 : RUN chsh -s /bin/bash rstudio
+ ---> Running in 101b1910de9f
+[91mchsh: Shell not changed.
+[0mChanging shell for rstudio.
+sh: 7 行: 25594 Terminated              docker build -t centos-7-6-18-10-php-komodo .
+
+real	0m4.747s
+user	0m0.042s
+sys	0m0.032s

@@ -1,8 +1,18 @@
 #!/bin/bash
 
-pre-process(){
+nonretry-pre-process(){
   exec 1>~/script_env/docker-build-log/docker-build-$(date +\%Y-\%m-\%d_\%H-\%M-\%S).stdout.log
   exec 2>~/script_env/docker-build-log/docker-build-$(date +\%Y-\%m-\%d_\%H-\%M-\%S).stderr.log
+  #gitignore整備
+  ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log | xargs -I@ echo cp ~/script_env/.gitignore ~/script_env/@/.gitignore | sh
+  #doc.md配備
+  ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log | xargs -I@ echo cp ~/script_env/doc.md ~/script_env/@/doc.md | sh
+  ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log | xargs -I@ echo "sed -i 's;XXX;@;g' ~/script_env/@/doc.md" | sh
+}
+
+retry-pre-process(){
+  exec 1>~/script_env/docker-build-log/docker-build-$(date +\%Y-\%m-\%d_\%H-\%M-\%S).stdout.retry.log
+  exec 2>~/script_env/docker-build-log/docker-build-$(date +\%Y-\%m-\%d_\%H-\%M-\%S).stderr.retry.log
   #gitignore整備
   ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log | xargs -I@ echo cp ~/script_env/.gitignore ~/script_env/@/.gitignore | sh
   #doc.md配備
@@ -36,12 +46,13 @@ post-process-logger(){
     echo "ビルド対象実績数は$TGT_BUILD_IMAGE_ACTUAL_CNT件でした"; \
   } >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
 
-  local TGT_BUILD_IMAGE_DONE_NON_TODAY_CNT=$(($(docker images | grep -P '(?:-[0-9]){1,}' | grep -P 'days|weeks|months|years' | wc -l ) + $(docker images | grep -P '(?:-[0-9]){1,}' | grep -P 'hours' | awk '$4 !~ /[2-9][5-9]/ {print}')))
+  local TGT_BUILD_IMAGE_DONE_NON_TODAY_CNT=$(($(docker images | grep -P '(?:-[0-9]){1,}' | grep -P 'days|weeks|months|years' | wc -l ) + $(docker images | grep -P '(?:-[0-9]){1,}' | grep -P 'hours' | awk '$4 ~ /[2-9][5-9]/ {print}' | wc -l)))
+
   {
     echo "作成済イメージの内、日付が本日以内でないものは$TGT_BUILD_IMAGE_DONE_NON_TODAY_CNT"件でした; \
     docker images | head -n1; \
     docker images | grep -P '(?:-[0-9]){1,}' | grep -P 'days|weeks|months|years'; \
-    docker images | grep -P '(?:-[0-9]){1,}' | grep -P 'hours' | awk '$4 !~ /[2-9][5-9]/ {print}'; \
+    docker images | grep -P '(?:-[0-9]){1,}' | grep -P 'hours' | awk '$4 ~ /[2-9][5-9]/ {print}'; \
   } >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
 
   local TGT_BUILD_IMAGE_DONE_TODAY_CNT=$(docker images | grep -P '(?:-[0-9]){1,}' | grep -P 'hours' | awk '$4 !~ /[2-9][5-9]/ {print}' | wc -l)
@@ -50,10 +61,10 @@ post-process-logger(){
     docker images | grep -P '(?:-[0-9]){1,}' | grep -P 'hours' | awk '$4 !~ /[2-9][5-9]/ {print}'; \
   } >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
 
-  local TGT_BUILD_IMAGE_NON_DONE_CNT=$(ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -vE $(docker images | tail -n+1 | grep -P '(-[0-9]{1,}){2,}-' | awk '{print $1}'|xargs|tr ' ' '|') | wc -l)
+  local TGT_BUILD_IMAGE_NON_DONE_CNT=$(ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log | grep -vE $(docker images | tail -n+1 | grep -P '(-[0-9]{1,}){2,}-' | awk '{print $1}'|xargs|tr ' ' '|') | wc -l)
   {
     echo "未作成イメージは$TGT_BUILD_IMAGE_NON_DONE_CNT件でした"; \
-    ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -vE $(docker images | tail -n+1 | grep -P '(-[0-9]{1,}){2,}-' | awk '{print $1}'|xargs|tr ' ' '|'); \
+    ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log | grep -vE $(docker images | tail -n+1 | grep -P '(-[0-9]{1,}){2,}-' | awk '{print $1}'|xargs|tr ' ' '|'); \
   } >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
 }
 
@@ -86,8 +97,9 @@ nonretry(){
 }
 
 retry(){
-  local RETRY_MX_CNT="$@"
-  for ((RETRY_ROUND_CNT=1;RETRY_ROUND_CNT<=$RETRY_MX_CNT;RETRY_ROUND_CNT++));do
+  RETRY_MX_CNT="$@"
+
+  for((RETRY_ROUND_CNT=1;RETRY_ROUND_CNT<=$RETRY_MX_CNT;RETRY_ROUND_CNT++));do
 
     #開始時刻控える
     local BUILD_START=$(date '+%s')
@@ -114,15 +126,22 @@ retry(){
     #すこし待った分差し引く
     local BUILD_ELAPSED=$(expr $BUILD_END - $BUILD_START - 10)
 
-    printf "docker retry $(printf '%02g' $RETRY_ROUND_CNT) round build process has done.ending docker retry $(printf '%02g' $RETRY_ROUND_CNT) round build proccess.elapsed time[%s(seconds)]\n" $BUILD_ELAPSED
+    printf "docker retry $(printf '%02g' $RETRY_ROUND_CNT) round build process has done.ending docker retry $(printf '%02g' ${10#RETRY_ROUND_CNT}) round build proccess.elapsed time[%s(seconds)]\n" $BUILD_ELAPSED
   done
 }
 
-pre-process-logger(){
+nonretry-pre-process-logger(){
   #その日の標準出力ログファイル名を取得
   BUILD_STDOUT_LOG=$(ls -l ~/script_env/docker-build-log | grep -P '^-' | awk '{print $9}' | grep "$(date +%Y-%m-%d)" | grep stdout)
   #その日の標準エラー出力ログファイル名を取得
   BUILD_STDERR_LOG=$(ls -l ~/script_env/docker-build-log | grep -P '^-' | awk '{print $9}' | grep "$(date +%Y-%m-%d)" | grep stderr)
+}
+
+retry-pre-process-logger(){
+  #その日の標準出力ログファイル名を取得
+  BUILD_STDOUT_LOG=$(ls -l ~/script_env/docker-build-log | grep -P '^-' | awk '{print $9}' | grep "$(date +%Y-%m-%d)" | grep -P 'stdout\.retry')
+  #その日の標準エラー出力ログファイル名を取得
+  BUILD_STDERR_LOG=$(ls -l ~/script_env/docker-build-log | grep -P '^-' | awk '{print $9}' | grep "$(date +%Y-%m-%d)" | grep -P 'stderr\.retry')
 }
 
 nonretry-logger-detail-stdout(){
@@ -162,9 +181,10 @@ retry-logger-detail-stdout(){
     local DONE_CNT=$(sed -r 's;Step\s{1,};;;s;(.*)/(.*);\1;' <<<"$LAST_STEP")
     {
       echo -ne $tgt; #対象コンテナを追記
-      [ $STEP_CNT -eq $DONE_CNT ] && printf "\t%s\n" "$ELAPSED_TIME";
+      [ $STEP_CNT -eq $DONE_CNT ] || printf "\t%s\n" "$ELAPSED_TIME";
+      [ $STEP_CNT -eq $DONE_CNT ] && printf "\t%s\t%s\n" "$LAST_STEP" "$ELAPSED_TIME";
     } >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
-  done < <(find ~/script_env -type f -name "*retry*" | grep log | sort)
+  done < <(find ~/script_env -type f -name "*retry-*" | grep log | sort)
 }
 
 retry-logger-detail-stderr(){
@@ -176,13 +196,14 @@ retry-logger-detail-stderr(){
     local DONE_CNT=$(sed -r 's;Step\s{1,};;;s;(.*)/(.*);\1;' <<<"$LAST_STEP")
     {
       echo -ne $tgt; #対象コンテナを追記
+      [[ $STEP_CNT -eq 0 ]] && [[ 0 -eq $DONE_CNT ]] && printf "\n";
       [ $STEP_CNT -eq $DONE_CNT ] || printf "\t%s\n" "$ELAPSED_TIME";
     } >>~/script_env/docker-build-log/$BUILD_STDERR_LOG
-  done < <(find ~/script_env -type f -name "*retry*" | grep log | sort)
+  done < <(find ~/script_env -type f -name "*retry-*" | grep log | sort)
 }
 
 nonretry-process(){
-  pre-process-logger
+  nonretry-pre-process-logger
   nonretry
   nonretry-logger-detail-stdout
   nonretry-logger-detail-stderr
@@ -190,16 +211,18 @@ nonretry-process(){
 }
 
 retry-process(){
-  pre-process-logger
-  retry
+  retry-pre-process-logger
+  retry "$@"
   retry-logger-detail-stdout
   retry-logger-detail-stderr
   post-process-logger
 }
 
 main(){
-  pre-process
+  [ -z "$@" ] && nonretry-pre-process
   [ -z "$@" ] && nonretry-process
+
+  [ -z "$@" ] || retry-pre-process "$@"
   [ -z "$@" ] || retry-process "$@"
   post-process
 }
