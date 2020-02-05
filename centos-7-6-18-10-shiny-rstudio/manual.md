@@ -3,6 +3,11 @@
 - https://www.slideshare.net/mobile/yutamura1
 
 - https://qiita.com/nozma/items/d4879bf55e8637c0686e
+パラレルけいさん
+
+- https://wtnvenga.hatenablog.com/entry/2017/12/03/230102
+
+Go言語乗り出したのも、並列並行処理に興味を持ったから
 
 
 # mapply関数
