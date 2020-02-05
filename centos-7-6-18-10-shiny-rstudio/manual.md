@@ -1,3 +1,8 @@
+# rlistライブラリ
+
+https://www.slideshare.net/mobile/yutamura1
+
+
 # mapply関数
 
 - https://sudori.info/stat/stat_mapply_clusterMap.html
