@@ -1,0 +1,31 @@
+Sending build context to Docker daemon  11.78MB
+Step 1/70 : FROM centos:7.6.1810
+ ---> f1cb7c7d58b7
+Step 2/70 : RUN groupadd -g 1001 kuraine && useradd -m -g kuraine -u 1001 kuraine && chsh -s /bin/bash kuraine && echo 'kuraine_pwd' | passwd --stdin kuraine && echo 'kuraine ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Using cache
+ ---> b1cc24becc75
+Step 3/70 : RUN groupadd -g 991 elasticsearch && useradd -m -g elasticsearch -u 994 elasticsearch && chsh -s /bin/bash elasticsearch && echo 'elasticsearch_pwd' | passwd --stdin elasticsearch && echo 'elasticsearch ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Running in 897f723b06a6
+Changing shell for elasticsearch.
+[91mchsh: Shell not changed.
+[0mChanging password for user elasticsearch.
+passwd: all authentication tokens updated successfully.
+Removing intermediate container 897f723b06a6
+ ---> 42fe1c411292
+Step 4/70 : RUN groupadd -g 990 kibana && useradd -m -g kibana -u 993 kibana && chsh -s /bin/bash kibana && echo 'kibana_pwd' | passwd --stdin kibana && echo 'kibana ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+ ---> Running in dfa2c6f213e9
+Changing shell for kibana.
+[91mchsh: Shell not changed.
+[0mChanging password for user kibana.
+passwd: all authentication tokens updated successfully.
+Removing intermediate container dfa2c6f213e9
+ ---> 3ae0b2ac2363
+Step 5/70 : RUN echo 'root_pwd' | passwd --stdin root
+ ---> Running in d80dfdf2118b
+Changing password for user root.
+passwd: all authentication tokens updated successfully.
+sh: 4 行: 25587 Terminated              docker build -t centos-7-6-18-10-node .
+
+real	0m4.747s
+user	0m0.034s
+sys	0m0.037s

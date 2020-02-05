@@ -1,0 +1,3 @@
+10 01 * * * /home/aine/script_env/docker-build-crontab.sh
+
+10 12 * * * /home/aine/script_env/docker-build-crontab.sh 2

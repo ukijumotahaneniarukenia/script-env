@@ -1,0 +1,22 @@
+Sending build context to Docker daemon  173.1kB
+Step 1/22 : FROM ubuntu:19.10
+ ---> dcbcfdcd50bb
+Step 2/22 : RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list
+ ---> Using cache
+ ---> 25edb70b973a
+Step 3/22 : ARG DEBIAN_FRONTEND=noninteractive
+ ---> Running in aa4e00265ef0
+Removing intermediate container aa4e00265ef0
+ ---> 1d26eb079304
+Step 4/22 : RUN apt update && apt upgrade -y
+ ---> Running in e294c535a232
+[91m
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+[0mGet:1 http://ftp.jaist.ac.jp/pub/Linux/ubuntu eoan InRelease [255 kB]
+Get:2 http://security.ubuntu.com/ubuntu eoan-security InRelease [97.5 kB]
+sh: 13 行: 25617 Terminated              docker build -t ubuntu-19-10-gradle-doma .
+
+real	0m4.731s
+user	0m0.038s
+sys	0m0.030s
