@@ -5,6 +5,8 @@
 
 バックアップとリストアできる。
 
+- https://academy.gmocloud.com/know/20160106/1509
+
 - https://qiita.com/n_slender/items/eb629cfbc53d38eac2f1
 
 - https://qiita.com/reflet/items/add376c6046b4e7048cf
