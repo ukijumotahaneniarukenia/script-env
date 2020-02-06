@@ -3,6 +3,10 @@
 # Apache sole
 全文検索エンジン
 
+バックアップとリストアできる。
+
+https://qiita.com/n_slender/items/eb629cfbc53d38eac2f1
+
 - https://qiita.com/reflet/items/add376c6046b4e7048cf
 
 # 参考文献
