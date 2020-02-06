@@ -5,6 +5,8 @@
 
 バックアップとリストアできる。
 
+- https://www.slideshare.net/mobile/techblogyahoo/apache-solr-62053171
+
 - https://academy.gmocloud.com/know/20160106/1509
 
 - https://qiita.com/n_slender/items/eb629cfbc53d38eac2f1
