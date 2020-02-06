@@ -1,3 +1,8 @@
+これは勉強になる
+
+- https://rcmdnk.com/blog/2015/07/03/computer-linux/
+
+
 # script_scratch
 
 # Apache sole
