@@ -1,5 +1,10 @@
 # script_scratch
 
+# Apache sole
+全文検索エンジン
+
+- https://qiita.com/reflet/items/add376c6046b4e7048cf
+
 # 参考文献
 docker install
 [インストール手順公式HP](https://docs.docker.com/install/linux/docker-ce/centos/)
