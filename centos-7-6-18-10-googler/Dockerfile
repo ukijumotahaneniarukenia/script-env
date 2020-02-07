@@ -24,14 +24,11 @@ RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-tool-pkg.sh | ba
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-dev-pkg.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-python-$PYTHON_VERSION.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-git-$GIT_VERSION.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-googler-$GOOGLER_VERSION.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-locale.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
 ENV LANG=ja_JP.UTF-8
-
-#googlerコマンドいんすこ
-RUN cd /usr/local/src && curl -LO https://github.com/jarun/googler/releases/download/v4.0/googler-4.0-1.el7.6.centos.x86_64.rpm && \
-rpm -iUvh googler-4.0-1.el7.6.centos.x86_64.rpm
 
 USER kuraine
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | bash

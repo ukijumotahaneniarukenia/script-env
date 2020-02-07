@@ -19,18 +19,15 @@ RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-system.sh | 
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-tool-pkg.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-dev-pkg.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-apache-httpd.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-locale.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
 ENV LANG=ja_JP.UTF-8
 
-#apache-httpdインストール
-RUN yum install -y httpd
-RUN chown -R apache:apache /var/www && chmod 755 /var/www
-
 USER apache
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | bash
 
-WORKDIR /home/apache
-
-#httpdサービス外部公開ポート
+#apache-httpdサービス外部公開ポート
 EXPOSE 80
+
+WORKDIR /home/apache

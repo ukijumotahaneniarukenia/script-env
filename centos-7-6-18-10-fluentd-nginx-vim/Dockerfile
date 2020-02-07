@@ -29,28 +29,12 @@ RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-tool-pkg.sh | ba
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-dev-pkg.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-python-$PYTHON_VERSION.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-git-$GIT_VERSION.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-fluentd.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-nginx.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-locale.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
 ENV LANG=ja_JP.UTF-8
-
-#nginxインストール
-RUN { echo "[nginx]";\
-      echo "name=nginx repo";\
-      echo "baseurl=https://nginx.org/packages/centos/7/x86_64/";\
-      echo "gpgcheck=0";\
-      echo "enabled=1";\
-    } >> /etc/yum.repos.d/nginx.repo
-RUN yum install -y nginx
-
-#fluentdインストール
-RUN { echo "[treasuredata]";\
-      echo "name=TreasureData";\
-      echo "baseurl=http://packages.treasuredata.com/3/redhat/7/x86_64";\
-      echo "gpgcheck=1";\
-      echo "gpgkey=https://packages.treasuredata.com/GPG-KEY-td-agent";\
-    } >> /etc/yum.repos.d/td.repo
-RUN yum install -y td-agent
 
 USER nginx
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | bash

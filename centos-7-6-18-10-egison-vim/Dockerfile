@@ -29,7 +29,6 @@ RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | ba
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-stack.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
 
-#egisonコマンドインストール
-RUN sudo yum -y install https://git.io/egison.x86_64.rpm && stack install egison
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-egison.sh | bash
 
 WORKDIR /home/egison
