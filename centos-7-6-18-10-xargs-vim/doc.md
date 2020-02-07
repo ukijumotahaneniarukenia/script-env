@@ -34,6 +34,9 @@ docker ps -a | grep -P $(pwd | sed 's;.*/;;') | awk '{print $1}' | xargs -I@ bas
 ```
 
 # dockerイメージ削除
+
+- ALL削除
+
 ```
 docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
 ```
