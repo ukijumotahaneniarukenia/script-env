@@ -19,8 +19,10 @@ RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-system.sh | 
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-tool-pkg.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-dev-pkg.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-python374.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-git.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-locale.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
 ENV LANG=ja_JP.UTF-8
 
@@ -37,5 +39,6 @@ ENV DISPLAY=:0.0
 USER kuraine
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-font.sh | bash
 
 WORKDIR /home/kuraine
