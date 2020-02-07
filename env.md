@@ -1,5 +1,5 @@
 ```
 EXPOSE=
 SHM_SIZE=2gb
---build-arg NNN=
+--build-arg PYTHON_VERSION=3-7-4 --build-arg NNN=
 ```
