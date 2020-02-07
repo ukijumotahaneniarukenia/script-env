@@ -2,6 +2,7 @@ FROM centos:7.6.1810
 
 ARG CONTAINER_NAME
 ARG OS_VERSION
+ARG GIT_VERSION
 
 RUN groupadd -g 1001 egison && \
 useradd -m -g egison -u 1001 egison && \
