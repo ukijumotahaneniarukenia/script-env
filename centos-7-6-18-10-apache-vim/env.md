@@ -1,0 +1,4 @@
+```
+EXPOSE=-p 8080:80
+SHM_SIZE=2gb
+```
