@@ -1,5 +1,18 @@
 # rlistライブラリ
 
+- 起動時の状態
+
+dockerホスト側。自身がプロキシサーバーとして振る舞って外部にでている
+
+```
+$ps uax | grep docker
+root      2430  3.9  0.8 4370016 287008 ?      Ssl   2月05  22:23 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+root      4506  0.0  0.0 364392  8600 ?        Sl    2月05   0:00 /usr/bin/docker-proxy -proto tcp -host-ip 0.0.0.0 -host-port 8787 -container-ip 172.17.0.2 -container-port 8787
+root      4520  0.0  0.0 216928  6456 ?        Sl    2月05   0:00 /usr/bin/docker-proxy -proto tcp -host-ip 0.0.0.0 -host-port 3838 -container-ip 172.17.0.2 -container-port 3838
+root      4529  0.0  0.0 109092  7184 ?        Sl    2月05   0:02 containerd-shim -namespace moby -workdir /var/lib/containerd/io.containerd.runtime.v1.linux/moby/30d09f47dfb5957bf76f6b591e1d0908c1f7ae39497c895d687d0e2b2035550f -address /run/containerd/containerd.sock -containerd-binary /usr/bin/containerd -runtime-root /var/run/docker/runtime-runc
+aine     23150  0.0  0.0 112732   972 pts/0    S+   08:19   0:00 grep --color=auto docker
+```
+
 これ便利
 - https://teratail.com/questions/151601
 

@@ -6,8 +6,23 @@ nonretry-pre-process(){
   #gitignore整備
   ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log | xargs -I@ echo cp ~/script_env/.gitignore ~/script_env/@/.gitignore | sh
   #doc.md配備
-  ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log | xargs -I@ echo cp ~/script_env/doc.md ~/script_env/@/doc.md | sh
-  ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log | xargs -I@ echo "sed -i 's;XXX;@;g' ~/script_env/@/doc.md" | sh
+  while read tgt;do
+
+    echo cp ~/script_env/doc.md ~/script_env/$tgt/doc.md | sh
+    echo "sed -i 's;XXX;$tgt;g' ~/script_env/$tgt/doc.md" | sh
+
+    RT="$(echo "grep EXPOSE ~/script_env/$tgt/env.md" | sh 2>/dev/null)"
+    [ -z "$RT" ] && printf "sed -i 's;EXPOSE;%s;' %s\n" "$(echo "grep EXPOSE ~/script_env/env.md" | sh | sed 's;.*=;;')" ~/script_env/$tgt/doc.md | sh
+    [ -z "$RT" ] || printf "sed -i 's;EXPOSE;%s;' %s\n" "$(echo "grep EXPOSE ~/script_env/$tgt/env.md" | sh 2>/dev/null | sed 's;.*=;;')" ~/script_env/$tgt/doc.md | sh
+
+    RT="$(echo "grep SHM_SIZE ~/script_env/$tgt/env.md" | sh 2>/dev/null)"
+    [ -z "$RT" ] && printf "sed -i 's;SHM_SIZE;%s;' %s\n" "$(echo "grep SHM_SIZE ~/script_env/env.md" | sh | sed 's;.*=;;')" ~/script_env/$tgt/doc.md | sh
+    [ -z "$RT" ] || printf "sed -i 's;SHM_SIZE;%s;' %s\n" "$(echo "grep SHM_SIZE ~/script_env/$tgt/env.md" | sh 2>/dev/null | sed 's;.*=;;')" ~/script_env/$tgt/doc.md | sh
+
+  done < <(ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log)
+
+  #pkg-list配備
+  ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log | xargs -I@ echo touch ~/script_repo/@.sh | sh
 }
 
 retry-pre-process(){
@@ -46,19 +61,17 @@ post-process-logger(){
     echo "ビルド対象実績数は$TGT_BUILD_IMAGE_ACTUAL_CNT件でした"; \
   } >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
 
-  local TGT_BUILD_IMAGE_DONE_NON_TODAY_CNT=$(($(docker images | grep -P '(?:-[0-9]){1,}' | grep -P 'days|weeks|months|years' | wc -l ) + $(docker images | grep -P '(?:-[0-9]){1,}' | grep -P 'hours' | awk '$4 ~ /[2-9][5-9]/ {print}' | wc -l)))
-
+  local TGT_BUILD_IMAGE_DONE_NON_TODAY_CNT=$(docker images | grep -P '(?:-[0-9]){1,}' | grep -P '(?:[2-9][5-9])(?= hours ago)|(?:days|weeks|months)' | wc -l)
   {
     echo "作成済イメージの内、日付が本日以内でないものは$TGT_BUILD_IMAGE_DONE_NON_TODAY_CNT"件でした; \
     docker images | head -n1; \
-    docker images | grep -P '(?:-[0-9]){1,}' | grep -P 'days|weeks|months|years'; \
-    docker images | grep -P '(?:-[0-9]){1,}' | grep -P 'hours' | awk '$4 ~ /[2-9][5-9]/ {print}'; \
+    docker images | grep -P '(?:-[0-9]){1,}' | grep -P '(?:[2-9][5-9])(?= hours ago)|(?:days|weeks|months)'; \
   } >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
 
-  local TGT_BUILD_IMAGE_DONE_TODAY_CNT=$(docker images | grep -P '(?:-[0-9]){1,}' | grep -P 'hours' | awk '$4 !~ /[2-9][5-9]/ {print}' | wc -l)
+  local TGT_BUILD_IMAGE_DONE_TODAY_CNT=$(docker images | grep -P '(?:-[0-9]){1,}' | grep -vP '(?:[2-9][5-9])(?= hours ago)' | grep -vP 'days|weeks|months|years' | wc -l)
   {
     echo "作成済イメージの内、日付が本日以内であるものは$TGT_BUILD_IMAGE_DONE_TODAY_CNT"件でした; \
-    docker images | grep -P '(?:-[0-9]){1,}' | grep -P 'hours' | awk '$4 !~ /[2-9][5-9]/ {print}'; \
+      docker images | grep -P '(?:-[0-9]){1,}' | grep -vP '(?:[2-9][5-9])(?= hours ago)' | grep -vP 'days|weeks|months|years'
   } >>~/script_env/docker-build-log/$BUILD_STDOUT_LOG
 
   local TGT_BUILD_IMAGE_NON_DONE_CNT=$(ls -l ~/script_env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log | grep -vE $(docker images | tail -n+1 | grep -P '(-[0-9]{1,}){2,}-' | awk '{print $1}'|xargs|tr ' ' '|') | wc -l)
