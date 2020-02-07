@@ -1,6 +1,6 @@
 # dockerイメージ作成
 ```
-time docker build -t ubuntu-16-04-postgres-python --build-arg CONTAINER_NAME=ubuntu-16-04-postgres-python --build-arg OS_VERSION=$(echo ubuntu-16-04-postgres-python | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build -t ubuntu-16-04-postgres-python --build-arg NNN= --build-arg CONTAINER_NAME=ubuntu-16-04-postgres-python --build-arg OS_VERSION=$(echo ubuntu-16-04-postgres-python | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 # dockerコンテナ起動

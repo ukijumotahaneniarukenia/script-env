@@ -1,5 +1,3 @@
 ```
-EXPOSE=-p 8080:80
-SHM_SIZE=2gb
 --build-arg PYTHON_VERSION=3-7-4
 ```

@@ -1,6 +1,6 @@
 # dockerイメージ作成
 ```
-time docker build -t ubuntu-18-04-swift-vscode --build-arg CONTAINER_NAME=ubuntu-18-04-swift-vscode --build-arg OS_VERSION=$(echo ubuntu-18-04-swift-vscode | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build -t ubuntu-18-04-swift-vscode --build-arg NNN= --build-arg CONTAINER_NAME=ubuntu-18-04-swift-vscode --build-arg OS_VERSION=$(echo ubuntu-18-04-swift-vscode | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 # dockerコンテナ起動

@@ -1,2 +1,5 @@
+```
 EXPOSE=-p 9200:9200 -p 5601:5601
 SHM_SIZE=8gb
+--build-arg PYTHON_VERSION=3-7-4
+```

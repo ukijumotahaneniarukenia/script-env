@@ -1,16 +1,16 @@
 # dockerイメージ作成
 ```
-time docker build -t centos-7-6-18-10-c-cpp-vscode --build-arg CONTAINER_NAME=centos-7-6-18-10-c-cpp-vscode --build-arg OS_VERSION=$(echo centos-7-6-18-10-c-cpp-vscode | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build -t centos-7-6-18-10-c-cpp-vim --build-arg NNN= --build-arg CONTAINER_NAME=centos-7-6-18-10-c-cpp-vim --build-arg OS_VERSION=$(echo centos-7-6-18-10-c-cpp-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 # dockerコンテナ起動
 ```
-docker run --privileged --shm-size=2gb -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id  --name centos-7-6-18-10-c-cpp-vscode -itd centos-7-6-18-10-c-cpp-vscode
+docker run --privileged --shm-size=2gb -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id  --name centos-7-6-18-10-c-cpp-vim -itd centos-7-6-18-10-c-cpp-vim
 ```
 
 # dockerコンテナ潜入
 ```
-docker exec -it centos-7-6-18-10-c-cpp-vscode /bin/bash
+docker exec -it centos-7-6-18-10-c-cpp-vim /bin/bash
 ```
 
 # dockerコンテナ削除

@@ -2,6 +2,7 @@ FROM centos:7.6.1810
 
 ARG CONTAINER_NAME
 ARG OS_VERSION
+ARG PYTHON_VERSION
 
 #ユーザー作成
 RUN groupadd -g 1001 kuraine && \
@@ -19,7 +20,7 @@ RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-system.sh | 
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-tool-pkg.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-dev-pkg.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-python-3-7-4.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-python-$PYTHON_VERSION.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-git.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-locale.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-ld.sh | bash
