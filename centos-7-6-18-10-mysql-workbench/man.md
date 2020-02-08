@@ -2,42 +2,6 @@
 
 - https://docs.openstack.org/liberty/ja/install-guide-ubuntu/debconf/debconf-concepts.html
 
-# dockerイメージ作成
-
-```
-time docker build -t centos-7-6-18-10-mysql-workbench . | tee log
-```
-
-# dockerコンテナ削除
-
-```
-docker ps -qa | xargs -I@ bash -c 'docker stop @ && docker rm @'
-```
-
-# dockerイメージ削除
-
-```
-docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
-```
-
-# dockerコンテナ起動
-
-```
-docker run --privileged --shm-size=8gb --name centos-7-6-18-10-mysql-workbench -itd -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 3306:3306 centos-7-6-18-10-mysql-workbench
-```
-
-# dockerコンテナ潜入
-
-```
-docker exec -it centos-7-6-18-10-mysql-workbench /bin/bash
-```
-
-# バージョン確認
-```
-$mysql --version
-mysql  Ver 8.0.18-0ubuntu0.19.10.1 for Linux on x86_64 ((Ubuntu))
-```
-
 # 環境整備
 
 データファイル等を洗い替え

@@ -1,107 +1,45 @@
-FROM centos/systemd
+FROM centos:7.6.1810
 
-#ユーザー作成
+ARG CONTAINER_NAME
+ARG OS_VERSION
+ARG GIT_VERSION
+ARG PYTHON_VERSION
+ARG JAVA_VERSION
+ARG MYSQL_VERSION
+ARG MYSQL_WORKBENCH_VERSION
+
 RUN groupadd -g 1001 mysql && \
 useradd -m -g mysql -u 1001 mysql && \
 chsh -s /bin/bash mysql && \
 echo 'mysql_pwd' | passwd --stdin mysql && \
-echo 'mysql ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+echo 'mysql ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
+echo 'root_pwd' | passwd --stdin root
 
-RUN echo 'root_pwd' | passwd --stdin root
-
-#各種コマンドいんすこ
-RUN yum -y install epel-release
-RUN yum -y update
-RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man moreutils lbzip2 which perl-Digest-SHA lbzip gcc-c++ libtool makeinfo file libffi-devel zlib-devel unzip autoconf gcc bison evince
-
-#日本語環境と時刻合わせ
-RUN yum -y reinstall glibc-common
-RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
+RUN yum install -y git
+RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/script-repo.git
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-repository-pkg.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-network-pkg.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-system.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-tool-pkg.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-dev-pkg.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-python-$PYTHON_VERSION.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-git-$GIT_VERSION.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-jdk-$JAVA_VERSION.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-mysql-$MYSQL_VERSION.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-mysql-workbench-$MYSQL_WORKBENCH_VERSION.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-locale.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-ld.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
 ENV LANG=ja_JP.UTF-8
-RUN rm -f /etc/localtime
-RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
-#vimも最新
-RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && \
-cd ~ && git clone https://github.com/vim/vim.git && \
-cd vim && \
-./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && \
-make -j12 distclean && \
-make -j12 && \
-make -j12 install && \
-ln -fsr /usr/local/bin/vim /usr/bin/vim && \
-ln -fsr /usr/local/bin/vim /usr/bin/vi
-
-#自身のvim環境をクローン
-RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
-
-#自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
-RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
-cd ~/tmp && \
-#移動したいdotfileをchoiceしてHOMEディレクトリへ
-mv rc/.[^.]* ~ && \
-#用が済んだらリム
-rm -rf ~/tmp
-
-#vim plugin manager
-RUN mkdir -p ~/.vim/bundle && \
-cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
-sh installer.sh ~/.vim/bundle && rm -rf installer.sh
-
-#mysqlインストール
-RUN cd /usr/local/src && curl -LO https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm && \
-yum localinstall -y mysql80-community-release-el7-3.noarch.rpm && \
-yum-config-manager --disable mysql57-community && \
-yum-config-manager --enable mysql80-community && \
-yum install -y mysql-community-server
-RUN { \
-      echo log_timestamps=SYSTEM; \
-      echo skip-character-set-client-handshake; \
-      echo character-set-server=utf8mb4; \
-      echo explicit_defaults_for_timestamp=ON; \
-    } >> /etc/my.cnf
-
-#VSCODEインストール
-RUN yum install -y libXScrnSaver alsa-lib libxkbfile
-COPY code-1.41.1-1576681965.el7.x86_64.rpm /usr/local/src/code-1.41.1-1576681965.el7.x86_64.rpm
-RUN cd /usr/local/src && yum install -y code-1.41.1-1576681965.el7.x86_64.rpm
-
-#MysqlWorkBenchインストール
-RUN yum install -y gnome-keyring gtkmm30 mesa-libGLU atkmm cairomm pangomm libsigc++20 libzip-devel
-COPY mysql-workbench-community-8.0.19-1.el7.x86_64.rpm /usr/local/src/mysql-workbench-community-8.0.19-1.el7.x86_64.rpm
-RUN cd /usr/local/src && yum install -y  mysql-workbench-community-8.0.19-1.el7.x86_64.rpm
-
-#XクライアントがXサーバーにGUI転送出来るように、転送先のIPを指定する
+#XクライアントがXサーバーにGUI転送出来るように、転送先の「IP:ディスプレイ番号:スクリーン番号」を指定する
 ENV DISPLAY=:0.0
-RUN yum install -y xterm
-
-#環境変数の設定
-RUN echo 'export JAVA_HOME=/usr/local/src/jdk-13' >> ~/.bashrc && \
-echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.bashrc && \
-echo 'alias myb="mysql-workbench 1>~/launch_mysql-bench.log 2>&1 &"' >>~/.bashrc
 
 USER mysql
-
-#自身のvim環境をクローン
-RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
-
-#自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
-RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
-cd ~/tmp && \
-#移動したいdotfileをchoiceしてHOMEディレクトリへ
-mv rc/.[^.]* ~ && \
-#用が済んだらリム
-rm -rf ~/tmp
-
-#vim plugin manager
-RUN mkdir -p ~/.vim/bundle && \
-cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
-sh installer.sh ~/.vim/bundle && rm -rf installer.sh
-
-#環境変数の設定
-RUN echo 'export JAVA_HOME=/usr/local/src/jdk-13' >> ~/.bashrc && \
-echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.bashrc && \
-echo 'alias myb="mysql-workbench 1>~/launch_mysql-bench.log 2>&1 &"' >>~/.bashrc
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-font.sh | bash
 
 #mysqlサービス外部公開ポート
 EXPOSE 3306
