@@ -1,9 +1,12 @@
 #!/bin/bash
 
 #Usage
-#$./b.sh elasticsearch751 elasticsearch-7-5-1
+#$./b.sh elasticsearch751 elasticsearch-7-5-1 env.md
+#$./b.sh '\--build-arg PYTHON_VERSION=3-7-4$' '\--build-arg PYTHON_VERSION=3-7-4 --build-arg GIT_VERSION=2-24-1' env.md
+#$./b.sh '^--build-arg PYTHON_VERSION=3-7-4$' '\--build-arg PYTHON_VERSION=3-7-4 --build-arg GIT_VERSION=2-24-1' env.md
 
-PRE_WORD=$1
-POST_WORD=$2
-
-grep -l $PRE_WORD -r $(pwd) | grep -P 'Dockerfile$' | xargs -I@ echo "sed -i 's;$PRE_WORD;$POST_WORD;g' @"
+PRE_REGREX="$1"
+POST_WORD="$2"
+TGT_FILE_KEY_WORD="$3"
+EXCEPT_FILE_LIST="script-env/env.md"
+grep -l -P "$PRE_REGREX" -r $(pwd) | grep -P "$TGT_FILE_KEY_WORD$" | xargs -I@ echo "sed -i 's;$PRE_WORD;$POST_WORD;g' @" | grep -Pv "$EXCEPT_FILE_LIST"
