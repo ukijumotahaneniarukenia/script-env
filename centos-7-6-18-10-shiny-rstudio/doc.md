@@ -1,11 +1,11 @@
 # dockerイメージ作成
 ```
-time docker build -t centos-7-6-18-10-shiny-rstudio --build-arg PYTHON_VERSION=3-7-4 --build-arg GIT_VERSION=2-24-1 --build-arg CONTAINER_NAME=centos-7-6-18-10-shiny-rstudio --build-arg OS_VERSION=$(echo centos-7-6-18-10-shiny-rstudio | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build -t centos-7-6-18-10-shiny-rstudio --build-arg PYTHON_VERSION=3-7-4 --build-arg GIT_VERSION=2-24-1 --build-arg R_VERSION=X-X-X --build-arg SHINY_VERSION=1-5-9 --build-arg RSTUDIO_VERSION=1-2-XXX --build-arg CONTAINER_NAME=centos-7-6-18-10-shiny-rstudio --build-arg OS_VERSION=$(echo centos-7-6-18-10-shiny-rstudio | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 # dockerコンテナ起動
 ```
-docker run --privileged --shm-size=2gb -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id  --name centos-7-6-18-10-shiny-rstudio -itd centos-7-6-18-10-shiny-rstudio
+docker run --privileged --shm-size=4gb -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 8787:8787 -p 3838:3838 --name centos-7-6-18-10-shiny-rstudio -itd centos-7-6-18-10-shiny-rstudio
 ```
 
 # dockerコンテナ潜入

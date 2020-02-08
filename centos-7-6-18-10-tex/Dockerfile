@@ -18,5 +18,3 @@ cd install-tl-20200129 && \
 echo 'I' | ./install-tl
 
 WORKDIR /home/kuraine
-
-CMD ["/usr/sbin/init"]
