@@ -5,7 +5,7 @@ time docker build -t ubuntu-19-10-java-apache-solr-vim --build-arg PYTHON_VERSIO
 
 # dockerコンテナ起動
 ```
-docker run --privileged --shm-size=4gb -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 8983 --name ubuntu-19-10-java-apache-solr-vim -itd ubuntu-19-10-java-apache-solr-vim
+docker run --privileged --shm-size=2gb -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id  --name ubuntu-19-10-java-apache-solr-vim -itd ubuntu-19-10-java-apache-solr-vim
 ```
 
 # dockerコンテナ潜入
