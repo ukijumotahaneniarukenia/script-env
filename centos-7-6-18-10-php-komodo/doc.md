@@ -1,6 +1,6 @@
 # dockerイメージ作成
 ```
-time docker build -t centos-7-6-18-10-php-komodo --build-arg PYTHON_VERSION=3-7-4 --build-arg GIT_VERSION=2-24-1 --build-arg CONTAINER_NAME=centos-7-6-18-10-php-komodo --build-arg OS_VERSION=$(echo centos-7-6-18-10-php-komodo | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build -t centos-7-6-18-10-php-komodo --build-arg PYTHON_VERSION=3-7-4 --build-arg GIT_VERSION=2-24-1 --build-arg PHP_VERSION=7-3-X --build-arg CONTAINER_NAME=centos-7-6-18-10-php-komodo --build-arg OS_VERSION=$(echo centos-7-6-18-10-php-komodo | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 # dockerコンテナ起動

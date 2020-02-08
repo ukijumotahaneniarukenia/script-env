@@ -1,16 +1,16 @@
 # dockerイメージ作成
 ```
-time docker build -t centos-7-6-18-10-node --build-arg PYTHON_VERSION=3-7-4 --build-arg GIT_VERSION=2-24-1 --build-arg CONTAINER_NAME=centos-7-6-18-10-node --build-arg OS_VERSION=$(echo centos-7-6-18-10-node | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build -t centos-7-6-18-10-nodejs-vscode --build-arg PYTHON_VERSION=3-7-4 --build-arg GIT_VERSION=2-24-1 --build-arg NODEJS_VERSION=12-X --build-arg CONTAINER_NAME=centos-7-6-18-10-nodejs-vscode --build-arg OS_VERSION=$(echo centos-7-6-18-10-nodejs-vscode | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 # dockerコンテナ起動
 ```
-docker run --privileged --shm-size=2gb -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id  --name centos-7-6-18-10-node -itd centos-7-6-18-10-node
+docker run --privileged --shm-size=2gb -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id  --name centos-7-6-18-10-nodejs-vscode -itd centos-7-6-18-10-nodejs-vscode
 ```
 
 # dockerコンテナ潜入
 ```
-docker exec -it centos-7-6-18-10-node /bin/bash
+docker exec -it centos-7-6-18-10-nodejs-vscode /bin/bash
 ```
 
 # dockerコンテナ削除
