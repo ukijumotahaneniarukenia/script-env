@@ -1,48 +1,37 @@
 FROM ubuntu:16.04
 
-RUN apt-get update && \
-apt-get -y upgrade && \
-apt-get install -y vim gcc make && \
-apt-get install -y libffi-dev curl build-essential libssl-dev zlib1g-dev libreadline6-dev
+ARG CONTAINER_NAME
+ARG OS_VERSION
+ARG GIT_VERSION
+ARG PYTHON_VERSION
+ARG POSTGRES_VERSION
 
-#pythonコマンドインストール
-RUN cd /usr/local/src && \
-curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && \
-tar xvf Python-3.7.4.tgz && \
-cd Python-3.7.4 && \
-./configure --enable-shared --with-ensurepip=install && \
-make -j12 && \
-make -j12 install
+ARG DEBIAN_FRONTEND=noninteractive
 
-#ユーザー単位でダイナミックリンクライブラリファイルのフォルダ指定
-RUN echo 'export LD_LIBRARY_PATH=/usr/local/lib' >> ~/.bashrc && . ~/.bashrc
-
-#ライブラリキャッシュファイルの更新
-RUN echo '/usr/local/lib'>>/etc/ld.so.conf.d/local-ld.so.conf
-RUN ldconfig
-
-#postgresコマンドインストール
-RUN cd /usr/local/src && \
-curl -LO https://ftp.postgresql.org/pub/source/v12.0/postgresql-12.0.tar.gz && \
-tar xvf postgresql-12.0.tar.gz && \
-chown -R root:root postgresql-12.0 && \
-cd postgresql-12.0 && \
-./configure --prefix=/usr/local --libdir=/usr/local/lib/postgresql --with-python && \
-make -j12 && \
-make -j12 install
-
-#ユーザー作成
 RUN groupadd -g 1001 postgres && \
 useradd -m -g postgres -u 1001 postgres && \
 echo 'postgres:postgres_pwd' | chpasswd && \
 echo 'postgres ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
-chsh -s /bin/bash postgres
+chsh -s /bin/bash postgres && \
+echo 'root:root_pwd' | chpasswd
 
-RUN echo 'root:root_pwd' | chpasswd
+RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list && \
+apt update && \
+apt upgrade -y
+
+RUN apt install -y git
+RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/script-repo.git
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-tool-pkg.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-system.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-python-$PYTHON_VERSION.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-locale.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-ld.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-postgres-$POSTGRES_VERSION-with-python.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
 
 USER postgres
-
-#ユーザー単位でダイナミックリンクライブラリファイルのフォルダ指定
-RUN echo 'export LD_LIBRARY_PATH=/usr/local/lib' >> ~/.bashrc && . ~/.bashrc
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
 
 WORKDIR /home/postgres
