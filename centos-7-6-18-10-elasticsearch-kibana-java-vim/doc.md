@@ -1,6 +1,6 @@
 # dockerイメージ作成
 ```
-time docker build -t centos-7-6-18-10-elasticsearch-kibana-java-vim --build-arg NNN= --build-arg CONTAINER_NAME=centos-7-6-18-10-elasticsearch-kibana-java-vim --build-arg OS_VERSION=$(echo centos-7-6-18-10-elasticsearch-kibana-java-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build -t centos-7-6-18-10-elasticsearch-kibana-java-vim --build-arg PYTHON_VERSION=3-7-4 --build-arg CONTAINER_NAME=centos-7-6-18-10-elasticsearch-kibana-java-vim --build-arg OS_VERSION=$(echo centos-7-6-18-10-elasticsearch-kibana-java-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 # dockerコンテナ起動

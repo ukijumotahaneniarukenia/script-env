@@ -1,26 +1,8 @@
-# dockerイメージ作成
-
-```
-time docker build -t centos-7-6-18-10-jupyter . | tee log
-```
-
-# dockerコンテナ作成
-
-```
-docker run --privileged --shm-size=8gb -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -v /etc/localtime:/etc/localtime -p 8888:8888 -itd --name centos-7-6-18-10-jupyter centos-7-6-18-10-jupyter
-```
-
-# dockerコンテナ潜入
-
-```
-docker exec --user kuraine -it centos-7-6-18-10-jupyter /bin/bash
-```
-
 # 参考文献
 
-https://qiita.com/taka4sato/items/2c3397ff34c440044978</br>
-https://qiita.com/tand826/items/0c478bf63ead75427782</br>
-https://code-graffiti.com/how-to-use-jupyter-notebook/#toc6</br>
+- https://qiita.com/taka4sato/items/2c3397ff34c440044978</br>
+- https://qiita.com/tand826/items/0c478bf63ead75427782</br>
+- https://code-graffiti.com/how-to-use-jupyter-notebook/#toc6</br>
 
 
 # バージョン確認
@@ -32,7 +14,7 @@ $ pip3 -V
 pip 19.3.1 from /usr/local/lib/python3.7/site-packages/pip (python 3.7)
 ```
 
-# ライブラリインストール 
+# ライブラリインストール
 
 pipコマンド経由で各ライブラリをいんすこ
 
@@ -78,8 +60,8 @@ $ jupyter notebook --port 8888 --ip=0.0.0.0 1>launch_jupyter.log 2>&1 &
 [I 17:09:23.882 NotebookApp] http://eb796c05a8c5:8888/?token=802f5781499bc6449a86b562baa5571ed1d7760ec8f016ce
 [I 17:09:23.882 NotebookApp]  or http://127.0.0.1:8888/?token=802f5781499bc6449a86b562baa5571ed1d7760ec8f016ce
 [I 17:09:23.882 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[C 17:09:23.907 NotebookApp] 
-    
+[C 17:09:23.907 NotebookApp]
+
     To access the notebook, open this file in a browser:
         file:///home/kuraine/.local/share/jupyter/runtime/nbserver-278-open.html
     Or copy and paste one of these URLs:
@@ -105,14 +87,14 @@ Untitled.ipynbがあると前回の作業分から実施できる。
 total 8
 -rw-rw-r--. 1 kuraine kuraine  848  1月  4 17:17 Untitled.ipynb
 -rw-rw-r--. 1 kuraine kuraine 1443  1月  4 17:17 launch_jupyter.log
-[kuraine@eb796c05a8c5 ~]$ 
+[kuraine@eb796c05a8c5 ~]$
 ```
 
 
 ログにはこんな感じででる。
 
 ```
-[I 17:17:20.501 NotebookApp] Creating new notebook in 
+[I 17:17:20.501 NotebookApp] Creating new notebook in
 [I 17:17:20.535 NotebookApp] Writing notebook-signing key to /home/kuraine/.local/share/jupyter/notebook_secret
 [I 17:17:21.102 NotebookApp] Kernel started: 0143cd50-aea8-43df-b248-1ff41696e018
 [I 17:17:34.441 NotebookApp] Saving file at /Untitled.ipynb

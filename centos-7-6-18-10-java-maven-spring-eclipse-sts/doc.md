@@ -1,6 +1,6 @@
 # dockerイメージ作成
 ```
-time docker build -t centos-7-6-18-10-java-maven-spring-eclipse-sts --build-arg NNN= --build-arg CONTAINER_NAME=centos-7-6-18-10-java-maven-spring-eclipse-sts --build-arg OS_VERSION=$(echo centos-7-6-18-10-java-maven-spring-eclipse-sts | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build -t centos-7-6-18-10-java-maven-spring-eclipse-sts --build-arg PYTHON_VERSION=3-7-4 --build-arg GIT_VERSION=2-24-1 --build-arg CONTAINER_NAME=centos-7-6-18-10-java-maven-spring-eclipse-sts --build-arg OS_VERSION=$(echo centos-7-6-18-10-java-maven-spring-eclipse-sts | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 # dockerコンテナ起動

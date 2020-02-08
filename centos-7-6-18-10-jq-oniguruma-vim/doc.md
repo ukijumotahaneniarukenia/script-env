@@ -1,6 +1,6 @@
 # dockerイメージ作成
 ```
-time docker build -t centos-7-6-18-10-jq-oniguruma-vim --build-arg NNN= --build-arg CONTAINER_NAME=centos-7-6-18-10-jq-oniguruma-vim --build-arg OS_VERSION=$(echo centos-7-6-18-10-jq-oniguruma-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build -t centos-7-6-18-10-jq-oniguruma-vim --build-arg JQ_VERSION=1.6 --build-arg CONTAINER_NAME=centos-7-6-18-10-jq-oniguruma-vim --build-arg OS_VERSION=$(echo centos-7-6-18-10-jq-oniguruma-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 # dockerコンテナ起動

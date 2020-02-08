@@ -1,6 +1,6 @@
 # dockerイメージ作成
 ```
-time docker build -t ubuntu-19-10-tex --build-arg NNN= --build-arg CONTAINER_NAME=ubuntu-19-10-tex --build-arg OS_VERSION=$(echo ubuntu-19-10-tex | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build -t ubuntu-19-10-tex --build-arg PYTHON_VERSION=3-7-4 --build-arg GIT_VERSION=2-24-1 --build-arg CONTAINER_NAME=ubuntu-19-10-tex --build-arg OS_VERSION=$(echo ubuntu-19-10-tex | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 # dockerコンテナ起動
