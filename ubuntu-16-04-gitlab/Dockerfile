@@ -1,20 +1,37 @@
 FROM gitlab/gitlab-ce:latest
 
-#レポジトリを日本サーバーの一つに変更
-RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list
+ARG CONTAINER_NAME
+ARG OS_VERSION
+ARG GIT_VERSION
+ARG PYTHON_VERSION
 
-#対話入力無視
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN apt update && apt upgrade -y
+#RUN groupadd -g 1001 gitlab && \
+#useradd -m -g gitlab -u 1001 gitlab && \
+#echo 'gitlab:gitlab_pwd' | chpasswd && \
+#echo 'gitlab ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
+#chsh -s /bin/bash gitlab && \
+#echo 'root:root_pwd' | chpasswd
 
-RUN apt install -y systemd apt-utils
+RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list && \
+apt update && \
+apt upgrade -y
 
-#タイムゾーンの設定（この設定は最初にもってくる。対話入力避けるため。）
-RUN apt install -y tzdata && ln -fsr /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
-#日本語環境
-RUN apt install -y locales && locale-gen ja_JP.UTF-8 && echo 'export LANG=ja_JP.UTF-8' >> /etc/profile.d/99-locale-ja.sh
-ENV LANG=ja_JP.UTF-8
+RUN apt install -y git
+RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/script-repo.git
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-tool-pkg.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-system.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-locale.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-ld.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
+
+#USER gitlab
+#RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | bash
+#RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
+#
+#WORKDIR /home/gitlab
 
 #gitlab環境変数の設定
 ENV GITLAB_OMNIBUS_CONFIG="external_url 'http://localhost:9010';gitlab_rails['gitlab_shell_ssh_port'] = 2022;"
