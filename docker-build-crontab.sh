@@ -22,9 +22,6 @@ nonretry-pre-process(){
     [ -z "$RT" ] && printf "sed -i 's;BUILD_ARG;%s;' %s\n" "$(echo "grep build-arg ~/script-env/env.md" | sort | uniq | sh)" ~/script-env/$tgt/doc.md | sh
     [ -z "$RT" ] || printf "sed -i 's;BUILD_ARG;%s;' %s\n" "$(echo "grep build-arg ~/script-env/$tgt/env.md" | sort | uniq | sh 2>/dev/null)" ~/script-env/$tgt/doc.md | sh
   done < <(ls -l ~/script-env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log)
-
-  #pkg-list配備
-  ls -l ~/script-env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log | xargs -I@ echo touch ~/script_repo/@.sh | sh
 }
 
 retry-pre-process(){
