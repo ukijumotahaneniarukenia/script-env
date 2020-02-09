@@ -3,6 +3,7 @@ FROM centos:7.6.1810
 ARG CONTAINER_NAME
 ARG OS_VERSION
 ARG GIT_VERSION
+ARG GRON_VERSION
 
 RUN groupadd -g 1001 apache && \
 useradd -m -g apache -u 1001 apache && \
@@ -20,6 +21,7 @@ RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | ba
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-tool-pkg.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-dev-pkg.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-apache-httpd.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-gron-$GRON_VERSION.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-locale.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
 ENV LANG=ja_JP.UTF-8
