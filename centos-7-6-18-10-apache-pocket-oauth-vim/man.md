@@ -93,6 +93,8 @@ access_token=9f03752d-2133-f72d-312d-869305&username=mrchildrenkh1008%40gmail.co
 
 Step5のアクセストークンを引数に渡してポケットAPIの規約に従い、コマンドを実行。
 
+dockerコンテナ側からでも行ける。dockerホストがプロキシサーバーとして振舞っているから。
+
 以下の例は全件fetch
 ```
 curl -X POST -F "consumer_key=89770-372ba6d8a571aa0ecc82d71a" -F "access_token=9f03752d-2133-f72d-312d-869305" https://getpocket.com/v3/get
