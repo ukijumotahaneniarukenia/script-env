@@ -98,6 +98,16 @@ access_token=9f03752d-2133-f72d-312d-869305&username=mrchildrenkh1008%40gmail.co
 
 # Step 6: Make authenticated requests to Pocket
 
+取得
+- https://getpocket.com/developer/docs/v3/retrieve
+
+追加
+- https://getpocket.com/developer/docs/v3/add
+
+更新・削除
+- https://getpocket.com/developer/docs/v3/modify
+
+
 Step5のアクセストークンを引数に渡してポケットAPIの規約に従い、コマンドを実行。
 
 dockerコンテナ側から実行
