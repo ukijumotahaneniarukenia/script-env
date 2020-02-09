@@ -100,15 +100,23 @@ access_token=9f03752d-2133-f72d-312d-869305&username=mrchildrenkh1008%40gmail.co
 
 Step5のアクセストークンを引数に渡してポケットAPIの規約に従い、コマンドを実行。
 
-dockerコンテナ側からでも行ける。dockerホストがプロキシサーバーとして振舞っているから。
+dockerコンテナ側から実行
+
+dockerホストがプロキシサーバーとして振舞っているから
 
 以下の例は全件fetch
 ```
 curl -X POST -F "consumer_key=89770-372ba6d8a571aa0ecc82d71a" -F "access_token=9f03752d-2133-f72d-312d-869305" https://getpocket.com/v3/get
 ```
 
+3MBくらいあるんだ。。
+```
+apache@a5861ea7d7b3 ~$ll -lh a
+-rw-rw-r--. 1 apache apache 3.1M  2月  9 13:19 a
+```
+
 # Step 99:取得結果を保存し、アプリケーションを削除
 
-以下のURLからStep1で作成したアプリケーションを削除しておく。
+以下のURLからStep1で作成したアプリケーションを削除しておく
 
 - https://getpocket.com/developer/apps/
