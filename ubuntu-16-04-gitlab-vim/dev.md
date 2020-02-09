@@ -1,3 +1,17 @@
+- デフォルトのユーザー
+```
+root@b4207bf41547:/# cat /etc/passwd | grep git
+git:x:998:998::/var/opt/gitlab:/bin/sh
+gitlab-www:x:999:999::/var/opt/gitlab/nginx:/bin/false
+gitlab-redis:x:997:997::/var/opt/gitlab/redis:/bin/false
+gitlab-psql:x:996:996::/var/opt/gitlab/postgresql:/bin/sh
+mattermost:x:994:994::/var/opt/gitlab/mattermost:/bin/sh
+registry:x:993:993::/var/opt/gitlab/registry:/bin/sh
+gitlab-prometheus:x:992:992::/var/opt/gitlab/prometheus:/bin/sh
+gitlab-consul:x:991:991::/var/opt/gitlab/consul:/bin/sh
+```
+
+
 使いやすいので、もうちょういあしたねばる
 
 - https://www.google.co.jp/amp/s/marunouchi-tech.i-studio.co.jp/3715/%3famp=1
