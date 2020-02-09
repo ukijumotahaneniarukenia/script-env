@@ -7,26 +7,25 @@ ARG PYTHON_VERSION
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN groupadd -g 1001 gitlab && \
-useradd -m -g gitlab -u 1001 gitlab && \
-echo 'gitlab:gitlab_pwd' | chpasswd && \
-echo 'gitlab ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
-chsh -s /bin/bash gitlab && \
-echo 'root:root_pwd' | chpasswd
+#RUN groupadd -g 1001 gitlab && \
+#useradd -m -g gitlab -u 1001 gitlab && \
+#echo 'gitlab:gitlab_pwd' | chpasswd && \
+#echo 'gitlab ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
+#chsh -s /bin/bash gitlab && \
+#echo 'root:root_pwd' | chpasswd
 
 RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list && \
 apt update && \
 apt upgrade -y
 
 RUN apt install -y git
+RUN echo u
 RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/script-repo.git
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-tool-pkg.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-dev-pkg.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-python-$PYTHON_VERSION.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-system.sh | bash
+#RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-locale.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-ld.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-system.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
 
 #USER gitlab

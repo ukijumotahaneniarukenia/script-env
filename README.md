@@ -1,3 +1,12 @@
+# TODO
+
+- DockerfileにEXPOSEがあってenv.mdにEXPOSEの記載がないものにたいするパッチ
+
+# 機械学習とフォルダ構成
+
+
+- https://upura.hatenablog.com/entry/2018/12/28/225234
+
 # 悩み
 
 - バージョンをフォルダ名に出すかとまどい
