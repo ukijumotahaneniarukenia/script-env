@@ -24,7 +24,7 @@ Create an Application
 |Permissions-Add|check|
 |Permissions-Modify|check|
 |Permissions-Retreive|check|
-|Platforms-Desktop(other)|check|
+|Platforms-Web|check|
 
 最後にチェック
 I accept the Terms of Service.
