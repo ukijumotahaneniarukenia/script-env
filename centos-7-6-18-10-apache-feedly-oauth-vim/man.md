@@ -2,6 +2,8 @@
 
 - https://qiita.com/kawaz/items/5f03dde3c219bdbffc3b
 
+- https://developer.feedly.com/v3/auth/
+
 
 # Step 0:ローカルホストでHTTPサーバたてる
 
@@ -51,6 +53,9 @@ access_token->ACCESS_TOKEN
 ```
 
 # Step 3: FeedlyのAPI規約に従い、いろいろ取得
+
+
+- https://developer.feedly.com/v3/
 
 ACCESS_TOKENはStep2で取得した値で置換
 
