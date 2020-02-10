@@ -34,6 +34,8 @@ Todoリストを生成する。
 
 - DockerfileにEXPOSEがあってenv.mdにEXPOSEの記載がないものにたいするパッチ
 
+- DockerfileにARGがあってenv.mdにEXPOSEの記載がないものに対するパッチ
+
 - 以下のレポジトリ構成にする。
 
 script-sketchとscript-scratchの中身は入れ替え。
