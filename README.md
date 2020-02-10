@@ -27,7 +27,34 @@ Todoリストを生成する。
 
 - DockerfileにEXPOSEがあってenv.mdにEXPOSEの記載がないものにたいするパッチ
 
+- 以下のレポジトリ構成にする。
 
+script-sketchとscript-scratchの中身は入れ替え。
+
+
+  - script-ref
+
+    - 定周期参考文献分配分類ジョブで配布する。元ネタ。
+    - 単一ファイルのみ格納。
+    - ファイルサイズが閾値10gb超えたらファイル分割する。splitコマンド使える。確かあった。bashに。
+
+  - script-sketch
+    
+    - プログラム単位にディレクトリを切って運用する。
+
+  - script-scratch
+
+    - script-env単位にディレクトリを切って、
+      運用する。
+
+  - script-env
+
+    - os名-バージョン-アプリないしソフト名とそのバージョン単一ないし複数-エディタ単一
+    - エディタデフォルトはvim
+
+  - script-repo
+
+    - プログラムのインストーラーシェル
 
 - 全文検索サーバ
   - grooo
