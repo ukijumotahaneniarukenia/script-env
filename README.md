@@ -11,7 +11,7 @@
   - fess
   - https://fess.codelibs.org/ja/
 
-
+  - https://qiita.com/Takumon/items/993609a4fc0fbb70c903
 
 
 # 機械学習とフォルダ構成
