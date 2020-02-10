@@ -1,3 +1,3 @@
-10 01 * * * /home/aine/script_env/docker-build-crontab.sh
+28 01 * * * /home/aine/script-env/docker-build-crontab-non-retry.sh
 
-10 12 * * * /home/aine/script_env/docker-build-crontab.sh 2
+#10 23 * * * /home/aine/script-env/docker-build-crontab-retry.sh 2
