@@ -2,6 +2,13 @@
 
 - DockerfileにEXPOSEがあってenv.mdにEXPOSEの記載がないものにたいするパッチ
 
+- 全文検索サーバ
+  - grooo
+  - http://blog.createfield.com/entry/2014/04/21/120023
+
+
+
+
 # 機械学習とフォルダ構成
 
 
