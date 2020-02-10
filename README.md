@@ -37,7 +37,7 @@ Todoリストを生成する。
 
 - DockerfileにEXPOSEがあってenv.mdにEXPOSEの記載がないものにたいするパッチ
 
-- DockerfileにARGがあってenv.mdにEXPOSEの記載がないものに対するパッチ
+- DockerfileにARGがあってenv.mdにARGの記載がないものに対するパッチ
 
 - 以下のレポジトリ構成にする。
 
