@@ -1,6 +1,21 @@
 # dockerイメージ作成
+
+- キャッシュ有効-バッググラウンド実行
+
+```
+time docker build -t XXX BUILD_ARG --build-arg CONTAINER_NAME=XXX --build-arg OS_VERSION=$(echo XXX | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . 1>~/script-env/XXX/log 2>&1 &
+```
+
+- キャッシュ有効-フォアグラウンド実行
+
 ```
 time docker build -t XXX BUILD_ARG --build-arg CONTAINER_NAME=XXX --build-arg OS_VERSION=$(echo XXX | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+```
+
+- キャッシュ無効
+
+```
+time docker build --no-cache -t XXX BUILD_ARG --build-arg CONTAINER_NAME=XXX --build-arg OS_VERSION=$(echo XXX | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 # dockerコンテナ起動

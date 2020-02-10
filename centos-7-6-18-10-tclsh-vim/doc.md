@@ -1,6 +1,21 @@
 # dockerイメージ作成
+
+- キャッシュ有効-バッググラウンド実行
+
+```
+time docker build -t centos-7-6-18-10-tclsh-vim --build-arg PYTHON_VERSION=3-7-4 --build-arg GIT_VERSION=2-24-1 --build-arg TCLSH_VERSION=8-6-10 --build-arg CONTAINER_NAME=centos-7-6-18-10-tclsh-vim --build-arg OS_VERSION=$(echo centos-7-6-18-10-tclsh-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . 1>~/script-env/centos-7-6-18-10-tclsh-vim/log 2>&1 &
+```
+
+- キャッシュ有効-フォアグラウンド実行
+
 ```
 time docker build -t centos-7-6-18-10-tclsh-vim --build-arg PYTHON_VERSION=3-7-4 --build-arg GIT_VERSION=2-24-1 --build-arg TCLSH_VERSION=8-6-10 --build-arg CONTAINER_NAME=centos-7-6-18-10-tclsh-vim --build-arg OS_VERSION=$(echo centos-7-6-18-10-tclsh-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+```
+
+- キャッシュ無効
+
+```
+time docker build --no-cache -t centos-7-6-18-10-tclsh-vim --build-arg PYTHON_VERSION=3-7-4 --build-arg GIT_VERSION=2-24-1 --build-arg TCLSH_VERSION=8-6-10 --build-arg CONTAINER_NAME=centos-7-6-18-10-tclsh-vim --build-arg OS_VERSION=$(echo centos-7-6-18-10-tclsh-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 # dockerコンテナ起動
