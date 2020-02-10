@@ -82,12 +82,11 @@ script-sketchとscript-scratchの中身は入れ替え。
     - 上記レポジトリ全てを全文検索できるようにする。
 
     - Web化できるようにする。
-
-　　　　- 全文検索サーバgroo
-　　　　  - http://blog.createfield.com/entry/2014/04/21/120023
-       - 全文検索サーバfess
-         - https://fess.codelibs.org/ja/
-         - https://qiita.com/Takumon/items/993609a4fc0fbb70c903
+      - 全文検索サーバgroo
+        - http://blog.createfield.com/entry/2014/04/21/120023
+      - 全文検索サーバfess
+        - https://fess.codelibs.org/ja/
+        - https://qiita.com/Takumon/items/993609a4fc0fbb70c903
 
 # 機械学習とフォルダ構成
 
