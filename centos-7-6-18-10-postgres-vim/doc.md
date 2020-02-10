@@ -3,7 +3,7 @@
 - キャッシュ有効-バッググラウンド実行
 
 ```
-time docker build -t centos-7-6-18-10-postgres-vim --build-arg PYTHON_VERSION=3-7-4 --build-arg GIT_VERSION=2-24-1 --build-arg POSTGRES_VERSION=12.0 --build-arg CONTAINER_NAME=centos-7-6-18-10-postgres-vim --build-arg OS_VERSION=$(echo centos-7-6-18-10-postgres-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . 1>~/script-env/centos-7-6-18-10-postgres-vim/log 2>&1 &
+time docker build -t centos-7-6-18-10-postgres-vim --build-arg PYTHON_VERSION=3-7-4 --build-arg GIT_VERSION=2-24-1 --build-arg POSTGRES_VERSION=12.0 --build-arg CONTAINER_NAME=centos-7-6-18-10-postgres-vim --build-arg OS_VERSION=$(echo centos-7-6-18-10-postgres-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . UNKO
 ```
 
 - キャッシュ有効-フォアグラウンド実行

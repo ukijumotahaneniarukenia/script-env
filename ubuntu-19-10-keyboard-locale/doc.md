@@ -3,7 +3,7 @@
 - キャッシュ有効-バッググラウンド実行
 
 ```
-time docker build -t ubuntu-19-10-keyboard-locale --build-arg PYTHON_VERSION=3-7-4 --build-arg GIT_VERSION=2-24-1 --build-arg CONTAINER_NAME=ubuntu-19-10-keyboard-locale --build-arg OS_VERSION=$(echo ubuntu-19-10-keyboard-locale | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . 1>~/script-env/ubuntu-19-10-keyboard-locale/log 2>&1 &
+time docker build -t ubuntu-19-10-keyboard-locale --build-arg PYTHON_VERSION=3-7-4 --build-arg GIT_VERSION=2-24-1 --build-arg CONTAINER_NAME=ubuntu-19-10-keyboard-locale --build-arg OS_VERSION=$(echo ubuntu-19-10-keyboard-locale | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . UNKO
 ```
 
 - キャッシュ有効-フォアグラウンド実行

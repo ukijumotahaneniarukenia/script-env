@@ -3,7 +3,7 @@
 - キャッシュ有効-バッググラウンド実行
 
 ```
-time docker build -t centos-7-6-18-10-racket-drracket --build-arg PYTHON_VERSION=3-7-4 --build-arg GIT_VERSION=2-24-1 --build-arg RACKET_VERSION=7-5 --build-arg CONTAINER_NAME=centos-7-6-18-10-racket-drracket --build-arg OS_VERSION=$(echo centos-7-6-18-10-racket-drracket | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . 1>~/script-env/centos-7-6-18-10-racket-drracket/log 2>&1 &
+time docker build -t centos-7-6-18-10-racket-drracket --build-arg PYTHON_VERSION=3-7-4 --build-arg GIT_VERSION=2-24-1 --build-arg RACKET_VERSION=7-5 --build-arg CONTAINER_NAME=centos-7-6-18-10-racket-drracket --build-arg OS_VERSION=$(echo centos-7-6-18-10-racket-drracket | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . UNKO
 ```
 
 - キャッシュ有効-フォアグラウンド実行
