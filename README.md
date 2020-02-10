@@ -63,16 +63,18 @@ script-sketchとscript-scratchの中身は入れ替え。
 
     - プログラムのインストーラーシェル
 
-- 全文検索サーバ
-  - grooo
-  - http://blog.createfield.com/entry/2014/04/21/120023
+  - script-search
 
-- 全文検索サーバ
+    - 上記レポジトリ全てを全文検索できるようにする。
 
-  - fess
-  - https://fess.codelibs.org/ja/
+    - Web化できるようにする。
 
-  - https://qiita.com/Takumon/items/993609a4fc0fbb70c903
+　　- 全文検索サーバ
+　　  - grooo
+　　　  - http://blog.createfield.com/entry/2014/04/21/120023
+     - fess
+       - https://fess.codelibs.org/ja/
+　　　  - https://qiita.com/Takumon/items/993609a4fc0fbb70c903
 
 
 # 機械学習とフォルダ構成
