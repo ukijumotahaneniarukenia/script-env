@@ -55,6 +55,8 @@ script-sketchとscript-scratchの中身は入れ替え。
 
       - 5桁ゼロうめ連番-プログラム名-用途名
 
+    - 作成したディレクトリ内にフォルダ
+
   - script-scratch
 
     - script-env単位にディレクトリを切って、
