@@ -19,8 +19,8 @@ Todoリストを生成する。
 ていしゅうきで各ディレクトリに分配分類する。
 各ディレクトリに参考文献用の単一ファイルを用意する。
 そのファイルに書き込む。
-スクラッチ開始するとき、その参考文献一行を切り取り
-各作業ディレクトリスクラッチ始める。
+スクラッチ開始するとき、分配分類されたref.mdから
+参考文献をコピーして各作業ディレクトリでスクラッチ始める。
 
 # TODO
 
@@ -57,7 +57,11 @@ script-sketchとscript-scratchの中身は入れ替え。
 
       - 5桁ゼロうめ連番-プログラム名-用途名
 
-    - 作成したディレクトリ内にフォルダ
+    - 作成したディレクトリ内にフォルダに以下のディレクトリを作成
+
+      - lib
+      - cfg
+      - 
 
   - script-scratch
 
@@ -79,16 +83,13 @@ script-sketchとscript-scratchの中身は入れ替え。
 
     - Web化できるようにする。
 
-　　　　- 全文検索サーバ
-　　　　　　- grooo
-　　　       - http://blog.createfield.com/entry/2014/04/21/120023
-          - fess
-            - https://fess.codelibs.org/ja/
-　　　　　　  - https://qiita.com/Takumon/items/993609a4fc0fbb70c903
-
+　　　　- 全文検索サーバgroo
+　　　　  - http://blog.createfield.com/entry/2014/04/21/120023
+       - 全文検索サーバfess
+         - https://fess.codelibs.org/ja/
+         - https://qiita.com/Takumon/items/993609a4fc0fbb70c903
 
 # 機械学習とフォルダ構成
-
 
 - https://upura.hatenablog.com/entry/2018/12/28/225234
 
