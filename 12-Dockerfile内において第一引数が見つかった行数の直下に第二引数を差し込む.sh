@@ -5,13 +5,16 @@
 #$./c.sh 'ARG OS_VERSION' 'ARG GIT_VERSION'
 
 TGT_WORD="$1"
-AHEAD_WORD="$2"
+EMBEDED_WORD="$2"
+
+[ -z $TGT_WORD ] && exit 1
+[ -z $EMBEDED_WORD ] && exit 1
 
 while read tgt;do
 
   TGT_FILE=$(echo $tgt | tr ':' '\n' | sed -n '1p')
   TGT_ROWN=$(echo $tgt | tr ':' '\n' | sed -n '2p')
 
-  printf "sed -i \x27%si%s\x27 %s\n" "$(($TGT_ROWN+1))" "$AHEAD_WORD" "$TGT_FILE"
+  printf "sed -i \x27%si%s\x27 %s\n" "$(($TGT_ROWN+1))" "$EMBEDED_WORD" "$TGT_FILE"
 
 done < <(grep -n -P "$TGT_WORD" -r . | grep -P 'Dockerfile')
