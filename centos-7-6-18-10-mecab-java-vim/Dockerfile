@@ -26,8 +26,9 @@ RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-jdk-$JAVA_VERSIO
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-mecab-$MECAB_VERSION.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-mecab-ipadic-$MECAB_IPADIC_VERSION.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-locale.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-mecab-java-$MECAB_VERSION.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-ld.sh | bash
 ENV LANG=ja_JP.UTF-8
 
 USER kuraine
