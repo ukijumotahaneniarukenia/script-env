@@ -2,6 +2,7 @@ FROM centos:7.6.1810
 
 ARG CONTAINER_NAME
 ARG OS_VERSION
+ARG JAVA_VERSION
 ARG MECAB_VERSION
 ARG MECAB_IPADIC_VERSION
 
@@ -21,6 +22,7 @@ RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | ba
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-dotfile.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-tool-pkg.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-dev-pkg.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-jdk-$JAVA_VERSION.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-mecab-$MECAB_VERSION.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-mecab-ipadic-$MECAB_IPADIC_VERSION.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-locale.sh | bash
