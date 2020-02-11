@@ -25,6 +25,7 @@ RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-repository-pkg.s
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-network-pkg.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-system.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-dotfile.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-tool-pkg.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-dev-pkg.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-python-$PYTHON_VERSION.sh | bash
@@ -42,9 +43,11 @@ RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-elasticsearch-7-
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-kibana-7-5-1.sh | bash
 
 USER kibana
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-dotfile.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
 
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-dotfile.sh | bash
 USER elasticsearch
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash

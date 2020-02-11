@@ -7,8 +7,8 @@
 TGT_WORD="$1"
 EMBEDED_WORD="$2"
 
-[ -z $TGT_WORD ] && exit 1
-[ -z $EMBEDED_WORD ] && exit 1
+[ -z "$TGT_WORD" ] && exit 1
+[ -z "$EMBEDED_WORD" ] && exit 1
 
 while read tgt;do
 
@@ -17,4 +17,4 @@ while read tgt;do
 
   printf "sed -i \x27%si%s\x27 %s\n" "$(($TGT_ROWN+1))" "$EMBEDED_WORD" "$TGT_FILE"
 
-done < <(grep -n -P "$TGT_WORD" -r . | grep -P 'Dockerfile')
+done < <(grep -n -P "$TGT_WORD" -r $HOME/script-env | grep -P 'Dockerfile')

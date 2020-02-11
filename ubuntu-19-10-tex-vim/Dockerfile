@@ -23,12 +23,14 @@ RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/sc
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-tool-pkg.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-system.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-dotfile.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-tex.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-locale.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
 
 USER kuraine
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-dotfile.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
 

@@ -18,6 +18,7 @@ RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-repository-pkg.s
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-network-pkg.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-system.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-dotfile.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-tool-pkg.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-dev-pkg.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-python-$PYTHON_VERSION.sh | bash
@@ -36,6 +37,7 @@ RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-pycharm-2019-3-1
 ENV DISPLAY=:0.0
 
 USER kuraine
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-dotfile.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-font.sh | bash

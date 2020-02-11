@@ -25,11 +25,13 @@ RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-dev-pkg.sh | bas
 #RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-python-$PYTHON_VERSION.sh | bash
 #RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-system.sh | bash
 #RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-dotfile.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-locale.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
 
 USER gitlab
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-dotfile.sh | bash
 #RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
 
