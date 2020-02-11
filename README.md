@@ -74,20 +74,6 @@
 
 - https://rcmdnk.com/blog/2015/07/03/computer-linux/
 
-# Apache sole
-全文検索エンジン
-
-バックアップとリストアできる。
-
-- https://www.slideshare.net/mobile/techblogyahoo/apache-solr-62053171
-
-- https://academy.gmocloud.com/know/20160106/1509
-
-- https://qiita.com/n_slender/items/eb629cfbc53d38eac2f1
-
-- https://qiita.com/reflet/items/add376c6046b4e7048cf
-
-- https://qiita.com/n_slender/items/93216bae005ac96b75c4
 
 # 参考文献
 docker install
@@ -174,7 +160,6 @@ Branch master set up to track remote branch master from origin.
 
 ```
 
-
 # doc.md
 
 - dockerコンテナ操作を記載
@@ -186,6 +171,10 @@ Branch master set up to track remote branch master from origin.
 # env.md
 
 - コンテナ個別の環境を記載
+
+# trs.md
+
+- 環境構築の際のトラブルシュートを記載
 
 # ref.md
 
