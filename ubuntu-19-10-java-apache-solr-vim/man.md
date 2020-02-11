@@ -1,21 +1,14 @@
-# go言語のデータベースある
+# Apache solr
+  - 全文検索エンジン
 
-- https://godoc.org/modernc.org/ql
+  - バックアップとリストアできる。
 
-# 参考文献
+  - https://www.slideshare.net/mobile/techblogyahoo/apache-solr-62053171
 
-- https://github.com/astaxie/build-web-application-with-golang/blob/master/ja/preface.md
+  - https://academy.gmocloud.com/know/20160106/1509
 
+  - https://qiita.com/n_slender/items/eb629cfbc53d38eac2f1
 
-# go tool
+  - https://qiita.com/reflet/items/add376c6046b4e7048cf
 
-- https://mattn.kaoriya.net/software/lang/go/20120216093718.htm
-
-# 開発環境
-
-- https://qiita.com/masakurapa/items/fb61b5fc07393059fb28
-
-
-# トラシュー
-
-- https://qiita.com/mumoshu/items/0d2f2a13c6e9fc8da2a4
+  - https://qiita.com/n_slender/items/93216bae005ac96b75c4
