@@ -1,6 +1,6 @@
 #!/bin/bash
 
-./03-deploy.sh
+bash 03-doc.mdの各環境ディレクトリへの配備.sh
 
 RETRY_ROUND="$@"
 
