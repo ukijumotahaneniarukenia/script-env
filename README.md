@@ -67,6 +67,9 @@
       - 全文検索サーバfess
         - https://fess.codelibs.org/ja/
         - https://qiita.com/Takumon/items/993609a4fc0fbb70c903
+      - 全文検索サーバ
+        - 
+
 
 # 機械学習とフォルダ構成
 
