@@ -21,3 +21,6 @@
 
 - グリッドレイアウトこれがいいかなー。簡単そう。
   - https://coliss.com/articles/build-websites/operation/javascript/magic-grid-for-dynamic-grid.html
+
+- nuxt.jsでできるそう。グリッドレイアウト。
+  - https://yoshinorin.net/2019/07/20/nuxt-js-photo-gallery-by-vue-magic-grid/
