@@ -60,7 +60,7 @@ npm install --save nuxt
 ```
 
 テストページ作成
-a``
+```
 cat <<EOS>pages/index.vue
 <template>
   <h1>Hello world!</h1>
