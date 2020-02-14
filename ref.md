@@ -24,3 +24,6 @@
 
 - nuxt.jsでできるそう。グリッドレイアウト。
   - https://yoshinorin.net/2019/07/20/nuxt-js-photo-gallery-by-vue-magic-grid/
+
+- nuxt.jsインストール
+  - https://ja.nuxtjs.org/guide/installation
