@@ -42,3 +42,6 @@
 
 - nuxt.jsでのpost実装例 nuxt.js axios apiでぐぐる
   - https://qiita.com/cortyuming/items/3257ccc7936acf1a7989
+
+- nuxt.jsでのmvc感出てる
+  - https://noumenon-th.net/programming/2019/07/15/axios-module/
