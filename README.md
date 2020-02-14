@@ -159,8 +159,6 @@ Branch master set up to track remote branch master from origin.
 
 - 参考文献を記載
 
-- 参考文献定周期分配分類ジョブで書き込むファイル。
-
 # man.md
 
 - 上記マークダウンファイル以外に該当する内容を記載
