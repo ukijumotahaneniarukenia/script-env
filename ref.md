@@ -33,3 +33,6 @@
 
 - ブログテンプーレトあった
   - https://ulab.hatenablog.com/entry/20191006/1570336147
+
+- axiosの使い方。mvc的な機能分割を提供してくれるプラグイン。
+  - https://public-constructor.com/nuxtjs-with-axios/
