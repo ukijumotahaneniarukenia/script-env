@@ -57,10 +57,6 @@
 
 # 機械学習とフォルダ構成
 
-- https://upura.hatenablog.com/entry/2018/12/28/225234
-
-- https://rcmdnk.com/blog/2015/07/03/computer-linux/
-
 
 # 参考文献
 docker install
