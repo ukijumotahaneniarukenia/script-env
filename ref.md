@@ -39,3 +39,6 @@
 
 - nuxtフレームワークでのaxiosライブラリを使用したコンパクトなアプリ
   - https://qiita.com/mgr/items/f2193fd21765be1d34c2
+
+- nuxt.jsでのpost実装例
+  - https://qiita.com/cortyuming/items/3257ccc7936acf1a7989
