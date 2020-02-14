@@ -27,3 +27,7 @@
 
 - nuxt.jsインストール
   - https://ja.nuxtjs.org/guide/installation
+
+- magic-gridは単一ファイルに収まりそう
+  - https://on-ze.com/archives/7644
+
