@@ -18,3 +18,6 @@
 
 - 分かち書きpythonによる使用例
   - http://testpy.hatenablog.com/entry/2016/10/04/010000
+
+- グリッドレイアウトこれがいいかなー。簡単そう。
+  - https://coliss.com/articles/build-websites/operation/javascript/magic-grid-for-dynamic-grid.html
