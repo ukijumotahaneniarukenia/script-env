@@ -15,3 +15,6 @@
 
 - apache spark環境似てる。フローが参考になる。
   - http://www.intellilink.co.jp/article/column/bigdata-kk04.html
+
+- 分かち書きpythonによる使用例
+  - http://testpy.hatenablog.com/entry/2016/10/04/010000
