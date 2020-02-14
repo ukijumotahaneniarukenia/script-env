@@ -1,10 +1,4 @@
-# IDEA
 
-- 言語別トークナイズ管理マスタ groonga
-
-- apache spark環境似てる
-  - フローが参考になる。
-  - http://www.intellilink.co.jp/article/column/bigdata-kk04.html
 
 # TODO
 
