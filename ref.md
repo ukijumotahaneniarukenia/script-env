@@ -36,3 +36,6 @@
 
 - axiosの使い方。mvc的な機能分割を提供してくれるプラグイン。
   - https://public-constructor.com/nuxtjs-with-axios/
+
+- nuxtフレームワークでのaxiosライブラリを使用したコンパクトなアプリ
+  - https://qiita.com/mgr/items/f2193fd21765be1d34c2
