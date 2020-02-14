@@ -4,3 +4,8 @@
 
 ソケットエラー関連
 - https://rcmdnk.com/blog/2015/07/03/computer-linux/
+
+
+データベースクライアントツール
+ベンダー問わないのが対応範囲が広いのがすごい。
+- https://qiita.com/Ryooota/items/755e249f5241d2c964e6
