@@ -54,10 +54,6 @@
         - https://mroonga.org/ja/docs/install.html
 
 
-
-# 機械学習とフォルダ構成
-
-
 # 参考文献
 docker install
 [インストール手順公式HP](https://docs.docker.com/install/linux/docker-ce/centos/)
