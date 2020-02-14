@@ -2,6 +2,10 @@
 
 # TODO
 
+- マイリーダー用にjsonファイルからマークダウンファイルに変換するコマンド必要なので、
+スクラッチから作る。
+  - https://gist.github.com/mignonstyle/083c9e1651d7734f84c99b8cf49d57fa
+
 - 検索スピード上げるツール
   - https://qiita.com/youwht/items/7f5686a30eed16864954
 
