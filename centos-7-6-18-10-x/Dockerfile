@@ -8,15 +8,15 @@ RUN yum install -y java firefox
 #Xwindowシステムパッケージいんすこ
 RUN yum groupinstall -y base "X Window System" --setopt=group_package_types=mandatory,default,optional
 
-#echo "export GTK_IM_MODULE=ibus" >> ~/.bashrc && \
-#echo "export XMODIFIERS=@im=ibus" >> ~/.bashrc && \
-#echo "export QT_IM_MODULE=ibus" >> ~/.bashrc && \
-#echo "export DefalutIMModule=ibus" >> ~/.bashrc && \
-#echo "export NO_AT_BRIDGE=1" >> ~/.bashrc && \
-#echo "xset -r 49" >> ~/.bashrc && \
-#echo "ibus-daemon -rxd" >> ~/.bashrc && \
-#echo "xrdb ~/.Xresources" >> ~/.bashrc && \
-#echo "alias idea=\"~/idea-IC-192.6817.14/bin/idea.sh >~/launch_idea_log 2>&1 &\"" >> ~/.bashrc
+#echo "export GTK_IM_MODULE=ibus" >> $HOME/.bashrc && \
+#echo "export XMODIFIERS=@im=ibus" >> $HOME/.bashrc && \
+#echo "export QT_IM_MODULE=ibus" >> $HOME/.bashrc && \
+#echo "export DefalutIMModule=ibus" >> $HOME/.bashrc && \
+#echo "export NO_AT_BRIDGE=1" >> $HOME/.bashrc && \
+#echo "xset -r 49" >> $HOME/.bashrc && \
+#echo "ibus-daemon -rxd" >> $HOME/.bashrc && \
+#echo "xrdb $HOME/.Xresources" >> $HOME/.bashrc && \
+#echo "alias idea=\"$HOME/idea-IC-192.6817.14/bin/idea.sh >$HOME/launch_idea_log 2>&1 &\"" >> $HOME/.bashrc
 
 RUN yum install -y ibus-mozc
 

@@ -18,8 +18,8 @@ RUN yum install -y fcitx ibus
 COPY sqldeveloper-19.2.1.247.2212.noarch.rpm /root/sqldeveloper-19.2.1.247.2212.noarch.rpm
 #https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
 COPY jdk-8u231-linux-x64.rpm /root/jdk-8u231-linux-x64.rpm
-RUN cd ~ && rpm -ivh jdk-8u231-linux-x64.rpm
-RUN cd ~ && rpm -ivh sqldeveloper-19.2.1.247.2212.noarch.rpm
+RUN cd $HOME && rpm -ivh jdk-8u231-linux-x64.rpm
+RUN cd $HOME && rpm -ivh sqldeveloper-19.2.1.247.2212.noarch.rpm
 
 #pre installはユーザー作成とかフォルダとかパッケージとかをまとめていんすこしている
 #main installでpreinstall実施チェックしているから、とりま実行しておくのがよい
@@ -57,12 +57,12 @@ RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurse
 RUN yum install -y which perl-App-cpanminus wxGTK-devel perl-ExtUtils-Embed perl-File-HomeDir perl-Term-ReadLine-Gnu wxGTK3 cpan
 
 #Tukubaiコマンドは便利
-RUN cd ~ && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && \
+RUN cd $HOME && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && \
 cd Open-usp-Tukubai && \
 make -j12 install
 
 #awkコマンドは最新の奴 include使える
-RUN cd ~ && curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && \
+RUN cd $HOME && curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && \
 tar -zxvf gawk-5.0.0.tar.gz && \
 cd gawk-5.0.0 && \
 ./configure && \
@@ -70,7 +70,7 @@ make -j12 && \
 make -j12 install
 
 #bashも最新
-RUN cd ~ && curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && \
+RUN cd $HOME && curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && \
 tar -zxvf bash-5.0.tar.gz && \
 cd bash-5.0 && \
 ./configure && \
@@ -79,7 +79,7 @@ make -j12 install
 
 #vimも最新
 RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && \
-cd ~ && git clone https://github.com/vim/vim.git && \
+cd $HOME && git clone https://github.com/vim/vim.git && \
 cd vim && \
 ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && \
 make -j12 distclean && \
@@ -89,23 +89,23 @@ ln -fsr /usr/local/bin/vim /usr/bin/vim && \
 ln -fsr /usr/local/bin/vim /usr/bin/vi
 
 #自身のvim環境をクローン
-RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git $HOME/.vim
 
 #自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
-RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
-cd ~/tmp && \
+RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git $HOME/tmp && \
+cd $HOME/tmp && \
 #移動したいdotfileをchoiceしてHOMEディレクトリへ
-mv rc/.[^.]* ~ && \
+mv rc/.[^.]* $HOME && \
 #用が済んだらリム
-rm -rf ~/tmp
+rm -rf $HOME/tmp
 
 #vim plugin manager
-RUN mkdir -p ~/.vim/bundle && \
-cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
-sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+RUN mkdir -p $HOME/.vim/bundle && \
+cd $HOME && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
+sh installer.sh $HOME/.vim/bundle && rm -rf installer.sh
 
 #python install
-RUN cd ~ && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && \
+RUN cd $HOME && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && \
 tar -zxvf Python-3.7.4.tgz && \
 cd Python-3.7.4 && \
 ./configure && \
@@ -113,7 +113,7 @@ make -j12 && \
 make -j12 install
 
 #perl install
-RUN cd ~ && curl -LO https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz && \
+RUN cd $HOME && curl -LO https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz && \
 tar -xzf perl-5.30.0.tar.gz && \
 cd perl-5.30.0 && \
 ./Configure -des -Dprefix=/usr/local/ && \
@@ -121,7 +121,7 @@ make -j12 && \
 make -j12 install
 
 #parallelコマンド install
-RUN cd ~ && yum install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && \
+RUN cd $HOME && yum install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && \
 tar jxf parallel-latest.tar.bz2 && \
 cd parallel-20191022 && \
 ./configure && \
@@ -129,83 +129,83 @@ make -j12 && \
 make -j12 install
 
 #alias設定
-RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
-echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
-echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
-echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
-echo "export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1" >> ~/.bashrc && \
-echo "export ORACLE_SID=ORCLCDB"  >> ~/.bashrc && \
-echo "export PATH=$PATH:$ORACLE_HOME/bin" >> ~/.bashrc
+RUN echo alias python="/usr/local/bin/python3.7" >> $HOME/.bashrc && \
+echo alias pip="/usr/local/bin/pip3.7" >> $HOME/.bashrc && \
+echo alias perl="/usr/local/bin/perl5.30.0" >> $HOME/.bashrc && \
+echo "alias parallel=\"/usr/local/bin/parallel\"" >> $HOME/.bashrc && \
+echo "export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1" >> $HOME/.bashrc && \
+echo "export ORACLE_SID=ORCLCDB"  >> $HOME/.bashrc && \
+echo "export PATH=$PATH:$ORACLE_HOME/bin" >> $HOME/.bashrc
 
 #実行ユーザをrstudioに変更
 USER rstudio
 
 #自身のvim環境をクローン
-RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+RUN cd $HOME && git clone https://github.com/ukijumotahaneniarukenia/.vim.git $HOME/.vim
 
 #自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
-RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
-cd ~/tmp && \
+RUN cd $HOME && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git $HOME/tmp && \
+cd $HOME/tmp && \
 #移動したいdotfileをchoiceしてHOMEディレクトリへ
-mv rc/.[^.]* ~ && \
+mv rc/.[^.]* $HOME && \
 #用が済んだらリム
-rm -rf ~/tmp
+rm -rf $HOME/tmp
 
 #vim plugin manager
-RUN mkdir -p ~/.vim/bundle && \
-cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
-sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+RUN mkdir -p $HOME/.vim/bundle && \
+cd $HOME && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
+sh installer.sh $HOME/.vim/bundle && rm -rf installer.sh
 
 #alias設定
-RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
-echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
-echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
-echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
-echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
-echo "alias vi=\"sudo vim\"" >> ~/.bashrc && \
-echo "export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1" >> ~/.bashrc && \
-echo "export ORACLE_SID=ORCLCDB"  >> ~/.bashrc && \
-echo "export PATH=$PATH:$ORACLE_HOME/bin" >> ~/.bashrc
+RUN echo alias python="/usr/local/bin/python3.7" >> $HOME/.bashrc && \
+echo alias pip="/usr/local/bin/pip3.7" >> $HOME/.bashrc && \
+echo alias perl="/usr/local/bin/perl5.30.0" >> $HOME/.bashrc && \
+echo "alias parallel=\"/usr/local/bin/parallel\"" >> $HOME/.bashrc && \
+echo "alias vim=\"sudo vim\"" >> $HOME/.bashrc && \
+echo "alias vi=\"sudo vim\"" >> $HOME/.bashrc && \
+echo "export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1" >> $HOME/.bashrc && \
+echo "export ORACLE_SID=ORCLCDB"  >> $HOME/.bashrc && \
+echo "export PATH=$PATH:$ORACLE_HOME/bin" >> $HOME/.bashrc
 
 #実行ユーザをoracleに変更
 USER oracle
 
 #自身のvim環境をクローン
-RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/.vim.git ~/.vim
+RUN cd $HOME && git clone https://github.com/ukijumotahaneniarukenia/.vim.git $HOME/.vim
 
 #自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
-RUN cd ~ && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git ~/tmp && \
-cd ~/tmp && \
+RUN cd $HOME && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git $HOME/tmp && \
+cd $HOME/tmp && \
 #移動したいdotfileをchoiceしてHOMEディレクトリへ
-mv rc/.[^.]* ~ && \
+mv rc/.[^.]* $HOME && \
 #用が済んだらリム
-rm -rf ~/tmp
+rm -rf $HOME/tmp
 
 #vim plugin manager
-RUN mkdir -p ~/.vim/bundle && \
-cd ~ && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
-sh installer.sh ~/.vim/bundle && rm -rf installer.sh
+RUN mkdir -p $HOME/.vim/bundle && \
+cd $HOME && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
+sh installer.sh $HOME/.vim/bundle && rm -rf installer.sh
 
 #alias設定
-RUN echo alias python="/usr/local/bin/python3.7" >> ~/.bashrc && \
-echo alias pip="/usr/local/bin/pip3.7" >> ~/.bashrc && \
-echo alias perl="/usr/local/bin/perl5.30.0" >> ~/.bashrc && \
-echo "alias parallel=\"/usr/local/bin/parallel\"" >> ~/.bashrc && \
-echo "alias vim=\"sudo vim\"" >> ~/.bashrc && \
-echo "alias vi=\"sudo vim\"" >> ~/.bashrc && \
-echo "export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1" >> ~/.bashrc && \
-echo "export ORACLE_SID=ORCLCDB"  >> ~/.bashrc && \
-echo "export PATH=$PATH:$ORACLE_HOME/bin:$HOME/sqlcl/bin" >> ~/.bashrc && \
-echo "export NLS_LANG=Japanese_Japan.AL32UTF8" >> ~/.bashrc && \
-echo "alias sqlplus=\"rlwrap -pRed sqlplus\"" >> ~/.bashrc && \
-echo "alias sqldev=\"echo /usr/java/jdk1.8.0_221-amd64 | sudo /opt/sqldeveloper/sqldeveloper.sh -conf /opt/sqldeveloper/sqldeveloper/bin/sqldeveloper.conf >~/launch_sqldeveloper.log 2>&1 &\"" >> ~/.bashrc
+RUN echo alias python="/usr/local/bin/python3.7" >> $HOME/.bashrc && \
+echo alias pip="/usr/local/bin/pip3.7" >> $HOME/.bashrc && \
+echo alias perl="/usr/local/bin/perl5.30.0" >> $HOME/.bashrc && \
+echo "alias parallel=\"/usr/local/bin/parallel\"" >> $HOME/.bashrc && \
+echo "alias vim=\"sudo vim\"" >> $HOME/.bashrc && \
+echo "alias vi=\"sudo vim\"" >> $HOME/.bashrc && \
+echo "export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1" >> $HOME/.bashrc && \
+echo "export ORACLE_SID=ORCLCDB"  >> $HOME/.bashrc && \
+echo "export PATH=$PATH:$ORACLE_HOME/bin:$HOME/sqlcl/bin" >> $HOME/.bashrc && \
+echo "export NLS_LANG=Japanese_Japan.AL32UTF8" >> $HOME/.bashrc && \
+echo "alias sqlplus=\"rlwrap -pRed sqlplus\"" >> $HOME/.bashrc && \
+echo "alias sqldev=\"echo /usr/java/jdk1.8.0_221-amd64 | sudo /opt/sqldeveloper/sqldeveloper.sh -conf /opt/sqldeveloper/sqldeveloper/bin/sqldeveloper.conf >$HOME/launch_sqldeveloper.log 2>&1 &\"" >> $HOME/.bashrc
 
 #sqlplusの進化版SQLclインストール
 #jdk必要。java製なので。
 RUN java -version
 #事前にダウンロードしておき、dockerコンテナにコピー。
 #COPY sqlcl-19.2.1.206.1649.zip /home/oracle/sqlcl-19.2.1.206.1649.zip
-#RUN cd ~ && unzip sqlcl-19.2.1.206.1649.zip
+#RUN cd $HOME && unzip sqlcl-19.2.1.206.1649.zip
 
 #最後はrootに戻す
 USER root 

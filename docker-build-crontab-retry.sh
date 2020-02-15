@@ -1,8 +1,8 @@
 #!/bin/bash
 
 pre-process(){
-  exec 1>~/script-env/docker-build-log/docker-build-$(date +\%Y-\%m-\%d_\%H-\%M-\%S).stdout.retry.log
-  exec 2>~/script-env/docker-build-log/docker-build-$(date +\%Y-\%m-\%d_\%H-\%M-\%S).stderr.retry.log
+  exec 1>$HOME/script-env/docker-build-log/docker-build-$(date +\%Y-\%m-\%d_\%H-\%M-\%S).stdout.retry.log
+  exec 2>$HOME/script-env/docker-build-log/docker-build-$(date +\%Y-\%m-\%d_\%H-\%M-\%S).stderr.retry.log
 }
 
 post-process(){
@@ -12,13 +12,13 @@ post-process(){
 
 clean(){
   #コンテナ起動に失敗したコンテナを削除
-  docker ps -a | awk '{print $1,$2}' | tail -n+2 | grep -vE $(ls -l ~/script-env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log |xargs|tr ' ' '|') | awk '{print $1}' | xargs -I@ bash -c 'docker stop @ && docker rm @' 1>/dev/null 2>&1
+  docker ps -a | awk '{print $1,$2}' | tail -n+2 | grep -vE $(ls -l $HOME/script-env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log |xargs|tr ' ' '|') | awk '{print $1}' | xargs -I@ bash -c 'docker stop @ && docker rm @' 1>/dev/null 2>&1
 
   #noneイメージを削除
   docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @ 1>/dev/null 2>&1
 
   #ディレクトリにないが、イメージとして作成されてしまっているものを削除（フォルダをリネームした場合とか。同期取るようにする。）
-  docker images | awk '{print $1}' | grep -P '(?:centos|ubuntu)-' | grep -vE $(ls -l ~/script-env | grep -P '^d' | awk '{print $9}' | xargs | tr ' ' '|') | xargs docker rmi 1>/dev/null 2>&1
+  docker images | awk '{print $1}' | grep -P '(?:centos|ubuntu)-' | grep -vE $(ls -l $HOME/script-env | grep -P '^d' | awk '{print $9}' | xargs | tr ' ' '|') | xargs docker rmi 1>/dev/null 2>&1
 
   #Exitedコンテナ削除
   docker ps -a | grep Exited | awk '{print $1}' | xargs -I@ docker rm @ 1>/dev/null 2>&1
@@ -36,10 +36,10 @@ logger(){
   #    [[ $STEP_CNT -eq 0 ]] && [[ 0 -eq $DONE_CNT ]] && printf "\n";#実行時エラーの場合は改行のみ挿入
   #    [ $STEP_CNT -eq $DONE_CNT ] || printf "\t%s\n" "$ELAPSED_TIME";#実行ステップ数と完了ステップ数が同じの場合経過時間とともに出力
   #  }
-  #done < <(find ~/script-env -type f -name "*retry-*" | grep log | sort)
+  #done < <(find $HOME/script-env -type f -name "*retry-*" | grep log | sort)
 
-  local TGT_BUILD_IMAGE_EXPECT_CNT=$(ls -l ~/script-env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log | grep -vE $(docker images | tail -n+1 | grep -P '(-[0-9]{1,}){2,}-' | awk '{print $1}'|xargs|tr ' ' '|') | wc -l )
-  local TGT_BUILD_IMAGE_EXPECT="$(ls -l ~/script-env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log | grep -vE $(docker images | tail -n+1 | grep -P '(-[0-9]{1,}){2,}-' | awk '{print $1}'|xargs|tr ' ' '|'))"
+  local TGT_BUILD_IMAGE_EXPECT_CNT=$(ls -l $HOME/script-env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log | grep -vE $(docker images | tail -n+1 | grep -P '(-[0-9]{1,}){2,}-' | awk '{print $1}'|xargs|tr ' ' '|') | wc -l )
+  local TGT_BUILD_IMAGE_EXPECT="$(ls -l $HOME/script-env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log | grep -vE $(docker images | tail -n+1 | grep -P '(-[0-9]{1,}){2,}-' | awk '{print $1}'|xargs|tr ' ' '|'))"
   local TGT_BUILD_IMAGE_ACTUAL_CNT=$(docker images | grep -P '(?:-[0-9]){1,}' | awk '{print $1}' | xargs -I@ bash -c "echo @ && docker history --human=false @ | sort -rk2 | sed -r 's;\s{1,}; ;g;' | cut -d' ' -f2 | sed -n '2p'" | xargs -n2 | grep "$(date "+%Y-%m-%d")" | wc -l)
   local TGT_BUILD_IMAGE_ACTUAL="$(docker images | grep -P '(?:-[0-9]){1,}' | awk '{print $1}' | xargs -I@ bash -c "echo @ && docker history --human=false @ | sort -rk2 | sed -r 's;\s{1,}; ;g;' | cut -d' ' -f2 | sed -n '2p'" | xargs -n2 | grep "$(date "+%Y-%m-%d")" | cut -d' ' -f1)"
   local TGT_BUILD_IMAGE_DONE_NON_TODAY_CNT=$(docker images | grep -P '(?:-[0-9]){1,}' | awk '{print $1}' | xargs -I@ bash -c "echo @ && docker history --human=false @ | sort -rk2 | sed -r 's;\s{1,}; ;g;' | cut -d' ' -f2 | sed -n '2p'" | xargs -n2 | grep -v "$(date "+%Y-%m-%d")" | wc -l)
@@ -75,7 +75,7 @@ retry(){
 
     #初回ビルドに失敗したイメージに関してはリカバリ時間を短縮するために、到達可能なStepまでのキャッシュを作成しておく
     #リトライログ用にRETRY_ROUND_CNTを引数に渡す
-    bash ~/script-env/docker-build-parallel-retry.sh $(printf '%02g' $RETRY_ROUND_CNT) &
+    bash $HOME/script-env/docker-build-parallel-retry.sh $(printf '%02g' $RETRY_ROUND_CNT) &
 
     #psコマンドで検索できるように少しまつ
     sleep 10
