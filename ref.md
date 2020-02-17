@@ -54,3 +54,6 @@
 
 - elasticsearchのcrud処理の事例とともに概念の説明あり
   - https://qiita.com/kiyokiyo_kzsby/items/344fb2e9aead158a5545
+
+- pythonグルーピング事例　単一キーに対する複数バリュー listagg
+  - https://qiita.com/tag1216/items/b2765e9e87025c01e57f
