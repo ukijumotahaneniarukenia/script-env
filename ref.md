@@ -1,3 +1,6 @@
+- この方の環境づくりが参考になる
+  - https://github.com/YoshinoriN/docker-gitbucket-orchestration
+
 - 検索エンジン用語まとめ
   - https://qiita.com/mogulla3/items/23aaffbe29c4e600876
 - nodejs groonga接続方式
