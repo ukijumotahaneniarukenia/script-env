@@ -1,91 +1,57 @@
-# 参考文献
+# 接続ドライバをダウンロード
 
-OpenJDKからいんすこ
-https://openjdk.java.net/install/index.html
+jarファイル
 
-https://jdk.java.net/
-https://jdk.java.net/13/
+ダウンロードしていなかったら、maven経由でダウンロードしてくれる
 
-```
-cd /usr/local/src && \
-curl -LO https://download.java.net/java/GA/jdk13/5b8a42f3905b406298b72d750b6919f6/33/GPL/openjdk-13_linux-x64_bin.tar.gz && \
-tar -zxvf openjdk-13_linux-x64_bin.tar.gz
-```
-
-# jshell
-https://qiita.com/HomMarkHunt/items/6579cc3587972909d85f
-https://twitter.com/EclipseJavaIDE/status/1147044351278747648
-```
-[java@441a10f53644 /]$jshell
-|  JShellへようこそ -- バージョン13
-|  概要については、次を入力してください: /help intro
-
-jshell>
-
-jshell>
-
-jshell>
-
-jshell>
-
-jshell> System.out.println("Hello World");
-Hello World
-
+sqlite3に接続する際にダウンロードしたjarは以下
 
 ```
-
-# 絵文字をjavaで表示
-
-https://qiita.com/carimatics/items/48ca30434f192549283c
-https://github.com/vdurmont/emoji-java
-Mavenからインストール
-![](./1.png)
-![](./2.png)
-![](./3.png)
-
-ディレクトリ構造
-```
-[java@441a10f53644 ~/IdeaProjects/untitled]$tree
-.
-|-- lib
-|   |-- emoji-java-5.1.1-javadoc.jar
-|   |-- emoji-java-5.1.1-sources.jar
-|   |-- emoji-java-5.1.1.jar
-|   |-- json-20170516-javadoc.jar
-|   |-- json-20170516-sources.jar
-|   `-- json-20170516.jar
-|-- out
-|   `-- production
-|       `-- untitled
-|           `-- emo.class
-|-- src
-|   `-- emo.java
-`-- untitled.iml
-
-5 directories, 9 files
+$find / -name "*sqlite*" 2>/dev/null | grep jar
+/usr/share/dbeaver/plugins/org.jkiss.dbeaver.ext.sqlite_1.0.75.202002011957.jar
+/home/kuraine/.local/share/DBeaverData/drivers/maven/maven-central/org.xerial/sqlite-jdbc-3.30.1.jar
 ```
 
-javaファイル作成
-```emo.java
-import com.vdurmont.emoji.EmojiManager;
+サンプルデータベースは以下
 
-public class emo {
-    public static void main(String[] args) {
-        EmojiManager.getForAlias("name_badge");
-        System.out.println(EmojiManager.getForAlias("name_badge").getUnicode());
-    }
-}
 ```
-コンパイル
+$ls -lh /home/kuraine/.local/share/DBeaverData/workspace6/.metadata/sample-database-sqlite-1/Chinook.db
+-rw-rw-r--. 1 kuraine kuraine 1.1M  2月 17 00:58 /home/kuraine/.local/share/DBeaverData/workspace6/.metadata/sample-database-sqlite-1/Chinook.db
 ```
-javac -d ../out/production/untitled -classpath /home/java/IdeaProjects/untitled/out/production/untitled:/home/java/IdeaProjects/untitled/lib/emoji-java-5.1.1.jar:/home/java/IdeaProjects/untitled/lib/json-20170516.jar emo.java
+
+自前のデータベースを用意
 ```
-実行
+$sqlite3 --version
+-- Loading resources from /home/kuraine/.sqliterc
+3.30.0 2019-10-04 15:03:17 c20a35336432025445f9f7e289d0cc3e4003fb17f45a4ce74c6269c407c6e09f
 ```
-/home/java/jdk-13/bin/java -javaagent:/home/java/idea-IC-192.6603.28/lib/idea_rt.jar=46144:/home/java/idea-IC-192.6603.28/bin -Dfile.encoding=UTF-8 -classpath /home/java/IdeaProjects/untitled/out/production/untitled:/home/java/IdeaProjects/untitled/lib/emoji-java-5.1.1.jar:/home/java/IdeaProjects/untitled/lib/json-20170516.jar emo
+
+データベースファイル名はtestdb
+テーブル名はtest_tbl
 ```
-実行例
+$sqlite3 testdb
+-- Loading resources from /home/kuraine/.sqliterc
+SQLite version 3.30.0 2019-10-04 15:03:17
+Enter ".help" for usage hints.
+sqlite>>>create table test_tbl(col text);
+Run Time: real 0.022 user 0.000000 sys 0.001464
+sqlite>>>insert into test_tbl(col)values('a');
+Run Time: real 0.020 user 0.000459 sys 0.000491
+$sqlite3 testdb
+-- Loading resources from /home/kuraine/.sqliterc
+SQLite version 3.30.0 2019-10-04 15:03:17
+Enter ".help" for usage hints.
+sqlite>>>select * from test_tbl;
+col
+----------
+a
+Run Time: real 0.002 user 0.000000 sys 0.001640
 ```
-[java@441a10f53644 ~/IdeaProjects/untitled/src]$/home/java/jdk-13/bin/java -javaagent:/home/java/idea-IC-192.6603.28/lib/idea_rt.jar=46144:/home/java/idea-IC-192.6603.28/bin -Dfile.encoding=UTF-8 -classpath /home/java/IdeaProjects/untitled/out/production/untitled:/home/java/IdeaProjects/untitled/lib/emoji-java-5.1.1.jar:/home/java/IdeaProjects/untitled/lib/json-20170516.jar emo
-📛
-```
+
+
+接続情報には以下を記載
+
+- JDBCURL
+  - jdbc:sqlite:/home/kuraine/testdb
+- パス
+  - /home/kuraine/testdb
