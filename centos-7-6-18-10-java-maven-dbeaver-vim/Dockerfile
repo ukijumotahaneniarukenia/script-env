@@ -6,6 +6,7 @@ ARG GIT_VERSION
 ARG PYTHON_VERSION
 ARG JAVA_VERSION
 ARG MAVEN_VERSION
+ARG DBEAVER_VERSION
 
 RUN groupadd -g 1001 kuraine && \
 useradd -m -g kuraine -u 1001 kuraine && \
@@ -27,6 +28,7 @@ RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-python-$PYTHON_V
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-git-$GIT_VERSION.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-jdk-$JAVA_VERSION.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-maven-$MAVEN_VERSION.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-dbeaver-$DBEAVER_VERSION.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-locale.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
