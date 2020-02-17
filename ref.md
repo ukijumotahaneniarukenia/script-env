@@ -1,3 +1,6 @@
+- このイメージに近いマイリーダー
+  - https://yoshinorin.net/2019/07/20/nuxt-js-photo-gallery-by-vue-magic-grid/
+
 - この方の環境づくりが参考になる
   - https://github.com/YoshinoriN/docker-gitbucket-orchestration
 
