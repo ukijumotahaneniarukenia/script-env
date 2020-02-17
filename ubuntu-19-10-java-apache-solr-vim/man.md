@@ -14,3 +14,6 @@
   - https://qiita.com/n_slender/items/93216bae005ac96b75c4
 
   - https://kshigeru.blogspot.com/2012/01/solr-wikipedia-data-import.html
+
+- そこそこおおきいデータセット
+  - https://www.findbestopensource.com/article-detail/free-large-data-corpus
