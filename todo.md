@@ -12,6 +12,10 @@
 
 - oracleのインポートエクスポートまとめる
 
+- sqlserverのインポートエクスポートまとめる
+
+- Nodejsとgroonga連携まとめる
+
 - コピペチェッカー使い方調べる
 
 - postgresへdbeaverから繋ぐ
