@@ -57,3 +57,6 @@
 
 - pythonグルーピング事例　単一キーに対する複数バリュー listagg
   - https://qiita.com/tag1216/items/b2765e9e87025c01e57f
+
+- pythonのzip関数。egisonにもある。変数展開アスタの使いかた。しらかみゅさんのコメントいつも参考になる。
+  - https://qiita.com/shibasab/items/836ebfbf496a757c09e2
