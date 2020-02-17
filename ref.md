@@ -45,3 +45,6 @@
 
 - nuxt.jsでのmvc感出てる
   - https://noumenon-th.net/programming/2019/07/15/axios-module/
+
+- pdfファイルからテキスト抽出できるjar
+  - https://qiita.com/arc279/items/5b6cf2d0b24ce5a50cae
