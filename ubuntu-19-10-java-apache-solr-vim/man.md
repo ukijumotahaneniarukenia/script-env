@@ -12,3 +12,5 @@
   - https://qiita.com/reflet/items/add376c6046b4e7048cf
 
   - https://qiita.com/n_slender/items/93216bae005ac96b75c4
+
+  - https://kshigeru.blogspot.com/2012/01/solr-wikipedia-data-import.html
