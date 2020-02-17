@@ -1,3 +1,5 @@
+- 検索エンジン用語まとめ
+  - https://qiita.com/mogulla3/items/23aaffbe29c4e600876
 - nodejs groonga接続方式
   - https://memo.appri.me/programming/groonga-nroonga-nodejs
 
