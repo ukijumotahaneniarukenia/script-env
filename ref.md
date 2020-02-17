@@ -66,3 +66,7 @@
 
 - jqの日付型　環境変数の使い方のサンプル
   - https://qiita.com/arc279/items/436d8e7b8653848406e3
+
+
+- dockerコンテナを複数立ち上げたとき各コンテナで動いているプロセスのログを一元化する事例。
+  - https://qiita.com/skjune12/items/d88a8eb32794865afcd3
