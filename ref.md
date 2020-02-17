@@ -63,3 +63,6 @@
 
 - perlのオプションまとめがいい。nleとanleとEオプションが使い勝手いいかな。
   - https://qiita.com/ohtsuka1317/items/92c339a65533e1e6c6fc
+
+- jqの日付型　環境変数の使い方のサンプル
+  - https://qiita.com/arc279/items/436d8e7b8653848406e3
