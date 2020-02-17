@@ -48,3 +48,6 @@
 
 - pdfファイルからテキスト抽出できるjar
   - https://qiita.com/arc279/items/5b6cf2d0b24ce5a50cae
+
+- elasticsearchのテーブル定義変更に伴うview側のkibanaの横テン串チェックの事例
+  - https://qiita.com/NAO_MK2/items/2d03d9db1cd7b0ceae04
