@@ -51,3 +51,6 @@
 
 - elasticsearchのテーブル定義変更に伴うview側のkibanaの横テン串チェックの事例
   - https://qiita.com/NAO_MK2/items/2d03d9db1cd7b0ceae04
+
+- elasticsearchのcrud処理の事例とともに概念の説明あり
+  - https://qiita.com/kiyokiyo_kzsby/items/344fb2e9aead158a5545
