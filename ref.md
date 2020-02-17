@@ -70,3 +70,7 @@
 
 - dockerコンテナを複数立ち上げたとき各コンテナで動いているプロセスのログを一元化する事例。
   - https://qiita.com/skjune12/items/d88a8eb32794865afcd3
+
+- jqで日付変換 読みやすい形式に変換
+  - https://qiita.com/sutoh/items/350bb96a06cb237f54af
+  
