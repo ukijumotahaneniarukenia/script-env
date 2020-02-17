@@ -1,0 +1,1 @@
+- postgresへdbeaverから繋ぐ
