@@ -78,3 +78,6 @@
 
 - jqフラット化　一度退避してから、直積するイメージ
   - https://qiita.com/arc279/items/00b353428120f48a9e06
+
+- perlのexistsぽくてとても重宝するコマンド
+  - https://qiita.com/mumian1014/items/bb71b0520e457f3b2466
