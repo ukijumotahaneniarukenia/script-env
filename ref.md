@@ -60,3 +60,6 @@
 
 - pythonのzip関数。egisonにもある。変数展開アスタの使いかた。しらかみゅさんのコメントいつも参考になる。
   - https://qiita.com/shibasab/items/836ebfbf496a757c09e2
+
+- perlのオプションまとめがいい。nleとanleとEオプションが使い勝手いいかな。
+  - https://qiita.com/ohtsuka1317/items/92c339a65533e1e6c6fc
