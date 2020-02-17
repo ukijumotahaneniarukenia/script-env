@@ -26,7 +26,7 @@
   - https://yoshinorin.net/2019/07/20/nuxt-js-photo-gallery-by-vue-magic-grid/
 
 - nuxt.jsインストール
-  - https://ja.nuxtjs.org/guide/installation
+  - https://ja.nuxtjs.org/guide/installinglation
 
 - magic-gridは単一ファイルに収まりそう
   - https://on-ze.com/archives/7644
@@ -67,7 +67,6 @@
 - jqの日付型　環境変数の使い方のサンプル
   - https://qiita.com/arc279/items/436d8e7b8653848406e3
 
-
 - dockerコンテナを複数立ち上げたとき各コンテナで動いているプロセスのログを一元化する事例。
   - https://qiita.com/skjune12/items/d88a8eb32794865afcd3
 
@@ -76,3 +75,6 @@
 
 - mroonga mysqlとのコラボいい。
   - https://qiita.com/nayuneko/items/e1d4cad31b9ec23fd12c
+
+- jqフラット化　一度退避してから、直積するイメージ
+  - https://qiita.com/arc279/items/00b353428120f48a9e06
