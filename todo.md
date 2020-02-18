@@ -1,3 +1,6 @@
+- sqlserver dockerコンテナあった
+  - https://docs.microsoft.com/ja-jp/sql/linux/quickstart-install-connect-docker?view=sql-server-ver15
+
 - perlで標準入力からgroup byできそう。trdsql使えば一発だけど。
   - http://www.tohoho-web.com/perl/hash.htm
 - mysqlのインポートエクスポートまとめる→まとめた。
