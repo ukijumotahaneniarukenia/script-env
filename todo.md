@@ -1,3 +1,5 @@
+- sqlserver import export guiしかないぽい
+
 - Postgres import export dump restoreデータベース単位ないしテーブル単位を使い分けて
   - https://qiita.com/rice_american/items/ceae28dad13c3977e3a8
   - https://qiita.com/cyborg__ninja/items/99efcb5b62a4cef2f156
