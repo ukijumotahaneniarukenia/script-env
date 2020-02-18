@@ -1,3 +1,6 @@
+- Postgres import export dump restore
+  - https://qiita.com/rice_american/items/ceae28dad13c3977e3a8
+
 - sqlserver dockerコンテナあった
   - https://docs.microsoft.com/ja-jp/sql/linux/quickstart-install-connect-docker?view=sql-server-ver15
 
