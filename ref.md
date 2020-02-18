@@ -1,3 +1,6 @@
+- pythoch環境構築 gpuが重要そう
+  - https://qiita.com/riversun/items/9f8ecbae2645c22853b6
+
 - httperfとabの使い方
   - https://hostingstock.net/article/notes/benchmark-tools/
 
