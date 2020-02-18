@@ -1,3 +1,6 @@
+- Apache jmeter負荷テスト多重度(プロセス同時起動数)をある時間内で制御できてテストするツール
+  - https://qiita.com/PlanetMeron/items/a604645d6f89b6ce3a14
+
 - このイメージに近いマイリーダー
   - https://yoshinorin.net/2019/07/20/nuxt-js-photo-gallery-by-vue-magic-grid/
 
