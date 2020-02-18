@@ -1,3 +1,6 @@
+- httperfとabの使い方
+  - https://hostingstock.net/article/notes/benchmark-tools/
+
 - ngunxとapacheの性能比較
   - https://qiita.com/kamihork/items/49e2a363da7d840a4149
 
