@@ -1,3 +1,6 @@
+- pytoch インデクシングにも関わってくるぽい cpuだけでなくgpuの力も合わせて計算高速化させようとしているのかな
+  - https://qiita.com/miyamotok0105/items/1fd1d5c3532b174720cd
+
 - pythoch環境構築 gpuが重要そう
   - https://qiita.com/riversun/items/9f8ecbae2645c22853b6
 
