@@ -1,3 +1,6 @@
+- mysqlと同じような仕組みだろう
+  - https://qiita.com/toshihirock/items/86931e3c52dc47287dd2
+
 - sqlserver import export guiしかないぽい
 
 - Postgres import export dump restoreデータベース単位ないしテーブル単位を使い分けて
