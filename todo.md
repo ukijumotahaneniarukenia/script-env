@@ -1,4 +1,4 @@
-- mysqlと同じような仕組みだろう
+- oracle import export mysqlと同じような仕組みだろう
   - https://qiita.com/toshihirock/items/86931e3c52dc47287dd2
 
 - sqlserver import export guiしかないぽい
