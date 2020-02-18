@@ -1,5 +1,5 @@
 - perlで標準入力からgroup byできそう。trdsql使えば一発だけど。
-
+  - http://www.tohoho-web.com/perl/hash.htm
 - mysqlのインポートエクスポートまとめる→まとめた。
 
 - postgresのインポートエクスポートまとめる
