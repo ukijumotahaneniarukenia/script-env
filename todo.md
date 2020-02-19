@@ -1,3 +1,6 @@
+- php版もある日本語テストデータ
+  - https://gomiba.co.in/blog/archives/1365
+
 - java版のものもあるので静的言語のディレクトリ構成のプロトプログラムとしてはいいサイズ感。外部ライブラリ依存もあるので。構成考えるのにいい。
   - https://qiita.com/mkyz08/items/7c509e08fcee758936e4
 
