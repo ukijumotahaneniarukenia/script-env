@@ -1,3 +1,6 @@
+- perlもある！最高である。
+  - http://tsucchi.github.io/slides/yokohamapm/11/
+
 - php版もある日本語テストデータ
   - https://gomiba.co.in/blog/archives/1365
 
