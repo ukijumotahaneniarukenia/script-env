@@ -1,3 +1,7 @@
+- elasticsearch import export ダンプコマンド別途あり
+
+  - https://qiita.com/nakazii-co-jp/items/3199433d685d0600c6d6
+
 - compose用のレポジトリ作成しようかな
   - script-jam
   - https://github.com/YoshinoriN/docker-redmine-orchestration
