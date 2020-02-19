@@ -1,3 +1,6 @@
+- rubyもある！
+  - https://sue445.hatenablog.com/entry/2014/04/23/101433
+
 - perlもある！最高である。
   - http://tsucchi.github.io/slides/yokohamapm/11/
 
