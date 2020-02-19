@@ -22,4 +22,4 @@ while read tgt;do
 
   printf "%s\t%s\t%s\n" $(grep -c -P "$IS_AS" $tgt) $tgt "sed -i 's;$IS_AS;$TO_BE;g' $tgt" | grep -vP "^0|${0#./}"
 
-done < <(find $HOME/script-env -type f -name "*sh" -o -name "*Dockerfile")
+done < <(find $HOME/script-env -type f -name "*sh" -o -name "*Dockerfile" -o -name "env.md")
