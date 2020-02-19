@@ -1,4 +1,37 @@
-- mysqlのインポートエクスポートまとめる
+- elasticsearch 日時指定検索
+  - http://togattti.hateblo.jp/entry/2017/08/17/174953
+
+- elasticsearch import export ダンプコマンド別途あり
+
+  - https://qiita.com/nakazii-co-jp/items/3199433d685d0600c6d6
+
+  - https://qiita.com/datake914/items/2313894c684a7cba992c
+
+- compose用のレポジトリ作成しようかな
+  - script-jam
+  - https://github.com/YoshinoriN/docker-redmine-orchestration
+
+
+- docker env レポジトリの環境一覧リストを作成する
+  - マークダウン形式
+  - ヘッダ
+    - コンテナ名、osバージョン、アプリ名、エディタ名
+
+- oracle import export mysqlと同じような仕組みだろう
+  - https://qiita.com/toshihirock/items/86931e3c52dc47287dd2
+
+- sqlserver import export guiしかないぽい
+
+
+- Postgres import export dump restoreデータベース単位ないしテーブル単位を使い分けて
+  - https://qiita.com/rice_american/items/ceae28dad13c3977e3a8
+  - https://qiita.com/cyborg__ninja/items/99efcb5b62a4cef2f156
+- sqlserver dockerコンテナあった
+  - https://docs.microsoft.com/ja-jp/sql/linux/quickstart-install-connect-docker?view=sql-server-ver15
+
+- perlで標準入力からgroup byできそう。trdsql使えば一発だけど。
+  - http://www.tohoho-web.com/perl/hash.htm
+- mysqlのインポートエクスポートまとめる→まとめた。
 
 - postgresのインポートエクスポートまとめる
 
