@@ -1,7 +1,18 @@
+- compose用のレポジトリ作成しようかな
+  - script-jam
+  - https://github.com/YoshinoriN/docker-redmine-orchestration
+
+
+- docker env レポジトリの環境一覧リストを作成する
+  - マークダウン形式
+  - ヘッダ
+    - コンテナ名、osバージョン、アプリ名、エディタ名
+
 - oracle import export mysqlと同じような仕組みだろう
   - https://qiita.com/toshihirock/items/86931e3c52dc47287dd2
 
 - sqlserver import export guiしかないぽい
+
 
 - Postgres import export dump restoreデータベース単位ないしテーブル単位を使い分けて
   - https://qiita.com/rice_american/items/ceae28dad13c3977e3a8
