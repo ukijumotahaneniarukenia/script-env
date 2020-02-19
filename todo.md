@@ -2,6 +2,8 @@
 
   - https://qiita.com/nakazii-co-jp/items/3199433d685d0600c6d6
 
+  - https://qiita.com/datake914/items/2313894c684a7cba992c
+
 - compose用のレポジトリ作成しようかな
   - script-jam
   - https://github.com/YoshinoriN/docker-redmine-orchestration
