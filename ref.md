@@ -1,3 +1,6 @@
+- bash テンプーレト作成
+  - https://www.m3tech.blog/entry/2018/08/21/bash-scripting
+
 - pytoch インデクシングにも関わってくるぽい cpuだけでなくgpuの力も合わせて計算高速化させようとしているのかな
   - https://qiita.com/miyamotok0105/items/1fd1d5c3532b174720cd
 
