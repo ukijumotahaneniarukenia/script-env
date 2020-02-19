@@ -1,3 +1,6 @@
+- java版のものもあるので静的言語のディレクトリ構成のプロトプログラムとしてはいいサイズ感。外部ライブラリ依存もあるので。構成考えるのにいい。
+  - https://qiita.com/mkyz08/items/7c509e08fcee758936e4
+
 - json日本語データ作成はpython経由がハンディかな
   - https://qiita.com/ohbarye/items/452fefa2be5d56268b50
 
