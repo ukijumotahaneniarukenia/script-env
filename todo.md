@@ -1,3 +1,6 @@
+- ruby 標準入出力　いい感じのやつはテツジさんがまとめていた
+  - https://qiita.com/Sobue-Yuki/items/93638169e8a8a0c4b3d5
+
 - rubyもある！
   - https://sue445.hatenablog.com/entry/2014/04/23/101433
 
