@@ -1,3 +1,6 @@
+- json日本語データ作成はpython経由がハンディかな
+  - https://qiita.com/ohbarye/items/452fefa2be5d56268b50
+
 - elasticsearch 日時指定検索
   - http://togattti.hateblo.jp/entry/2017/08/17/174953
 
