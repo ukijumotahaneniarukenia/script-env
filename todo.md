@@ -65,7 +65,7 @@
 
 - postgresのインポートエクスポートまとめる
 
-- elasticsearchのインポートエクスポートまとめる
+- elasticsearchのインポートエクスポートまとめる→まとめた。
 
 - groongaのインポートエクスポートまとめる
 
