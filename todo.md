@@ -1,3 +1,6 @@
+- phpバインドもあるgroonga
+  - https://www.clear-code.com/blog/category/groonga/2.html
+
 - ruby バインドのrrooongaもあるそう
   - https://qiita.com/groonga/items/7642e9e22bcda4b4327f
 
