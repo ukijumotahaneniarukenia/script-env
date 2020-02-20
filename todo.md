@@ -1,3 +1,6 @@
+- perlのflockとbashのflock
+  - http://perl.no-tubo.net/2006/10/22/flock%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%9f%e5%bc%b7%e5%9b%ba%e3%81%aa%e6%8e%92%e4%bb%96%e5%87%a6%e7%90%86/
+
 - ruby 標準入出力　いい感じのやつはテツジさんがまとめていた。たしか書いたと思うのでperlディレクトリらへんで漁る
   - https://qiita.com/Sobue-Yuki/items/93638169e8a8a0c4b3d5
 
