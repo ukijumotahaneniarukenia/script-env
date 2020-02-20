@@ -1,3 +1,6 @@
+- flockコマンドで排他制御できる実例 プロセスがシーケンシャルに起動されていることがflockコマンドのおかげでわかる
+  - https://b.ueda.tech/?post=02709
+
 - phpバインドもあるgroonga
   - https://www.clear-code.com/blog/category/groonga/2.html
 
