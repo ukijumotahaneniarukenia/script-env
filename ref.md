@@ -1,3 +1,6 @@
+- cicleciデプロイ手順
+  - https://qiita.com/gakinchoy7/items/ae31107ef56efb16fe7e
+
 - bash テンプーレト作成
   - https://www.m3tech.blog/entry/2018/08/21/bash-scripting
 
