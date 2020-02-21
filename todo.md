@@ -1,3 +1,6 @@
+- sqlserver bulk imortできるんだね
+  - https://qiita.com/ExA_DEV/items/2d0cdff5bdd43591f7ce
+
 - flockコマンドで排他制御できる実例 プロセスがシーケンシャルに起動されていることがflockコマンドのおかげでわかる
   - https://b.ueda.tech/?post=02709
 
