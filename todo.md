@@ -1,3 +1,6 @@
+- twiiter認証文言テンプーレトこれ試してみようかな
+  - https://note.com/mogya/n/nbd9a720f8a5b
+
 - sqlserver bulk imortできるんだね
   - https://qiita.com/ExA_DEV/items/2d0cdff5bdd43591f7ce
 
