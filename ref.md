@@ -1,3 +1,6 @@
+- jmeter多重度いじるサンプル手順
+  - https://qiita.com/ch7821/items/50ee9f667016ac9e45af
+
 - cicleciデプロイ手順
   - https://qiita.com/gakinchoy7/items/ae31107ef56efb16fe7e
 
