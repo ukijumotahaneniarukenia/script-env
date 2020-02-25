@@ -1,5 +1,6 @@
 - python便利ライブラリ
-  - 
+  - IBM 機械学習力入れてんだよな
+  - https://qiita.com/ishida330/items/53f1b0df2247fab5c6dd
 
 - kube環境構築
   - https://qiita.com/ishida330/items/dfff18362ea16aa92f88
