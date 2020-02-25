@@ -1,4 +1,4 @@
-- was IBM qiitaでぐぐる
+- was websphere IBM qiitaでぐぐる
 
 
 - was実行環境とかdockerであるぽい
