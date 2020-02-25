@@ -1,4 +1,4 @@
-- twiiter認証文言テンプーレトこれ試してみようかな
+- twiiter認証文言テンプーレトこれ試してみようかな→rejectされたので、とても悲しい。メールアドレス１こ残っているけど大切にしないとなー。とにかく悲しい。熟考してから送信すること。
   - https://note.com/mogya/n/nbd9a720f8a5b
 
 - sqlserver bulk imortできるんだね
