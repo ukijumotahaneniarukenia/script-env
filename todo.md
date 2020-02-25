@@ -69,7 +69,7 @@
   - http://www.tohoho-web.com/perl/hash.htm
 - mysqlのインポートエクスポートまとめる→まとめた。
 
-- postgresのインポートエクスポートまとめる
+- postgresのインポートエクスポートまとめる→まとめた。
 
 - elasticsearchのインポートエクスポートまとめる→まとめた。
 
