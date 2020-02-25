@@ -1,3 +1,9 @@
+- python便利ライブラリ
+  - 
+
+- kube環境構築
+  - https://qiita.com/ishida330/items/dfff18362ea16aa92f88
+
 - was websphere IBM qiitaでぐぐる
   - https://qiita.com/ishida330/items/78d7e19510c141201d69
 
