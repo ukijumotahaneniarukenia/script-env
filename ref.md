@@ -1,3 +1,6 @@
+- was IBM qiitaでぐぐる
+
+
 - was実行環境とかdockerであるぽい
   - https://qiita.com/triple4649/items/727eb3358a9fa5414bed
 
