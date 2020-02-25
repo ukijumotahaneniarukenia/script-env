@@ -1,3 +1,6 @@
+- gcとかの設定いじる手順
+  - https://qiita.com/ch7821/items/0cecc5909715dc4bf0b6
+
 - jmeter多重度いじるサンプル手順
   - https://qiita.com/ch7821/items/50ee9f667016ac9e45af
 
