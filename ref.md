@@ -1,5 +1,5 @@
 - was websphere IBM qiitaでぐぐる
-
+  - https://qiita.com/ishida330/items/78d7e19510c141201d69
 
 - was実行環境とかdockerであるぽい
   - https://qiita.com/triple4649/items/727eb3358a9fa5414bed
