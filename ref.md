@@ -1,3 +1,6 @@
+- was実行環境とかdockerであるぽい
+  - https://qiita.com/triple4649/items/727eb3358a9fa5414bed
+
 - gcとかの設定いじる手順
   - https://qiita.com/ch7821/items/0cecc5909715dc4bf0b6
 
