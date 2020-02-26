@@ -1,4 +1,7 @@
 - ruby の標準入力
+  - https://qiita.com/mogulla3/items/fbc2a46478872bebbc47
+
+- ruby の標準入力
   - https://docs.ruby-lang.org/ja/latest/class/IO.html
 
 - perl の順列ファンクション作って思ったのは、単一スクリプトファイルを複数のosで跨いで使用する場合は最初に実行マシン搭載のosを区別する必要があってUsageを出し分ける必要がある。ライブラリのインストール方法は異なるので。
