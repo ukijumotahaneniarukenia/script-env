@@ -1,3 +1,6 @@
+- pgroongaインストール
+  - https://engineer-milione.com/tips/pgroonga.html
+
 - mroongaインストール
   - https://mroonga.org/ja/docs/install.html
   - https://mroonga.org/ja/docs/tutorial/storage.html#how-to-use-full-text-search
