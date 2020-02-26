@@ -1,5 +1,6 @@
 - uiの部品名とかは参考になるかなー
   - https://nablarch.github.io/docs/LATEST/doc/index.html
+  - https://nablarch.github.io/docs/LATEST/doc/development_tools/ui_dev/doc/reference_jsp_widgets/index.html
 
 - python便利ライブラリ
   - IBM 機械学習力入れてんだよな
