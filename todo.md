@@ -1,5 +1,5 @@
-- perlシグナルハンドル
-  - http://nukokusa.hatenablog.jp/entry/2015/11/04/221456
+- oracleでユーザー定義ファンクションで任意の文章を受け取ってjava拡張で組み込んだMecab解析結果をコレクションとして返却するファンクションを作成したい。
+  - 便利そう。おもいついた。
 
 - pgroongaインストール
   - https://engineer-milione.com/tips/pgroonga.html
