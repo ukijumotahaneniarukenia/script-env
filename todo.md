@@ -1,3 +1,6 @@
+- perlシグナルハンドル
+  - http://nukokusa.hatenablog.jp/entry/2015/11/04/221456
+
 - pgroongaインストール
   - https://engineer-milione.com/tips/pgroonga.html
   - https://qiita.com/getpow/items/0fb2b0d6a5678896b4f4
