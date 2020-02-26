@@ -1,3 +1,6 @@
+- nim エントリポイントの実装例
+  - https://qiita.com/6in/items/c735cb2ffbe79f3f9d94
+
 - nimのサンプルはこの方の記事あたりを参考に
   - https://qiita.com/6in/items/cbb161c401afe054314f
 
