@@ -1,3 +1,6 @@
+- nimのサンプルはこの方の記事あたりを参考に
+  - https://qiita.com/6in/items/cbb161c401afe054314f
+
 - ruby の標準入力
   - https://qiita.com/mogulla3/items/fbc2a46478872bebbc47
 
