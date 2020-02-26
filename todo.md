@@ -1,5 +1,6 @@
 - mroongaインストール
   - https://mroonga.org/ja/docs/install.html
+  - https://mroonga.org/ja/docs/tutorial/storage.html#how-to-use-full-text-search
 
 - twiiter認証文言テンプーレトこれ試してみようかな→rejectされたので、とても悲しい。メールアドレス１こ残っているけど大切にしないとなー。とにかく悲しい。熟考してから送信すること。
   - https://note.com/mogya/n/nbd9a720f8a5b
