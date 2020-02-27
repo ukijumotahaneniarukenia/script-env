@@ -1,3 +1,6 @@
+- go エラーハンドリング
+  - https://qiita.com/nayuneko/items/3c0b3c0de9e8b27c9548
+
 - uiの部品名とかは参考になるかなー
   - https://nablarch.github.io/docs/LATEST/doc/index.html
   - https://nablarch.github.io/docs/LATEST/doc/development_tools/ui_dev/doc/reference_jsp_widgets/index.html
