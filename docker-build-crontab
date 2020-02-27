@@ -10,3 +10,5 @@
 #30 02 * * * /home/aine/script-env/docker-build-crontab-wrapper.sh 1 docker-build-mecab-list
 #
 #20 03 * * * /home/aine/script-env/docker-build-crontab-wrapper.sh 1 docker-build-postgres-list
+#
+#28 01 * * * /home/aine/script-env/docker-build-crontab-wrapper.sh 1  docker-build-java-maven-list
