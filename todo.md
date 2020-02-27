@@ -1,3 +1,8 @@
+- gron commandの使い方。
+  - mediamからサジェストきた。面白い。
+  - JSON Processing Pipelines with gron
+  - https://medium.com/capital-one-tech/json-processing-pipelines-with-gron-6fbd531155d7
+
 - commコマンドを取り入れたメンテスクリプトなんか適当に一本作っておく
 
 
