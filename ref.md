@@ -1,3 +1,15 @@
+- nim エントリポイントの実装例
+  - https://qiita.com/6in/items/c735cb2ffbe79f3f9d94
+
+- nimのサンプルはこの方の記事あたりを参考に
+  - https://qiita.com/6in/items/cbb161c401afe054314f
+
+- ruby の標準入力
+  - https://qiita.com/mogulla3/items/fbc2a46478872bebbc47
+
+- ruby の標準入力
+  - https://docs.ruby-lang.org/ja/latest/class/IO.html
+
 - api curl きれいにまとまっている。参考になる。
   - https://qiita.com/gorilla0513/items/9306d4165637c29370eb
 
