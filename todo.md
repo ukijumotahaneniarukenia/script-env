@@ -1,3 +1,5 @@
+- build log にsql server のイメージこけるえらー鬱陶しいので、早いとこラップしておく。
+
 - gron commandの使い方。
   - mediamからサジェストきた。面白い。
   - JSON Processing Pipelines with gron
