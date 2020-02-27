@@ -1,6 +1,6 @@
 #!/bin/bash
 
-bash ./03-doc.mdの各環境ディレクトリへの配備.sh
+bash $HOME/script-env/03-doc.mdの各環境ディレクトリへの配備.sh
 
 while read tgt;do
 

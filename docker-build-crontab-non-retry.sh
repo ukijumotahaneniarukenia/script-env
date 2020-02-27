@@ -25,19 +25,6 @@ clean(){
 }
 
 logger(){
-  #出力がうるさくなるので、出力しない
-  #while read tgt;do
-  #  local LAST_STEP="$(cat $tgt |grep -Po 'Step [0-9]{1,}/[0-9]{1,}' | tail -n1)" #Step数の抽出
-  #  local ELAPSED_TIME="$(cat $tgt | grep -P '\s[0-9]{1,}m[0-9]{1,}\.[0-9]{3}s' | xargs;)" #経過時間の抽出
-  #  local STEP_CNT=$(sed -r 's;Step\s{1,};;;s;(.*)/(.*);\2;' <<<"$LAST_STEP")
-  #  local DONE_CNT=$(sed -r 's;Step\s{1,};;;s;(.*)/(.*);\1;' <<<"$LAST_STEP")
-  #  {
-  #    echo -ne $tgt #対象コンテナを追記
-  #    [[ $STEP_CNT -eq 0 ]] && [[ 0 -eq $DONE_CNT ]] && printf "\n";#実行時エラーの場合は改行のみ挿入
-  #    [ $STEP_CNT -eq $DONE_CNT ] || printf "\t%s\n" "$ELAPSED_TIME";#実行ステップ数と完了ステップ数が同じの場合経過時間とともに出力
-  #  }
-  #done < <(find $HOME/script-env -type f -name "*non-retry-*" | grep log | sort)
-
   local TGT_BUILD_IMAGE_EXPECT_CNT=$(ls -l $HOME/script-env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log | wc -l )
   local TGT_BUILD_IMAGE_EXPECT="$(ls -l $HOME/script-env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log )"
   local TGT_BUILD_IMAGE_ACTUAL_CNT=$(docker images | grep -P '(?:-[0-9]){1,}' | awk '{print $1}' | xargs -I@ bash -c "echo @ && docker history --human=false @ | sort -rk2 | sed -r 's;\s{1,}; ;g;' | cut -d' ' -f2 | sed -n '2p'" | xargs -n2 | grep "$(date "+%Y-%m-%d")" | wc -l)

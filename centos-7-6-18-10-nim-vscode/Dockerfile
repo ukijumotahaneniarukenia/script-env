@@ -4,8 +4,9 @@ ARG CONTAINER_NAME
 ARG OS_VERSION
 ARG GIT_VERSION
 ARG PYTHON_VERSION
-ARG PERL_VERSION
+ARG NIM_VERSION
 
+#ユーザー作成
 RUN groupadd -g 1001 kuraine && \
 useradd -m -g kuraine -u 1001 kuraine && \
 chsh -s /bin/bash kuraine && \
@@ -24,19 +25,18 @@ RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-tool-pkg.sh | ba
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-dev-pkg.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-python-$PYTHON_VERSION.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-git-$GIT_VERSION.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-perl-$PERL_VERSION.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-cpan-cpanm.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-nim-$NIM_VERSION.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-locale.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
 ENV LANG=ja_JP.UTF-8
 
-#vscodeインストール
-COPY code-1.41.1-1576681965.el7.x86_64.rpm /usr/local/src/code-1.41.1-1576681965.el7.x86_64.rpm
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vscode.sh | bash
-
 #XクライアントがXサーバーにGUI転送出来るように、転送先の「IP:ディスプレイ番号:スクリーン番号」を指定する
 ENV DISPLAY=:0.0
+
+#vscodeインストール
+COPY code-1.41.1-1576681965.el7.x86_64.rpm /usr/local/src/code-1.41.1-1576681965.el7.x86_64.rpm
+RUN cd /usr/local/src && yum install -y code-1.41.1-1576681965.el7.x86_64.rpm
 
 USER kuraine
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-dotfile.sh | bash
