@@ -1,3 +1,5 @@
+- Liz.mdはawkでハイフンスプリットすれば、簡単にいい感じになりそう
+
 - build log にsql server のイメージこけるえらー鬱陶しいので、早いとこラップしておく。
 
 - gron commandの使い方。
