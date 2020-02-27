@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #dockerインストール
-yum remove docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate 
+yum remove docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate
 yum install -y yum-utils device-mapper-persistent-data lvm2
 yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 yum install -y docker-ce docker-ce-cli containerd.io
@@ -51,3 +51,7 @@ rm -rf $HOME/tmp
 mkdir -p $HOME/.vim/bundle && \
 cd $HOME && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
 sh installer.sh $HOME/.vim/bundle && rm -rf installer.sh
+
+su - aine <<EOF
+LANG=C xdg-user-dirs-gtk-update
+EOF
