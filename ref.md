@@ -1,3 +1,6 @@
+- go標準入力
+  - https://qiita.com/tnoda_/items/b503a72eac82862d30c6
+
 - go エラーハンドリング
   - https://qiita.com/nayuneko/items/3c0b3c0de9e8b27c9548
 
