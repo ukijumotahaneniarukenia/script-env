@@ -1,4 +1,3 @@
-#28 01 * * * /home/aine/script-env/docker-build-crontab-non-retry.sh
+#28 01 * * * /home/aine/script-env/docker-build-crontab-wrapper.sh 1 docker-build-wanted-list
 
-#コケているやつの再実行。多重度の概念取り入れよう。
-10 09 * * * /home/aine/script-env/docker-build-crontab-retry.sh 1
+28 01 * * * /home/aine/script-env/docker-build-crontab-wrapper.sh 1 docker-build-full-list
