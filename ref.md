@@ -1,3 +1,6 @@
+- api curl きれいにまとまっている。参考になる。
+  - https://qiita.com/gorilla0513/items/9306d4165637c29370eb
+
 - go標準入力
   - https://qiita.com/tnoda_/items/b503a72eac82862d30c6
 
