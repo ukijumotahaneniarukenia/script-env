@@ -1,3 +1,6 @@
+- 機械学習
+  - 概念からの説明　https://ledge.ai/reinforcement-learning/
+
 - kube 運用知見
   - https://tech.smartcamp.co.jp/entry/use-kubernetes-one-year?amp=1
 
