@@ -1,3 +1,6 @@
+- 機械学習 データセットやアプローチについて
+  - https://github.com/allenai/acl2018-semantic-parsing-tutorial
+
 - csvハンドリング操作の3言語での比較
   - https://employment.en-japan.com/engineerhub/entry/2020/02/27/103000?amp=1
 
