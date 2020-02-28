@@ -1,3 +1,6 @@
+- kube 運用知見
+  - https://tech.smartcamp.co.jp/entry/use-kubernetes-one-year?amp=1
+
 - 機械学習 データセットやアプローチについて
   - https://github.com/allenai/acl2018-semantic-parsing-tutorial
 
