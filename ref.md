@@ -1,3 +1,6 @@
+- csvハンドリング操作の3言語での比較
+  - https://employment.en-japan.com/engineerhub/entry/2020/02/27/103000?amp=1
+
 - nim エントリポイントの実装例
   - https://qiita.com/6in/items/c735cb2ffbe79f3f9d94
 
