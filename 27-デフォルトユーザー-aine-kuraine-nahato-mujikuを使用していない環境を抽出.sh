@@ -9,6 +9,6 @@ find $HOME/script-repo | grep script-env | while read tgt;do
   else
     echo $tgt
   fi
-done | grep -vP 'non-tgt'
+done | grep -vP 'non-tgt' | perl -pe 's:-script-env::g;s:-env-usr.sh:/env-usr.md:g;s:script-repo:script-env:g'
 
 find /tmp -type f -name "*script-env*" 2>/dev/null | xargs rm
