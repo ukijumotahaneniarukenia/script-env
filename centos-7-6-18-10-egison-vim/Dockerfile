@@ -4,12 +4,6 @@ ARG CONTAINER_NAME
 ARG OS_VERSION
 ARG GIT_VERSION
 
-RUN groupadd -g 1001 egison && \
-useradd -m -g egison -u 1001 egison && \
-chsh -s /bin/bash egison && \
-echo 'egison_pwd' | passwd --stdin egison && \
-echo 'egison ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
-echo 'root_pwd' | passwd --stdin root
 
 RUN yum install -y git
 RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/script-repo.git

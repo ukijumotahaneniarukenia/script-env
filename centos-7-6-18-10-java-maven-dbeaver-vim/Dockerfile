@@ -8,12 +8,6 @@ ARG JAVA_VERSION
 ARG MAVEN_VERSION
 ARG DBEAVER_VERSION
 
-RUN groupadd -g 1001 kuraine && \
-useradd -m -g kuraine -u 1001 kuraine && \
-chsh -s /bin/bash kuraine && \
-echo 'kuraine_pwd' | passwd --stdin kuraine && \
-echo 'kuraine ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
-echo 'root_pwd' | passwd --stdin root
 
 RUN yum install -y git
 RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/script-repo.git

@@ -38,11 +38,6 @@ COPY oracle-database-ee-19c-1.0-1.x86_64.rpm /root/oracle-database-ee-19c-1.0-1.
 RUN yum -y localinstall /root/oracle-database-ee-19c-1.0-1.x86_64.rpm
 
 #ユーザー作成
-RUN groupadd -g 1001 rstudio
-RUN useradd -m -g rstudio -u 1001 rstudio
-RUN chsh -s /bin/bash rstudio
-RUN chsh -s /bin/bash oracle
-RUN echo 'root_pwd' | passwd --stdin root
 RUN echo 'rstudio_pwd' | passwd --stdin rstudio
 RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN echo 'oracle_pwd' | passwd --stdin oracle

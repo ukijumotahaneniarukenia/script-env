@@ -1,13 +1,6 @@
 FROM centos/systemd
 
 #ユーザー作成
-RUN groupadd -g 1001 kuraine && \
-useradd -m -g kuraine -u 1001 kuraine && \
-chsh -s /bin/bash kuraine && \
-echo 'kuraine_pwd' | passwd --stdin kuraine && \
-echo 'kuraine ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-
-RUN echo 'root_pwd' | passwd --stdin root
 
 #texコマンドインストール
 RUN cd /usr/local/src && \

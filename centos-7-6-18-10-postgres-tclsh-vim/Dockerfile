@@ -7,12 +7,6 @@ ARG PYTHON_VERSION
 ARG TCLSH_VERSION
 ARG POSTGRES_VERSION
 
-RUN groupadd -g 1001 postgres && \
-useradd -m -g postgres -u 1001 postgres && \
-chsh -s /bin/bash postgres && \
-echo 'postgres_pwd' | passwd --stdin postgres && \
-echo 'postgres ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
-echo 'root_pwd' | passwd --stdin root
 
 RUN yum install -y git
 RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/script-repo.git

@@ -5,12 +5,6 @@ ARG OS_VERSION
 ARG GIT_VERSION
 ARG PYTHON_VERSION
 
-RUN groupadd -g 1001 nginx && \
-useradd -m -g nginx -u 1001 nginx && \
-chsh -s /bin/bash nginx && \
-echo 'nginx_pwd' | passwd --stdin nginx && \
-echo 'nginx ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
-echo 'root_pwd' | passwd --stdin root
 
 RUN yum install -y git
 RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/script-repo.git

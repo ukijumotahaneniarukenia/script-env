@@ -4,12 +4,6 @@ ARG CONTAINER_NAME
 ARG OS_VERSION
 ARG GIT_VERSION
 
-RUN groupadd -g 1001 anacon && \
-useradd -m -g anacon -u 1001 anacon && \
-chsh -s /bin/bash anacon && \
-echo 'anacon_pwd' | passwd --stdin anacon && \
-echo 'anacon ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
-echo 'root_pwd' | passwd --stdin root
 
 RUN yum install -y git
 RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/script-repo.git

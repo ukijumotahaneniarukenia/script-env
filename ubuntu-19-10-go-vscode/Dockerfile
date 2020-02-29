@@ -8,12 +8,6 @@ ARG GO_VERSION
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN groupadd -g 1001 kuraine && \
-useradd -m -g kuraine -u 1001 kuraine && \
-chsh -s /bin/bash kuraine && \
-echo 'kuraine_pwd' | passwd --stdin kuraine && \
-echo 'kuraine ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
-echo 'root_pwd' | passwd --stdin root
 
 RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list && \
 apt update && \

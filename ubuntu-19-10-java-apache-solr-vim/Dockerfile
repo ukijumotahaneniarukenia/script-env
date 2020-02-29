@@ -9,12 +9,6 @@ ARG APACHE_SOLR_VERSION
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN groupadd -g 1001 solr && \
-useradd -m -g solr -u 1001 solr && \
-echo 'solr:solr_pwd' | chpasswd && \
-echo 'solr ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
-chsh -s /bin/bash solr && \
-echo 'root:root_pwd' | chpasswd
 
 RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list && \
 apt update && \

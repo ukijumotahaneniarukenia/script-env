@@ -18,19 +18,6 @@ ENV SAMPLEDB=true
 ARG GIT_VERSION
 ARG PYTHON_VERSION
 
-RUN groupadd -g 1000 db2iadm1 && \
-useradd -m -g db2iadm1 -u 1000 db2inst1 && \
-chsh -s /bin/bash db2inst1 && \
-echo 'db2inst1_pwd' | passwd --stdin db2inst1 && \
-echo 'db2inst1 ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-
-RUN groupadd -g 1001 db2fadm1 && \
-useradd -m -g db2fadm1 -u 1001 db2fenc1 && \
-chsh -s /bin/bash db2fenc1 && \
-echo 'db2fenc1_pwd' | passwd --stdin db2fenc1 && \
-echo 'db2fenc1 ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-
-RUN echo 'root_pwd' | passwd --stdin root
 
 RUN yum install -y git
 RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/script-repo.git

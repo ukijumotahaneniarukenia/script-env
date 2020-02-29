@@ -10,12 +10,6 @@ ARG MYSQL_VERSION
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN groupadd -g 1001 mysql && \
-useradd -m -g mysql -u 1001 mysql && \
-chsh -s /bin/bash mysql && \
-echo 'mysql:mysql_pwd' | chpasswd && \
-echo 'mysql ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
-echo 'root:root_pwd' | chpasswd
 
 RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list && \
 apt update && \
