@@ -1,14 +1,20 @@
 #!/bin/bash
 
-#Usage
-#第一引数が見つかった指定行の直下に第二引数を差し込む
-#$./c.sh 'ARG OS_VERSION' 'ARG GIT_VERSION'
+usage(){
+  cat <<EOS
+Usage:
+   $0 'script-repo.git' 'RUN cd /usr/local/src/script-repo && echo ./\$OS_VERSION-script-env-default-env-usr.sh | bash' script-env-regression-test
+EOS
+exit 0
+}
 
-TGT_WORD="$1"
-EMBEDED_WORD="$2"
+TGT_WORD="$1";shift
+EMBEDED_WORD="$1";shift
+REPO="$1";shift
 
-[ -z "$TGT_WORD" ] && exit 1
-[ -z "$EMBEDED_WORD" ] && exit 1
+[ -z "$TGT_WORD" ] && usage
+[ -z "$EMBEDED_WORD" ] && usage
+[ -z "$REPO" ] && usage
 
 while read tgt;do
 
@@ -17,4 +23,4 @@ while read tgt;do
 
   printf "sed -i \x27%si%s\x27 %s\n" "$(($TGT_ROWN+1))" "$EMBEDED_WORD" "$TGT_FILE"
 
-done < <(grep -n -P "$TGT_WORD" -r $HOME/script-env | grep -P 'Dockerfile')
+done < <(grep -n -P "$TGT_WORD" -r $HOME/$REPO | grep -P 'Dockerfile') | grep -vP "${0:2}"
