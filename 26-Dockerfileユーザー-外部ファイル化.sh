@@ -28,21 +28,22 @@ while read tgt;do
   #権限付与
   chmod 755 $HOME/script-repo/script-env-$tgt-env-usr.sh
   #リネーム
-  echo $HOME/script-repo/script-env-$tgt-env-usr.sh | xargs -I@ bash -c 'echo mv @ $(echo @ | perl -pe "s;(.*-[0-9]+);\1-script-env;g;s;/script-env-;/;")' | bash
+  echo $HOME/script-repo/script-env-$tgt-env-usr.sh | xargs -I@ bash -c 'echo mv @ $(echo @ | perl -pe "s;(.*-[0-9]+);\1-script-env;g;s;/script-env-;/;;s;script-env;install;g")' | bash
 
 done < <(ls -l $HOME/$REPO | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log)
 
 #追記
 while read tgt;do
 
-  FILE=$(echo $tgt | perl -pe "s/(?<=[0-9])-script-env//g;s;-env-usr\.sh;/env-usr\.md;g;s/script-repo/$REPO/g")
-  #確認
-  echo $FILE
-  #作成
-  touch $FILE
-  >$FILE
-  #抽出・書込
-  grep -oP '\-g [0-9]+ [a-zA-Z]+|\-g [a-zA-Z]+ -u [0-9]+ [a-zA-Z]+|[a-zA-Z]+_pwd' $tgt | perl -pe 's/.*-u //g;s/-g //g;s/ /\n/g' | xargs -n5 | perl -pe 's/root_pwd/0 root 0 root root_pwd/g' | \
-    sed -r '/^$/d;s;^|$| ;|;g;1i|ユーザーＩＤ|ユーザー名|グループＩＤ|グループ名|パスワード|' | sed '2i|:-:|:-:|:-:|:-:|:-:|' >$FILE
+  echo $tgt
+  #FILE=$(echo $tgt | perl -pe "s/(?<=[0-9])-script-env//g;s;-env-usr\.sh;/env-usr\.md;g;s/script-repo/$REPO/g")
+  ##確認
+  #echo $FILE
+  ##作成
+  #touch $FILE
+  #>$FILE
+  ##抽出・書込
+  #grep -oP '\-g [0-9]+ [a-zA-Z]+|\-g [a-zA-Z]+ -u [0-9]+ [a-zA-Z]+|[a-zA-Z]+_pwd' $tgt | perl -pe 's/.*-u //g;s/-g //g;s/ /\n/g' | xargs -n5 | perl -pe 's/root_pwd/0 root 0 root root_pwd/g' | \
+  #  sed -r '/^$/d;s;^|$| ;|;g;1i|ユーザーＩＤ|ユーザー名|グループＩＤ|グループ名|パスワード|' | sed '2i|:-:|:-:|:-:|:-:|:-:|' >$FILE
 
-done < <(find $HOME/script-repo | grep script-env)
+done < <(find $HOME/script-repo | grep env-usr)

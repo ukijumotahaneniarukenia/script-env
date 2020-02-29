@@ -3,7 +3,7 @@
 usage(){
   cat <<EOS
 Usage:
-  $0 centos-7-6-18-10-script-env-default-env-usr.sh \$HOME
+  $0 centos-7-6-18-10-install-default-env-usr.sh \$HOME
 EOS
 exit 0
 }
@@ -19,4 +19,4 @@ REPO=script-repo
 while read TGT;do
   [ "$SRC" == "$TGT" ] || :
   [ "$SRC" != "$TGT" ] && echo "cp "$DIR/$REPO/$SRC" "$DIR/$REPO/$TGT
-done < <(ls $DIR/$REPO | grep -Po '[a-z]+(-[0-9]{1,}){1,}' | grep -P 'ubuntu|centos' | sort | uniq | xargs -I@ echo "@$(echo "$SRC" | grep -Po '\-script-env.*')")
+done < <(ls $DIR/$REPO | grep -Po '[a-z]+(-[0-9]{1,}){1,}' | grep -P 'ubuntu|centos' | sort | uniq | xargs -I@ echo "@$(echo "$SRC" | grep -Po '\-install.*')")

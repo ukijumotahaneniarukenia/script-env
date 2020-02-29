@@ -3,7 +3,7 @@
 usage(){
   cat <<EOS
 Usage:
-  $0 script-env-regression-test
+  $0 script-env
 EOS
 exit 0
 }

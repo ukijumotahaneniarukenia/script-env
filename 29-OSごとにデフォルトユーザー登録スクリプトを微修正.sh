@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-#cat /home/aine/script-repo/ubuntu-16-04-script-env-default-env-usr.sh | sed -r "s/echo 'root_pwd' \| passwd --stdin root/echo 'root:root_pwd' | chpasswd/g"
-#cat /home/aine/script-repo/ubuntu-16-04-script-env-default-env-usr.sh | sed -r "s/echo 'kuraine_pwd' \| passwd --stdin kuraine/echo 'kuraine:kuraine_pwd' | chpasswd/g"
-
 usage(){
   cat <<EOS
 Usage:
