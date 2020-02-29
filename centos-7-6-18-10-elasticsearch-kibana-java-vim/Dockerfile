@@ -18,7 +18,7 @@ RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-dotfile.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-tool-pkg.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-dev-pkg.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-python-$PYTHON_VERSION.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-jdk11.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-jdk-11.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-git-$GIT_VERSION.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-locale.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-ld.sh | bash
