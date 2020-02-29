@@ -11,6 +11,7 @@ ARG MYSQL_WORKBENCH_VERSION
 
 RUN yum install -y git
 RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/script-repo.git
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-mysql-java-workbench-env-usr.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-default-env-usr.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-repository-pkg.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-network-pkg.sh | bash
