@@ -1,3 +1,6 @@
+- 1975好き
+  - https://note.com/2020willblessus/n/n593ea331e584
+
 - 機械学習
   - 概念からの説明　https://ledge.ai/reinforcement-learning/
 
