@@ -1,5 +1,3 @@
-- Liz.mdはawkでハイフンスプリットすれば、簡単にいい感じになりそう
-
 - build log にsql server のイメージこけるえらー鬱陶しいので、早いとこラップしておく。
 
 - gron commandの使い方。
@@ -8,7 +6,6 @@
   - https://medium.com/capital-one-tech/json-processing-pipelines-with-gron-6fbd531155d7
 
 - commコマンドを取り入れたメンテスクリプトなんか適当に一本作っておく
-
 
 - loggerスクリプトはまとめられる状態になってきたので、まとめようかな。
 
