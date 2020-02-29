@@ -1,4 +1,4 @@
-|環境ディレクトリ名|GRPSEQ|単一環境名|GRPCNT|
+|環境ディレクトリ名|GRPSEQ|コンテキスト名|GRPCNT|
 |:-:|:-:|:-:|:-:|
 |centos-7-6-18-10-anaconda-vim|1|anaconda|2|
 |centos-7-6-18-10-anaconda-vim|2|vim|2|
