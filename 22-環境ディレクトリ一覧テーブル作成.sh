@@ -1,3 +1,13 @@
 #!/bin/bash
 
-ls -l $HOME/script-env | grep -P '^d' | awk '{print $9}' | grep -vP 'docker-build-log' | perl -pe 's/((?:-[0-9]{1,}){2,}-)/\t\1\t/g' | awk '{print $1,substr($2,2,length($2)-2),$3}' | awk '{print NR,$3,gsub("-","",$3)+1}' | perl -pe 's; ;\|;g' | sed -r 's;^|$;\|;g' | sed '1i|No|app|cnt|' | sed '2i|:-:|:-:|:-:|' >liz.md
+while read tgt;do
+  #echo $tgt | xargs -I@ bash -c "yes @| head -n$(echo $tgt | grep -oP '(-[a-zA-Z]{1,})' | wc -l)"
+  #echo $tgt | grep -oP '(-[a-zA-Z]{1,})'
+  #echo $tgt | awk '{b=split($0,a,"-[a-zA-Z]+")-1;print $0,b}'| xargs -I@ bash -c "yes @| head -n$(echo $tgt | grep -oP '(-[a-zA-Z]{1,})' | wc -l)"
+  paste -d' ' <(echo $tgt | xargs -I@ bash -c "yes @| head -n$(echo $tgt | grep -oP '(-[a-zA-Z]{1,})' | wc -l)") \
+    <(echo $tgt | grep -oP '(-[a-zA-Z]{1,})'|awk '{print NR,substr($0,2,length($0))}') \
+    <(echo $tgt | awk '{b=split($0,a,"-[a-zA-Z]+")-1;print b}'| xargs -I@ bash -c "yes @| head -n$(echo $tgt | grep -oP '(-[a-zA-Z]{1,})' | wc -l)") | \
+  sed -r 's;^|$| ;|;g'
+done < <(ls -l $HOME/script-env-regression-test | grep -P '^d' | awk '{print $9}' | grep -vP 'docker-build-log' | grep -P '(-[a-zA-Z]+)') | \
+sed '1i|環境ディレクトリ名|GRPSEQ|単一環境名|GRPCNT|' | \
+sed '2i|:-:|:-:|:-:|:-:|' >env-list.md
