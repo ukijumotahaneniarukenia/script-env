@@ -3,19 +3,19 @@
 - キャッシュ有効-バッググラウンド実行
 
 ```
-time docker build -t centos-7-6-18-10-php-komodo --build-arg GIT_VERSION=2-24-1 --build-arg PHP_VERSION=7-3-X --build-arg PYTHON_VERSION=3-7-4 --build-arg CONTAINER_NAME=centos-7-6-18-10-php-komodo --build-arg OS_VERSION=$(echo centos-7-6-18-10-php-komodo | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . UNKO
+time docker build -t centos-7-6-18-10-php-komodo --build-arg GIT_VERSION=2-24-1 --build-arg PHP_VERSION=7-3-X --build-arg PYTHON_VERSION=3-7-4 --build-arg USER_NAME=$(echo centos-7-6-18-10-php-komodo | perl -pe 's/([a-zA-Z]+(?:-[0-9]+){1,})(.*)/\\1-install\\2/g') --build-arg CONTAINER_NAME=centos-7-6-18-10-php-komodo --build-arg OS_VERSION=$(echo centos-7-6-18-10-php-komodo | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . UNKO
 ```
 
 - キャッシュ有効-フォアグラウンド実行
 
 ```
-time docker build -t centos-7-6-18-10-php-komodo --build-arg GIT_VERSION=2-24-1 --build-arg PHP_VERSION=7-3-X --build-arg PYTHON_VERSION=3-7-4 --build-arg CONTAINER_NAME=centos-7-6-18-10-php-komodo --build-arg OS_VERSION=$(echo centos-7-6-18-10-php-komodo | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build -t centos-7-6-18-10-php-komodo --build-arg GIT_VERSION=2-24-1 --build-arg PHP_VERSION=7-3-X --build-arg PYTHON_VERSION=3-7-4 --build-arg USER_NAME=$(echo centos-7-6-18-10-php-komodo | perl -pe 's/([a-zA-Z]+(?:-[0-9]+){1,})(.*)/\\1-install\\2/g') --build-arg CONTAINER_NAME=centos-7-6-18-10-php-komodo --build-arg OS_VERSION=$(echo centos-7-6-18-10-php-komodo | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 - キャッシュ無効
 
 ```
-time docker build --no-cache -t centos-7-6-18-10-php-komodo --build-arg GIT_VERSION=2-24-1 --build-arg PHP_VERSION=7-3-X --build-arg PYTHON_VERSION=3-7-4 --build-arg CONTAINER_NAME=centos-7-6-18-10-php-komodo --build-arg OS_VERSION=$(echo centos-7-6-18-10-php-komodo | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build --no-cache -t centos-7-6-18-10-php-komodo --build-arg GIT_VERSION=2-24-1 --build-arg PHP_VERSION=7-3-X --build-arg PYTHON_VERSION=3-7-4 --build-arg USER_NAME=$(echo centos-7-6-18-10-php-komodo | perl -pe 's/([a-zA-Z]+(?:-[0-9]+){1,})(.*)/\\1-install\\2/g') --build-arg CONTAINER_NAME=centos-7-6-18-10-php-komodo --build-arg OS_VERSION=$(echo centos-7-6-18-10-php-komodo | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 # dockerコンテナ起動
