@@ -19,4 +19,4 @@ REPO=script-repo
 while read TGT;do
   [ "$SRC" == "$TGT" ] || :
   [ "$SRC" != "$TGT" ] && echo "cp "$DIR/$REPO/$SRC" "$DIR/$REPO/$TGT
-done < <(ls $DIR/$REPO | grep -Po '[a-z]+(-[0-9]{1,}){1,}' | grep -P 'ubuntu|centos' | sort | uniq | xargs -I@ echo "@$(echo "$SRC" | grep -Po '\-install.*')")
+done < <(ls $DIR/$REPO | grep -Po '[a-z]+(-[0-9]{1,}){1,}' | grep -P 'ubuntu|centos' | sort | uniq | xargs -I@ echo "@$(echo "$SRC" | grep -Po '\-(install|config|patch|launch).*')")
