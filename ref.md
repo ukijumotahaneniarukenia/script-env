@@ -1,3 +1,6 @@
+- GraphQLのクエリ使い方説明
+  - https://qiita.com/shunp/items/d85fc47b33e1b3a88167
+
 - n-gramを利用したsqlの自動生成。調べたいことを言語された文章として受け取って、適切なsqlを生成する際の精度についての話
   - https://qiita.com/Inowe2457/items/562ef5312cc598711a6c
 
