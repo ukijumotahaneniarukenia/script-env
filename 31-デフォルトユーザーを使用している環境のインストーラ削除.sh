@@ -27,6 +27,7 @@ while read tgt;do
     echo 1 $tgt
   fi
 
-done < <(find $HOME/script-repo | grep env-usr) | grep -P '^0' | awk '{print $2}' | xargs rm
+  #デフォルトユーザー使用でないにもかかわらず、デフォルトユーザーを使用している場合は、削除
+done < <(find $HOME/script-repo | grep env-usr) | grep -P '^0' | awk '{print $2}' | grep -v default | xargs rm -f
 
-find /tmp -type f -name "*env-usr*" 2>/dev/null | xargs rm
+find /tmp -type f -name "*env-usr*" 2>/dev/null | xargs rm -f
