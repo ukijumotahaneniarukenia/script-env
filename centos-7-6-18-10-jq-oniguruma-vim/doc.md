@@ -9,13 +9,13 @@ time docker build -t centos-7-6-18-10-jq-oniguruma-vim --build-arg JQ_VERSION=1.
 - キャッシュ有効-フォアグラウンド実行
 
 ```
-time docker build -t centos-7-6-18-10-jq-oniguruma-vim --build-arg JQ_VERSION=1.6 --build-arg USER_NAME=$(echo centos-7-6-18-10-jq-oniguruma-vim | perl -pe 's/([a-zA-Z]+(?:-[0-9]+){1,})(.*)/\\1-install\\2/g') --build-arg CONTAINER_NAME=centos-7-6-18-10-jq-oniguruma-vim --build-arg OS_VERSION=$(echo centos-7-6-18-10-jq-oniguruma-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build -t centos-7-6-18-10-jq-oniguruma-vim --build-arg JQ_VERSION=1.6 --build-arg USER_NAME=$(echo centos-7-6-18-10-jq-oniguruma-vim | perl -pe 's/([a-zA-Z]+(?:-[0-9]+){1,})(.*)/\1-install\2/g') --build-arg CONTAINER_NAME=centos-7-6-18-10-jq-oniguruma-vim --build-arg OS_VERSION=$(echo centos-7-6-18-10-jq-oniguruma-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 - キャッシュ無効
 
 ```
-time docker build --no-cache -t centos-7-6-18-10-jq-oniguruma-vim --build-arg JQ_VERSION=1.6 --build-arg USER_NAME=$(echo centos-7-6-18-10-jq-oniguruma-vim | perl -pe 's/([a-zA-Z]+(?:-[0-9]+){1,})(.*)/\\1-install\\2/g') --build-arg CONTAINER_NAME=centos-7-6-18-10-jq-oniguruma-vim --build-arg OS_VERSION=$(echo centos-7-6-18-10-jq-oniguruma-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build --no-cache -t centos-7-6-18-10-jq-oniguruma-vim --build-arg JQ_VERSION=1.6 --build-arg USER_NAME=$(echo centos-7-6-18-10-jq-oniguruma-vim | perl -pe 's/([a-zA-Z]+(?:-[0-9]+){1,})(.*)/\1-install\2/g') --build-arg CONTAINER_NAME=centos-7-6-18-10-jq-oniguruma-vim --build-arg OS_VERSION=$(echo centos-7-6-18-10-jq-oniguruma-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 # dockerコンテナ起動

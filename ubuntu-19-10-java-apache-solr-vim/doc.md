@@ -9,13 +9,13 @@ time docker build -t ubuntu-19-10-java-apache-solr-vim --build-arg APACHE_SOLR_V
 - キャッシュ有効-フォアグラウンド実行
 
 ```
-time docker build -t ubuntu-19-10-java-apache-solr-vim --build-arg APACHE_SOLR_VERSION=8-4-1 --build-arg GIT_VERSION=2-24-1 --build-arg JAVA_VERSION=11 --build-arg PYTHON_VERSION=3-7-4 --build-arg USER_NAME=$(echo ubuntu-19-10-java-apache-solr-vim | perl -pe 's/([a-zA-Z]+(?:-[0-9]+){1,})(.*)/\\1-install\\2/g') --build-arg CONTAINER_NAME=ubuntu-19-10-java-apache-solr-vim --build-arg OS_VERSION=$(echo ubuntu-19-10-java-apache-solr-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build -t ubuntu-19-10-java-apache-solr-vim --build-arg APACHE_SOLR_VERSION=8-4-1 --build-arg GIT_VERSION=2-24-1 --build-arg JAVA_VERSION=11 --build-arg PYTHON_VERSION=3-7-4 --build-arg USER_NAME=$(echo ubuntu-19-10-java-apache-solr-vim | perl -pe 's/([a-zA-Z]+(?:-[0-9]+){1,})(.*)/\1-install\2/g') --build-arg CONTAINER_NAME=ubuntu-19-10-java-apache-solr-vim --build-arg OS_VERSION=$(echo ubuntu-19-10-java-apache-solr-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 - キャッシュ無効
 
 ```
-time docker build --no-cache -t ubuntu-19-10-java-apache-solr-vim --build-arg APACHE_SOLR_VERSION=8-4-1 --build-arg GIT_VERSION=2-24-1 --build-arg JAVA_VERSION=11 --build-arg PYTHON_VERSION=3-7-4 --build-arg USER_NAME=$(echo ubuntu-19-10-java-apache-solr-vim | perl -pe 's/([a-zA-Z]+(?:-[0-9]+){1,})(.*)/\\1-install\\2/g') --build-arg CONTAINER_NAME=ubuntu-19-10-java-apache-solr-vim --build-arg OS_VERSION=$(echo ubuntu-19-10-java-apache-solr-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build --no-cache -t ubuntu-19-10-java-apache-solr-vim --build-arg APACHE_SOLR_VERSION=8-4-1 --build-arg GIT_VERSION=2-24-1 --build-arg JAVA_VERSION=11 --build-arg PYTHON_VERSION=3-7-4 --build-arg USER_NAME=$(echo ubuntu-19-10-java-apache-solr-vim | perl -pe 's/([a-zA-Z]+(?:-[0-9]+){1,})(.*)/\1-install\2/g') --build-arg CONTAINER_NAME=ubuntu-19-10-java-apache-solr-vim --build-arg OS_VERSION=$(echo ubuntu-19-10-java-apache-solr-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 # dockerコンテナ起動
