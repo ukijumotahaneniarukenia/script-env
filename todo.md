@@ -6,8 +6,6 @@
 
 - 環境ディレクトリ名をファイル名から復元できる意識はスクリプトを書く際にもったほうがいいことにきづいた。ファイル名からチェックパターンを洗い出せる仕組み。
 
-- build log にsql server のイメージこけるえらー鬱陶しいので、早いとこラップしておく。
-
 - gron commandの使い方。
   - mediamからサジェストきた。面白い。
   - JSON Processing Pipelines with gron
