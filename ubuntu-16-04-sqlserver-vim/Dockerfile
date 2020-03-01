@@ -5,6 +5,7 @@ ARG OS_VERSION
 ARG USER_NAME
 ARG GIT_VERSION
 ARG PYTHON_VERSION
+ARG SQLSERVER_VERSION
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV ACCEPT_EULA=Y
@@ -25,8 +26,10 @@ RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-network-pkg.sh |
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-system.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-dotfile.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-patch-git-$GIT_VERSION.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-git-$GIT_VERSION.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-python-$PYTHON_VERSION.sh | bash
+RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-patch-sqlserver-$SQLSERVER_VERSION.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-locale.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
@@ -38,4 +41,4 @@ RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
 
 EXPOSE 1433
 
-WORKDIR /home/mysql
+WORKDIR /home/mssql
