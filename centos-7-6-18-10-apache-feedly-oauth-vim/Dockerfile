@@ -4,7 +4,6 @@ ARG CONTAINER_NAME
 ARG OS_VERSION
 ARG GIT_VERSION
 
-
 RUN yum install -y git
 RUN echo unko
 RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/script-repo.git

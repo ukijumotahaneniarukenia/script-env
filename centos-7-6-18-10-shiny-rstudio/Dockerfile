@@ -8,7 +8,6 @@ ARG R_VERSION
 ARG SHINY_VERSION
 ARG RSTUDIO_VERSION
 
-
 RUN yum install -y git
 RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/script-repo.git
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-shiny-rstudio-env-usr.sh | bash

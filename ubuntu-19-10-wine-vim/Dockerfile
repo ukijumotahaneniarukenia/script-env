@@ -8,7 +8,6 @@ ARG WINE_VERSION
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-
 RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list && \
 apt update && \
 apt upgrade -y

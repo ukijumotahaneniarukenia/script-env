@@ -8,14 +8,12 @@ ARG POSTGRES_VERSION
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-
 RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list && \
 apt update && \
 apt upgrade -y
 
 RUN apt install -y git
 RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/script-repo.git
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-postgres-python-vim-env-usr.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-postgres-python-vim-env-usr.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-default-env-usr.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-tool-pkg.sh | bash

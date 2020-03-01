@@ -8,7 +8,6 @@ ARG JAVA_VERSION
 ARG MAVEN_VERSION
 ARG DBEAVER_VERSION
 
-
 RUN yum install -y git
 RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/script-repo.git
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-default-env-usr.sh | bash
