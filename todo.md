@@ -1,4 +1,4 @@
-- 環境ディレクトリ内のdoc.mdファイルでbuild-arg引数があるが、Dockerfile内にUSER_NAME環境変数がないのはデフォルトユーザーを使用している環境である。
+- 環境ディレクトリ内のdoc.mdファイルでUSER_NAMEのbuild-arg引数があるが、Dockerfile内にUSER_NAME環境変数がないのはデフォルトユーザーを使用している環境である。
 
 - OSごとにDockerfileに出現するインストーラスクリプト名の出現回数をもとめて、多いやつはテンプレートに切り出す。
 
