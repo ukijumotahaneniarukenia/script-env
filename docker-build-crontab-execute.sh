@@ -19,7 +19,7 @@ while read tgt;do
   DIR=$(echo $tgt | grep -Po "(?<=$HOME/script-env/).*(?=/doc.md:)")
   CMD=$(echo $tgt | grep -Po '(?<=:).*' | sed 's;UNKO;;')
 
-  echo "cd $HOME/script-env/$DIR && ( $CMD ) 1>$HOME/script-env/$DIR/$ROUND_CNT-log 2>&1 &" | bash
+  echo "cd $HOME/script-env/$DIR && ( $CMD ) 1>$HOME/script-env/$DIR/$ROUND_CNT-log 2>&1 &" #| bash
 
 done < <(find $HOME/script-env -name "*doc.md" | \
   grep -vP 'script-env/doc.md' | \

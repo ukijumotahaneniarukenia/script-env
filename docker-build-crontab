@@ -1,13 +1,13 @@
-#10 00 * * * /home/aine/script-env/docker-build-crontab-wrapper.sh 1 docker-build-wanted-list
+24 19 * * * /home/aine/script-env/docker-build-crontab-wrapper.sh 1 docker-build-wanted-list
 
 #30 00 * * * /home/aine/script-env/docker-build-crontab-wrapper.sh 1 docker-build-full-list
 
-10 01 * * * /home/aine/script-env/docker-build-crontab-wrapper.sh 1 docker-build-vim-list
+#10 01 * * * /home/aine/script-env/docker-build-crontab-wrapper.sh 1 docker-build-vim-list
 
-30 04 * * * /home/aine/script-env/docker-build-crontab-wrapper.sh 1 docker-build-apache-list
+#30 04 * * * /home/aine/script-env/docker-build-crontab-wrapper.sh 1 docker-build-apache-list
 
-10 04 * * * /home/aine/script-env/docker-build-crontab-wrapper.sh 1 docker-build-postgres-list
+#10 04 * * * /home/aine/script-env/docker-build-crontab-wrapper.sh 1 docker-build-postgres-list
 
-30 04 * * * /home/aine/script-env/docker-build-crontab-wrapper.sh 1  docker-build-java-maven-list
+#30 04 * * * /home/aine/script-env/docker-build-crontab-wrapper.sh 1  docker-build-java-maven-list
 
-50 04 * * * /home/aine/script-env/docker-build-crontab-wrapper.sh 1 docker-build-mecab-list
+#50 04 * * * /home/aine/script-env/docker-build-crontab-wrapper.sh 1 docker-build-mecab-list
