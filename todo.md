@@ -1,3 +1,5 @@
+- 今あるloggerファイルはメンテスクリプト扱いにして、loggerファイルには引数に与えられたビルドリストに対する結果を出力する様にする。
+
 - pgroonga環境構築
   - https://qiita.com/getpow/items/0fb2b0d6a5678896b4f4
   - centosで作成してコントロールファイル流用できるかかくにんする。
