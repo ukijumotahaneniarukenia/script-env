@@ -41,4 +41,4 @@ for((ROUND_CNT=1;ROUND_CNT<=$MX_RETRY_CNT;ROUND_CNT++));do
 done
 
 bash $HOME/script-env/docker-build-crontab-clean.sh
-bash $HOME/script-env/docker-build-crontab-logger.sh
+bash $HOME/script-env/docker-build-crontab-logger.sh $BUILD_LIST_FILE
