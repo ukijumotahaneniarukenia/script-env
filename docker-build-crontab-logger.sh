@@ -8,7 +8,7 @@ EOS
 exit 0
 }
 
-BUILD_LIST_FILE="$1";shift
+BUILD_LIST_FILE=$HOME/script-env/"$1";shift
 
 [ -z $BUILD_LIST_FILE ] && usage
 
