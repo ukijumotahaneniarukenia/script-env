@@ -1,5 +1,5 @@
-|ファイル名|FROM数|USER数|RUN数|ENV数|ARG数|WORKDIR数|
-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|環境ディレクトリ名|FROM数|USER数|RUN数|ENV数|ARG数|WORKDIR数|
+|-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 |ubuntu-18-04-postgres-pgroonga-vim|1|4|22|1|8|1|
 |centos-7-6-18-10-instant-markdown-firefox-nodejs-vim|1|1|21|2|5|1|
 |centos-7-6-18-10-xsystemd|1|0|6|1|0|0|
