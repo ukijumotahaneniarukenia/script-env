@@ -11,4 +11,4 @@ find $HOME/script-env -name "Dockerfile" | \
       printf "%s\n" $(grep -c ARG $tgt); \
       printf "%s\n" $(grep -c WORKDIR $tgt); \
     } | xargs -n8
-  done | sed '1iファイル名 FROM数 USER数 RUN数 ENV数 ARG数 WORKDIR数' | sed -r 's;^|$| ;\|;g' | sed '2i|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|' >step.md
+  done | sed '1i環境ディレクトリ名 FROM数 USER数 RUN数 ENV数 ARG数 WORKDIR数' | sed -r 's;^|$| ;\|;g' | sed '2i|:--|:-:|:-:|:-:|:-:|:-:|:-:|:-:|' >step.md
