@@ -1,6 +1,6 @@
 - pgroonga環境構築
   - https://qiita.com/getpow/items/0fb2b0d6a5678896b4f4
-
+  - centosで作成してコントロールファイル流用できるかかくにんする。
 - 環境ディレクトリ内のdoc.mdファイルでUSER_NAMEのbuild-arg引数があるが、Dockerfile内にUSER_NAME環境変数がないのはデフォルトユーザーを使用している環境である。
 
 - OSごとにDockerfileに出現するインストーラスクリプト名の出現回数をもとめて、多いやつはテンプレートに切り出す。
