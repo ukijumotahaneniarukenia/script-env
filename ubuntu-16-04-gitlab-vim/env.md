@@ -1,5 +1,0 @@
-```
-EXPOSE=-p 9010:9010 -p 2022:2022
-SHM_SIZE=8gb
---build-arg PYTHON_VERSION=3-7-4 --build-arg GIT_VERSION=2-24-1
-```
