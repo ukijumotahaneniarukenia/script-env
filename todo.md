@@ -1,3 +1,5 @@
+- env-userのところを${USER_NAME:-default}に書き換えておく。
+
 - windowsパッチファイルで複数ファイルに対してサクラエディタ のマクロよく適用させているから、まとめておきたい。visualbox上で再現撮っておきたい。
 
 - Postgres-pgroongaにルビーのメモリに関するスクリプトあった。
