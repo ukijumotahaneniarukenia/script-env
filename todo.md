@@ -1,3 +1,5 @@
+- Postgres-pgroongaにルビーのメモリに関するスクリプトあった。
+
 - makeのマルチスレッド数こんな感じで制御するのを変数化して、デフォルトと環境個別で制御したい。
 
 make -j$(grep '^processor' /proc/cpuinfo | wc -l)
