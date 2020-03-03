@@ -1,3 +1,6 @@
+- pythonスクレイピング説明丁寧
+  - https://qiita.com/HIRO960/items/467ce27bca7c353e3624
+
 - GraphQLのクエリ使い方説明
   - https://qiita.com/shunp/items/d85fc47b33e1b3a88167
 
