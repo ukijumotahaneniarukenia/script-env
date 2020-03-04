@@ -1,9 +1,6 @@
 FROM ubuntu:16.04
 
-ARG CONTAINER_NAME
 ARG OS_VERSION
-ARG GIT_VERSION
-ARG PYTHON_VERSION
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV LANG=ja_JP.UTF-8
@@ -18,18 +15,3 @@ RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-default-env-usr.
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-dev-pkg.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-tool-pkg.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-network-pkg.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-git-$GIT_VERSION.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-python-$PYTHON_VERSION.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-system.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-dotfile.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-locale.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-ld.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
-
-USER kuraine
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-dotfile.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
-
-WORKDIR /home/kuraine
