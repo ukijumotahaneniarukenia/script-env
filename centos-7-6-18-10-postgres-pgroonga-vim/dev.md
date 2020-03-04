@@ -256,9 +256,9 @@ CPPFLAGS = -D_GNU_SOURCE -I/usr/include/libxml2 -I/usr/include
 CFLAGS = -Wall -Wmissing-prototypes -Wpointer-arith -Wdeclaration-after-statement -Werror=vla -Wendif-labels -Wmissing-format-attribute -Wformat-security -fno-strict-aliasing -fwrapv -fexcess-precision=standard -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector-strong --param=ssp-buffer-size=4 -grecord-gcc-switches -m64 -mtune=generic
 CFLAGS_SL = -fPIC
 LDFLAGS = -Wl,--as-needed -L/usr/lib64/llvm5.0/lib -L/usr/lib64 -Wl,--as-needed -Wl,-rpath,'/usr/pgsql-12/lib',--enable-new-dtags
-LDFLAGS_EX = 
-LDFLAGS_SL = 
-LIBS = -lpgcommon -lpgport -lpthread -lselinux -lxslt -lxml2 -lpam -lssl -lcrypto -lgssapi_krb5 -lz -lreadline -lrt -lcrypt -ldl -lm 
+LDFLAGS_EX =
+LDFLAGS_SL =
+LIBS = -lpgcommon -lpgport -lpthread -lselinux -lxslt -lxml2 -lpam -lssl -lcrypto -lgssapi_krb5 -lz -lreadline -lrt -lcrypt -ldl -lm
 VERSION = PostgreSQL 12.2
 
 $ldconfig -p | grep roo
@@ -268,10 +268,10 @@ $echo $LD_LIBRARY_PATH
 $cat /etc/ld.so.conf
 include ld.so.conf.d/*.conf
 $cat /etc/ld.so.conf.d/
-postgresql-pgdg-libs.conf  usr-local-lib.conf         
-$cat /etc/ld.so.conf.d/usr-local-lib.conf 
+postgresql-pgdg-libs.conf  usr-local-lib.conf
+$cat /etc/ld.so.conf.d/usr-local-lib.conf
 /usr/local/lib
-$cat /etc/ld.so.conf.d/postgresql-pgdg-libs.conf 
+$cat /etc/ld.so.conf.d/postgresql-pgdg-libs.conf
 /usr/pgsql-12/lib/
 
 $ls -lh /etc/ld.so.conf.d/postgresql-pgdg-libs.conf
