@@ -1,3 +1,6 @@
+- ubuntuでpgroongaインストールした例
+  - https://b.accelf.net/mastodon/20190524-mastodon-full-text-search-using-pgroonga/
+
 - 昨日カンマ区切り文字列をbashでunnestがレコードの意味付けを保ったままできたので、sketchに投入しておく
 
 - tobe レポでrepoを変数にしたのは用途別にレポを用意して環境のコンテキストのスイッチをハンディにするため。多分いい感じなんじゃないかなって思う。
