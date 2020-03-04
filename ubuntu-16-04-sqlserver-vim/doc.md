@@ -3,19 +3,19 @@
 - キャッシュ有効-バッググラウンド実行
 
 ```
-time docker build -t ubuntu-16-04-sqlserver-vim --build-arg GIT_VERSION=2-24-1 --build-arg PYTHON_VERSION=3-7-4 --build-arg SQLSERVER_VERSION=15-0-2000-5 --build-arg APP_NAME=$(echo ubuntu-16-04-sqlserver-vim | perl -pe 's/[a-zA-Z]+(?:-[0-9]+){1,}-//g') --build-arg OS_VERSION=$(echo ubuntu-16-04-sqlserver-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . UNKO
+time docker build -t ubuntu-16-04-sqlserver-vim --build-arg GIT_VERSION=2-24-1 --build-arg PYTHON_VERSION=3-7-4 --build-arg SQLSERVER_VERSION=15-0-2000-5 --build-arg APP_NAME=sqlserver-vim --build-arg OS_VERSION=$(echo ubuntu-16-04-sqlserver-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . UNKO
 ```
 
 - キャッシュ有効-フォアグラウンド実行
 
 ```
-time docker build -t ubuntu-16-04-sqlserver-vim --build-arg GIT_VERSION=2-24-1 --build-arg PYTHON_VERSION=3-7-4 --build-arg SQLSERVER_VERSION=15-0-2000-5 --build-arg APP_NAME=$(echo ubuntu-16-04-sqlserver-vim | perl -pe 's/[a-zA-Z]+(?:-[0-9]+){1,}-//g') --build-arg OS_VERSION=$(echo ubuntu-16-04-sqlserver-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build -t ubuntu-16-04-sqlserver-vim --build-arg GIT_VERSION=2-24-1 --build-arg PYTHON_VERSION=3-7-4 --build-arg SQLSERVER_VERSION=15-0-2000-5 --build-arg APP_NAME=sqlserver-vim --build-arg OS_VERSION=$(echo ubuntu-16-04-sqlserver-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 - キャッシュ無効
 
 ```
-time docker build --no-cache -t ubuntu-16-04-sqlserver-vim --build-arg GIT_VERSION=2-24-1 --build-arg PYTHON_VERSION=3-7-4 --build-arg SQLSERVER_VERSION=15-0-2000-5 --build-arg APP_NAME=$(echo ubuntu-16-04-sqlserver-vim | perl -pe 's/[a-zA-Z]+(?:-[0-9]+){1,}-//g') --build-arg OS_VERSION=$(echo ubuntu-16-04-sqlserver-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build --no-cache -t ubuntu-16-04-sqlserver-vim --build-arg GIT_VERSION=2-24-1 --build-arg PYTHON_VERSION=3-7-4 --build-arg SQLSERVER_VERSION=15-0-2000-5 --build-arg APP_NAME=sqlserver-vim --build-arg OS_VERSION=$(echo ubuntu-16-04-sqlserver-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 # dockerコンテナ起動

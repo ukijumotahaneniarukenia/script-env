@@ -3,19 +3,19 @@
 - キャッシュ有効-バッググラウンド実行
 
 ```
-time docker build -t centos-7-6-18-10-java-maven-apache-tomcat-idea --build-arg APACHE_TOMCAT_VERSION=9-0-30 --build-arg GIT_VERSION=2-24-1 --build-arg JAVA_VERSION=11 --build-arg MAVEN_VERSION=3-6-3 --build-arg PYTHON_VERSION=3-7-4 --build-arg APP_NAME=$(echo centos-7-6-18-10-java-maven-apache-tomcat-idea | perl -pe 's/[a-zA-Z]+(?:-[0-9]+){1,}-//g') --build-arg OS_VERSION=$(echo centos-7-6-18-10-java-maven-apache-tomcat-idea | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . UNKO
+time docker build -t centos-7-6-18-10-java-maven-apache-tomcat-idea --build-arg APACHE_TOMCAT_VERSION=9-0-30 --build-arg GIT_VERSION=2-24-1 --build-arg JAVA_VERSION=11 --build-arg MAVEN_VERSION=3-6-3 --build-arg PYTHON_VERSION=3-7-4 --build-arg APP_NAME= --build-arg OS_VERSION=$(echo centos-7-6-18-10-java-maven-apache-tomcat-idea | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . UNKO
 ```
 
 - キャッシュ有効-フォアグラウンド実行
 
 ```
-time docker build -t centos-7-6-18-10-java-maven-apache-tomcat-idea --build-arg APACHE_TOMCAT_VERSION=9-0-30 --build-arg GIT_VERSION=2-24-1 --build-arg JAVA_VERSION=11 --build-arg MAVEN_VERSION=3-6-3 --build-arg PYTHON_VERSION=3-7-4 --build-arg APP_NAME=$(echo centos-7-6-18-10-java-maven-apache-tomcat-idea | perl -pe 's/[a-zA-Z]+(?:-[0-9]+){1,}-//g') --build-arg OS_VERSION=$(echo centos-7-6-18-10-java-maven-apache-tomcat-idea | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build -t centos-7-6-18-10-java-maven-apache-tomcat-idea --build-arg APACHE_TOMCAT_VERSION=9-0-30 --build-arg GIT_VERSION=2-24-1 --build-arg JAVA_VERSION=11 --build-arg MAVEN_VERSION=3-6-3 --build-arg PYTHON_VERSION=3-7-4 --build-arg APP_NAME= --build-arg OS_VERSION=$(echo centos-7-6-18-10-java-maven-apache-tomcat-idea | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 - キャッシュ無効
 
 ```
-time docker build --no-cache -t centos-7-6-18-10-java-maven-apache-tomcat-idea --build-arg APACHE_TOMCAT_VERSION=9-0-30 --build-arg GIT_VERSION=2-24-1 --build-arg JAVA_VERSION=11 --build-arg MAVEN_VERSION=3-6-3 --build-arg PYTHON_VERSION=3-7-4 --build-arg APP_NAME=$(echo centos-7-6-18-10-java-maven-apache-tomcat-idea | perl -pe 's/[a-zA-Z]+(?:-[0-9]+){1,}-//g') --build-arg OS_VERSION=$(echo centos-7-6-18-10-java-maven-apache-tomcat-idea | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build --no-cache -t centos-7-6-18-10-java-maven-apache-tomcat-idea --build-arg APACHE_TOMCAT_VERSION=9-0-30 --build-arg GIT_VERSION=2-24-1 --build-arg JAVA_VERSION=11 --build-arg MAVEN_VERSION=3-6-3 --build-arg PYTHON_VERSION=3-7-4 --build-arg APP_NAME= --build-arg OS_VERSION=$(echo centos-7-6-18-10-java-maven-apache-tomcat-idea | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 # dockerコンテナ起動
