@@ -1,5 +1,6 @@
 - ubuntuでpgroongaインストールした例
   - https://b.accelf.net/mastodon/20190524-mastodon-full-text-search-using-pgroonga/
+  - https://www.clear-code.com/blog/2017/6/26.html
 
 - 昨日カンマ区切り文字列をbashでunnestがレコードの意味付けを保ったままできたので、sketchに投入しておく
 
