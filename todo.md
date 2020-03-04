@@ -1,10 +1,4 @@
-- ubuntuでpgroongaインストールした例
-  - https://b.accelf.net/mastodon/20190524-mastodon-full-text-search-using-pgroonga/
-  - https://www.clear-code.com/blog/2017/6/26.html
-  - 18.04で10がうまくいかないのはビルドの引数が原因libdirつける。完全に忘れてた。
 - 昨日カンマ区切り文字列をbashでunnestがレコードの意味付けを保ったままできたので、sketchに投入しておく
-
-- tobe レポでrepoを変数にしたのは用途別にレポを用意して環境のコンテキストのスイッチをハンディにするため。多分いい感じなんじゃないかなって思う。
 
 - 各環境ディレクトリ特有の動作確認スクリプトをヘルスチェックスクリプトととしてレポに登録しておきたい。リグレッションで使い勝手いいように。
   - 名前はconfirmじゃなくてhealthcheckがいいか。
@@ -71,10 +65,6 @@ aine@centos ~/script-env$seq -w 000 020 | awk -v FS='' '{print $1,$2,$3}'
 - oracleでユーザー定義ファンクションで任意の文章を受け取ってjava拡張で組み込んだMecab解析結果をコレクションとして返却するファンクションを作成したい。
   - 便利そう。おもいついた。
 
-- pgroongaインストール
-  - https://engineer-milione.com/tips/pgroonga.html
-  - https://qiita.com/getpow/items/0fb2b0d6a5678896b4f4
-
 - mroongaインストール
   - https://mroonga.org/ja/docs/install.html
   - https://mroonga.org/ja/docs/tutorial/storage.html#how-to-use-full-text-search
@@ -119,11 +109,6 @@ aine@centos ~/script-env$seq -w 000 020 | awk -v FS='' '{print $1,$2,$3}'
 - oracle import export mysqlと同じような仕組みだろう
   - https://qiita.com/toshihirock/items/86931e3c52dc47287dd2
 
-- sqlserver import export guiしかないぽい
-
-- sqlserver dockerコンテナあった
-  - https://docs.microsoft.com/ja-jp/sql/linux/quickstart-install-connect-docker?view=sql-server-ver15
-
 - perlで標準入力からgroup byできそう。trdsql使えば一発だけど。
   - http://www.tohoho-web.com/perl/hash.htm
 
@@ -131,8 +116,6 @@ aine@centos ~/script-env$seq -w 000 020 | awk -v FS='' '{print $1,$2,$3}'
 
 - mgroongaのインポートエクスポートまとめる
 
-- pgroongaのインポートエクスポートまとめる
-  - インポートエクスポートはぽすぐれと同じで、日本語検索ができるようにするための拡張。
 - oracleのインポートエクスポートまとめる
 
 - sqlserverのインポートエクスポートまとめる
@@ -159,7 +142,3 @@ aine@centos ~/script-env$seq -w 000 020 | awk -v FS='' '{print $1,$2,$3}'
   - アプリとそのバージョン　単一ないし複数
   - メモリ量　システムデフォルトとコンテナ個別
   - ユーザー名　システムデフォルトとコンテナ個別
-
-- DockerfileにEXPOSEがあってenv.mdにEXPOSEの記載がないものにたいするパッチ
-
-- DockerfileにARGがあってenv.mdにARGの記載がないものに対するパッチ
