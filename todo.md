@@ -1,6 +1,13 @@
+- ubuntuでpgroongaインストールした例
+  - https://b.accelf.net/mastodon/20190524-mastodon-full-text-search-using-pgroonga/
+  - https://www.clear-code.com/blog/2017/6/26.html
+  - 18.04で10がうまくいかないのはビルドの引数が原因libdirつける。完全に忘れてた。
+- 昨日カンマ区切り文字列をbashでunnestがレコードの意味付けを保ったままできたので、sketchに投入しておく
+
+- tobe レポでrepoを変数にしたのは用途別にレポを用意して環境のコンテキストのスイッチをハンディにするため。多分いい感じなんじゃないかなって思う。
+
 - 各環境ディレクトリ特有の動作確認スクリプトをヘルスチェックスクリプトととしてレポに登録しておきたい。リグレッションで使い勝手いいように。
   - 名前はconfirmじゃなくてhealthcheckがいいか。
-- env-userのところを${USER_NAME:-default}に書き換えておく。
 
 - windowsパッチファイルで複数ファイルに対してサクラエディタ のマクロよく適用させているから、まとめておきたい。visualbox上で再現撮っておきたい。
 
@@ -42,8 +49,6 @@ aine@centos ~/script-env$seq -w 000 020 | awk -v FS='' '{print $1,$2,$3}'
 ```
 
 - step.mdにビルド時間も抽出して埋め込みたい。
-
-- OSごとにDockerfileに出現するインストーラスクリプト名の出現回数をもとめて、多いやつはテンプレートに切り出す。
 
 - Dockerfileのテンプレート化は個別対応かな。。docker hubから流用したもの以外は自動生成思い切ってやってもよさげ。それ以外は個別対応するイメージ。
 
@@ -145,8 +150,6 @@ aine@centos ~/script-env$seq -w 000 020 | awk -v FS='' '{print $1,$2,$3}'
 - 検索スピード上げるツール
   - https://qiita.com/youwht/items/7f5686a30eed16864954
   - Linux版はいけなかったので、wikiないし辞書データをgroongaに投入してコマンドで引けるようにする。
-
-- ビルド対象ディレクトリを指定できるスクリプト作成
 
 - ビルド対象を保持期間日数で管理するようにする
 

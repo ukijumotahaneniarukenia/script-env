@@ -27,13 +27,13 @@ RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-font.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-ld.sh | bash
 
-USER MAINUSER
+USER MAIN_USER
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-dotfile.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-font.sh | bash
 RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-ld.sh | bash
 
-WORKDIR WRKDIR
+WORKDIR /home/MAIN_USER
 
 EXPOSE PORT
