@@ -4,3 +4,5 @@ centos-7-6-18-10-postgres-python-vim
 centos-7-6-18-10-postgres-tclsh-vim
 centos-7-6-18-10-postgres-vim
 ubuntu-16-04-postgres-python-vim
+ubuntu-18-04-postgres-pgroonga-vim
+ubuntu-19-10-postgres-pgroonga-vim
