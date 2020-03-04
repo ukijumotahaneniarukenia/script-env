@@ -143,9 +143,7 @@ aine@centos ~/script-env$seq -w 000 020 | awk -v FS='' '{print $1,$2,$3}'
 - perlで標準入力からgroup byできそう。trdsql使えば一発だけど。
   - http://www.tohoho-web.com/perl/hash.htm
 
-- groongaのインポートエクスポートまとめる
-
-- mgroongaのインポートエクスポートまとめる
+- groongaのインポートエクスポートまとめる。エクスポートのみが残っている。
 
 - oracleのインポートエクスポートまとめる
 
