@@ -1,3 +1,6 @@
+- python 小技
+  - https://qiita.com/_akiyama_/items/b24acf53470a885c70db
+
 - データ前処理フロー      https://qiita.com/takashige/items/4882555f4a99a0d96220#%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%99%E3%82%8B%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AE%E8%A8%AD%E8%A8%88%E3%83%97%E3%83%AD%E3%82%BB%E3%82%B9
 
 - 正規表現のビューワー
