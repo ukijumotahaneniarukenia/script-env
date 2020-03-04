@@ -10,8 +10,8 @@ exit 0
 
 bash $HOME/script-env/03-doc.mdの各環境ディレクトリへの配備.sh
 
-exec 1>$HOME/script-env/docker-build-log/docker-build-$(date +\%Y-\%m-\%d_\%H-\%M-\%S).stdout.log
-exec 2>$HOME/script-env/docker-build-log/docker-build-$(date +\%Y-\%m-\%d_\%H-\%M-\%S).stderr.log
+exec 1>$HOME/script-env/docker-build-log/docker-build-$(date +\%Y-\%m-\%dT\%H-\%M-\%S).stdout.log
+exec 2>$HOME/script-env/docker-build-log/docker-build-$(date +\%Y-\%m-\%dT\%H-\%M-\%S).stderr.log
 
 MX_RETRY_CNT="$1";shift
 BUILD_LIST_FILE="$1";shift
