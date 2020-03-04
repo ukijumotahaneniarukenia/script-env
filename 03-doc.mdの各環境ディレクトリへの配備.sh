@@ -25,3 +25,23 @@ while read tgt;do
   [ -z "$RT" ] || printf "sed -i 's;BUILD_ARG;%s;' %s\n" "$(echo $RT | sed 's; ; --build-arg ;g;s;^;--build-arg ;')" $HOME/script-env/$tgt/doc.md | sh
 
 done < <(ls -l $HOME/script-env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log)
+
+#APP_NAMEの設定
+find $HOME/script-env -name "env-usr.md" | \
+while read tgt;do
+  RESULT="$(grep -vP 'root|aine|kuraine|nahato|mujiku' $tgt | tail -n+3)" #>$FILE
+  if [ "XXX" == "XXX$RESULT" ] ;then
+    #デフォルトユーザーを使用
+    echo 0 $tgt | awk '{print $2}' | perl -pe 's;/env-usr.md;;;s;.*/;;' | \
+    while read tgt;do
+      echo "sed -i 's;YYY;;g' $HOME/script-env/$tgt/doc.md" | bash
+    done
+  else
+    #デフォルトユーザー以外を使用
+    echo 1 $tgt | awk '{print $2}' | perl -pe 's;/env-usr.md;;;s;.*/;;' | \
+    while read tgt;do
+      NNN=$(echo $tgt | perl -pe 's/[a-zA-Z]+(?:-[0-9]+){1,}-//g')
+      echo "sed -i 's;YYY;$NNN;g' $HOME/script-env/$tgt/doc.md" | bash
+    done
+  fi
+done
