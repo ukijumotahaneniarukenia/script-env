@@ -1,3 +1,6 @@
+- rust製のコマンド
+  - https://qiita.com/navitime_tech/items/c249269a3b47666c784b
+
 - groongaのバージョン組み合わせ作れるだけ作ってみる
 
 - ruby groonga
