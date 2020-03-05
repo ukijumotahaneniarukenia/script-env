@@ -84,3 +84,22 @@ LDFLAGS_SL =
 LIBS = -lpgcommon -lpgport -lpthread -lz -lreadline -lrt -lcrypt -ldl -lm
 VERSION = PostgreSQL 12.0
 ```
+
+成功時のリンカ状態
+
+```
+$ldd /usr/local/lib/postgresql/pgroonga.so
+	linux-vdso.so.1 =>  (0x00007ffc0f119000)
+	libmsgpackc.so.2 => /lib64/libmsgpackc.so.2 (0x00007f6dd8b08000)
+	libgroonga.so.0 => /lib64/libgroonga.so.0 (0x00007f6dd7d89000)
+	libc.so.6 => /lib64/libc.so.6 (0x00007f6dd79bb000)
+	libz.so.1 => /lib64/libz.so.1 (0x00007f6dd77a5000)
+	liblz4.so.1 => /lib64/liblz4.so.1 (0x00007f6dd7590000)
+	libzstd.so.1 => /lib64/libzstd.so.1 (0x00007f6dd72ec000)
+	libdl.so.2 => /lib64/libdl.so.2 (0x00007f6dd70e8000)
+	libpthread.so.0 => /lib64/libpthread.so.0 (0x00007f6dd6ecc000)
+	libstdc++.so.6 => /lib64/libstdc++.so.6 (0x00007f6dd6bc5000)
+	libm.so.6 => /lib64/libm.so.6 (0x00007f6dd68c3000)
+	libgcc_s.so.1 => /lib64/libgcc_s.so.1 (0x00007f6dd66ad000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007f6dd8f79000)
+```
