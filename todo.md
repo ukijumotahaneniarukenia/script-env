@@ -1,3 +1,5 @@
+- groongaのバージョン組み合わせ作れるだけ作ってみる
+
 - ruby groonga
   - http://ranguba.org/ja/
 
