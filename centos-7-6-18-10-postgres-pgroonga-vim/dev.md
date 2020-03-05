@@ -28,7 +28,7 @@ VERSION = PostgreSQL 12.2
 
 - 自前ビルド（失敗）
 
-  - LIBDIRとPKGINCLUDEDIRはそろえないといけないぽい
+  - LIBDIRとPKGLIBDIRはそろえないといけないぽい
 ```
 $pg_config
 BINDIR = /usr/local/bin
