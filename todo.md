@@ -1,3 +1,15 @@
+- rust製のコマンド
+  - https://qiita.com/navitime_tech/items/c249269a3b47666c784b
+
+- groongaのバージョン組み合わせ作れるだけ作ってみる
+
+- ruby groonga
+  - http://ranguba.org/ja/
+
+- mgroongaのセットアップを行う
+
+- スクリプトに参照を持たせ始めるタイミングと処理順序を意識し始めるタイミングは同じことが改めてわかった。処理順序をファイルで管理する。ファイル名に縛られないために。
+
 - ダイナミックリンクディレクトリのエントリディレクトリをシステム単位でキャッシュ作成対象として認識させておく際に、
 
 ```
@@ -139,9 +151,7 @@ aine@centos ~/script-env$seq -w 000 020 | awk -v FS='' '{print $1,$2,$3}'
 - perlで標準入力からgroup byできそう。trdsql使えば一発だけど。
   - http://www.tohoho-web.com/perl/hash.htm
 
-- groongaのインポートエクスポートまとめる
-
-- mgroongaのインポートエクスポートまとめる
+- groongaのインポートエクスポートまとめる。エクスポートのみが残っている。
 
 - oracleのインポートエクスポートまとめる
 

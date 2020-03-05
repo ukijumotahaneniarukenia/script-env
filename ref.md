@@ -1,3 +1,12 @@
+- マルチスレッドプログラミング
+  - http://yamatyuu.net/computer/program/vc2013/thread3/index.html
+
+- このノートパソコンかっこいいな
+  - https://www.itmedia.co.jp/news/spv/2003/06/news003.html
+
+- マルチスレッドのグルーピングに関して
+  - https://www.isus.jp/hpc/mtp-windows-64core/
+
 - python 小技
   - https://qiita.com/_akiyama_/items/b24acf53470a885c70db
 
