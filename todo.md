@@ -1,4 +1,4 @@
-- CONTAINER_NAMEの行削除。script-repoを$REPOに置換
+- CONTAINER_NAMEの行削除。script-repoを$REPOに置換。script-env内でテンプーレト生成したものと、元のやつ比較して元のやつにしかないものを別ファイルで切り出す。
 
 
 - そういえば、repoダイナミックにしたけど、cdコマンドに対してダイナミックし忘れてた。しょーもない。
