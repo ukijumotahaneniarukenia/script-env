@@ -1,3 +1,6 @@
+- このノートパソコンかっこいいな
+  - https://www.itmedia.co.jp/news/spv/2003/06/news003.html
+
 - マルチスレッドのグルーピングに関して
   - https://www.isus.jp/hpc/mtp-windows-64core/
 
