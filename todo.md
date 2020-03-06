@@ -1,7 +1,8 @@
 - テンプーレトにキャッシュ削除するスクリプトを追加する。
   - centos
     - https://easyramble.com/yum-clean-and-update.html
-
+  - Ubuntu
+    - https://qiita.com/SUZUKI_Masaya/items/1fd9489e631c78e5b007
 
 - gpuを利用したディープラーニング
   - https://techable.jp/archives/118651
