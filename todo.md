@@ -1,3 +1,8 @@
+- Dockerfileは用途別にテンプーレトを作成する。
+  - vscodeがあるもの
+  - dbeaverがあるもの
+  - vscodeとdbeaver両方があるもの　などなど
+
 - patchはprepatchとpostpatchに分けた方がいいな。install前後にそれぞれ。
 
 - 環境個別のファイルが存在する場合、実行順序は、patch(有れば),install,config,healthcheckの順番。
