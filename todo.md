@@ -1,3 +1,6 @@
+- gpuを利用したディープラーニング
+  - https://techable.jp/archives/118651
+
 - Dockerfileは用途別にテンプーレトを作成する。
   - vscodeがあるもの
   - dbeaverがあるもの
