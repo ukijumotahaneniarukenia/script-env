@@ -1,3 +1,6 @@
+- MySQL build しくってたのがここでリカバレるかも。必要そうなライブラリが乗ってて、ビルド手順乗っている。
+  - https://mroonga.org/ja/docs/install/others.html
+
 
 - テンプーレトにキャッシュ削除するスクリプトを追加する。
   - centos
