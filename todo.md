@@ -1,3 +1,4 @@
+
 - テンプーレトにキャッシュ削除するスクリプトを追加する。
   - centos
     - https://easyramble.com/yum-clean-and-update.html
@@ -38,7 +39,7 @@
   - http://ranguba.org/ja/
 
 - mgroongaのセットアップを行う
-
+  - https://www.mk-mode.com/blog/2018/10/29/lmde3-mroonga-installation-by-src/#
 - スクリプトに参照を持たせ始めるタイミングと処理順序を意識し始めるタイミングは同じことが改めてわかった。処理順序をファイルで管理する。ファイル名に縛られないために。
 
 - ダイナミックリンクディレクトリのエントリディレクトリをシステム単位でキャッシュ作成対象として認識させておく際に、
