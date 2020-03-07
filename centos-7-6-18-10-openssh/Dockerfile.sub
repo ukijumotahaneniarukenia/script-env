@@ -1,3 +1,0 @@
-#sshdサービス外部公開ポート
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-default-env-usr.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-openssh.sh | bash
