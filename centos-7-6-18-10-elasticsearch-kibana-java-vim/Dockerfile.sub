@@ -1,9 +1,0 @@
-#elasticsearchインストール
-#elasticサービス外部公開ポート
-#kibanaインストール
-#kibanaサービス外部公開ポート
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-default-env-usr.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-elasticsearch-7-5-1.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-elasticsearch-kibana-java-vim-env-usr.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-jdk-11.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-kibana-7-5-1.sh | bash
