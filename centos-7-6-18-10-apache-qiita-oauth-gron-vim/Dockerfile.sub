@@ -1,5 +1,0 @@
-#apache-httpdサービス外部公開ポート
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-apache-httpd.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-apache-qiita-oauth-gron-vim-env-usr.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-default-env-usr.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-gron-$GRON_VERSION.sh | bash

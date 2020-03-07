@@ -1,3 +1,15 @@
+- Dockerfile-ARG対応し忘れていた。
+
+- Dockerfile.subがFixしたところから、ビルド始める。単一環境ディレクトリ単位でも、自動生成できるようにスクリプトを修正
+
+- Dockerfile.subの実行順序
+  - patchの名称はデフォルトでpre-patch
+  1. pre-patch（あれば）
+  2. install
+  3. post-patch（あれば）
+  4. config
+  5. healthcheck
+
 - もう事前ビルドしてマウントだな。
   - https://qiita.com/IanMLewis/items/badc55b5d8e188ace34a
   - repo管理しててよかった。
@@ -22,23 +34,6 @@
   - dbeaverがあるもの
   - vscodeとdbeaver両方があるもの　などなど
 
-- patchはprepatchとpostpatchに分けた方がいいな。install前後にそれぞれ。
-
-- 環境個別のファイルが存在する場合、実行順序は、patch(有れば),install,config,healthcheckの順番。
-
-- 切り出したファイルの中身の実行順序を整理し、テンプーレト生成の読み込み対象マークダウンファイルとする。実行順序依存はごく一部のみのはず。
-
-- CONTAINER_NAMEの行削除。script-repoを$REPOに置換。script-env内でテンプーレト生成したものと、元のやつ比較して元のやつにしかないものを別ファイルで切り出す。
-
-
-- そういえば、repoダイナミックにしたけど、cdコマンドに対してダイナミックし忘れてた。しょーもない。
-
-- 運用上、サーバプロセスを短時間に何回も再起動なんてしないから、本来起きそうもないエラーが出て墓穴を掘りはまりそう。ちょっと待ってみることも視野に入れる。
-
-- ソケットファイルが作成されずに、次のサーバープロセスを起動するとFATALログが出力される。
-  - すこしまつことにしてみた。
-  - while read ps grep とかでヘルスチェックリトライする仕組み考えてみる。
-
 - rust製のコマンド
   - https://qiita.com/navitime_tech/items/c249269a3b47666c784b
 
@@ -47,8 +42,6 @@
 - ruby groonga
   - http://ranguba.org/ja/
 
-- mgroongaのセットアップを行う
-  - https://www.mk-mode.com/blog/2018/10/29/lmde3-mroonga-installation-by-src/#
 - スクリプトに参照を持たせ始めるタイミングと処理順序を意識し始めるタイミングは同じことが改めてわかった。処理順序をファイルで管理する。ファイル名に縛られないために。
 
 - ダイナミックリンクディレクトリのエントリディレクトリをシステム単位でキャッシュ作成対象として認識させておく際に、
@@ -112,18 +105,12 @@ aine@centos ~/script-env$seq -w 000 020 | awk -v FS='' '{print $1,$2,$3}'
 
 - step.mdにビルド時間も抽出して埋め込みたい。
 
-- Dockerfileのテンプレート化は個別対応かな。。docker hubから流用したもの以外は自動生成思い切ってやってもよさげ。それ以外は個別対応するイメージ。
-
 - 遅延時間を表示したい
-
-- 環境ディレクトリ名をファイル名から復元できる意識はスクリプトを書く際にもったほうがいいことにきづいた。ファイル名からチェックパターンを洗い出せる仕組み。
 
 - gron commandの使い方。
   - mediamからサジェストきた。面白い。
   - JSON Processing Pipelines with gron
   - https://medium.com/capital-one-tech/json-processing-pipelines-with-gron-6fbd531155d7
-
-- commコマンドを取り入れたメンテスクリプトなんか適当に一本作っておく
 
 - script-repoは肥大化していく一方なので、各環境ディレクトリごとに必要なものをインストールし終えたら、削除するようにする。
   - 初回ログイン時にscript-repoを再クローンして差分更新を行えば、ディスクイメージは不用意に増やさずに、差分リフレッシュができる。💩
@@ -133,14 +120,10 @@ aine@centos ~/script-env$seq -w 000 020 | awk -v FS='' '{print $1,$2,$3}'
 - oracleでユーザー定義ファンクションで任意の文章を受け取ってjava拡張で組み込んだMecab解析結果をコレクションとして返却するファンクションを作成したい。
   - 便利そう。おもいついた。
 
-- mroongaインストール
-  - https://mroonga.org/ja/docs/install.html
-  - https://mroonga.org/ja/docs/tutorial/storage.html#how-to-use-full-text-search
-
 - twiiter認証文言テンプーレトこれ試してみようかな→rejectされたので、とても悲しい。メールアドレス１こ残っているけど大切にしないとなー。とにかく悲しい。熟考してから送信すること。
   - https://note.com/mogya/n/nbd9a720f8a5b
 
-- sqlserver bulk imortできるんだね
+- sqlserver bulk imort
   - https://qiita.com/ExA_DEV/items/2d0cdff5bdd43591f7ce
 
 - flockコマンドで排他制御できる実例 プロセスがシーケンシャルに起動されていることがflockコマンドのおかげでわかる
