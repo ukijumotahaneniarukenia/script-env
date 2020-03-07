@@ -1,3 +1,1 @@
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-default-env-usr.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-postgres-$POSTGRES_VERSION-with-python.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-postgres-python-vim-env-usr.sh | bash
