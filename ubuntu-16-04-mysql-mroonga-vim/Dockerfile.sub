@@ -1,0 +1,3 @@
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-mysql-$MYSQL_VERSION-mroonga-$MROONGA_VERSION.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-mysql-$MYSQL_VERSION-mroonga-$MROONGA_VERSION.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-healthcheck-mysql-$MYSQL_VERSION-mroonga-$MROONGA_VERSION.sh | bash
