@@ -9,3 +9,7 @@
 - Dockerfile.doneをDockerfileにリネーム
 
 - Dockerfileに対して動作確認
+
+- script-repoを修正する際に、env-build.mdファイルを修正するようにする
+
+- script-repoに格納しているスクリプトはエントリ実行ユーザーがroot
