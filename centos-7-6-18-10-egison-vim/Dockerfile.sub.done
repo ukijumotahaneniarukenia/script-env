@@ -1,0 +1,3 @@
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-ghc-8-8-1.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-stack.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-egison.sh | bash
