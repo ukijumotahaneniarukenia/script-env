@@ -1,0 +1,201 @@
+    ORACLE_HOME=/opt/oracle/product/19c/dbhome_1 \
+    ORACLE_SID=ORCLCDB \
+    PATH=$PATH:$ORACLE_HOME/bin
+ sed -i '165s;^;#;' /etc/init.d/oracledb_ORCLCDB-19c && \
+ sed -i '166i $SU -s /bin/bash  $ORACLE_OWNER -c "$DBCA -silent -createDatabase -gdbName $ORACLE_SID -templateName $TEMPLATE_NAME -characterSet $CHARSET -createAsContainerDatabase $CREATE_AS_CDB -createListener $LISTENER_NAME:$LISTENER_PORT -datafileDestination $ORACLE_DATA_LOCATION -sid $ORACLE_SID -sysPassword $PASSWORD -systemPassword $PASSWORD -emConfiguration DBEXPRESS -emExpressPort $EM_EXPRESS_PORT"' /etc/init.d/oracledb_ORCLCDB-19c
+#COPY sqlcl-19.2.1.206.1649.zip /home/oracle/sqlcl-19.2.1.206.1649.zip
+#Gtk-Message: 23:27:11.098: Failed to load module "pk-gtk-module"
+#RUN cd $HOME && unzip sqlcl-19.2.1.206.1649.zip
+#Tukubaiコマンドは便利
+#Xwindowシステムパッケージいんすこ
+#XクライアントがXサーバーにGUI転送出来るように、転送先のIPを指定する
+#alias設定
+#alias設定
+#alias設定
+#awkコマンドは最新の奴 include使える
+#bashも最新
+#guiアプリインストール
+#https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+#https://www.oracle.com/technetwork/jp/database/enterprise-edition/downloads/index.html
+#https://www.oracle.com/tools/downloads/sqldev-v192-downloads.html
+#jdk必要。java製なので。
+#main installでpreinstall実施チェックしているから、とりま実行しておくのがよい
+#oracleインスタンス起動スクリプト修正
+#parallelコマンド install
+#perl install
+#perl パッケージ管理cpanmないしcpanインストール
+#pre installはユーザー作成とかフォルダとかパッケージとかをまとめていんすこしている
+#python install
+#rstudioサービス外部公開ポート
+#sqlemサービス外部公開ポート
+#sqlplusの進化版SQLclインストール
+#sqlクライアントサービス外部公開ポート
+#sshdサービス外部公開ポート
+#vim plugin manager
+#vim plugin manager
+#vim plugin manager
+#vimも最新
+#ユーザー作成
+#以下の対応のためインストール
+#移動したいdotfileをchoiceしてHOMEディレクトリへ
+#移動したいdotfileをchoiceしてHOMEディレクトリへ
+#移動したいdotfileをchoiceしてHOMEディレクトリへ
+#各種X関連コマンドインストール
+#各種コマンドインストール
+#最後はrootに戻す
+#事前にダウンロードしておき、dockerコンテナにコピー。
+#事前にダウンロードしておき、dockerコンテナにコピー。
+#事前にダウンロードしておき、dockerコンテナにコピー。
+#自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
+#自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
+#自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
+#自身のvim環境をクローン
+#自身のvim環境をクローン
+#自身のvim環境をクローン
+#実行ユーザをoracleに変更
+#実行ユーザをrstudioに変更
+#日本語フォントいんすこ
+#日本語フォントいんすこ
+#日本語環境と時刻合わせ
+#用が済んだらリム
+#用が済んだらリム
+#用が済んだらリム
+./Configure -des -Dprefix=/usr/local/ && \
+./configure && \
+./configure && \
+./configure && \
+./configure && \
+./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && \
+COPY create_user.sql /home/oracle/create_user.sql
+COPY glogin.sql /opt/oracle/product/19c/dbhome_1/sqlplus/admin/glogin.sql
+COPY init_db.sh /home/oracle/init_db.sh
+COPY jdk-8u231-linux-x64.rpm /root/jdk-8u231-linux-x64.rpm
+COPY launch_and_open_db.sql /home/oracle/launch_and_open_db.sql
+COPY oracle-database-ee-19c-1.0-1.x86_64.rpm /root/oracle-database-ee-19c-1.0-1.x86_64.rpm
+COPY sqldeveloper-19.2.1.247.2212.noarch.rpm /root/sqldeveloper-19.2.1.247.2212.noarch.rpm
+ENV ORACLE_DOCKER_INSTALL=true \
+EXPOSE 1521
+EXPOSE 22
+EXPOSE 5500
+EXPOSE 8787
+RUN cd $HOME && curl -LO ftp://ftp.gnu.org/gnu/gawk/gawk-5.0.0.tar.gz && \
+RUN cd $HOME && curl -LO ftp://ftp.gnu.org/pub/gnu/bash/bash-5.0.tar.gz && \
+RUN cd $HOME && curl -LO https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz && \
+RUN cd $HOME && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && \
+RUN cd $HOME && git clone https://github.com/ukijumotahaneniarukenia/.vim.git $HOME/.vim
+RUN cd $HOME && git clone https://github.com/ukijumotahaneniarukenia/.vim.git $HOME/.vim
+RUN cd $HOME && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git $HOME/tmp && \
+RUN cd $HOME && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git $HOME/tmp && \
+RUN cd $HOME && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && \
+RUN cd $HOME && rpm -ivh jdk-8u231-linux-x64.rpm
+RUN cd $HOME && rpm -ivh sqldeveloper-19.2.1.247.2212.noarch.rpm
+RUN cd $HOME && yum install -y bzip2 && curl -LO http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && \
+RUN chown oracle:oinstall /home/oracle/* && chmod +x /home/oracle/*
+RUN curl -o oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm https://yum.oracle.com/repo/OracleLinux/OL7/latest/x86_64/getPackage/oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm
+RUN echo 'oracle ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+RUN echo 'oracle_pwd' | passwd --stdin oracle
+RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+RUN echo 'rstudio_pwd' | passwd --stdin rstudio
+RUN echo alias python="/usr/local/bin/python3.7" >> $HOME/.bashrc && \
+RUN echo alias python="/usr/local/bin/python3.7" >> $HOME/.bashrc && \
+RUN echo alias python="/usr/local/bin/python3.7" >> $HOME/.bashrc && \
+RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git $HOME/.vim
+RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git $HOME/tmp && \
+RUN java -version
+RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+RUN localedef -v -c -i ja_JP -f UTF-8 ja_JP.UTF-8; echo "";
+RUN mkdir -p $HOME/.vim/bundle && \
+RUN mkdir -p $HOME/.vim/bundle && \
+RUN mkdir -p $HOME/.vim/bundle && \
+RUN rm -f /etc/localtime
+RUN sed -i '34i export PASSWORD=ORACLE_PWD' /etc/init.d/oracledb_ORCLCDB-19c && \
+RUN yum -y localinstall /root/oracle-database-ee-19c-1.0-1.x86_64.rpm
+RUN yum -y localinstall oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm && rm oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm
+RUN yum -y reinstall glibc-common
+RUN yum groupinstall -y base "X Window System" --setopt=group_package_types=mandatory,default,optional
+RUN yum groups mark convert
+RUN yum install -y PackageKit-gtk3-module
+RUN yum install -y R
+RUN yum install -y epel-release 
+RUN yum install -y fcitx ibus
+RUN yum install -y gtk2-devel atk-devel libX11-devel libXt-devel ncurses-devel && \
+RUN yum install -y java firefox
+RUN yum install -y sudo zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel libuuid-devel xz-devel openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-devpandoc nkf iputils net-tools iproute tree lsof traceroute psmisc bind-utils git make expect openssh-server openssh-clients gcc parallel man rlwrap
+RUN yum install -y vlgothic-*
+RUN yum install -y vlgothic-*
+RUN yum install -y which perl-App-cpanminus wxGTK-devel perl-ExtUtils-Embed perl-File-HomeDir perl-Term-ReadLine-Gnu wxGTK3 cpan
+RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps
+USER oracle
+USER oracle
+USER root 
+USER rstudio
+WORKDIR /home/oracle
+cd $HOME && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
+cd $HOME && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
+cd $HOME && curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh && \
+cd $HOME && git clone https://github.com/vim/vim.git && \
+cd $HOME/tmp && \
+cd $HOME/tmp && \
+cd $HOME/tmp && \
+cd Open-usp-Tukubai && \
+cd Python-3.7.4 && \
+cd bash-5.0 && \
+cd gawk-5.0.0 && \
+cd parallel-20191022 && \
+cd perl-5.30.0 && \
+cd vim && \
+echo "alias parallel=\"/usr/local/bin/parallel\"" >> $HOME/.bashrc && \
+echo "alias parallel=\"/usr/local/bin/parallel\"" >> $HOME/.bashrc && \
+echo "alias parallel=\"/usr/local/bin/parallel\"" >> $HOME/.bashrc && \
+echo "alias sqldev=\"echo /usr/java/jdk1.8.0_221-amd64 | sudo /opt/sqldeveloper/sqldeveloper.sh -conf /opt/sqldeveloper/sqldeveloper/bin/sqldeveloper.conf >$HOME/launch_sqldeveloper.log 2>&1 &\"" >> $HOME/.bashrc
+echo "alias sqlplus=\"rlwrap -pRed sqlplus\"" >> $HOME/.bashrc && \
+echo "alias vi=\"sudo vim\"" >> $HOME/.bashrc && \
+echo "alias vi=\"sudo vim\"" >> $HOME/.bashrc && \
+echo "alias vim=\"sudo vim\"" >> $HOME/.bashrc && \
+echo "alias vim=\"sudo vim\"" >> $HOME/.bashrc && \
+echo "export NLS_LANG=Japanese_Japan.AL32UTF8" >> $HOME/.bashrc && \
+echo "export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1" >> $HOME/.bashrc && \
+echo "export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1" >> $HOME/.bashrc && \
+echo "export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1" >> $HOME/.bashrc && \
+echo "export ORACLE_SID=ORCLCDB"  >> $HOME/.bashrc && \
+echo "export ORACLE_SID=ORCLCDB"  >> $HOME/.bashrc && \
+echo "export ORACLE_SID=ORCLCDB"  >> $HOME/.bashrc && \
+echo "export PATH=$PATH:$ORACLE_HOME/bin" >> $HOME/.bashrc
+echo "export PATH=$PATH:$ORACLE_HOME/bin" >> $HOME/.bashrc
+echo "export PATH=$PATH:$ORACLE_HOME/bin:$HOME/sqlcl/bin" >> $HOME/.bashrc && \
+echo alias perl="/usr/local/bin/perl5.30.0" >> $HOME/.bashrc && \
+echo alias perl="/usr/local/bin/perl5.30.0" >> $HOME/.bashrc && \
+echo alias perl="/usr/local/bin/perl5.30.0" >> $HOME/.bashrc && \
+echo alias pip="/usr/local/bin/pip3.7" >> $HOME/.bashrc && \
+echo alias pip="/usr/local/bin/pip3.7" >> $HOME/.bashrc && \
+echo alias pip="/usr/local/bin/pip3.7" >> $HOME/.bashrc && \
+ln -fsr /usr/local/bin/vim /usr/bin/vi
+ln -fsr /usr/local/bin/vim /usr/bin/vim && \
+make -j12 && \
+make -j12 && \
+make -j12 && \
+make -j12 && \
+make -j12 && \
+make -j12 && \
+make -j12 distclean && \
+make -j12 install
+make -j12 install
+make -j12 install
+make -j12 install
+make -j12 install
+make -j12 install
+make -j12 install && \
+mv rc/.[^.]* $HOME && \
+mv rc/.[^.]* $HOME && \
+mv rc/.[^.]* $HOME && \
+rm -rf $HOME/tmp
+rm -rf $HOME/tmp
+rm -rf $HOME/tmp
+sh installer.sh $HOME/.vim/bundle && rm -rf installer.sh
+sh installer.sh $HOME/.vim/bundle && rm -rf installer.sh
+sh installer.sh $HOME/.vim/bundle && rm -rf installer.sh
+tar -xzf perl-5.30.0.tar.gz && \
+tar -zxvf Python-3.7.4.tgz && \
+tar -zxvf bash-5.0.tar.gz && \
+tar -zxvf gawk-5.0.0.tar.gz && \
+tar jxf parallel-latest.tar.bz2 && \

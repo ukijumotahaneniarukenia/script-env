@@ -1,6 +1,5 @@
 FROM ubuntu:19.10
 
-ARG CONTAINER_NAME
 ARG OS_VERSION
 ARG GIT_VERSION
 ARG PYTHON_VERSION
@@ -15,32 +14,32 @@ apt update && \
 apt upgrade -y
 
 RUN apt install -y git
-RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/script-repo.git
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-mysql-workbench-env-usr.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-default-env-usr.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-dev-pkg.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-tool-pkg.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-system.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-dotfile.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-python-$PYTHON_VERSION.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-jdk-$JAVA_VERSION.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-mysql-$MYSQL_VERSION.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-locale.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-ld.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
+RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/$REPO.git
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-mysql-workbench-env-usr.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-default-env-usr.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-dev-pkg.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-tool-pkg.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-system.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-python-$PYTHON_VERSION.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-jdk-$JAVA_VERSION.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-mysql-$MYSQL_VERSION.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-locale.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
 
 #mysql-workbenchインストール
 COPY mysql-workbench-community_8.0.19-1ubuntu19.10_amd64.deb /usr/local/src/mysql-workbench-community_8.0.19-1ubuntu19.10_amd64.deb
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-mysql-workbench-$MYSQL_WORKBENCH_VERSION.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-mysql-workbench-$MYSQL_WORKBENCH_VERSION.sh | bash
 
 #XクライアントがXサーバーにGUI転送出来るように、転送先の「IP:ディスプレイ番号:スクリーン番号」を指定する
 ENV DISPLAY=:0.0
 
 USER mysql
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-dotfile.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-install-vim-user.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-env.sh | bash
-RUN cd /usr/local/src/script-repo && echo ./$OS_VERSION-config-font.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font.sh | bash
 
 WORKDIR /home/mysql
