@@ -1,6 +1,0 @@
-#ユーザー作成
-ARG GIT_VERSION
-ARG GOOGLER_VERSION
-ARG PYTHON_VERSION
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-default-env-usr.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-googler-$GOOGLER_VERSION.sh | bash
