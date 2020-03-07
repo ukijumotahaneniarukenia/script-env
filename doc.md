@@ -20,7 +20,7 @@ time docker build --no-cache -t XXX BUILD_ARG --build-arg APP_NAME=YYY --build-a
 
 # dockerコンテナ起動
 ```
-docker run --privileged --shm-size=SHM_SIZE -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id EXPOSE --name XXX -itd XXX
+docker run --privileged --shm-size=SHM_SIZE --hostname=XXX -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id EXPOSE --name XXX -itd XXX
 ```
 
 # dockerコンテナ潜入

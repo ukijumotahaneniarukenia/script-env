@@ -1,24 +1,9 @@
-ARG SQLSERVER_VERSION
 ARG USER_NAME
 ENV ACCEPT_EULA=Y
 ENV SA_PASSWORD=QseDt7167
 FROM mcr.microsoft.com/mssql/server:2019-GA-ubuntu-16.04
 RUN apt install -y git
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-locale.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-default-env-usr.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-dev-pkg.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-git-$GIT_VERSION.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-network-pkg.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-python-$PYTHON_VERSION.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-tool-pkg.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-system.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-patch-git-$GIT_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-patch-sqlserver-$SQLSERVER_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$USER_NAME-env-usr.sh | bash

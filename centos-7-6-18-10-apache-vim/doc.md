@@ -20,7 +20,7 @@ time docker build --no-cache -t centos-7-6-18-10-apache-vim --build-arg GIT_VERS
 
 # dockerコンテナ起動
 ```
-docker run --privileged --shm-size=2gb -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 8080:80 -p 8090:8090 --name centos-7-6-18-10-apache-vim -itd centos-7-6-18-10-apache-vim
+docker run --privileged --shm-size=2gb --hostname=centos-7-6-18-10-apache-vim -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 8080:80 -p 8090:8090 --name centos-7-6-18-10-apache-vim -itd centos-7-6-18-10-apache-vim
 ```
 
 # dockerコンテナ潜入

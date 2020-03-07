@@ -20,7 +20,7 @@ time docker build --no-cache -t ubuntu-18-04-python-django-pycharm --build-arg G
 
 # dockerコンテナ起動
 ```
-docker run --privileged --shm-size=2gb -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 8000:8000 --name ubuntu-18-04-python-django-pycharm -itd ubuntu-18-04-python-django-pycharm
+docker run --privileged --shm-size=2gb --hostname=ubuntu-18-04-python-django-pycharm -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 8000:8000 --name ubuntu-18-04-python-django-pycharm -itd ubuntu-18-04-python-django-pycharm
 ```
 
 # dockerコンテナ潜入

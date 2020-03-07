@@ -20,7 +20,7 @@ time docker build --no-cache -t centos-7-6-18-10-elasticsearch-kibana-java-vim -
 
 # dockerコンテナ起動
 ```
-docker run --privileged --shm-size=8gb -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 9200:9200 -p 5601:5601 --name centos-7-6-18-10-elasticsearch-kibana-java-vim -itd centos-7-6-18-10-elasticsearch-kibana-java-vim
+docker run --privileged --shm-size=8gb --hostname=centos-7-6-18-10-elasticsearch-kibana-java-vim -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 9200:9200 -p 5601:5601 --name centos-7-6-18-10-elasticsearch-kibana-java-vim -itd centos-7-6-18-10-elasticsearch-kibana-java-vim
 ```
 
 # dockerコンテナ潜入
