@@ -1,3 +1,3 @@
 |ユーザーＩＤ|ユーザー名|グループＩＤ|グループ名|パスワード|
 |:-:|:-:|:-:|:-:|:-:|
-|1001|postgres|1001|postgres|postgres_pwd|
+|1001|mysql|1001|mysql|mysql_pwd|
