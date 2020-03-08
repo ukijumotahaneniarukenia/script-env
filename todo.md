@@ -6,15 +6,11 @@
 
 - デフォルトイメージリストに既存DockerfileのFROMコマンドのイメージバージョンが含まれているか・
 
-- env-editor.mdふぁいるがほしい。
-
 - プログラム更新頻度を調べたい。バージョン版数への関心を更新頻度に反比例させたい。メンテが大変になるので。
 
 - プログラム単位でデフォルトバージョンを管理したい
 
 - Dockerfile-ARG対応し忘れていた。
-
-- Dockerfile.subがFixしたところから、ビルド始める。単一環境ディレクトリ単位でも、自動生成できるようにスクリプトを修正
 
 - Dockerfile.subの実行順序
   - patchの名称はデフォルトでpre-patch
@@ -28,11 +24,9 @@
   - https://qiita.com/IanMLewis/items/badc55b5d8e188ace34a
   - repo管理しててよかった。
 
-- というより、単一スクリプトファイルのみ実行するようにして、その中で実行順序を制御すれば良いのではないかと思った。んーでもなー。
-
 - MySQL build しくってたのがここでリカバレるかも。必要そうなライブラリが乗ってて、ビルド手順乗っている。
   - https://mroonga.org/ja/docs/install/others.html
-  - mysqlは5.6!!!
+  - mysqlは5.6!!
 
 - テンプーレトにキャッシュ削除するスクリプトを追加する。
   - centos
@@ -42,11 +36,6 @@
 
 - gpuを利用したディープラーニング
   - https://techable.jp/archives/118651
-
-- Dockerfileは用途別にテンプーレトを作成する。
-  - vscodeがあるもの
-  - dbeaverがあるもの
-  - vscodeとdbeaver両方があるもの　などなど
 
 - rust製のコマンド
   - https://qiita.com/navitime_tech/items/c249269a3b47666c784b
