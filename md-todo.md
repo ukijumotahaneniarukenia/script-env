@@ -2,7 +2,7 @@
   - https://qiita.com/zembutsu/items/9e9d80e05e36e882caaa
 
 - flutendのサンプル
-
+  - https://www.jkawamoto.info/blog-ja/docker-compose-for-logging-service/
 - oracleとibmもうちょいいいい感じにしておく。
 
 - neckなのはプログラムがバイナリ提供のものを使用しているのか、ソースからビルドしているものなのかを区別していないこと。レポジジかえればいいか。makeがあるかないかでくべつできる。
