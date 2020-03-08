@@ -1,10 +1,3 @@
-# create an initial database with the name provided or leave empty
-# set License to accept to use the Db2 software contained in this image
-# set to true to create sample database
-# set to true to enable BLU on instance
-# set to true to enable Oracle Compatibility on instance
-# specify the Db2 Instance name
-# specify the Db2 Instance password
 ENV BLU=false
 ENV DB2INST1_PASSWORD=hogehoge
 ENV DB2INSTANCE=db2inst1

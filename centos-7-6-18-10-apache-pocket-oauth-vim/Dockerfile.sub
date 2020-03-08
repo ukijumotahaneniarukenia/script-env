@@ -1,2 +1,1 @@
-#apache-httpdサービス外部公開ポート
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-apache-httpd.sh | bash

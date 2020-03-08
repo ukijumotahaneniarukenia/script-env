@@ -1,8 +1,2 @@
-#RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-python-$PYTHON_VERSION.sh | bash
-#RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-system.sh | bash
-#RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
-#RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
-#gitlabサービス外部公開ポート
-#gitlab環境変数の設定
 ENV GITLAB_OMNIBUS_CONFIG="external_url 'http://localhost:9010';gitlab_rails['gitlab_shell_ssh_port'] = 2022;"
 FROM gitlab/gitlab-ce:latest

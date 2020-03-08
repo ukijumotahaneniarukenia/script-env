@@ -1,3 +1,2 @@
-#httpdサービス外部公開ポート
 EXPOSE 8080
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-nginx.sh | bash

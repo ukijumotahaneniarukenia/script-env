@@ -13,7 +13,8 @@ STOP_WORD_LIST=$1
 [ -z $STOP_WORD_LIST ] && usage
 
 while read tgt;do
-  #echo $tgt
+  echo $tgt
+  #cat $tgt
   while read stop_word;do
     #echo $stop_word
     echo "sed -i /$stop_word/d $tgt" | bash

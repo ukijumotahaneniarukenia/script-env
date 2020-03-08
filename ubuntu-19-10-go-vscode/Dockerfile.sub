@@ -1,5 +1,1 @@
-#XクライアントがXサーバーにGUI転送出来るように、転送先の「IP:ディスプレイ番号:スクリーン番号」を指定する
-#vscodeインストール
-COPY code_1.41.1-1576681836_amd64.deb /usr/local/src/code_1.41.1-1576681836_amd64.deb
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-go-$GO_VERSION | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vscode | bash

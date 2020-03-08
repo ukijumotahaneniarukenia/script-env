@@ -1,2 +1,1 @@
-#ユーザー作成
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-tclsh-$TCLSH_VERSION.sh | bash
