@@ -1,6 +1,7 @@
 FROM centos:7.6.1810
 
 ARG OS_VERSION
+ARG REPO
 
 ENV LANG=ja_JP.UTF-8
 

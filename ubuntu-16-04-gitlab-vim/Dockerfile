@@ -1,6 +1,7 @@
 FROM gitlab/gitlab-ce:latest
 
 ARG OS_VERSION
+ARG REPO
 ARG GIT_VERSION
 ARG PYTHON_VERSION
 

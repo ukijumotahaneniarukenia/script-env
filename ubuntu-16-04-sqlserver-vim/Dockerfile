@@ -1,6 +1,7 @@
 FROM mcr.microsoft.com/mssql/server:2019-GA-ubuntu-16.04
 
 ARG OS_VERSION
+ARG REPO
 ARG USER_NAME
 ARG GIT_VERSION
 ARG PYTHON_VERSION

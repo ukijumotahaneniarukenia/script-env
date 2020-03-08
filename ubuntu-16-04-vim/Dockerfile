@@ -1,6 +1,7 @@
 FROM ubuntu:16.04
 
 ARG OS_VERSION
+ARG REPO
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV LANG=ja_JP.UTF-8

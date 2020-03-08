@@ -1,6 +1,7 @@
 FROM centos:7.6.1810
 
 ARG OS_VERSION
+ARG REPO
 ARG GROONGA_VERSION
 
 RUN yum install -y git
