@@ -37,3 +37,4 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font.sh | bash
 
 WORKDIR /home/nginx
 
+EXPOSE 8080

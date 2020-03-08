@@ -28,10 +28,26 @@ execute(){
 
   TEMPLATE_FILE=$(find $HOME/$REPO | grep -P "docker-template-Dockerfile-$OS_NAME")
 
+#  printf "
+#OS_VERSION:%s
+#OS_NAME:%s
+#IMAGE_VERSION:%s
+#TEMPLATE_FILE:%s
+#" $OS_VERSION $OS_NAME $IMAGE_VERSION $TEMPLATE_FILE
+
   #テンプレートファイルのIMAGE_VERSIONの置換
   #テンプレートファイルのDOCKERFILE_ARGの置換
   while read tgt;do
-    echo "sed 's/IMAGE_VERSION/$IMAGE_VERSION/' $TEMPLATE_FILE >$tgt/Dockerfile.auto" | bash
+    if [ -f $tgt/env-image.md ];then
+      RT="$(grep FROM $tgt/env-image.md)"
+      if [ -z "$RT" ];then
+        echo "sed 's;BASE_IMAGE;FROM $OS_NAME:$IMAGE_VERSION;' $TEMPLATE_FILE >$tgt/Dockerfile.auto" | bash
+      else
+        echo "sed 's;BASE_IMAGE;$RT;' $TEMPLATE_FILE >$tgt/Dockerfile.auto" | bash
+      fi
+    else
+      :
+    fi
     echo "sed -i '/^USER/,/^EXPOSE/d' $tgt/Dockerfile.auto" | bash
     cat $tgt/env-build-arg.md  | sed 's/=.*//;s/^/ARG /;' >/tmp/env-build-arg-$(echo $tgt | perl -pe 's;/;-;g')
     echo "sed -i '/DOCKERFILE_ARG/r /tmp/env-build-arg-$(echo $tgt | perl -pe 's;/;-;g')' $tgt/Dockerfile.auto" | bash
