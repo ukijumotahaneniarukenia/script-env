@@ -1,3 +1,6 @@
+- git操作-まちがいそうなやつ
+  - https://qiita.com/terry_6518/items/44ce2419a78d4121569a#comments
+
 - python マルチスレッド
   - https://qiita.com/kenmaro/items/69fdd84e18e793a21790
 
