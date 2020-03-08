@@ -1,1 +1,0 @@
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-go-$GO_VERSION | bash

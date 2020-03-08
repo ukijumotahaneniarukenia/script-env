@@ -17,3 +17,4 @@ komodo
 idea
 EXPOSE
 ARG
+FROM
