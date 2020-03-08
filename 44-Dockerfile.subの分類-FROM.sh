@@ -28,4 +28,4 @@ while read tgt;do
   else
     :
   fi
-done < <(find $HOME/script-env -mindepth 1 -type d | grep -vP '\.git')
+done < <(find $HOME/script-env -mindepth 1 -type d | grep -vP '\.git|docker-log')
