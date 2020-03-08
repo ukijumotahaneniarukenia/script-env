@@ -1,0 +1,1 @@
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-wine-$WINE_VERSION.sh | bash
