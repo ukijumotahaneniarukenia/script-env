@@ -2,12 +2,6 @@ ARG USER_NAME
 ENV ACCEPT_EULA=Y
 ENV SA_PASSWORD=QseDt7167
 FROM mcr.microsoft.com/mssql/server:2019-GA-ubuntu-16.04
-RUN apt install -y git
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-default-env-usr.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-patch-git-$GIT_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-patch-sqlserver-$SQLSERVER_VERSION.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$USER_NAME-env-usr.sh | bash
-RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list && \
 USER root
-apt update && \
-apt upgrade -y

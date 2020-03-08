@@ -2,6 +2,5 @@
 #vscodeインストール
 COPY code-1.41.1-1576681965.el7.x86_64.rpm /usr/local/src/code-1.41.1-1576681965.el7.x86_64.rpm
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-cpan-cpanm.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-default-env-usr.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-perl-$PERL_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vscode.sh | bash

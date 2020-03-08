@@ -1,10 +1,5 @@
 #gradleコマンドインストール
 COPY gradle-6.1-all.zip /usr/local/src/gradle-6.1-all.zip
-RUN apt install -y git
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-default-env-usr.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-gradle-$GRADLE_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-jdk-$JAVA_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-maven-$MAVEN_VERSION.sh | bash
-RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list && \
-apt update && \
-apt upgrade -y

@@ -1,5 +1,3 @@
 #apache-httpdサービス外部公開ポート
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-apache-feedly-oauth-vim-env-usr.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-apache-httpd.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-default-env-usr.sh | bash
 RUN echo unko

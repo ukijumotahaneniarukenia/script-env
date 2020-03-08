@@ -1,4 +1,2 @@
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-anaconda-vim-env-usr.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-default-env-usr.sh | bash
 USER anacon
 WORKDIR /home/anacon
