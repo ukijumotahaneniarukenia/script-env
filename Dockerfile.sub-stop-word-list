@@ -11,3 +11,4 @@ httpd
 WORKDIR
 tar
 yum
+ENV

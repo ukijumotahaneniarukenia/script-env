@@ -1,2 +1,0 @@
-ARG POSTGRES_VERSION
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-postgres-$POSTGRES_VERSION-with-python.sh | bash
