@@ -1,8 +1,0 @@
-CMD ["/usr/sbin/init"]
-FROM centos/systemd
-RUN yum groupinstall -y base "X Window System" --setopt=group_package_types=mandatory,default,optional
-RUN yum install -y PackageKit-gtk3-module
-RUN yum install -y epel-release
-RUN yum install -y ibus-mozc
-RUN yum install -y vlgothic-*
-RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps firefox

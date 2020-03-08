@@ -1,4 +1,3 @@
-COPY gradle-6.1-all.zip /usr/local/src/gradle-6.1-all.zip
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-gradle-$GRADLE_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-jdk-$JAVA_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-maven-$MAVEN_VERSION.sh | bash

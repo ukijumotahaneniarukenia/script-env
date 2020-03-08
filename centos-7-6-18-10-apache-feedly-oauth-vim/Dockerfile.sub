@@ -1,2 +1,0 @@
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-apache-httpd.sh | bash
-RUN echo unko
