@@ -3,21 +3,24 @@
 usage(){
   cat <<EOS
 Usage:
-  bash $0 1 docker-build-wanted-list
+  bash $0 1 docker-build-wanted-list script-repo
 EOS
 exit 0
 }
 
-bash $HOME/script-env/03-doc.mdの各環境ディレクトリへの配備.sh
 
 exec 1>$HOME/script-env/docker-build-log/docker-build-$(date +\%Y-\%m-\%dT\%H-\%M-\%S).stdout.log
 exec 2>$HOME/script-env/docker-build-log/docker-build-$(date +\%Y-\%m-\%dT\%H-\%M-\%S).stderr.log
 
 MX_RETRY_CNT="$1";shift
 BUILD_LIST_FILE="$1";shift
+REPO="$1";shift
 
 [ -z $MX_RETRY_CNT ] && usage
 [ -z $BUILD_LIST_FILE ] && usage
+[ -z $REPO ] && usage
+
+bash $HOME/script-env/03-doc.mdの各環境ディレクトリへの配備.sh $REPO
 
 for((ROUND_CNT=1;ROUND_CNT<=$MX_RETRY_CNT;ROUND_CNT++));do
   BUILD_START_TIME=$(date '+%s') #開始時刻控える
