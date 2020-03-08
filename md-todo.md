@@ -1,3 +1,6 @@
+- docker composeはローカルイメージ見てくれる
+  - https://qiita.com/zembutsu/items/9e9d80e05e36e882caaa
+
 - flutendのサンプル
 
 - oracleとibmもうちょいいいい感じにしておく。
