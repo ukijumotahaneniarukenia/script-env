@@ -1,7 +1,3 @@
-#XクライアントがXサーバーにGUI転送出来るように、転送先の「IP:ディスプレイ番号:スクリーン番号」を指定する
-#ideaインストール
-COPY ideaIC-2019.2.4.tar.gz /usr/local/src/ideaIC-2019.2.4.tar.gz
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-apache-tomcat-$APACHE_TOMCAT_VERSION.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-idea-2019-2-4.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-jdk-$JAVA_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-maven-$MAVEN_VERSION.sh | bash
