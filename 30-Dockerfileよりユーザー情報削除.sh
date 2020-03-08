@@ -19,4 +19,4 @@ while read tgt;do
   #置換
   sed -i -n '/RUN groupadd/,/root/!p' $HOME/$REPO/$tgt/Dockerfile
 
-done < <(ls -l $HOME/$REPO | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log)
+done < <(ls -l $HOME/$REPO | grep -P '^d' | awk '{print $9}' | grep -v docker-log)

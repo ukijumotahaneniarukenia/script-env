@@ -26,7 +26,7 @@ execute(){
     IMAGE_VERSION=$(echo $IMAGE_VERSION | perl -pe 's/-/\./;')
   fi
 
-  TEMPLATE_FILE=$(find $HOME/$REPO | grep -P "docker-build-template-Dockerfile-$OS_NAME")
+  TEMPLATE_FILE=$(find $HOME/$REPO | grep -P "docker-template-Dockerfile-$OS_NAME")
 
   #テンプレートファイルのIMAGE_VERSIONの置換
   #テンプレートファイルのDOCKERFILE_ARGの置換
@@ -36,7 +36,7 @@ execute(){
     cat $tgt/env-build-arg.md  | sed 's/=.*//;s/^/ARG /;' >/tmp/env-build-arg-$(echo $tgt | perl -pe 's;/;-;g')
     echo "sed -i '/DOCKERFILE_ARG/r /tmp/env-build-arg-$(echo $tgt | perl -pe 's;/;-;g')' $tgt/Dockerfile.auto" | bash
     echo "sed -i '/DOCKERFILE_ARG/d' $tgt/Dockerfile.auto" | bash
-  done < <(find $HOME/$REPO -type d | grep -v docker-build-log | grep $OS_VERSION)
+  done < <(find $HOME/$REPO -type d | grep -v docker-log | grep $OS_VERSION)
 
   rm -rf /tmp/env-build-arg*
 
@@ -55,7 +55,7 @@ execute(){
         echo "sed -n '/^USER/,/^EXPOSE/p' $TEMPLATE_FILE | head -n-1 | perl -pe "s/MAIN_USER/$(echo $usr | cut -d',' -f$(($i+2)))/g" >>$file/Dockerfile.auto" | bash
       done
     done
-  done < <(find $HOME/$REPO -type d | grep -v docker-build-log | grep $OS_VERSION)
+  done < <(find $HOME/$REPO -type d | grep -v docker-log | grep $OS_VERSION)
 
   #テンプレートファイルのEXPOSEの置換
   while read tgt;do
@@ -69,17 +69,17 @@ execute(){
         echo "sed -n '/EXPOSE/p' $TEMPLATE_FILE | perl -pe "s/PORT/$(echo $port | cut -d',' -f$(($i+2))|sed -r 's/.*://')/g" >>$file/Dockerfile.auto" | bash
       done
     done
-  done < <(find $HOME/$REPO -type d | grep -v docker-build-log | grep $OS_VERSION)
+  done < <(find $HOME/$REPO -type d | grep -v docker-log | grep $OS_VERSION)
 
   #最後に見つかったWORKDIR以外を削除
   while read tgt;do
     grep -n -P  'WORKDIR' $tgt/Dockerfile | cut -d' ' -f1 | xargs | sed '/^$/d' | awk -v FS=' ' '{$NF="";print $0}' | xargs -I@ echo @ | perl -pe "s;:.*;;;s;^;sed -i ;;s;$;d $tgt/Dockerfile.auto;" | bash
-  done < <(find $HOME/$REPO -type d | grep -v docker-build-log | grep $OS_VERSION)
+  done < <(find $HOME/$REPO -type d | grep -v docker-log | grep $OS_VERSION)
 
   #テンプレート生成したDockerfileと既存Dockerfileのうち既存にしかないものを抽出
   while read tgt;do
     echo "cd  $tgt && comm -23 --nocheck-order <(sort Dockerfile | sed -r '/^$/d') <(sort Dockerfile.auto | sed -r '/^$/d')>Dockerfile.sub"
-  done < <(find $HOME/$REPO -type d | grep -v docker-build-log | grep $OS_VERSION) | bash
+  done < <(find $HOME/$REPO -type d | grep -v docker-log | grep $OS_VERSION) | bash
 }
 
 main(){

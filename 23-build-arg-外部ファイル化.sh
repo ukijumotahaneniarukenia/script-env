@@ -28,8 +28,8 @@ while read tgt;do
     }
   }' | xargs -n2 | grep -vP "\--$N" | sort -k2,1 | awk '{print "echo \x27"$1"\x27>>"$2}'
 
-done < <(ls -l $HOME/$REPO | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log)
+done < <(ls -l $HOME/$REPO | grep -P '^d' | awk '{print $9}' | grep -v docker-log)
 
 
 #ファイル存在チェック
-#ls -l $HOME/$REPO | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log | while read tgt;do echo $HOME/$REPO/$tgt/env-$N.md;done | xargs -I@ ls @
+#ls -l $HOME/$REPO | grep -P '^d' | awk '{print $9}' | grep -v docker-log | while read tgt;do echo $HOME/$REPO/$tgt/env-$N.md;done | xargs -I@ ls @

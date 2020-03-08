@@ -14,5 +14,5 @@ while read tgt;do
   #環境個別の設定を適用
   [ -z "$RT" ] || echo 1 $RT $HOME/script-env/$tgt/env-shm-size.md
 
-done < <(ls -l $HOME/script-env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log)  | \
+done < <(ls -l $HOME/script-env | grep -P '^d' | awk '{print $9}' | grep -v docker-log)  | \
   grep -P '^0' | awk '{print $2}' | xargs -I@ ls @ 2>&1 | perl -CIO -pe 's/ \p{Hiragana}.*//g' | grep '^ls' | perl -pe 's/ls: //g' | xargs -I@ touch @

@@ -30,7 +30,7 @@ while read tgt;do
   #リネーム
   echo $HOME/script-repo/script-env-$tgt-env-usr.sh | xargs -I@ bash -c 'echo mv @ $(echo @ | perl -pe "s;(.*-[0-9]+);\1-script-env;g;s;/script-env-;/;;s;script-env;install;g")' | bash
 
-done < <(ls -l $HOME/$REPO | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log)
+done < <(ls -l $HOME/$REPO | grep -P '^d' | awk '{print $9}' | grep -v docker-log)
 
 #追記
 while read tgt;do

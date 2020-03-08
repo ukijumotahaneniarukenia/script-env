@@ -17,4 +17,4 @@ while read tgt;do
     echo "sed '/DOCKERFILE_SUB/r $tgt/Dockerfile.sub.done' $tgt/Dockerfile.auto >$tgt/Dockerfile.done" | bash
     echo "sed -i '/DOCKERFILE_SUB/d' $tgt/Dockerfile.done" | bash
   fi
-done < <(find $HOME/$REPO  -mindepth 1 -type d | grep -vP 'docker-build-log|\.git')
+done < <(find $HOME/$REPO  -mindepth 1 -type d | grep -vP 'docker-log|\.git')

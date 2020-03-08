@@ -37,7 +37,7 @@ while read tgt;do
   #環境個別の設定を適用
   [ -z "$RT" ] || printf "sed -i 's;BUILD_ARG;%s;' %s\n" "$(echo $RT | sed 's; ; --build-arg ;g;s;^;--build-arg ;')" $HOME/script-env/$tgt/doc.md | bash
 
-done < <(ls -l $HOME/script-env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log)
+done < <(ls -l $HOME/script-env | grep -P '^d' | awk '{print $9}' | grep -v docker-log)
 
 #APP_NAMEの設定
 find $HOME/script-env -name "env-usr.md" | \

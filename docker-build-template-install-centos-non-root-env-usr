@@ -1,5 +1,0 @@
-groupadd -g MY_GROUP_ID MY_GROUP_NAME && \
-useradd -m -g MY_GROUP_NAME -u MY_USER_ID MY_USER_NAME && \
-chsh -s /bin/bash MY_USER_NAME && \
-echo 'MY_USER_PWD' | passwd --stdin MY_USER_NAME && \
-echo 'MY_USER_NAME ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
