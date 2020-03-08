@@ -1,2 +1,0 @@
-- インストール
-  - https://nim-lang.org/install_unix.html

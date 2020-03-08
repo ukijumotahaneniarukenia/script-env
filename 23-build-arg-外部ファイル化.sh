@@ -16,7 +16,7 @@ REPO="$1";shift
 
 while read tgt;do
 
-  grep -r -n -P "$N" $HOME/$REPO/$tgt | grep -P env\.md | awk -v FS=':' -v N=$N '{FILE_NAME=$1;gsub(/env.md/,"env-"N".md",FILE_NAME);print "rm -rf "FILE_NAME}'
+  grep -r -n -P "$N" $HOME/$REPO/$tgt | grep -P env\.md | awk -v FS=':' -v N=$N '{FILE_NAME=$1;gsub(/md-env.md/,"env-"N".md",FILE_NAME);print "rm -rf "FILE_NAME}'
   grep -r -n -P "$N" $HOME/$REPO/$tgt | grep -P env\.md | awk -v FS=':' -v OFS='\n' -v N=$N '{
     s=split($3,ary," ");
     FILE_NAME=$1;
@@ -24,7 +24,7 @@ while read tgt;do
   END{
     for(e in ary){
       print ary[e]
-      gsub(/env.md/,"env-"N".md",FILE_NAME);print FILE_NAME
+      gsub(/md-env.md/,"env-"N".md",FILE_NAME);print FILE_NAME
     }
   }' | xargs -n2 | grep -vP "\--$N" | sort -k2,1 | awk '{print "echo \x27"$1"\x27>>"$2}'
 

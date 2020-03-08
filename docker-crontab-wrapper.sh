@@ -20,7 +20,7 @@ REPO="$1";shift
 [ -z $BUILD_LIST_FILE ] && usage
 [ -z $REPO ] && usage
 
-bash $HOME/script-env/03-doc.mdの各環境ディレクトリへの配備.sh $REPO
+bash $HOME/script-env/03-md-doc.mdの各環境ディレクトリへの配備.sh $REPO
 
 for((ROUND_CNT=1;ROUND_CNT<=$MX_RETRY_CNT;ROUND_CNT++));do
   BUILD_START_TIME=$(date '+%s') #開始時刻控える

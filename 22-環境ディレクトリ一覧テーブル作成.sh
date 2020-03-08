@@ -10,4 +10,4 @@ while read tgt;do
   sed -r 's;^|$| ;|;g'
 done < <(ls -l $HOME/script-env-regression-test | grep -P '^d' | awk '{print $9}' | grep -vP 'docker-log' | grep -P '(-[a-zA-Z]+)') | \
 sed '1i|環境ディレクトリ名|GRPSEQ|コンテキスト名|GRPCNT|' | \
-sed '2i|:-:|:-:|:-:|:-:|' >env-list.md
+sed '2i|:-:|:-:|:-:|:-:|' >md-env-list.md

@@ -1,7 +1,0 @@
-FROM centos/systemd
-RUN cd /usr/local/src && \
-cd install-tl-20200129 && \
-curl -LO http://www.ring.gr.jp/pub/text/CTAN/systems/texlive/tlnet/install-tl-unx.tar.gz && \
-echo 'I' | ./install-tl
-tar xvf install-tl-unx.tar.gz && \
-yum install -y perl-Digest-MD5 && \

@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:19.10
 
 ARG OS_VERSION
 ARG DEBIAN_FRONTEND=noninteractive

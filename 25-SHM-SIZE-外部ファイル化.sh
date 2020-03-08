@@ -16,7 +16,7 @@ REPO="$1";shift
 
 while read tgt;do
 
-  grep -r -n -P "$N" $HOME/$REPO/$tgt | grep -P env\.md | awk -v FS=':' -v N=$(echo ${N,,} | perl -pe 's/_/-/g' ) '{FILE_NAME=$1;gsub(/env.md/,"env-"N".md",FILE_NAME);print "rm -rf "FILE_NAME}'
+  grep -r -n -P "$N" $HOME/$REPO/$tgt | grep -P env\.md | awk -v FS=':' -v N=$(echo ${N,,} | perl -pe 's/_/-/g' ) '{FILE_NAME=$1;gsub(/md-env.md/,"env-"N".md",FILE_NAME);print "rm -rf "FILE_NAME}'
   grep -r -n -P "$N" $HOME/$REPO/$tgt | grep -P env\.md |  awk -v FS=':' -v N=$(echo ${N,,} | perl -pe 's/_/-/g' ) -v FILE=$HOME/$REPO/$tgt '{
   print "echo \x27"$3"\x27>>"FILE"/env-"N".md"
 }'

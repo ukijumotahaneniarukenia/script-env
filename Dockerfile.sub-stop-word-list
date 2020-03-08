@@ -8,3 +8,6 @@ USER
 COPY
 unko
 httpd
+WORKDIR
+tar
+yum
