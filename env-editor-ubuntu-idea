@@ -1,0 +1,2 @@
+COPY ideaIC-2019.2.4.tar.gz /usr/local/src/ideaIC-2019.2.4.tar.gz
+RUN cd /usr/local/src && tar -xzf ideaIC-2019.2.4.tar.gz
