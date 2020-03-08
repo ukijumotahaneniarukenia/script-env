@@ -1,5 +1,2 @@
-#httpdサービス外部公開ポート
 EXPOSE 8080
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-default-env-usr.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-nginx-vim-env-usr.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-nginx.sh | bash

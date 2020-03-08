@@ -1,5 +1,1 @@
-#XクライアントがXサーバーにGUI転送出来るように、転送先の「IP:ディスプレイ番号:スクリーン番号」を指定する
-#pycharmインストール
-COPY pycharm-community-2019.3.1.tar.gz  /usr/local/src/pycharm-community-2019.3.1.tar.gz
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-default-env-usr.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-pycharm-2019-3-1.sh | bash
