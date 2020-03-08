@@ -1,0 +1,1 @@
+ENV GITLAB_OMNIBUS_CONFIG="external_url 'http://localhost:9010';gitlab_rails['gitlab_shell_ssh_port'] = 2022;"

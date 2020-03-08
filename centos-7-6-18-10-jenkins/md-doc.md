@@ -3,24 +3,24 @@
 - キャッシュ有効-バッググラウンド実行
 
 ```
-time docker build -t centos-7-6-18-10-jenkins --build-arg GIT_VERSION=2-24-1 --build-arg PYTHON_VERSION=3-7-4 --build-arg APP_NAME=jenkins --build-arg OS_VERSION=$(echo centos-7-6-18-10-jenkins | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . UNKO
+time docker build -t centos-7-6-18-10-jenkins --build-arg GIT_VERSION=2-24-1 --build-arg PYTHON_VERSION=3-7-4 --build-arg REPO=script-repo --build-arg APP_NAME=jenkins --build-arg OS_VERSION=$(echo centos-7-6-18-10-jenkins | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . UNKO
 ```
 
 - キャッシュ有効-フォアグラウンド実行
 
 ```
-time docker build -t centos-7-6-18-10-jenkins --build-arg GIT_VERSION=2-24-1 --build-arg PYTHON_VERSION=3-7-4 --build-arg APP_NAME=jenkins --build-arg OS_VERSION=$(echo centos-7-6-18-10-jenkins | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build -t centos-7-6-18-10-jenkins --build-arg GIT_VERSION=2-24-1 --build-arg PYTHON_VERSION=3-7-4 --build-arg REPO=script-repo --build-arg APP_NAME=jenkins --build-arg OS_VERSION=$(echo centos-7-6-18-10-jenkins | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 - キャッシュ無効
 
 ```
-time docker build --no-cache -t centos-7-6-18-10-jenkins --build-arg GIT_VERSION=2-24-1 --build-arg PYTHON_VERSION=3-7-4 --build-arg APP_NAME=jenkins --build-arg OS_VERSION=$(echo centos-7-6-18-10-jenkins | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build --no-cache -t centos-7-6-18-10-jenkins --build-arg GIT_VERSION=2-24-1 --build-arg PYTHON_VERSION=3-7-4 --build-arg REPO=script-repo --build-arg APP_NAME=jenkins --build-arg OS_VERSION=$(echo centos-7-6-18-10-jenkins | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 # dockerコンテナ起動
 ```
-docker run --privileged --shm-size=2gb --hostname=centos-7-6-18-10-jenkins -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id  --name centos-7-6-18-10-jenkins -itd centos-7-6-18-10-jenkins
+docker run --privileged --shm-size=2gb --hostname=centos-7-6-18-10-jenkins -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 8080:8080 --name centos-7-6-18-10-jenkins -itd centos-7-6-18-10-jenkins
 ```
 
 # dockerコンテナ潜入

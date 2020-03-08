@@ -8,16 +8,15 @@ EOS
 exit 0
 }
 
-REPO=$1
+INSTALLER_REPO=$1
 
-[ -z "$REPO" ] && usage
+[ -z "$INSTALLER_REPO" ] && usage
 
 while read tgt;do
 
   #md-doc.mdファイルを配備
   echo cp $HOME/script-env/md-doc.md $HOME/script-env/$tgt/md-doc.md | bash
   echo "sed -i 's;XXX;$tgt;g' $HOME/script-env/$tgt/md-doc.md" | bash
-  echo "sed -i 's;ZZZ;$REPO;g' $HOME/script-env/$tgt/md-doc.md" | bash
 
   RT="$(echo "grep '' $HOME/script-env/$tgt/env-expose.md | xargs" | bash 2>/dev/null)"
   #デフォルト設定を適用
@@ -36,6 +35,8 @@ while read tgt;do
   [ -z "$RT" ] && printf "sed -i 's;BUILD_ARG;%s;' %s\n" "$(echo "grep build-arg $HOME/script-env/md-env.md" | sort | uniq | bash)" $HOME/script-env/$tgt/md-doc.md | bash
   #環境個別の設定を適用
   [ -z "$RT" ] || printf "sed -i 's;BUILD_ARG;%s;' %s\n" "$(echo $RT | sed 's; ; --build-arg ;g;s;^;--build-arg ;')" $HOME/script-env/$tgt/md-doc.md | bash
+
+  printf "sed -i 's;INSTALLER_REPO;%s;' %s\n" $INSTALLER_REPO $HOME/script-env/$tgt/md-doc.md | bash
 
 done < <(ls -l $HOME/script-env | grep -P '^d' | awk '{print $9}' | grep -v docker-log)
 

@@ -22,26 +22,26 @@ REPO="$1";shift
 
 bash $HOME/script-env/03-md-doc.mdの各環境ディレクトリへの配備.sh $REPO
 
-#for((ROUND_CNT=1;ROUND_CNT<=$MX_RETRY_CNT;ROUND_CNT++));do
-#  BUILD_START_TIME=$(date '+%s') #開始時刻控える
-#
-#  printf "starting docker build $(printf '%02g' $ROUND_CNT) round.\n" #開始メッセージ
-#
-#  bash $HOME/script-env/docker-crontab-execute.sh $(printf '%02g' $ROUND_CNT) $BUILD_LIST_FILE &
-#
-#  sleep 10 #psコマンドで検索できるように少しまつ
-#
-#  while $(ps aux | grep 'docker build' | grep -vq 'grep') #docker buildプロセスがヒットしなくなるまで、まつ。待ち合わせ機能。
-#  do
-#    sleep 1
-#  done
-#
-#  BUILD_END_TIME=$(date '+%s') #終了時刻控える
-#
-#  BUILD_ELAPSED_TIME=$(expr $BUILD_END_TIME - $BUILD_START_TIME - 10) #すこし待った分差し引く
-#
-#  printf "ending docker build $(printf '%02g' $ROUND_CNT) round.elapsed time[%s(seconds)]\n" $BUILD_ELAPSED_TIME #終了メッセージ
-#done
-#
-#bash $HOME/script-env/docker-crontab-clean.sh
-#bash $HOME/script-env/docker-crontab-logger.sh $BUILD_LIST_FILE
+for((ROUND_CNT=1;ROUND_CNT<=$MX_RETRY_CNT;ROUND_CNT++));do
+  BUILD_START_TIME=$(date '+%s') #開始時刻控える
+
+  printf "starting docker build $(printf '%02g' $ROUND_CNT) round.\n" #開始メッセージ
+
+  bash $HOME/script-env/docker-crontab-execute.sh $(printf '%02g' $ROUND_CNT) $BUILD_LIST_FILE &
+
+  sleep 10 #psコマンドで検索できるように少しまつ
+
+  while $(ps aux | grep 'docker build' | grep -vq 'grep') #docker buildプロセスがヒットしなくなるまで、まつ。待ち合わせ機能。
+  do
+    sleep 1
+  done
+
+  BUILD_END_TIME=$(date '+%s') #終了時刻控える
+
+  BUILD_ELAPSED_TIME=$(expr $BUILD_END_TIME - $BUILD_START_TIME - 10) #すこし待った分差し引く
+
+  printf "ending docker build $(printf '%02g' $ROUND_CNT) round.elapsed time[%s(seconds)]\n" $BUILD_ELAPSED_TIME #終了メッセージ
+done
+
+bash $HOME/script-env/docker-crontab-clean.sh
+bash $HOME/script-env/docker-crontab-logger.sh $BUILD_LIST_FILE

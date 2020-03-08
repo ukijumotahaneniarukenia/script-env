@@ -3,19 +3,19 @@
 - キャッシュ有効-バッググラウンド実行
 
 ```
-time docker build -t centos-7-6-18-10-jq-oniguruma-vim --build-arg JQ_VERSION=1.6 --build-arg APP_NAME= --build-arg OS_VERSION=$(echo centos-7-6-18-10-jq-oniguruma-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . UNKO
+time docker build -t centos-7-6-18-10-jq-oniguruma-vim --build-arg JQ_VERSION=1.6 --build-arg REPO=script-repo --build-arg APP_NAME= --build-arg OS_VERSION=$(echo centos-7-6-18-10-jq-oniguruma-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . UNKO
 ```
 
 - キャッシュ有効-フォアグラウンド実行
 
 ```
-time docker build -t centos-7-6-18-10-jq-oniguruma-vim --build-arg JQ_VERSION=1.6 --build-arg APP_NAME= --build-arg OS_VERSION=$(echo centos-7-6-18-10-jq-oniguruma-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build -t centos-7-6-18-10-jq-oniguruma-vim --build-arg JQ_VERSION=1.6 --build-arg REPO=script-repo --build-arg APP_NAME= --build-arg OS_VERSION=$(echo centos-7-6-18-10-jq-oniguruma-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 - キャッシュ無効
 
 ```
-time docker build --no-cache -t centos-7-6-18-10-jq-oniguruma-vim --build-arg JQ_VERSION=1.6 --build-arg APP_NAME= --build-arg OS_VERSION=$(echo centos-7-6-18-10-jq-oniguruma-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build --no-cache -t centos-7-6-18-10-jq-oniguruma-vim --build-arg JQ_VERSION=1.6 --build-arg REPO=script-repo --build-arg APP_NAME= --build-arg OS_VERSION=$(echo centos-7-6-18-10-jq-oniguruma-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 # dockerコンテナ起動

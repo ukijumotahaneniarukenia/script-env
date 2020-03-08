@@ -37,6 +37,7 @@ execute(){
 
   #テンプレートファイルのIMAGE_VERSIONの置換
   #テンプレートファイルのDOCKERFILE_ARGの置換
+  #テンプレートファイルのDOCKERFILE_ENVの置換
   while read tgt;do
     if [ -f $tgt/env-image.md ];then
       RT="$(grep FROM $tgt/env-image.md)"
@@ -52,6 +53,8 @@ execute(){
     cat $tgt/env-build-arg.md  | sed 's/=.*//;s/^/ARG /;' >/tmp/env-build-arg-$(echo $tgt | perl -pe 's;/;-;g')
     echo "sed -i '/DOCKERFILE_ARG/r /tmp/env-build-arg-$(echo $tgt | perl -pe 's;/;-;g')' $tgt/Dockerfile.auto" | bash
     echo "sed -i '/DOCKERFILE_ARG/d' $tgt/Dockerfile.auto" | bash
+    echo "sed -i '/DOCKERFILE_ENV/r $tgt/env-env.md' $tgt/Dockerfile.auto" | bash
+    echo "sed -i '/DOCKERFILE_ENV/d' $tgt/Dockerfile.auto" | bash
   done < <(find $HOME/$REPO -type d | grep -v docker-log | grep $OS_VERSION)
 
   rm -rf /tmp/env-build-arg*
