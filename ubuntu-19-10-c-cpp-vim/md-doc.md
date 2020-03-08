@@ -3,7 +3,7 @@
 - キャッシュ有効-バッググラウンド実行
 
 ```
-time docker build -t ubuntu-19-10-c-cpp-vim --build-arg GIT_VERSION=2-24-1 --build-arg PYTHON_VERSION=3-7-4 --build-arg REPO=script-repo --build-arg APP_NAME= --build-arg OS_VERSION=$(echo ubuntu-19-10-c-cpp-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . UNKO
+time docker build --no-cache -t ubuntu-19-10-c-cpp-vim --build-arg GIT_VERSION=2-24-1 --build-arg PYTHON_VERSION=3-7-4 --build-arg REPO=script-repo --build-arg APP_NAME= --build-arg OS_VERSION=$(echo ubuntu-19-10-c-cpp-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . UNKO
 ```
 
 - キャッシュ有効-フォアグラウンド実行

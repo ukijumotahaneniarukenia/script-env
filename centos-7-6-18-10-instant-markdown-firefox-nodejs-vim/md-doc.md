@@ -3,7 +3,7 @@
 - キャッシュ有効-バッググラウンド実行
 
 ```
-time docker build -t centos-7-6-18-10-instant-markdown-firefox-nodejs-vim --build-arg GIT_VERSION=2-24-1 --build-arg NODEJS_VERSION=12-X-X --build-arg PYTHON_VERSION=3-7-4 --build-arg REPO=script-repo --build-arg APP_NAME= --build-arg OS_VERSION=$(echo centos-7-6-18-10-instant-markdown-firefox-nodejs-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . UNKO
+time docker build --no-cache -t centos-7-6-18-10-instant-markdown-firefox-nodejs-vim --build-arg GIT_VERSION=2-24-1 --build-arg NODEJS_VERSION=12-X-X --build-arg PYTHON_VERSION=3-7-4 --build-arg REPO=script-repo --build-arg APP_NAME= --build-arg OS_VERSION=$(echo centos-7-6-18-10-instant-markdown-firefox-nodejs-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . UNKO
 ```
 
 - キャッシュ有効-フォアグラウンド実行
