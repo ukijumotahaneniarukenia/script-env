@@ -8,10 +8,6 @@
 ./configure && \
 ./configure && \
 ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && \
-EXPOSE 1521
-EXPOSE 22
-EXPOSE 5500
-EXPOSE 8787
 RUN cd $HOME && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && \
 RUN cd $HOME && git clone https://github.com/ukijumotahaneniarukenia/.vim.git $HOME/.vim
 RUN cd $HOME && git clone https://github.com/ukijumotahaneniarukenia/.vim.git $HOME/.vim

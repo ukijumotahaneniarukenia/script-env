@@ -15,3 +15,5 @@ ENV
 pycharm
 komodo
 idea
+EXPOSE
+ARG

@@ -13,10 +13,19 @@ CHK_WORD=$1
 [ -z $CHK_WORD ] && usage
 
 while read tgt;do
-  RT="$(grep $CHK_WORD $tgt)"
-  if [ -z "$RT" ];then
+  if [ -f $tgt/env-image.md ];then
     :
   else
-    echo $tgt $RT
+    echo touch $tgt/env-image.md | bash
   fi
-done < <(find . -name "Dockerfile.sub" | grep -vP oracle)
+  if [ -f $tgt/Dockerfile.sub ];then
+    RT="$(grep $CHK_WORD $tgt/Dockerfile.sub)"
+    if [ -z "$RT" ];then
+      :
+    else
+      echo "echo '$RT' >>$tgt/env-image.md" | bash
+    fi
+  else
+    :
+  fi
+done < <(find $HOME/script-env -mindepth 1 -type d | grep -vP '\.git')

@@ -1,4 +1,2 @@
-ARG JAVA_VERSION
-EXPOSE 8080
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-jdk-$JAVA_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-jenkins.sh | bash
