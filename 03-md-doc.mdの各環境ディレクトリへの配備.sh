@@ -15,7 +15,7 @@ REPO=$1
 while read tgt;do
 
   #md-doc.mdファイルを配備
-  echo cp $HOME/script-md-env.md-doc.md $HOME/script-env/$tgt/md-doc.md | bash
+  echo cp $HOME/script-env/md-doc.md $HOME/script-env/$tgt/md-doc.md | bash
   echo "sed -i 's;XXX;$tgt;g' $HOME/script-env/$tgt/md-doc.md" | bash
   echo "sed -i 's;ZZZ;$REPO;g' $HOME/script-env/$tgt/md-doc.md" | bash
 
