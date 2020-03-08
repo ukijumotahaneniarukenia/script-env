@@ -1,3 +1,1 @@
-ARG GRON_VERSION
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-default-env-usr.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-gron-$GRON_VERSION.sh | bash
