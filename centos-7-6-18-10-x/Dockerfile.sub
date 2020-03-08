@@ -1,3 +1,22 @@
+# cat /etc/yum.conf配下の
+# manと、man-pagesをインストール
+# tsflags=nodocsのため
+#Gtk-Message: 23:27:11.098: Failed to load module "pk-gtk-module"
+#Xwindowシステムパッケージいんすこ
+#XクライアントがXサーバーにGUI転送出来るように、転送先のIPを指定する
+#echo "alias idea=\"$HOME/idea-IC-192.6817.14/bin/idea.sh >$HOME/launch_idea_log 2>&1 &\"" >> $HOME/.bashrc
+#echo "export DefalutIMModule=ibus" >> $HOME/.bashrc && \
+#echo "export GTK_IM_MODULE=ibus" >> $HOME/.bashrc && \
+#echo "export NO_AT_BRIDGE=1" >> $HOME/.bashrc && \
+#echo "export QT_IM_MODULE=ibus" >> $HOME/.bashrc && \
+#echo "export XMODIFIERS=@im=ibus" >> $HOME/.bashrc && \
+#echo "ibus-daemon -rxd" >> $HOME/.bashrc && \
+#echo "xrdb $HOME/.Xresources" >> $HOME/.bashrc && \
+#echo "xset -r 49" >> $HOME/.bashrc && \
+#かな漢字install
+#以下の対応のためインストール
+#各種X関連コマンドインストール
+#日本語フォントいんすこ
 RUN yum --setopt=tsflags='' reinstall -y man-pages
 RUN yum -y install man
 RUN yum -y install man-pages-ja.noarch

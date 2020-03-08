@@ -1,3 +1,5 @@
+#texコマンドインストール
+#ユーザー作成
 FROM centos/systemd
 RUN cd /usr/local/src && \
 cd install-tl-20200129 && \

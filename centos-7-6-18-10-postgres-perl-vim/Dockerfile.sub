@@ -1,2 +1,4 @@
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-default-env-usr.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-perl-$PERL_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-postgres-$POSTGRES_VERSION-with-perl.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-postgres-perl-vim-env-usr.sh | bash

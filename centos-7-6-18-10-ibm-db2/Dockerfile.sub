@@ -1,3 +1,10 @@
+# create an initial database with the name provided or leave empty
+# set License to accept to use the Db2 software contained in this image
+# set to true to create sample database
+# set to true to enable BLU on instance
+# set to true to enable Oracle Compatibility on instance
+# specify the Db2 Instance name
+# specify the Db2 Instance password
 ENV BLU=false
 ENV DB2INST1_PASSWORD=hogehoge
 ENV DB2INSTANCE=db2inst1
@@ -9,4 +16,8 @@ FROM ibmcom/db2
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-c-cpp.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-default-env-usr.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-ibm-db2-env-usr.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
+USER db2fenc1
+USER db2inst1

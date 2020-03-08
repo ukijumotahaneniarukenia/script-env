@@ -1,1 +1,2 @@
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-default-env-usr.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-groonga-$GROONGA_VERSION.sh | bash
