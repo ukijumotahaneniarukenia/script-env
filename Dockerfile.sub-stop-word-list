@@ -12,3 +12,6 @@ WORKDIR
 tar
 yum
 ENV
+pycharm
+komodo
+idea
