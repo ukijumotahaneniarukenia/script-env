@@ -1,3 +1,6 @@
+- vmコマンドライン操作便利
+  - https://qiita.com/tukiyo3/items/5ecea7f95cb961f07194
+
 - ネットワークのパケット送受信量を計測
   - https://qiita.com/suin/items/d4428e65a2cc1d956581
 
