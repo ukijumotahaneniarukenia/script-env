@@ -3,7 +3,15 @@
 usage(){
   cat <<EOS
 Usage:
-  $0 script-env
+  $0 script-env code
+  or
+  $0 script-env mysql-workbench
+  or
+  $0 script-env komodo
+  or
+  $0 script-env idea
+  or
+  $0 script-env pycharm
 EOS
 exit 0
 }
@@ -11,6 +19,7 @@ exit 0
 execute(){
 
   OS_VERSION=$1;shift
+  EDITOR=$1;shift
 
   [ -z $OS_VERSION ] && usage
 
@@ -38,6 +47,7 @@ execute(){
   #テンプレートファイルのIMAGE_VERSIONの置換
   #テンプレートファイルのDOCKERFILE_ARGの置換
   #テンプレートファイルのDOCKERFILE_ENVの置換
+  #テンプレートファイルのDOCKERFILE_EDITORの置換
   while read tgt;do
     if [ -f $tgt/env-image.md ];then
       RT="$(grep FROM $tgt/env-image.md)"
@@ -55,7 +65,11 @@ execute(){
     echo "sed -i '/DOCKERFILE_ARG/d' $tgt/Dockerfile.auto" | bash
     echo "sed -i '/DOCKERFILE_ENV/r $tgt/env-env.md' $tgt/Dockerfile.auto" | bash
     echo "sed -i '/DOCKERFILE_ENV/d' $tgt/Dockerfile.auto" | bash
-  done < <(find $HOME/$REPO -type d | grep -v docker-log | grep $OS_VERSION)
+
+    echo "sed -i '/DOCKERFILE_EDITOR/r $(find $HOME/$REPO -maxdepth 1 -type f -name "env-editor*" | grep $OS_NAME | grep -P "$EDITOR$")' $tgt/Dockerfile.auto" | bash
+    echo "sed -i '/DOCKERFILE_EDITOR/d' $tgt/Dockerfile.auto" | bash
+
+  done < <(find $HOME/$REPO -type d | grep -v docker-log | grep $OS_VERSION | grep -P "$EDITOR$")
 
   rm -rf /tmp/env-build-arg*
 
@@ -98,10 +112,12 @@ execute(){
 }
 
 main(){
-  REPO="$@"
+  REPO="$1";shift
+  EDITOR="$1";shift
   [ -z $REPO ] && usage
+  [ -z $EDITOR ] && usage
   export -f execute
-  find $HOME/$REPO -type d | grep -Po '[a-z]+(-[0-9]{1,}){1,}' | sort | uniq | while read tgt;do execute $tgt;done
+  find $HOME/$REPO -type d | grep -Po '[a-z]+(-[0-9]{1,}){1,}' | sort | uniq | while read tgt;do execute $tgt $EDITOR;done
 }
 
 main "$@"

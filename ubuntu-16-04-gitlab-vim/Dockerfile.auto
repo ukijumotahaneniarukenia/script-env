@@ -30,8 +30,37 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font.sh | bash
 
+DOCKERFILE_EDITOR
+
 DOCKERFILE_SUB
 
+USER gitlab
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font.sh | bash
+
+
+EXPOSE 9010
+EXPOSE 2022
+USER gitlab
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font.sh | bash
+
+
+EXPOSE 9010
+EXPOSE 2022
+USER gitlab
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font.sh | bash
+
+
+EXPOSE 9010
+EXPOSE 2022
 USER gitlab
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash

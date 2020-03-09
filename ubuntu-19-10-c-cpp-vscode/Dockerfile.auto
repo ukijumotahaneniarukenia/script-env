@@ -29,7 +29,38 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font.sh | bash
 
+COPY code_1.41.1-1576681836_amd64.deb /usr/local/src/code_1.41.1-1576681836_amd64.deb
+RUN apt install -y \
+libnotify4 \
+libxkbfile1 \
+libxss1 \
+libsecret-1-0 \
+libasound2 \
+gnupg
+RUN cd /usr/local/src && dpkg -i code_1.41.1-1576681836_amd64.deb
+
 DOCKERFILE_SUB
+
+USER kuraine
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font.sh | bash
+
+
+USER kuraine
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font.sh | bash
+
+
+USER kuraine
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font.sh | bash
+
 
 USER kuraine
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
