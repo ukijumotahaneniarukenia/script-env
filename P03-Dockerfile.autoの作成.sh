@@ -12,6 +12,8 @@ Usage:
   $0 script-env idea
   or
   $0 script-env pycharm
+  or
+  $0 script-env vim
 EOS
 exit 0
 }
@@ -66,8 +68,12 @@ execute(){
     echo "sed -i '/DOCKERFILE_ENV/r $tgt/env-env.md' $tgt/Dockerfile.auto" | bash
     echo "sed -i '/DOCKERFILE_ENV/d' $tgt/Dockerfile.auto" | bash
 
-    echo "sed -i '/DOCKERFILE_EDITOR/r $(find $HOME/$REPO -maxdepth 1 -type f -name "env-editor*" | grep $OS_NAME | grep -P "$EDITOR$")' $tgt/Dockerfile.auto" | bash
-    echo "sed -i '/DOCKERFILE_EDITOR/d' $tgt/Dockerfile.auto" | bash
+    if [ "vim" == $EDITOR ];then
+      echo "sed -i '/DOCKERFILE_EDITOR/d' $tgt/Dockerfile.auto" | bash
+    else
+      echo "sed -i '/DOCKERFILE_EDITOR/r $(find $HOME/$REPO -maxdepth 1 -type f -name "env-editor*" | grep $OS_NAME | grep -P "$EDITOR$")' $tgt/Dockerfile.auto" | bash
+      echo "sed -i '/DOCKERFILE_EDITOR/d' $tgt/Dockerfile.auto" | bash
+    fi
 
   done < <(find $HOME/$REPO -type d | grep -v docker-log | grep $OS_VERSION | grep -P "$EDITOR$")
 
@@ -113,11 +119,9 @@ execute(){
 
 main(){
   REPO="$1";shift
-  EDITOR="$1";shift
   [ -z $REPO ] && usage
-  [ -z $EDITOR ] && usage
   export -f execute
-  find $HOME/$REPO -type d | grep -Po '[a-z]+(-[0-9]{1,}){1,}' | sort | uniq | while read tgt;do execute $tgt $EDITOR;done
+  find $HOME/$REPO -type d | grep -Po '[a-z]+(-[0-9]{1,}){1,}' | sort | uniq | while read tgt;do execute $tgt ${EDITOR:-vim};done
 }
 
 main "$@"
