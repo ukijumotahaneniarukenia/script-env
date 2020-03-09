@@ -3,17 +3,7 @@
 usage(){
   cat <<EOS
 Usage:
-  $0 script-env code
-  or
-  $0 script-env mysql-workbench
-  or
-  $0 script-env komodo
-  or
-  $0 script-env idea
-  or
-  $0 script-env pycharm
-  or
-  $0 script-env vim
+  $0 script-env
 EOS
 exit 0
 }
@@ -39,18 +29,10 @@ execute(){
 
   TEMPLATE_FILE=$(find $HOME/$REPO | grep -P "docker-template-Dockerfile-$OS_NAME")
 
-#  printf "
-#OS_VERSION:%s
-#OS_NAME:%s
-#IMAGE_VERSION:%s
-#TEMPLATE_FILE:%s
-#" $OS_VERSION $OS_NAME $IMAGE_VERSION $TEMPLATE_FILE
+  EDITOR_LIST="$(ls $HOME/script-env/env-editor-* | grep $OS_NAME | awk -v FS='-' -v OFS='-' '{$1="";$2="";$3="";$4="";print $0}' | sed -r 's/^-{1,}//g' | sort | uniq)"
 
-  #テンプレートファイルのIMAGE_VERSIONの置換
-  #テンプレートファイルのDOCKERFILE_ARGの置換
-  #テンプレートファイルのDOCKERFILE_ENVの置換
-  #テンプレートファイルのDOCKERFILE_EDITORの置換
   while read tgt;do
+    #テンプレートファイルのIMAGE_VERSIONの置換
     if [ -f $tgt/env-image.md ];then
       RT="$(grep FROM $tgt/env-image.md)"
       if [ -z "$RT" ];then
@@ -62,20 +44,30 @@ execute(){
       :
     fi
     echo "sed -i '/^USER/,/^EXPOSE/d' $tgt/Dockerfile.auto" | bash
+
+    #テンプレートファイルのDOCKERFILE_ARGの置換
     cat $tgt/env-build-arg.md  | sed 's/=.*//;s/^/ARG /;' >/tmp/env-build-arg-$(echo $tgt | perl -pe 's;/;-;g')
     echo "sed -i '/DOCKERFILE_ARG/r /tmp/env-build-arg-$(echo $tgt | perl -pe 's;/;-;g')' $tgt/Dockerfile.auto" | bash
     echo "sed -i '/DOCKERFILE_ARG/d' $tgt/Dockerfile.auto" | bash
+
+    #テンプレートファイルのDOCKERFILE_ENVの置換
     echo "sed -i '/DOCKERFILE_ENV/r $tgt/env-env.md' $tgt/Dockerfile.auto" | bash
     echo "sed -i '/DOCKERFILE_ENV/d' $tgt/Dockerfile.auto" | bash
 
-    if [ "vim" == $EDITOR ];then
-      echo "sed -i '/DOCKERFILE_EDITOR/d' $tgt/Dockerfile.auto" | bash
-    else
-      echo "sed -i '/DOCKERFILE_EDITOR/r $(find $HOME/$REPO -maxdepth 1 -type f -name "env-editor*" | grep $OS_NAME | grep -P "$EDITOR$")' $tgt/Dockerfile.auto" | bash
-      echo "sed -i '/DOCKERFILE_EDITOR/d' $tgt/Dockerfile.auto" | bash
-    fi
-
-  done < <(find $HOME/$REPO -type d | grep -v docker-log | grep $OS_VERSION | grep -P "$EDITOR$")
+    #テンプレートファイルのDOCKERFILE_EDITORの置換
+    for n in "$EDITOR_LIST";do
+      #エディタが決まるまでは、ちとめんどい。
+      EDITOR="$(echo "echo" $tgt "| grep -Po '("$(echo $n | tr ' ' '|')")$'" | bash)"
+      if [ -z "$EDITOR" ];then
+        #vimの場合またはenv-editor未定義かつ明示的にvimと環境ディレクトリに明記していない場合
+        echo "sed -i '/DOCKERFILE_EDITOR/d' $tgt/Dockerfile.auto" | bash
+      else
+        #env-editor定義の環境ディレクトリの場合
+        echo "sed -i '/DOCKERFILE_EDITOR/r $(find $HOME/$REPO -maxdepth 1 -type f -name "env-editor*" | grep $OS_NAME | grep -P "$EDITOR$")' $tgt/Dockerfile.auto" | bash
+        echo "sed -i '/DOCKERFILE_EDITOR/d' $tgt/Dockerfile.auto" | bash
+      fi
+    done
+  done < <(find $HOME/$REPO -type d | grep -v docker-log | grep $OS_VERSION )
 
   rm -rf /tmp/env-build-arg*
 
@@ -114,14 +106,13 @@ execute(){
   while read tgt;do
     grep -n -P  'WORKDIR' $tgt/Dockerfile.auto | cut -d' ' -f1 | xargs | sed '/^$/d' | awk -v FS=' ' '{$NF="";print $0}' | xargs -I@ echo @ | perl -pe "s;:.*;;;s;^;sed -i ;;s;$;d $tgt/Dockerfile.auto;" | bash
   done < <(find $HOME/$REPO -type d | grep -v docker-log | grep $OS_VERSION)
-
 }
 
 main(){
   REPO="$1";shift
   [ -z $REPO ] && usage
   export -f execute
-  find $HOME/$REPO -type d | grep -Po '[a-z]+(-[0-9]{1,}){1,}' | sort | uniq | while read tgt;do execute $tgt ${EDITOR:-vim};done
+  find $HOME/$REPO -type d | grep -Po '[a-z]+(-[0-9]{1,}){1,}' | sort | uniq | while read tgt;do execute $tgt ;done
 }
 
 main "$@"
