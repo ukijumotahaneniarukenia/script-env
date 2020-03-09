@@ -1,3 +1,6 @@
+- プロセスの起動時刻を調査
+  - https://qiita.com/todaemon/items/82edbad20e37039d5162
+
 - 便利そう
   - https://qiita.com/usiusi360/items/7b47be9d0ab5b1acd608
 
