@@ -1,5 +1,4 @@
-- dockerfileないに存在するファイル名がレポに存在するかチェックする。ないなら作成する。sub.doneの内容で。
-
+- レポに存在するファイルが環境ディレクトリ内のDockerfile内に存在するかチェックし、なければリネームする。
 - docker composeはローカルイメージ見てくれる
   - https://qiita.com/zembutsu/items/9e9d80e05e36e882caaa
 
