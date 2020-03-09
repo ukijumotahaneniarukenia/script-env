@@ -1,3 +1,6 @@
+- プロセスId単位でプロセスの起動日時を控える。対象のプロセスidが検索に引っかからないなら、プロセス終了起動時刻を取得。
+  - https://qiita.com/isaoshimizu/items/ee555b99582f251bd295
+
 - ファイルの詳細情報を取得するコマンド。更新頻度出すのに使えそう。
   - https://qiita.com/reoring/items/275ae83dfaa65bac568c
 
