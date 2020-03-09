@@ -1,3 +1,5 @@
+- dockerfileないに存在するファイル名がレポに存在するかチェックする。ないなら作成する。sub.doneの内容で。
+
 - docker composeはローカルイメージ見てくれる
   - https://qiita.com/zembutsu/items/9e9d80e05e36e882caaa
 
