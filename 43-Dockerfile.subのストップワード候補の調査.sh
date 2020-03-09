@@ -23,8 +23,5 @@ while read tgt;do
     #Dockerfile.sub.doneが存在しない場合はクレンジングをする
     echo $tgt/Dockerfile.sub
     cat $tgt/Dockerfile.sub
-    #while read stop_word;do
-    #  echo "sed -i /$stop_word/d $tgt/Dockerfile.sub" | bash
-    #done < $STOP_WORD_LIST
   fi
 done < <(find $HOME/$REPO -mindepth 1 -type d | grep -vP '\.git|docker-log')
