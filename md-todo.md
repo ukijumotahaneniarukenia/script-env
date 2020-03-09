@@ -1,3 +1,6 @@
+- ファイルの詳細情報を取得するコマンド。更新頻度出すのに使えそう。
+  - https://qiita.com/reoring/items/275ae83dfaa65bac568c
+
 - コンテナ手動かすやつ
   - https://www.google.com/amp/s/employment.en-japan.com/engineerhub/entry/2019/02/05/103000%3Famp%3D1
 
