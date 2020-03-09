@@ -1,3 +1,6 @@
+- コンテナ手動かすやつ
+  - https://www.google.com/amp/s/employment.en-japan.com/engineerhub/entry/2019/02/05/103000%3Famp%3D1
+
 - レポに存在するファイルが環境ディレクトリ内のDockerfile内に存在するかチェックし、なければリネームする。
 - docker composeはローカルイメージ見てくれる
   - https://qiita.com/zembutsu/items/9e9d80e05e36e882caaa
