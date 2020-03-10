@@ -1,6 +1,8 @@
+- 自然言語処理データセット
+  - https://qiita.com/daimonji-bucket/items/56143b2abbfadb4429af
+
 - 言葉が難しいけどある単語にグループ値を振りたいための話。
   - https://qiita.com/daimonji-bucket/items/47f806624a5924f2d47b
-  - 
 
 - perlで正規表現特訓する。
 
