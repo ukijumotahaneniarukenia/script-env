@@ -1,3 +1,6 @@
+- 自然言語処理のデータセット。コマンド乗ってる。
+  - https://towardsdatascience.com/improving-sentence-embeddings-with-bert-and-representation-learning-dfba6b444f6b
+
 - 56番でmerge文作る。
 
 - 環境ディレクトリ名を与えれば、全てできるようにしておきたい。
