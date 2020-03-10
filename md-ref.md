@@ -1,3 +1,6 @@
+- kube概念
+  - https://qiita.com/Kta-M/items/ce475c0063d3d3f36d5d
+
 - goでsqliteするやつ
   - https://github.com/Johniel/go-quadtree/blob/master/src/main.go
 
