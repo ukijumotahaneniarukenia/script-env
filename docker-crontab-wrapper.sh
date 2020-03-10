@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash -x
 
 usage(){
   cat <<EOS
@@ -9,8 +9,8 @@ exit 0
 }
 
 
-exec 1>$HOME/script-env/docker-log/docker-build-$(date +\%Y-\%m-\%dT\%H-\%M-\%S).stdout.log
-exec 2>$HOME/script-env/docker-log/docker-build-$(date +\%Y-\%m-\%dT\%H-\%M-\%S).stderr.log
+#exec 1>$HOME/script-env/docker-log/docker-build-$(date +\%Y-\%m-\%dT\%H-\%M-\%S).stdout.log
+#exec 2>$HOME/script-env/docker-log/docker-build-$(date +\%Y-\%m-\%dT\%H-\%M-\%S).stderr.log
 
 MX_RETRY_CNT="$1";shift
 BUILD_LIST_FILE="$1";shift
@@ -27,7 +27,7 @@ bash $HOME/script-env/36-デフォルトユーザー以外を使用している�
 for((ROUND_CNT=1;ROUND_CNT<=$MX_RETRY_CNT;ROUND_CNT++));do
   BUILD_START_TIME=$(date '+%s') #開始時刻控える
 
-  printf "docker build $(printf '%02g' $ROUND_CNT) round start time$(printf '%02g' $ROUND_CNT) round $(date +\%Y-\%m-\%dT\%H-\%M-\%S).\n" #開始メッセージ
+  printf "docker build $(printf '%02g' $ROUND_CNT) round start time $(date +\%Y-\%m-\%dT\%H-\%M-\%S).\n" #開始メッセージ
   printf "starting docker build $(printf '%02g' $ROUND_CNT) round.\n" #開始メッセージ
 
   bash $HOME/script-env/docker-crontab-execute.sh $(printf '%02g' $ROUND_CNT) $BUILD_LIST_FILE &

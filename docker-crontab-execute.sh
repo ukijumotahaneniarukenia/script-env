@@ -25,4 +25,5 @@ done < <(find $HOME/script-env -name "*md-doc.md" | \
   grep -vP 'script-md-env.md-doc.md' | \
   xargs grep -P 'UNKO' | \
   grep -P $(cat $HOME/script-env/$BUILD_LIST_FILE | xargs | tr ' ' '|') | \
-  grep -vP $(cat $HOME/script-env/docker-build-exclude-list | xargs | tr ' ' '|') )
+  cat - )
+  #grep -vP $(cat $HOME/script-env/docker-build-exclude-list | xargs | tr ' ' '|') )

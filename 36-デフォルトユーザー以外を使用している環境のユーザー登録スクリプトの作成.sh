@@ -38,7 +38,7 @@ while read tgt;do
   while read os;do
     echo "echo $tgt | grep -q $os" | bash
     if [ 0 -eq $? ];then
-      echo "cat $(ls docker-template-install-$os-root-*) >>$tgt" | bash
+      echo "cat $(ls $HOME/script-env/docker-template-install-$os-root-*) >>$tgt" | bash
       :
     else
       :
