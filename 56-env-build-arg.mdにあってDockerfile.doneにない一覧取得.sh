@@ -19,10 +19,11 @@ while read dir;do
   echo $dir
   OS_VERSION=$(echo $dir | grep -Po '[a-z]+(-[0-9]{1,}){1,}')
   while read arg;do
-    echo $arg | perl -pe 's/=.*//g'
-    comm -23 --no-check-order 
-    #while read cmd;do
-    #  echo "( export $arg;export OS_VERSION=$OS_VERSION;export REPO=$INSTALLER_REPO;echo \"$cmd\")" | bash | grep -Po "$OS_VERSION.+\.sh"
-    #done < <(grep VERSION.sh $dir/Dockerfile.done)
+    RT=$(grep $(echo $arg | perl -pe 's/=.*//g') $dir/Dockerfile.done)
+    if [ -z "$RT" ];then
+      echo not exists
+    else
+      echo exists
+    fi
   done < <(grep VERSION $dir/env-build-arg.md)
 done < <(find $HOME/$ENV_REPO -mindepth 1 -type d | grep -vP '\.git|docker-log' | head -n3)
