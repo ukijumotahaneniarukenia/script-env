@@ -1,3 +1,6 @@
+- 名寄せの背景分かり易い
+  - https://pompom168.hatenablog.com/entry/2019/08/09/144054
+
 - 自然言語処理データセット
   - https://qiita.com/daimonji-bucket/items/56143b2abbfadb4429af
 
