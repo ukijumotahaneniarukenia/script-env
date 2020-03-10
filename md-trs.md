@@ -39,3 +39,26 @@ make[2]: *** No rule to make target `../auto/config.mk'.  Stop.
 - 予防
 
   - 時刻別に同時実行数を一覧で確認できるようにする。
+
+
+## 3.
+
+- 事象
+
+```
+bash: 36-デフォルトユーザー以外を使用している環境のユーザー登録スクリプトの作成.sh: そのようなファイルやディレクトリはありません
+使用法: grep [OPTION]... PATTERN [FILE]...
+Try 'grep --help' for more information.
+```
+
+- 原因
+  - フルパスで指定していない
+
+- 対応
+
+  - フルパスで記載
+
+- 予防
+
+  - linterとかあるけど、大量にエラーはかれて精神乱れそう。
+

@@ -22,7 +22,7 @@ REPO="$1";shift
 
 bash $HOME/script-env/03-md-doc.mdの各環境ディレクトリへの配備.sh $REPO
 
-bash 36-デフォルトユーザー以外を使用している環境のユーザー登録スクリプトの作成.sh
+bash $HOME/script-env/36-デフォルトユーザー以外を使用している環境のユーザー登録スクリプトの作成.sh
 
 for((ROUND_CNT=1;ROUND_CNT<=$MX_RETRY_CNT;ROUND_CNT++));do
   BUILD_START_TIME=$(date '+%s') #開始時刻控える

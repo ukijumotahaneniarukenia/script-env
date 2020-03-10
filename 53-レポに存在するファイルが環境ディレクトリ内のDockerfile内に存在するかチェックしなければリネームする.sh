@@ -13,32 +13,21 @@ REPO="$1";shift
 
 [ -z $REPO ] && usage
 
-while read dir;do
+#env-build-arg.mdにあってDockerfile.doneにないもの
+  #echo  "$(grep VERSION $dir/env-build-arg.md) $(grep VERSION.sh $dir/Dockerfile.done)"
 
-  if [ -f $dir/env-build-arg.md -a $dir/Dockerfile.done ];then
-    {
-      grep VERSION $dir/env-build-arg.md | sort | nl
-      grep VERSION.sh $dir/Dockerfile.done | sort | nl
-    } | awk -v dir=$dir '
-    BEGIN{
-      print dir
-    }
-    {
-      key=$1
-      $1=""
-      a[key]=a[key]" "$0
-      #print key,$0
-    }
-    END{
-      for(e in a){
-        print e,a[e]
-      }
-    }'
-  else
-    :
-  fi
+  #grep VERSION $dir/env-build-arg.md
+  #grep VERSION.sh $dir/Dockerfile.done
+while read dir;do
+  echo $dir
+  while read arg;do
+    while read cmd;do
+      echo "( export $arg ; echo $(echo $cmd | grep -Po '\$([A-Z_]+){1,}VERSION(?=.sh)') ;echo $cmd)"
+    done < <(grep VERSION.sh $dir/Dockerfile.done)
+  done < <(grep VERSION $dir/env-build-arg.md)
 done < <(find $HOME/$REPO -mindepth 1 -type d | grep -vP '\.git|docker-log' )
 
+#Dockerfile.doneにあってenv-build-arg.mdにないもの
 
 #Dockerfile内のVERSIONを抽出した内容で置換
 
