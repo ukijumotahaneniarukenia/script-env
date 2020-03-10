@@ -1,3 +1,6 @@
+- データセンターの光景
+  - https://jp.quora.com/YouTube%E3%81%AF%E4%BD%95%E6%95%85%E3%81%82%E3%82%93%E3%81%AA%E3%81%AB%E4%B8%96%E7%95%8C%E4%B8%AD%E3%81%AE%E5%A4%A7%E9%87%8F%E3%81%AE%E5%8B%95%E7%94%BB%E3%82%92%E4%BF%9D%E5%AD%98%E3%81%97%E3%81%A6%E3%81%84%E3%82%89
+
 - kube概念
   - https://qiita.com/Kta-M/items/ce475c0063d3d3f36d5d
 
