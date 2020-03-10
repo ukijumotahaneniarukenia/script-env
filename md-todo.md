@@ -1,3 +1,6 @@
+- docker-composeの操作背景が分かり易い
+  - https://qiita.com/sanpo_shiho/items/fc8082f3d303c04cca2e
+
 - アプリのインストールはAPP_NAMEに依存しないように管理する。
 
 - バージョン番号はハイフン数字1回以上のグループの1回以上の繰り返しで表現できる。
