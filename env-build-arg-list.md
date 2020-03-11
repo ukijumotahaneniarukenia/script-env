@@ -1,5 +1,5 @@
 |環境ディレクトリ名|key|value|
-|:--|:-:|:-:|
+|:--|:--|:--|
 |[centos-7-6-18-10-anaconda-vim](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/centos-7-6-18-10-anaconda-vim/env-build-arg.md)|GIT_VERSION|2-24-1|
 |[centos-7-6-18-10-anaconda-vim](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/centos-7-6-18-10-anaconda-vim/env-build-arg.md)|PYTHON_VERSION|3-7-4|
 |[centos-7-6-18-10-apache-feedly-oauth-vim](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/centos-7-6-18-10-apache-feedly-oauth-vim/env-build-arg.md)|APACHE_HTTP_VERSION|X-X-X|
