@@ -1,3 +1,5 @@
+- bashスクリプトpythonに書き換えるか。while read で変数外上書きされないのが忘れた頃にハマるんだよな。
+
 - 楽しそうだないいなこれ。word2vec
   - https://qiita.com/Hironsan/items/11b388575a058dc8a46a
 
