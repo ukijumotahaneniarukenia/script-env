@@ -23,9 +23,9 @@ while read tgt;do
       grep -c -P  '\-p' $tgt/env-expose.md
       grep -P  '\-p' $tgt/env-expose.md | awk -v ORS='' '{print ","$1$2}'
     } | xargs -n3 | \
-    while read file cnt port;do
+    while read file cnt item;do
       for (( i=0;i<$cnt;i++));do
-        echo $file $(echo $port | cut -d',' -f$(($i+2)) | perl -pe 's/-p//;s/:/ /g')
+        echo $file $(echo $item | cut -d',' -f$(($i+2)) | perl -pe 's/-p//;s/:/ /g')
       done
     done
   else
