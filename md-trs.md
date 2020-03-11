@@ -1,7 +1,5 @@
 # トラシュー
 
-## 1.
-
 - 事象
 
 ```
@@ -19,8 +17,6 @@ fatal: could not read Username for 'https://github.com': No
 - 予防
 
   - ビルド前に実行するようにcronに仕込む
-
-## 2.
 
 - 事象
 
@@ -40,8 +36,6 @@ make[2]: *** No rule to make target `../auto/config.mk'.  Stop.
 
   - 時刻別に同時実行数を一覧で確認できるようにする。
 
-
-## 3.
 
 - 事象
 

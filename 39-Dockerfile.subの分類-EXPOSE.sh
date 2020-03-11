@@ -3,14 +3,16 @@
 usage(){
 cat <<EOS
 Usage:
-  $0 EXPOSE
+  $0 EXPOSE script-env
 EOS
 exit 0
 }
 
-CHK_WORD=$1
+CHK_WORD=$1;shift
+ENV_REPO=$1;shift
 
 [ -z $CHK_WORD ] && usage
+[ -z $ENV_REPO ] && usage
 
 while read tgt;do
   if [ -f $tgt/Dockerfile.sub ];then
@@ -30,4 +32,4 @@ while read tgt;do
   else
     :
   fi
-done < <(find $HOME/script-env -mindepth 1 -type d | grep -vP '\.git')
+done < <(find $HOME/$ENV_REPO -mindepth 1 -type d | grep -vP '\.git|docker-log')
