@@ -1,4 +1,16 @@
-- Dockerfile.autoとDockerfile.subを作成
+|OPE|ACTION|
+|--:|--:|
+
+
+- 各環境ディレクトリで既存DockerfileをDockerfile.asisにリネーム
+
+- 各環境ディレクトリでDockerfileを編集
+
+- 日次でDockerfile.subを作成
+
+- 日次でDockerfile.autoを作成
+
+- Dockerfile.subを作成
 
 - Dockerfile.subをメンテ。メンテ完了後、doneする
 
