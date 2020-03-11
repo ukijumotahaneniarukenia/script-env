@@ -10,12 +10,12 @@
 - タスクの分類に使用するテーブルヘッダ
 
 |GRP|GRP-NAME|SUB-GRP|SUB-GRP-NAME|ACTION-SEQ|ACTION-SEQ-NAME|ACTION-DETIAL-SRC|ACTION-DETAIL-DEST|ACTION-DETAIL-CFG-KEY|ACTION-DETAIL-CFG-VALUE|MEMO|Q|
-|:--|:-:|:--|:-:|:--|:-:|:--|:-:|:--|:-:|--:|--:|--:|--:|--:|--:|
+|--:|:-:|--:|:-:|--:|:-:|--:|:-:|--:|:-:|--:|--:|
 
 - 名寄せに使用するテーブルヘッダ
 
 |SEQ|RAW|MASK-DONE|WIDGT-KEY-DONE|WIDGT-VALUE-DONE|LAST-VERB-DONE|ACTION-DETAIL-DONE|NON-ACTION-DETAIL-DONE|NORMALIZE-DONE|RAW-DONE|
-|:--|--:|--:|--:|--:|--:|--:|--:|--:|--:|
+|--:|:--|:--|:--|:--|:--|:--|:--|:--|:--|
 
   - 上記テーブルの各列毎に以下のテーブルを用意
     - TGT列に上記対象テーブルのデータ列を指定
