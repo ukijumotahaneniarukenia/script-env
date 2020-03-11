@@ -1,3 +1,7 @@
+- perl 変数
+  - awkのセパレーターと比較してちょっと整理しておく。
+  - https://perldoc.jp/index/variable
+
 - bash からの書き換えはrubyでも楽しそう
   - https://qiita.com/jnchito/items/dedb3b889ab226933ccf
 - ruby ファイル読み込み
