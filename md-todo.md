@@ -1,3 +1,7 @@
+- errorログを抜いてtrsに書き込みたい。
+
+- ていしゅうきエラー監視ジョブはtrsから対象抜き出して自動復旧したい。
+
 - perl 変数
   - awkのセパレーターと比較してちょっと整理しておく。
   - https://perldoc.jp/index/variable
