@@ -1,5 +1,5 @@
 |環境ディレクトリ名|環境個別変数|
-|:-:|:-:|
+|:--|:-:|
 |[centos-7-6-18-10-anaconda-vim](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/centos-7-6-18-10-anaconda-vim/env-env.md)|not-found|
 |[centos-7-6-18-10-apache-feedly-oauth-vim](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/centos-7-6-18-10-apache-feedly-oauth-vim/env-env.md)|not-found|
 |[centos-7-6-18-10-apache-github-oauth-gron-vim](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/centos-7-6-18-10-apache-github-oauth-gron-vim/env-env.md)|not-found|
