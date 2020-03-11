@@ -2,7 +2,8 @@
   - https://qiita.com/jnchito/items/dedb3b889ab226933ccf
 - ruby ファイル読み込み
   - https://www.buildinsider.net/language/rubytips/0021
-
+- ruby map関数
+  - https://uxmilk.jp/21695
 
 - python小技
   - https://qiita.com/Namibillow/items/954c7f9f53682d6dd9c9
