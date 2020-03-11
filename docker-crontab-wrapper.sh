@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/usr/bin/env bash
 
 usage(){
   cat <<EOS
@@ -8,9 +8,8 @@ EOS
 exit 0
 }
 
-
-#exec 1>$HOME/script-env/docker-log/docker-build-$(date +\%Y-\%m-\%dT\%H-\%M-\%S).stdout.log
-#exec 2>$HOME/script-env/docker-log/docker-build-$(date +\%Y-\%m-\%dT\%H-\%M-\%S).stderr.log
+exec 1>$HOME/script-env/docker-log/docker-build-$(date +\%Y-\%m-\%dT\%H-\%M-\%S).stdout.log
+exec 2>$HOME/script-env/docker-log/docker-build-$(date +\%Y-\%m-\%dT\%H-\%M-\%S).stderr.log
 
 MX_RETRY_CNT="$1";shift
 BUILD_LIST_FILE="$1";shift

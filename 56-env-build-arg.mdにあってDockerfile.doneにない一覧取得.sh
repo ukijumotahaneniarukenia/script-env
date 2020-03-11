@@ -21,9 +21,11 @@ while read dir;do
   while read arg;do
     RT=$(grep $(echo $arg | perl -pe 's/=.*//g') $dir/Dockerfile.done)
     if [ -z "$RT" ];then
-      echo not exists
+      #echo not exists
+      echo 0 $tgt $arg
     else
-      echo exists
+      #echo exists
+      echo 1 $tgt $arg
     fi
   done < <(grep VERSION $dir/env-build-arg.md)
-done < <(find $HOME/$ENV_REPO -mindepth 1 -type d | grep -vP '\.git|docker-log' | head -n3)
+done < <(find $HOME/$ENV_REPO -mindepth 1 -type d | grep -vP '\.git|docker-log')
