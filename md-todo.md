@@ -1,3 +1,5 @@
+- この環境ディレクトリ自体を学習題材に使用しよう。
+
 - 自然言語処理のデータセット。コマンド乗ってる。
   - https://towardsdatascience.com/improving-sentence-embeddings-with-bert-and-representation-learning-dfba6b444f6b
 
