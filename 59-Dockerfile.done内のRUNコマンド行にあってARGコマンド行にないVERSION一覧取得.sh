@@ -14,7 +14,6 @@ INSTALLER_REPO="$1";shift
 [ -z $ENV_REPO ] && usage
 [ -z $INSTALLER_REPO ] && usage
 
-#Dockerfile.done内のRUNスクリプトに埋め込まれているVERSION環境変数がenv-build-arg.mdファイルに存在するかチェック
 while read dir;do
   while read cmd;do
     if [ -f $dir/Dockerfile.done ];then
