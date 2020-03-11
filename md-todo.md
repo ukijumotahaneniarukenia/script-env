@@ -4,7 +4,8 @@
   - https://www.buildinsider.net/language/rubytips/0021
 - ruby map関数
   - https://uxmilk.jp/21695
-
+- ruby group by
+  - https://docs.ruby-lang.org/ja/latest/method/Enumerable/i/group_by.html
 - python小技
   - https://qiita.com/Namibillow/items/954c7f9f53682d6dd9c9
 
