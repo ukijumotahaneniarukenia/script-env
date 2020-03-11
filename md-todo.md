@@ -6,6 +6,9 @@
   - https://uxmilk.jp/21695
 - ruby group by
   - https://docs.ruby-lang.org/ja/latest/method/Enumerable/i/group_by.html
+  - https://doruby.jp/users/pe/entries/ruby%E3%81%A7%E9%85%8D%E5%88%97%E3%81%8B%E3%82%89%E9%87%8D%E8%A4%87%E3%81%99%E3%82%8B%E5%80%A4%E3%82%92%E6%8A%BD%E5%87%BA%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95%E3%82%92%E6%8E%A2%E3%81%97%E3%81%9F%E9%9A%9B%E3%81%AB%E8%A6%8B%E3%81%A4%E3%81%91%E3%81%9Fgroup_by%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89%E3%81%8C%E4%BE%BF%E5%88%A9%E3%81%A0%E3%81%A3%E3%81%9F
+- ruby 配列メソッド
+  - https://qiita.com/jnchito/items/118cca7ac2f01e1ca6a0
 - python小技
   - https://qiita.com/Namibillow/items/954c7f9f53682d6dd9c9
 
