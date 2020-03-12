@@ -19,7 +19,7 @@ ENV_REPO=$1;shift
 while read tgt;do
   RT=$(cat $tgt/env-usr.md | sed -r '/\|ユーザーＩＤ|\|:-:/d;')
   if [ -z "$RT" ];then
-    echo "[$(echo $tgt | perl -pe 's;.*/;;g')]($BASE_URL/$ENV_REPO/blob/master/$(echo $tgt | perl -pe 's;.*/;;g')/env-usr.md)" 0 @kuraine@1001@kuraine@1001@kuraine_pwd
+    echo "[$(echo $tgt | perl -pe 's;.*/;;g')]($BASE_URL/$ENV_REPO/blob/master/$(echo $tgt | perl -pe 's;.*/;;g')/env-usr.md)" 0 @1001@kuraine@1001@kuraine@kuraine_pwd
   else
     {
       echo "[$(echo $tgt | perl -pe 's;.*/;;g')]($BASE_URL/$ENV_REPO/blob/master/$(echo $tgt | perl -pe 's;.*/;;g')/env-usr.md)"
