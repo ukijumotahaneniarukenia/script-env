@@ -1,3 +1,6 @@
+- perl 論理えんざし
+  - https://tutorial.perlzemi.com/blog/20100816136168.html
+
 - perlのオプションCSDで日本語扱える
   - https://qiita.com/ohtsuka1317/items/92c339a65533e1e6c6fc
 - perl 実戦的
