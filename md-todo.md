@@ -1,3 +1,6 @@
+- perlのオプションCSDで日本語扱える
+  - https://qiita.com/ohtsuka1317/items/92c339a65533e1e6c6fcruby 
+
 - perl 実戦的
   - https://qiita.com/teckl/items/98de382787401d2392c3
 
