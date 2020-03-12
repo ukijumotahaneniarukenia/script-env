@@ -1,3 +1,6 @@
+- perl 実戦的
+  - https://qiita.com/teckl/items/98de382787401d2392c3
+
 - perl 部分マッチ文字列抜き出し
   - https://qiita.com/ngyuki/items/d5dde70cf2de952cfb87
 
