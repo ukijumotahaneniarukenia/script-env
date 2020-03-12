@@ -1,3 +1,6 @@
+- perl 部分マッチ文字列抜き出し
+  - https://qiita.com/ngyuki/items/d5dde70cf2de952cfb87
+
 - gpu大切なんだな
   - https://ainow.ai/2020/03/11/183804/
 
