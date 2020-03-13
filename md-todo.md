@@ -1,3 +1,6 @@
+- word2vecインストール
+  - https://qiita.com/kenta1984/items/93b64768494f971edf86
+
 - perl 論理えんざし
   - https://tutorial.perlzemi.com/blog/20100816136168.html
 
