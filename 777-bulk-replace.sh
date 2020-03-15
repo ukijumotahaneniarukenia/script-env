@@ -10,3 +10,9 @@ POST_WORD="$2"
 TGT_FILE_KEY_WORD="$3"
 EXCEPT_FILE_LIST="script-env/md-env.md"
 grep -l -P "$PRE_REGREX" -r $(pwd) | grep -P "$TGT_FILE_KEY_WORD$" | xargs -I@ echo "sed -i 's;$PRE_WORD;$POST_WORD;g' @" | grep -Pv "$EXCEPT_FILE_LIST"
+
+
+
+#こういうのもおもいついた
+#
+#$grep -n -P 'test.tsv' -r . | awk -v PRE="test.tsv" -v POST="test-on-head.tsv" -v FS=':' '{print "sed -i s/"PRE"/"POST"/g ",$1}'
