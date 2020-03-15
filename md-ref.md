@@ -1,3 +1,6 @@
+- クロス集計
+  - https://kunst1080.hatenablog.com/entry/2013/06/02/234025
+
 - jenkinsfileの書き方
   - https://qiita.com/lufia/items/18cdb01f86a6d5040c60
 
