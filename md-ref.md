@@ -1,3 +1,6 @@
+- wsl2インスコ
+  - https://qiita.com/TsuyoshiUshio@github/items/947301bd9317610572fc
+
 - クロス集計
   - https://kunst1080.hatenablog.com/entry/2013/06/02/234025
 
