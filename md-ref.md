@@ -1,3 +1,6 @@
+- ruby アスタ配列展開
+  - http://yamakichi.hatenablog.com/entry/2016/10/18/232253
+
 - Jupiter lab notebookの進化系
   - https://qiita.com/canonrock16/items/d166c93087a4aafd2db4
   
