@@ -1,3 +1,7 @@
+- 分散表現はシェルゲイでできる。メカブかました後、unnestしてtranspose
+  - https://blog.aidemy.net/entry/2017/07/01/184421
+
+
 - .net可変長戻り読みができる online で試してみる。
   - https://oraclesqlpuzzle.ninja-web.net/regex/regex-9-1.html
 
