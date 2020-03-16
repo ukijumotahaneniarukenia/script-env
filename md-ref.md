@@ -1,5 +1,9 @@
-- .net可変長戻り読みができる
+- .net可変長戻り読みができる online で試してみる。
   - https://oraclesqlpuzzle.ninja-web.net/regex/regex-9-1.html
+
+- csharp開発環境 
+  - https://www.casleyconsulting.co.jp/blog/engineer/181/
+
 
 - ruby アスタ配列展開
   - http://yamakichi.hatenablog.com/entry/2016/10/18/232253
