@@ -1,3 +1,7 @@
+- Jupiter lab notebookの進化系
+  - https://qiita.com/canonrock16/items/d166c93087a4aafd2db4
+  
+
 - wsl2インスコ
   - https://qiita.com/TsuyoshiUshio@github/items/947301bd9317610572fc
 
