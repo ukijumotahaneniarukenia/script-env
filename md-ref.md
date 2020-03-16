@@ -1,3 +1,7 @@
+- 学習済みってのは分散表現を終えた後のって意味やな。ハンディなモデルがWiki以外で欲しい。
+  - https://qiita.com/Hironsan/items/513b9f93752ecee9e670
+
+
 - 分散表現はシェルゲイでできる。メカブかました後、unnestしてtranspose
   - https://blog.aidemy.net/entry/2017/07/01/184421
 
