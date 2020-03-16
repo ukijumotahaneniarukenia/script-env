@@ -1,3 +1,6 @@
+- .net可変長戻り読みができる
+  - https://oraclesqlpuzzle.ninja-web.net/regex/regex-9-1.html
+
 - ruby アスタ配列展開
   - http://yamakichi.hatenablog.com/entry/2016/10/18/232253
 
