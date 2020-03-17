@@ -1,3 +1,6 @@
+- pytorch bi gram
+  - https://buildersbox.corp-sansan.com/entry/2019/09/26/110000
+
 - 文章ごとに処理する。文章idふる。
   - 形態素解析するかしないか
     - する
