@@ -1,3 +1,7 @@
+- バイグラム
+  - http://gihyo.jp/dev/serial/01/make-findspot/0005?page=2
+  - https://qiita.com/greymd/items/3515869d9ed2a1a61a49#%23%23%20%E5%85%A8%E6%96%87%E6%A4%9C%E7%B4%A2%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%B3%E3%82%92%E4%BD%9C%E3%82%8B
+
 - 入力単語に対する類義語の距離は分析関数のレンジでエミュできる。どこまでのサジェストをするか引数にレンジ値を渡して動的に変更できる。
 
 - word2vecインストール
