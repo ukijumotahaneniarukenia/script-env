@@ -1,3 +1,5 @@
+- n gram でないときは文字列の長さも必要か。
+
 - 自然言語処理　フロー乗ってて　導入は良さげ
   - https://towardsdatascience.com/named-entity-recognition-ner-with-bert-in-spark-nlp-874df20d1d77
 
