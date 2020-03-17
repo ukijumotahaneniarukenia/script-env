@@ -1,3 +1,5 @@
+- 文脈を意識しないといけんのだな。わかってきたぞ。テーブル持つときは、元文書IDの参照を持たせてあげる。
+
 - バイグラム
   - http://gihyo.jp/dev/serial/01/make-findspot/0005?page=2
   - https://qiita.com/greymd/items/3515869d9ed2a1a61a49#%23%23%20%E5%85%A8%E6%96%87%E6%A4%9C%E7%B4%A2%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%B3%E3%82%92%E4%BD%9C%E3%82%8B
@@ -271,9 +273,6 @@ make -j$(grep '^processor' /proc/cpuinfo | wc -l)
 
 - oracle import export mysqlと同じような仕組みだろう
   - https://qiita.com/toshihirock/items/86931e3c52dc47287dd2
-
-- perlで標準入力からgroup byできそう。trdsql使えば一発だけど。
-  - http://www.tohoho-web.com/perl/hash.htm
 
 - groongaのインポートエクスポートまとめる。エクスポートのみが残っている。
 
