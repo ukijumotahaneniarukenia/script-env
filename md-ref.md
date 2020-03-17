@@ -1,3 +1,6 @@
+- ruby ファイル拡張子以外を切り出すときにslice使う。
+  - https://uxmilk.jp/24040
+
 - pytorch bi gram
   - https://buildersbox.corp-sansan.com/entry/2019/09/26/110000
 
