@@ -1,3 +1,6 @@
+- osqueryからテーブル定義書シェルゲイでだす。
+  - https://uxmilk.jp/22615
+
 - graphqの自動テスト
   - https://qiita.com/pocke/items/bfe120f07bd8d94724a7
 
