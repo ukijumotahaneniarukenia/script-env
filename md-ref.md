@@ -1,3 +1,6 @@
+- Rでバイグラム 分析関数leadなど使うとハンディにできるっぽい
+  - https://iwsktky.wixsite.com/home/post/r%E4%B8%8A%E3%81%A7-%E7%B0%A1%E5%8D%98%E3%81%AB-n-gram%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%EF%BC%8C%E5%85%B1%E8%B5%B7%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%92%E4%BD%9C%E3%82%8B%E6%96%B9%E6%B3%95
+
 - 学習済みってのは分散表現を終えた後のって意味やな。ハンディなモデルがWiki以外で欲しい。
   - https://qiita.com/Hironsan/items/513b9f93752ecee9e670
 
