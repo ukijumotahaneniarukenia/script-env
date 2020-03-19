@@ -1,3 +1,7 @@
+- http://simplesandsamples.com/s.tcl.html
+  - これをハンディにしたい。tcl
+
+
 - tclshをperlぽく操作したい。グループ分けできてたから、できそう。
 
 
