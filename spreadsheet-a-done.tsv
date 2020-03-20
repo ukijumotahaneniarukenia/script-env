@@ -1,25 +1,4 @@
-"TGT
-HOST"	"TGT
-APP"	GRP	"GRP
-NAME"	"SUB
-GRP"	"SUB
-GRP
-NAME"	"ACTION
-SEQ"	"ACTION
-SEQ
-NAME"	"ACTION
-DETIAL
-SRC"	"ACTION
-DETIAL
-DEST"	"ACTION
-DETIAL
-CFG
-KEY"	"ACTION
-DETIAL
-CFG
-VALUE"	MEMO	Q
-													
-													
+HOST	APP	GRP	"GRP-NAME"	"SUB-GRP"	"SUB-GRP-NAME"	"ACTION-SEQ"	"ACTION-SEQ-NAME"	"ACTION-DETIAL-SRC"	"ACTION-DETIAL-DEST"	"ACTION-DETIAL-CFG-KEY"	"ACTION-DETIAL-CFG-VALUE"	MEMO	Q
 HOST1	civil.war	1	資産配備	1	移行資産のダウンロード	1	CFG列記載の内容にログインする	-	-	接続情報	connect-infoシートのSEQ列「１」	-	-
 HOST1	civil.war	1	資産配備	2	設定ファイルの編集	1	CFG列記載の内容に選択する	-	-	ディレクトリ名	/home/aine/if/NNN	-	-
 HOST1	civil.war	1	資産配備	3	移行資産のアップロード	1	『Ctrl＋C』キーを押下する	-	-	-	-	-	-
