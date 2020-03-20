@@ -1,4 +1,5 @@
-HOST	APP	GRP	"GRP
+APP	"BASE
+SOFT"	GRP	"GRP
 NAME"	"SUB
 GRP"	"SUB
 GRP
@@ -18,10 +19,10 @@ CFG
 VALUE"	MEMO	Q
 													
 													
-HOST1	civil.war	1	資産配備	1	移行資産のダウンロード	1	CFG列記載の内容にログインする	-	-	接続情報	connect-infoシートのSEQ列「１」	-	-
-HOST1	civil.war	1	資産配備	2	設定ファイルの編集	1	CFG列記載の内容に選択する	-	-	ディレクトリ名	/home/aine/if/NNN	-	-
-HOST1	civil.war	1	資産配備	3	移行資産のアップロード	1	『Ctrl＋C』キーを押下する	-	-	-	-	-	-
-HOST1	civil.war	2	動作確認	1	リクエスト	2	『Ctrl＋C』キーを押下する	-	-	-	-	-	-
-HOST1	civil.war	2	動作確認	2	レスポンス	1	『Ctrl＋C』キーを押下する	-	-	-	-	-	-
-HOST1	civil.war	2	動作確認	2	レスポンス	2	CFG列記載の内容に選択する	-	-	-	-	-	-
-HOST1	civil.war	2	動作確認	3	プロセスの確認	1	『Ctrl＋C』キーを押下する	-	-	-	-	-	-
+civil.war	nnn	1	資産配備	1	移行資産のダウンロード	1	CFG列記載の内容にログインする	-	-	接続情報	connect-infoシートのSEQ列「１」	-	-
+civil.war	nnn	1	資産配備	2	設定ファイルの編集	1	CFG列記載の内容に選択する	-	-	ディレクトリ名	/home/aine/if/NNN	-	-
+civil.war	nnn	1	資産配備	3	移行資産のアップロード	1	『Ctrl＋C』キーを押下する	-	-	-	-	-	-
+civil.war	nnn	2	動作確認	1	リクエスト	2	『Ctrl＋C』キーを押下する	-	-	-	-	-	-
+civil.war	nnn	2	動作確認	2	レスポンス	1	『Ctrl＋C』キーを押下する	-	-	-	-	-	-
+civil.war	nnn	2	動作確認	2	レスポンス	2	CFG列記載の内容に選択する	-	-	-	-	-	-
+civil.war	nnn	2	動作確認	3	プロセスの確認	1	『Ctrl＋C』キーを押下する	-	-	-	-	-	-
