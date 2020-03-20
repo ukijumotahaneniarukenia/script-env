@@ -1,3 +1,9 @@
+- ruby ファイル書き込み　読み込みと同じで、引数のオプションを変える
+  - https://uxmilk.jp/22615
+
+- ruby ファイル拡張子以外を切り出すときにslice使う。
+  - https://uxmilk.jp/24040
+
 - pytorch bi gram
   - https://buildersbox.corp-sansan.com/entry/2019/09/26/110000
 
