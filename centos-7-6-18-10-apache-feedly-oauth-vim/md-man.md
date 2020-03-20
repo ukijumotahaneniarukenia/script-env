@@ -9,8 +9,25 @@
 
 dockerで作成。リダイレクト先を自前で準備
 
+```
+$sudo /usr/sbin/httpd
+AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 172.17.0.3. Set the 'ServerName' directive globally to suppress this message
+$ps uax
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+apache       1  0.0  0.0  14380  2004 pts/0    Ss+  15:12   0:00 /bin/bash
+apache      18  0.0  0.0  14380  2020 pts/1    Ss   15:12   0:00 /bin/bash
+root        40  0.0  0.0 224064  3444 ?        Ss   15:14   0:00 /usr/sbin/httpd
+apache      41  0.0  0.0 224064  2936 ?        S    15:14   0:00 /usr/sbin/httpd
+apache      42  0.0  0.0 224064  2936 ?        S    15:14   0:00 /usr/sbin/httpd
+apache      43  0.0  0.0 224064  2936 ?        S    15:14   0:00 /usr/sbin/httpd
+apache      44  0.0  0.0 224064  2936 ?        S    15:14   0:00 /usr/sbin/httpd
+apache      45  0.0  0.0 224064  2936 ?        S    15:14   0:00 /usr/sbin/httpd
+apache      46  0.0  0.0  54304  1864 pts/1    R+   15:14   0:00 ps uax
+```
+
 - 以下のURLにブラウザからアクセスしてTesting 123..のレスポンスページが表示されたらOK
   - http://localhost:8080
+
 
 # Step 1:リクエストトークンを取得
 
