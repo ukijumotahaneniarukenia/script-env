@@ -1,5 +1,5 @@
 - 逆引きマスタを大量に作成する必要がありそうだ。面白くなってきた。
-=======
+
 - http://simplesandsamples.com/s.tcl.html
   - これをハンディにしたい。tcl
 
@@ -300,8 +300,6 @@ make -j$(grep '^processor' /proc/cpuinfo | wc -l)
 
 - oracle import export mysqlと同じような仕組みだろう
   - https://qiita.com/toshihirock/items/86931e3c52dc47287dd2
-
-- groongaのインポートエクスポートまとめる。エクスポートのみが残っている。
 
 - oracleのインポートエクスポートまとめる
 
