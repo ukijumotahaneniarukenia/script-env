@@ -1,3 +1,6 @@
+- https://blog.insightdatascience.com/ai-for-3d-generative-design-17503d0b3943
+  - 機械学習のイメージ湧きやすい。
+
 - 逆引きマスタを大量に作成する必要がありそうだ。面白くなってきた。
 
 - http://simplesandsamples.com/s.tcl.html
