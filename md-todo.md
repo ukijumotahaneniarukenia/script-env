@@ -22,9 +22,6 @@
 - 自然言語処理　フロー乗ってて　導入は良さげ
   - https://towardsdatascience.com/named-entity-recognition-ner-with-bert-in-spark-nlp-874df20d1d77
 
-- osqueryからテーブル定義書シェルゲイでだす。
-  - https://uxmilk.jp/22615
-
 - graphqの自動テスト
   - https://qiita.com/pocke/items/bfe120f07bd8d94724a7
 
