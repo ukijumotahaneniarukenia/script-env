@@ -1,3 +1,6 @@
+- ruby の変数一覧
+  - https://docs.ruby-lang.org/ja/latest/doc/symref.html
+
 - pythonのzipは使い慣れておきたい。
 
 - 可視化ツール選定しておきたい。用途別に。
