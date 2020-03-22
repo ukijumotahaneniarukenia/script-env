@@ -1,14 +1,11 @@
+- pythonのzipは使い慣れておきたい。
+
+- 可視化ツール選定しておきたい。用途別に。
+
 - https://blog.insightdatascience.com/ai-for-3d-generative-design-17503d0b3943
   - 機械学習のイメージ湧きやすい。
 
-- 逆引きマスタを大量に作成する必要がありそうだ。面白くなってきた。
-
-- http://simplesandsamples.com/s.tcl.html
-  - これをハンディにしたい。tcl
-
-
-- tclshをperlぽく操作したい。グループ分けできてたから、できそう。
-
+- 逆引きマスタを大量に作成する必要がありそうだ。
 
 - 検索条件を分解した際の出現位置の差をどう導くかなど。
   セミコロンの左側単位での前回行の右側との差が前回行の文字列の長さに等しいか等しくないかで区別できる。いやできないな。
@@ -85,8 +82,6 @@
 - 自然言語処理のデータセット。コマンド乗ってる。
   - https://towardsdatascience.com/improving-sentence-embeddings-with-bert-and-representation-learning-dfba6b444f6b
 
-- 56番でmerge文作る。
-
 - 環境ディレクトリ名を与えれば、全てできるようにしておきたい。
 
 - 名寄せの背景分かり易い
@@ -97,8 +92,6 @@
 
 - 言葉が難しいけどある単語にグループ値を振りたいための話。
   - https://qiita.com/daimonji-bucket/items/47f806624a5924f2d47b
-
-- perlで正規表現特訓する。
 
 - カフェラッテ。名寄せ。
   - https://buildersbox.corp-sansan.com/entry/2020/03/10/110000
