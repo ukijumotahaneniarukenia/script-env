@@ -1,3 +1,5 @@
+- perlでサブマッチ抜き出すことなどをしたかった
+
 - nodejs sqlite3連携　標準入力からファイル名複数配列で受け取って、fsに渡す。
   - https://qiita.com/shirokuman/items/509b159bf4b8dd1c41ef
 
