@@ -1,3 +1,6 @@
+- 型変換に使えそう
+  - https://ginpen.com/2018/12/23/array-reduce/
+
 - perlでサブマッチ抜き出すことなどをしたかった
 
 - nodejs sqlite3連携　標準入力からファイル名複数配列で受け取って、fsに渡す。
