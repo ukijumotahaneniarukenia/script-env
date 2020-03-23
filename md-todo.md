@@ -1,3 +1,6 @@
+- JavaScript ハマりそう
+  - https://www.webprofessional.jp/map-reduce-functional-javascript/
+
 - 型変換に使えそう
   - https://ginpen.com/2018/12/23/array-reduce/
 
