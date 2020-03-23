@@ -1,3 +1,5 @@
+- JavaScript でgroup by はfindとreduceのコンボかmapとhashのコンボどっちかなのかな。
+
 - JavaScript ハマりそう
   - https://www.webprofessional.jp/map-reduce-functional-javascript/
 
