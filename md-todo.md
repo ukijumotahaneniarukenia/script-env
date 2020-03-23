@@ -1,6 +1,8 @@
 - nodejs sqlite3連携　標準入力からファイル名複数配列で受け取って、fsに渡す。
   - https://qiita.com/shirokuman/items/509b159bf4b8dd1c41ef
 
+- https://www.gesource.jp/weblog/?p=8289
+
 - js mapでシェルげいしておく。
   - https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/map
  
