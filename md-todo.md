@@ -1,5 +1,6 @@
-- Rのtapplyだけそういえば忘れてた。
-
+- Elmoとword2vec
+  - https://speakerdeck.com/tagucci/elmo-for-searching-similar-keywords
+  
 - JavaScript 型変換
   - https://mtane0412.com/convert-array-to-object-using-reduce/
 
