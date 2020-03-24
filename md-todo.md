@@ -1,3 +1,5 @@
+- Rのtapplyだけそういえば忘れてた。
+
 - JavaScript 型変換
   - https://mtane0412.com/convert-array-to-object-using-reduce/
 
