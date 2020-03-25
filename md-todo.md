@@ -1,3 +1,6 @@
+- python lambdaと内包式の使い方を行列データ扱うときで比較したい。自作関数入れられるかどうか。
+  - https://note.nkmk.me/python-list-comprehension/
+
 - c# チュートリアル
   - https://docs.microsoft.com/ja-jp/learn/paths/csharp-first-steps/?WT.mc_id=docs-twitter-machiy
 
