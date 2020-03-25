@@ -1,3 +1,6 @@
+- c# チュートリアル
+  - https://docs.microsoft.com/ja-jp/learn/paths/csharp-first-steps/?WT.mc_id=docs-twitter-machiy
+
 - Elmoとword2vec
   - https://speakerdeck.com/tagucci/elmo-for-searching-similar-keywords
   
