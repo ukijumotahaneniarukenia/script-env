@@ -20,7 +20,7 @@ time docker build --no-cache -t ubuntu-19-10-go-vscode --build-arg GIT_VERSION=2
 
 # dockerコンテナ起動
 ```
-docker run --privileged --shm-size=2gb --hostname=ubuntu-19-10-go-vscode -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id  --name ubuntu-19-10-go-vscode -itd ubuntu-19-10-go-vscode
+docker run --privileged --shm-size=2gb --hostname=ubuntu-19-10-go-vscode -v /home/aine/script-env/ubuntu-19-10-go-vscode/mnt:/mnt -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id  --name ubuntu-19-10-go-vscode -itd ubuntu-19-10-go-vscode
 ```
 
 # dockerコンテナ潜入

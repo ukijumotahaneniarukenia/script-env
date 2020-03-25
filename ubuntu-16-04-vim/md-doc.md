@@ -20,7 +20,7 @@ time docker build --no-cache -t ubuntu-16-04-vim --build-arg GIT_VERSION=2-24-1 
 
 # dockerコンテナ起動
 ```
-docker run --privileged --shm-size=2gb --hostname=ubuntu-16-04-vim -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id  --name ubuntu-16-04-vim -itd ubuntu-16-04-vim
+docker run --privileged --shm-size=2gb --hostname=ubuntu-16-04-vim -v /home/aine/script-env/ubuntu-16-04-vim/mnt:/mnt -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id  --name ubuntu-16-04-vim -itd ubuntu-16-04-vim
 ```
 
 # dockerコンテナ潜入

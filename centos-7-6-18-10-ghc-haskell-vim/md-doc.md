@@ -20,7 +20,7 @@ time docker build --no-cache -t centos-7-6-18-10-ghc-haskell-vim --build-arg GIT
 
 # dockerコンテナ起動
 ```
-docker run --privileged --shm-size=2gb --hostname=centos-7-6-18-10-ghc-haskell-vim -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id  --name centos-7-6-18-10-ghc-haskell-vim -itd centos-7-6-18-10-ghc-haskell-vim
+docker run --privileged --shm-size=2gb --hostname=centos-7-6-18-10-ghc-haskell-vim -v /home/aine/script-env/centos-7-6-18-10-ghc-haskell-vim/mnt:/mnt -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id  --name centos-7-6-18-10-ghc-haskell-vim -itd centos-7-6-18-10-ghc-haskell-vim
 ```
 
 # dockerコンテナ潜入

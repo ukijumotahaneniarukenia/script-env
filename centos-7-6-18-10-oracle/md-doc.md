@@ -20,7 +20,7 @@ time docker build --no-cache -t centos-7-6-18-10-oracle --build-arg GIT_VERSION=
 
 # dockerコンテナ起動
 ```
-docker run --privileged --shm-size=2gb --hostname=centos-7-6-18-10-oracle -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 1521:1521 -p 22:22 -p 5500:5500 -p 8787:8787 --name centos-7-6-18-10-oracle -itd centos-7-6-18-10-oracle
+docker run --privileged --shm-size=2gb --hostname=centos-7-6-18-10-oracle -v /home/aine/script-env/centos-7-6-18-10-oracle/mnt:/mnt -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 1521:1521 -p 22:22 -p 5500:5500 -p 8787:8787 --name centos-7-6-18-10-oracle -itd centos-7-6-18-10-oracle
 ```
 
 # dockerコンテナ潜入

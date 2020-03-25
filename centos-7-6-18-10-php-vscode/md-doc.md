@@ -20,7 +20,7 @@ time docker build --no-cache -t centos-7-6-18-10-php-vscode --build-arg GIT_VERS
 
 # dockerコンテナ起動
 ```
-docker run --privileged --shm-size=2gb --hostname=centos-7-6-18-10-php-vscode -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id  --name centos-7-6-18-10-php-vscode -itd centos-7-6-18-10-php-vscode
+docker run --privileged --shm-size=2gb --hostname=centos-7-6-18-10-php-vscode -v /home/aine/script-env/centos-7-6-18-10-php-vscode/mnt:/mnt -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id  --name centos-7-6-18-10-php-vscode -itd centos-7-6-18-10-php-vscode
 ```
 
 # dockerコンテナ潜入
