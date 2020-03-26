@@ -1,3 +1,6 @@
+- perl このパターンマッチは色々応用できそうな気がする
+  - https://perldoc.jp/variable/%24%5EN
+
 - python lambdaと内包式の使い方を行列データ扱うときで比較したい。自作関数入れられるかどうか。
   - https://note.nkmk.me/python-list-comprehension/
 
