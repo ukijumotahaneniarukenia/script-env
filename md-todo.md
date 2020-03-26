@@ -1,3 +1,13 @@
+- python 入れ子
+
+2つ目のforを後ろに持ってきて、式を前で受ける。
+
+```
+arr = [[1,2,3], [4,5,6], [7,8,9]]
+[i for j in arr for i in j]
+```
+
+
 - perl このパターンマッチは色々応用できそうな気がする
   - https://perldoc.jp/variable/%24%5EN
 
@@ -251,6 +261,7 @@
 例えば、
 
 ```
+
 /etc/ld.conf.d/postgres.conf
 ```
 
