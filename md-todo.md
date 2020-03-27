@@ -1,3 +1,6 @@
+- elasticsearch Kibana Kuromori
+  - https://mattintosh.hatenablog.com/entry/20190205/1549371581
+
 - perl タグクラウド
   - http://www2u.biglobe.ne.jp/~MAS/perl/waza/tagcloud.html
 
