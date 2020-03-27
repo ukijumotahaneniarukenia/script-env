@@ -1,6 +1,6 @@
 - sudachi 導入
   - https://kurage.cc/blog-sudachi/
-
+  - https://github.com/WorksApplications/Sudachi
 - elasticsearch Kibana Kuromori
   - https://mattintosh.hatenablog.com/entry/20190205/1549371581
 
