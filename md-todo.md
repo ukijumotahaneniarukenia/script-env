@@ -1,3 +1,6 @@
+- perl タグクラウド
+  - http://www2u.biglobe.ne.jp/~MAS/perl/waza/tagcloud.html
+
 - go api 検索エンジン
   - https://github.com/tenntenn/goweb-book/blob/master/README.md
   - https://github.com/tenntenn/qiitaexporter/blob/master/README.md
