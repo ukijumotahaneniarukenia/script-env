@@ -1,3 +1,10 @@
+- go api 検索エンジン
+  - https://github.com/tenntenn/goweb-book/blob/master/README.md
+  - https://github.com/tenntenn/qiitaexporter/blob/master/README.md
+  - https://future-architect.github.io/articles/20200327/
+
+
+
 - python 入れ子
 
 2つ目のforを後ろに持ってきて、式を前で受ける。
