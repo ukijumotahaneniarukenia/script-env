@@ -3,7 +3,8 @@
   - https://github.com/tenntenn/qiitaexporter/blob/master/README.md
   - https://future-architect.github.io/articles/20200327/
 
-
+- go 
+  - https://schoo.jp/teacher/2869
 
 - python 入れ子
 
