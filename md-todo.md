@@ -8,6 +8,7 @@
   - http://www2u.biglobe.ne.jp/~MAS/perl/waza/tagcloud.html
 
 - go api 検索エンジン
+  - https://github.com/astaxie/build-web-application-with-golang/blob/master/ja/preface.md
   - https://github.com/tenntenn/goweb-book/blob/master/README.md
   - https://github.com/tenntenn/qiitaexporter/blob/master/README.md
   - https://future-architect.github.io/articles/20200327/
