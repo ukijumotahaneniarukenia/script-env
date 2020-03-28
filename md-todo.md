@@ -9,7 +9,10 @@
 
 - Elmoとword2vec
   - https://speakerdeck.com/tagucci/elmo-for-searching-similar-keywords
-  
+
+- javascript最近のやつ
+  - https://future-architect.github.io/typescript-guide/
+
 - JavaScript 型変換
   - https://mtane0412.com/convert-array-to-object-using-reduce/
 
@@ -30,7 +33,7 @@
 
 - js mapでシェルげいしておく。
   - https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/map
- 
+
 - ruby の変数一覧
   - https://docs.ruby-lang.org/ja/latest/doc/symref.html
 
