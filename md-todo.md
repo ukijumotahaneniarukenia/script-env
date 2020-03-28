@@ -1,3 +1,6 @@
+- csharp Linux 導入
+  - https://banikojp.blogspot.com/2018/04/linuxc.html?m=1
+
 - sudachi 導入
   - https://kurage.cc/blog-sudachi/
   - https://github.com/WorksApplications/Sudachi
