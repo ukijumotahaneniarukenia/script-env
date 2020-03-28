@@ -1,3 +1,30 @@
+- sudachi 導入
+  - https://kurage.cc/blog-sudachi/
+  - https://github.com/WorksApplications/Sudachi
+- elasticsearch Kibana Kuromori
+  - https://mattintosh.hatenablog.com/entry/20190205/1549371581
+
+- perl タグクラウド
+  - http://www2u.biglobe.ne.jp/~MAS/perl/waza/tagcloud.html
+
+- go api 検索エンジン
+  - https://github.com/tenntenn/goweb-book/blob/master/README.md
+  - https://github.com/tenntenn/qiitaexporter/blob/master/README.md
+  - https://future-architect.github.io/articles/20200327/
+
+- go 
+  - https://schoo.jp/teacher/2869
+
+- python 入れ子
+
+2つ目のforを後ろに持ってきて、式を前で受ける。
+
+```
+arr = [[1,2,3], [4,5,6], [7,8,9]]
+[i for j in arr for i in j]
+```
+
+
 - perl このパターンマッチは色々応用できそうな気がする
   - https://perldoc.jp/variable/%24%5EN
 
@@ -254,6 +281,7 @@
 例えば、
 
 ```
+
 /etc/ld.conf.d/postgres.conf
 ```
 
