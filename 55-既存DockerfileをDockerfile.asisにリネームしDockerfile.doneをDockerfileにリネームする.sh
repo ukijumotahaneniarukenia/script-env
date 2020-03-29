@@ -8,9 +8,9 @@ EOS
 exit 0
 }
 
-REPO=$1;shift
+ENV_REPO=$1;shift
 
-[ -z $REPO ] && usage
+[ -z $ENV_REPO ] && usage
 
 while read tgt;do
   if [ -f $tgt/Dockerfile.asis ];then
@@ -26,4 +26,4 @@ while read tgt;do
   else
     :
   fi
-done < <(find $HOME/$REPO -mindepth 1 -type d | grep -vP '\.git|docker-log')
+done < <(find $HOME/$ENV_REPO -mindepth 1 -type d | grep -vP '\.git|docker-log')

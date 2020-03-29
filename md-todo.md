@@ -1,3 +1,6 @@
+- ロゼッタコード
+  - https://rosettacode.org/wiki/Permutations
+
 - sudachi 導入
   - https://kurage.cc/blog-sudachi/
   - https://github.com/WorksApplications/Sudachi
