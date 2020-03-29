@@ -1,5 +1,7 @@
 - ロゼッタコード
   - https://rosettacode.org/wiki/Permutations
+- csharp Linux 導入
+  - https://banikojp.blogspot.com/2018/04/linuxc.html?m=1
 
 - sudachi 導入
   - https://kurage.cc/blog-sudachi/
@@ -11,11 +13,12 @@
   - http://www2u.biglobe.ne.jp/~MAS/perl/waza/tagcloud.html
 
 - go api 検索エンジン
+  - https://github.com/astaxie/build-web-application-with-golang/blob/master/ja/preface.md
   - https://github.com/tenntenn/goweb-book/blob/master/README.md
   - https://github.com/tenntenn/qiitaexporter/blob/master/README.md
   - https://future-architect.github.io/articles/20200327/
 
-- go 
+- go
   - https://schoo.jp/teacher/2869
 
 - python 入れ子
