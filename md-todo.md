@@ -1,3 +1,12 @@
+- 変数宣言でvarが変更可能で、letが変更不可。javascriptみたいな雰囲気。
+
+```
+var a = toCountTable("aaabbc")
+let b = toCountTable("bcc")
+a.merge(b)
+doAssert a == toCountTable("aaabbbccc")
+```
+
 - nim 多値タプルの配列はtable変換すると、ハッシュエントリになる。便利。Pythonの変換と同じ。
 
 - nim 多値引数受け取れる。
