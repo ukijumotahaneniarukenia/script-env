@@ -1,3 +1,7 @@
+- lsなどの実行結果に対して集合演算ハンディにしたい
+
+  - https://nim-lang.org/docs/sets.html
+
 - 変数宣言でvarが変更可能で、letが変更不可。javascriptみたいな雰囲気。
 
 ```
