@@ -1,3 +1,5 @@
+- nim 多値タプルの配列はtable変換すると、ハッシュエントリになる。便利。Pythonの変換と同じ。
+
 - nim 多値引数受け取れる。
   - https://nim-lang.org/docs/tables.html#basic-usage-table
 
