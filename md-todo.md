@@ -1,3 +1,6 @@
+- nim 多値引数受け取れる。
+  - https://nim-lang.org/docs/tables.html#basic-usage-table
+
 - ロゼッタコード
   - https://rosettacode.org/wiki/Permutations
 - csharp Linux 導入
