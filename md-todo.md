@@ -1,3 +1,9 @@
+- javaからpython呼び出ししたい
+  英語を日本語にしたい
+  - https://qiita.com/ota-meshi/items/76f4a65e9bd2fe0e2f68
+  - http://www.asnm4.com/2019/06/python%E3%81%8B%E3%82%89google-translate%E3%82%92%E4%BD%BF%E3%81%86/
+
+
 - lsなどの実行結果に対して集合演算ハンディにしたい
 
   - https://nim-lang.org/docs/sets.html
