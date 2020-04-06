@@ -1,3 +1,6 @@
+- 表記正規化が大変そう
+  - https://www.slideshare.net/mobile/WorksApplications/java-82794239
+
 - Kuromori 
   - http://www.mwsoft.jp/programming/lucene/kuromoji.html
 
