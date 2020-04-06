@@ -4,6 +4,7 @@
   - https://docs.oracle.com/javase/jp/6/api/java/lang/Class.html#newInstance()
   - https://qiita.com/KeithYokoma/items/9e692808095acf560bc9
   - https://itsakura.com/java-reflect
+  - https://teratail.com/questions/11369
 
 - javaからpython呼び出ししたい
   英語を日本語にしたい
