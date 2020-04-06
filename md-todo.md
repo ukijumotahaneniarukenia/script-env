@@ -1,3 +1,9 @@
+- ダイナミックjava したい 複数の引数が行けるか。list map 行けるか
+
+  - https://m-shige1979.hatenablog.com/entry/2017/02/08/080000
+  - https://docs.oracle.com/javase/jp/6/api/java/lang/Class.html#newInstance()
+  - 
+
 - javaからpython呼び出ししたい
   英語を日本語にしたい
   - https://qiita.com/ota-meshi/items/76f4a65e9bd2fe0e2f68
