@@ -3,6 +3,7 @@
   - https://m-shige1979.hatenablog.com/entry/2017/02/08/080000
   - https://docs.oracle.com/javase/jp/6/api/java/lang/Class.html#newInstance()
   - https://qiita.com/KeithYokoma/items/9e692808095acf560bc9
+  - https://itsakura.com/java-reflect
 
 - javaからpython呼び出ししたい
   英語を日本語にしたい
