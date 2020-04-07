@@ -1,3 +1,6 @@
+- unnestできてave出来たら、いいな
+  - https://qiita.com/sano1202/items/64593e8e981e8d6439d3
+
 - toCollectionがあるぞ
   - https://docs.oracle.com/javase/jp/8/docs/api/java/util/stream/Collectors.html
 
