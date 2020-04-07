@@ -1,3 +1,7 @@
+- マルチマップというのがあるのか便利。
+  - partition byと相性良さけ
+  - https://blog.devneko.net/2013/09/javamap.html?m=1
+
 - unnestできてave出来たら、いいな
   - https://qiita.com/sano1202/items/64593e8e981e8d6439d3
 
