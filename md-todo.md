@@ -1,3 +1,6 @@
+- toCollectionがあるぞ
+  - https://docs.oracle.com/javase/jp/8/docs/api/java/util/stream/Collectors.html
+
 - このイメージで入れ子にしてunnestできそう
   - https://stackoverflow.com/questions/33253858/java-streams-group-a-list-into-a-map-of-maps/33254512
 
