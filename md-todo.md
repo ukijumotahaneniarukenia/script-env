@@ -1,3 +1,7 @@
+- このイメージで入れ子にしてunnestできそう
+  - https://stackoverflow.com/questions/33253858/java-streams-group-a-list-into-a-map-of-maps/33254512
+
+
 - ダイナミックjava したい 複数の引数が行けるか。list map 行けるか
 
   - https://m-shige1979.hatenablog.com/entry/2017/02/08/080000
