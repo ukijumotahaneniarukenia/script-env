@@ -3,6 +3,10 @@
 
 - これでファイルヘッダ項目からクラス生成できる。文字列組み立てで。collection.joiningとかでパタン生成。
   - https://qiita.com/ukiuni@github/items/2c55a64f45272f4faef5
+  - リフレクションapiでjvmにロード済みかどうか判定できる。
+  - beanクラス動的作成可能
+  - https://chibash.github.io/essays/jvst.html
+  - ロード済みであれば、動的生成されたメンバーないしメソッドを使ってstream処理などできそう。便利。
 
 - 関数リストを引数にもらって、対象リストに対して加工して、結果をリスト in マップで返却。キーは関数名単位。
 
