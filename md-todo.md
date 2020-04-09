@@ -1,3 +1,6 @@
+- collection java のまとめ
+  - https://static.rainfocus.com/oracle/oow16/sess/1462848741026001JnVD/ppt/CollectorsFair_J1_2016_final.pdf
+
 - これでファイルヘッダ項目からクラス生成できる。文字列組み立てで。collection.joiningとかでパタン生成。
   - https://qiita.com/ukiuni@github/items/2c55a64f45272f4faef5
 
