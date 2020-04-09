@@ -1,3 +1,6 @@
+- 動作確認一括チェックスクリプト
+  - https://bitbucket.org/megmogmog1965/java8streamapi/src/develop/src/java8streamapi/LastProcess.java
+
 - collection java のまとめ
   - https://static.rainfocus.com/oracle/oow16/sess/1462848741026001JnVD/ppt/CollectorsFair_J1_2016_final.pdf
 
