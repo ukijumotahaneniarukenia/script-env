@@ -1,3 +1,7 @@
+- vpnの設定くちょー簡単
+  - https://gihyo.jp/admin/serial/01/ubuntu-recipe/0614
+
+
 - 表記正規化が大変そう
   - https://www.slideshare.net/mobile/WorksApplications/java-82794239
 
