@@ -1,3 +1,6 @@
+- zip関数javaないからから始まる色々な言語実装例
+  - https://teratail.com/questions/28356
+
 - 動作確認一括チェックスクリプト
   - https://bitbucket.org/megmogmog1965/java8streamapi/src/develop/src/java8streamapi/LastProcess.java
 
