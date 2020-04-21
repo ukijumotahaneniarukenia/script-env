@@ -1,3 +1,6 @@
+- lisp
+  - https://masatoi.hateblo.jp/entry/20151210/1449948614
+
 - vpnの設定くちょー簡単
   - https://gihyo.jp/admin/serial/01/ubuntu-recipe/0614
 
