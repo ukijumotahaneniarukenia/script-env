@@ -54,3 +54,5 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font.sh | bash
 
 WORKDIR /home/kuraine
 
+COPY jawiki-latest-redirect.sql.gz /usr/local/src/jawiki-latest-redirect.sql.gz
+COPY jawiki-latest-page.sql.gz /usr/local/src/jawiki-latest-page.sql.gz
