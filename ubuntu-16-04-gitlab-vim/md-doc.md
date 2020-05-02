@@ -20,7 +20,7 @@ time docker build --no-cache -t ubuntu-16-04-gitlab-vim --build-arg GIT_VERSION=
 
 # dockerコンテナ起動
 ```
-docker run --privileged --shm-size=8gb --hostname=ubuntu-16-04-gitlab-vim -v /home/aine/script-env/ubuntu-16-04-gitlab-vim/mnt:/mnt -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 9010:9010 -p 2022:2022 --name ubuntu-16-04-gitlab-vim -itd ubuntu-16-04-gitlab-vim
+docker run --privileged --shm-size=8gb --hostname=docker-container-ubuntu-16-04-gitlab-vim -v /home/aine/script-env/ubuntu-16-04-gitlab-vim/mnt:$HOME/mnt -v $HOME/Downloads-for-docker-container/ubuntu-16-04-gitlab-vim:$HOME/media -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 9010:9010 -p 2022:2022 --name ubuntu-16-04-gitlab-vim -itd ubuntu-16-04-gitlab-vim
 ```
 
 # dockerコンテナ潜入

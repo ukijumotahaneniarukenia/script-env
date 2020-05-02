@@ -20,7 +20,7 @@ time docker build --no-cache -t centos-7-6-18-10-mecab-java-vim --build-arg JAVA
 
 # dockerコンテナ起動
 ```
-docker run --privileged --shm-size=2gb --hostname=centos-7-6-18-10-mecab-java-vim -v /home/aine/script-env/centos-7-6-18-10-mecab-java-vim/mnt:/mnt -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id  --name centos-7-6-18-10-mecab-java-vim -itd centos-7-6-18-10-mecab-java-vim
+docker run --privileged --shm-size=2gb --hostname=docker-container-centos-7-6-18-10-mecab-java-vim -v /home/aine/script-env/centos-7-6-18-10-mecab-java-vim/mnt:$HOME/mnt -v $HOME/Downloads-for-docker-container/centos-7-6-18-10-mecab-java-vim:$HOME/media -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id  --name centos-7-6-18-10-mecab-java-vim -itd centos-7-6-18-10-mecab-java-vim
 ```
 
 # dockerコンテナ潜入

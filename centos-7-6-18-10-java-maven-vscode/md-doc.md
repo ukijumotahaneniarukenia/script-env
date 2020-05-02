@@ -20,7 +20,7 @@ time docker build --no-cache -t centos-7-6-18-10-java-maven-vscode --build-arg G
 
 # dockerコンテナ起動
 ```
-docker run --privileged --shm-size=2gb --hostname=centos-7-6-18-10-java-maven-vscode -v /home/aine/script-env/centos-7-6-18-10-java-maven-vscode/mnt:/mnt -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id  --name centos-7-6-18-10-java-maven-vscode -itd centos-7-6-18-10-java-maven-vscode
+docker run --privileged --shm-size=2gb --hostname=docker-container-centos-7-6-18-10-java-maven-vscode -v /home/aine/script-env/centos-7-6-18-10-java-maven-vscode/mnt:$HOME/mnt -v $HOME/Downloads-for-docker-container/centos-7-6-18-10-java-maven-vscode:$HOME/media -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id  --name centos-7-6-18-10-java-maven-vscode -itd centos-7-6-18-10-java-maven-vscode
 ```
 
 # dockerコンテナ潜入

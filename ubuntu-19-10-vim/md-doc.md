@@ -20,7 +20,7 @@ time docker build --no-cache -t ubuntu-19-10-vim --build-arg GIT_VERSION=2-24-1 
 
 # dockerコンテナ起動
 ```
-docker run --privileged --shm-size=2gb --hostname=ubuntu-19-10-vim -v /home/aine/script-env/ubuntu-19-10-vim/mnt:/mnt -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id  --name ubuntu-19-10-vim -itd ubuntu-19-10-vim
+docker run --privileged --shm-size=2gb --hostname=docker-container-ubuntu-19-10-vim -v /home/aine/script-env/ubuntu-19-10-vim/mnt:$HOME/mnt -v $HOME/Downloads-for-docker-container/ubuntu-19-10-vim:$HOME/media -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id  --name ubuntu-19-10-vim -itd ubuntu-19-10-vim
 ```
 
 # dockerコンテナ潜入
