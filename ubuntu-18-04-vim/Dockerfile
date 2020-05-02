@@ -10,10 +10,17 @@ RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.l
 apt update && \
 apt upgrade -y
 
-RUN apt install -y git
-RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/$REPO.git
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-default-env-usr.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-dev-pkg.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-tool-pkg.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-network-pkg.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-locale.sh | bash
+RUN groupadd -g 1000 aine && \
+useradd -m -g aine -u 1000 aine && \
+chsh -s /bin/bash aine && \
+echo 'aine:aine_pwd' | chpasswd && \
+echo 'aine ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
+echo 'root:root_pwd' | chpasswd
+
+#RUN apt install -y git
+#RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/$REPO.git
+#RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-default-env-usr.sh | bash
+#RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-dev-pkg.sh | bash
+#RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-tool-pkg.sh | bash
+#RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-network-pkg.sh | bash
+#RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-locale.sh | bash

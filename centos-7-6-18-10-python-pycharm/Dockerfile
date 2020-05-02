@@ -3,6 +3,7 @@ FROM centos:7.6.1810
 ARG OS_VERSION
 ARG GIT_VERSION
 ARG PYTHON_VERSION
+ARG REPO
 
 RUN yum install -y git
 RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/$REPO.git
