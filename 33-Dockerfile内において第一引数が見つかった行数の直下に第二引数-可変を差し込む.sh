@@ -3,7 +3,7 @@
 usage(){
   cat <<EOS
 Usage:
-   $0 'script-repo.git' 'non-default-env-usr-list' script-env
+   $0 'script-repo.git' 'non-default-user-list' script-env
 EOS
 exit 0
 }
@@ -22,7 +22,7 @@ while read tgt;do
   TGT_ROWN=$(echo $tgt | tr ':' '\n' | sed -n '2p')
 
   while read EMBEDED_WORD;do
-    grep -q -P "$(echo $EMBEDED_WORD | sed -r 's/.*install-//g;s/-env-usr.sh//g')" <<<$TGT_FILE
+    grep -q -P "$(echo $EMBEDED_WORD | sed -r 's/.*install-//g;s/-user.sh//g')" <<<$TGT_FILE
     if [ 0 -eq $? ];then
        printf "sed -i \x27%si%s\x27 %s\n" "$(($TGT_ROWN+1))" "$(echo $EMBEDED_WORD | sed -r 's/(.*)(-install.*)/\2/g;s;^;RUN cd /usr/local/src/script-repo \&\& echo ./$OS_VERSION;g;s;$; \| bash;g')" "$TGT_FILE"
     else

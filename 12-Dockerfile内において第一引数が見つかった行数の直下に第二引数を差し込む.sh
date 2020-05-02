@@ -3,7 +3,7 @@
 usage(){
   cat <<EOS
 Usage:
-   $0 'script-repo.git' 'RUN cd /usr/local/src/script-repo && echo ./\$OS_VERSION-install-default-env-usr.sh | bash' script-env
+   $0 'script-repo.git' 'RUN cd /usr/local/src/script-repo && echo ./\$OS_VERSION-install-default-user.sh | bash' script-env
 EOS
 exit 0
 }

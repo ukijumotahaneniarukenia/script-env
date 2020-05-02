@@ -53,6 +53,7 @@ RUN yum install -y which perl-App-cpanminus wxGTK-devel perl-ExtUtils-Embed perl
 
 #Tukubaiコマンドは便利
 RUN cd $HOME && git clone https://github.com/usp-engineers-community/Open-usp-Tukubai.git && \
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-docker-host-user.sh | bash
 cd Open-usp-Tukubai && \
 make -j12 install
 
@@ -87,6 +88,7 @@ ln -fsr /usr/local/bin/vim /usr/bin/vi
 RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git $HOME/.vim
 
 #自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-docker-host-user.sh | bash
 RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git $HOME/tmp && \
 cd $HOME/tmp && \
 #移動したいdotfileをchoiceしてHOMEディレクトリへ
@@ -138,6 +140,7 @@ USER rstudio
 #自身のvim環境をクローン
 RUN cd $HOME && git clone https://github.com/ukijumotahaneniarukenia/.vim.git $HOME/.vim
 
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-docker-host-user.sh | bash
 #自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
 RUN cd $HOME && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git $HOME/tmp && \
 cd $HOME/tmp && \
@@ -167,6 +170,7 @@ USER oracle
 
 #自身のvim環境をクローン
 RUN cd $HOME && git clone https://github.com/ukijumotahaneniarukenia/.vim.git $HOME/.vim
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-docker-host-user.sh | bash
 
 #自身の.vimrcをクローンこれをdotfileとかで管理するようになるのかな。
 RUN cd $HOME && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git $HOME/tmp && \

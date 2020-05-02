@@ -16,7 +16,7 @@ REPO="$1";shift
 while read tgt;do
 
   #MD_FILEの作成
-  MD_FILE=$(echo $tgt | perl -pe "s/(?<=[0-9])-script-env//g;s;-env-usr\.sh;/env-usr\.md;g;s;script-repo;$REPO;g;s;-install;;g")
+  MD_FILE=$(echo $tgt | perl -pe "s/(?<=[0-9])-script-env//g;s;-user\.sh;/user\.md;g;s;script-repo;$REPO;g;s;-install;;g")
   touch $MD_FILE
   >$MD_FILE
 
@@ -37,6 +37,6 @@ while read tgt;do
       sed -r '/^$/d;s;^|$| ;|;g;1i|ユーザーＩＤ|ユーザー名|グループＩＤ|グループ名|パスワード|' | sed '2i|:-:|:-:|:-:|:-:|:-:|' >$MD_FILE
   fi
 
-done < <(find $HOME/script-repo | grep env-usr)
+done < <(find $HOME/script-repo | grep user)
 
-find /tmp -type f -name "*env-usr*" 2>/dev/null | xargs rm
+find /tmp -type f -name "*user*" 2>/dev/null | xargs rm

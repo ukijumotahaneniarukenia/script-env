@@ -71,8 +71,8 @@ execute(){
     #テンプレートファイルのMAIN_USERの置換
     {
       echo $tgt
-      grep -c -vP  'ユーザーＩＤ|aine|kuraine|nahato|mujiku|:-:|root' $tgt/env-usr.md
-      grep -vP  'ユーザーＩＤ|aine|kuraine|nahato|mujiku|:-:|root' $tgt/env-usr.md | awk -v FS='|' -v ORS='' '{print ","$3}'
+      grep -c -vP  'ユーザーＩＤ|aine|kuraine|nahato|mujiku|:-:|root' $tgt/user.md
+      grep -vP  'ユーザーＩＤ|aine|kuraine|nahato|mujiku|:-:|root' $tgt/user.md | awk -v FS='|' -v ORS='' '{print ","$3}'
     } | xargs -n3 | \
     while read file cnt usr;do
       if [ 0 -eq $cnt ];then

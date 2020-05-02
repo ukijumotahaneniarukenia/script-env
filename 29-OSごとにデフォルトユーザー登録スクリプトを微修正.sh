@@ -18,4 +18,4 @@ while read TGT;do
   echo $DIR/$REPO/$TGT
   sed -i -r "s/echo 'kuraine_pwd' \| passwd --stdin kuraine/echo 'kuraine:kuraine_pwd' | chpasswd/g" $DIR/$REPO/$TGT
   sed -i -r "s/echo 'root_pwd' \| passwd --stdin root/echo 'root:root_pwd' | chpasswd/g" $DIR/$REPO/$TGT
-done < <(ls $DIR/$REPO | grep -P 'default-env-usr')
+done < <(ls $DIR/$REPO | grep -P 'default-user')

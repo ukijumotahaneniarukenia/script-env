@@ -1,6 +1,6 @@
 #!/bin/bash
 
-find $HOME/script-repo | grep env-usr | while read tgt;do
+find $HOME/script-repo | grep user | while read tgt;do
   FILE=$(echo $tgt | perl -pe 's;.*/;;g' | perl -pe 's;^;/tmp/;')
   grep -vP 'root|aine|kuraine|nahato|mujiku' $tgt >$FILE
   RESULT="$(grep -vP 'bash' $FILE)"
@@ -13,4 +13,4 @@ find $HOME/script-repo | grep env-usr | while read tgt;do
   fi
 done | grep -P '^1' | awk '{print $2}' | perl -pe 's;.*/;;g'
 
-find /tmp -type f -name "*env-usr*" 2>/dev/null | xargs rm
+find /tmp -type f -name "*user*" 2>/dev/null | xargs rm

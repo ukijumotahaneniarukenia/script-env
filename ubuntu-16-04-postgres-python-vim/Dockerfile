@@ -14,8 +14,9 @@ apt upgrade -y
 
 RUN apt install -y git
 RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/$REPO.git
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-postgres-python-vim-env-usr.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-default-env-usr.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-docker-host-user.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-postgres-python-vim-user.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-${APP_NAME:-default}-user.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-tool-pkg.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-system.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash

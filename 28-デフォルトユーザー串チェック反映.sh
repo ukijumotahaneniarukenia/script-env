@@ -3,7 +3,7 @@
 usage(){
   cat <<EOS
 Usage:
-  $0 centos-7-6-18-10-install-default-env-usr.sh \$HOME
+  $0 centos-7-6-18-10-install-default-user.sh \$HOME
 EOS
 exit 0
 }

@@ -10,6 +10,9 @@
 ./configure --enable-multibyte --with-features=huge --enable-cscope --enable-gui=gtk2 --disable-selinux --prefix=/usr/local --enable-xim --enable-fontset --enable-gpm --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.7/config && \
 RUN cd $HOME && curl -LO https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz && \
 RUN cd $HOME && git clone https://github.com/ukijumotahaneniarukenia/.vim.git $HOME/.vim
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-docker-host-user.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-docker-host-user.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-docker-host-user.sh | bash
 RUN cd $HOME && git clone https://github.com/ukijumotahaneniarukenia/.vim.git $HOME/.vim
 RUN cd $HOME && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git $HOME/tmp && \
 RUN cd $HOME && git clone https://github.com/ukijumotahaneniarukenia/dotfile.git $HOME/tmp && \
@@ -23,6 +26,7 @@ RUN echo 'rstudio ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN echo 'rstudio_pwd' | passwd --stdin rstudio
 RUN echo alias python="/usr/local/bin/python3.7" >> $HOME/.bashrc && \
 RUN echo alias python="/usr/local/bin/python3.7" >> $HOME/.bashrc && \
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-docker-host-user.sh | bash
 RUN echo alias python="/usr/local/bin/python3.7" >> $HOME/.bashrc && \
 RUN git clone https://github.com/ukijumotahaneniarukenia/.vim.git $HOME/.vim
 RUN git clone https://github.com/ukijumotahaneniarukenia/dotfile.git $HOME/tmp && \
