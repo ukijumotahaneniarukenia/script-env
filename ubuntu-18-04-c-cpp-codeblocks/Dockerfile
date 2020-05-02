@@ -26,9 +26,6 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-locale.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
 
-#eclipseインストール
-COPY eclipse-inst-linux64.tar.gz /usr/local/src/eclipse-inst-linux64.tar.gz
-
 #XクライアントがXサーバーにGUI転送出来るように、転送先の「IP:ディスプレイ番号:スクリーン番号」を指定する
 ENV DISPLAY=:0.0
 
