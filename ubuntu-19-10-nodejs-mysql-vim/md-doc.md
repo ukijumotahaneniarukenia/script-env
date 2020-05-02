@@ -20,7 +20,7 @@ time docker build --no-cache -t ubuntu-19-10-nodejs-mysql-vim --build-arg GIT_VE
 
 # dockerコンテナ起動
 ```
-docker run --privileged --shm-size=2gb --hostname=docker-container-ubuntu-19-10-nodejs-mysql-vim -v /home/aine/script-env/ubuntu-19-10-nodejs-mysql-vim/mnt:$HOME/mnt -v $HOME/Downloads-for-docker-container/ubuntu-19-10-nodejs-mysql-vim:$HOME/media -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id  --name ubuntu-19-10-nodejs-mysql-vim -itd ubuntu-19-10-nodejs-mysql-vim
+docker run --privileged --shm-size=2gb --hostname=docker-container-ubuntu-19-10-nodejs-mysql-vim -v /home/aine/script-env/ubuntu-19-10-nodejs-mysql-vim/mnt:/home/aine/mnt -v /home/aine/Downloads-for-docker-container/ubuntu-19-10-nodejs-mysql-vim:/home/aine/media -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id  --name ubuntu-19-10-nodejs-mysql-vim -itd ubuntu-19-10-nodejs-mysql-vim
 ```
 
 # dockerコンテナ潜入

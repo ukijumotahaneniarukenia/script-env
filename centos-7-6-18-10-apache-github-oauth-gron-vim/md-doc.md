@@ -20,7 +20,7 @@ time docker build --no-cache -t centos-7-6-18-10-apache-github-oauth-gron-vim --
 
 # dockerコンテナ起動
 ```
-docker run --privileged --shm-size=2gb --hostname=docker-container-centos-7-6-18-10-apache-github-oauth-gron-vim -v /home/aine/script-env/centos-7-6-18-10-apache-github-oauth-gron-vim/mnt:$HOME/mnt -v $HOME/Downloads-for-docker-container/centos-7-6-18-10-apache-github-oauth-gron-vim:$HOME/media -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 8080:80 --name centos-7-6-18-10-apache-github-oauth-gron-vim -itd centos-7-6-18-10-apache-github-oauth-gron-vim
+docker run --privileged --shm-size=2gb --hostname=docker-container-centos-7-6-18-10-apache-github-oauth-gron-vim -v /home/aine/script-env/centos-7-6-18-10-apache-github-oauth-gron-vim/mnt:/home/aine/mnt -v /home/aine/Downloads-for-docker-container/centos-7-6-18-10-apache-github-oauth-gron-vim:/home/aine/media -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 8080:80 --name centos-7-6-18-10-apache-github-oauth-gron-vim -itd centos-7-6-18-10-apache-github-oauth-gron-vim
 ```
 
 # dockerコンテナ潜入

@@ -20,7 +20,7 @@ time docker build --no-cache -t centos-7-6-18-10-postgres-pgroonga-vim --build-a
 
 # dockerコンテナ起動
 ```
-docker run --privileged --shm-size=4gb --hostname=docker-container-centos-7-6-18-10-postgres-pgroonga-vim -v /home/aine/script-env/centos-7-6-18-10-postgres-pgroonga-vim/mnt:$HOME/mnt -v $HOME/Downloads-for-docker-container/centos-7-6-18-10-postgres-pgroonga-vim:$HOME/media -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id  --name centos-7-6-18-10-postgres-pgroonga-vim -itd centos-7-6-18-10-postgres-pgroonga-vim
+docker run --privileged --shm-size=4gb --hostname=docker-container-centos-7-6-18-10-postgres-pgroonga-vim -v /home/aine/script-env/centos-7-6-18-10-postgres-pgroonga-vim/mnt:/home/aine/mnt -v /home/aine/Downloads-for-docker-container/centos-7-6-18-10-postgres-pgroonga-vim:/home/aine/media -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id  --name centos-7-6-18-10-postgres-pgroonga-vim -itd centos-7-6-18-10-postgres-pgroonga-vim
 ```
 
 # dockerコンテナ潜入
