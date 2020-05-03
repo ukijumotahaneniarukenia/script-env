@@ -30,7 +30,9 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font.sh | bash
 
 
-DOCKERFILE_SUB
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-ghc-8-8-1.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-stack.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-egison.sh | bash
 
 USER kuraine
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash

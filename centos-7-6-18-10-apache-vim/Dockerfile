@@ -31,7 +31,8 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font.sh | bash
 
 
-DOCKERFILE_SUB
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-apache-http-$APACHE_HTTP_VERSION.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-post-patch-apache-http-$APACHE_HTTP_VERSION.sh | bash
 
 USER apache
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
