@@ -46,19 +46,19 @@ while read tgt;do
 done < <(ls -l $HOME/$ENV_REPO | grep -P '^d' | awk '{print $9}' | grep -v docker-log)
 
 #APP_NAMEの設定
-find $HOME/$ENV_REPO -name "user.md" | \
+find $HOME/$ENV_REPO -name "env-user.md" | \
 while read tgt;do
   {
     RESULT="$(grep -vP 'root|aine|kuraine|nahato|mujiku' $tgt | tail -n+3)"
     if [ "XXX" == "XXX$RESULT" ] ;then
       #デフォルトユーザーを使用
-      echo 0 $tgt | awk '{print $2}' | perl -pe 's;/user.md;;;s;.*/;;' | \
+      echo 0 $tgt | awk '{print $2}' | perl -pe 's;/env-user.md;;;s;.*/;;' | \
       while read tgt;do
         echo "sed -i 's;YYY;;g' $HOME/$ENV_REPO/$tgt/md-doc.md"
       done
     else
       #デフォルトユーザー以外を使用
-      echo 1 $tgt | awk '{print $2}' | perl -pe 's;/user.md;;;s;.*/;;' | \
+      echo 1 $tgt | awk '{print $2}' | perl -pe 's;/env-user.md;;;s;.*/;;' | \
       while read tgt;do
         NNN=$(echo $tgt | perl -pe 's/[a-zA-Z]+(?:-[0-9]+){1,}-//g')
         echo "sed -i 's;YYY;$NNN;g' $HOME/$ENV_REPO/$tgt/md-doc.md"
