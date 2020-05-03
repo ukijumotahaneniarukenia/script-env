@@ -66,11 +66,15 @@
 |[ubuntu-16-04-postgres-python-vim](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/ubuntu-16-04-postgres-python-vim/env-shm-size.md)|2gb|
 |[ubuntu-16-04-sqlserver-vim](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/ubuntu-16-04-sqlserver-vim/env-shm-size.md)|4gb|
 |[ubuntu-16-04-vim](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/ubuntu-16-04-vim/env-shm-size.md)|2gb|
+|[ubuntu-18-04-aws-workspaces-vscode](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/ubuntu-18-04-aws-workspaces-vscode/env-shm-size.md)|2gb|
+|[ubuntu-18-04-c-cpp-codeblocks](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/ubuntu-18-04-c-cpp-codeblocks/env-shm-size.md)|2gb|
+|[ubuntu-18-04-c-cpp-eclipse](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/ubuntu-18-04-c-cpp-eclipse/env-shm-size.md)|2gb|
 |[ubuntu-18-04-perl-vscode](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/ubuntu-18-04-perl-vscode/env-shm-size.md)|2gb|
 |[ubuntu-18-04-postgres-pgroonga-vim](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/ubuntu-18-04-postgres-pgroonga-vim/env-shm-size.md)|2gb|
 |[ubuntu-18-04-python-django-pycharm](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/ubuntu-18-04-python-django-pycharm/env-shm-size.md)|2gb|
 |[ubuntu-18-04-swift-vscode](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/ubuntu-18-04-swift-vscode/env-shm-size.md)|2gb|
 |[ubuntu-18-04-vim](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/ubuntu-18-04-vim/env-shm-size.md)|2gb|
+|[ubuntu-19-10-c-cpp-kdevelop](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/ubuntu-19-10-c-cpp-kdevelop/env-shm-size.md)|2gb|
 |[ubuntu-19-10-c-cpp-vim](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/ubuntu-19-10-c-cpp-vim/env-shm-size.md)|2gb|
 |[ubuntu-19-10-c-cpp-vscode](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/ubuntu-19-10-c-cpp-vscode/env-shm-size.md)|2gb|
 |[ubuntu-19-10-go-vscode](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/ubuntu-19-10-go-vscode/env-shm-size.md)|2gb|
