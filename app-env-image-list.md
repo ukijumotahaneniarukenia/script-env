@@ -61,20 +61,6 @@
 |[centos-7-6-18-10-vim](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/centos-7-6-18-10-vim/env-image.md)|7.6.1810|
 |[centos-7-6-18-10-x](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/centos-7-6-18-10-x/env-image.md)|7.6.1810|
 |[centos-7-7-19-08-usb-rsync](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/centos-7-7-19-08-usb-rsync/env-image.md)|7.7.1908|
-|[mnt](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/mnt/env-image.md)|mnt|
-|[mnt](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/mnt/env-image.md)|mnt|
-|[mnt](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/mnt/env-image.md)|mnt|
-|[mnt](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/mnt/env-image.md)|mnt|
-|[mnt](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/mnt/env-image.md)|mnt|
-|[mnt](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/mnt/env-image.md)|mnt|
-|[mnt](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/mnt/env-image.md)|mnt|
-|[mnt](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/mnt/env-image.md)|mnt|
-|[mnt](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/mnt/env-image.md)|mnt|
-|[mnt](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/mnt/env-image.md)|mnt|
-|[mnt](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/mnt/env-image.md)|mnt|
-|[mnt](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/mnt/env-image.md)|mnt|
-|[mnt](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/mnt/env-image.md)|mnt|
-|[mnt](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/mnt/env-image.md)|mnt|
 |[ubuntu-16-04-gitlab-vim](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/ubuntu-16-04-gitlab-vim/env-image.md)|FROM gitlab/gitlab-ce:latest|
 |[ubuntu-16-04-mysql-mroonga-vim](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/ubuntu-16-04-mysql-mroonga-vim/env-image.md)|16.04|
 |[ubuntu-16-04-postgres-python-vim](https://github.com/ukijumotahaneniarukenia/script-env/blob/master/ubuntu-16-04-postgres-python-vim/env-image.md)|16.04|
