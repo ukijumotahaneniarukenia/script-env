@@ -21,4 +21,4 @@ while read tgt;do
       echo "[$(echo $tgt | perl -pe 's;.*/;;g')]($BASE_URL/$ENV_REPO/blob/master/$(echo $tgt | perl -pe 's;.*/;;g')/env-shm-size.md)"
       cat $tgt/env-shm-size.md | perl -pe 's/.*=//g'
   } | xargs | sed -r 's/ /|/g;s/^/|/;s/$/|/'
-done < <(find $HOME/$ENV_REPO -mindepth 1 -type d | grep -vP '\.git|docker-log') | sort | sed '1i|環境ディレクトリ名|メモリ上限サイズ|' | sed '2i|:--|:-:|' >>$HOME/$ENV_REPO/app-env-shm-size-list.md
+done < <(find $HOME/$ENV_REPO -mindepth 1 -type d | grep -vP '\.git|docker-log' | grep -v mnt) | sort | sed '1i|環境ディレクトリ名|メモリ上限サイズ|' | sed '2i|:--|:-:|' >>$HOME/$ENV_REPO/app-env-shm-size-list.md

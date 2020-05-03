@@ -1,41 +1,41 @@
 FROM centos:7.6.1810
 
-#各種X関連コマンドインストール
-RUN yum install -y xeyes xorg-x11-server-utils xterm xorg-x11-apps
+ARG OS_VERSION
+ARG APP_NAME
+ARG REPO
 
-RUN yum install -y java firefox
+ARG GIT_VERSION
+ARG PYTHON_VERSION
 
-#Xwindowシステムパッケージいんすこ
-RUN yum groupinstall -y base "X Window System" --setopt=group_package_types=mandatory,default,optional
-
-#echo "export GTK_IM_MODULE=ibus" >> $HOME/.bashrc && \
-#echo "export XMODIFIERS=@im=ibus" >> $HOME/.bashrc && \
-#echo "export QT_IM_MODULE=ibus" >> $HOME/.bashrc && \
-#echo "export DefalutIMModule=ibus" >> $HOME/.bashrc && \
-#echo "export NO_AT_BRIDGE=1" >> $HOME/.bashrc && \
-#echo "xset -r 49" >> $HOME/.bashrc && \
-#echo "ibus-daemon -rxd" >> $HOME/.bashrc && \
-#echo "xrdb $HOME/.Xresources" >> $HOME/.bashrc && \
-#echo "alias idea=\"$HOME/idea-IC-192.6817.14/bin/idea.sh >$HOME/launch_idea_log 2>&1 &\"" >> $HOME/.bashrc
-
-RUN yum install -y ibus-mozc
-
-#日本語フォントいんすこ
-RUN yum install -y vlgothic-*
-#以下の対応のためインストール
-#Gtk-Message: 23:27:11.098: Failed to load module "pk-gtk-module"
-RUN yum install -y PackageKit-gtk3-module
-
-#かな漢字install
-RUN yum groupinstall -y "Input Methods"
-
-# manと、man-pagesをインストール
-RUN yum -y install man
-RUN yum -y install man-pages.noarch
-RUN yum -y install man-pages-ja.noarch
-# cat /etc/yum.conf配下の
-# tsflags=nodocsのため
-RUN yum --setopt=tsflags='' reinstall -y man-pages
-
-#XクライアントがXサーバーにGUI転送出来るように、転送先のIPを指定する
+ENV LANG=ja_JP.UTF-8
 ENV DISPLAY=:0.0
+
+
+RUN yum install -y git
+RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/$REPO.git
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-docker-host-user.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-repository-pkg.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-dev-pkg.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-tool-pkg.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-network-pkg.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-${APP_NAME:-default}-env-usr.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-system.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-python-$PYTHON_VERSION.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-git-$GIT_VERSION.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-locale.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font.sh | bash
+
+
+
+USER kuraine
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font.sh | bash
+
+WORKDIR /home/kuraine
+

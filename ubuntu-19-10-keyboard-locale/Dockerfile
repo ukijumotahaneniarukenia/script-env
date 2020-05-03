@@ -1,23 +1,47 @@
 FROM ubuntu:19.10
 
-#https://qiita.com/munky69rock/items/4c3a076fe496045de5f1
-#Setting up keyboard-configuration (1.191ubuntu3) ...
-#Your console font configuration will be updated the next time your system
-#boots. If you want to update it now, run 'setupcon' from a virtual console.
-
+ARG OS_VERSION
+ARG APP_NAME
+ARG REPO
 ARG DEBIAN_FRONTEND=noninteractive
 
-#レポジトリを日本サーバーの一つに変更
-RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list
+ARG GIT_VERSION
+ARG PYTHON_VERSION
 
-RUN apt update && apt upgrade -y
-
-RUN apt install -y systemd
-
-#タイムゾーンの設定（この設定は最初にもってくる。対話入力避けるため。）
-RUN apt install -y tzdata && ln -fsr /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
-#日本語環境
-RUN apt install -y locales && locale-gen ja_JP.UTF-8 && echo 'export LANG=ja_JP.UTF-8' >> /etc/profile.d/99-locale-ja.sh
 ENV LANG=ja_JP.UTF-8
+ENV DISPLAY=:0.0
 
-RUN apt install -y libnotify4 libxkbfile1 libxss1
+RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list && \
+apt update && \
+apt upgrade -y
+
+
+RUN apt install -y git
+RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/$REPO.git
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-docker-host-user.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-repository-pkg.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-dev-pkg.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-tool-pkg.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-network-pkg.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-${APP_NAME:-default}-env-usr.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-system.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-python-$PYTHON_VERSION.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-pre-patch-git-$GIT_VERSION.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-git-$GIT_VERSION.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-locale.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font.sh | bash
+
+
+
+USER kuraine
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font.sh | bash
+
+WORKDIR /home/kuraine
+

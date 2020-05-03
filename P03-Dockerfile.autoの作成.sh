@@ -27,7 +27,7 @@ execute(){
     IMAGE_VERSION=$(echo $IMAGE_VERSION | perl -pe 's/-/\./;')
   fi
 
-  TEMPLATE_FILE=$(find $HOME/$REPO -name "docker-template-Dockerfile-*" | grep -P "$OS_NAME")
+  TEMPLATE_FILE=$(find $HOME/$REPO -name "docker-template-Dockerfile-$OS_NAME")
 
   EDITOR_LIST="$(ls $HOME/script-env/env-editor-* | grep $OS_NAME | awk -v FS='-' -v OFS='-' '{$1="";$2="";$3="";$4="";print $0}' | sed -r 's/^-{1,}//g' | sort | uniq)"
 
@@ -36,13 +36,17 @@ execute(){
     if [ -f $tgt/env-image.md ];then
       RT="$(grep FROM $tgt/env-image.md)"
       if [ -z "$RT" ];then
+        #環境個別のイメージファイルがない場合
         echo "sed 's;BASE_IMAGE;FROM $OS_NAME:$IMAGE_VERSION;' $TEMPLATE_FILE >$tgt/Dockerfile.auto" | bash
       else
+        #環境個別のイメージファイルがある場合
         echo "sed 's;BASE_IMAGE;$RT;' $TEMPLATE_FILE >$tgt/Dockerfile.auto" | bash
       fi
     else
+      #環境個別のイメージファイルがない場合
       :
     fi
+
     echo "sed -i '/^USER/,/^EXPOSE/d' $tgt/Dockerfile.auto" | bash
 
     #テンプレートファイルのDOCKERFILE_ARGの置換
@@ -71,8 +75,8 @@ execute(){
     #テンプレートファイルのMAIN_USERの置換
     {
       echo $tgt
-      grep -c -vP  'ユーザーＩＤ|aine|kuraine|nahato|mujiku|:-:|root' $tgt/user.md
-      grep -vP  'ユーザーＩＤ|aine|kuraine|nahato|mujiku|:-:|root' $tgt/user.md | awk -v FS='|' -v ORS='' '{print ","$3}'
+      grep -c -vP  'ユーザーＩＤ|aine|kuraine|nahato|mujiku|:-:|root' $tgt/env-user.md
+      grep -vP  'ユーザーＩＤ|aine|kuraine|nahato|mujiku|:-:|root' $tgt/env-user.md | awk -v FS='|' -v ORS='' '{print ","$3}'
     } | xargs -n3 | \
     while read file cnt usr;do
       if [ 0 -eq $cnt ];then
@@ -97,7 +101,7 @@ execute(){
 
     #最後に見つかったWORKDIR以外を削除
     grep -n -P  'WORKDIR' $tgt/Dockerfile.auto | cut -d' ' -f1 | xargs | sed '/^$/d' | awk -v FS=' ' '{$NF="";print $0}' | xargs -I@ echo @ | perl -pe "s;:.*;;;s;^;sed -i ;;s;$;d $tgt/Dockerfile.auto;" | bash
-  done < <(find $HOME/$REPO -type d | grep -v docker-log | grep $OS_VERSION )
+  done < <(find $HOME/$REPO -type d | grep -v docker-log | grep $OS_VERSION | grep -vP mnt )
 
   rm -rf /tmp/env-build-arg*
 }
