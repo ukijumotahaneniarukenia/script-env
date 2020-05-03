@@ -38,9 +38,7 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font.sh | bash
 
 
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-${APP_NAME:-default}.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-postgres-$POSTGRES_VERSION.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-pre-patch-git-$GIT_VERSION.sh | bash
+DOCKERFILE_SUB
 
 USER postgres
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash

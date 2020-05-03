@@ -63,9 +63,7 @@ python2.7-dev
 RUN export NO_AT_BRIDGE=1 && \
 cd /usr/local/src && dpkg -i mysql-workbench-community_8.0.19-1ubuntu19.10_amd64.deb
 
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-jdk-$JAVA_VERSION.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-mysql-$MYSQL_VERSION.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-mysql-workbench-$MYSQL_WORKBENCH_VERSION.sh | bash
+DOCKERFILE_SUB
 
 USER mysql
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash

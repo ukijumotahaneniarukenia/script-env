@@ -46,7 +46,7 @@ libasound2 \
 gnupg
 RUN cd /usr/local/src && dpkg -i code_1.41.1-1576681836_amd64.deb
 
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-go-$GO_VERSION | bash
+DOCKERFILE_SUB
 
 USER kuraine
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash

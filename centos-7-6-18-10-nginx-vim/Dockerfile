@@ -30,7 +30,7 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font.sh | bash
 
 
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-nginx.sh | bash
+DOCKERFILE_SUB
 
 USER nginx
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash

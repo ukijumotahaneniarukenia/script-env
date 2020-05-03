@@ -38,6 +38,7 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font.sh | bash
 COPY pycharm-community-2019.3.1.tar.gz  /usr/local/src/pycharm-community-2019.3.1.tar.gz
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-pycharm-2019-3-1.sh | bash
 
+DOCKERFILE_SUB
 
 USER kuraine
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash

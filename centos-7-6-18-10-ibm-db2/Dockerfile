@@ -37,10 +37,7 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font.sh | bash
 
 
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-c-cpp.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
+DOCKERFILE_SUB
 
 USER db2fenc1
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash

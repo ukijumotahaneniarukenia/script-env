@@ -35,9 +35,7 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font.sh | bash
 COPY ideaIC-2019.2.4.tar.gz /usr/local/src/ideaIC-2019.2.4.tar.gz
 RUN cd /usr/local/src && tar -xzf ideaIC-2019.2.4.tar.gz
 
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-jdk-$JAVA_VERSION.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-jetty-$JETTY_VERSION.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-maven-$MAVEN_VERSION.sh | bash
+DOCKERFILE_SUB
 
 USER kuraine
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash

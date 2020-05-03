@@ -33,9 +33,7 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font.sh | bash
 
 
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-R-$R_VERSION.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-rstudio-server-$RSTUDIO_VERSION.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-shiny-server-$SHINY_VERSION.sh | bash
+DOCKERFILE_SUB
 
 USER rstudio
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
