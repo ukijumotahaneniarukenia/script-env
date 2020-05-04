@@ -1,0 +1,1 @@
+SHM_SIZE=4gb
