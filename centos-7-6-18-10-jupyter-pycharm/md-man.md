@@ -50,7 +50,17 @@ $ jupyter notebook --port 8888 --ip=0.0.0.0 1>launch_jupyter.log 2>&1 &
 [1] 278
 ```
 
-起動するとfirefoxが立ち上がる。
+
+ちょっとあつかいづらくなった。
+
+これで起動しておくのがよさげ。。入力れむしたい。
+
+```
+$ jupyter notebook --port 8888 --ip=0.0.0.0
+```
+
+
+ブラウザが立ち上がる。
 
 ログの一部
 ```
@@ -81,13 +91,12 @@ Running without a11y support!
 Untitled.ipynbがあると前回の作業分から実施できる。
 
 ```
-[kuraine@eb796c05a8c5 ~]$ pwd
+$ pwd
 /home/kuraine
-[kuraine@eb796c05a8c5 ~]$ ll
+$ ll
 total 8
 -rw-rw-r--. 1 kuraine kuraine  848  1月  4 17:17 Untitled.ipynb
 -rw-rw-r--. 1 kuraine kuraine 1443  1月  4 17:17 launch_jupyter.log
-[kuraine@eb796c05a8c5 ~]$
 ```
 
 
@@ -100,9 +109,7 @@ total 8
 [I 17:17:34.441 NotebookApp] Saving file at /Untitled.ipynb
 ```
 
-■ブラウザ閉じる
-
-ログにはこんな感じででる。
+ブラウザ閉じるとログにはこんな感じででる。
 
 ```
 [Parent 402, Gecko_IOThread] WARNING: pipe error (77): Connection reset by peer: file /builddir/build/BUILD/firefox-68.3.0/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
