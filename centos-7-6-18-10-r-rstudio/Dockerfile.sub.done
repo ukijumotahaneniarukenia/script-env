@@ -1,0 +1,2 @@
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-R-$R_VERSION.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-rstudio-server-$RSTUDIO_VERSION.sh | bash
