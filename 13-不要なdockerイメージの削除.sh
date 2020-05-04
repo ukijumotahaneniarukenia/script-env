@@ -1,3 +1,15 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-docker images | awk '{print $1}' | grep -P '(?:centos|ubuntu)-' | grep -vP $(ls -l $HOME/script-env | grep -P '^d' | awk '{print $9}' | xargs | tr ' ' '|') #| xargs docker rmi 1>/dev/null 2>&1
+usage(){
+  cat <<EOS
+Usage:
+  $0 script-env
+EOS
+exit 0
+}
+
+REPO=$1
+
+[ -z $REPO ] && usage
+
+docker images | awk '{print $1}' | grep -P '(?:centos|ubuntu)-' | grep -vP $(ls -l $HOME/$REPO | grep -P '^d' | awk '{print $9}' | xargs | tr ' ' '|') | xargs -t -I@ docker rmi ${@:-unko}
