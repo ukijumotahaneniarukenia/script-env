@@ -210,3 +210,15 @@ mysql> select factorial(6);
 ```
 (mysql-workbench-bin:323): dbind-WARNING **: 15:28:31.398: Couldn't connect to accessibility bus: Failed to connect to socket /tmp/dbus-KiG1WzuB30: Connection refused
 ```
+
+
+
+あいかわらず、うまくいかん
+
+コンソールからなら、よゆうに接続できるなんとかしたい💩
+
+dbus関連だった。MysqlWorlkBenchの場合はubuntuに切り替える💩
+
+```
+
+```
