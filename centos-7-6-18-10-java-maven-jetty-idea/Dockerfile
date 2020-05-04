@@ -30,7 +30,7 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-locale.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh | bash
 
 COPY ideaIC-2019.2.4.tar.gz /usr/local/src/ideaIC-2019.2.4.tar.gz
 RUN cd /usr/local/src && tar -xzf ideaIC-2019.2.4.tar.gz
@@ -43,7 +43,7 @@ USER kuraine
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh | bash
 
 WORKDIR /home/kuraine
 

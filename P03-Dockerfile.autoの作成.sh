@@ -110,6 +110,8 @@ main(){
   REPO="$1";shift
   [ -z $REPO ] && usage
 
+  bash P04-環境ディレクトリ内のmntディレクトリを削除する.sh $REPO | bash
+
   export -f execute
   find $HOME/$REPO -type d | grep -Po '[a-z]+(-[0-9]{1,}){1,}' | sort | uniq | while read tgt;do execute $tgt ;done
 }
