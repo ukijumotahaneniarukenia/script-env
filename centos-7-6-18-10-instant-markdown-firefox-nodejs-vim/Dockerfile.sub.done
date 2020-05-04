@@ -1,3 +1,0 @@
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-X.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-nodejs-$NODEJS_VERSION.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-yarn.sh | bash
