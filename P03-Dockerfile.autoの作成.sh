@@ -101,7 +101,7 @@ execute(){
 
     #最後に見つかったWORKDIR以外を削除
     grep -n -P  'WORKDIR' $tgt/Dockerfile.auto | cut -d' ' -f1 | xargs | sed '/^$/d' | awk -v FS=' ' '{$NF="";print $0}' | xargs -I@ echo @ | perl -pe "s;:.*;;;s;^;sed -i ;;s;$;d $tgt/Dockerfile.auto;" | bash
-  done < <(find $HOME/$REPO -type d | grep -v docker-log | grep $OS_VERSION | grep -vP mnt )
+  done < <(find $HOME/$REPO -type d | grep -v docker-log | grep $OS_VERSION | grep -vP mnt)
 
   rm -rf /tmp/env-build-arg*
 }
