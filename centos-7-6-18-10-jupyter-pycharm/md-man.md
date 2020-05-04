@@ -46,7 +46,7 @@ traitlets        : 4.3.3
 rootユーザー以外で実行
 
 ```
-$ jupyter notebook --port 8888 --ip=0.0.0.0 1>launch_jupyter.log 2>&1 &
+$ jupyter notebook --port 8888 --ip=0.0.0.0 1>launch-jupyter.log 2>&1 &
 [1] 278
 ```
 
