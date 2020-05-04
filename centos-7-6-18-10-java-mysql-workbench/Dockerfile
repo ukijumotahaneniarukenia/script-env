@@ -45,6 +45,7 @@ RUN cd /usr/local/src && yum install -y /usr/local/src/mysql-workbench-community
 
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-jdk-$JAVA_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-mysql-$MYSQL_VERSION.sh | bash
+#RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-healthcheck-mysql-$MYSQL_VERSION.sh | bash これはコンテナ起動後にやっったほうがよかった
 
 USER mysql
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash

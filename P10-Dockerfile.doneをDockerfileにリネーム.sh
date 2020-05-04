@@ -12,4 +12,4 @@ REPO=$1
 
 [ -z $REPO ] && usage
 
-find $HOME/$REPO -name "Dockerfile.done" | awk '{PRE=$1;gsub("Dockerfile.done","Dockerfile",$0);print "mv "PRE" "$0}' #| bash
+find $HOME/$REPO -name "Dockerfile.done" | awk '{PRE=$1;gsub("Dockerfile.done","Dockerfile",$0);print "mv "PRE" "$0}' | bash
