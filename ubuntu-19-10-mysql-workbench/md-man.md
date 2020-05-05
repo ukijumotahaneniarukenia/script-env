@@ -2,36 +2,6 @@
 
 - https://ti-tomo-knowledge.hatenablog.com/entry/2018/05/21/082211
 
-# dockerイメージ作成
-
-```
-time docker build -t ubuntu-19-10-mysql-workbench . | tee log
-```
-
-# dockerコンテナ削除
-
-```
-docker ps -qa | xargs -I@ bash -c 'docker stop @ && docker rm @'
-```
-
-# dockerイメージ削除
-
-```
-docker images | awk '$1=="<none>"{print $3}' | xargs -I@ docker rmi @
-```
-
-# dockerコンテナ起動
-
-```
-docker run --privileged --shm-size=8gb --name ubuntu-19-10-mysql-workbench -itd -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 3306:3306 ubuntu-19-10-mysql-workbench
-```
-
-# dockerコンテナ潜入
-
-```
-docker exec -it ubuntu-19-10-mysql-workbench /bin/bash
-```
-
 # mysqlインストール
 
 - dbus関連のエラーを回避するため、コンテナ起動後実施
