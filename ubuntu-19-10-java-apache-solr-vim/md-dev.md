@@ -35,7 +35,7 @@ Solr dih example launched successfully. Direct your Web browser to http://localh
 
 ```
 solr@95adbde9b31c /usr/local/src/script-repo$solr start -p 8983
-Waiting up to 180 seconds to see Solr running on port 8983 [/]  
+Waiting up to 180 seconds to see Solr running on port 8983 [/]
 Started Solr server on port 8983 (pid=828). Happy searching!
 ```
 
@@ -102,7 +102,7 @@ $grep -Po '<.*>' jawiki-latest-pages-articles.xml | head -n100 | awk '/<page>/,/
 solr@95adbde9b31c /usr/local/src/solr-8.4.1/server/solr/wiki/conf$solr stop -p 8983
 Sending stop command to Solr running on port 8983 ... waiting up to 180 seconds to allow Jetty process 828 to stop gracefully.
 solr@95adbde9b31c /usr/local/src/solr-8.4.1/server/solr/wiki/conf$solr start -p 8983 -s "/usr/local/src/solr-8.4.1/server/solr"
-Waiting up to 180 seconds to see Solr running on port 8983 [/]  
+Waiting up to 180 seconds to see Solr running on port 8983 [/]
 Started Solr server on port 8983 (pid=1404). Happy searching!
 ```
 
