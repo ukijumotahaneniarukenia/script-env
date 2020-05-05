@@ -12,14 +12,14 @@ root docker-container-centos-7-6-18-10-oracle-dbeaver /home/oracle$./init_db.sh 
 
 ```
 
-oracleユーザーで実行
+**oracle**ユーザーで実行
 
 pdb作成後、気持ち1分程待ってからリスナー登録するといいかんじ
 
 ```
-[oracle@docker-container-centos-7-6-18-10-oracle-dbeaver ~]$ ./init_db.sh create_pdb 2
+oracle docker-container-centos-7-6-18-10-oracle-dbeaver ~$./init_db.sh create_pdb 2
 
-[oracle@docker-container-centos-7-6-18-10-oracle-dbeaver ~]$ ./init_db.sh create_listener 2
+oracle docker-container-centos-7-6-18-10-oracle-dbeaver ~$./init_db.sh create_listener 2
 
-[oracle@docker-container-centos-7-6-18-10-oracle-dbeaver ~]$ ./init_db.sh create_user 1 2
+oracle docker-container-centos-7-6-18-10-oracle-dbeaver ~$./init_db.sh create_user 1 2
 ```
