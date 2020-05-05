@@ -7,7 +7,6 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 ARG GIT_VERSION
 ARG PYTHON_VERSION
-ARG SWIFT_VERSION
 
 ENV LANG=ja_JP.UTF-8
 ENV DISPLAY=:0.0
@@ -37,7 +36,7 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh | bash
 
 
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-swift-$SWIFT_VERSION.sh | bash
+COPY eclipse-inst-linux64.tar.gz /usr/local/src/eclipse-inst-linux64.tar.gz
 
 USER kuraine
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash

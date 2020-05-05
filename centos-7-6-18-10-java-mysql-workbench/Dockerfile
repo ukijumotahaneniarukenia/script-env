@@ -31,17 +31,6 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh | bash
 
-COPY mysql-workbench-community-8.0.20-1.el7.x86_64.rpm /usr/local/src/mysql-workbench-community-8.0.20-1.el7.x86_64.rpm
-RUN yum install -y \
-gnome-keyring \
-gtkmm30 \
-mesa-libGLU \
-atkmm \
-cairomm \
-pangomm \
-libsigc++20 \
-libzip-devel
-RUN cd /usr/local/src && yum install -y /usr/local/src/mysql-workbench-community-8.0.20-1.el7.x86_64.rpm
 
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-jdk-$JAVA_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-mysql-$MYSQL_VERSION.sh | bash

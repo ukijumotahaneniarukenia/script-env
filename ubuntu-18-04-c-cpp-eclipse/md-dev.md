@@ -10,7 +10,6 @@ cd eclipse-installer/
 /usr/local/src/eclipse-installer/eclipse-inst 1>launch-eclipse-installer.log 2>&1 &
 ```
 
-
 - 実行バイナリがインストールされたあと
 
 ```

@@ -3,11 +3,11 @@
 CMD="$1";shift;
 
 delete_cdb(){
-  sudo /etc/init.d/oracledb_ORCLCDB-19c delete
+  /etc/init.d/oracledb_ORCLCDB-19c delete
 }
 
 create_cdb(){
-  sudo /etc/init.d/oracledb_ORCLCDB-19c configure
+  /etc/init.d/oracledb_ORCLCDB-19c configure
 }
 
 create_pdb(){

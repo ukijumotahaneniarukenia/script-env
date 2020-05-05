@@ -1,1 +1,1 @@
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-swift-$SWIFT_VERSION.sh | bash
+COPY eclipse-inst-linux64.tar.gz /usr/local/src/eclipse-inst-linux64.tar.gz
