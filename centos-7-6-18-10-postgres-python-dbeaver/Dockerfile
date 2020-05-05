@@ -4,7 +4,10 @@ ARG OS_VERSION
 ARG APP_NAME
 ARG REPO
 
+ARG DBEAVER_VERSION
 ARG GIT_VERSION
+ARG JAVA_VERSION
+ARG MAVEN_VERSION
 ARG POSTGRES_VERSION
 ARG PYTHON_VERSION
 
@@ -31,7 +34,10 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh | bash
 
 
-DOCKERFILE_SUB
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-postgres-$POSTGRES_VERSION-with-python.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-dbeaver-$DBEAVER_VERSION.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-jdk-$JAVA_VERSION.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-maven-$MAVEN_VERSION.sh | bash
 
 USER postgres
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
