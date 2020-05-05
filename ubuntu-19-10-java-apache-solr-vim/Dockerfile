@@ -37,11 +37,8 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh | bash
 
-RUN cd /usr/local/src && \
-curl -sSLO http://ftp.jaist.ac.jp/pub/apache/lucene/solr/8.5.1/solr-8.5.1.tgz && \
-tar xvf solr-8.5.1.tgz && \
-chown -R solr:solr solr-8.5.1
-#RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-apache-solr-$APACHE_SOLR_VERSION.sh | bash
+
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-apache-solr-$APACHE_SOLR_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-jdk-$JAVA_VERSION.sh | bash
 
 USER solr
