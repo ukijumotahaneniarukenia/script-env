@@ -37,6 +37,6 @@ while read tgt;do
   fi \
   | cut -d' ' -f1,3 \
   | sed -r 's/@/\|/g;s/^/|/;s/$/|/'
-done < <(find $HOME/$ENV_REPO -mindepth 1 -type d | grep -vP '\.git|docker-log' | grep -v mnt) | sort | \
+done < <(find $HOME/$ENV_REPO -mindepth 1 -type d | grep -vP '\.git|docker-log|mnt') | sort | \
   sed '1i|環境ディレクトリ名|ユーザーＩＤ|ユーザー名|グループＩＤ|グループ名|パスワード|' | \
   sed '2i|:--|:--|:--|:--|:--|:--|' >>$HOME/$ENV_REPO/$OUTPUT_FILE_NAME

@@ -35,4 +35,4 @@ while read tgt;do
     echo "[$(echo $tgt | perl -pe 's;.*/;;g')]($BASE_URL/$ENV_REPO/blob/master/$(echo $tgt | perl -pe 's;.*/;;g')/$MD_FILE_NAME)" not-found not-found
   fi \
   | sed -r 's/ /|/g;s/^/|/;s/$/|/'
-done < <(find $HOME/$ENV_REPO -mindepth 1 -type d | grep -vP '\.git|docker-log') | sort | sed '1i|環境ディレクトリ名|外部公開ポート番号|内部使用ポート番号|' | sed '2i|:--|:-:|:-:|' >>$HOME/$ENV_REPO/$OUTPUT_FILE_NAME
+done < <(find $HOME/$ENV_REPO -mindepth 1 -type d | grep -vP '\.git|docker-log|mnt') | sort | sed '1i|環境ディレクトリ名|外部公開ポート番号|内部使用ポート番号|' | sed '2i|:--|:-:|:-:|' >>$HOME/$ENV_REPO/$OUTPUT_FILE_NAME
