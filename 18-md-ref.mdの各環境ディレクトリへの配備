@@ -1,8 +1,0 @@
-#!/bin/bash
-
-while read tgt;do
-
-  #ref.mdファイルを配備
-  echo cp ~/script-env/ref.md ~/script-env/$tgt/ref.md | sh
-
-done < <(ls -l ~/script-env | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log)
