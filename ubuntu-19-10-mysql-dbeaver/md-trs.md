@@ -176,12 +176,20 @@ Caused by: java.lang.UnsatisfiedLinkError: Could not load SWT library. Reasons:
 
 - 原因
 
-  - 
+swtライブラリのjniがない
+
+```
+apt install -y libswt-webkit-gtk-4-jni
+```
 
 - 対応
 
-  - centosの方は安定していたので、そっちもありか
+インストール
+
+```
+apt install -y libswt-webkit-gtk-4-jni
+```
 
 - 予防
 
-  - 
+script-repoに登録

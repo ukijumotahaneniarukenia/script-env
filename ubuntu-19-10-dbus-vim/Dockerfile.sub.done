@@ -1,0 +1,4 @@
+COPY myCustomDbus.conf /etc/dbus-1/
+COPY run.sh /etc/init/
+
+RUN apt update && apt install -y dbus
