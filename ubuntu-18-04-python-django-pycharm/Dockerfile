@@ -39,6 +39,8 @@ COPY pycharm-community-2019.3.1.tar.gz  /usr/local/src/pycharm-community-2019.3.
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-pycharm-2019-3-1.sh | bash
 
 
+
+ENTRYPOINT ["/etc/init/run.sh"]
 USER kuraine
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash

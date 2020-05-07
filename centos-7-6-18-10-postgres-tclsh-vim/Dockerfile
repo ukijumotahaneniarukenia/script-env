@@ -35,6 +35,8 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-postgres-$POSTGRES_VERSION-with-tclsh.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-tclsh-$TCLSH_VERSION.sh | bash
 
+
+ENTRYPOINT ["/etc/init/run.sh"]
 USER postgres
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash

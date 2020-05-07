@@ -41,6 +41,8 @@ COPY run.sh /etc/init/
 
 RUN apt update && apt install -y dbus
 
+
+ENTRYPOINT ["/etc/init/run.sh"]
 USER kuraine
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash

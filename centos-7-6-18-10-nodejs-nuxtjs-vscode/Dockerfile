@@ -36,6 +36,8 @@ RUN cd /usr/local/src && yum install -y code-1.41.1-1576681965.el7.x86_64.rpm
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-nodejs-$NODEJS_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-yarn.sh | bash
 
+
+ENTRYPOINT ["/etc/init/run.sh"]
 USER kuraine
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash

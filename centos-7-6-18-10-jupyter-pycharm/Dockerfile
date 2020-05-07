@@ -34,6 +34,8 @@ RUN cd /usr/local/src && tar xvf pycharm-community-2019.3.1.tar.gz
 
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-jupyter.sh | bash
 
+
+ENTRYPOINT ["/etc/init/run.sh"]
 USER kuraine
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash

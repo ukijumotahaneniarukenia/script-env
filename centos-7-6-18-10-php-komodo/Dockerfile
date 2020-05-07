@@ -35,6 +35,8 @@ RUN cd /usr/local/src && tar -xzf Komodo-Edit-11.1.1-18206-linux-x86_64.tar.gz
 
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-php-$PHP_VERSION.sh | bash
 
+
+ENTRYPOINT ["/etc/init/run.sh"]
 USER kuraine
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash

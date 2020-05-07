@@ -38,6 +38,8 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-X.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-chromium-$CHROMIUM_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-jdk-$JAVA_VERSION.sh | bash
 
+
+ENTRYPOINT ["/etc/init/run.sh"]
 USER kuraine
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
