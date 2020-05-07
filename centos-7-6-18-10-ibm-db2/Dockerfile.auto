@@ -55,5 +55,5 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh
 
 WORKDIR /home/db2inst1
 
-ENTRYPOINT ["/etc/init/run.sh"]
 EXPOSE 50000
+ENTRYPOINT ["/etc/init/run.sh"]

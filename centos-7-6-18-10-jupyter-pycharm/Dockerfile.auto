@@ -44,5 +44,5 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh
 
 WORKDIR /home/kuraine
 
-ENTRYPOINT ["/etc/init/run.sh"]
 EXPOSE 8888
+ENTRYPOINT ["/etc/init/run.sh"]

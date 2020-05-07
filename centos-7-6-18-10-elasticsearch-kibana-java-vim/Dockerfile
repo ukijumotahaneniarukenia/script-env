@@ -36,7 +36,6 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-kibana-7-5-1.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-kibana-7-5-1.sh | bash
 
 
-ENTRYPOINT ["/etc/init/run.sh"]
 USER elasticsearch
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
@@ -54,3 +53,4 @@ WORKDIR /home/kibana
 
 EXPOSE 9200
 EXPOSE 5601
+ENTRYPOINT ["/etc/init/run.sh"]

@@ -31,6 +31,7 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh | bash
 
+DOCKERFILE_EDITOR
 COPY ideaIC-2019.2.4.tar.gz /usr/local/src/ideaIC-2019.2.4.tar.gz
 RUN cd /usr/local/src && tar -xzf ideaIC-2019.2.4.tar.gz
 
@@ -39,7 +40,6 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-maven-$MAVEN_VERSION.s
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-fcitx_anthy.sh | bash #表示位置なおったらテンプレートへマージ
 
 
-ENTRYPOINT ["/etc/init/run.sh"]
 USER kuraine
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
@@ -48,3 +48,4 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh
 
 WORKDIR /home/kuraine
 
+ENTRYPOINT ["/etc/init/run.sh"]

@@ -44,5 +44,5 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh
 
 WORKDIR /home/oracle
 
-ENTRYPOINT ["/etc/init/run.sh"]
 EXPOSE 1521
+ENTRYPOINT ["/etc/init/run.sh"]

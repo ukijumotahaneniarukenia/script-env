@@ -35,6 +35,7 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh | bash
 
+DOCKERFILE_EDITOR
 COPY code_1.41.1-1576681836_amd64.deb /usr/local/src/code_1.41.1-1576681836_amd64.deb
 RUN apt install -y \
 libnotify4 \
@@ -48,7 +49,6 @@ RUN cd /usr/local/src && dpkg -i code_1.41.1-1576681836_amd64.deb
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-c-cpp.sh | bash
 
 
-ENTRYPOINT ["/etc/init/run.sh"]
 USER kuraine
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
@@ -57,3 +57,4 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh
 
 WORKDIR /home/kuraine
 
+ENTRYPOINT ["/etc/init/run.sh"]

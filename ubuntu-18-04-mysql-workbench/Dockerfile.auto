@@ -48,5 +48,5 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh
 
 WORKDIR /home/mysql
 
-ENTRYPOINT ["/etc/init/run.sh"]
 EXPOSE 3306
+ENTRYPOINT ["/etc/init/run.sh"]

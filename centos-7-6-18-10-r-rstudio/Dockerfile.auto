@@ -43,5 +43,5 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh
 
 WORKDIR /home/rstudio
 
-ENTRYPOINT ["/etc/init/run.sh"]
 EXPOSE 8787
+ENTRYPOINT ["/etc/init/run.sh"]

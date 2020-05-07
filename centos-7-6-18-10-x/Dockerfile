@@ -32,7 +32,6 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh
 
 
 
-ENTRYPOINT ["/etc/init/run.sh"]
 USER kuraine
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
@@ -41,3 +40,4 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh
 
 WORKDIR /home/kuraine
 
+ENTRYPOINT ["/etc/init/run.sh"]

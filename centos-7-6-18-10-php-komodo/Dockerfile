@@ -30,13 +30,13 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh | bash
 
+DOCKERFILE_EDITOR
 COPY Komodo-Edit-11.1.1-18206-linux-x86_64.tar.gz /usr/local/src/Komodo-Edit-11.1.1-18206-linux-x86_64.tar.gz
 RUN cd /usr/local/src && tar -xzf Komodo-Edit-11.1.1-18206-linux-x86_64.tar.gz
 
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-php-$PHP_VERSION.sh | bash
 
 
-ENTRYPOINT ["/etc/init/run.sh"]
 USER kuraine
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
@@ -45,3 +45,4 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh
 
 WORKDIR /home/kuraine
 
+ENTRYPOINT ["/etc/init/run.sh"]

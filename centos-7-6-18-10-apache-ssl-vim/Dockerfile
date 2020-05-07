@@ -35,7 +35,6 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-apache-http-$APACHE_HT
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-post-patch-apache-http-$APACHE_HTTP_VERSION.sh | bash
 
 
-ENTRYPOINT ["/etc/init/run.sh"]
 USER apache
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
@@ -45,3 +44,4 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh
 WORKDIR /home/apache
 
 EXPOSE 80
+ENTRYPOINT ["/etc/init/run.sh"]

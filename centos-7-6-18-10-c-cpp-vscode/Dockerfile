@@ -29,13 +29,13 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh | bash
 
+DOCKERFILE_EDITOR
 COPY code-1.41.1-1576681965.el7.x86_64.rpm /usr/local/src/code-1.41.1-1576681965.el7.x86_64.rpm
 RUN cd /usr/local/src && yum install -y code-1.41.1-1576681965.el7.x86_64.rpm
 
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-c-cpp.sh | bash
 
 
-ENTRYPOINT ["/etc/init/run.sh"]
 USER kuraine
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
@@ -44,3 +44,4 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh
 
 WORKDIR /home/kuraine
 
+ENTRYPOINT ["/etc/init/run.sh"]

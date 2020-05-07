@@ -42,5 +42,5 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh | bash
 
 WORKDIR /home/postgres
-ENTRYPOINT ["/etc/init/run.sh"]
 
+ENTRYPOINT ["/etc/init/run.sh"]

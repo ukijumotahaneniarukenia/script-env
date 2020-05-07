@@ -36,13 +36,13 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh | bash
 
+DOCKERFILE_EDITOR
 COPY pycharm-community-2019.3.1.tar.gz  /usr/local/src/pycharm-community-2019.3.1.tar.gz
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-pycharm-2019-3-1.sh | bash
 
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-tclsh-$TCLSH_VERSION.sh | bash
 
 
-ENTRYPOINT ["/etc/init/run.sh"]
 USER kuraine
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
@@ -51,3 +51,4 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh
 
 WORKDIR /home/kuraine
 
+ENTRYPOINT ["/etc/init/run.sh"]

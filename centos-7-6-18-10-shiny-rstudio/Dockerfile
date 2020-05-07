@@ -38,7 +38,6 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-rstudio-server-$RSTUDI
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-shiny-server-$SHINY_VERSION.sh | bash
 
 
-ENTRYPOINT ["/etc/init/run.sh"]
 USER rstudio
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
@@ -56,3 +55,4 @@ WORKDIR /home/shiny
 
 EXPOSE 8787
 EXPOSE 3838
+ENTRYPOINT ["/etc/init/run.sh"]

@@ -49,5 +49,5 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh
 WORKDIR /home/kibana
 
 EXPOSE 9200
-ENTRYPOINT ["/etc/init/run.sh"]
 EXPOSE 5601
+ENTRYPOINT ["/etc/init/run.sh"]

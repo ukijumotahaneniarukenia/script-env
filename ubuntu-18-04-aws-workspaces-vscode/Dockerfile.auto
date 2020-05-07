@@ -56,5 +56,5 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh | bash
 
 WORKDIR /home/kuraine
-ENTRYPOINT ["/etc/init/run.sh"]
 
+ENTRYPOINT ["/etc/init/run.sh"]

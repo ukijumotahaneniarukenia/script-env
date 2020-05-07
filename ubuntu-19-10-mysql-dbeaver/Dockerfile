@@ -46,7 +46,6 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-maven-$MAVEN_VERSION.s
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-dbeaver-$DBEAVER_VERSION.sh | bash
 
 
-ENTRYPOINT ["/etc/init/run.sh"]
 USER mysql
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
@@ -56,3 +55,4 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh
 WORKDIR /home/mysql
 
 EXPOSE 3306
+ENTRYPOINT ["/etc/init/run.sh"]

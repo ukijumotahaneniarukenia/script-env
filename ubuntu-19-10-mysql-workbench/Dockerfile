@@ -42,7 +42,6 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-jdk-$JAVA_VERSION.sh |
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-mysql-$MYSQL_VERSION.sh | bash
 
 
-ENTRYPOINT ["/etc/init/run.sh"]
 USER mysql
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
@@ -51,3 +50,4 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh
 
 WORKDIR /home/mysql
 
+ENTRYPOINT ["/etc/init/run.sh"]
