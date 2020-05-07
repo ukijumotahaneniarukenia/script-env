@@ -1,0 +1,1 @@
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-fcitx_mozc.sh | bash #OSバージョン単位の動作確認完了後、テンプレートに格上げ
