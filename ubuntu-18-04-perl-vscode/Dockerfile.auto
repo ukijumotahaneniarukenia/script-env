@@ -46,6 +46,33 @@ libsecret-1-0 \
 libasound2 \
 gnupg
 RUN cd /usr/local/src && dpkg -i code_1.41.1-1576681836_amd64.deb
+COPY code_1.41.1-1576681836_amd64.deb /usr/local/src/code_1.41.1-1576681836_amd64.deb
+RUN apt install -y \
+libnotify4 \
+libxkbfile1 \
+libxss1 \
+libsecret-1-0 \
+libasound2 \
+gnupg
+RUN cd /usr/local/src && dpkg -i code_1.41.1-1576681836_amd64.deb
+COPY code_1.41.1-1576681836_amd64.deb /usr/local/src/code_1.41.1-1576681836_amd64.deb
+RUN apt install -y \
+libnotify4 \
+libxkbfile1 \
+libxss1 \
+libsecret-1-0 \
+libasound2 \
+gnupg
+RUN cd /usr/local/src && dpkg -i code_1.41.1-1576681836_amd64.deb
+COPY code_1.41.1-1576681836_amd64.deb /usr/local/src/code_1.41.1-1576681836_amd64.deb
+RUN apt install -y \
+libnotify4 \
+libxkbfile1 \
+libxss1 \
+libsecret-1-0 \
+libasound2 \
+gnupg
+RUN cd /usr/local/src && dpkg -i code_1.41.1-1576681836_amd64.deb
 
 DOCKERFILE_SUB
 
