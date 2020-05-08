@@ -11,7 +11,7 @@ ENV LANG=ja_JP.UTF-8
 ENV DISPLAY=:0.0
 
 ENV BLU=false
-ENV DB2INST1_PASSWORD=db2inst1_pwd
+ENV DB2INST1_PASSWORD=hogehoge
 ENV DB2INSTANCE=db2inst1
 ENV DBNAME=testdb
 ENV ENABLE_ORACLE_COMPATIBILITY=true
@@ -36,9 +36,6 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-fcitx_anthy.sh | bash
-
-RUN mkdir -p /database/config/db2fenc1 && chmod 755 -R /database/config/db2fenc1 && chown db2fenc1:db2fadm1 -R /database/config/db2fenc1
-RUN mkdir -p /database/config/db2inst1 && chmod 755 -R /database/config/db2inst1 && chown db2inst1:db2iadm1 -R /database/config/db2inst1
 
 USER db2fenc1
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
