@@ -11,11 +11,9 @@ ARG PYTHON_VERSION
 ENV LANG=ja_JP.UTF-8
 ENV DISPLAY=:0.0
 
-
 RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list && \
 apt update && \
 apt upgrade -y
-
 
 RUN apt install -y git
 RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/$REPO.git
@@ -35,11 +33,9 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-locale.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh | bash
-
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-fcitx_mozc.sh | bash
 
 COPY eclipse-inst-linux64.tar.gz /usr/local/src/eclipse-inst-linux64.tar.gz
-
-
 
 USER kuraine
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
@@ -49,4 +45,5 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh
 
 WORKDIR /home/kuraine
 
+COPY run.sh /etc/init/run.sh
 ENTRYPOINT ["/etc/init/run.sh"]

@@ -11,8 +11,6 @@ ARG APACHE_HTTP_VERSION
 ENV LANG=ja_JP.UTF-8
 ENV DISPLAY=:0.0
 
-
-
 RUN yum install -y git
 RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/$REPO.git
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-docker-host-user.sh | bash
@@ -30,12 +28,10 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-locale.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh | bash
-
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-fcitx_anthy.sh | bash
 
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-apache-http-$APACHE_HTTP_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-post-patch-apache-http-$APACHE_HTTP_VERSION.sh | bash
-
-
 
 USER apache
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
@@ -46,4 +42,5 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh
 WORKDIR /home/apache
 
 EXPOSE 80
+COPY run.sh /etc/init/run.sh
 ENTRYPOINT ["/etc/init/run.sh"]

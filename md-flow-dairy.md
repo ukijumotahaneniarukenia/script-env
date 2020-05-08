@@ -1,11 +1,5 @@
-- Dockerfile.subを作成
-
-- Dockerfile.autoを作成
-
-- 既存DockerfileをDockerfile.asisにリネーム
-
-- Dockerfile.autoにDockerfile.sub.doneをマージし、Dockerfile.doneを作成
-
-- Dockerfile.doneをDockerfileにリネーム
-
+```
+$cd $HOME/script-env
+$ls P[0-1][0-9]* R07* | xargs -n1 -I@ echo "bash @ script-env" | bash
+```
 - リグレッション

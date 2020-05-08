@@ -10,7 +10,6 @@ ARG PYTHON_VERSION
 ENV LANG=ja_JP.UTF-8
 ENV DISPLAY=:0.0
 
-
 ENV BLU=false
 ENV DB2INST1_PASSWORD=hogehoge
 ENV DB2INSTANCE=db2inst1
@@ -36,21 +35,13 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-locale.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh | bash
-
-
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-c-cpp.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
-
-
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-fcitx_anthy.sh | bash
 
 USER db2fenc1
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh | bash
-
 
 USER db2inst1
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
@@ -61,4 +52,5 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh
 WORKDIR /home/db2inst1
 
 EXPOSE 50000
+COPY run.sh /etc/init/run.sh
 ENTRYPOINT ["/etc/init/run.sh"]
