@@ -3,16 +3,14 @@
 usage(){
 cat <<EOS
 Usage:
-  $0 script-env script-sketch
+  $0 script-env
 EOS
 exit 0
 }
 
 ENV_REPO=$1;shift
-SKETCH_REPO=$1;shift
 
 [ -z $ENV_REPO ] && usage
-[ -z $SKETCH_REPO ] && usage
 
 while read tgt;do
   echo $tgt | perl -pe 's;.*/;;' | perl -nlE 's/(?:[a-z]+(?:-[0-9]{1,}){1,})(.*)/\1/ and say' | tr '-' '\n' | sed /^$/d
