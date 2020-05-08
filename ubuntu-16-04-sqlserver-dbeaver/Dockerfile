@@ -15,12 +15,16 @@ ARG SQLSERVER_VERSION
 ENV LANG=ja_JP.UTF-8
 ENV DISPLAY=:0.0
 
+ENV ACCEPT_EULA=Y
+ENV SA_PASSWORD=QseDt7167
+USER root
+
 RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list && \
 apt update && \
 apt upgrade -y
 
-ENV ACCEPT_EULA=Y
-ENV SA_PASSWORD=QseDt7167
+#ENV ACCEPT_EULA=Y
+#ENV SA_PASSWORD=QseDt7167
 
 RUN apt install -y git
 RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/$REPO.git
@@ -42,11 +46,11 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh | bash
 
 
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-pre-patch-git-$GIT_VERSION.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-patch-sqlserver-$SQLSERVER_VERSION.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-post-patch-sqlserver-$SQLSERVER_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-dbeaver-$DBEAVER_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-jdk-$JAVA_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-maven-$MAVEN_VERSION.sh | bash
+
 
 
 USER mssql

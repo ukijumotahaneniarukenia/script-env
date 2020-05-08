@@ -12,6 +12,7 @@ ENV LANG=ja_JP.UTF-8
 ENV DISPLAY=:0.0
 
 
+
 RUN yum install -y git
 RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/$REPO.git
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-docker-host-user.sh | bash
@@ -34,6 +35,7 @@ COPY pycharm-community-2019.3.1.tar.gz  /usr/local/src/pycharm-community-2019.3.
 RUN cd /usr/local/src && tar xvf pycharm-community-2019.3.1.tar.gz
 
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-sqlite3-$SQLITE3_VERSION.sh | bash
+
 
 
 USER kuraine

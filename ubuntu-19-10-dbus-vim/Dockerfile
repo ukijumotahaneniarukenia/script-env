@@ -11,6 +11,7 @@ ARG PYTHON_VERSION
 ENV LANG=ja_JP.UTF-8
 ENV DISPLAY=:0.0
 
+
 RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list && \
 apt update && \
 apt upgrade -y
@@ -40,6 +41,7 @@ COPY myCustomDbus.conf /etc/dbus-1/
 COPY run.sh /etc/init/
 
 RUN apt update && apt install -y dbus
+
 
 
 USER kuraine

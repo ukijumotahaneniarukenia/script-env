@@ -13,6 +13,7 @@ ARG PGROONGA_VERSION
 ENV LANG=ja_JP.UTF-8
 ENV DISPLAY=:0.0
 
+
 RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list && \
 apt update && \
 apt upgrade -y
@@ -41,6 +42,7 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-${APP_NAME:-default}.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-postgres-$POSTGRES_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-pre-patch-git-$GIT_VERSION.sh | bash
+
 
 
 USER postgres

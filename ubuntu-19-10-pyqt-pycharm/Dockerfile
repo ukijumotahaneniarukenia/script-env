@@ -12,6 +12,7 @@ ARG TCLSH_VERSION
 ENV LANG=ja_JP.UTF-8
 ENV DISPLAY=:0.0
 
+
 RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list && \
 apt update && \
 apt upgrade -y
@@ -40,6 +41,7 @@ COPY pycharm-community-2019.3.1.tar.gz  /usr/local/src/pycharm-community-2019.3.
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-pycharm-2019-3-1.sh | bash
 
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-tclsh-$TCLSH_VERSION.sh | bash
+
 
 
 USER kuraine

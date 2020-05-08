@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 while read SRC_FILE_PATH;do
   #echo $SRC_FILE_PATH

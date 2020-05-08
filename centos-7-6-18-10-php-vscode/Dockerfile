@@ -12,6 +12,7 @@ ENV LANG=ja_JP.UTF-8
 ENV DISPLAY=:0.0
 
 
+
 RUN yum install -y git
 RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/$REPO.git
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-docker-host-user.sh | bash
@@ -34,6 +35,7 @@ COPY code-1.41.1-1576681965.el7.x86_64.rpm /usr/local/src/code-1.41.1-1576681965
 RUN cd /usr/local/src && yum install -y code-1.41.1-1576681965.el7.x86_64.rpm
 
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-php-$PHP_VERSION.sh | bash
+
 
 
 USER kuraine

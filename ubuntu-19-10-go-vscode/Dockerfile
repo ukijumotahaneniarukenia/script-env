@@ -12,6 +12,7 @@ ARG PYTHON_VERSION
 ENV LANG=ja_JP.UTF-8
 ENV DISPLAY=:0.0
 
+
 RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list && \
 apt update && \
 apt upgrade -y
@@ -47,6 +48,7 @@ gnupg
 RUN cd /usr/local/src && dpkg -i code_1.41.1-1576681836_amd64.deb
 
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-go-$GO_VERSION.sh | bash
+
 
 
 USER kuraine

@@ -11,6 +11,7 @@ ENV LANG=ja_JP.UTF-8
 ENV DISPLAY=:0.0
 
 
+
 RUN yum install -y git
 RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/$REPO.git
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-docker-host-user.sh | bash
@@ -34,6 +35,7 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-jdk-11.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-elasticsearch-7-5-1.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-kibana-7-5-1.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-kibana-7-5-1.sh | bash
+
 
 
 USER elasticsearch

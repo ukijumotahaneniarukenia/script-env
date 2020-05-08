@@ -12,6 +12,7 @@ ENV LANG=ja_JP.UTF-8
 ENV DISPLAY=:0.0
 
 
+
 RUN yum install -y git
 RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/$REPO.git
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-docker-host-user.sh | bash
@@ -34,6 +35,7 @@ COPY Komodo-Edit-11.1.1-18206-linux-x86_64.tar.gz /usr/local/src/Komodo-Edit-11.
 RUN cd /usr/local/src && tar -xzf Komodo-Edit-11.1.1-18206-linux-x86_64.tar.gz
 
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-php-$PHP_VERSION.sh | bash
+
 
 
 USER kuraine
