@@ -1,28 +1,56 @@
-# プロセス起動
+- dbeaver起動方法
+
+ソースからインストールしているのでいつもとちがう
+
+フルパス指定
 
 ```
-TODO
+root docker-container-ubuntu-16-04-sqlserver-dbeaver /home/mssql$ll /usr/local/src/dbeaver/product/standalone/target/products/org.jkiss.dbeaver.core.product/linux/gtk/x86_64/dbeaver/dbeaver
+-rwxr-xr-x. 1 root root 61176  5月  8 12:21 /usr/local/src/dbeaver/product/standalone/target/products/org.jkiss.dbeaver.core.product/linux/gtk/x86_64/dbeaver/dbeaver*
+
+$/usr/local/src/dbeaver/product/standalone/target/products/org.jkiss.dbeaver.core.product/linux/gtk/x86_64/dbeaver/dbeaver 1>$HOME/launch-dbeaver.log 2>&1 &
 ```
 
-# プロセス確認
+- パスなど
+  - 実行ユーザーはmssql
+```
+$export MSSQL_HOME=/opt/mssql
+$export PATH=$MSSQL_HOME/bin:$PATH
+$export MSSQL_TOOLS_HOME=/opt/mssql-tools
+$export PATH=$MSSQL_TOOLS_HOME/bin:$PATH
+```
+
+
+- プロセス起動
+  - 実行ユーザーはmssql
+```
+$sqlservr --accept-eula 1>$HOME/launch-sqlserver.log 2>&1 &
+```
+
+- プロセス確認
 
 ```
-$ps aux
+$ps uax
 USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-mssql        1  0.1  0.0 148512 17144 pts/0    Ssl+ 21:32   0:00 /opt/mssql/bin/sqlservr
-mssql        8  4.6  2.8 13022640 924252 pts/0 Sl+  21:32   0:14 /opt/mssql/bin/sqlservr
-mssql      286  0.0  0.0  20900  2004 pts/1    Ss   21:38   0:00 /bin/bash
-mssql      293  0.0  0.0  37084  1516 pts/1    R+   21:38   0:00 ps aux
+root         1  0.0  0.0  20692  1268 pts/0    Ss   11:30   0:00 bash /etc/init/run.sh
+root         8  0.0  0.0 252404 20920 ?        S    11:30   0:01 fcitx
+root         9  0.0  0.0  20900  1580 pts/0    S+   11:30   0:00 bash
+root        15  0.0  0.0  43588   416 ?        S    11:30   0:00 dbus-launch --autolaunch bc74deaa9e044c079ed6fc963d084157 --binary-syntax --close-stderr
+root        16  0.0  0.0  42752   932 ?        Ss   11:30   0:00 /usr/bin/dbus-daemon --fork --print-pid 5 --print-address 7 --session
+root        22  0.0  0.0  42884  1408 ?        Ss   11:30   0:00 /usr/bin/dbus-daemon --fork --print-pid 5 --print-address 7 --config-file /usr/share/fcitx/dbus/daemon.conf
+root        26  0.0  0.0  27624   480 ?        SN   11:30   0:00 /usr/bin/fcitx-dbus-watcher unix:abstract=/tmp/dbus-A8Q40Wngd8,guid=9b6d5e5637fcfef125e50b965eb4c434 22
+root        27  0.0  0.0      0     0 ?        Z    11:30   0:00 [mozc_server] <defunct>
+root        40  0.0  0.0      0     0 ?        Z    11:30   0:00 [mozc_tool] <defunct>
+root      2949  0.0  0.0  20916  2120 pts/1    Ss   12:44   0:00 /bin/bash
+root      2956  0.0  0.0  52004  1768 pts/1    S    12:45   0:00 su mssql
+mssql     2957  0.0  0.0  20904  2076 pts/1    S    12:45   0:00 bash
+mssql     3053  0.3  0.0 151156 16772 pts/1    Sl+  12:45   0:00 sqlservr --accept-eula
+mssql     3055  9.4  2.5 12209768 828508 pts/1 Sl+  12:45   0:07 sqlservr --accept-eula
+root      3249  0.0  0.0  20912  2056 pts/2    Ss   12:47   0:00 /bin/bash
+root      3256  0.0  0.0  37084  1668 pts/2    R+   12:47   0:00 ps uax
 ```
 
-# プロセス停止
-
-```
-TODO
-```
-
-
-# sqlservrコマンド
+- sqlservrコマンド
 
 ```
 $/opt/mssql/bin/sqlservr --help
@@ -50,18 +78,7 @@ General options:
   --help                    Display this help information
 ```
 
-# sqlcmdコマンド
-
-これは自分でシンボリックリンクパッチ当てた
-
-
-
-```
-$which sqlcmd
-/usr/local/bin/sqlcmd
-$ls -lh /usr/local/bin/sqlcmd
-lrwxrwxrwx. 1 root root 35  3月  2 21:01 /usr/local/bin/sqlcmd -> ../../../opt/mssql-tools/bin/sqlcmd
-```
+- sqlcmdコマンド
 
 ```
 $sqlcmd -?
@@ -98,7 +115,7 @@ usage: sqlcmd            [-U login id]          [-P password]
 
 ```
 
-# bcpコマンド
+- bcpコマンド
 
 ```
 $/opt/mssql-tools/bin/bcp --help
@@ -116,13 +133,13 @@ usage: /opt/mssql-tools/bin/bcp {dbtable | query} {in | out | queryout | format}
   [-h "load hints"]         [-d database name]
 ```
 
-# sqlserverに接続
+- sqlserverに接続
 
 ```
 $sqlcmd -S localhost -U SA -P "QseDt7167"
 ```
 
-# XXX
+- 動作確認
 
 ```
 1> select 1;
