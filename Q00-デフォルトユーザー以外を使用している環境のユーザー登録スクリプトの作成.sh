@@ -30,7 +30,7 @@ while read SRC_FILE_PATH;do
   echo "chmod 755 $TGT_FILE_PATH" | bash
 done < <(find $HOME/script-env -name "user.md") | sed '/^$/d'
 
-bash $HOME/script-env/31-デフォルトユーザーを使用している環境のインストーラ削除.sh script-env
+#bash $HOME/script-env/31-デフォルトユーザーを使用している環境のインストーラ削除.sh script-env
 
 
 #rootユーザーをしれっと追加
