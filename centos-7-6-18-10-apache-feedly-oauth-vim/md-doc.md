@@ -48,6 +48,12 @@ docker ps -a | grep Exit | awk '{print $1}' | xargs -I@ bash -c 'docker stop @ &
 docker ps -a | grep -P $(pwd | sed 's;.*/;;') | awk '{print $1}' | xargs -I@ bash -c 'docker stop @ && docker rm @'
 ```
 
+- 自身以外削除
+
+```
+docker ps -a | grep -vP $(pwd | sed 's;.*/;;') | awk '{print $1}' | grep -v CONTAINER | xargs -I@ bash -c 'docker stop @ && docker rm @'
+```
+
 # dockerイメージ削除
 
 - none削除
