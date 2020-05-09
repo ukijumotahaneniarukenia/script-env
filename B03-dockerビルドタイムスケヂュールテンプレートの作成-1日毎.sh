@@ -3,10 +3,9 @@
 template(){
   n=$1;shift;
   l=$1;shift;
-  b=0;
   DD=$(printf "%02d" $(($n%31)))
-  HH=$(printf "%02d" $(($(($n/31))+${b:-0})))
-if [ $DD = '0' ];then
+  HH=$(printf "%02d" $(($n/31)))
+if [ $DD = '00' ];then
   cat <<EOS
 10 $HH 31 * * $HOME/$ENV_REPO/docker-crontab-wrapper.sh 1 $l $SCRIPT_REPO
 EOS
@@ -45,4 +44,4 @@ done < <(find $HOME/$ENV_REPO -mindepth 1 -type d | grep -vP '\.git|docker-log|m
 ls docker-build*list* | grep -vP 'list$' | nl | \
 while read n l ;do
   template $n $l
-done  | sort -k3 >docker-crontab-BY-ONE-DAY
+done | sort -k3 >docker-crontab-BY-ONE-DAY

@@ -1,6 +1,3 @@
-10 01 00 * * /home/aine/script-env/docker-crontab-wrapper.sh 1 docker-build-github-list-01 script-repo
-10 02 00 * * /home/aine/script-env/docker-crontab-wrapper.sh 1 docker-build-openssh-list-01 script-repo
-10 03 00 * * /home/aine/script-env/docker-crontab-wrapper.sh 1 docker-build-vim-list-03 script-repo
 10 00 01 * * /home/aine/script-env/docker-crontab-wrapper.sh 1 docker-build-anaconda-list-01 script-repo
 10 01 01 * * /home/aine/script-env/docker-crontab-wrapper.sh 1 docker-build-go-list-01 script-repo
 10 02 01 * * /home/aine/script-env/docker-crontab-wrapper.sh 1 docker-build-oracle-list-01 script-repo
@@ -109,3 +106,6 @@
 10 00 30 * * /home/aine/script-env/docker-crontab-wrapper.sh 1 docker-build-ghc-list-01 script-repo
 10 01 30 * * /home/aine/script-env/docker-crontab-wrapper.sh 1 docker-build-oauth-list-02 script-repo
 10 02 30 * * /home/aine/script-env/docker-crontab-wrapper.sh 1 docker-build-vim-list-02 script-repo
+10 01 31 * * /home/aine/script-env/docker-crontab-wrapper.sh 1 docker-build-github-list-01 script-repo
+10 02 31 * * /home/aine/script-env/docker-crontab-wrapper.sh 1 docker-build-openssh-list-01 script-repo
+10 03 31 * * /home/aine/script-env/docker-crontab-wrapper.sh 1 docker-build-vim-list-03 script-repo
