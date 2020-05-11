@@ -1,0 +1,5 @@
+ubuntu-19-10-python-mysql-vim	image-id	380b047d2f15
+ubuntu-19-10-python-mysql-vim	container-name	ubuntu-19-10-python-mysql-vim:latest
+ubuntu-19-10-python-mysql-vim	real	59m38.094s
+ubuntu-19-10-python-mysql-vim	user	0m1.150s
+ubuntu-19-10-python-mysql-vim	sys	0m0.647s

@@ -1,0 +1,2 @@
+dir-name	container-name	image-id	real	sys	user
+centos-7-6-18-10-python-sqlite3-pycharm	centos-7-6-18-10-python-sqlite3-pycharm:latest	80a0ab30dbc1	14m49.362s	0m0.743s	0m0.624s

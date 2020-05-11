@@ -1,0 +1,5 @@
+ubuntu-19-10-nodejs-mysql-vim	image-id	f81fc8637587
+ubuntu-19-10-nodejs-mysql-vim	container-name	ubuntu-19-10-nodejs-mysql-vim:latest
+ubuntu-19-10-nodejs-mysql-vim	real	21m43.413s
+ubuntu-19-10-nodejs-mysql-vim	user	0m0.859s
+ubuntu-19-10-nodejs-mysql-vim	sys	0m0.800s

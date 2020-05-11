@@ -1,0 +1,2 @@
+dir-name	container-name	image-id	real	sys	user
+centos-7-6-18-10-nginx-vim	centos-7-6-18-10-nginx-vim:latest	12a6099f03bf	84m59.137s	0m0.570s	0m0.672s

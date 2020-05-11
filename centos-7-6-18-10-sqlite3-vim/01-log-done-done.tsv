@@ -1,0 +1,2 @@
+dir-name	container-name	image-id	real	sys	user
+centos-7-6-18-10-sqlite3-vim	centos-7-6-18-10-sqlite3-vim:latest	070f80f2f3b2	117m34.769s	0m0.627s	0m0.807s

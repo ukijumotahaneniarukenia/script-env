@@ -1,0 +1,2 @@
+dir-name	container-name	image-id	real	sys	user
+ubuntu-18-04-fcitx_mozc-vim	ubuntu-18-04-vim:latest	67e1cbab2c62	51m5.567s	0m0.498s	0m0.815s

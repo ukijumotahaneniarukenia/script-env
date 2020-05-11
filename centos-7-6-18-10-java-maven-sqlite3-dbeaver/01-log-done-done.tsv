@@ -1,0 +1,2 @@
+dir-name	container-name	image-id	real	sys	user
+centos-7-6-18-10-java-maven-sqlite3-dbeaver	centos-7-6-18-10-java-maven-dbeaver-vim:latest	658c50dc6d97	59m2.052s	0m0.804s	0m1.074s

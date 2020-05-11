@@ -1,0 +1,5 @@
+ubuntu-18-04-mysql-mysql_workbench	image-id	28f8bd44101b
+ubuntu-18-04-mysql-mysql_workbench	container-name	ubuntu-19-10-mysql-workbench:latest
+ubuntu-18-04-mysql-mysql_workbench	real	67m15.147s
+ubuntu-18-04-mysql-mysql_workbench	user	0m1.292s
+ubuntu-18-04-mysql-mysql_workbench	sys	0m0.748s

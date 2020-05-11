@@ -1,0 +1,2 @@
+dir-name	container-name	image-id	real	sys	user
+centos-7-6-18-10-nodejs-vim	centos-7-6-18-10-nodejs-vim:latest	4bb3a84bf1c4	12m15.057s	0m0.384s	0m0.467s

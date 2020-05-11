@@ -1,0 +1,2 @@
+dir-name	container-name	image-id	real	sys	user
+ubuntu-16-04-mysql-mroonga-vim	ubuntu-16-04-mysql-mroonga-vim:latest	42980e13debd	20m25.738s	0m0.745s	0m0.831s

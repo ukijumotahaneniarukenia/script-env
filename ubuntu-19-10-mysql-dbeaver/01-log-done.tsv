@@ -1,0 +1,5 @@
+ubuntu-19-10-mysql-dbeaver	image-id	28f8bd44101b
+ubuntu-19-10-mysql-dbeaver	container-name	ubuntu-19-10-mysql-workbench:latest
+ubuntu-19-10-mysql-dbeaver	real	67m15.147s
+ubuntu-19-10-mysql-dbeaver	user	0m1.292s
+ubuntu-19-10-mysql-dbeaver	sys	0m0.748s

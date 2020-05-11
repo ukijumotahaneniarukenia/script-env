@@ -1,0 +1,2 @@
+dir-name	container-name	image-id	real	sys	user
+ubuntu-18-04-c-cpp-kdevelop	ubuntu-18-04-c-cpp-kdevelop:latest	89f0e912112e	15m30.695s	0m1.158s	0m0.989s

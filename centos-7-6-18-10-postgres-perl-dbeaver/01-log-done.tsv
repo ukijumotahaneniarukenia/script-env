@@ -1,0 +1,5 @@
+centos-7-6-18-10-postgres-perl-dbeaver	image-id	099d8de544d0
+centos-7-6-18-10-postgres-perl-dbeaver	container-name	centos-7-6-18-10-postgres-perl-dbeaver:latest
+centos-7-6-18-10-postgres-perl-dbeaver	real	16m22.730s
+centos-7-6-18-10-postgres-perl-dbeaver	user	0m0.782s
+centos-7-6-18-10-postgres-perl-dbeaver	sys	0m0.666s

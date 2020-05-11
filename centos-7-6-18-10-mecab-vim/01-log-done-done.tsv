@@ -1,0 +1,2 @@
+dir-name	container-name	image-id	real	sys	user
+centos-7-6-18-10-mecab-vim	centos-7-6-18-10-mecab-vim:latest	79dd7889c995	9m29.657s	0m0.286s	0m0.295s

@@ -1,0 +1,5 @@
+ubuntu-19-10-java-apache_solr-vim	image-id	9bc90dbe3be0
+ubuntu-19-10-java-apache_solr-vim	container-name	ubuntu-19-10-java-apache-solr-vim:latest
+ubuntu-19-10-java-apache_solr-vim	real	17m32.783s
+ubuntu-19-10-java-apache_solr-vim	user	0m0.392s
+ubuntu-19-10-java-apache_solr-vim	sys	0m0.276s

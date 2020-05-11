@@ -1,0 +1,5 @@
+centos-7-6-18-10-sqlite3-vim	image-id	070f80f2f3b2
+centos-7-6-18-10-sqlite3-vim	container-name	centos-7-6-18-10-sqlite3-vim:latest
+centos-7-6-18-10-sqlite3-vim	real	117m34.769s
+centos-7-6-18-10-sqlite3-vim	user	0m0.807s
+centos-7-6-18-10-sqlite3-vim	sys	0m0.627s

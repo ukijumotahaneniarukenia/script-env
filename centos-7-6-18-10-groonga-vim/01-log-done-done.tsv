@@ -1,0 +1,2 @@
+dir-name	container-name	image-id	real	sys	user
+centos-7-6-18-10-groonga-vim	centos-7-6-18-10-groonga-vim:latest	6b463aeba7e5	77m33.170s	0m0.217s	0m0.409s
