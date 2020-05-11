@@ -1,3 +1,7 @@
+- gpuをつかったハンディそうな検証環境構築
+  - https://qiita.com/exthnet/items/91e8a9f4e620de3c28de
+
+
 - java
   - https://speakerdeck.com/shintanimoto/introduction-to-reactive-programming-using-spring-webflux?slide=21
 
