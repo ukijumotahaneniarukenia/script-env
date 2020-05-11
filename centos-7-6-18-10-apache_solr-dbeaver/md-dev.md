@@ -1257,3 +1257,267 @@ select * from gettingstarted;
 ```
 select genre_str from gettingstarted;
 ```
+
+
+
+
+# solr Cloudモードでの起動 (dbeaverでzookeeper経由で接続するぽいので、これがデフォにしたい。スタンドアロンは単一機能検証ぐらいか。)
+
+#https://lucene.apache.org/solr/guide/6_6/solr-control-script-reference.html
+
+
+zookeeperは-cオプション指定時はデフォルトで起動するぽい
+
+```
+
+solr docker-container-centos-7-6-18-10-apache_solr-dbeaver ~$solr start -c
+Waiting up to 180 seconds to see Solr running on port 8983 [/]
+Started Solr server on port 8983 (pid=924). Happy searching!
+
+
+
+
+```
+
+ポート確認
+
+```
+
+
+solr docker-container-centos-7-6-18-10-apache_solr-dbeaver ~$lsof -i:9983 -i:8983
+COMMAND PID USER   FD   TYPE  DEVICE SIZE/OFF NODE NAME
+java    924 solr  158u  IPv4 9508211      0t0  TCP *:9983 (LISTEN)
+java    924 solr  165u  IPv4 9503144      0t0  TCP localhost:45144->localhost:9983 (ESTABLISHED)
+java    924 solr  166u  IPv4 9512134      0t0  TCP localhost:9983->localhost:45144 (ESTABLISHED)
+java    924 solr  168u  IPv4 9510196      0t0  TCP *:8983 (LISTEN)
+java    924 solr  187u  IPv4 9508244      0t0  TCP docker-container-centos-7-6-18-10-apache_solr-dbeaver:8983->docker-container-centos-7-6-18-10-apache_solr-dbeaver:39532 (ESTABLISHED)
+java    924 solr  188u  IPv4 9515031      0t0  TCP docker-container-centos-7-6-18-10-apache_solr-dbeaver:39532->docker-container-centos-7-6-18-10-apache_solr-dbeaver:8983 (ESTABLISHED)
+
+
+```
+
+
+
+
+データ準備
+
+
+```
+
+$mkdir -p dump-in
+
+$cd dump-in
+
+$ls
+test.json
+
+
+$cat test.json  | jq
+[
+  {
+    "name": "Andy",
+    "age": "21",
+    "id": "123"
+  },
+  {
+    "name": "Brian",
+    "age": "23",
+    "id": "234"
+  },
+  {
+    "name": "Charles",
+    "age": "19",
+    "id": "345"
+  }
+]
+
+
+
+```
+
+
+コア作成
+
+
+```
+
+$solr create -c mywiki-small-reshape -s 2 -rf 2
+WARNING: Using _default configset with data driven schema functionality. NOT RECOMMENDED for production use.
+         To turn off: bin/solr config -c mywiki-small-reshape -p 8983 -action set-user-property -property update.autoCreateFields -value false
+Created collection 'mywiki-small-reshape' with 2 shard(s), 2 replica(s) with config-set 'mywiki-small-reshape'
+
+
+
+```
+
+
+データ投入
+
+
+```
+
+$post -c mywiki-small-reshape $HOME/dump-in
+
+```
+
+```
+
+$post -c mywiki-small-reshape $HOME/dump-in
+/usr/local/src/jdk-11/bin/java -classpath /usr/local/src/solr-8.5.1/dist/solr-core-8.5.1.jar -Dauto=yes -Dc=mywiki-small-reshape -Ddata=files -Drecursive=yes org.apache.solr.util.SimplePostTool /home/solr/dump-in
+SimplePostTool version 5.0.0
+Posting files to [base] url http://localhost:8983/solr/mywiki-small-reshape/update...
+Entering auto mode. File endings considered are xml,json,jsonl,csv,pdf,doc,docx,ppt,pptx,xls,xlsx,odt,odp,ods,ott,otp,ots,rtf,htm,html,txt,log
+Entering recursive mode, max depth=999, delay=0s
+Indexing directory /home/solr/dump-in (1 files, depth=0)
+POSTing file test.json (application/json) to [base]/json/docs
+1 files indexed.
+COMMITting Solr index changes to http://localhost:8983/solr/mywiki-small-reshape/update...
+Time spent: 0:00:00.608
+
+
+```
+
+
+データ確認
+
+
+```
+
+$curl -s 'http://localhost:8983/solr/mywiki-small-reshape/select?q=*%3A*'
+
+```
+
+
+zookeeper起動しつつ、データ取得確認できた
+
+```
+$curl -s 'http://localhost:8983/solr/mywiki-small-reshape/select?q=*%3A*'
+{
+  "responseHeader":{
+    "zkConnected":true,
+    "status":0,
+    "QTime":50,
+    "params":{
+      "q":"*:*"}},
+  "response":{"numFound":3,"start":0,"maxScore":1.0,"docs":[
+      {
+        "name":["Andy"],
+        "age":[21],
+        "id":"123",
+        "_version_":1666407181052805120},
+      {
+        "name":["Charles"],
+        "age":[19],
+        "id":"345",
+        "_version_":1666407181130399744},
+      {
+        "name":["Brian"],
+        "age":[23],
+        "id":"234",
+        "_version_":1666407181278248960}]
+  }}
+
+```
+
+
+
+dbeaverクライアントを使用して操作する際はハイフン等の文字を混入させてしまうとsqlパースエラーとなるので、
+キャメルケース等で対処
+
+ということで、コア名違いでコアをもう一個作成
+
+
+```
+$solr create -c mywikiSmallReshape -s 2 -rf 2
+
+```
+
+
+
+```
+
+$solr create -c mywikiSmallReshape -s 2 -rf 2
+WARNING: Using _default configset with data driven schema functionality. NOT RECOMMENDED for production use.
+         To turn off: bin/solr config -c mywikiSmallReshape -p 8983 -action set-user-property -property update.autoCreateFields -value false
+Created collection 'mywikiSmallReshape' with 2 shard(s), 2 replica(s) with config-set 'mywikiSmallReshape'
+
+
+```
+
+
+再度データ投入
+
+
+```
+$post -c mywikiSmallReshape $HOME/dump-in
+```
+
+
+```
+$post -c mywikiSmallReshape $HOME/dump-in
+/usr/local/src/jdk-11/bin/java -classpath /usr/local/src/solr-8.5.1/dist/solr-core-8.5.1.jar -Dauto=yes -Dc=mywikiSmallReshape -Ddata=files -Drecursive=yes org.apache.solr.util.SimplePostTool /home/solr/dump-in
+SimplePostTool version 5.0.0
+Posting files to [base] url http://localhost:8983/solr/mywikiSmallReshape/update...
+Entering auto mode. File endings considered are xml,json,jsonl,csv,pdf,doc,docx,ppt,pptx,xls,xlsx,odt,odp,ods,ott,otp,ots,rtf,htm,html,txt,log
+Entering recursive mode, max depth=999, delay=0s
+Indexing directory /home/solr/dump-in (1 files, depth=0)
+POSTing file test.json (application/json) to [base]/json/docs
+1 files indexed.
+COMMITting Solr index changes to http://localhost:8983/solr/mywikiSmallReshape/update...
+Time spent: 0:00:00.495
+```
+
+
+投入データ確認
+
+```
+$curl -s 'http://localhost:8983/solr/mywikiSmallReshape/select?q=*%3A*'
+{
+  "responseHeader":{
+    "zkConnected":true,
+    "status":0,
+    "QTime":10,
+    "params":{
+      "q":"*:*"}},
+  "response":{"numFound":3,"start":0,"maxScore":1.0,"docs":[
+      {
+        "name":["Andy"],
+        "age":[21],
+        "id":"123",
+        "_version_":1666407928329928704},
+      {
+        "name":["Charles"],
+        "age":[19],
+        "id":"345",
+        "_version_":1666407928332025856},
+      {
+        "name":["Brian"],
+        "age":[23],
+        "id":"234",
+        "_version_":1666407928159010816}]
+  }}
+```
+
+
+
+sql
+
+これでいけますた
+
+```
+select * from mywikiSmallReshape;
+```
+
+dbeaverで Ctrl+Shift+Cでtsvデータクリップボードにコピーできる。便利。
+
+```
+_version_	name_str	_root_	name	id	age	_query_	score
+1,666,407,928,159,010,816	{Brian}	[NULL]	{Brian}	234	{23}	[NULL]	1
+1,666,407,928,329,928,704	{Andy}	[NULL]	{Andy}	123	{21}	[NULL]	1
+1,666,407,928,332,025,856	{Charles}	[NULL]	{Charles}	345	{19}	[NULL]	1
+```
+
+
+dbeaverで接続する際はsolrCloudモードで決まり。
+
+
