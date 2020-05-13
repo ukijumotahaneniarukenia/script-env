@@ -1,2 +1,2 @@
-dir-name	[0mThe	[91mfatal:	real	sys	user
-centos-7-6-18-10-python-pycharm	command	could	26m28.725s	0m0.035s	0m0.206s
+dir-name	container-name	image-id	real	sys	user
+centos-7-6-18-10-python-pycharm	centos-7-6-18-10-python-pycharm:latest	4295ea28453d	12m5.925s	0m0.692s	0m0.707s

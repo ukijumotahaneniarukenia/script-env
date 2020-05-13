@@ -1,2 +1,2 @@
-dir-name	[0m[91mfatal:	[0mThe	real	sys	user
-ubuntu-18-04-c-cpp-eclipse	could	command	37m8.814s	0m0.084s	0m0.277s
+dir-name	container-name	image-id	real	sys	user
+ubuntu-18-04-c-cpp-eclipse	ubuntu-18-04-c-cpp-eclipse:latest	86d1925d3ec3	23m56.405s	0m0.713s	0m0.779s

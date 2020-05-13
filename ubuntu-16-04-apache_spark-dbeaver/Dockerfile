@@ -1,7 +1,6 @@
 FROM ubuntu:16.04
 
 ARG OS_VERSION
-ARG APP_NAME
 ARG REPO
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -20,12 +19,12 @@ RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.l
 apt update && \
 apt upgrade -y
 
-RUN yum install -y git
+RUN apt install -y git
 RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/$REPO.git
 
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-docker-host-user.sh | bash
 
-RUN cd /usr/local/src/$REPO && echo './$OS_VERSION-install-default-user.sh 1001 postgres 1001 postgres' | bash
+RUN cd /usr/local/src/$REPO && echo './$OS_VERSION-install-default-user.sh 1001 hadoop 1001 hadoop' | bash
 
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-repository-pkg.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-dev-pkg.sh | bash
@@ -35,6 +34,7 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-network-pkg.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-system.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-python-$PYTHON_VERSION.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-pre-patch-git-$GIT_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-git-$GIT_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-locale.sh | bash
@@ -49,13 +49,13 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-sbt.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-apache_spark-$APACHE_SPARK_VERSION-hadoop-$HADOOP_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-dbeaver-$DBEAVER_VERSION.sh | bash
 
-USER postgres
+USER hadoop
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh | bash
 
-WORKDIR /home/postgres
+WORKDIR /home/hadoop
 
 EXPOSE 4040
 EXPOSE 7070

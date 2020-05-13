@@ -3,19 +3,19 @@
 - キャッシュ有効-バッググラウンド実行
 
 ```
-time docker build --no-cache -t ubuntu-18-04-postgres-pgroonga-vim --build-arg GIT_VERSION=2-24-1 --build-arg POSTGRES_VERSION=10-12 --build-arg PYTHON_VERSION=3-7-4 --build-arg PGROONGA_VERSION=9-1-2 --build-arg REPO=script-repo --build-arg APP_NAME=postgres-pgroonga-vim --build-arg OS_VERSION=$(echo ubuntu-18-04-postgres-pgroonga-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . UNKO
+time docker build --no-cache -t ubuntu-18-04-postgres-pgroonga-vim --build-arg GIT_VERSION=2-24-1 --build-arg POSTGRES_VERSION=10-12 --build-arg PYTHON_VERSION=3-7-4 --build-arg PGROONGA_VERSION=9-1-2 --build-arg REPO=script-repo --build-arg OS_VERSION=$(echo ubuntu-18-04-postgres-pgroonga-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . UNKO
 ```
 
 - キャッシュ有効-フォアグラウンド実行
 
 ```
-time docker build -t ubuntu-18-04-postgres-pgroonga-vim --build-arg GIT_VERSION=2-24-1 --build-arg POSTGRES_VERSION=10-12 --build-arg PYTHON_VERSION=3-7-4 --build-arg PGROONGA_VERSION=9-1-2 --build-arg REPO=script-repo --build-arg APP_NAME=postgres-pgroonga-vim --build-arg OS_VERSION=$(echo ubuntu-18-04-postgres-pgroonga-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build -t ubuntu-18-04-postgres-pgroonga-vim --build-arg GIT_VERSION=2-24-1 --build-arg POSTGRES_VERSION=10-12 --build-arg PYTHON_VERSION=3-7-4 --build-arg PGROONGA_VERSION=9-1-2 --build-arg REPO=script-repo --build-arg OS_VERSION=$(echo ubuntu-18-04-postgres-pgroonga-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 - キャッシュ無効
 
 ```
-time docker build --no-cache -t ubuntu-18-04-postgres-pgroonga-vim --build-arg GIT_VERSION=2-24-1 --build-arg POSTGRES_VERSION=10-12 --build-arg PYTHON_VERSION=3-7-4 --build-arg PGROONGA_VERSION=9-1-2 --build-arg REPO=script-repo --build-arg APP_NAME=postgres-pgroonga-vim --build-arg OS_VERSION=$(echo ubuntu-18-04-postgres-pgroonga-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build --no-cache -t ubuntu-18-04-postgres-pgroonga-vim --build-arg GIT_VERSION=2-24-1 --build-arg POSTGRES_VERSION=10-12 --build-arg PYTHON_VERSION=3-7-4 --build-arg PGROONGA_VERSION=9-1-2 --build-arg REPO=script-repo --build-arg OS_VERSION=$(echo ubuntu-18-04-postgres-pgroonga-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 # dockerコンテナ起動

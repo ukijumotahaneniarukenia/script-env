@@ -1,5 +1,5 @@
-centos-7-6-18-10-anaconda-vim	[0m[91mfatal:	index-pack
-centos-7-6-18-10-anaconda-vim	[0mThe	command
-centos-7-6-18-10-anaconda-vim	real	42m39.788s
-centos-7-6-18-10-anaconda-vim	user	0m0.231s
-centos-7-6-18-10-anaconda-vim	sys	0m0.074s
+centos-7-6-18-10-anaconda-vim	image-id	460bea59e191
+centos-7-6-18-10-anaconda-vim	container-name	centos-7-6-18-10-anaconda-vim:latest
+centos-7-6-18-10-anaconda-vim	real	14m57.240s
+centos-7-6-18-10-anaconda-vim	user	0m0.553s
+centos-7-6-18-10-anaconda-vim	sys	0m0.443s

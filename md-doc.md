@@ -3,19 +3,19 @@
 - キャッシュ有効-バッググラウンド実行
 
 ```
-time docker build --no-cache -t XXX BUILD_ARG --build-arg REPO=INSTALLER_REPO --build-arg APP_NAME=YYY --build-arg OS_VERSION=$(echo XXX | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . UNKO
+time docker build --no-cache -t XXX BUILD_ARG --build-arg REPO=INSTALLER_REPO --build-arg OS_VERSION=$(echo XXX | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . UNKO
 ```
 
 - キャッシュ有効-フォアグラウンド実行
 
 ```
-time docker build -t XXX BUILD_ARG --build-arg REPO=INSTALLER_REPO --build-arg APP_NAME=YYY --build-arg OS_VERSION=$(echo XXX | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build -t XXX BUILD_ARG --build-arg REPO=INSTALLER_REPO --build-arg OS_VERSION=$(echo XXX | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 - キャッシュ無効
 
 ```
-time docker build --no-cache -t XXX BUILD_ARG --build-arg REPO=INSTALLER_REPO --build-arg APP_NAME=YYY --build-arg OS_VERSION=$(echo XXX | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build --no-cache -t XXX BUILD_ARG --build-arg REPO=INSTALLER_REPO --build-arg OS_VERSION=$(echo XXX | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 # dockerコンテナ起動

@@ -1,2 +1,2 @@
-dir-name	[0mThe	[91mbash:	real	sys	user
-ubuntu-18-04-postgres-pgroonga-vim	command	line	49m53.084s	0m0.380s	0m0.440s
+dir-name	container-name	image-id	real	sys	user
+ubuntu-18-04-postgres-pgroonga-vim	ubuntu-18-04-postgres-pgroonga-vim:latest	cb35e2626ea4	16m42.997s	0m0.729s	0m0.788s

@@ -3,19 +3,19 @@
 - キャッシュ有効-バッググラウンド実行
 
 ```
-time docker build --no-cache -t centos-7-6-18-10-apache-github-oauth-gron-vim --build-arg GIT_VERSION=2-24-1 --build-arg GRON_VERSION=0-6-0 --build-arg PYTHON_VERSION=3-7-4 --build-arg APACHE_HTTP_VERSION=X-X-X --build-arg REPO=script-repo --build-arg APP_NAME=apache-github-oauth-gron-vim --build-arg OS_VERSION=$(echo centos-7-6-18-10-apache-github-oauth-gron-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . UNKO
+time docker build --no-cache -t centos-7-6-18-10-apache-github-oauth-gron-vim --build-arg GIT_VERSION=2-24-1 --build-arg GRON_VERSION=0-6-0 --build-arg PYTHON_VERSION=3-7-4 --build-arg APACHE_HTTP_VERSION=X-X-X --build-arg REPO=script-repo --build-arg OS_VERSION=$(echo centos-7-6-18-10-apache-github-oauth-gron-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . UNKO
 ```
 
 - キャッシュ有効-フォアグラウンド実行
 
 ```
-time docker build -t centos-7-6-18-10-apache-github-oauth-gron-vim --build-arg GIT_VERSION=2-24-1 --build-arg GRON_VERSION=0-6-0 --build-arg PYTHON_VERSION=3-7-4 --build-arg APACHE_HTTP_VERSION=X-X-X --build-arg REPO=script-repo --build-arg APP_NAME=apache-github-oauth-gron-vim --build-arg OS_VERSION=$(echo centos-7-6-18-10-apache-github-oauth-gron-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build -t centos-7-6-18-10-apache-github-oauth-gron-vim --build-arg GIT_VERSION=2-24-1 --build-arg GRON_VERSION=0-6-0 --build-arg PYTHON_VERSION=3-7-4 --build-arg APACHE_HTTP_VERSION=X-X-X --build-arg REPO=script-repo --build-arg OS_VERSION=$(echo centos-7-6-18-10-apache-github-oauth-gron-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 - キャッシュ無効
 
 ```
-time docker build --no-cache -t centos-7-6-18-10-apache-github-oauth-gron-vim --build-arg GIT_VERSION=2-24-1 --build-arg GRON_VERSION=0-6-0 --build-arg PYTHON_VERSION=3-7-4 --build-arg APACHE_HTTP_VERSION=X-X-X --build-arg REPO=script-repo --build-arg APP_NAME=apache-github-oauth-gron-vim --build-arg OS_VERSION=$(echo centos-7-6-18-10-apache-github-oauth-gron-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build --no-cache -t centos-7-6-18-10-apache-github-oauth-gron-vim --build-arg GIT_VERSION=2-24-1 --build-arg GRON_VERSION=0-6-0 --build-arg PYTHON_VERSION=3-7-4 --build-arg APACHE_HTTP_VERSION=X-X-X --build-arg REPO=script-repo --build-arg OS_VERSION=$(echo centos-7-6-18-10-apache-github-oauth-gron-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 # dockerコンテナ起動

@@ -8,13 +8,20 @@ EOS
 exit 0
 }
 
+DEFAULT_INSTALLER_REPO=script-repo
+
 ENV_REPO=$1;shift
 INSTALLER_REPO=$1;shift
+
 [ -z "$ENV_REPO" ] && usage
-[ -z "$INSTALLER_REPO" ] && usage
+
+if [ -z "$INSTALLER_REPO" ]; then
+  :
+else
+  DEFAULT_INSTALLER_REPO=$INSTALLER_REPO
+fi
 
 while read tgt;do
-
   {
     #md-doc.mdファイルを配備
     echo cp $HOME/$ENV_REPO/md-doc.md $HOME/$ENV_REPO/$tgt/md-doc.md
@@ -40,29 +47,7 @@ while read tgt;do
     #環境個別の設定を適用
     [ -z "$RT" ] || printf "sed -i 's;BUILD_ARG;%s;' %s\n" "$(echo $RT | sed 's; ; --build-arg ;g;s;^;--build-arg ;')" $HOME/$ENV_REPO/$tgt/md-doc.md
 
-    printf "sed -i 's;INSTALLER_REPO;%s;' %s\n" $INSTALLER_REPO $HOME/$ENV_REPO/$tgt/md-doc.md
+    printf "sed -i 's;INSTALLER_REPO;%s;' %s\n" $DEFAULT_INSTALLER_REPO $HOME/$ENV_REPO/$tgt/md-doc.md
   } | bash
 
 done < <(ls -l $HOME/$ENV_REPO | grep -P '^d' | awk '{print $9}' | grep -v docker-log)
-
-#APP_NAMEの設定
-find $HOME/$ENV_REPO -name "env-user.md" | \
-while read tgt;do
-  {
-    RESULT="$(grep -vP 'root|aine|kuraine|nahato|mujiku' $tgt | tail -n+3)"
-    if [ "XXX" == "XXX$RESULT" ] ;then
-      #デフォルトユーザーを使用
-      echo 0 $tgt | awk '{print $2}' | perl -pe 's;/env-user.md;;;s;.*/;;' | \
-      while read tgt;do
-        echo "sed -i 's;YYY;;g' $HOME/$ENV_REPO/$tgt/md-doc.md"
-      done
-    else
-      #デフォルトユーザー以外を使用
-      echo 1 $tgt | awk '{print $2}' | perl -pe 's;/env-user.md;;;s;.*/;;' | \
-      while read tgt;do
-        NNN=$(echo $tgt | perl -pe 's/[a-zA-Z]+(?:-[0-9]+){1,}-//g')
-        echo "sed -i 's;YYY;$NNN;g' $HOME/$ENV_REPO/$tgt/md-doc.md"
-      done
-    fi
-  } | bash
-done
