@@ -1,0 +1,5 @@
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-jdk-$JAVA_VERSION.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-maven-$MAVEN_VERSION.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-sbt.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-apache_spark-$APACHE_SPARK_VERSION-hadoop-$HADOOP_VERSION.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-dbeaver-$DBEAVER_VERSION.sh | bash

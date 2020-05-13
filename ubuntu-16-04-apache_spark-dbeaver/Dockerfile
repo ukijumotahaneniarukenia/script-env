@@ -1,25 +1,38 @@
-FROM centos:7.6.1810
+FROM ubuntu:16.04
 
 ARG OS_VERSION
 ARG APP_NAME
 ARG REPO
+ARG DEBIAN_FRONTEND=noninteractive
 
+ARG APACHE_SPARK_VERSION
+ARG DBEAVER_VERSION
+ARG HADOOP_VERSION
 ARG GIT_VERSION
-ARG PERL_VERSION
+ARG JAVA_VERSION
+ARG MAVEN_VERSION
 ARG PYTHON_VERSION
 
 ENV LANG=ja_JP.UTF-8
 ENV DISPLAY=:0.0
 
+RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list && \
+apt update && \
+apt upgrade -y
+
 RUN yum install -y git
 RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/$REPO.git
+
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-docker-host-user.sh | bash
+
+RUN cd /usr/local/src/$REPO && echo './$OS_VERSION-install-default-user.sh 1001 postgres 1001 postgres' | bash
+
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-repository-pkg.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-dev-pkg.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-tool-pkg.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-network-pkg.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-${APP_NAME:-default}-user.sh | bash
-#RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-system.sh | bash
+
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-system.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-python-$PYTHON_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-git-$GIT_VERSION.sh | bash
@@ -28,21 +41,24 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-locale.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-fcitx_anthy.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-fcitx_mozc.sh | bash
 
-COPY code-1.41.1-1576681965.el7.x86_64.rpm /usr/local/src/code-1.41.1-1576681965.el7.x86_64.rpm
-RUN cd /usr/local/src && yum install -y code-1.41.1-1576681965.el7.x86_64.rpm
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-jdk-$JAVA_VERSION.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-maven-$MAVEN_VERSION.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-sbt.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-apache_spark-$APACHE_SPARK_VERSION-hadoop-$HADOOP_VERSION.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-dbeaver-$DBEAVER_VERSION.sh | bash
 
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-cpan-cpanm.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-perl-$PERL_VERSION.sh | bash
-
-USER kuraine
+USER postgres
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh | bash
 
-WORKDIR /home/kuraine
+WORKDIR /home/postgres
 
+EXPOSE 4040
+EXPOSE 7070
+EXPOSE 8080
 COPY run.sh /etc/init/run.sh
 ENTRYPOINT ["/etc/init/run.sh"]
