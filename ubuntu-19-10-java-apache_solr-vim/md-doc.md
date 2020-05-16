@@ -1,3 +1,11 @@
+# docker自動ビルド対象リストに追加
+
+- 当該環境ディレクトリを追加
+
+```
+pwd | sed 's;.*/;;' >/home/aine/script-env/docker-build-wanted-list
+```
+
 # dockerイメージ作成
 
 - キャッシュ有効-バッググラウンド実行
@@ -20,7 +28,7 @@ time docker build --no-cache -t ubuntu-19-10-java-apache_solr-vim --build-arg AP
 
 # dockerコンテナ起動
 ```
-docker run --privileged --shm-size=6gb --hostname=docker-container-ubuntu-19-10-java-apache_solr-vim -v /home/aine/script-env/ubuntu-19-10-java-apache_solr-vim/mnt:/home/aine/mnt -v /home/aine/Downloads-for-docker-container/ubuntu-19-10-java-apache_solr-vim:/home/aine/media -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 8983:8983 --name ubuntu-19-10-java-apache_solr-vim -itd ubuntu-19-10-java-apache_solr-vim
+docker run --privileged --shm-size=6gb --hostname=doc-ubuntu-19-10-java-apache_solr-vim -v /home/aine/script-env/ubuntu-19-10-java-apache_solr-vim/mnt:/home/aine/mnt -v /home/aine/Downloads-for-docker-container/ubuntu-19-10-java-apache_solr-vim:/home/aine/media -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 8983:8983 --name ubuntu-19-10-java-apache_solr-vim -itd ubuntu-19-10-java-apache_solr-vim
 ```
 
 # dockerコンテナ潜入

@@ -1,3 +1,11 @@
+# docker自動ビルド対象リストに追加
+
+- 当該環境ディレクトリを追加
+
+```
+pwd | sed 's;.*/;;' >/home/aine/script-env/docker-build-wanted-list
+```
+
 # dockerイメージ作成
 
 - キャッシュ有効-バッググラウンド実行
@@ -20,7 +28,7 @@ time docker build --no-cache -t ubuntu-16-04-sqlserver-dbeaver --build-arg DBEAV
 
 # dockerコンテナ起動
 ```
-docker run --privileged --shm-size=4gb --hostname=docker-container-ubuntu-16-04-sqlserver-dbeaver -v /home/aine/script-env/ubuntu-16-04-sqlserver-dbeaver/mnt:/home/aine/mnt -v /home/aine/Downloads-for-docker-container/ubuntu-16-04-sqlserver-dbeaver:/home/aine/media -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 1433:1433 --name ubuntu-16-04-sqlserver-dbeaver -itd ubuntu-16-04-sqlserver-dbeaver
+docker run --privileged --shm-size=4gb --hostname=doc-ubuntu-16-04-sqlserver-dbeaver -v /home/aine/script-env/ubuntu-16-04-sqlserver-dbeaver/mnt:/home/aine/mnt -v /home/aine/Downloads-for-docker-container/ubuntu-16-04-sqlserver-dbeaver:/home/aine/media -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 1433:1433 --name ubuntu-16-04-sqlserver-dbeaver -itd ubuntu-16-04-sqlserver-dbeaver
 ```
 
 # dockerコンテナ潜入

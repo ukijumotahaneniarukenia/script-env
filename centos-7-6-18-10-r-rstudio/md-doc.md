@@ -1,3 +1,11 @@
+# docker自動ビルド対象リストに追加
+
+- 当該環境ディレクトリを追加
+
+```
+pwd | sed 's;.*/;;' >/home/aine/script-env/docker-build-wanted-list
+```
+
 # dockerイメージ作成
 
 - キャッシュ有効-バッググラウンド実行
@@ -20,7 +28,7 @@ time docker build --no-cache -t centos-7-6-18-10-r-rstudio --build-arg GIT_VERSI
 
 # dockerコンテナ起動
 ```
-docker run --privileged --shm-size=4gb --hostname=docker-container-centos-7-6-18-10-r-rstudio -v /home/aine/script-env/centos-7-6-18-10-r-rstudio/mnt:/home/aine/mnt -v /home/aine/Downloads-for-docker-container/centos-7-6-18-10-r-rstudio:/home/aine/media -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 8787:8787 --name centos-7-6-18-10-r-rstudio -itd centos-7-6-18-10-r-rstudio
+docker run --privileged --shm-size=4gb --hostname=doc-centos-7-6-18-10-r-rstudio -v /home/aine/script-env/centos-7-6-18-10-r-rstudio/mnt:/home/aine/mnt -v /home/aine/Downloads-for-docker-container/centos-7-6-18-10-r-rstudio:/home/aine/media -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id -p 8787:8787 --name centos-7-6-18-10-r-rstudio -itd centos-7-6-18-10-r-rstudio
 ```
 
 # dockerコンテナ潜入
