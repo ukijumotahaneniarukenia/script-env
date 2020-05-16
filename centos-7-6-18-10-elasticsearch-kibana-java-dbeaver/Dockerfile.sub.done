@@ -1,6 +1,2 @@
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-elasticsearch-$ELASTICSEARCH_VERSION.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-kibana-$KIBANA_VERSION.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-kibana-$KIBANA_VERSION.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-dbeaver-$DBEAVER_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-jdk-$JAVA_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-maven-$MAVEN_VERSION.sh | bash

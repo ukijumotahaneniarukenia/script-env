@@ -1,3 +1,7 @@
+- singularityコンテナ環境を使ったGPU込みの検証環境
+  - 自宅マシンはGPUないや。。
+  - https://qiita.com/mkt3/items/b9f86f5ddf9eb0f43608
+
 - gpuをつかったハンディそうな検証環境構築
   - https://qiita.com/exthnet/items/91e8a9f4e620de3c28de
 
@@ -15,11 +19,11 @@
 - 表記正規化が大変そう
   - https://www.slideshare.net/mobile/WorksApplications/java-82794239
 
-- Kuromori 
+- Kuromori
   - http://www.mwsoft.jp/programming/lucene/kuromoji.html
 
 - Wire shark ネットワーク監視ツール
-   
+
 
 - ruby ファイル書き込み　読み込みと同じで、引数のオプションを変える
   - https://uxmilk.jp/22615
@@ -58,7 +62,7 @@
 - .net可変長戻り読みができる online で試してみる。
   - https://oraclesqlpuzzle.ninja-web.net/regex/regex-9-1.html
 
-- csharp開発環境 
+- csharp開発環境
   - https://www.casleyconsulting.co.jp/blog/engineer/181/
 
 
@@ -67,7 +71,7 @@
 
 - Jupiter lab notebookの進化系
   - https://qiita.com/canonrock16/items/d166c93087a4aafd2db4
-  
+
 
 - wsl2インスコ
   - https://qiita.com/TsuyoshiUshio@github/items/947301bd9317610572fc

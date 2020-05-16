@@ -1,3 +1,11 @@
+# docker自動ビルド対象リストに追加
+
+- 当該環境ディレクトリを追加
+
+```
+pwd | sed 's;.*/;;' >HHH/ENV_REPO/docker-build-wanted-list
+```
+
 # dockerイメージ作成
 
 - キャッシュ有効-バッググラウンド実行
@@ -20,7 +28,7 @@ time docker build --no-cache -t XXX BUILD_ARG --build-arg REPO=INSTALLER_REPO --
 
 # dockerコンテナ起動
 ```
-docker run --privileged --shm-size=SHM_SIZE --hostname=docker-container-XXX -v HHH/ENV_REPO/XXX/mnt:HHH/mnt -v HHH/Downloads-for-docker-container/XXX:HHH/media -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id EXPOSE --name XXX -itd XXX
+docker run --privileged --shm-size=SHM_SIZE --hostname=doc-XXX -v HHH/ENV_REPO/XXX/mnt:HHH/mnt -v HHH/Downloads-for-docker-container/XXX:HHH/media -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id EXPOSE --name XXX -itd XXX
 ```
 
 # dockerコンテナ潜入
