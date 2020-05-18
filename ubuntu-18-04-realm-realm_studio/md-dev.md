@@ -61,3 +61,5 @@ GraphQLなどと連携したらハンディそう
 realmデータベース単一での動作検証が必要
 
 - https://docs.realm.io/sync/v/3.x/
+
+- https://docs.realm.io/sync/v/3.x/using-synced-realms/server-side-usage/data-access
