@@ -34,6 +34,9 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-fcitx_anthy.sh | bash
 
+COPY subrun.sh /root/subrun.sh
+RUN bash /root/subrun.sh
+
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-apache-http-$APACHE_HTTP_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-post-patch-apache-http-$APACHE_HTTP_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-gron-$GRON_VERSION.sh | bash

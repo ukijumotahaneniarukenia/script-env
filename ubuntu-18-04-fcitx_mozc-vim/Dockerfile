@@ -38,6 +38,9 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-fcitx_mozc.sh | bash
 
+COPY subrun.sh /root/subrun.sh
+RUN bash /root/subrun.sh
+
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-fcitx_mozc.sh | bash #OSバージョン単位の動作確認完了後、テンプレートに格上げ
 COPY run.sh /etc/init/
 

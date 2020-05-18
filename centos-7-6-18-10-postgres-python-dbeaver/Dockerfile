@@ -36,6 +36,9 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-fcitx_anthy.sh | bash
 
+COPY subrun.sh /root/subrun.sh
+RUN bash /root/subrun.sh
+
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-postgres-$POSTGRES_VERSION-with-python.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-dbeaver-$DBEAVER_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-jdk-$JAVA_VERSION.sh | bash

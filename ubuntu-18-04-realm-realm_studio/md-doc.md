@@ -11,29 +11,29 @@ pwd | sed 's;.*/;;' >/home/aine/script-env/docker-build-wanted-list
 - キャッシュ有効-バッググラウンド実行
 
 ```
-time docker build --no-cache -t ubuntu-18-04-android-realm-android_studio --build-arg GIT_VERSION=2-24-1 --build-arg PYTHON_VERSION=3-7-4 --build-arg REPO=script-repo --build-arg OS_VERSION=$(echo ubuntu-18-04-android-realm-android_studio | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . UNKO
+time docker build --no-cache -t ubuntu-18-04-realm-realm_studio --build-arg GIT_VERSION=2-24-1 --build-arg PYTHON_VERSION=3-7-4 --build-arg REPO=script-repo --build-arg OS_VERSION=$(echo ubuntu-18-04-realm-realm_studio | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . UNKO
 ```
 
 - キャッシュ有効-フォアグラウンド実行
 
 ```
-time docker build -t ubuntu-18-04-android-realm-android_studio --build-arg GIT_VERSION=2-24-1 --build-arg PYTHON_VERSION=3-7-4 --build-arg REPO=script-repo --build-arg OS_VERSION=$(echo ubuntu-18-04-android-realm-android_studio | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build -t ubuntu-18-04-realm-realm_studio --build-arg GIT_VERSION=2-24-1 --build-arg PYTHON_VERSION=3-7-4 --build-arg REPO=script-repo --build-arg OS_VERSION=$(echo ubuntu-18-04-realm-realm_studio | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 - キャッシュ無効
 
 ```
-time docker build --no-cache -t ubuntu-18-04-android-realm-android_studio --build-arg GIT_VERSION=2-24-1 --build-arg PYTHON_VERSION=3-7-4 --build-arg REPO=script-repo --build-arg OS_VERSION=$(echo ubuntu-18-04-android-realm-android_studio | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build --no-cache -t ubuntu-18-04-realm-realm_studio --build-arg GIT_VERSION=2-24-1 --build-arg PYTHON_VERSION=3-7-4 --build-arg REPO=script-repo --build-arg OS_VERSION=$(echo ubuntu-18-04-realm-realm_studio | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 # dockerコンテナ起動
 ```
-docker run --privileged --shm-size=4gb --hostname=doc-ubuntu-18-04-android-realm-android_studio -v /home/aine/script-env/ubuntu-18-04-android-realm-android_studio/mnt:/home/aine/mnt -v /home/aine/Downloads-for-docker-container/ubuntu-18-04-android-realm-android_studio:/home/aine/media -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id  --name ubuntu-18-04-android-realm-android_studio -itd ubuntu-18-04-android-realm-android_studio
+docker run --privileged --shm-size=4gb --hostname=doc-ubuntu-18-04-realm-realm_studio -v /home/aine/script-env/ubuntu-18-04-realm-realm_studio/mnt:/home/aine/mnt -v /home/aine/Downloads-for-docker-container/ubuntu-18-04-realm-realm_studio:/home/aine/media -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id  --name ubuntu-18-04-realm-realm_studio -itd ubuntu-18-04-realm-realm_studio
 ```
 
 # dockerコンテナ潜入
 ```
-docker exec -it ubuntu-18-04-android-realm-android_studio /bin/bash
+docker exec -it ubuntu-18-04-realm-realm_studio /bin/bash
 ```
 
 # dockerコンテナ削除

@@ -40,6 +40,9 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-fcitx_anthy.sh | bash
 
+COPY subrun.sh /root/subrun.sh
+RUN bash /root/subrun.sh
+
 COPY ideaIC-2019.2.4.tar.gz /usr/local/src/ideaIC-2019.2.4.tar.gz
 RUN cd /usr/local/src && tar -xzf ideaIC-2019.2.4.tar.gz
 
