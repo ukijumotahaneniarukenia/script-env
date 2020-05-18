@@ -34,7 +34,7 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-fcitx_anthy.sh | bash
 
 COPY subrun.sh /root/subrun.sh
-RUN bash /root/subrun.sh
+#RUN bash /root/subrun.sh
 
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-tclsh-$TCLSH_VERSION.sh | bash
 

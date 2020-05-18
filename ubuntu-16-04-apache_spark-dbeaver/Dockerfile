@@ -44,7 +44,7 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-fcitx_mozc.sh | bash
 
 COPY subrun.sh /root/subrun.sh
-RUN bash /root/subrun.sh
+#RUN bash /root/subrun.sh
 
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-jdk-$JAVA_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-maven-$MAVEN_VERSION.sh | bash

@@ -39,7 +39,7 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-fcitx_mozc.sh | bash
 
 COPY subrun.sh /root/subrun.sh
-RUN bash /root/subrun.sh
+#RUN bash /root/subrun.sh
 
 COPY eclipse-inst-linux64.tar.gz /usr/local/src/eclipse-inst-linux64.tar.gz
 

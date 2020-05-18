@@ -39,7 +39,7 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-fcitx_mozc.sh | bash
 
 COPY subrun.sh /root/subrun.sh
-RUN bash /root/subrun.sh
+#RUN bash /root/subrun.sh
 
 COPY code_1.41.1-1576681836_amd64.deb /usr/local/src/code_1.41.1-1576681836_amd64.deb
 RUN apt install -y \

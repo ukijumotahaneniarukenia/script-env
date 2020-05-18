@@ -39,7 +39,7 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-fcitx_mozc.sh | bash
 
 COPY subrun.sh /root/subrun.sh
-RUN bash /root/subrun.sh
+#RUN bash /root/subrun.sh
 
 COPY android-studio-ide-192.6392135-linux.tar.gz /usr/local/src/android-studio-ide-192.6392135-linux.tar.gz
 RUN apt install -y libc6 libncurses5 libstdc++6 lib32z1 libbz2-1.0
