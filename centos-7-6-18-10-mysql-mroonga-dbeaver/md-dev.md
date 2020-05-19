@@ -2,6 +2,19 @@
 
 - https://www.slideshare.net/kou/jpmugdbstudy1
 
+インストール
+
+コンテナ入ってから実行
+
+rootユーザーで実行
+
+対話入力はすべてEnterキーを押下するだけ
+
+
+```
+$bash /root/subrun.sh
+```
+
 ヘルスチェック
 
 rootユーザーで以下のスクリプトを実行し、
