@@ -1,2 +1,0 @@
-dir-name	container-name	image-id	real	sys	user
-ubuntu-18-04-postgres-pgroonga-vim	ubuntu-18-04-postgres-pgroonga-vim:latest	cb35e2626ea4	16m42.997s	0m0.729s	0m0.788s
