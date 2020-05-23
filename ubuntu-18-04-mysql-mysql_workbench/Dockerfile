@@ -55,4 +55,4 @@ WORKDIR /home/mysql
 
 EXPOSE 3306
 COPY run.sh /etc/init/run.sh
-ENTRYPOINT ["/etc/init/run.sh"]
+ENTRYPOINT ["/etc/init/run.sh","ubuntu"]

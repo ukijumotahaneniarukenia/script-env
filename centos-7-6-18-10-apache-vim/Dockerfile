@@ -31,7 +31,7 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-locale.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-fcitx_anthy.sh | bash
+RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-ibus_mozc.sh | bash
 
 COPY subrun.sh /root/subrun.sh
 #RUN bash /root/subrun.sh
@@ -50,4 +50,4 @@ WORKDIR /home/apache
 EXPOSE 80
 EXPOSE 8090
 COPY run.sh /etc/init/run.sh
-ENTRYPOINT ["/etc/init/run.sh"]
+ENTRYPOINT ["/etc/init/run.sh","centos"]

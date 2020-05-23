@@ -67,4 +67,4 @@ EXPOSE 4040
 EXPOSE 7070
 EXPOSE 8080
 COPY run.sh /etc/init/run.sh
-ENTRYPOINT ["/etc/init/run.sh"]
+ENTRYPOINT ["/etc/init/run.sh","ubuntu"]

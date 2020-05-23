@@ -72,4 +72,4 @@ WORKDIR /home/mssql
 
 EXPOSE 1433
 COPY run.sh /etc/init/run.sh
-ENTRYPOINT ["/etc/init/run.sh"]
+ENTRYPOINT ["/etc/init/run.sh","ubuntu"]

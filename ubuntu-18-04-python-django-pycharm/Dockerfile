@@ -54,4 +54,4 @@ WORKDIR /home/kuraine
 
 EXPOSE 8000
 COPY run.sh /etc/init/run.sh
-ENTRYPOINT ["/etc/init/run.sh"]
+ENTRYPOINT ["/etc/init/run.sh","ubuntu"]
