@@ -44,11 +44,6 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-maven-$MAVEN_VERSION.s
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-dbeaver-$DBEAVER_VERSION.sh | bash
 
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-mariadb-$MARIADB_VERSION.sh | bash
-
-RUN echo unko
-RUN rm -rf  /usr/local/src/script-repo
-RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/$REPO.git
-
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-mariadb-$MARIADB_VERSION.sh | bash
 RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-healthcheck-mariadb-$MARIADB_VERSION.sh | bash
 
