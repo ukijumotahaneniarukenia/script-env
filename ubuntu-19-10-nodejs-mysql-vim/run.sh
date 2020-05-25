@@ -4,7 +4,7 @@
 
 OS_NAME="$@"
 
-if [ $OS_NAME = "ubuntu"];then
+if [ $OS_NAME = "ubuntu" ];then
 
   fcitx 1>$HOME/launch-fcitx.log 2>&1
 
