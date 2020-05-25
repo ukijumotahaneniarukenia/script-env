@@ -24,14 +24,14 @@ fi
 SCRIPT_FILE_NAME=run.sh
 
 while read tgt;do
-  if [ -f $HOME/$ENV_REPO/$tgt/$SCRIPT_FILE_NAME ];then
-    :
-  else
+  #if [ -f $HOME/$ENV_REPO/$tgt/$SCRIPT_FILE_NAME ];then
+  #  :
+  #else
     cmd="cp $HOME/$ENV_REPO/$SCRIPT_FILE_NAME $HOME/$ENV_REPO/$tgt/$SCRIPT_FILE_NAME"
     if [ "$SHELL" = 'bash' ];then
       echo $cmd | $SHELL
     else
       echo $cmd
     fi
-  fi
+  #fi
 done < <(ls -l $HOME/$ENV_REPO | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log)

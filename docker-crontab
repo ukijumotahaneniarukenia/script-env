@@ -1,1 +1,1 @@
-49 18 * * * /home/aine/script-env/docker-crontab-wrapper.sh 1 docker-build-wanted-list script-repo
+12 20 * * * /home/aine/script-env/docker-crontab-wrapper.sh 1 docker-build-wanted-list script-repo
