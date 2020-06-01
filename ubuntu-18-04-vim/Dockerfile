@@ -49,5 +49,7 @@ RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh
 
 WORKDIR /home/kuraine
 
+EXPOSE 8080
+
 COPY run.sh /etc/init/run.sh
 ENTRYPOINT ["/etc/init/run.sh","ubuntu"]
