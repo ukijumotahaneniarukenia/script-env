@@ -1,2 +1,0 @@
-dir-name	container-name	image-id	real	sys	user
-centos-7-6-18-10-postgres-perl-dbeaver	centos-7-6-18-10-postgres-perl-dbeaver:latest	099d8de544d0	16m22.730s	0m0.666s	0m0.782s

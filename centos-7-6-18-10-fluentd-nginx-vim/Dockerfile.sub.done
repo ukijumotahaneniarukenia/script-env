@@ -1,2 +1,0 @@
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-fluentd.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-nginx.sh | bash
