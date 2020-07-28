@@ -2,7 +2,7 @@
 	- script-dat
 		- 手軽なテストデータを投入していくなど
 	- script-api
-		- プログラム別APIなど
+		- プログラム別APIなど。CRUD処理に着地。GET、POST、PUT、DELETE。
 	- script-template
 		- プログラム単位のテンプーレトファイルを管理
 		- ディレクトリ構成はscript-sketchと同じ
@@ -155,41 +155,11 @@ ps aux  | grep 'docker build' | awk '{print $2}' | xargs kill
 ```
 cd $HOME/script-env
 ls D[0][1]* D[0][6]* D[0][9]* P[0-1][0-9]* R07* | xargs -n1 -I@ echo "bash @ script-env" | bash
+```
 
-asis<-->tobe
+- 処理フローイメージ
 
-main<-->sub
-
-auto<-->man
-
-pre<-->post
-
-match<-->unmatch
-
-done<-->undone
-
-bef<-->aft
-
-pre
-
-pre-main
-
-pre-sub
-
-mid-main
-
-mid-sub
-
-post-main
-
-post-sub
-
-post
-
-
-in<-->out
-
-
+```
 in-pre
 
 in-main
@@ -214,4 +184,32 @@ out-sub
 
 out-post
 
+```
+
+
+- Dockerfileのライフサイクル
+	- Dockerfile.seed
+		- Dockerfile.autoを作成するための元ネタテンプレート
+
+	- Dockerfile.auto
+		- Dockerfile.seedからの生成物
+
+	- Dockerfile.sub
+		- デフォルトテンプレートからの環境個別のスクリプトの差分
+
+	- Dockerfile.sub.done
+		- デフォルトテンプレートからの環境個別のスクリプトの差分のメンテ完了状態
+
+ 	- Dockerfile.done
+		- Dockerfile.autoにDockerfile.sub.doneをマージしたもの
+
+	- Dockerfile
+		- Dockerfile.doneをリネームしたもの
+
+
+```
+Dockerfile.seed-->Dockerfile.auto-->Dockerfile.done-->Dockerfile
+										^
+										│
+Dockerfile.sub --> Dockerfile.sub.done -┘
 ```
