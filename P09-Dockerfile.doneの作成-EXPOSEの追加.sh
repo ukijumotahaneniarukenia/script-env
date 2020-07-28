@@ -18,18 +18,14 @@ execute(){
 
   OS_NAME=$(echo $OS_VERSION | perl -pe 's/^([a-z]+)-(.*)$/\1/g')
 
+  TEMPLATE_FILE=$(find $HOME/$ENV_REPO -name "docker-template-Dockerfile-$OS_NAME-expose")
+
   while read tgt;do
-
-    INSTALL_USER=$(ls $tgt/env-user* | grep user-00 | xargs grep -h USER_NAME | sed 's/.*=//')
-
-    cmd=$(echo "sed -i 's/DOCKERFILE_INSTALL_USER/USER $INSTALL_USER/g' $tgt/Dockerfile.auto")
-    if [ "$SHELL" = 'bash' ];then
-      echo $cmd | $SHELL
-    else
-      echo $cmd
-    fi
-
-  done < <(find $HOME/$ENV_REPO -mindepth 1 -type d | grep -vP '\.git|docker-log|mnt' | grep $OS_VERSION)
+    while read expose;do
+      cat $TEMPLATE_FILE | sed "s/EXPOSE/$expose/" >>$tgt/Dockerfile.done
+      echo >>$tgt/Dockerfile.done
+    done < <(ls $tgt/env-port* | grep -vP '00|99' | xargs grep -h OUT | sed 's/.*=//')
+  done < <(find $HOME/$ENV_REPO -type d | grep -v docker-log | grep $OS_VERSION | grep -vP mnt)
 
 }
 

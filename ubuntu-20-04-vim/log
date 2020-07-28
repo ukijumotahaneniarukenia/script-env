@@ -1,0 +1,27 @@
+Sending build context to Docker daemon  4.096kB
+Step 1/8 : FROM ubuntu:20.04
+ ---> 1e4467b07108
+Step 2/8 : RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list && apt update && apt upgrade -y
+ ---> Using cache
+ ---> 64acf46538d0
+Step 3/8 : ENV DISPLAY=:0.0
+ ---> Using cache
+ ---> def32ec1f81d
+Step 4/8 : ENV DEBIAN_FRONTEND=noninteractive
+ ---> Using cache
+ ---> f36ffe991479
+Step 5/8 : RUN apt install -y systemd
+ ---> Using cache
+ ---> e51788bff042
+Step 6/8 : RUN apt install -y init
+ ---> Using cache
+ ---> a000763659bf
+Step 7/8 : RUN apt install -y xinit
+ ---> Using cache
+ ---> 085fc2aafead
+Step 8/8 : CMD ["/sbin/init"]
+ ---> Running in 1533287f517c
+Removing intermediate container 1533287f517c
+ ---> 1ced62fc9de1
+Successfully built 1ced62fc9de1
+Successfully tagged ubuntu-20-04-vim:latest

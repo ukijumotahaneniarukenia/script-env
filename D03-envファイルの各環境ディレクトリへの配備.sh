@@ -4,8 +4,14 @@ usage(){
 cat <<EOS
 Usage:
   $0 script-env env-build-arg.env
+
   or
+
   $0 script-env env-build-arg.env --debug
+
+  or
+
+  ls env* | xargs -n1 -I@ $0 script-env @ --debug
 EOS
 exit 0
 }
@@ -24,9 +30,15 @@ fi
 
 while read tgt;do
   cmd="cp $HOME/$ENV_REPO/$ENV_FILE_NAME $HOME/$ENV_REPO/$tgt/$ENV_FILE_NAME"
-  if [ "$SHELL" = 'bash' ];then
-    echo $cmd | $SHELL
+
+  if [ -f $HOME/$ENV_REPO/$tgt/$ENV_FILE_NAME ];then
+    :
   else
-    echo $cmd
+    if [ "$SHELL" = 'bash' ];then
+      echo $cmd | $SHELL
+    else
+      echo $cmd
+    fi
   fi
+
 done < <(ls -l $HOME/$ENV_REPO | grep -P '^d' | awk '{print $9}' | grep -v docker-build-log)

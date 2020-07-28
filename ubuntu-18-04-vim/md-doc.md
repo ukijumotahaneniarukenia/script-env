@@ -1,35 +1,37 @@
-# docker自動ビルド対象リストに追加
-
-- 当該環境ディレクトリを追加
-
-```
-pwd | sed 's;.*/;;' >/home/aine/script-env/docker-build-wanted-list
-```
-
 # dockerイメージ作成
 
 - キャッシュ有効-バッググラウンド実行
 
 ```
-time docker build --no-cache -t ubuntu-18-04-vim --build-arg GIT_VERSION=2-24-1 --build-arg PYTHON_VERSION=3-7-4 --build-arg REPO=script-repo --build-arg OS_VERSION=$(echo ubuntu-18-04-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . UNKO
+time docker build --no-cache -t ubuntu-18-04-vim BUILD_ARG --build-arg REPO=script-repo --build-arg OS_VERSION=$(echo ubuntu-18-04-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . UNKO
 ```
 
 - キャッシュ有効-フォアグラウンド実行
 
 ```
-time docker build -t ubuntu-18-04-vim --build-arg GIT_VERSION=2-24-1 --build-arg PYTHON_VERSION=3-7-4 --build-arg REPO=script-repo --build-arg OS_VERSION=$(echo ubuntu-18-04-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build -t ubuntu-18-04-vim BUILD_ARG --build-arg REPO=script-repo --build-arg OS_VERSION=$(echo ubuntu-18-04-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 - キャッシュ無効
 
 ```
-time docker build --no-cache -t ubuntu-18-04-vim --build-arg GIT_VERSION=2-24-1 --build-arg PYTHON_VERSION=3-7-4 --build-arg REPO=script-repo --build-arg OS_VERSION=$(echo ubuntu-18-04-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
+time docker build --no-cache -t ubuntu-18-04-vim BUILD_ARG --build-arg REPO=script-repo --build-arg OS_VERSION=$(echo ubuntu-18-04-vim | grep -Po '[a-z]{1,}(?:-[0-9]{1,}){1,}') . | tee log
 ```
 
 # dockerコンテナ起動
+
+- dockerコンテナ内でdockerホストのPID名前空間を借用しない場合
+
 ```
-docker run --privileged --shm-size=8gb --hostname=doc-ubuntu-18-04-vim -v /home/aine/script-env/ubuntu-18-04-vim/mnt:/home/aine/mnt -v /home/aine/Downloads-for-docker-container/ubuntu-18-04-vim:/home/aine/media -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id  --name ubuntu-18-04-vim -itd ubuntu-18-04-vim
+docker run --privileged --shm-size=SHM_SIZE --hostname=doc-ubuntu-18-04-vim -v /home/aine/script-env/ubuntu-18-04-vim/mnt:/home/aine/mnt -v /home/aine/Downloads-for-docker-container/ubuntu-18-04-vim:/home/aine/media -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime:ro -v /run/udev:/run/udev:ro -v /run/systemd:/run/systemd:ro -v /tmp/.X11-unix:/tmp/.X11-unix:ro -v /var/lib/dbus:/var/lib/dbus:ro -v /var/run/dbus:/var/run/dbus:ro -v /etc/machine-id:/etc/machine-id:ro -v /dev/dri:/dev/dri:ro EXPOSE --name ubuntu-18-04-vim -itd ubuntu-18-04-vim
 ```
+
+- dockerコンテナ内でdockerホストのPID名前空間を借用する場合
+
+```
+docker run --privileged --pid=host --shm-size=SHM_SIZE --hostname=doc-ubuntu-18-04-vim -v /home/aine/script-env/ubuntu-18-04-vim/mnt:/home/aine/mnt -v /home/aine/Downloads-for-docker-container/ubuntu-18-04-vim:/home/aine/media -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime:ro -v /run/udev:/run/udev:ro -v /run/systemd:/run/systemd:ro -v /tmp/.X11-unix:/tmp/.X11-unix:ro -v /var/lib/dbus:/var/lib/dbus:ro -v /var/run/dbus:/var/run/dbus:ro -v /etc/machine-id:/etc/machine-id:ro -v /dev/dri:/dev/dri:ro EXPOSE --name ubuntu-18-04-vim -itd ubuntu-18-04-vim
+```
+
 
 # dockerコンテナ潜入
 ```

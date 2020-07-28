@@ -14,18 +14,18 @@ ENV_REPO=$1;shift
 
 [ -z $ENV_REPO ] && usage
 
-MD_FILE_NAME=env-env.env
+INPUT_FILE_NAME=env-env.env
 OUTPUT_FILE_NAME=app-env-env-list.md
 
 >$HOME/$ENV_REPO/$OUTPUT_FILE_NAME
 
 while read tgt;do
   {
-    if [ -s $tgt/$MD_FILE_NAME ];then
-      echo "[$(echo $tgt | perl -pe 's;.*/;;g')]($BASE_URL/$ENV_REPO/blob/master/$(echo $tgt | perl -pe 's;.*/;;g')/$MD_FILE_NAME)"
+    if [ -s $tgt/$INPUT_FILE_NAME ];then
+      echo "[$(echo $tgt | perl -pe 's;.*/;;g')]($BASE_URL/$ENV_REPO/blob/master/$(echo $tgt | perl -pe 's;.*/;;g')/$INPUT_FILE_NAME)"
       echo found
     else
-      echo "[$(echo $tgt | perl -pe 's;.*/;;g')]($BASE_URL/$ENV_REPO/blob/master/$(echo $tgt | perl -pe 's;.*/;;g')/$MD_FILE_NAME)"
+      echo "[$(echo $tgt | perl -pe 's;.*/;;g')]($BASE_URL/$ENV_REPO/blob/master/$(echo $tgt | perl -pe 's;.*/;;g')/$INPUT_FILE_NAME)"
       echo not-found
     fi
   } | xargs | sed -r 's/ /|/g;s/^/|/;s/$/|/'

@@ -2,13 +2,13 @@ FROM ubuntu:19.10
 
 ARG OS_VERSION
 ARG REPO
-ARG DEBIAN_FRONTEND=noninteractive
 
 ARG GIT_VERSION
 ARG PYTHON_VERSION
 
 ENV LANG=ja_JP.UTF-8
 ENV DISPLAY=:0.0
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list && \
 apt update && \
@@ -18,7 +18,9 @@ RUN apt install -y git
 RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/$REPO.git
 
 RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-docker-host-user.sh
-RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-default-user.sh
+
+USER root
+
 RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-repository-pkg.sh
 RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-dev-pkg.sh
 RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-tool-pkg.sh
@@ -36,8 +38,7 @@ RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-ld.sh
 RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-font-RictyDiminished.sh
 RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-fcitx_mozc.sh
 
-COPY subrun.sh /root/subrun.sh
-#RUN bash /root/subrun.sh
+RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-default-user.sh 1000 aine 1000 aine aine_pwd
 
 USER aine
 RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-vim-user.sh
@@ -46,7 +47,6 @@ RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-dotfile.sh
 RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-env.sh
 RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-font-RictyDiminished.sh
 
-WORKDIR /home/aine
+COPY env-run.sh /etc/init/env-run.sh
+ENTRYPOINT ["/etc/init/env-run.sh","ubuntu"]
 
-COPY run.sh /etc/init/run.sh
-ENTRYPOINT ["/etc/init/run.sh","ubuntu"]

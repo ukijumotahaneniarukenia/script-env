@@ -18,13 +18,14 @@ execute(){
 
   OS_NAME=$(echo $OS_VERSION | perl -pe 's/^([a-z]+)-(.*)$/\1/g')
 
-  TEMPLATE_FILE=$(find $HOME/$ENV_REPO -name "docker-template-Dockerfile-$OS_NAME-user-main")
+  TEMPLATE_FILE=$(find $HOME/$ENV_REPO -name "docker-template-Dockerfile-$OS_NAME-user-register")
 
   while read tgt;do
-    while read main_user;do
-      cat $TEMPLATE_FILE | sed "s/MAIN_USER/$main_user/" >>$tgt/Dockerfile.auto
-      echo >>$tgt/Dockerfile.auto
-    done < <(ls $tgt/env-user* | grep -vP '00|99' | xargs grep -h USER_NAME | sed 's/.*=//')
+    while read user_id user_name group_id group_name password;do
+      cat $TEMPLATE_FILE | sed "s/$/ $user_id $user_name $group_id $group_name $password/" >>$tgt/Dockerfile.done
+      echo >>$tgt/Dockerfile.done
+      sed -i '/REGISTER_USER/d' $tgt/Dockerfile.done
+    done < <(ls $tgt/env-user* | grep -vP '00|99' | xargs -n1 cat | sed 's/.*=//' | xargs -n5)
   done < <(find $HOME/$ENV_REPO -type d | grep -v docker-log | grep $OS_VERSION | grep -vP mnt)
 
 }

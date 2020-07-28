@@ -12,7 +12,7 @@ ENV_REPO=$1;shift
 
 [ -z $ENV_REPO ] && usage
 
-MD_FILE_NAME=env-build-arg.env
+INPUT_FILE_NAME=env-build-arg.env
 OUTPUT_FILE_NAME=app-env-cmd-version-list.md
 
-find $HOME/$ENV_REPO -mindepth 1 -type d | grep -vP '\.git|docker-log|mnt' | xargs -I@ cat @/$MD_FILE_NAME | sort | uniq | awk -v FS='=' -v OFS=' ' '{print $1,$2}' >$OUTPUT_FILE_NAME
+find $HOME/$ENV_REPO -mindepth 1 -type d | grep -vP '\.git|docker-log|mnt' | xargs -I@ cat @/$INPUT_FILE_NAME | sort | uniq | awk -v FS='=' -v OFS=' ' '{print $1,$2}' >$OUTPUT_FILE_NAME

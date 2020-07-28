@@ -1,17 +1,12 @@
-FROM ubuntu:20.04
+RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-default-user.sh 1000 aine 1000 aine aine_pwd
 
-RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list && \
-apt update && \
-apt upgrade -y
+USER aine
+RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-vim-user.sh
+RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-vim_plug.sh
+RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-dotfile.sh
+RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-env.sh
+RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-font-RictyDiminished.sh
 
-ENV DISPLAY=:0.0
+COPY env-run.sh /etc/init/env-run.sh
+ENTRYPOINT ["/etc/init/env-run.sh","ubuntu"]
 
-ENV DEBIAN_FRONTEND=noninteractive
-
-RUN apt install -y systemd
-
-RUN apt install -y init
-
-RUN apt install -y xinit
-
-CMD ["/sbin/init"]

@@ -40,3 +40,5 @@ RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-font-RictyDiminished.sh
 RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-fcitx_mozc.sh
 
 DOCKERFILE_SUB
+
+DOCKERFILE_REGISTER_USER

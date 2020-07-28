@@ -14,14 +14,14 @@ ENV_REPO=$1;shift
 
 [ -z $ENV_REPO ] && usage
 
-MD_FILE_NAME=env-shm-size.env
+INPUT_FILE_NAME=env-shm-size.env
 OUTPUT_FILE_NAME=app-env-shm-size-list.md
 
 >$HOME/$ENV_REPO/$OUTPUT_FILE_NAME
 
 while read tgt;do
   {
-      echo "[$(echo $tgt | perl -pe 's;.*/;;g')]($BASE_URL/$ENV_REPO/blob/master/$(echo $tgt | perl -pe 's;.*/;;g')/$MD_FILE_NAME)"
-      cat $tgt/$MD_FILE_NAME | perl -pe 's/.*=//g'
+      echo "[$(echo $tgt | perl -pe 's;.*/;;g')]($BASE_URL/$ENV_REPO/blob/master/$(echo $tgt | perl -pe 's;.*/;;g')/$INPUT_FILE_NAME)"
+      cat $tgt/$INPUT_FILE_NAME | perl -pe 's/.*=//g'
   } | xargs | sed -r 's/ /|/g;s/^/|/;s/$/|/'
 done < <(find $HOME/$ENV_REPO -mindepth 1 -type d | grep -vP '\.git|docker-log|mnt') | sort | sed '1i|環境ディレクトリ名|メモリ上限サイズ|' | sed '2i|:--|:-:|' >>$HOME/$ENV_REPO/$OUTPUT_FILE_NAME

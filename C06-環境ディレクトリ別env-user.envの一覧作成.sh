@@ -14,20 +14,20 @@ ENV_REPO=$1;shift
 
 [ -z $ENV_REPO ] && usage
 
-MD_FILE_NAME=env-user.env
+INPUT_FILE_NAME=env-user.env
 OUTPUT_FILE_NAME=app-env-user-list.md
 
 >$HOME/$ENV_REPO/$OUTPUT_FILE_NAME
 
 while read tgt;do
-  RT=$(cat $tgt/$MD_FILE_NAME | sed -r '/\|ユーザーＩＤ|\|:-:/d;')
+  RT=$(cat $tgt/$INPUT_FILE_NAME | sed -r '/\|ユーザーＩＤ|\|:-:/d;')
   if [ -z "$RT" ];then
-    echo "[$(echo $tgt | perl -pe 's;.*/;;g')]($BASE_URL/$ENV_REPO/blob/master/$(echo $tgt | perl -pe 's;.*/;;g')/$MD_FILE_NAME)" 0 @1001@kuraine@1001@kuraine@kuraine_pwd
+    echo "[$(echo $tgt | perl -pe 's;.*/;;g')]($BASE_URL/$ENV_REPO/blob/master/$(echo $tgt | perl -pe 's;.*/;;g')/$INPUT_FILE_NAME)" 0 @1001@kuraine@1001@kuraine@kuraine_pwd
   else
     {
-      echo "[$(echo $tgt | perl -pe 's;.*/;;g')]($BASE_URL/$ENV_REPO/blob/master/$(echo $tgt | perl -pe 's;.*/;;g')/$MD_FILE_NAME)"
-      cat $tgt/$MD_FILE_NAME | sed -r '/\|ユーザーＩＤ|\|:-:/d;' | wc -l
-      cat $tgt/$MD_FILE_NAME | sed -r '/\|ユーザーＩＤ|\|:-:/d;s;\|;@;g;s;@$;;' | awk -v ORS='' '{print ","$1$2}'
+      echo "[$(echo $tgt | perl -pe 's;.*/;;g')]($BASE_URL/$ENV_REPO/blob/master/$(echo $tgt | perl -pe 's;.*/;;g')/$INPUT_FILE_NAME)"
+      cat $tgt/$INPUT_FILE_NAME | sed -r '/\|ユーザーＩＤ|\|:-:/d;' | wc -l
+      cat $tgt/$INPUT_FILE_NAME | sed -r '/\|ユーザーＩＤ|\|:-:/d;s;\|;@;g;s;@$;;' | awk -v ORS='' '{print ","$1$2}'
     } | xargs -n3 | \
     while read file cnt item;do
       for (( i=0;i<$cnt;i++));do

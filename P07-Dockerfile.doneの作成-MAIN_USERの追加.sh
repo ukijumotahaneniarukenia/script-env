@@ -18,11 +18,13 @@ execute(){
 
   OS_NAME=$(echo $OS_VERSION | perl -pe 's/^([a-z]+)-(.*)$/\1/g')
 
-  TEMPLATE_FILE=$(find $HOME/$ENV_REPO -name "docker-template-Dockerfile-$OS_NAME-entrypoint")
+  TEMPLATE_FILE=$(find $HOME/$ENV_REPO -name "docker-template-Dockerfile-$OS_NAME-user-main")
 
   while read tgt;do
-    cat $TEMPLATE_FILE | sed "s/ENTRYPOINT_ARGS/$OS_NAME/" >>$tgt/Dockerfile.auto
-    echo >>$tgt/Dockerfile.auto
+    while read main_user;do
+      cat $TEMPLATE_FILE | sed "s/MAIN_USER/$main_user/" >>$tgt/Dockerfile.done
+      echo >>$tgt/Dockerfile.done
+    done < <(ls $tgt/env-user* | grep -vP '00|99' | xargs grep -h USER_NAME | sed 's/.*=//')
   done < <(find $HOME/$ENV_REPO -type d | grep -v docker-log | grep $OS_VERSION | grep -vP mnt)
 
 }

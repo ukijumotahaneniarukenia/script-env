@@ -47,7 +47,7 @@ while read dir;do
 
   #前処理
   cat <<EOS >$dir/b
-  $(cat $dir/Dockerfile | grep -P "$(cat $dir/env-build-arg.env | awk -v FS='=' '{print $1}'|xargs|tr ' ' '|')" | grep -v ARG | grep -Po '(?<=echo \.\/).*(?= \| bash)')
+  $(cat $dir/Dockerfile | grep -P "$(cat $dir/env-build-arg.env | awk -v FS='=' '{print $1}'|xargs|tr ' ' '|')" | grep -v ARG | grep -Po '(?<=bash ).*sh')
 EOS
 
   OS_VERSION=$(echo $dir | grep -Po '[a-z]+(-[0-9]{1,}){1,}')
@@ -61,6 +61,7 @@ EOS
 
   #メイン処理
   cat $dir/b | while read f;do
+    [ -z $f ] && continue
     if [ -f $HOME/$DEFAULT_INSTALLER_REPO/$f ];then
       :
     else
@@ -69,7 +70,7 @@ EOS
     fi
   done
 
-  #TODO 他OSからリネームしてコピーし登録する処理を別スクリプトに切り出して追加
+  ##TODO 他OSからリネームしてコピーし登録する処理を別スクリプトに切り出して追加
 
   #後処理
   rm -f $dir/b

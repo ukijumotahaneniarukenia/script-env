@@ -1,2 +1,2 @@
-COPY run.sh /etc/init/run.sh
-ENTRYPOINT ["/etc/init/run.sh","ENTRYPOINT_ARGS"]
+COPY env-run.sh /etc/init/env-run.sh
+ENTRYPOINT ["/etc/init/env-run.sh","ENTRYPOINT_ARGS"]

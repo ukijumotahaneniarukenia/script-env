@@ -20,6 +20,7 @@ RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/$R
 
 RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-docker-host-user.sh
 
+USER root
 
 RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-repository-pkg.sh
 RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-dev-pkg.sh
@@ -40,16 +41,6 @@ RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-fcitx_mozc.sh
 
 DOCKERFILE_SUB
 
-USER MAIN_USER
-RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-vim-user.sh
-RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-vim_plug.sh
-RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-dotfile.sh
-RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-env.sh
-RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-font-RictyDiminished.sh
+DOCKERFILE_REGISTER_USER
+WORKDIR /home/aine
 
-WORKDIR /home/MAIN_USER
-
-EXPOSE PORT
-
-COPY run.sh /etc/init/run.sh
-ENTRYPOINT ["/etc/init/run.sh","ubuntu"]

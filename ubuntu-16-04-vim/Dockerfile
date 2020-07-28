@@ -2,13 +2,13 @@ FROM ubuntu:16.04
 
 ARG OS_VERSION
 ARG REPO
-ARG DEBIAN_FRONTEND=noninteractive
 
 ARG GIT_VERSION
 ARG PYTHON_VERSION
 
 ENV LANG=ja_JP.UTF-8
 ENV DISPLAY=:0.0
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list && \
 apt update && \
@@ -17,38 +17,36 @@ apt upgrade -y
 RUN apt install -y git
 RUN cd /usr/local/src && git clone https://github.com/ukijumotahaneniarukenia/$REPO.git
 
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-docker-host-user.sh | bash
+RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-docker-host-user.sh
 
-RUN cd /usr/local/src/$REPO && echo './$OS_VERSION-install-default-user.sh ' | bash
+USER root
 
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-repository-pkg.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-dev-pkg.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-tool-pkg.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-network-pkg.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-system.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim_plug.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-python-$PYTHON_VERSION.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-pre-patch-git-$GIT_VERSION.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-git-$GIT_VERSION.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-locale.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-ld.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-fcitx_mozc.sh | bash
+RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-repository-pkg.sh
+RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-dev-pkg.sh
+RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-tool-pkg.sh
+RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-network-pkg.sh
+RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-vim-system.sh
+RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-vim-user.sh
+RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-vim_plug.sh
+RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-python-$PYTHON_VERSION.sh
+RUN cd /usr/local/src/$REPO && bash $OS_VERSION-pre-patch-git-$GIT_VERSION.sh
+RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-git-$GIT_VERSION.sh
+RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-dotfile.sh
+RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-locale.sh
+RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-env.sh
+RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-ld.sh
+RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-font-RictyDiminished.sh
+RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-fcitx_mozc.sh
 
-COPY subrun.sh /root/subrun.sh
-#RUN bash /root/subrun.sh
+RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-default-user.sh 1000 aine 1000 aine aine_pwd
 
-USER kuraine
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim-user.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-vim_plug.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-dotfile.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-env.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-config-font-RictyDiminished.sh | bash
+USER aine
+RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-vim-user.sh
+RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-vim_plug.sh
+RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-dotfile.sh
+RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-env.sh
+RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-font-RictyDiminished.sh
 
-WORKDIR /home/kuraine
+COPY env-run.sh /etc/init/env-run.sh
+ENTRYPOINT ["/etc/init/env-run.sh","ubuntu"]
 
-COPY run.sh /etc/init/run.sh
-ENTRYPOINT ["/etc/init/run.sh","ubuntu"]
