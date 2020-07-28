@@ -1,4 +1,8 @@
 - レポジトリ構成
+	- script-dat
+		- 手軽なテストデータを投入していくなど
+	- script-api
+		- プログラム別APIなど
 	- script-template
 		- プログラム単位のテンプーレトファイルを管理
 		- ディレクトリ構成はscript-sketchと同じ
@@ -78,6 +82,11 @@ remove env
 or
 
 env-->sketch-->search
+remove env
+
+or
+
+env-->sketch-->api
 remove env
 ```
 
