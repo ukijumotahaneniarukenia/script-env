@@ -30,71 +30,80 @@
 		- 上記レポジトリ全てを全文検索など
 
 - script-envの構成
-    - 環境ファイル構成
-    	都度、ダイナミックに管理したいものがあれば追加
-        - env-build-arg.env
-            - ビルド環境引数
-        - env-env.env
-            - 環境変数
-        - env-expose.env
-            - 公開ポートと非公開ポート
-        - env-image.env
-            - ベンダーイメージ
-        - env-shm-size.env
-            - メモリ
-        - env-user.env
-            - 登録ユーザー
+	- 環境ファイル構成
+		都度、ダイナミックに管理したいものがあれば追加
+		- env-build-arg.env
+			- ビルド環境引数
+		- env-env.env
+			- 環境変数
+		- env-expose.env
+			- 公開ポートと非公開ポート
+		- env-image.env
+			- ベンダーイメージ
+		- env-shm-size.env
+			- メモリ
+		- env-user.env
+			- 登録ユーザー
 
-    - 環境ファイル以外の構成
-	    script-sketchに移植するようの元ネタ程度になればいいので、ざっくりでいいや
-        - md-doc.md
-            - dockerコンテナ操作を記載
-        - md-dev.md
-            - 開発マニュアルを記載
-        - md-ref.md
-            - 参考文献を記載
-        - md-trs.md
-            - 環境構築の際のトラブルシュートを記載
-        - md-man.md
-            - 上記マークダウンファイル以外に該当する内容を記載
+	- 環境ファイル以外の構成
+		script-sketchに移植するようの元ネタ程度になればいいので、ざっくりでいいや
+		- md-doc.md
+			- dockerコンテナ操作を記載
+		- md-dev.md
+			- 開発マニュアルを記載
+		- md-ref.md
+			- 参考文献を記載
+		- md-trs.md
+			- 環境構築の際のトラブルシュートを記載
+		- md-man.md
+			- 上記マークダウンファイル以外に該当する内容を記載
 
 - レポジトリライフサイクル
 
+  - sketchは重くなるので、言語個別で、レポ切るなど
 ```
+add env
 env-->sketch-->repo
 remove env
 
 or
 
+add env
 env-->sketch-->template
 remove env
 
 or
 
+add env
 env-->sketch-->cmd
 remove env
 
 or
 
+add env
 env-->sketch-->ci
 remove env
 
 or
 
+add env
 env-->sketch-->search
 remove env
 
 or
 
+add env
 env-->sketch-->api
 remove env
+
+
 ```
 
 - crontabで定期実行スクリプト作成
-    - http://dqn.sakusakutto.jp/2012/06/cron_crontab9.html
-    - https://zenpou.hatenadiary.org/entry/20080715/1216133151
-    - https://qiita.com/mazgi/items/15e1fe7e130584343810
-    - https://qiita.com/onomame/items/71646c5517a39bcd01cc
+	- http://dqn.sakusakutto.jp/2012/06/cron_crontab9.html
+	- https://zenpou.hatenadiary.org/entry/20080715/1216133151
+	- https://qiita.com/mazgi/items/15e1fe7e130584343810
+	- https://qiita.com/onomame/items/71646c5517a39bcd01cc
 
 バックアップ
 
