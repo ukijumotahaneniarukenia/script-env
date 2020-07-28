@@ -36,5 +36,3 @@ RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-ibus_mozc.sh
 #RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-fcitx_anthy.sh
 
 DOCKERFILE_SUB
-WORKDIR /home/aine
-

@@ -57,7 +57,9 @@ RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-dotfile.sh
 RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-env.sh
 RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-font-RictyDiminished.sh
 
-1433 PORT
+WORKDIR /home/aine
+
+EXPOSE 1433
 
 COPY env-run.sh /etc/init/env-run.sh
 ENTRYPOINT ["/etc/init/env-run.sh","ubuntu"]

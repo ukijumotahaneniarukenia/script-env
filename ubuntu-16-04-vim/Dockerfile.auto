@@ -42,5 +42,3 @@ RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-fcitx_mozc.sh
 DOCKERFILE_SUB
 
 DOCKERFILE_REGISTER_USER
-WORKDIR /home/aine
-
