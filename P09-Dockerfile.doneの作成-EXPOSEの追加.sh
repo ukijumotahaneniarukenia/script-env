@@ -22,7 +22,7 @@ execute(){
 
   while read tgt;do
     while read expose;do
-      cat $TEMPLATE_FILE | sed "s/EXPOSE/$expose/" >>$tgt/Dockerfile.done
+      cat $TEMPLATE_FILE | sed "s/PORT/$expose/" >>$tgt/Dockerfile.done
       echo >>$tgt/Dockerfile.done
     done < <(ls $tgt/env-port* | grep -vP '00|99' | xargs grep -h OUT | sed 's/.*=//')
   done < <(find $HOME/$ENV_REPO -type d | grep -v docker-log | grep $OS_VERSION | grep -vP mnt)
