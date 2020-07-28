@@ -154,7 +154,7 @@ ps aux  | grep 'docker build' | awk '{print $2}' | xargs kill
 
 ```
 cd $HOME/script-env
-ls P[0-1][0-9]* R07* | xargs -n1 -I@ echo "bash @ script-env" | bash
+ls D01* P[0-1][0-9]* R07* | xargs -n1 -I@ echo "bash @ script-env" | bash
 ```
 
 - 処理フローイメージ
