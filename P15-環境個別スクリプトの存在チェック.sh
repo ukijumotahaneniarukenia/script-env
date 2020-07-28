@@ -47,13 +47,13 @@ while read dir;do
 
   #前処理
   cat <<EOS >$dir/b
-  $(cat $dir/Dockerfile | grep -P "$(cat $dir/env-build-arg.md | awk -v FS='=' '{print $1}'|xargs|tr ' ' '|')" | grep -v ARG | grep -Po '(?<=echo \.\/).*(?= \| bash)')
+  $(cat $dir/Dockerfile | grep -P "$(cat $dir/env-build-arg.env | awk -v FS='=' '{print $1}'|xargs|tr ' ' '|')" | grep -v ARG | grep -Po '(?<=echo \.\/).*(?= \| bash)')
 EOS
 
   OS_VERSION=$(echo $dir | grep -Po '[a-z]+(-[0-9]{1,}){1,}')
 
   #中間処理
-  cat $dir/env-build-arg.md | awk -v FS='=' '{print $1,$2}' | \
+  cat $dir/env-build-arg.env | awk -v FS='=' '{print $1,$2}' | \
     while read k v;do
       sed -i "s/\$$k/$v/g" $dir/b
     done

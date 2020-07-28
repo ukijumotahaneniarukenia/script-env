@@ -29,19 +29,19 @@ while read tgt;do
     echo "sed -i 's;HHH;$HOME;g' $HOME/$ENV_REPO/$tgt/md-doc.md"
     echo "sed -i 's;ENV_REPO;$ENV_REPO;g' $HOME/$ENV_REPO/$tgt/md-doc.md"
 
-    RT="$(echo "grep '' $HOME/$ENV_REPO/$tgt/env-expose.md | xargs" | bash 2>/dev/null)"
+    RT="$(echo "grep '' $HOME/$ENV_REPO/$tgt/env-expose.env | xargs" | bash 2>/dev/null)"
     #デフォルト設定を適用
     [ -z "$RT" ] && printf "sed -i 's;EXPOSE;%s;' %s\n" "$(echo "grep EXPOSE $HOME/$ENV_REPO/$tgt/md-env.md" | bash 2>/dev/null | sed 's;.*=;;' | sort | uniq)" $HOME/$ENV_REPO/$tgt/md-doc.md
     #環境個別の設定を適用
     [ -z "$RT" ] || printf "sed -i 's;EXPOSE;%s;' %s\n" "$RT" $HOME/$ENV_REPO/$tgt/md-doc.md
 
-    RT="$(echo "grep '' $HOME/$ENV_REPO/$tgt/env-shm-size.md" | bash 2>/dev/null)"
+    RT="$(echo "grep '' $HOME/$ENV_REPO/$tgt/env-shm-size.env" | bash 2>/dev/null)"
     #デフォルト設定を適用
     [ -z "$RT" ] && printf "sed -i 's;SHM_SIZE;%s;' %s\n" "$(echo "grep SHM_SIZE $HOME/$ENV_REPO/md-env.md" | bash | sed 's;.*=;;' | sort | uniq)" $HOME/$ENV_REPO/$tgt/md-doc.md
     #環境個別の設定を適用
     [ -z "$RT" ] || printf "sed -i 's;SHM_SIZE;%s;' %s\n" "$(echo $RT | sed 's/SHM_SIZE=//g')" $HOME/$ENV_REPO/$tgt/md-doc.md
 
-    RT="$(echo "grep '' $HOME/$ENV_REPO/$tgt/env-build-arg.md | xargs" | bash 2>/dev/null)"
+    RT="$(echo "grep '' $HOME/$ENV_REPO/$tgt/env-build-arg.env | xargs" | bash 2>/dev/null)"
     #デフォルト設定を適用
     [ -z "$RT" ] && printf "sed -i 's;BUILD_ARG;%s;' %s\n" "$(echo "grep build-arg $HOME/$ENV_REPO/md-env.md" | sort | uniq | bash)" $HOME/$ENV_REPO/$tgt/md-doc.md
     #環境個別の設定を適用

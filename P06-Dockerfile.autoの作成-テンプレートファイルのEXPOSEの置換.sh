@@ -24,8 +24,8 @@ execute(){
     #テンプレートファイルのEXPOSEの置換
     {
       echo $tgt
-      grep -c -P  '\-p' $tgt/env-expose.md
-      grep -P  '\-p' $tgt/env-expose.md | awk -v ORS='' '{print ","$1$2}'
+      grep -c -P  '\-p' $tgt/env-expose.env
+      grep -P  '\-p' $tgt/env-expose.env | awk -v ORS='' '{print ","$1$2}'
     } | xargs -n3 | \
     while read file cnt port;do
       for (( i=0;i<$cnt;i++));do

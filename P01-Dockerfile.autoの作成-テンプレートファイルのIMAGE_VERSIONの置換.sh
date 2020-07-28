@@ -32,8 +32,8 @@ execute(){
 
   while read tgt;do
     #テンプレートファイルのIMAGE_VERSIONの置換
-    if [ -f $tgt/env-image.md ];then
-      RT="$(grep FROM $tgt/env-image.md)"
+    if [ -f $tgt/env-image.env ];then
+      RT="$(grep FROM $tgt/env-image.env)"
       if [ -z "$RT" ];then
         #環境個別のイメージファイルがない場合
         cmd=$(echo "sed 's;BASE_IMAGE;FROM $OS_NAME:$IMAGE_VERSION;' $TEMPLATE_FILE >$tgt/Dockerfile.auto")

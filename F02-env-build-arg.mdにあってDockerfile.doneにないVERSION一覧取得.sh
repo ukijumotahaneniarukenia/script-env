@@ -24,5 +24,5 @@ while read dir;do
       #echo exists
       echo 1 $dir/Dockerfile.done $tgt $arg
     fi
-  done < <(grep VERSION $dir/env-build-arg.md) | grep -P '^0'
+  done < <(grep VERSION $dir/env-build-arg.env) | grep -P '^0'
 done < <(find $HOME/$ENV_REPO -mindepth 1 -type d | grep -vP '\.git|docker-log') | uniq

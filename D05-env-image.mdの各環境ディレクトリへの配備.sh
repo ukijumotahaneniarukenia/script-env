@@ -12,7 +12,7 @@ ENV_REPO=$1;shift
 
 [ -z $ENV_REPO ] && usage
 
-MD_FILE_NAME=env-image.md
+MD_FILE_NAME=env-image.env
 
 while read tgt;do
 

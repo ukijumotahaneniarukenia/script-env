@@ -16,7 +16,7 @@ execute(){
 
   while read tgt;do
     #テンプレートファイルのDOCKERFILE_ENVの置換
-    cmd=$(echo "sed -i '/DOCKERFILE_ENV/r $tgt/env-env.md' $tgt/Dockerfile.auto")
+    cmd=$(echo "sed -i '/DOCKERFILE_ENV/r $tgt/env-env.env' $tgt/Dockerfile.auto")
     if [ "$SHELL" = 'bash' ];then
       echo $cmd | $SHELL
     else

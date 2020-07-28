@@ -33,8 +33,8 @@ execute(){
 
   while read tgt;do
     #テンプレートファイルのIMAGE_VERSIONの置換
-    if [ -f $tgt/env-image.md ];then
-      RT="$(grep FROM $tgt/env-image.md)"
+    if [ -f $tgt/env-image.env ];then
+      RT="$(grep FROM $tgt/env-image.env)"
       if [ -z "$RT" ];then
         #環境個別のイメージファイルがない場合
         echo "sed 's;BASE_IMAGE;FROM $OS_NAME:$IMAGE_VERSION;' $TEMPLATE_FILE >$tgt/Dockerfile.auto" | bash
@@ -50,12 +50,12 @@ execute(){
     echo "sed -i '/^USER/,/^EXPOSE/d' $tgt/Dockerfile.auto" | bash
 
     #テンプレートファイルのDOCKERFILE_ARGの置換
-    cat $tgt/env-build-arg.md  | sed 's/=.*//;s/^/ARG /;' >/tmp/env-build-arg-$(echo $tgt | perl -pe 's;/;-;g')
+    cat $tgt/env-build-arg.env  | sed 's/=.*//;s/^/ARG /;' >/tmp/env-build-arg-$(echo $tgt | perl -pe 's;/;-;g')
     echo "sed -i '/DOCKERFILE_ARG/r /tmp/env-build-arg-$(echo $tgt | perl -pe 's;/;-;g')' $tgt/Dockerfile.auto" | bash
     echo "sed -i '/DOCKERFILE_ARG/d' $tgt/Dockerfile.auto" | bash
 
     #テンプレートファイルのDOCKERFILE_ENVの置換
-    echo "sed -i '/DOCKERFILE_ENV/r $tgt/env-env.md' $tgt/Dockerfile.auto" | bash
+    echo "sed -i '/DOCKERFILE_ENV/r $tgt/env-env.env' $tgt/Dockerfile.auto" | bash
     echo "sed -i '/DOCKERFILE_ENV/d' $tgt/Dockerfile.auto" | bash
 
     #テンプレートファイルのDOCKERFILE_EDITORの置換
@@ -75,8 +75,8 @@ execute(){
     #テンプレートファイルのMAIN_USERの置換
     {
       echo $tgt
-      grep -c -vP  'ユーザーＩＤ|aine|kuraine|nahato|mujiku|:-:|root' $tgt/env-user.md
-      grep -vP  'ユーザーＩＤ|aine|kuraine|nahato|mujiku|:-:|root' $tgt/env-user.md | awk -v FS='|' -v ORS='' '{print ","$3}'
+      grep -c -vP  'ユーザーＩＤ|aine|kuraine|nahato|mujiku|:-:|root' $tgt/env-user.env
+      grep -vP  'ユーザーＩＤ|aine|kuraine|nahato|mujiku|:-:|root' $tgt/env-user.env | awk -v FS='|' -v ORS='' '{print ","$3}'
     } | xargs -n3 | \
     while read file cnt usr;do
       if [ 0 -eq $cnt ];then
@@ -90,8 +90,8 @@ execute(){
     #テンプレートファイルのEXPOSEの置換
     {
       echo $tgt
-      grep -c -P  '\-p' $tgt/env-expose.md
-      grep -P  '\-p' $tgt/env-expose.md | awk -v ORS='' '{print ","$1$2}'
+      grep -c -P  '\-p' $tgt/env-expose.env
+      grep -P  '\-p' $tgt/env-expose.env | awk -v ORS='' '{print ","$1$2}'
     } | xargs -n3 | \
     while read file cnt port;do
       for (( i=0;i<$cnt;i++));do

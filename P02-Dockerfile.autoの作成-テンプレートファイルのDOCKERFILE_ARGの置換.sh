@@ -30,7 +30,7 @@ execute(){
 
   while read tgt;do
     #テンプレートファイルのDOCKERFILE_ARGの置換
-    cat $tgt/env-build-arg.md  | sed 's/=.*//;s/^/ARG /;' >/tmp/env-build-arg-$(echo $tgt | perl -pe 's;/;-;g')
+    cat $tgt/env-build-arg.env  | sed 's/=.*//;s/^/ARG /;' >/tmp/env-build-arg-$(echo $tgt | perl -pe 's;/;-;g')
     cmd=$(echo "sed -i '/DOCKERFILE_ARG/r /tmp/env-build-arg-$(echo $tgt | perl -pe 's;/;-;g')' $tgt/Dockerfile.auto")
     if [ "$SHELL" = 'bash' ];then
       echo $cmd | $SHELL

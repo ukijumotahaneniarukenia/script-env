@@ -27,11 +27,11 @@ execute(){
     #テンプレートファイルのDOCKERFILE_INSTALL_USERの置換
     {
       echo $tgt
-      grep -c -vP  'ユーザーＩＤ|aine|kuraine|nahato|mujiku|:-:|root' $tgt/env-user.md
-      grep -vP  'ユーザーＩＤ|aine|kuraine|nahato|mujiku|:-:|root' $tgt/env-user.md | awk -v FS='|' -v ORS='' '{print ","$2}'|sed 's/$/@/'
-      grep -vP  'ユーザーＩＤ|aine|kuraine|nahato|mujiku|:-:|root' $tgt/env-user.md | awk -v FS='|' -v ORS='' '{print ","$3}'|sed 's/$/@/'
-      grep -vP  'ユーザーＩＤ|aine|kuraine|nahato|mujiku|:-:|root' $tgt/env-user.md | awk -v FS='|' -v ORS='' '{print ","$4}'|sed 's/$/@/'
-      grep -vP  'ユーザーＩＤ|aine|kuraine|nahato|mujiku|:-:|root' $tgt/env-user.md | awk -v FS='|' -v ORS='' '{print ","$5}'|sed 's/$/@/'
+      grep -c -vP  'ユーザーＩＤ|aine|kuraine|nahato|mujiku|:-:|root' $tgt/env-user.env
+      grep -vP  'ユーザーＩＤ|aine|kuraine|nahato|mujiku|:-:|root' $tgt/env-user.env | awk -v FS='|' -v ORS='' '{print ","$2}'|sed 's/$/@/'
+      grep -vP  'ユーザーＩＤ|aine|kuraine|nahato|mujiku|:-:|root' $tgt/env-user.env | awk -v FS='|' -v ORS='' '{print ","$3}'|sed 's/$/@/'
+      grep -vP  'ユーザーＩＤ|aine|kuraine|nahato|mujiku|:-:|root' $tgt/env-user.env | awk -v FS='|' -v ORS='' '{print ","$4}'|sed 's/$/@/'
+      grep -vP  'ユーザーＩＤ|aine|kuraine|nahato|mujiku|:-:|root' $tgt/env-user.env | awk -v FS='|' -v ORS='' '{print ","$5}'|sed 's/$/@/'
     } | xargs -n6 | sed '/^$/d' |\
     while read file row_cnt user_info;do
       #echo $file $row_cnt $user_id $user_name $group_id $group_name

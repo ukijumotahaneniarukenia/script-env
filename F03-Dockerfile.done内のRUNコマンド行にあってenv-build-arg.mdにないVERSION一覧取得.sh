@@ -16,13 +16,13 @@ INSTALLER_REPO="$1";shift
 
 while read dir;do
   while read cmd;do
-    RT=$(echo "grep $cmd $dir/env-build-arg.md")
+    RT=$(echo "grep $cmd $dir/env-build-arg.env")
     if [ -z "$RT" ];then
       #echo not exists
-      echo 0 $dir/env-build-arg.md $tgt $cmd
+      echo 0 $dir/env-build-arg.env $tgt $cmd
     else
       #echo exists
-      echo 1 $dir/env-build-arg.md $tgt $cmd
+      echo 1 $dir/env-build-arg.env $tgt $cmd
     fi
   done < <(grep VERSION.sh $dir/Dockerfile.done 2>/dev/null | grep -Po '[A-Z_]+' | grep -P '(?<!OS_)VERSION') | grep -P '^0'
 done < <(find $HOME/$ENV_REPO -mindepth 1 -type d | grep -vP '\.git|docker-log') | uniq
