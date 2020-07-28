@@ -1,11 +1,3 @@
-# docker自動ビルド対象リストに追加
-
-- 当該環境ディレクトリを追加
-
-```
-pwd | sed 's;.*/;;' >HHH/ENV_REPO/docker-build-wanted-list
-```
-
 # dockerイメージ作成
 
 - キャッシュ有効-バッググラウンド実行

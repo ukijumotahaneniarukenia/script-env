@@ -18,25 +18,25 @@ execute(){
 
   OS_NAME=$(echo $OS_VERSION | perl -pe 's/^([a-z]+)-(.*)$/\1/g')
 
-  IMAGE_VERSION=$(echo $OS_VERSION | perl -pe 's/^([a-z]+)-(.*)$/\2/g')
+  DOCKERFILE_IMAGE_VERSION=$(echo $OS_VERSION | perl -pe 's/^([a-z]+)-(.*)$/\2/g')
 
   if [ "centos" == $OS_NAME ];then
-    IMAGE_VERSION=$(echo $IMAGE_VERSION | perl -pe 's/-/\./;s/-/\./;s/-//;')
+    DOCKERFILE_IMAGE_VERSION=$(echo $DOCKERFILE_IMAGE_VERSION | perl -pe 's/-/\./;s/-/\./;s/-//;')
   fi
 
   if [ "ubuntu" == $OS_NAME ];then
-    IMAGE_VERSION=$(echo $IMAGE_VERSION | perl -pe 's/-/\./;')
+    DOCKERFILE_IMAGE_VERSION=$(echo $DOCKERFILE_IMAGE_VERSION | perl -pe 's/-/\./;')
   fi
 
   TEMPLATE_FILE=$(find $HOME/$ENV_REPO -name "docker-template-Dockerfile-$OS_NAME")
 
   while read tgt;do
-    #テンプレートファイルのIMAGE_VERSIONの置換
+    #テンプレートファイルのDOCKERFILE_IMAGE_VERSIONの置換
     if [ -f $tgt/env-image.env ];then
       RT="$(grep FROM $tgt/env-image.env)"
       if [ -z "$RT" ];then
         #環境個別のイメージファイルがない場合
-        cmd=$(echo "sed 's;BASE_IMAGE;FROM $OS_NAME:$IMAGE_VERSION;' $TEMPLATE_FILE >$tgt/Dockerfile.auto")
+        cmd=$(echo "sed 's;BASE_IMAGE;FROM $OS_NAME:$DOCKERFILE_IMAGE_VERSION;' $TEMPLATE_FILE >$tgt/Dockerfile.auto")
         if [ "$SHELL" = 'bash' ];then
           echo $cmd | $SHELL
         else
@@ -54,14 +54,6 @@ execute(){
     else
       #環境個別のイメージファイルがない場合
       :
-    fi
-
-    #後続処理にそなえて後処理
-    cmd=$(echo "sed -i '/^USER/,/^EXPOSE/d' $tgt/Dockerfile.auto")
-    if [ "$SHELL" = 'bash' ];then
-      echo $cmd | $SHELL
-    else
-      echo $cmd
     fi
 
   done < <(find $HOME/$ENV_REPO -type d | grep -v docker-log | grep $OS_VERSION | grep -vP mnt)

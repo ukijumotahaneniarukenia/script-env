@@ -16,17 +16,13 @@ execute(){
 
   [ -z $OS_VERSION ] && usage
 
+  OS_NAME=$(echo $OS_VERSION | perl -pe 's/^([a-z]+)-(.*)$/\1/g')
+
+  TEMPLATE_FILE=$(find $HOME/$ENV_REPO -name "docker-template-Dockerfile-$OS_NAME-entrypoint")
+
   while read tgt;do
-    #ENTRYPOINTの行を最終行に移動する
-    grep -n -P ENTRYPOINT $tgt/Dockerfile.auto | \
-      while read t;do
-        cmd=$(echo "sed -i '${t//:*/}d;\$a${t//*:/}' $tgt/Dockerfile.auto")
-        if [ "$SHELL" = 'bash' ];then
-          echo $cmd | $SHELL
-        else
-          echo $cmd
-        fi
-      done
+    cat $TEMPLATE_FILE | sed "s/ENTRYPOINT_ARGS/$OS_NAME/" >>$tgt/Dockerfile.auto
+    echo >>$tgt/Dockerfile.auto
   done < <(find $HOME/$ENV_REPO -type d | grep -v docker-log | grep $OS_VERSION | grep -vP mnt)
 
 }

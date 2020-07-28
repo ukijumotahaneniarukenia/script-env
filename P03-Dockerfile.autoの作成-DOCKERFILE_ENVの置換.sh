@@ -15,8 +15,15 @@ execute(){
   OS_VERSION=$1;shift
 
   while read tgt;do
+
+    TMP_FILE=/tmp/$(echo $tgt/env-env.env | sed 's;/;-;g')
+
+    cp $tgt/env-env.env $TMP_FILE
+
+    sed -i 's/^/ENV /' $TMP_FILE
+
     #テンプレートファイルのDOCKERFILE_ENVの置換
-    cmd=$(echo "sed -i '/DOCKERFILE_ENV/r $tgt/env-env.env' $tgt/Dockerfile.auto")
+    cmd=$(echo "sed -i '/DOCKERFILE_ENV/r /tmp$tgt/env-env.env' $tgt/Dockerfile.auto")
     if [ "$SHELL" = 'bash' ];then
       echo $cmd | $SHELL
     else
@@ -29,6 +36,8 @@ execute(){
     else
       echo $cmd
     fi
+
+    rm -f $TMP_FILE
 
   done < <(find $HOME/$ENV_REPO -type d | grep -v docker-log | grep $OS_VERSION | grep -vP mnt)
 }

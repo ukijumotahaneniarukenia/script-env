@@ -18,14 +18,14 @@ execute(){
 
   OS_NAME=$(echo $OS_VERSION | perl -pe 's/^([a-z]+)-(.*)$/\1/g')
 
-  IMAGE_VERSION=$(echo $OS_VERSION | perl -pe 's/^([a-z]+)-(.*)$/\2/g')
+  DOCKERFILE_IMAGE_VERSION=$(echo $OS_VERSION | perl -pe 's/^([a-z]+)-(.*)$/\2/g')
 
   if [ "centos" == $OS_NAME ];then
-    IMAGE_VERSION=$(echo $IMAGE_VERSION | perl -pe 's/-/\./;s/-/\./;s/-//;')
+    DOCKERFILE_IMAGE_VERSION=$(echo $DOCKERFILE_IMAGE_VERSION | perl -pe 's/-/\./;s/-/\./;s/-//;')
   fi
 
   if [ "ubuntu" == $OS_NAME ];then
-    IMAGE_VERSION=$(echo $IMAGE_VERSION | perl -pe 's/-/\./;')
+    DOCKERFILE_IMAGE_VERSION=$(echo $DOCKERFILE_IMAGE_VERSION | perl -pe 's/-/\./;')
   fi
 
   while read tgt;do

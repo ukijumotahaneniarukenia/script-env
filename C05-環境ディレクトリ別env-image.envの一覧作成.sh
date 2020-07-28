@@ -21,7 +21,7 @@ OUTPUT_FILE_NAME=app-env-image-list.md
 
 while read tgt;do
   OS_NAME=$(echo $tgt | perl -pe 's;.*/;;g;' | perl -pe 's/^([a-z]+)-(.*)$/\1/g')
-  IMAGE_VERSION=$(echo $tgt | perl -pe 's;.*/;;g;' | perl -pe 's/^([a-z]+)-(.*)$/\2/g;s/((?:[0-9]+-){1,})(.*)/\1/;s/-$//;')
+  DOCKERFILE_IMAGE_VERSION=$(echo $tgt | perl -pe 's;.*/;;g;' | perl -pe 's/^([a-z]+)-(.*)$/\2/g;s/((?:[0-9]+-){1,})(.*)/\1/;s/-$//;')
 
   if [ -s $tgt/$MD_FILE_NAME ];then
     {
@@ -30,13 +30,13 @@ while read tgt;do
     } | xargs
   else
     if [ "centos" == $OS_NAME ];then
-      IMAGE_VERSION=$(echo $IMAGE_VERSION | perl -pe 's/-/\./;s/-/\./;s/-//;')
+      DOCKERFILE_IMAGE_VERSION=$(echo $DOCKERFILE_IMAGE_VERSION | perl -pe 's/-/\./;s/-/\./;s/-//;')
     fi
 
     if [ "ubuntu" == $OS_NAME ];then
-      IMAGE_VERSION=$(echo $IMAGE_VERSION | perl -pe 's/-/\./;')
+      DOCKERFILE_IMAGE_VERSION=$(echo $DOCKERFILE_IMAGE_VERSION | perl -pe 's/-/\./;')
     fi
-    echo "[$(echo $tgt | perl -pe 's;.*/;;g')]($BASE_URL/$ENV_REPO/blob/master/$(echo $tgt | perl -pe 's;.*/;;g')/$MD_FILE_NAME)" $IMAGE_VERSION
+    echo "[$(echo $tgt | perl -pe 's;.*/;;g')]($BASE_URL/$ENV_REPO/blob/master/$(echo $tgt | perl -pe 's;.*/;;g')/$MD_FILE_NAME)" $DOCKERFILE_IMAGE_VERSION
   fi \
   | perl -pe 's/(?<=md\)) /|/;s/^/|/;s/$/|/'
 done < <(find $HOME/$ENV_REPO -mindepth 1 -type d | grep -vP '\.git|docker-log|mnt') | sort | sed '1i|環境ディレクトリ名|ベースイメージ|' | sed '2i|:--|:-:|' >>$HOME/$ENV_REPO/$OUTPUT_FILE_NAME

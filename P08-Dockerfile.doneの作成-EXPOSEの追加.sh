@@ -14,18 +14,19 @@ execute(){
 
   OS_VERSION=$1;shift
 
+  [ -z $OS_VERSION ] && usage
+
   OS_NAME=$(echo $OS_VERSION | perl -pe 's/^([a-z]+)-(.*)$/\1/g')
 
-  while read tgt;do
-    #テンプレートファイルのENTRYPOINT_ARGSの置換
-    cmd=$(echo "sed -i 's/ENTRYPOINT_ARGS/$OS_NAME/g' $tgt/Dockerfile.auto")
-    if [ "$SHELL" = 'bash' ];then
-      echo $cmd | $SHELL
-    else
-      echo $cmd
-    fi
+  TEMPLATE_FILE=$(find $HOME/$ENV_REPO -name "docker-template-Dockerfile-$OS_NAME-expose")
 
+  while read tgt;do
+    while read expose;do
+      cat $TEMPLATE_FILE | sed "s/EXPOSE/$expose/" >>$tgt/Dockerfile.auto
+      echo >>$tgt/Dockerfile.auto
+    done < <(ls $tgt/env-port* | grep -vP '00|99' | xargs grep -h OUT | sed 's/.*=//')
   done < <(find $HOME/$ENV_REPO -type d | grep -v docker-log | grep $OS_VERSION | grep -vP mnt)
+
 }
 
 main(){

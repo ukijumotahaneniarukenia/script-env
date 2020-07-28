@@ -1,0 +1,2 @@
+COPY run.sh /etc/init/run.sh
+ENTRYPOINT ["/etc/init/run.sh","ENTRYPOINT_ARGS"]

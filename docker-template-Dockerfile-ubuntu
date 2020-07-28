@@ -9,8 +9,6 @@ ENV LANG=ja_JP.UTF-8
 ENV DISPLAY=:0.0
 ENV DEBIAN_FRONTEND=noninteractive
 
-DOCKERFILE_SUB_PREPROCESS
-
 RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list && \
 apt update && \
 apt upgrade -y
@@ -41,25 +39,4 @@ RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-ld.sh
 RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-font-RictyDiminished.sh
 RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-fcitx_mozc.sh
 
-COPY subrun.sh /root/subrun.sh
-#RUN bash /root/subrun.sh
-
-DOCKERFILE_EDITOR
-
 DOCKERFILE_SUB
-
-DOCKERFILE_SUB_POSTPROCESS
-
-USER MAIN_USER
-RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-vim-user.sh
-RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-vim_plug.sh
-RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-dotfile.sh
-RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-env.sh
-RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-font-RictyDiminished.sh
-
-WORKDIR /home/MAIN_USER
-
-EXPOSE PORT
-
-COPY run.sh /etc/init/run.sh
-ENTRYPOINT ["/etc/init/run.sh","ENTRYPOINT_ARGS"]

@@ -18,26 +18,13 @@ execute(){
 
   OS_NAME=$(echo $OS_VERSION | perl -pe 's/^([a-z]+)-(.*)$/\1/g')
 
-  TEMPLATE_FILE=$(find $HOME/$ENV_REPO -name "docker-template-Dockerfile-$OS_NAME")
+  TEMPLATE_FILE=$(find $HOME/$ENV_REPO -name "docker-template-Dockerfile-$OS_NAME-user-workdir")
 
   while read tgt;do
-    #テンプレートファイルのEXPOSEの置換
-    {
-      echo $tgt
-      grep -c -P  '\-p' $tgt/env-expose.env
-      grep -P  '\-p' $tgt/env-expose.env | awk -v ORS='' '{print ","$1$2}'
-    } | xargs -n3 | \
-    while read file cnt port;do
-      for (( i=0;i<$cnt;i++));do
-        cmd=$(echo "sed -n '/EXPOSE/p' $TEMPLATE_FILE | perl -pe "s/PORT/$(echo $port | cut -d',' -f$(($i+2))|sed -r 's/.*://')/g" >>$file/Dockerfile.auto")
-        if [ "$SHELL" = 'bash' ];then
-          echo $cmd | $SHELL
-        else
-          echo $cmd
-        fi
-      done
-    done
-
+    while read workdir_user;do
+      cat $TEMPLATE_FILE | sed "s/WORKDIR_USER/$workdir_user/" >>$tgt/Dockerfile.auto
+      echo >>$tgt/Dockerfile.auto
+    done < <(ls $tgt/env-user* | grep 99 | xargs grep -h USER_NAME | sed 's/.*=//')
   done < <(find $HOME/$ENV_REPO -type d | grep -v docker-log | grep $OS_VERSION | grep -vP mnt)
 
 }

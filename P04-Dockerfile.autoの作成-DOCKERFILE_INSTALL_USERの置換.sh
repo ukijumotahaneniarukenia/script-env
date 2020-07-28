@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-#ユーザーがrootを除いて複数に存在する場合のパッチ
-
 usage(){
 cat <<EOS
 Usage:
@@ -16,16 +14,23 @@ execute(){
 
   OS_VERSION=$1;shift
 
+  [ -z $OS_VERSION ] && usage
+
+  OS_NAME=$(echo $OS_VERSION | perl -pe 's/^([a-z]+)-(.*)$/\1/g')
+
   while read tgt;do
-    #最後に見つかったWORKDIR以外を削除
-    cmd=$(grep -n -P  'WORKDIR' $tgt/Dockerfile.auto |cut -d' ' -f1|xargs|sed '/^$/d'|awk -v FS=' ' '{$NF="";print $0}' | xargs -I@ echo @ | perl -pe "s;:.*;;;s;^;sed -i ;;s;$;d $tgt/Dockerfile.auto;")
+
+    INSTALL_USER=$(ls $tgt/env-user* | grep user-00 | xargs grep -h USER_NAME | sed 's/.*=//')
+
+    cmd=$(echo "sed -i 's/DOCKERFILE_INSTALL_USER/$INSTALL_USER/g' $tgt/Dockerfile.auto")
     if [ "$SHELL" = 'bash' ];then
       echo $cmd | $SHELL
     else
       echo $cmd
     fi
 
-  done < <(find $HOME/$ENV_REPO -type d | grep -v docker-log | grep $OS_VERSION | grep -vP mnt)
+  done < <(find $HOME/$ENV_REPO -mindepth 1 -type d | grep -vP '\.git|docker-log|mnt' | grep $OS_VERSION)
+
 }
 
 main(){
