@@ -22,8 +22,8 @@ execute(){
 
   while read tgt;do
     while read workdir_user;do
-      cat $TEMPLATE_FILE | sed "s/WORKDIR_USER/$workdir_user/" >>$tgt/Dockerfile.auto
-      echo >>$tgt/Dockerfile.auto
+      cat $TEMPLATE_FILE | sed "s/WORKDIR_USER/$workdir_user/" >>$tgt/Dockerfile.done
+      echo >>$tgt/Dockerfile.done
     done < <(ls $tgt/env-user* | grep 99 | xargs grep -h USER_NAME | sed 's/.*=//')
   done < <(find $HOME/$ENV_REPO -type d | grep -v docker-log | grep $OS_VERSION | grep -vP mnt)
 
