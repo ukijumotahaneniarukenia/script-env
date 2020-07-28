@@ -1,4 +1,0 @@
-COPY android-studio-ide-192.6392135-linux.tar.gz /usr/local/src/android-studio-ide-192.6392135-linux.tar.gz
-RUN apt install -y libc6 libncurses5 libstdc++6 lib32z1 libbz2-1.0
-RUN apt install -y libpulse-dev libasound2-dev
-RUN cd /usr/local/src && tar xvf android-studio-ide-192.6392135-linux.tar.gz
