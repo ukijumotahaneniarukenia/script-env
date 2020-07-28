@@ -31,13 +31,13 @@ time docker build --no-cache -t XXX BUILD_ARG --build-arg REPO=INSTALLER_REPO --
 - dockerコンテナ内でdockerホストのPID名前空間を借用しない場合
 
 ```
-docker run --privileged --shm-size=SHM_SIZE --hostname=doc-XXX -v HHH/ENV_REPO/XXX/mnt:HHH/mnt -v HHH/Downloads-for-docker-container/XXX:HHH/media -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id EXPOSE --name XXX -itd XXX
+docker run --privileged --shm-size=SHM_SIZE --hostname=doc-XXX -v HHH/ENV_REPO/XXX/mnt:HHH/mnt -v HHH/Downloads-for-docker-container/XXX:HHH/media -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime:ro -v /run/udev:/run/udev:ro -v /run/systemd:/run/systemd:ro -v /tmp/.X11-unix:/tmp/.X11-unix:ro -v /var/lib/dbus:/var/lib/dbus:ro -v /var/run/dbus:/var/run/dbus:ro -v /etc/machine-id:/etc/machine-id:ro -v /dev/dri:/dev/dri:ro EXPOSE --name XXX -itd XXX
 ```
 
 - dockerコンテナ内でdockerホストのPID名前空間を借用する場合
 
 ```
-docker run --privileged --pid=host --shm-size=SHM_SIZE --hostname=doc-XXX -v HHH/ENV_REPO/XXX/mnt:HHH/mnt -v HHH/Downloads-for-docker-container/XXX:HHH/media -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime -v /run/udev:/run/udev -v /run/systemd:/run/systemd -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/lib/dbus:/var/lib/dbus -v /var/run/dbus:/var/run/dbus -v /etc/machine-id:/etc/machine-id EXPOSE --name XXX -itd XXX
+docker run --privileged --pid=host --shm-size=SHM_SIZE --hostname=doc-XXX -v HHH/ENV_REPO/XXX/mnt:HHH/mnt -v HHH/Downloads-for-docker-container/XXX:HHH/media -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/localtime:/etc/localtime:ro -v /run/udev:/run/udev:ro -v /run/systemd:/run/systemd:ro -v /tmp/.X11-unix:/tmp/.X11-unix:ro -v /var/lib/dbus:/var/lib/dbus:ro -v /var/run/dbus:/var/run/dbus:ro -v /etc/machine-id:/etc/machine-id:ro -v /dev/dri:/dev/dri:ro EXPOSE --name XXX -itd XXX
 ```
 
 

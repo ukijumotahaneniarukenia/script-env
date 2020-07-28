@@ -1,1 +1,0 @@
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-qt_designer.sh | bash
