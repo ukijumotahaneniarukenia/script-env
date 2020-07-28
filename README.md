@@ -1,109 +1,91 @@
-# マイインストーラの実行
+- レポジトリ構成
+	- script-template
+		- プログラム単位のテンプーレトファイルを管理
+		- ディレクトリ構成はscript-sketchと同じ
+	- script-sketch
+		- プログラムないしアプリ単位にディレクトリを切って運用
+		- ディレクトリ名は単一アプリ名
+	- script-env
+		- os名-バージョン-アプリないしソフト名とそのバージョン単一ないし複数-エディタ単一
+		- エディタデフォルトはvim
+	- script-repo
+		- プログラムのインストーラーシェル
+		- プログラムのローンチシェル
+		- プログラムのコンフィグシェル
+		- プログラムのプレパッチシェル
+		- プログラムのポストパッチシェル
+		- プログラムのヘルスチェックシェル
+		- プログラムの実行ユーザー登録シェル
+		- プログラムのデフォルトシステムシェル
+		- プログラムのデフォルトユーザーシェル
+	- script-cmd
+		- 実行コマンドとして仕込ませるなど
+	- script-ci
+		- 自動実行してみるなど
+	- script-search
+		- 上記レポジトリ全てを全文検索など
 
-- rootユーザーでmy-installer.shを実行
+- script-envの構成
+    - 環境ファイル構成
+    	都度、ダイナミックに管理したいものがあれば追加
+        - env-build-arg.env
+            - ビルド環境引数
+        - env-env.env
+            - 環境変数
+        - env-expose.env
+            - 公開ポートと非公開ポート
+        - env-image.env
+            - ベンダーイメージ
+        - env-shm-size.env
+            - メモリ
+        - env-user.env
+            - 登録ユーザー
 
-# docker install
-- インストール手順公式HP
-  - https://docs.docker.com/install/linux/docker-ce/centos/
+    - 環境ファイル以外の構成
+	    script-sketchに移植するようの元ネタ程度になればいいので、ざっくりでいいや
+        - md-doc.md
+            - dockerコンテナ操作を記載
+        - md-dev.md
+            - 開発マニュアルを記載
+        - md-ref.md
+            - 参考文献を記載
+        - md-trs.md
+            - 環境構築の際のトラブルシュートを記載
+        - md-man.md
+            - 上記マークダウンファイル以外に該当する内容を記載
 
-- より簡単にいんすこできるようになった
-  - https://github.com/docker/docker-install
+- レポジトリライフサイクル
 
-- my-installer.shに組み込んでおきたい部分
-
-# dockerホスト環境構築
-
-- バージョン確認
 ```
-$cat /etc/redhat-release
-CentOS Linux release 7.7.1908 (Core)
+env-->sketch-->repo
+remove env
+
+or
+
+env-->sketch-->template
+remove env
+
+or
+
+env-->sketch-->cmd
+remove env
+
+or
+
+env-->sketch-->ci
+remove env
+
+or
+
+env-->sketch-->search
+remove env
 ```
 
-# visudoでdockerグループに属するユーザーはroot権限をもつように修正
-
-- my-installer.shに組み込んでおきたい部分
-```
-[root♥centos (金 10月 04 20:39:17) /home/aine]$visudo
-
-## Allows people in group wheel to run all commands
-%wheel    ALL=(ALL)        ALL
-%docker    ALL=(ALL)        ALL
-```
-
-# レポジトリ構成
-
-  - script-template
-    - プログラム単位のテンプーレトファイルを管理
-    - ディレクトリ構成はscript-sketchと同じ
-
-  - script-sketch
-    - プログラム単位にディレクトリを切って運用
-    - プログラム単位のディレクトリ名はscript-envの単一アプリ名
-
-    - ファイル名は
-
-      - 5桁ゼロうめ連番-プログラム名-用途名-non-alias名-alias名
-
-      - alias名は~/.bashrcに追加するので、短くていい感じの名前をつけてあげる
-
-    - エイリアスにするので、実行権限を付与しておく
-
-  - script-env
-
-    - os名-バージョン-アプリないしソフト名とそのバージョン単一ないし複数-エディタ単一
-    - エディタデフォルトはvim
-
-  - script-repo
-
-    - プログラムのインストーラーシェル
-    - プログラムのローンチシェル
-    - 環境を高速に起動できるように自動化を意識
-
-  - script-search
-
-    - 上記レポジトリ全てを全文検索できるようにする
-
-    - Web化する
-      - 全文検索サーバgroonga
-        - http://blog.createfield.com/entry/2014/04/21/120023
-      - 全文検索サーバfess
-        - https://fess.codelibs.org/ja/
-        - https://qiita.com/Takumon/items/993609a4fc0fbb70c903
-      - 全文検索サーバmroonga
-        - https://mroonga.org/ja/docs/install.html
-
-# md-doc.md
-
-- dockerコンテナ操作を記載
-
-# md-dev.md
-
-- 開発マニュアルを記載
-
-# md-env.md
-
-- コンテナ個別の環境を記載
-
-# md-trs.md
-
-- 環境構築の際のトラブルシュートを記載
-
-# md-ref.md
-
-- 参考文献を記載
-
-# md-man.md
-
-- 上記マークダウンファイル以外に該当する内容を記載
-
-# crontabで定期実行スクリプト作成
-
-- 同時実行プロセス数はファイル単位で管理することにした。
-
-- http://dqn.sakusakutto.jp/2012/06/cron_crontab9.html
-- https://zenpou.hatenadiary.org/entry/20080715/1216133151
-- https://qiita.com/mazgi/items/15e1fe7e130584343810
-- https://qiita.com/onomame/items/71646c5517a39bcd01cc
+- crontabで定期実行スクリプト作成
+    - http://dqn.sakusakutto.jp/2012/06/cron_crontab9.html
+    - https://zenpou.hatenadiary.org/entry/20080715/1216133151
+    - https://qiita.com/mazgi/items/15e1fe7e130584343810
+    - https://qiita.com/onomame/items/71646c5517a39bcd01cc
 
 バックアップ
 
@@ -139,16 +121,20 @@ $ps aux | grep cron
 $sudo less /var/log/cron
 ```
 
-最後は手動push
-
-秘密鍵をなくさない保証があれば、自動pushやりたいが、
-定期的にOS換えるかもしれないので。今は手動pushでいいか。
-- http://tm.root-n.com/unix:command:git:cron_git_push
-
 強制終了
 
 ```
 su root
 
 ps aux  | grep 'docker build' | awk '{print $2}' | xargs kill
+```
+
+- 環境構築スクリプト
+
+	- 環境ディレクトリに移動して実行
+	- メンテスクリプトはREPOをダイナミックに管理しておく
+
+```
+cd $HOME/script-env
+ls D[0][1]* D[0][6]* D[0][9]* P[0-1][0-9]* R07* | xargs -n1 -I@ echo "bash @ script-env" | bash
 ```
