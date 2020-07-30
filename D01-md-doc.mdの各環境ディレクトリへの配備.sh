@@ -28,8 +28,9 @@ while read tgt;do
     RT="$(cat $HOME/$ENV_REPO/$tgt/env-shm-size.env | sed 's/.*=//g')"
     [ -z "$RT" ] || printf "sed -i 's;SHM_SIZE;%s;' %s\n" $RT $HOME/$ENV_REPO/$tgt/md-doc.md
 
-    RT="$(cat $HOME/$ENV_REPO/$tgt/env-port* | sed 's/.*=//' | xargs -n2 | tr ' ' ':' | sed 's/^/-p /' | xargs)"
-    [ -z "$RT" ] || printf "sed -i 's;EXPOSE;%s;' %s\n" "$RT" $HOME/$ENV_REPO/$tgt/md-doc.md
+    RT="$(ls $HOME/$ENV_REPO/$tgt/env-port* | grep -vP '00|99' | xargs cat | sed 's/.*=//' | xargs -n2 | tr ' ' ':' | sed 's/^/-p /' | xargs)"
+    [ "$RT" = "-p" ] && printf "sed -i 's;EXPOSE;%s;' %s\n" "" $HOME/$ENV_REPO/$tgt/md-doc.md
+    [ "$RT" = "-p" ] || printf "sed -i 's;EXPOSE;%s;' %s\n" "$RT" $HOME/$ENV_REPO/$tgt/md-doc.md
 
   } | bash
 done < <(ls -l $HOME/$ENV_REPO | grep -P '^d' | awk '{print $9}' | grep -v docker-log)
