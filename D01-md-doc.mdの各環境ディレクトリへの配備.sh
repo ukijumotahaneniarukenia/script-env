@@ -25,5 +25,11 @@ while read tgt;do
     RT="$(echo "grep '' $HOME/$ENV_REPO/$tgt/env-build-arg.env | xargs" | bash 2>/dev/null)"
     [ -z "$RT" ] || printf "sed -i 's;BUILD_ARG;%s;' %s\n" "$(echo $RT | sed 's; ; --build-arg ;g;s;^;--build-arg ;')" $HOME/$ENV_REPO/$tgt/md-doc.md
 
+    RT="$(cat $HOME/$ENV_REPO/$tgt/env-shm-size.env | sed 's/.*=//g')"
+    [ -z "$RT" ] || printf "sed -i 's;SHM_SIZE;%s;' %s\n" $RT $HOME/$ENV_REPO/$tgt/md-doc.md
+
+    RT="$(cat $HOME/$ENV_REPO/$tgt/env-port* | sed 's/.*=//' | xargs -n2 | tr ' ' ':' | sed 's/^/-p /' | xargs)"
+    [ -z "$RT" ] || printf "sed -i 's;EXPOSE;%s;' %s\n" "$RT" $HOME/$ENV_REPO/$tgt/md-doc.md
+
   } | bash
 done < <(ls -l $HOME/$ENV_REPO | grep -P '^d' | awk '{print $9}' | grep -v docker-log)

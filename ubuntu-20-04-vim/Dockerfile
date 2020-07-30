@@ -28,17 +28,17 @@ RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-network-pkg.sh
 RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-vim-system.sh
 RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-vim-user.sh
 RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-vim_plug.sh
-RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-python-$PYTHON_VERSION.sh
-RUN cd /usr/local/src/$REPO && bash $OS_VERSION-pre-patch-git-$GIT_VERSION.sh
-RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-git-$GIT_VERSION.sh
+#RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-python-$PYTHON_VERSION.sh
+#RUN cd /usr/local/src/$REPO && bash $OS_VERSION-pre-patch-git-$GIT_VERSION.sh
+#RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-git-$GIT_VERSION.sh
 RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-dotfile.sh
 RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-locale.sh
 RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-env.sh
 RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-ld.sh
 RUN cd /usr/local/src/$REPO && bash $OS_VERSION-config-font-RictyDiminished.sh
-RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-fcitx_mozc.sh
+#RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-fcitx_mozc.sh
 
-RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-default-user.sh 1000 aine 1000 aine aine_pwd
+#RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-default-user.sh 1000 aine 1000 aine aine_pwd
 
 USER aine
 RUN cd /usr/local/src/$REPO && bash $OS_VERSION-install-vim-user.sh
