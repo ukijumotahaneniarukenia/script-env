@@ -109,6 +109,16 @@ systemctl | grep docker
 #マシン再起動（一般ユーザでも実行できるか確認）
 
 
+自作コマンドの登録など
+
+```
+mkdir -p $HOME/.local/bin #ベンダー系
+mkdir -p $HOME/.local/script-cmd/bin #ベンダー系以外
+mkdir -p $HOME/.local/script-search/bin #ベンダー系以外
+find $HOME/script-cmd -type f -name "mysearch-register-bash" -o -name "mycmd-register-bash" | bash | bash
+```
+
+
 
 
 #動作確認
