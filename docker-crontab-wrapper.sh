@@ -8,6 +8,8 @@ EOS
 exit 0
 }
 
+mkdir -p $HOME/script-env/docker-log
+
 exec 1>$HOME/script-env/docker-log/docker-build-$(date +\%Y-\%m-\%dT\%H-\%M-\%S).stdout.log
 exec 2>$HOME/script-env/docker-log/docker-build-$(date +\%Y-\%m-\%dT\%H-\%M-\%S).stderr.log
 

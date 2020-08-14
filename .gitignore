@@ -21,6 +21,8 @@
 *.so
 *.iml
 
+/docker-log/*
+
 #dockerコンテナとホストの共有ディレクトリ
 /mnt/*
 
