@@ -21,5 +21,5 @@ while read tgt;do
     echo "rm -rf /home/aine/Downloads-for-docker-container/$(echo $tgt | perl -pe 's;.*/;;g')"
     echo "mkdir -p $tgt/mnt"
     echo "mkdir -p /home/aine/Downloads-for-docker-container/$(echo $tgt | perl -pe 's;.*/;;g')"
-  } | bash #おもいつかん
+  } #| bash #おもいつかん
 done < <(find $HOME/$ENV_REPO  -mindepth 1 -type d | grep -vP 'docker-log|\.git' | grep -v mnt)
