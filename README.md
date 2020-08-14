@@ -130,6 +130,21 @@ remove env
 	- https://qiita.com/mazgi/items/15e1fe7e130584343810
 	- https://qiita.com/onomame/items/71646c5517a39bcd01cc
 
+crontabで使用するエディタはvim.tiny以外に編集する
+
+プラグインないので、バリエラー出るため
+
+```
+$ /usr/bin/select-editor
+
+Select an editor.  To change later, run 'select-editor'.
+  1. /bin/nano        <---- easiest
+  2. /usr/bin/vim.tiny
+  3. /bin/ed
+
+Choose 1-3 [1]: 1
+```
+
 バックアップ
 
 ```
