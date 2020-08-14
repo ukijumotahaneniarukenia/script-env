@@ -116,7 +116,7 @@ bash ubuntu-19-10-install-vim-system.sh
 bash ubuntu-19-10-install-vim-user.sh
 bash ubuntu-19-10-install-vim_plug.sh
 bash ubuntu-19-10-config-dotfile.sh
-bash ubuntu-19-10-config-env.sh
+bash ubuntu-19-10-config-env-system.sh
 
 #自作コマンドの登録など
 
