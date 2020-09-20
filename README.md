@@ -145,6 +145,33 @@ Select an editor.  To change later, run 'select-editor'.
 Choose 1-3 [1]: 1
 ```
 
+manによるとEDITOR環境変数で制御できるらしいので、以下のように設定するといいかんじになった
+
+PRE
+
+```
+$ echo $EDITOR
+```
+
+CMD
+```
+$ export EDITOR=/usr/local/bin/vim
+
+$ echo $EDITOR
+/usr/local/bin/vim
+```
+
+POST
+
+```
+$ crontab -l
+no crontab for aine
+
+$ crontab -e
+no crontab for aine - using an empty one
+No modification made
+```
+
 バックアップ
 
 ```
