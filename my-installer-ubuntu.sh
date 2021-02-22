@@ -109,19 +109,15 @@ git clone https://github.com/ukijumotahaneniarukenia/script-repo.git
 
 cd /usr/local/src/script-repo
 
-bash ubuntu-19-10-install-vim-system.sh
+bash ubuntu-00-00-install-vim-system.sh
 
 #ユーザー環境のインストール
 
 #rootユーザー,一般ユーザー用
-bash ubuntu-19-10-install-vim-user.sh
-bash ubuntu-19-10-install-vim_plug.sh
-bash ubuntu-19-10-config-dotfile.sh
-bash ubuntu-19-10-config-env-system.sh
+bash ubuntu-00-00-install-vim-user.sh
+bash ubuntu-00-00-install-vim_plug.sh
+bash ubuntu-00-00-config-dotfile-system.sh
+bash ubuntu-00-00-config-env-system.sh
 
 #自作コマンドの登録など
-
-mkdir -p $HOME/.local/bin #ベンダー系
-mkdir -p $HOME/.local/script-cmd/bin #ベンダー系以外
-mkdir -p $HOME/.local/script-search/bin #ベンダー系以外
-find $HOME/script-cmd -type f -name "mysearch-install-bash" -o -name "mycmd-install-bash" | bash
+find $HOME/script-cmd -type f -name "mycmd-install-bash" | bash
