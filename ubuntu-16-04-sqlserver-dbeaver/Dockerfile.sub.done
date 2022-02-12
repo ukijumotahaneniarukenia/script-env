@@ -1,9 +1,0 @@
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-post-patch-sqlserver-$SQLSERVER_VERSION.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-jdk-$JAVA_VERSION.sh | bash
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-maven-$MAVEN_VERSION.sh | bash
-#ソースからdbeaverいんすこする必要があるから設定
-ENV JAVA_HOME=/usr/local/src/jdk-$JAVA_VERSION
-ENV PATH=$JAVA_HOME/bin:$PATH
-ENV MAVEN_HOME=/usr/local/src/apache-maven-$MAVEN_VERSION
-ENV PATH=$MAVEN_HOME/bin:$PATH
-RUN cd /usr/local/src/$REPO && echo ./$OS_VERSION-install-dbeaver-$DBEAVER_VERSION.sh | bash
